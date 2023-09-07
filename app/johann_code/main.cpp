@@ -146,10 +146,10 @@ int main() {
     
     //testPython();
     //testLandmarkIdentification();
-    testMotor();
+    //testMotor();
     //testLidar();
 
-    //testRun();
+    testRun();
     
     
   
