@@ -15,8 +15,8 @@ LMot_Pin = 22
 RMot_Pin = 26
 LSS_Pin = 3
 RSS_Pin = 4
-testPin = 3
-testPin2 = 4
+testPin = 22
+testPin2 = 26
 
 R = 142.5 #Distance between wheels [mm]
 r = 32.5 #radius of wheel [mm]
