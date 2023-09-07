@@ -136,9 +136,11 @@ def test():
         time.sleep(0.1)
 
 def test2():
-    print("TEST")
+    print("TEST2")
     wiringpi.pinMode(testPin, 1)       # Set pin 6 to 1 ( OUTPUT )
     wiringpi.pinMode(testPin2, 1)       # Set pin 6 to 1 ( OUTPUT )
+    wiringpi.digitalWrite(testPin, 0)  # Write 1 ( Low ) to pin 6
+    wiringpi.digitalWrite(testPin2, 0)  # Write 1 ( Low ) to pin 6
     
     for i in range(0,4):
         wiringpi.digitalWrite(testPin, 0)  # Write 1 ( Low ) to pin 6
@@ -268,7 +270,7 @@ wiringpi.pinMode(LMot_Pin, 1)       # Set pin 7 to 1 ( OUTPUT )\
 #    wiringpi.digitalWrite(testPin, 0)  # Write 1 ( HIGH ) to pin 6
 #test3()
 
-angle,distance = readInstructions()
+# angle,distance = readInstructions()
 # angle = PI/2
 # distance = 0
 # angle,distance,t = motorControl(angle,distance)
