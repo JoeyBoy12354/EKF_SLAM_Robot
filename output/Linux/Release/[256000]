@@ -1,0 +1,6 @@
+Baudrate negotiation demo for SLAMTEC LIDAR.
+RPLIDAR Baudrate Negotiation Demo.
+Version: SL_LIDAR_SDK_VERSION 
+Usage:
+ ./custom_baudrate <com port> [baudrate]
+ The baudrate can be ANY possible values between 115200 to 512000.

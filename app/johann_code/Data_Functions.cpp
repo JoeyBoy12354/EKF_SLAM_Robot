@@ -1,0 +1,116 @@
+#include "robot.h"
+
+
+using namespace CSV_Functions;
+using namespace Landmark_Functions;
+using namespace Simulation_Functions;
+
+namespace Data_Functions{
+
+    vector<CarPoint> convertCartesian(vector<PolPoint>& dataPoints){
+        cout<<"\nI am converting to Cartesian"<<endl;
+        vector<CarPoint> cartesianPoints;
+        for (const PolPoint& polarPoint : dataPoints) {
+            double angleRad = polarPoint.angle * PI / 180;
+            double x = polarPoint.distance * cos(angleRad);
+            double y = polarPoint.distance * sin(angleRad);
+            cartesianPoints.push_back({x, y});
+        }
+
+        return cartesianPoints;
+    }
+
+
+    int getIndex(vector<double> v, double K)
+    {
+        auto it = find(v.begin(), v.end(), K);
+    
+        // If element was found
+        if (it != v.end()) 
+        {
+        
+            // calculating the index
+            // of K
+            int index = it - v.begin();
+            return index;
+        }
+        else {
+            // If the element is not
+            // present in the vector
+            cout<<"\nINDEX WAS NOT FOUND - BE WORRIED WE DID NOT CONSIDER THIS"<<endl;
+            return -1;
+        }
+    }
+    
+
+
+    void lidarDataProcessing(vector<PolPoint> dataPoints){
+        cout<<"\n lidarDataProcessing\n"<<endl;
+        cout<<"\nnumber of points = "<<dataPoints.size()<<endl;
+        vector<CarPoint> carPoints = convertCartesian(dataPoints);
+        saveCarToCSV(carPoints);
+        cout<<"\nNumber of CAR points"<<carPoints.size()<<endl;
+
+        cout<<"\n RANSAC\n"<<endl;
+        vector<Line> detected_lines = RANSAC(carPoints);
+        writeLinesToCSV(detected_lines);
+        
+
+
+
+        cout<<"\n findNearestPoints\n"<<endl;
+        vector<CarPoint> closestPoints = findNearestPoint(detected_lines);
+        //writeCornersToCSV("CSV_Files/cornersCSV.csv", corners);
+        writeCornersToCSV(closestPoints);
+
+        cout<<"\n Number of Closest Points Found:"<<closestPoints.size()<<endl;
+        
+     
+    }
+
+
+    void LandmarkProcessing(){
+        
+        vector<CarPoint> carPoints;
+        readCarFromCSV(carPoints);
+        cout<<"\n Number of Points Read:"<<carPoints.size()<<endl;
+
+        cout<<"\n RANSAC\n"<<endl;
+        vector<Line> detected_lines = RANSAC(carPoints);
+        writeLinesToCSV(detected_lines);
+        
+
+        cout<<"\n Number of Lines Found:"<<detected_lines.size()<<endl;
+
+        cout<<"\n findNearestPoints\n"<<endl;
+        vector<CarPoint> closestPoints = findNearestPoint(detected_lines);
+        writeCornersToCSV(closestPoints);
+
+        cout<<"\n Number of Closest Points Found:"<<closestPoints.size()<<endl;
+
+    }
+
+    //This function will take the inputed values and set the EKF
+    void motorDataProcessing(float& ekf_w,float& ekf_v,float& ekf_t){
+        cout<<"Process motor Data"<<endl;
+        float theta;
+        float dist;
+        float time;
+      
+
+        
+        readMotorFromCSV(theta,dist,time);
+        cout<<"Read angle = "<<theta<<" Read Distance = "<<dist<<" Read Time = "<<time<<endl;
+        
+        ekf_w = theta;
+        ekf_v = dist/time;
+        ekf_t = time;
+
+    }
+
+}
+
+
+
+
+
