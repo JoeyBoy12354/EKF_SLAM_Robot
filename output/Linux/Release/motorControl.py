@@ -11,10 +11,10 @@ wiringpi.wiringPiSetup()      # For sequential pin numbering
 #wiringpi.wiringPiSetupGpio()  # For GPIO pin numbering
 
 PI = 3.14159265358979
-LMot_Pin = 3
-RMot_Pin = 4
-LSS_Pin = 22
-RSS_Pin = 26
+LMot_Pin = 22
+RMot_Pin = 26
+LSS_Pin = 3
+RSS_Pin = 4
 testPin = 3
 testPin2 = 4
 
