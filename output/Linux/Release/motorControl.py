@@ -273,7 +273,7 @@ angle,distance = readInstructions()
 # distance = 0
 # angle,distance,t = motorControl(angle,distance)
 # writeOdometry(angle,distance,t)
-test3()
+test2()
 
 
 
