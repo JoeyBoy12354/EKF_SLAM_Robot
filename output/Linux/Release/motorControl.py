@@ -275,7 +275,7 @@ wiringpi.pinMode(LMot_Pin, 1)       # Set pin 7 to 1 ( OUTPUT )\
 # distance = 0
 # angle,distance,t = motorControl(angle,distance)
 # writeOdometry(angle,distance,t)
-test2()
+test3()
 
 
 
