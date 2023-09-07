@@ -139,8 +139,8 @@ def test2():
     print("TEST2")
     wiringpi.pinMode(testPin, 1)       # Set pin 6 to 1 ( OUTPUT )
     wiringpi.pinMode(testPin2, 1)       # Set pin 6 to 1 ( OUTPUT )
-    wiringpi.digitalWrite(testPin, 0)  # Write 1 ( Low ) to pin 6
-    wiringpi.digitalWrite(testPin2, 0)  # Write 1 ( Low ) to pin 6
+    wiringpi.digitalWrite(testPin, 1)  # Write 1 ( Low ) to pin 6
+    wiringpi.digitalWrite(testPin2, 1)  # Write 1 ( Low ) to pin 6
     
     for i in range(0,4):
         wiringpi.digitalWrite(testPin, 0)  # Write 1 ( Low ) to pin 6
