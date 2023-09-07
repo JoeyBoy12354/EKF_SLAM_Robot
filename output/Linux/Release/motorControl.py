@@ -13,8 +13,8 @@ wiringpi.wiringPiSetup()      # For sequential pin numbering
 PI = 3.14159265358979
 LMot_Pin = 22
 RMot_Pin = 26
-LSS_Pin = 3
-RSS_Pin = 4
+LSS_Pin = 4
+RSS_Pin = 3
 testPin = 22
 testPin2 = 26
 
