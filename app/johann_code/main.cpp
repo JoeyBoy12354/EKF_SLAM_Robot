@@ -131,17 +131,18 @@ void fullRun(ExtendedKalmanFilter ekf){
         cout<<"Main: Lidar Run complete"<<endl;
 
         //Process Data
-        lidarDataProcessing(lidarDataPoints);
+        vector<CarPoint> carPoints;
+        lidarDataProcessing(lidarDataPoints,carPoints);
 
         //Run EKF
         ekf.runEKF();
 
         //Store Data for plotting
         if(firstRun == true){
-            saveCarToFullMapCSV(lidarDataPoints);
+            saveCarToFullMapCSV(carPoints);
             firstRun = false;
         }else{
-            StoreMapAndStatePoints(lidarDataPoints,ekf.Data);
+            StoreMapAndStatePoints(carPoints,ekf.State);
         }
             
 

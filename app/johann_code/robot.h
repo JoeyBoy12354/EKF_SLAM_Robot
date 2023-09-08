@@ -95,7 +95,7 @@ namespace Data_Functions{
     int getIndex(vector<double> v, double K);
 
     //landmark
-    void lidarDataProcessing(vector<PolPoint> dataPoints);
+    void lidarDataProcessing(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints);
     void LandmarkProcessing();
     
     //motor

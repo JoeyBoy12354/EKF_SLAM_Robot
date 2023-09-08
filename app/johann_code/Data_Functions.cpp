@@ -44,12 +44,13 @@ namespace Data_Functions{
     
 
 
-    void lidarDataProcessing(vector<PolPoint> dataPoints){
+    void lidarDataProcessing(vector<PolPoint> dataPoints,vector<CarPoint>& carPoints){
         cout<<"\n lidarDataProcessing\n"<<endl;
 
-        vector<CarPoint> carPoints = convertCartesian(dataPoints);
+        carPoints = convertCartesian(dataPoints);
         saveCarToCSV(carPoints);
         cout<<"\nNumber of CAR points"<<carPoints.size()<<endl;
+
 
         cout<<"\n RANSAC\n"<<endl;
         vector<Line> detected_lines = RANSAC(carPoints);
