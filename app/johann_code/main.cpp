@@ -138,10 +138,10 @@ void fullRun(ExtendedKalmanFilter ekf){
 
         //Store Data for plotting
         if(firstRun == true){
-            saveCarToFullMapCSV(lidardata);
+            saveCarToFullMapCSV(lidarDataPoints);
             firstRun = false;
         }else{
-            StoreMapAndStatePoints(ekf.Data);
+            StoreMapAndStatePoints(lidarDataPoints,ekf.Data);
         }
             
 
