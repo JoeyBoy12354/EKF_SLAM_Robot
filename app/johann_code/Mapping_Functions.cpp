@@ -38,7 +38,7 @@ namespace Mapping_Functions{
             CarPoint LM;
             LM.x = State[i];
             LM.y = State[i+1];
-            landmarks.append(LM);
+            landmarks.push_back(LM);
         }
 
         //Update full map
