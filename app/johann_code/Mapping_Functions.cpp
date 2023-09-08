@@ -5,12 +5,14 @@ using namespace Landmark_Functions;
 
 namespace Mapping_Functions{
 
-    void StoreMapPoints(vector<CarPoint> lidardata){
+    void StoreMapAndStatePoints(vector<CarPoint> lidardata, Matrixf State){
         float distance_threshold = 30;//If two points are greater than Xmm then keep this point.
 
-        //Fetch all current points
         vector<CarPoint> oldmap;
-        readCarFromFullMapCSV(oldmap);
+        vector<CarPoint> landmarks;
+        vector<float> position;
+
+        readCarFromFullMapCSV(oldmap);//Fetch all current points
         
 
         //Compare with new points (only update if points are different)
@@ -24,11 +26,25 @@ namespace Mapping_Functions{
                     lidardata = temp;
             }
         }
+    
+        //Move Position into vector
+        position.append(State[0]);
+        position.append(State[1]);
+        position.append(State[2]);
+        
+
+        //Convert State Landmarks to points
+        for(int i = 3;i<State.size();i=i+2){
+            CarPoint LM;
+            LM.x = State[i];
+            LM.y = State[i+1];
+            landmarks.append(LM);
+        }
 
         //Update full map
-        //oldmap.insert(oldmap.end(), lidardata.begin(), lidardata.end());
-        //saveCarToFullMapCSV(oldmap)
         appendCarToFullMapCSV(lidardata);
+        saveLandmarkToCSV(landmarks);
+        savePositionToCSV(position);
     }
 
     

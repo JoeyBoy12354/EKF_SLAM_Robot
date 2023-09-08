@@ -15,6 +15,7 @@ using namespace Data_Functions;
 using namespace Landmark_Functions;
 using namespace Lidar_Functions;
 using namespace Navigation_Functions;
+using namespace Mapping_Functions;
 
 
 
@@ -73,7 +74,8 @@ void testEKF(){
 }
 
 void testLidar(){
-    runLidar();
+    vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
+    runLidar(lidarDataPoints);
 }
 
 void testLandmarkIdentification(){
@@ -81,7 +83,8 @@ void testLandmarkIdentification(){
 }
 
 void testLidarLandmark(){
-    runLidar();
+    vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
+    runLidar(lidarDataPoints);
     int ret;
     ret = system("python3 CSV_Files/motorControl.py ok go");
     cout << "ret/cpp = " << ret << endl;
@@ -117,12 +120,31 @@ void testMotor(){
 
 void fullRun(ExtendedKalmanFilter ekf){
     bool mapped = false;
+    bool firstRun = true;
     
     if(mapped == false){
-        runLidar();
+        //Run Lidar
+        vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
+        runLidar(lidarDataPoints);
+        
+
         cout<<"Main: Lidar Run complete"<<endl;
+
+        //Process Data
+        lidarDataProcessing(lidarDataPoints);
+
+        //Run EKF
         ekf.runEKF();
-        mapped = updateMovement(ekf.State);
+
+        //Store Data for plotting
+        if(firstRun == true):
+            saveCarToFullMapCSV(lidardata);
+            firstRun = false;
+        else:
+            StoreMapAndStatePoints(ekf.Data);
+
+        //Complete Robot Movement
+        mapped = updateMovement(ekf.State);// Move the robot to the location
         motorDataProcessing(ekf.w,ekf.v,ekf.t);//Send odometry to ekf
 
         cout<<"Main: ekf.w = "<<ekf.w<<" ekf.v = "<<ekf.v<<" ekf.t = "<<ekf.t<<endl;
@@ -135,7 +157,10 @@ void fullRun(ExtendedKalmanFilter ekf){
 
 void testRun(){
     ExtendedKalmanFilter ekf;
-    fullRun(ekf);
+    for(int i =0;i<2;i++){
+        fullRun(ekf);
+    }
+    
 }
 
 

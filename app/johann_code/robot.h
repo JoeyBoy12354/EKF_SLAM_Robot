@@ -71,6 +71,11 @@ namespace CSV_Functions{
     void appendCarToFullMapCSV(const vector<CarPoint>& points);
     void readCarFromFullMapCSV(vector<CarPoint>& points);
 
+    //EKF
+    void saveLandmarkToCSV(const vector<CarPoint>& landmarks);
+    void savePositionToCSV(const vector<float>& position);
+
+    //Lines
     void writeLinesToCSV(const vector<Line>& lines);
 
     //Corners
@@ -124,7 +129,7 @@ namespace Lidar_Functions{
 }
 
 namespace Mapping_Functions{
-    void StoreMapPoints(vector<CarPoint> lidardata);
+    void StoreMapAndStatePoints(vector<CarPoint> lidardata, Matrixf State);
 }
 
 namespace Navigation_Functions{

@@ -66,7 +66,7 @@ namespace Lidar_Functions{
 
     //main(int argc, const char * argv[]) 
 
-    int runLidar() {
+    int runLidar(vector<PolPoint> lidarDataPoints) {
         int argc = 5;
         const char * argv[] = {
             "./johann_code",
@@ -76,7 +76,6 @@ namespace Lidar_Functions{
             "115200"
         };
         bool newScan = true;
-        vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
         int NoPoints = 10000;
         int NoPointsPerScan = 100000;
         sl_u16 stop = 0;
@@ -306,16 +305,13 @@ namespace Lidar_Functions{
             if (ctrl_c_pressed){ 
                 printf("I am in break statement Lidar_function");
                 drv->setMotorSpeed(stop);
-                lidarDataProcessing(lidarDataPoints);
                 break;
             }
         }
 
         printf("I have reached max NoPoints in Lidar_function");
         drv->setMotorSpeed(stop);
-        lidarDataProcessing(lidarDataPoints);
-
-
+        
 
         drv->stop();
         delay(200);

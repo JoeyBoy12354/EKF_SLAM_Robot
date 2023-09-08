@@ -46,7 +46,7 @@ namespace Data_Functions{
 
     void lidarDataProcessing(vector<PolPoint> dataPoints){
         cout<<"\n lidarDataProcessing\n"<<endl;
-        cout<<"\nnumber of points = "<<dataPoints.size()<<endl;
+
         vector<CarPoint> carPoints = convertCartesian(dataPoints);
         saveCarToCSV(carPoints);
         cout<<"\nNumber of CAR points"<<carPoints.size()<<endl;
@@ -56,13 +56,9 @@ namespace Data_Functions{
         writeLinesToCSV(detected_lines);
         
 
-
-
         cout<<"\n findNearestPoints\n"<<endl;
         vector<CarPoint> closestPoints = findNearestPoint(detected_lines);
-        //writeCornersToCSV("CSV_Files/cornersCSV.csv", corners);
         writeCornersToCSV(closestPoints);
-
         cout<<"\n Number of Closest Points Found:"<<closestPoints.size()<<endl;
         
      

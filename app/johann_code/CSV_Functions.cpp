@@ -5,6 +5,8 @@ string linesCSV = "linesCSV.csv";
 string mapCSV = "mapCSV.csv";
 string fullMapCSV = "fullMapCSV.csv";
 string motorCSV = "motorCSV.csv";
+string landmarkCSV = "landmarkCSV.csv";
+string positionCSV = "positionCSV.csv";
 
 
 namespace CSV_Functions{
@@ -97,13 +99,10 @@ namespace CSV_Functions{
     }
 
     //Full Map Functions
-
     void saveCarToFullMapCSV(const vector<CarPoint>& points) {
-        cout<<"\n save Car to CSV\n"<<endl;
-        cout<<"\nnumber of points = "<<points.size()<<endl;
         ofstream outputFile(fullMapCSV);
         if (!outputFile.is_open()) {
-            cerr << "Error opening the file: " << mapCSV << endl;
+            cerr << "Error opening the file: " << fullMapCSV << endl;
             return;
         }
 
@@ -118,7 +117,7 @@ namespace CSV_Functions{
     void appendCarToFullMapCSV(const vector<CarPoint>& points) {
         ofstream outputFile(fullMapCSV, ios::app);
         if (!outputFile.is_open()) {
-            cerr << "Error opening the file: " << mapCSV << endl;
+            cerr << "Error opening the file: " << fullMapCSV << endl;
             return;
         }
 
@@ -134,7 +133,7 @@ namespace CSV_Functions{
         ifstream file(fullMapCSV);
 
         if (!file.is_open()) {
-            cerr << "Error opening file: " << mapCSV << endl;
+            cerr << "Error opening file: " << fullMapCSV << endl;
             return;
         }
 
@@ -152,6 +151,34 @@ namespace CSV_Functions{
         }
 
         file.close();
+    }
+
+    //State Functions
+    void saveLandmarkToCSV(const vector<CarPoint>& landmarks){
+        ofstream outputFile(landmarkCSV);
+        if (!outputFile.is_open()) {
+            cerr << "Error opening the file: " << landmarksCSV << endl;
+            return;
+        }
+
+        // Write the data to the CSV file
+        for (const CarPoint& point : points) {
+            outputFile << point.x << "," << point.y << "\n";
+        }
+
+        outputFile.close();
+    }
+
+    void savePositionToCSV(const vector<float>& position){
+        ofstream outputFile(landmarkCSV);
+        if (!outputFile.is_open()) {
+            cerr << "Error opening the file: " << landmarksCSV << endl;
+            return;
+        }
+
+        // Write the data to the CSV file
+        outputFile << position[0] << "\n" << position[1] << "\n" << position[2] << "\n";
+        outputFile.close();
     }
 
 
