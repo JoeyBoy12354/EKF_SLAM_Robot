@@ -44,7 +44,7 @@ def draw_rotated_triangle(ax, x, y, direction_angle):
 
 def animate(i):
     #fetchFromCSV
-    x1,y1=fetchCoord('fullmapCSV.csv')
+    x1,y1=fetchCoord('fullMapCSV.csv')
     x2,y2=fetchCoord('landmarkCSV.csv')
     x3,y3=fetchCoord('cornersCSV.csv')
     x4,y4=fetchCoord('linesCSV.csv')
