@@ -157,12 +157,12 @@ namespace CSV_Functions{
     void saveLandmarkToCSV(const vector<CarPoint>& landmarks){
         ofstream outputFile(landmarkCSV);
         if (!outputFile.is_open()) {
-            cerr << "Error opening the file: " << landmarksCSV << endl;
+            cerr << "Error opening the file: " << landmarkCSV << endl;
             return;
         }
 
         // Write the data to the CSV file
-        for (const CarPoint& point : points) {
+        for (const CarPoint& point : landmarks) {
             outputFile << point.x << "," << point.y << "\n";
         }
 
@@ -170,9 +170,9 @@ namespace CSV_Functions{
     }
 
     void savePositionToCSV(const vector<float>& position){
-        ofstream outputFile(landmarkCSV);
+        ofstream outputFile(positionCSV);
         if (!outputFile.is_open()) {
-            cerr << "Error opening the file: " << landmarksCSV << endl;
+            cerr << "Error opening the file: " << positionCSV << endl;
             return;
         }
 
