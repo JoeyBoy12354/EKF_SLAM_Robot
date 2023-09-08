@@ -28,9 +28,9 @@ namespace Mapping_Functions{
         }
     
         //Move Position into vector
-        position.append(State[0]);
-        position.append(State[1]);
-        position.append(State[2]);
+        position.push_back(State[0]);
+        position.push_back(State[1]);
+        position.push_back(State[2]);
         
 
         //Convert State Landmarks to points
