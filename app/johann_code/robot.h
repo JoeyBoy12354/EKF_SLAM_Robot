@@ -129,7 +129,7 @@ namespace Lidar_Functions{
 }
 
 namespace Mapping_Functions{
-    void StoreMapAndStatePoints(vector<CarPoint> lidardata, Matrixf State);
+    void StoreMapAndStatePoints(vector<CarPoint> lidardata, MatrixXf State);
 }
 
 namespace Navigation_Functions{

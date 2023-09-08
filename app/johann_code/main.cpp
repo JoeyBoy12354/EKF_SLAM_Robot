@@ -137,11 +137,13 @@ void fullRun(ExtendedKalmanFilter ekf){
         ekf.runEKF();
 
         //Store Data for plotting
-        if(firstRun == true):
+        if(firstRun == true){
             saveCarToFullMapCSV(lidardata);
             firstRun = false;
-        else:
+        }else{
             StoreMapAndStatePoints(ekf.Data);
+        }
+            
 
         //Complete Robot Movement
         mapped = updateMovement(ekf.State);// Move the robot to the location
