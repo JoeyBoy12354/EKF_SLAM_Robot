@@ -5,7 +5,7 @@ using namespace Landmark_Functions;
 
 namespace Mapping_Functions{
 
-    void StoreMapAndStatePoints(vector<CarPoint> lidardata, Matrixf State){
+    void StoreMapAndStatePoints(vector<CarPoint> lidardata, MatrixXf State){
         float distance_threshold = 30;//If two points are greater than Xmm then keep this point.
 
         vector<CarPoint> oldmap;
