@@ -107,7 +107,7 @@ namespace CSV_Functions{
         }
 
         // Write the data to the CSV file
-        for (CarPoint& point : points) {
+        for (const CarPoint& point : points) {
             outputFile << point.x << "," << point.y << "\n";
         }
 
@@ -163,7 +163,7 @@ namespace CSV_Functions{
         }
 
         // Write the data to the CSV file
-        for (CarPoint& point : landmarks) {
+        for (const CarPoint& point : landmarks) {
             outputFile << point.x << "," << point.y << "\n";
         }
 
