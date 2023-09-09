@@ -118,7 +118,7 @@ void testMotor(){
 
 
 
-void fullRun(ExtendedKalmanFilter ekf,bool mapped, bool firstRun){
+void fullRun(ExtendedKalmanFilter ekf,bool& mapped, bool& firstRun){
     
     
     if(mapped == false){
