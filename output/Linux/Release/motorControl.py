@@ -13,8 +13,8 @@ wiringpi.wiringPiSetup()      # For sequential pin numbering
 PI = 3.14159265358979
 LMot_Pin = 22
 RMot_Pin = 26
-LSS_Pin = 4
-RSS_Pin = 3
+LSS_Pin = 3
+RSS_Pin = 4
 testPin = 22
 testPin2 = 26
 
@@ -273,9 +273,9 @@ wiringpi.pinMode(LMot_Pin, 1)       # Set pin 7 to 1 ( OUTPUT )\
 angle,distance = readInstructions()
 # angle = PI/2
 # distance = 0
-angle,distance,t = motorControl(angle,distance)
-writeOdometry(angle,distance,t)
-#test3()
+# angle,distance,t = motorControl(angle,distance)
+# writeOdometry(angle,distance,t)
+test3()
 
 
 
