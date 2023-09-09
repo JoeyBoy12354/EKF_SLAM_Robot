@@ -34,7 +34,8 @@ namespace Navigation_Functions{
                     landmarkExplore(LM, State);
                     motorControl();
                     noNavTrials = 0;
-                    return true;
+                    //SHOULD BE TURUE PLEASE CHANGE 
+                    return false;
                 }
             }
 
