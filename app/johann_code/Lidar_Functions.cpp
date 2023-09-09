@@ -66,7 +66,7 @@ namespace Lidar_Functions{
 
     //main(int argc, const char * argv[]) 
 
-    runLidar(vector<PolPoint>& lidarDataPoints){
+    int runLidar(vector<PolPoint>& lidarDataPoints){
         int argc = 5;
         const char * argv[] = {
             "./johann_code",
