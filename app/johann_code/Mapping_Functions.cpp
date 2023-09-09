@@ -2,6 +2,8 @@
 
 using namespace CSV_Functions;
 using namespace Landmark_Functions;
+using namespace Data_Functions;
+
 
 namespace Mapping_Functions{
 
