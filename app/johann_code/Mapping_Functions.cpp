@@ -42,7 +42,7 @@ namespace Mapping_Functions{
             landmarks.push_back(LM);
         }
 
-        cout<<"UPDATING FULL MAP"
+        cout<<"UPDATING FULL MAP";
 
         //Update full map
         appendCarToFullMapCSV(lidardata);
