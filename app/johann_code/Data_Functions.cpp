@@ -44,7 +44,7 @@ namespace Data_Functions{
     
 
 
-    void lidarDataProcessing(vector<PolPoint> dataPoints,vector<CarPoint>& carPoints){
+    void lidarDataProcessing(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints){
         cout<<"\n lidarDataProcessing\n"<<endl;
 
         carPoints = convertCartesian(dataPoints);

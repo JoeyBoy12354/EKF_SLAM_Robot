@@ -132,6 +132,7 @@ void fullRun(ExtendedKalmanFilter ekf,bool mapped, bool firstRun){
 
         //Process Data
         vector<CarPoint> carPoints;
+        //lidarDataProcessing(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints)
         lidarDataProcessing(lidarDataPoints,carPoints);
 
         //Run EKF
