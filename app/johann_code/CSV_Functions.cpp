@@ -154,7 +154,7 @@ namespace CSV_Functions{
     }
 
     //State Functions
-    void saveLandmarkToCSV(vector<CarPoint>& landmarks){
+    void saveLandmarkToCSV(vector<CarPoint> landmarks){
         cout<<"SAVING LANDMARK CSV";
         ofstream outputFile(landmarkCSV);
         if (!outputFile.is_open()) {
@@ -170,7 +170,7 @@ namespace CSV_Functions{
         outputFile.close();
     }
 
-    void savePositionToCSV(vector<float>& position){
+    void savePositionToCSV(vector<float> position){
         ofstream outputFile(positionCSV);
         if (!outputFile.is_open()) {
             cerr << "Error opening the file: " << positionCSV << endl;
