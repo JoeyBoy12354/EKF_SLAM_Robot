@@ -18,8 +18,7 @@ using namespace Navigation_Functions;
 using namespace Mapping_Functions;
 
 
-bool mapped = false;
-bool firstRun = true;
+
 
 //g++ -g main.cpp Data_Functions.cpp  CSV_Functions.cpp EKF_Functions.cpp Landmark_Functions.cpp Simulation_Functions.cpp -o prog2
 
@@ -119,7 +118,7 @@ void testMotor(){
 
 
 
-void fullRun(ExtendedKalmanFilter ekf){
+void fullRun(ExtendedKalmanFilter ekf,bool mapped, bool firstRun){
     
     
     if(mapped == false){
@@ -160,9 +159,11 @@ void fullRun(ExtendedKalmanFilter ekf){
 
 void testRun(){
     ExtendedKalmanFilter ekf;
+    bool mapped = false;
+    bool firstRun = true;
     
     for(int i =0;i<3;i++){
-        fullRun(ekf);
+        fullRun(ekf,mapped,firstRun);
     }
     
 }
