@@ -124,6 +124,7 @@ void fullRun(ExtendedKalmanFilter ekf,bool mapped, bool firstRun){
     if(mapped == false){
         //Run Lidar
         vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
+        //runLidar(vector<PolPoint>& lidarDataPoints);
         runLidar(lidarDataPoints);
         
 
