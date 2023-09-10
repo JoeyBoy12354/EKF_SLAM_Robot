@@ -34,8 +34,7 @@ namespace Navigation_Functions{
                     landmarkExplore(LM, State);
                     motorControl();
                     noNavTrials = 0;
-                    //SHOULD BE TURUE PLEASE CHANGE 
-                    return false;
+                    return true;
                 }
             }
 
@@ -43,10 +42,13 @@ namespace Navigation_Functions{
             randomExplore();
             motorControl();
 
+            
             return true;
         }else{
             //mapped room
-            return false;
+            //SHOULD BE FALSE PLEASE CHANGE 
+            cout<<"NAVI: SHOULD LEAVE WITH MAPPED"<<endl;
+            return true;
         }
     }
 
