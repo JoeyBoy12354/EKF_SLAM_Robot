@@ -156,6 +156,8 @@ void fullRun(ExtendedKalmanFilter ekf,bool& mapped, bool& firstRun){
     }else{
         cout<<"MAP COMPLETED";
     }
+
+    cout<<"LEAVNG FULL RUN"<<endl;
     
 }
 
@@ -165,6 +167,7 @@ void testRun(){
     bool firstRun = true;
     
     for(int i =0;i<4;i++){
+        cout<<"IN RUN LOOP: "<<i<<endl;
         fullRun(ekf,mapped,firstRun);
     }
     
