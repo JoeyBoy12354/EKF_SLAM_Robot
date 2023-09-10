@@ -17,10 +17,10 @@ def fetchCoord(filename):
 
 def fetchRobot():
     postion = []
-    with open('postionCSV.csv','r') as file:
+    with open('positionCSV.csv','r') as file:
         csv_reader = csv.reader(file)
         for row in csv_reader:
-            postion.append(float(row))
+            postion.append(float(row[0]))
     return postion
 
 
@@ -31,8 +31,9 @@ def rotate_point(x, y, angle):
 
 # Function to draw a rotated triangle
 def draw_rotated_triangle(ax, x, y, direction_angle):
-    # Define the coordinates of the vertices of the triangle
-    triangle = np.array([[0.0, 0.0], [1.0, 0.0], [0.5, 0.866]])
+    # Define the coordinates of the vertices of the triangle (Left Corner, Right Corner, Top Tip)
+    #triangle = np.array([[0.0, 0.0], [110, 0.0], [55, 100]]) #accurate
+    triangle = np.array([[0.0, 0.0], [330, 0.0], [165, 300]]) #scaled
 
     # Rotate the triangle based on the direction angle
     rotated_triangle = np.array([rotate_point(x, y, direction_angle) for x, y in triangle])
@@ -46,17 +47,19 @@ def animate(i):
     #fetchFromCSV
     x1,y1=fetchCoord('fullMapCSV.csv')
     x2,y2=fetchCoord('landmarkCSV.csv')
-    x3,y3=fetchCoord('cornersCSV.csv')
-    x4,y4=fetchCoord('linesCSV.csv')
+    #x3,y3=fetchCoord('cornersCSV.csv')
+    #x4,y4=fetchCoord('linesCSV.csv')
     position = fetchRobot()
+    print("POSITION = ",position)
 
     
 
     plt.cla() #Clear Axis (so that we don't keep the old plot we clear it and write again)
 
-    plt.plot(x1, y1, 'o', label='Points',markersize=3,color='r')
-    plt.plot(x2, y2, 'X', label='Landmarks', markersize=20,color='g')
-    draw_rotated_triangle(position[0],position[1],position[2])
+    draw_rotated_triangle(plt.gca(),position[0],position[1],position[2])
+    plt.plot(x1, y1, 'o', label='Points',markersize=1,color='r')
+    plt.plot(x2, y2, 'X', label='Landmarks', markersize=3,color='g')
+    
 
     plt.legend(loc='upper left')
     plt.tight_layout()
