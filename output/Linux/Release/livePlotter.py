@@ -23,6 +23,30 @@ def fetchRobot():
             postion.append(float(row[0]))
     return postion
 
+# Read the lines from the CSV file
+def fetchAndPlotLines():
+    lines = []
+    with open('linesCSV.csv', 'r') as file:
+        csv_reader = csv.DictReader(file)
+        for row in csv_reader:
+            lines.append({
+                'gradient': float(row['Gradient']),
+                'intercept': float(row['Intercept']),
+                'domain_min': float(row['Domain_Min']),
+                'domain_max': float(row['Domain_Max']),
+                'range_min': float(row['Range_Min']),
+                'range_max': float(row['Range_Max'])
+            })
+
+    # Plot the lines
+    for line in lines:
+        x_values = [line['domain_min'], line['domain_max']]
+        y_min = line['gradient']*x_values[0] + line['intercept']
+        y_max = line['gradient']*x_values[1] + line['intercept']
+        y_values = [y_min,y_max]
+        #plt.plot(x_values, y_values, label=f"Line {line['gradient']}x+{line['intercept']}", color='b')
+        plt.plot(x_values, y_values, color='b')
+
 
 def rotate_point(x, y, angle):
     x_rotated = x * np.cos(angle) - y * np.sin(angle)
@@ -47,8 +71,7 @@ def animate(i):
     #fetchFromCSV
     x1,y1=fetchCoord('fullMapCSV.csv')
     x2,y2=fetchCoord('landmarkCSV.csv')
-    #x3,y3=fetchCoord('cornersCSV.csv')
-    #x4,y4=fetchCoord('linesCSV.csv')
+    x3,y3=fetchCoord('cornersCSV.csv')
     position = fetchRobot()
     print("POSITION = ",position)
 
@@ -59,6 +82,9 @@ def animate(i):
     draw_rotated_triangle(plt.gca(),position[0],position[1],position[2])
     plt.plot(x1, y1, 'o', label='Points',markersize=1,color='r')
     plt.plot(x2, y2, 'X', label='Landmarks', markersize=3,color='g')
+    plt.plot(x3, y3, 'B', label='RNC_points', markersize=3,color='b')
+    fetchAndPlotLines()
+    #plt.plot(x2, y2, 'X', label='RNC_lines', markersize=3,color='b')
     
 
     plt.legend(loc='upper left')
