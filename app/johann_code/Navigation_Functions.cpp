@@ -34,21 +34,24 @@ namespace Navigation_Functions{
                     landmarkExplore(LM, State);
                     motorControl();
                     noNavTrials = 0;
-                    return true;
+                    cout<<"NAVI: LANDMARK EXPLORE"<<endl;
+                    //SHOULD BE TRUE PLEASE CHANGE 
+                    return false;
                 }
             }
 
             noNavTrials++;
             randomExplore();
             motorControl();
+            cout<<"NAVI: RANDOM EXPLORE"<<endl;
 
-            
-            return true;
+            //SHOULD BE TRUE PLEASE CHANGE 
+            return false;
         }else{
             //mapped room
-            //SHOULD BE FALSE PLEASE CHANGE 
-            cout<<"NAVI: SHOULD LEAVE WITH MAPPED"<<endl;
-            return true;
+            
+            
+            return false;
         }
     }
 
