@@ -8,6 +8,7 @@ using namespace Data_Functions;
 int noNavTrials = 0;
 vector<bool> LandmarksExplored;
 double foundRadius = 20;//Robot must be within Xmm of LM for LM to be considered Explored
+double closeness = 110;//Robot should travel distance: (Robot->LM) - closeness mm
 
 float theta;
 float dist;
@@ -78,8 +79,12 @@ namespace Navigation_Functions{
         float deltaX = LM.x - State(0);
         float deltaY = LM.y - State(1);
         dist = deltaX*deltaX + deltaY*deltaY;
-        dist = sqrt(dist);
+        dist = sqrt(dist) - closeness;
         theta = atan2(deltaY,deltaX) - State(2);
+
+        //Ensure distance > 0 
+        if(dist<0):
+            dist = 0;
 
         // Normalize theta to the range [0, 2π]
         while (theta < -2 * PI ) {

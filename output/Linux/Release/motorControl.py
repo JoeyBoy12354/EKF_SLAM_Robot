@@ -21,60 +21,67 @@ testPin2 = 26
 
 R = 142.5 #Distance between wheels [mm]
 r = 32.5 #radius of wheel [mm]
-clkID = 0
-avoidDist = 110 #Distance to move for avoidance [mm]
+
+#Avoidance
+clockAngleInit = 0.959931 #55 Degree inital rotation
 
 #Theta angle in radians, distance in mm
 def motorControl(theta,distance):
-    # fullvelocity = 100 #This is the max velocity of motor
-    # fullTime = 1
-
     LNoRot=0
     RNoRot=0
     
-
     #Rotation Movement
     #Left Turn
     if(theta>0):
-        NoRotations = (R*theta)/(2*PI*r)
-
-        print("NoRotation = ",NoRotations)
-        W1_Ticks = NoRotations*20
-        print("NoTicks = ",W1_Ticks)
-
-        wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
-        LNoRot,RNoRot = speedSensor(W1_Ticks)
-        wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
+        LNoRot,RNoRot = turnLeft(theta)
     #Right Turn
     elif(theta<0):
-        NoRotations = (R*abs(theta))/(2*PI*r)
-        W2_Ticks = NoRotations*20
+        LNoRot,RNoRot = turnRight(theta)
 
-        wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 7
-        LNoRot,RNoRot = speedSensor(W2_Ticks)
-        wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 7
-
-    print("LNoRot = ",LNoRot)
-    print("RNoRot = ",RNoRot)
     angle = getAngle(LNoRot,RNoRot)
 
+    
+
+    #Check distance to obstacle
+    if(sonarControl.runSonar() < distance):
+        avoidedAngle = clockAvoidance()
+        angle = avoidedAngle + angle
+    
+
+
+
+    dist,elapsed = forward(distance)
+
+
+    
+    
+    return angle,dist,elapsed
+
+
+def turnLeft(theta):
+    NoRotations = (R*theta)/(2*PI*r)
+    W1_Ticks = NoRotations*20
+
+    wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+    LNoRot,RNoRot = speedSensor(W1_Ticks)
+    wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
+
+    return LNoRot,RNoRot
+
+def turnRight(theta):
+    NoRotations = (R*abs(theta))/(2*PI*r)
+    W2_Ticks = NoRotations*20
+
+    wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 7
+    LNoRot,RNoRot = speedSensor(W2_Ticks)
+    wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 7
+
+    return LNoRot,RNoRot
+
+def forward(distance):
     #Forward Movement
     NoRotations = distance/(2*PI*r)
     W12_Ticks = NoRotations*20
-
-    #Check distance to obstacle
-    obs_distance = sonarControl.runSonar()
-    avoidDistL = avoidDist
-    avoidDistR = avoidDist
-    while(obs_distance<distance):
-        print("OBSTACLE DETECTED IN PATH")
-        avoidDistL,avoidDistR = Avoidance(avoidDistL,avoidDistR)
-        obs_distance = sonarControl.runSonar()
-        print("ADL = ",avoidDistL," ADR = ",avoidDistR)
-        print("\nAVOIDANCE ATTEMPT COMPLETED\n")
-
-
-
 
     wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
     wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 7
@@ -86,8 +93,11 @@ def motorControl(theta,distance):
 
     dist = getDist(LNoRot,RNoRot)
     print("time = ",elapsed)
-    
-    return angle,dist,elapsed
+
+    return dist,elapsed
+
+
+
 
 def speedSensor(NoTicks):
     left_old = 0
@@ -139,31 +149,19 @@ def getDist(LNoRot,RNoRot):
 
     return distL
 
+
+
+
+
 def Avoidance(avoidDistL,avoidDistR):
-
     print("\nOBSTACLE DETECTED Turn left!")
-    #Turn Left
-    NoRotations = (R*PI/2)/(2*PI*r)
-    W1_Ticks = NoRotations*20
-
-    wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
-    LNoRot,RNoRot = speedSensor(W1_Ticks)
-    wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
-
+    turnLeft(PI/2)
 
     #Check left
     obs_distance = sonarControl.runSonar()
     if(obs_distance<avoidDistL):
         print("OBSTACLE DETECTED IN AVOID PATH Turn right!")
-        
-        
-        #Turn Right
-        NoRotations = (R*PI/2)/(2*PI*r)
-        W1_Ticks = NoRotations*20
-
-        wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
-        LNoRot,RNoRot = speedSensor(W1_Ticks)
-        wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
+        turnRight(PI/2)
 
         #Check Right
         obs_distance = sonarControl.runSonar()
@@ -172,52 +170,53 @@ def Avoidance(avoidDistL,avoidDistR):
         
         # GO FORWARD AND REPOSITION
         else:
-            #Forward Movement
-            NoRotations = avoidDistR/(2*PI*r)
-            W12_Ticks = NoRotations*20
-
-            wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
-            wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 7
-            LNoRot,RNoRot = speedSensor(W12_Ticks)
-            wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
-            wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 7
-
-            #Face Back (Turn Left)
-            NoRotations = (R*PI/2)/(2*PI*r)
-            W1_Ticks = NoRotations*20
-
-            wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
-            LNoRot,RNoRot = speedSensor(W1_Ticks)
-            wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
-            
+            forward(avoidDistR)
+            turnLeft(PI/2)#Face Back (Turn Left)
             avoidDistL = avoidDistL + avoidDistR
 
     # GO FORWARD AND REPOSITION
     else:
-        #Forward Movement
-        NoRotations = avoidDistL/(2*PI*r)
-        W12_Ticks = NoRotations*20
-
-        wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
-        wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 7
-        LNoRot,RNoRot = speedSensor(W12_Ticks)
-        wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
-        wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 7
-
-        #Face Back (Turn Right)
-        NoRotations = (R*PI/2)/(2*PI*r)
-        W1_Ticks = NoRotations*20
-
-        wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
-        LNoRot,RNoRot = speedSensor(W1_Ticks)
-        wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
-
+        forward(avoidDistR)
+        turnRight(PI/2)#Face Back (Turn Right)
         avoidDistR = avoidDistR + avoidDistL
-
-    
 
     return avoidDistL,avoidDistR
 
+
+
+
+
+
+
+def clockAvoidance(distance):
+
+    totalAngle = 0
+    #Turn Left
+    turnLeft(clockAngleInit)
+    totalAngle = clockAngleInit
+
+    if(sonarControl.runSonar() < distance):
+        #Turn Right
+        turnRight(clockAngleInit*2)
+        totalAngle = -clockAngleInit
+
+        if(sonarControl.runSonar() < distance):
+            #Turn Right
+            turnRight(clockAngleInit)
+            totalAngle = -clockAngleInit*2
+            
+            if(sonarControl.runSonar() < distance):
+                #Turn Left
+                turnLeft(clockAngleInit)
+                totalAngle = clockAngleInit*2
+        
+
+
+
+    
+    return totalAngle
+
+    
 
 
 
