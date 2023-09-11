@@ -8,7 +8,6 @@ using namespace Data_Functions;
 namespace Mapping_Functions{
 
     void StoreMapAndStatePoints(vector<CarPoint> lidardata, Matrix<float, dim, 1> State){
-        cout<<"Entered STOREMAPEANDPOINTS"<<endl;
         float distance_threshold = 30;//If two points are greater than Xmm then keep this point.
 
         vector<CarPoint> oldmap;
@@ -43,8 +42,6 @@ namespace Mapping_Functions{
             LM.y = State[i+1];
             landmarks.push_back(LM);
         }
-
-        cout<<"UPDATING FULL MAP";
 
         //Update full map
         appendCarToFullMapCSV(lidardata);

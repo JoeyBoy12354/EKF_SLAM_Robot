@@ -8,7 +8,6 @@ using namespace Simulation_Functions;
 namespace Data_Functions{
 
     vector<CarPoint> convertCartesian(vector<PolPoint>& dataPoints){
-        cout<<"\nI am converting to Cartesian"<<endl;
         vector<CarPoint> cartesianPoints;
         for (const PolPoint& polarPoint : dataPoints) {
             double angleRad = polarPoint.angle * PI / 180;
@@ -45,20 +44,19 @@ namespace Data_Functions{
 
 
     void lidarDataProcessing(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints){
-        cout<<"\n lidarDataProcessing\n"<<endl;
+        cout<<"\n lidarDataProcessing"<<endl;
 
         carPoints = convertCartesian(dataPoints);
         saveCarToCSV(carPoints);
-        cout<<"\nNumber of CAR points"<<carPoints.size()<<endl;
+        cout<<"\nNumber of CAR points"<<carPoints.size();
 
 
-        cout<<"\n RANSAC\n"<<endl;
+        cout<<"\nRANSAC"<<endl;
         vector<Line> detected_lines = RANSAC(carPoints);
         writeLinesToCSV(detected_lines);
         writeConsensusToCSV(detected_lines);
         
 
-        cout<<"\n findNearestPoints\n"<<endl;
         vector<CarPoint> closestPoints = findNearestPoint(detected_lines);
         writeCornersToCSV(closestPoints);
         cout<<"\n Number of Closest Points Found:"<<closestPoints.size()<<endl;
@@ -90,7 +88,7 @@ namespace Data_Functions{
 
     //This function will take the inputed values and set the EKF
     void motorDataProcessing(float& ekf_w,float& ekf_v,float& ekf_t){
-        cout<<"Process motor Data"<<endl;
+        //cout<<"Process motor Data"<<endl;
         float theta;
         float dist;
         float time;

@@ -44,8 +44,6 @@ namespace CSV_Functions{
 
     //New Map Functions
     void saveCarToCSV(const vector<CarPoint>& points) {
-        cout<<"\n save Car to CSV\n"<<endl;
-        cout<<"\nnumber of points = "<<points.size()<<endl;
         ofstream outputFile(mapCSV);
         if (!outputFile.is_open()) {
             cerr << "Error opening the file: " << mapCSV << endl;
@@ -101,7 +99,6 @@ namespace CSV_Functions{
 
     //Full Map Functions
     void saveCarToFullMapCSV(const vector<CarPoint>& points) {
-        cout<<"Save full map"<<endl;
         ofstream outputFile(fullMapCSV);
         if (!outputFile.is_open()) {
             cerr << "Error opening the file: " << fullMapCSV << endl;
@@ -157,7 +154,6 @@ namespace CSV_Functions{
 
     //State Functions
     void saveLandmarkToCSV(vector<CarPoint> landmarks){
-        cout<<"SAVING LANDMARK CSV";
         ofstream outputFile(landmarkCSV);
         if (!outputFile.is_open()) {
             cerr << "Error opening the file: " << landmarkCSV << endl;

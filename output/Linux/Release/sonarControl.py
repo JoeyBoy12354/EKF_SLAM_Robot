@@ -15,18 +15,18 @@ trigPin = 27
 #returns distance to obstacle in cm
 def runSonar():
 
-    print("Ultrasonic Measurement")
+    #print("Ultrasonic Measurement")
 
 
     # Set trigger to False (Low)
     wiringpi.digitalWrite(trigPin, 1) #Set low
 
     # Allow module to settle
-    print("Wait for module to settle")
-    time.sleep(2)
+    #print("Wait for module to settle")
+    time.sleep(1)
 
     # Send 10us pulse to trigger
-    print("Send Pulse")
+    #print("Send Pulse")
     wiringpi.digitalWrite(trigPin, 0)#Set High
     time.sleep(0.00001)
     wiringpi.digitalWrite(trigPin, 1)#Set Low
@@ -54,7 +54,7 @@ def runSonar():
     #Rounding
     distance = round(distance,2)
 
-    print("Distance : %.1f" % distance," mm")
+    print("Sonar Distance : %.1f" % distance," mm")
 
     writeOdometry(distance)
     return distance

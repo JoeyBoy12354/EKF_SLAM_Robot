@@ -44,7 +44,6 @@ def motorControl(theta,distance):
     #Check distance to obstacle
     if(sonarControl.runSonar() < distance):
         avoidedAngle = clockAvoidance(distance)
-        print("avoidance angle = ",avoidedAngle*180/PI)
         angle = avoidedAngle + angle
     
 
@@ -87,7 +86,6 @@ def forward(distance):
     wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 7
 
     dist = getDist(LNoRot,RNoRot)
-    print("time = ",elapsed)
 
     return dist,elapsed
 
@@ -109,12 +107,9 @@ def speedSensor(NoTicks):
 
         if(left_old == 0 and left_new == 1):
             left_count += 1
-            #print("Left = ",left_count)
         
         if(right_old == 0 and right_new == 1):
             right_count += 1
-            #print("Right = ",right_count)
-
         left_old = left_new
         right_old = right_new
     
@@ -135,8 +130,6 @@ def getAngle(LNoRot,RNoRot):
     return angle
 
 def getDist(LNoRot,RNoRot):
-    print("LNoRot = ",LNoRot)
-    print("RNoRot = ",RNoRot)
     #Determine actual distance
     distL = LNoRot*2*PI*r
     distR = RNoRot*2*PI*r
@@ -149,13 +142,13 @@ def getDist(LNoRot,RNoRot):
 
 #OLD AND NOT USED
 def Avoidance(avoidDistL,avoidDistR):
-    print("\nOBSTACLE DETECTED Turn left!")
+    #print("\nOBSTACLE DETECTED Turn left!")
     turnLeft(PI/2)
 
     #Check left
     obs_distance = sonarControl.runSonar()
     if(obs_distance<avoidDistL):
-        print("OBSTACLE DETECTED IN AVOID PATH Turn right!")
+        #print("OBSTACLE DETECTED IN AVOID PATH Turn right!")
         turnRight(PI/2)
 
         #Check Right

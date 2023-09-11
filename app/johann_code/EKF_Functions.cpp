@@ -118,7 +118,7 @@ void ExtendedKalmanFilter::isNewLandmark() {
 
     double smallestDistance = *min_element(Distances.begin(), Distances.end());
     int smallestDistanceIndex = Indexes[getIndex(Distances,smallestDistance)];
-    cout<<"smallestDistance"<<smallestDistance<<" @"<<smallestDistanceIndex<<endl;
+    //cout<<"smallestDistance"<<smallestDistance<<" @"<<smallestDistanceIndex<<endl;
     
 
 
@@ -129,11 +129,11 @@ void ExtendedKalmanFilter::isNewLandmark() {
         EstimatedLandmark.y = State(smallestDistanceIndex+1);
         LandmarkIndex = smallestDistanceIndex;
 
-        cout<<"Observed: ("<<ObservedLandmark.x<<","<<ObservedLandmark.y<<") "<<endl;
-        cout<<"I have seen this one Before! Estimated: ("<<EstimatedLandmark.x<<","<<EstimatedLandmark.y<<") "<<endl;
+        //cout<<"Observed: ("<<ObservedLandmark.x<<","<<ObservedLandmark.y<<") "<<endl;
+        //cout<<"I have seen this one Before! Estimated: ("<<EstimatedLandmark.x<<","<<EstimatedLandmark.y<<") "<<endl;
     }else{
         //This is a new landmark
-        cout<< "\nNewLandmark"<<endl;
+        //cout<< "\nNewLandmark"<<endl;
 
         //Calculate landmark position
         EstimatedLandmark.x = State(0) + z(0)*cos(z(1) + State(2));
@@ -199,9 +199,9 @@ void ExtendedKalmanFilter::getGainMatrix() {
 
 // Update State Matrix with new landmark
 void ExtendedKalmanFilter::updateStateOfLandmark() {
-    cout<<"\nGain = \n"<<Gain<<endl;
-    cout<<"\nz-zcap = \n"<<z-z_cap<<endl;
-    cout<<"\ngain* (z-zcap) = \n"<<(z-z_cap)<<endl;
+    // cout<<"\nGain = \n"<<Gain<<endl;
+    // cout<<"\nz-zcap = \n"<<z-z_cap<<endl;
+    // cout<<"\ngain* (z-zcap) = \n"<<(z-z_cap)<<endl;
     State = State + Gain*(z-z_cap);
     }
 
@@ -231,7 +231,7 @@ void ExtendedKalmanFilter::runEKF() {
     //cout<<"LANDMARKS = "<<fixed<<setprecision(10)<<landmarks[0]<<landmarks[1]<<landmarks[2]<<landmarks[3]<<endl;
 
     for (int i = 0; i < landmarks.size(); i++) {
-        cout<<"\n\nXXXXX N E X T   P O I N T "<<i<<" XXXXX"<<endl;
+        //cout<<"\n\nXXXXX N E X T   P O I N T "<<i<<" XXXXX"<<endl;
 
         //Round Landmark
         //Round to 4 decimal
@@ -269,6 +269,6 @@ void ExtendedKalmanFilter::runEKF() {
         cout << "\nLINE 6\nmu =\n" << State << "\n";
 
         updateCovarianceOfLandmark();
-        cout << "\nLINE 7\nsigma =\n" << Covariance << "\n";
+        //cout << "\nLINE 7\nsigma =\n" << Covariance << "\n";
     }
 }

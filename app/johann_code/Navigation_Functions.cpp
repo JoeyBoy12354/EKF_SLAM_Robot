@@ -17,8 +17,6 @@ namespace Navigation_Functions{
     //Determine Direction and send control signals to motors
     bool updateMovement(MatrixXf State){
 
-        cout<<"\n\nUpdate Movement Entered"<<endl;
-
         CarPoint Robot;
         Robot.x = State(0);
         Robot.y = State(1);
@@ -35,7 +33,7 @@ namespace Navigation_Functions{
                     landmarkExplore(LM, State);
                     motorControl();
                     noNavTrials = 0;
-                    cout<<"NAVI: LANDMARK EXPLORE"<<endl;
+
                     //SHOULD BE TRUE PLEASE CHANGE 
                     return false;
                 }
@@ -44,7 +42,6 @@ namespace Navigation_Functions{
             noNavTrials++;
             randomExplore();
             motorControl();
-            cout<<"NAVI: RANDOM EXPLORE"<<endl;
 
             //SHOULD BE TRUE PLEASE CHANGE 
             return false;
@@ -74,7 +71,7 @@ namespace Navigation_Functions{
 
     //Set velocity and direction to a new landmark
     void landmarkExplore(CarPoint LM, MatrixXf State){
-        cout<<"Landmark Explore "<<LM.x<<", "<<LM.y<<endl;
+        cout<<"NAVI: Landmark Explore "<<LM.x<<", "<<LM.y<<endl;
         //Calculate required distance and rotation
         float deltaX = LM.x - State(0);
         float deltaY = LM.y - State(1);
@@ -101,7 +98,7 @@ namespace Navigation_Functions{
 
     //Set velocity and direction randomly
     void randomExplore(){
-        cout<<"Random Explore "<<endl;
+        cout<<"NAVI: Random Explore "<<endl;
         dist = rand() % 300;
         theta = rand() % 2*PI;
         
