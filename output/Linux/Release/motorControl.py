@@ -32,6 +32,7 @@ clockAngleStep = 0.261799 #15 Degree step rotation
 
 #Theta angle in radians, distance in mm
 def motorControl(theta,distance):
+    print("In motor Control")
     LNoRot=0
     RNoRot=0
     
@@ -47,7 +48,7 @@ def motorControl(theta,distance):
 
 
     #Check for obstacles ahead
-
+    print("Gonna check Avoidance")
     #Check distance to obstacle
     if(checkAvoidance(distance)):
         avoidedAngle = clockAvoidance(distance)
