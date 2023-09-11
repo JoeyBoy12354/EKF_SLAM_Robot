@@ -75,7 +75,7 @@ def animate(i):
     x3,y3=fetchCoord('cornersCSV.csv')
     x4,y4=fetchCoord('consensusCSV.csv')
     position = fetchRobot()
-    print("POSITION = ",position)
+    #print("POSITION = ",position)
 
     
 
@@ -85,6 +85,7 @@ def animate(i):
     plt.plot(x1, y1, 'o', label='Points',markersize=1,color='r')
     plt.plot(x2, y2, 'X', label='Landmarks', markersize=4,color='g')
     plt.plot(x3, y3, 'X', label='RNC_points', markersize=4,color='b')
+    plt.plot(x3, y3, 'o', label='Con_points', markersize=1,color='b')
     #fetchAndPlotLines()
     #plt.plot(x2, y2, 'X', label='RNC_lines', markersize=3,color='b')
     
