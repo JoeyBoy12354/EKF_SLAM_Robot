@@ -188,6 +188,7 @@ namespace CSV_Functions{
     //Line and Corner Functions
     void writeConsensusToCSV(const vector<Line>& lines) {
         cout<<"IN WRITE CONSENSUS"<<endl<<endl;
+        cout<<"No Lines = "<<lines.size()<<endl
         ofstream csvFile(linesCSV);
         if (!csvFile) {
             cerr << "Error opening file: " << linesCSV << endl;
@@ -198,6 +199,7 @@ namespace CSV_Functions{
         for (int i = 0; i < lines.size(); ++i) {
             const Line& line = lines[i];
             for (int j = 0;j<line.ConsensusPoints.size();j++){
+                cout<<"LEN of CONSENSUS = "<<line.ConsensusPoints.size()<<endl;
                 csvFile << line.ConsensusPoints[j].x << ","
                         << line.ConsensusPoints[j].y << endl;
             }
