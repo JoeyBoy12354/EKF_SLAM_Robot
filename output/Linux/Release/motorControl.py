@@ -197,7 +197,7 @@ def clockAvoidance(distance):
             
             if(sonarControl.runSonar() < distance):
                 #Turn Left
-                turnLeft(clockAngleInit)
+                turnLeft(clockAngleInit*3)
                 totalAngle = clockAngleInit*2
         
 
