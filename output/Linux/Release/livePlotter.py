@@ -83,14 +83,14 @@ def animate(i):
 
     draw_rotated_triangle(plt.gca(),position[0],position[1],position[2])
     plt.plot(x1, y1, 'o', label='Points',markersize=1,color='r')
-    plt.plot(x2, y2, 'X', label='Landmarks', markersize=4,color='g')
-    plt.plot(x3, y3, 'X', label='RNC_points', markersize=4,color='b')
-    plt.plot(x4, y4, 'o', label='Con_points', markersize=2,color='o')
-    #fetchAndPlotLines()
+    plt.plot(x2, y2, 'X', label='Landmarks', markersize=7,color='g')
+    plt.plot(x3, y3, 'X', label='RNC_points', markersize=7,color='b')
+    plt.plot(x4, y4, 'o', label='Con_points', markersize=3,color='purple')
+    fetchAndPlotLines()
     #plt.plot(x2, y2, 'X', label='RNC_lines', markersize=3,color='b')
     
 
-    plt.legend(loc='upper left')
+    #plt.legend(loc='upper left')
     plt.tight_layout()
 
 
