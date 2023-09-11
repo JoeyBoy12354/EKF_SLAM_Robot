@@ -82,11 +82,11 @@ def animate(i):
     plt.cla() #Clear Axis (so that we don't keep the old plot we clear it and write again)
 
     draw_rotated_triangle(plt.gca(),position[0],position[1],position[2])
-    plt.plot(x1, y1, 'o', label='Points',markersize=1,color='r')
+    plt.plot(x1, y1, 'o', label='Points',markersize=0.5,color='r')
     plt.plot(x2, y2, 'X', label='Landmarks', markersize=7,color='g')
     plt.plot(x3, y3, 'X', label='RNC_points', markersize=7,color='b')
     plt.plot(x4, y4, 'o', label='Con_points', markersize=3,color='purple')
-    #fetchAndPlotLines()
+    fetchAndPlotLines()
     #plt.plot(x2, y2, 'X', label='RNC_lines', markersize=3,color='b')
     
 
