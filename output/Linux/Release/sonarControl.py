@@ -60,6 +60,7 @@ def test2():
 
     # Calculate pulse length
     elapsed = stop-start
+    print("Esapsed Time = ",elapsed)
 
     # Distance pulse travelled in that time is time
     # multiplied by the speed of sound (cm/s)
