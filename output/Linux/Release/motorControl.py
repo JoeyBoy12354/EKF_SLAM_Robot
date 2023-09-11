@@ -44,7 +44,7 @@ def motorControl(theta,distance):
     #Check distance to obstacle
     if(sonarControl.runSonar() < distance):
         avoidedAngle = clockAvoidance(distance)
-        print("avoidance angle = ",avoidedAngle)
+        print("avoidance angle = ",avoidedAngle*180/PI)
         angle = avoidedAngle + angle
     
 
