@@ -42,7 +42,8 @@ def test2():
     wiringpi.digitalWrite(trigPin, 1) #Set low
 
     # Allow module to settle
-    time.sleep(0.5)
+    print("Wait for module to settle")
+    time.sleep(2)
 
     # Send 10us pulse to trigger
     print("Send Pulse")
@@ -63,13 +64,16 @@ def test2():
     print("Esapsed Time = ",elapsed)
 
     # Distance pulse travelled in that time is time
-    # multiplied by the speed of sound (cm/s)
-    distance = elapsed * 34300
+    # multiplied by the speed of sound (cm/s) divided by 2
+    distance = elapsed * 17150
 
     # That was the distance there and back so halve the value
-    distance = distance / 2
+    #distance = distance / 2
+    
+    #Rounding
+    distance = round(distance,2)
 
-    print("Distance : %.1f" % distance)
+    print("Distance : %.1f" % distance," cm")
 
  
 
