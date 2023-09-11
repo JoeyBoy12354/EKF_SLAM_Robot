@@ -408,7 +408,10 @@ def writeOdometry(angle, distance,t):
 wiringpi.pinMode(LSS_Pin, 0)       # Set pin to 0 ( INPUT )
 wiringpi.pinMode(RSS_Pin, 0)       # Set pin to 0 ( INPUT )
 wiringpi.pinMode(LMot_Pin, 1)       # Set pin 6 to 1 ( OUTPUT )
-wiringpi.pinMode(RMot_Pin, 1)       # Set pin 7 to 1 ( OUTPUT )\
+wiringpi.pinMode(RMot_Pin, 1)       # Set pin 7 to 1 ( OUTPUT )
+wiringpi.pinMode(LMotR_Pin, 1)       # Set pin 6 to 1 ( OUTPUT )
+wiringpi.pinMode(RMotR_Pin, 1)       # Set pin 7 to 1 ( OUTPUT )
+
 #while True:
 #    wiringpi.digitalWrite(testPin, 0)  # Write 1 ( HIGH ) to pin 6
 #test3()
