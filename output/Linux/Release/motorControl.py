@@ -14,8 +14,12 @@ wiringpi.wiringPiSetup()      # For sequential pin numbering
 PI = 3.14159265358979
 RMot_Pin = 22
 LMot_Pin = 26
+RMotR_Pin = 2
+LMotR_Pin = 7
+
 LSS_Pin = 3
 RSS_Pin = 4
+
 testPin = 22
 testPin2 = 26
 
@@ -92,6 +96,42 @@ def forward(distance):
 
     return dist,elapsed
 
+def turnLeftR(theta):
+    NoRotations = (R*theta)/(2*PI*r)
+    W1_Ticks = NoRotations*20
+
+    wiringpi.digitalWrite(LMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+    LNoRot,RNoRot = speedSensor(W1_Ticks)
+    wiringpi.digitalWrite(LMotR_Pin, 1)  # Write 0 ( LOW ) to pin 6
+
+    return LNoRot,RNoRot
+
+def turnRightR(theta):
+    NoRotations = (R*abs(theta))/(2*PI*r)
+    W2_Ticks = NoRotations*20
+
+    wiringpi.digitalWrite(RMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 7
+    LNoRot,RNoRot = speedSensor(W2_Ticks)
+    wiringpi.digitalWrite(RMotR_Pin, 1)  # Write 0 ( LOW ) to pin 7
+
+    return LNoRot,RNoRot
+
+def reverse(distance):
+    #Forward Movement
+    NoRotations = distance/(2*PI*r)
+    W12_Ticks = NoRotations*20
+
+    wiringpi.digitalWrite(LMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+    wiringpi.digitalWrite(RMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 7
+    old_time = time.time()
+    LNoRot,RNoRot = speedSensor(W12_Ticks)
+    elapsed = time.time() - old_time
+    wiringpi.digitalWrite(LMotR_Pin, 1)  # Write 0 ( LOW ) to pin 6
+    wiringpi.digitalWrite(RMotR_Pin, 1)  # Write 0 ( LOW ) to pin 7
+
+    dist = getDist(LNoRot,RNoRot)
+
+    return dist,elapsed
 
 
 
@@ -185,7 +225,7 @@ def checkAvoidance(distance):
         if(sonarControl.runSonar() < distance):
             return True
         
-    turnRight(totalAngle)
+    turnLeftR(totalAngle)
     totalAngle = 0
 
     while(totalAngle<clockAngleInit):
@@ -194,6 +234,7 @@ def checkAvoidance(distance):
         totalAngle += clockAngleStep
         if(sonarControl.runSonar() < distance):
             return True
+    
         
     return False
 
@@ -207,7 +248,8 @@ def clockAvoidance(distance):
 
     if(sonarControl.runSonar() < distance):
         #Turn Right
-        turnRight(clockAngleInit*2)
+        turnLeftR(clockAngleInit)
+        turnRight(clockAngleInit)
         totalAngle = -clockAngleInit
 
         if(sonarControl.runSonar() < distance):
@@ -217,7 +259,8 @@ def clockAvoidance(distance):
             
             if(sonarControl.runSonar() < distance):
                 #Turn Left
-                turnLeft(clockAngleInit*3)
+                turnRightR(clockAngleInit*2)
+                turnLeft(clockAngleInit)
                 totalAngle = clockAngleInit*2
         
 
