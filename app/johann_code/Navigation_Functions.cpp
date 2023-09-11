@@ -102,8 +102,8 @@ namespace Navigation_Functions{
     //Set velocity and direction randomly
     void randomExplore(){
         cout<<"Random Explore "<<endl;
-        dist = rand() % 30;
-        theta = rand() % 30;
+        dist = rand() % 300;
+        theta = rand() % 300;
         
         
         return;
