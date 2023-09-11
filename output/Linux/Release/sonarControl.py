@@ -8,8 +8,8 @@ wiringpi.wiringPiSetup()      # For sequential pin numbering
 # OR
 #wiringpi.wiringPiSetupGpio()  # For GPIO pin numbering
 
-echoPin = 6
-trigPin = 7
+echoPin = 23
+trigPin = 27
 echoTime = 100
 count=0
 
@@ -33,6 +33,46 @@ def readSonar():
     #Use count to determine length
     distance = count/20
 
+def test2():
+
+    print("Ultrasonic Measurement")
+
+
+    # Set trigger to False (Low)
+    wiringpi.digitalWrite(trigPin, 1) #Set low
+
+    # Allow module to settle
+    time.sleep(0.5)
+
+    # Send 10us pulse to trigger
+    print("Send Pulse")
+    wiringpi.digitalWrite(trigPin, 0)#Set High
+    time.sleep(0.00001)
+    wiringpi.digitalWrite(trigPin, 1)#Set Low
+    start = time.time()
+
+
+    while wiringpi.digitalRead(echoPin) == 1:
+        start = time.time()
+
+    while wiringpi.digitalRead(echoPin) == 0:
+        stop = time.time()
+
+    # Calculate pulse length
+    elapsed = stop-start
+
+    # Distance pulse travelled in that time is time
+    # multiplied by the speed of sound (cm/s)
+    distance = elapsed * 34300
+
+    # That was the distance there and back so halve the value
+    distance = distance / 2
+
+    print("Distance : %.1f" % distance)
+
+ 
+
 
 wiringpi.pinMode(trigPin, 1)       # Set pin to 1 ( OUTPUT )
 wiringpi.pinMode(echoPin, 0)       # Set pin to 0 ( INPUT )
+test2()
