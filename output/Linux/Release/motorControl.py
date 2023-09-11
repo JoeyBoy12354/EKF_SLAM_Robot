@@ -12,8 +12,8 @@ wiringpi.wiringPiSetup()      # For sequential pin numbering
 #wiringpi.wiringPiSetupGpio()  # For GPIO pin numbering
 
 PI = 3.14159265358979
-LMot_Pin = 22
-RMot_Pin = 26
+RMot_Pin = 22
+LMot_Pin = 26
 LSS_Pin = 3
 RSS_Pin = 4
 testPin = 22
@@ -42,17 +42,17 @@ def motorControl(theta,distance):
         W1_Ticks = NoRotations*20
         print("NoTicks = ",W1_Ticks)
 
-        wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+        wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
         LNoRot,RNoRot = speedSensor(W1_Ticks)
-        wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
+        wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
     #Right Turn
     elif(theta<0):
         NoRotations = (R*abs(theta))/(2*PI*r)
         W2_Ticks = NoRotations*20
 
-        wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 7
+        wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 7
         LNoRot,RNoRot = speedSensor(W2_Ticks)
-        wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 7
+        wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 7
 
     print("LNoRot = ",LNoRot)
     print("RNoRot = ",RNoRot)
@@ -70,18 +70,19 @@ def motorControl(theta,distance):
         print("OBSTACLE DETECTED IN PATH")
         avoidDistL,avoidDistR = Avoidance(avoidDistL,avoidDistR)
         obs_distance = sonarControl.runSonar()
+        print("ADL = ",avoidDistL," ADR = ",avoidDistR)
         print("\nAVOIDANCE ATTEMPT COMPLETED\n")
 
 
 
 
-    wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
-    wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 7
+    wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+    wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 7
     old_time = time.time()
     LNoRot,RNoRot = speedSensor(W12_Ticks)
     elapsed = time.time() - old_time
-    wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
-    wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 7
+    wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
+    wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 7
 
     dist = getDist(LNoRot,RNoRot)
     print("time = ",elapsed)
@@ -140,28 +141,29 @@ def getDist(LNoRot,RNoRot):
 
 def Avoidance(avoidDistL,avoidDistR):
 
+    print("\nOBSTACLE DETECTED Turn left!")
     #Turn Left
     NoRotations = (R*PI/2)/(2*PI*r)
     W1_Ticks = NoRotations*20
 
-    wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+    wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
     LNoRot,RNoRot = speedSensor(W1_Ticks)
-    wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
+    wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
 
 
     #Check left
     obs_distance = sonarControl.runSonar()
     if(obs_distance<avoidDistL):
-        print("\nOBSTACLE DETECTED IN AVOID PATH Left Turn")
+        print("OBSTACLE DETECTED IN AVOID PATH Turn right!")
         
         
         #Turn Right
         NoRotations = (R*PI/2)/(2*PI*r)
         W1_Ticks = NoRotations*20
 
-        wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+        wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
         LNoRot,RNoRot = speedSensor(W1_Ticks)
-        wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
+        wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
 
         #Check Right
         obs_distance = sonarControl.runSonar()
@@ -174,19 +176,19 @@ def Avoidance(avoidDistL,avoidDistR):
             NoRotations = avoidDistR/(2*PI*r)
             W12_Ticks = NoRotations*20
 
-            wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
-            wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 7
+            wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+            wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 7
             LNoRot,RNoRot = speedSensor(W12_Ticks)
-            wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
-            wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 7
+            wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
+            wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 7
 
             #Face Back (Turn Left)
             NoRotations = (R*PI/2)/(2*PI*r)
             W1_Ticks = NoRotations*20
 
-            wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+            wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
             LNoRot,RNoRot = speedSensor(W1_Ticks)
-            wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
+            wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
             
             avoidDistL = avoidDistL + avoidDistR
 
@@ -196,19 +198,19 @@ def Avoidance(avoidDistL,avoidDistR):
         NoRotations = avoidDistL/(2*PI*r)
         W12_Ticks = NoRotations*20
 
-        wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
-        wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 7
+        wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+        wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 7
         LNoRot,RNoRot = speedSensor(W12_Ticks)
-        wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
-        wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 7
+        wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
+        wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 7
 
         #Face Back (Turn Right)
         NoRotations = (R*PI/2)/(2*PI*r)
         W1_Ticks = NoRotations*20
 
-        wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+        wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
         LNoRot,RNoRot = speedSensor(W1_Ticks)
-        wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
+        wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
 
         avoidDistR = avoidDistR + avoidDistL
 
@@ -345,8 +347,8 @@ def writeOdometry(angle, distance,t):
     
 wiringpi.pinMode(LSS_Pin, 0)       # Set pin to 0 ( INPUT )
 wiringpi.pinMode(RSS_Pin, 0)       # Set pin to 0 ( INPUT )
-wiringpi.pinMode(RMot_Pin, 1)       # Set pin 6 to 1 ( OUTPUT )
-wiringpi.pinMode(LMot_Pin, 1)       # Set pin 7 to 1 ( OUTPUT )\
+wiringpi.pinMode(LMot_Pin, 1)       # Set pin 6 to 1 ( OUTPUT )
+wiringpi.pinMode(RMot_Pin, 1)       # Set pin 7 to 1 ( OUTPUT )\
 #while True:
 #    wiringpi.digitalWrite(testPin, 0)  # Write 1 ( HIGH ) to pin 6
 #test3()
