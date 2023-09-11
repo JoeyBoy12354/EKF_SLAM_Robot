@@ -350,9 +350,11 @@ wiringpi.pinMode(LMot_Pin, 1)       # Set pin 7 to 1 ( OUTPUT )\
 #    wiringpi.digitalWrite(testPin, 0)  # Write 1 ( HIGH ) to pin 6
 #test3()
 
-angle,distance = readInstructions()
+#angle,distance = readInstructions()
 # angle = PI/2
 # distance = 0
+angle = 0
+distance = 200
 angle,distance,t = motorControl(angle,distance)
 writeOdometry(angle,distance,t)
 # test3()
