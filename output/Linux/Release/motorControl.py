@@ -45,7 +45,7 @@ def motorControl(theta,distance):
     #Check for obstacles ahead
 
     #Check distance to obstacle
-    if(checkAvoidance()):
+    if(checkAvoidance(distance)):
         avoidedAngle = clockAvoidance(distance)
         angle = avoidedAngle + angle
     
