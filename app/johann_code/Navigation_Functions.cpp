@@ -7,7 +7,7 @@ using namespace Data_Functions;
 
 int noNavTrials = 0;
 vector<bool> LandmarksExplored;
-double foundRadius = 50;//Robot must be within Xmm of LM for LM to be considered Explored
+double foundRadius = 20;//Robot must be within Xmm of LM for LM to be considered Explored
 
 float theta;
 float dist;
