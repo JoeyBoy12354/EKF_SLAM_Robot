@@ -91,6 +91,8 @@ def animate(i):
     
 
     #plt.legend(loc='upper left')
+    plt.axes().set_facecolor("black")
+    
     plt.tight_layout()
 
 
