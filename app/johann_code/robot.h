@@ -77,7 +77,7 @@ namespace CSV_Functions{
 
     //Lines
     void writeLinesToCSV(const vector<Line>& lines);
-    void writeConsensusToCSV(const vector<Line>& lines)
+    void writeConsensusToCSV(const vector<Line>& lines);
 
     //Corners
     void writeCornersToCSV(const vector<CarPoint>& corners);
