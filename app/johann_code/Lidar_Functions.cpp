@@ -92,8 +92,8 @@ namespace Lidar_Functions{
 
         IChannel* _channel;
 
-        printf("Ultra simple LIDAR data grabber for SLAMTEC LIDAR.\n"
-            "Version: %s\n", "SL_LIDAR_SDK_VERSION");
+        // printf("Ultra simple LIDAR data grabber for SLAMTEC LIDAR.\n"
+        //     "Version: %s\n", "SL_LIDAR_SDK_VERSION");
 
         
         if (argc>1)
@@ -230,12 +230,12 @@ namespace Lidar_Functions{
             printf("%02X", devinfo.serialnum[pos]);
         }
 
-        printf("\n"
-                "Firmware Ver: %d.%02d\n"
-                "Hardware Rev: %d\n"
-                , devinfo.firmware_version>>8
-                , devinfo.firmware_version & 0xFF
-                , (int)devinfo.hardware_version);
+        // printf("\n"
+        //         "Firmware Ver: %d.%02d\n"
+        //         "Hardware Rev: %d\n"
+        //         , devinfo.firmware_version>>8
+        //         , devinfo.firmware_version & 0xFF
+        //         , (int)devinfo.hardware_version);
 
 
 

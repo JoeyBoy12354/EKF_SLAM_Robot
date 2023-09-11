@@ -24,6 +24,7 @@ r = 32.5 #radius of wheel [mm]
 
 #Avoidance
 clockAngleInit = 0.959931 #55 Degree inital rotation
+clockAngleStep = 0.261799 #15 Degree step rotation
 
 #Theta angle in radians, distance in mm
 def motorControl(theta,distance):
@@ -41,8 +42,10 @@ def motorControl(theta,distance):
     angle = getAngle(LNoRot,RNoRot)
 
 
+    #Check for obstacles ahead
+
     #Check distance to obstacle
-    if(sonarControl.runSonar() < distance):
+    if(checkAvoidance()):
         avoidedAngle = clockAvoidance(distance)
         angle = avoidedAngle + angle
     
@@ -169,6 +172,30 @@ def Avoidance(avoidDistL,avoidDistR):
         avoidDistR = avoidDistR + avoidDistL
 
     return avoidDistL,avoidDistR
+
+def checkAvoidance(distance):
+
+
+    totalAngle = 0
+
+    while(totalAngle<clockAngleInit):
+        #Turn Left
+        turnLeft(clockAngleStep)
+        totalAngle += clockAngleStep
+        if(sonarControl.runSonar() < distance):
+            return True
+        
+    turnRight(totalAngle)
+    totalAngle = 0
+
+    while(totalAngle<clockAngleInit):
+        #Turn Left
+        turnRight(clockAngleStep)
+        totalAngle += clockAngleStep
+        if(sonarControl.runSonar() < distance):
+            return True
+        
+    return False
 
 
 def clockAvoidance(distance):
