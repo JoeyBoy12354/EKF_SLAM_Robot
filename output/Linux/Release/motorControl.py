@@ -22,7 +22,7 @@ testPin2 = 26
 R = 142.5 #Distance between wheels [mm]
 r = 32.5 #radius of wheel [mm]
 clkID = 0
-avoidDist = 50 #Distance to move for avoidance [mm]
+avoidDist = 110 #Distance to move for avoidance [mm]
 
 #Theta angle in radians, distance in mm
 def motorControl(theta,distance):
@@ -70,6 +70,7 @@ def motorControl(theta,distance):
         print("OBSTACLE DETECTED IN PATH")
         avoidDistL,avoidDistR = Avoidance(avoidDistL,avoidDistR)
         obs_distance = sonarControl.runSonar()
+        print("\nAVOIDANCE ATTEMPT COMPLETED\n")
 
 
 
@@ -151,7 +152,7 @@ def Avoidance(avoidDistL,avoidDistR):
     #Check left
     obs_distance = sonarControl.runSonar()
     if(obs_distance<avoidDistL):
-        print("OBSTACLE DETECTED IN AVOID PATH")
+        print("\nOBSTACLE DETECTED IN AVOID PATH Left Turn")
         
         
         #Turn Right
