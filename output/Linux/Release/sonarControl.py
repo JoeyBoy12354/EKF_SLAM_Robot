@@ -53,10 +53,10 @@ def test2():
     start = time.time()
 
 
-    while wiringpi.digitalRead(echoPin) == 1:
+    while wiringpi.digitalRead(echoPin) == 0:
         start = time.time()
 
-    while wiringpi.digitalRead(echoPin) == 0:
+    while wiringpi.digitalRead(echoPin) == 1:
         stop = time.time()
 
     # Calculate pulse length
