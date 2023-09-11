@@ -2,6 +2,7 @@ import odroid_wiringpi as wiringpi
 import time
 from threading import Thread
 import csv
+import sonarControl
 
 # One of the following MUST be called before using IO functions:
 wiringpi.wiringPiSetup()      # For sequential pin numbering
@@ -21,6 +22,7 @@ testPin2 = 26
 R = 142.5 #Distance between wheels [mm]
 r = 32.5 #radius of wheel [mm]
 clkID = 0
+avoidDist = 50 #Distance to move for avoidance [mm]
 
 #Theta angle in radians, distance in mm
 def motorControl(theta,distance):
@@ -60,18 +62,30 @@ def motorControl(theta,distance):
     NoRotations = distance/(2*PI*r)
     W12_Ticks = NoRotations*20
 
+    #Check distance to obstacle
+    obs_distance = sonarControl.runSonar()
+    avoidDistL = avoidDist
+    avoidDistR = avoidDist
+    while(obs_distance<distance):
+        print("OBSTACLE DETECTED IN PATH")
+        avoidDistL,avoidDistR = Avoidance(avoidDistL,avoidDistR)
+        obs_distance = sonarControl.runSonar()
+
+
+
+
     wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
     wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 7
-    old_time = time.clock_gettime(clkID)
+    old_time = time.time()
     LNoRot,RNoRot = speedSensor(W12_Ticks)
-    t = time.clock_gettime(clkID)-old_time
+    elapsed = time.time() - old_time
     wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
     wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 7
 
     dist = getDist(LNoRot,RNoRot)
-    print("time = ",t)
+    print("time = ",elapsed)
     
-    return angle,dist,t
+    return angle,dist,elapsed
 
 def speedSensor(NoTicks):
     left_old = 0
@@ -123,17 +137,97 @@ def getDist(LNoRot,RNoRot):
 
     return distL
 
-def test():
-    print("TEST")
-    wiringpi.pinMode(testPin, 1)       # Set pin 6 to 1 ( OUTPUT )
-    while(True):
-        wiringpi.digitalWrite(testPin, 0)  # Write 1 ( Low ) to pin 6
-        print("LOW = ",wiringpi.digitalRead(testPin))
-        time.sleep(0.6)
-        wiringpi.digitalWrite(testPin, 1)  # Write 1 ( HIGH ) to pin 6
-        wiringpi.digitalRead(testPin)      # Read pin 6
-        print("HIGH = ",wiringpi.digitalRead(testPin),"\n")
-        time.sleep(0.1)
+def Avoidance(avoidDistL,avoidDistR):
+
+    #Turn Left
+    NoRotations = (R*PI/2)/(2*PI*r)
+    W1_Ticks = NoRotations*20
+
+    wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+    LNoRot,RNoRot = speedSensor(W1_Ticks)
+    wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
+
+
+    #Check left
+    obs_distance = sonarControl.runSonar()
+    if(obs_distance<avoidDistL):
+        print("OBSTACLE DETECTED IN AVOID PATH")
+        
+        
+        #Turn Right
+        NoRotations = (R*PI/2)/(2*PI*r)
+        W1_Ticks = NoRotations*20
+
+        wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+        LNoRot,RNoRot = speedSensor(W1_Ticks)
+        wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
+
+        #Check Right
+        obs_distance = sonarControl.runSonar()
+        if(obs_distance<avoidDistR):
+            print("OBSTACLE DETECTED AVOID, I AM BOXED IN !")
+        
+        # GO FORWARD AND REPOSITION
+        else:
+            #Forward Movement
+            NoRotations = avoidDistR/(2*PI*r)
+            W12_Ticks = NoRotations*20
+
+            wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+            wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 7
+            LNoRot,RNoRot = speedSensor(W12_Ticks)
+            wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
+            wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 7
+
+            #Face Back (Turn Left)
+            NoRotations = (R*PI/2)/(2*PI*r)
+            W1_Ticks = NoRotations*20
+
+            wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+            LNoRot,RNoRot = speedSensor(W1_Ticks)
+            wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
+            
+            avoidDistL = avoidDistL + avoidDistR
+
+    # GO FORWARD AND REPOSITION
+    else:
+        #Forward Movement
+        NoRotations = avoidDistL/(2*PI*r)
+        W12_Ticks = NoRotations*20
+
+        wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+        wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 7
+        LNoRot,RNoRot = speedSensor(W12_Ticks)
+        wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
+        wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 7
+
+        #Face Back (Turn Right)
+        NoRotations = (R*PI/2)/(2*PI*r)
+        W1_Ticks = NoRotations*20
+
+        wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+        LNoRot,RNoRot = speedSensor(W1_Ticks)
+        wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
+
+        avoidDistR = avoidDistR + avoidDistL
+
+    
+
+    return avoidDistL,avoidDistR
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
 
 def test2():
     print("TEST2")
@@ -208,21 +302,7 @@ def test3():
     
     time.sleep(0.5)
     
-def test4():
-    left_old = 0
-    left_new = 0
-    left_count = 0
-    right = 0
 
-    checked = False
-    while(True):
-        left_new = wiringpi.digitalRead(LSS_Pin )
-
-        if(left_old == 0 and left_new == 1):
-            left_count += 1
-            print("Left = ",left_count)
-
-        left_old = left_new
 
 def readInstructions():
     values = []

@@ -1,5 +1,6 @@
 import odroid_wiringpi as wiringpi
 import time
+import csv
 
 # One of the following MUST be called before using IO functions:
 wiringpi.wiringPiSetup()      # For sequential pin numbering
@@ -10,30 +11,9 @@ wiringpi.wiringPiSetup()      # For sequential pin numbering
 
 echoPin = 23
 trigPin = 27
-echoTime = 100
-count=0
 
-
-#all values used here I just made up except the 38 which has some merit
-def readSonar():
-    
-    #send out an echo
-    wiringpi.digitalWrite(trigPin, 1)
-    time.sleep(echoTime)
-
-    #Wait for reception
-    wiringpi.digitalWrite(trigPin, 0)
-    
-    count=0
-    curr_time = time.clock_gettime()
-    while(time.clock_gettime() - curr_time <= 38):
-        if(wiringpi.digitalRead(echoPin) == 1):
-            count+=1
-
-    #Use count to determine length
-    distance = count/20
-
-def test2():
+#returns distance to obstacle in cm
+def runSonar():
 
     print("Ultrasonic Measurement")
 
@@ -61,23 +41,36 @@ def test2():
 
     # Calculate pulse length
     elapsed = stop-start
-    print("Esapsed Time = ",elapsed)
 
     # Distance pulse travelled in that time is time
-    # multiplied by the speed of sound (cm/s) divided by 2
-    distance = elapsed * 17150
+    # multiplied by the speed of sound (cm/s) divided by 2. Then convert to mm
+    distance = (elapsed * 17150) * 10
 
     # That was the distance there and back so halve the value
     #distance = distance / 2
+
+
     
     #Rounding
     distance = round(distance,2)
 
-    print("Distance : %.1f" % distance," cm")
+    print("Distance : %.1f" % distance," mm")
+
+    writeOdometry(distance)
+    return distance
+
+def writeOdometry(distance):
+    
+
+    with open('sonarCSV.csv','w') as file:
+        csv_writer = csv.writer(file)
+        csv_writer.writerow(str(distance))
+
+    return
 
  
 
 
 wiringpi.pinMode(trigPin, 1)       # Set pin to 1 ( OUTPUT )
 wiringpi.pinMode(echoPin, 0)       # Set pin to 0 ( INPUT )
-test2()
+runSonar()
