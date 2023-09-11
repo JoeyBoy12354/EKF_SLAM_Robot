@@ -32,7 +32,7 @@ clockAngleStep = 0.261799 #15 Degree step rotation
 
 #Theta angle in radians, distance in mm
 def motorControl(theta,distance):
-    print("In motor Control")
+    print("in motor control")
     LNoRot=0
     RNoRot=0
     
