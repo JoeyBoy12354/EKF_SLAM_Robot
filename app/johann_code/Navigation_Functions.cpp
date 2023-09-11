@@ -83,9 +83,10 @@ namespace Navigation_Functions{
         theta = atan2(deltaY,deltaX) - State(2);
 
         //Ensure distance > 0 
-        if(dist<0):
+        if(dist<0){
             dist = 0;
-
+        }
+            
         // Normalize theta to the range [0, 2π]
         while (theta < -2 * PI ) {
             theta += 2 * PI;  // Add 2π until theta becomes more than -2π
