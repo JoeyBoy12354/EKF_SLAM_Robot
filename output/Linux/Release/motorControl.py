@@ -214,22 +214,26 @@ def Avoidance(avoidDistL,avoidDistR):
     return avoidDistL,avoidDistR
 
 def checkAvoidance(distance):
+    print("in checkAvoidance")
 
 
     totalAngle = 0
 
     while(totalAngle<clockAngleInit):
+        print("checkA: turnLeft")
         #Turn Left
         turnLeft(clockAngleStep)
         totalAngle += clockAngleStep
         if(sonarControl.runSonar() < distance):
             return True
-        
+    
+    print("checkA: revLeft")
     turnLeftR(totalAngle)
     totalAngle = 0
 
     while(totalAngle<clockAngleInit):
-        #Turn Left
+        print("checkA: turnRight")
+        #Turn Right
         turnRight(clockAngleStep)
         totalAngle += clockAngleStep
         if(sonarControl.runSonar() < distance):
@@ -240,6 +244,7 @@ def checkAvoidance(distance):
 
 
 def clockAvoidance(distance):
+    print("in clock avoidance")
 
     totalAngle = 0
     #Turn Left
@@ -247,17 +252,20 @@ def clockAvoidance(distance):
     totalAngle = clockAngleInit
 
     if(sonarControl.runSonar() < distance):
+        print("CA: revL,turnR")
         #Turn Right
         turnLeftR(clockAngleInit)
         turnRight(clockAngleInit)
         totalAngle = -clockAngleInit
 
         if(sonarControl.runSonar() < distance):
+            print("CA: turnR")
             #Turn Right
             turnRight(clockAngleInit)
             totalAngle = -clockAngleInit*2
             
             if(sonarControl.runSonar() < distance):
+                print("CA: revR*2,turnL*2")
                 #Turn Left
                 turnRightR(clockAngleInit*2)
                 turnLeft(clockAngleInit)

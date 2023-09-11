@@ -57,8 +57,8 @@ def rotate_point(x, y, angle):
 # Function to draw a rotated triangle
 def draw_rotated_triangle(ax, x, y, direction_angle):
     # Define the coordinates of the vertices of the triangle (Left Corner, Right Corner, Top Tip)
-    #triangle = np.array([[0.0, 0.0], [110, 0.0], [55, 100]]) #accurate
-    triangle = np.array([[0.0, 0.0], [330, 0.0], [165, 300]]) #scaled
+    triangle = np.array([[0.0, 0.0], [80, 0.0], [40, 100]]) #accurate
+    #triangle = np.array([[0.0, 0.0], [330, 0.0], [165, 300]]) #scaled
 
     # Rotate the triangle based on the direction angle
     rotated_triangle = np.array([rotate_point(x, y, direction_angle) for x, y in triangle])
@@ -85,7 +85,7 @@ def animate(i):
     plt.plot(x1, y1, 'o', label='Points',markersize=1,color='r')
     plt.plot(x2, y2, 'X', label='Landmarks', markersize=4,color='g')
     plt.plot(x3, y3, 'X', label='RNC_points', markersize=4,color='b')
-    plt.plot(x3, y3, 'o', label='Con_points', markersize=1,color='b')
+    plt.plot(x3, y3, 'o', label='Con_points', markersize=2,color='b')
     #fetchAndPlotLines()
     #plt.plot(x2, y2, 'X', label='RNC_lines', markersize=3,color='b')
     
