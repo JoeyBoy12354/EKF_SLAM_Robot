@@ -80,6 +80,7 @@ def animate(i):
     
 
     plt.cla() #Clear Axis (so that we don't keep the old plot we clear it and write again)
+    plt.axes().set_facecolor("black")
 
     draw_rotated_triangle(plt.gca(),position[0],position[1],position[2])
     plt.plot(x1, y1, 'o', label='Points',markersize=0.5,color='r')
@@ -91,7 +92,7 @@ def animate(i):
     
 
     #plt.legend(loc='upper left')
-    plt.axes().set_facecolor("black")
+    
     
     plt.tight_layout()
 
