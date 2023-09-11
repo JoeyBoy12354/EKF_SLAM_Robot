@@ -40,21 +40,15 @@ def motorControl(theta,distance):
 
     angle = getAngle(LNoRot,RNoRot)
 
-    
 
     #Check distance to obstacle
     if(sonarControl.runSonar() < distance):
-        avoidedAngle = clockAvoidance()
+        avoidedAngle = clockAvoidance(distance)
         angle = avoidedAngle + angle
     
 
-
-
     dist,elapsed = forward(distance)
 
-
-    
-    
     return angle,dist,elapsed
 
 
@@ -152,7 +146,7 @@ def getDist(LNoRot,RNoRot):
 
 
 
-
+#OLD AND NOT USED
 def Avoidance(avoidDistL,avoidDistR):
     print("\nOBSTACLE DETECTED Turn left!")
     turnLeft(PI/2)
@@ -181,11 +175,6 @@ def Avoidance(avoidDistL,avoidDistR):
         avoidDistR = avoidDistR + avoidDistL
 
     return avoidDistL,avoidDistR
-
-
-
-
-
 
 
 def clockAvoidance(distance):
