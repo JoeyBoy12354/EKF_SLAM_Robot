@@ -80,6 +80,14 @@ namespace Navigation_Functions{
         dist = deltaX*deltaX + deltaY*deltaY;
         dist = sqrt(dist);
         theta = atan2(deltaY,deltaX) - State(2);
+
+        // Normalize theta to the range [0, 2π]
+        while (theta < -2 * PI ) {
+            theta += 2 * PI;  // Add 2π until theta becomes more than -2π
+        }
+        while (theta >= 2 * PI) {
+            theta -= 2 * PI;  // Subtract 2π until theta becomes less than 2π
+        }
        
         
         return;
