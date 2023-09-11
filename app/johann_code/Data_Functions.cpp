@@ -55,6 +55,7 @@ namespace Data_Functions{
         cout<<"\n RANSAC\n"<<endl;
         vector<Line> detected_lines = RANSAC(carPoints);
         writeLinesToCSV(detected_lines);
+        writeConsensusToCSV(detected_lines);
         
 
         cout<<"\n findNearestPoints\n"<<endl;

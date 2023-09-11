@@ -7,6 +7,7 @@ string fullMapCSV = "fullMapCSV.csv";
 string motorCSV = "motorCSV.csv";
 string landmarkCSV = "landmarkCSV.csv";
 string positionCSV = "positionCSV.csv";
+string consensusCSV = "consensusCSV.csv";
 
 
 namespace CSV_Functions{
@@ -185,6 +186,26 @@ namespace CSV_Functions{
 
 
     //Line and Corner Functions
+    void writeConsensusToCSV(const vector<Line>& lines) {
+        ofstream csvFile(linesCSV);
+        if (!csvFile) {
+            cerr << "Error opening file: " << linesCSV << endl;
+            return;
+        }
+
+        // Write the lines' data to the CSV file
+        for (int i = 0; i < lines.size(); ++i) {
+            const Line& line = lines[i];
+            for (int j = 0;j<line.ConsensusPoints.size();j++){
+                csvFile << line.ConsensusPoints[j].x << ","
+                        << line.ConsensusPoints[j].y << endl;
+            }
+            
+        }
+
+        csvFile.close();
+    }
+
     void writeLinesToCSV(const vector<Line>& lines) {
         ofstream csvFile(linesCSV);
         if (!csvFile) {

@@ -48,6 +48,7 @@ def fetchAndPlotLines():
         plt.plot(x_values, y_values, color='b')
 
 
+
 def rotate_point(x, y, angle):
     x_rotated = x * np.cos(angle) - y * np.sin(angle)
     y_rotated = x * np.sin(angle) + y * np.cos(angle)
@@ -72,6 +73,7 @@ def animate(i):
     x1,y1=fetchCoord('fullMapCSV.csv')
     x2,y2=fetchCoord('landmarkCSV.csv')
     x3,y3=fetchCoord('cornersCSV.csv')
+    #x4,y4=fetchCoord('consensusCSV.csv')
     position = fetchRobot()
     print("POSITION = ",position)
 
@@ -83,7 +85,7 @@ def animate(i):
     plt.plot(x1, y1, 'o', label='Points',markersize=1,color='r')
     plt.plot(x2, y2, 'X', label='Landmarks', markersize=3,color='g')
     plt.plot(x3, y3, 'B', label='RNC_points', markersize=3,color='b')
-    fetchAndPlotLines()
+    #fetchAndPlotLines()
     #plt.plot(x2, y2, 'X', label='RNC_lines', markersize=3,color='b')
     
 

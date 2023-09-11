@@ -103,7 +103,7 @@ namespace Navigation_Functions{
     void randomExplore(){
         cout<<"Random Explore "<<endl;
         dist = rand() % 300;
-        theta = rand() % 300;
+        theta = rand() % 2*PI;
         
         
         return;
