@@ -73,7 +73,7 @@ def animate(i):
     x1,y1=fetchCoord('fullMapCSV.csv')
     x2,y2=fetchCoord('landmarkCSV.csv')
     x3,y3=fetchCoord('cornersCSV.csv')
-    #x4,y4=fetchCoord('consensusCSV.csv')
+    x4,y4=fetchCoord('consensusCSV.csv')
     position = fetchRobot()
     print("POSITION = ",position)
 
@@ -83,8 +83,8 @@ def animate(i):
 
     draw_rotated_triangle(plt.gca(),position[0],position[1],position[2])
     plt.plot(x1, y1, 'o', label='Points',markersize=1,color='r')
-    plt.plot(x2, y2, 'X', label='Landmarks', markersize=3,color='g')
-    plt.plot(x3, y3, 'B', label='RNC_points', markersize=3,color='b')
+    plt.plot(x2, y2, 'X', label='Landmarks', markersize=4,color='g')
+    plt.plot(x3, y3, 'X', label='RNC_points', markersize=4,color='b')
     #fetchAndPlotLines()
     #plt.plot(x2, y2, 'X', label='RNC_lines', markersize=3,color='b')
     
