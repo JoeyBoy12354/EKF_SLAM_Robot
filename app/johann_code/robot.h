@@ -96,6 +96,7 @@ namespace Data_Functions{
     int getIndex(vector<double> v, double K);
 
     //landmark
+    void lidarDataProcessingFull(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints, bool firstRun);
     void lidarDataProcessing(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints);
     void LandmarkProcessing();
     
@@ -130,7 +131,8 @@ namespace Lidar_Functions{
 }
 
 namespace Mapping_Functions{
-    void StoreMapAndStatePoints(vector<CarPoint> lidardata, Matrix<float, dim, 1> State);
+    void storeMapPoints(vector<CarPoint> lidardata);
+    void storeStatePoints(Matrix<float, dim, 1> State);
 }
 
 namespace Navigation_Functions{

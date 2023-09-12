@@ -43,13 +43,42 @@ namespace Data_Functions{
     
 
 
-    void lidarDataProcessing(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints){
+    void lidarDataProcessingFull(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints, bool firstRun){
         cout<<"\n lidarDataProcessing"<<endl;
 
         carPoints = convertCartesian(dataPoints);
         saveCarToCSV(carPoints);
         cout<<"\nNumber of CAR points"<<carPoints.size();
 
+        //Store Data for plotting
+        if(firstRun == true){
+            saveCarToFullMapCSV(carPoints);
+            firstRun = false;
+        }else{
+            storeMapPoints(carPoints);
+        }
+
+        readCarFromFullMapCSV(carPoints);
+
+        cout<<"\nRANSAC"<<endl;
+        vector<Line> detected_lines = RANSAC(carPoints);
+        writeLinesToCSV(detected_lines);
+        writeConsensusToCSV(detected_lines);
+        
+
+        vector<CarPoint> closestPoints = findNearestPoint(detected_lines);
+        writeCornersToCSV(closestPoints);
+        cout<<"\n Number of Closest Points Found:"<<closestPoints.size()<<endl;
+        
+     
+    }
+
+    void lidarDataProcessing(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints){
+        cout<<"\n lidarDataProcessing"<<endl;
+
+        carPoints = convertCartesian(dataPoints);
+        saveCarToCSV(carPoints);
+        cout<<"\nNumber of CAR points"<<carPoints.size(); 
 
         cout<<"\nRANSAC"<<endl;
         vector<Line> detected_lines = RANSAC(carPoints);

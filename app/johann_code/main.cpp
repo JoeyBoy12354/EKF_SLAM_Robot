@@ -117,7 +117,7 @@ void testMotor(){
 }
 
 
-
+//This process will only use the latest scan to update the EKF and RANSAC
 void fullRun(ExtendedKalmanFilter ekf,bool& mapped, bool& firstRun){
     
     
@@ -143,7 +143,8 @@ void fullRun(ExtendedKalmanFilter ekf,bool& mapped, bool& firstRun){
             saveCarToFullMapCSV(carPoints);
             firstRun = false;
         }else{
-            StoreMapAndStatePoints(carPoints,ekf.State);
+            storeMapPoints(carPoints);
+            storeStatePoints(ekf.State);
         }
             
 
@@ -161,6 +162,47 @@ void fullRun(ExtendedKalmanFilter ekf,bool& mapped, bool& firstRun){
     
 }
 
+
+
+//This process will use the full map with all historic values to update the EKF and RANSAC
+void fullRunfullLandmark(ExtendedKalmanFilter ekf,bool& mapped, bool& firstRun){
+    
+    
+    if(mapped==false){
+        //Run Lidar
+        vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
+        //runLidar(vector<PolPoint>& lidarDataPoints);
+        runLidar(lidarDataPoints);
+        
+
+        cout<<"Main: Lidar Run complete"<<endl;
+        
+
+        //Process Data
+        vector<CarPoint> carPoints;
+        lidarDataProcessingFull(lidarDataPoints,carPoints,firstRun);
+
+        //Run EKF
+        ekf.runEKF();
+
+        storeStatePoints(ekf.State);
+
+        //Complete Robot Movement
+        mapped = updateMovement(ekf.State);// Move the robot to the location
+        motorDataProcessing(ekf.w,ekf.v,ekf.t);//Send odometry to ekf
+
+        cout<<"Main: ekf.w = "<<ekf.w<<" ekf.v = "<<ekf.v<<" ekf.t = "<<ekf.t<<endl;
+        
+    }else{
+        cout<<"MAP COMPLETED !"<<endl;
+    }
+
+    cout<<"LEAVNG FULL RUN"<<endl;
+    
+}
+
+
+
 void testRun(){
     ExtendedKalmanFilter ekf;
     bool mapped = false;
@@ -169,7 +211,7 @@ void testRun(){
     for(int i =0;i<5;i++){
         cout<<"IN RUN LOOP: "<<i<<endl;
         cout<<"Mapped = "<<mapped<<endl;
-        fullRun(ekf,mapped,firstRun);
+        fullRunfullLandmark(ekf,mapped,firstRun);
     }
     
 }
@@ -191,6 +233,7 @@ int main() {
   
     return 0;
 }
+
 
 
 

@@ -7,13 +7,11 @@ using namespace Data_Functions;
 
 namespace Mapping_Functions{
 
-    void StoreMapAndStatePoints(vector<CarPoint> lidardata, Matrix<float, dim, 1> State){
+    //Build Full map, place it in csv
+    void storeMapPoints(vector<CarPoint> lidardata){
         float distance_threshold = 30;//If two points are greater than Xmm then keep this point.
 
         vector<CarPoint> oldmap;
-        vector<CarPoint> landmarks;
-        vector<float> position;
-
         readCarFromFullMapCSV(oldmap);//Fetch all current points
         
 
@@ -29,6 +27,16 @@ namespace Mapping_Functions{
             }
         }
     
+
+        //Update full map
+        appendCarToFullMapCSV(lidardata);
+        
+    }
+
+    void storeStatePoints(Matrix<float, dim, 1> State){
+        vector<CarPoint> landmarks;
+        vector<float> position;
+
         //Move Position into vector
         position.push_back(State[0]);
         position.push_back(State[1]);
@@ -43,10 +51,9 @@ namespace Mapping_Functions{
             landmarks.push_back(LM);
         }
 
-        //Update full map
-        appendCarToFullMapCSV(lidardata);
         saveLandmarkToCSV(landmarks);
         savePositionToCSV(position);
+
     }
 
     
