@@ -150,7 +150,7 @@ void fullRun(ExtendedKalmanFilter ekf,bool& mapped, bool& firstRun){
 
         //Complete Robot Movement
         mapped = updateMovement(ekf.State);// Move the robot to the location
-        motorDataProcessing(ekf.w,ekf.v,ekf.t);//Send odometry to ekf
+        motorDataProcessing(ekf.w,ekf.v,ekf.t,ekf.distance);//Send odometry to ekf
 
         cout<<"Main: ekf.w = "<<ekf.w<<" ekf.v = "<<ekf.v<<" ekf.t = "<<ekf.t<<endl;
         
