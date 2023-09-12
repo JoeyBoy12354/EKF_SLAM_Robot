@@ -453,6 +453,11 @@ wiringpi.pinMode(RMot_Pin, 1)       # Set pin 7 to 1 ( OUTPUT )
 wiringpi.pinMode(LMotR_Pin, 1)       # Set pin 6 to 1 ( OUTPUT )
 wiringpi.pinMode(RMotR_Pin, 1)       # Set pin 7 to 1 ( OUTPUT )
 
+wiringpi.digitalWrite(RMotR_Pin, 1)
+wiringpi.digitalWrite(RMot_Pin, 1) 
+wiringpi.digitalWrite(LMotR_Pin, 1)
+wiringpi.digitalWrite(LMot_Pin, 1)
+
 #while True:
 #    wiringpi.digitalWrite(testPin, 0)  # Write 1 ( HIGH ) to pin 6
 #test3()
