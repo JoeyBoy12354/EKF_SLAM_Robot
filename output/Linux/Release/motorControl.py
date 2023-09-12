@@ -373,6 +373,39 @@ def test3():
     
     time.sleep(0.5)
     
+def fuckthis():
+    print("IS 0/HIGH")
+    wiringpi.digitalWrite(RMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 7
+    time.sleep(1)
+    
+    print("IS 1/LOW")
+    wiringpi.digitalWrite(RMotR_Pin, 1) 
+    time.sleep(1)
+
+    print("IS 0/HIGH")
+    wiringpi.digitalWrite(RMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 7
+    time.sleep(1)
+    
+    print("IS 1/LOW")
+    wiringpi.digitalWrite(RMotR_Pin, 1) 
+    time.sleep(1)
+
+    print("IS 0/HIGH")
+    wiringpi.digitalWrite(RMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 7
+    time.sleep(1)
+    
+    print("IS 1/LOW")
+    wiringpi.digitalWrite(RMotR_Pin, 1) 
+    time.sleep(1)
+
+    print("IS 0/HIGH")
+    wiringpi.digitalWrite(RMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 7
+    time.sleep(1)
+    
+    print("IS 1/LOW")
+    wiringpi.digitalWrite(RMotR_Pin, 1) 
+    time.sleep(1)
+    
 
 
 def readInstructions():
