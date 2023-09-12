@@ -182,7 +182,7 @@ void fullRunfullLandmark(ExtendedKalmanFilter ekf,bool& mapped, bool& firstRun){
         vector<CarPoint> carPoints;
         lidarDataProcessingFull(lidarDataPoints,carPoints,firstRun);
 
-        //Run EKF
+        //Run EKF (Note this means that graph will updat i-1 robot positions)
         ekf.runEKF();
 
         storeStatePoints(ekf.State);
@@ -208,7 +208,7 @@ void testRun(){
     bool mapped = false;
     bool firstRun = true;
     
-    for(int i =0;i<1;i++){
+    for(int i =0;i<2;i++){
         cout<<"IN RUN LOOP: "<<i<<endl;
         cout<<"Mapped = "<<mapped<<endl;
         fullRunfullLandmark(ekf,mapped,firstRun);
