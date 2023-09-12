@@ -81,6 +81,7 @@ def turnRight(theta):
     return LNoRot,RNoRot
 
 def forward(distance):
+    print("FORWARD")
     #Forward Movement
     NoRotations = distance/(2*PI*r)
     W12_Ticks = NoRotations*20
@@ -373,39 +374,6 @@ def test3():
     
     time.sleep(0.5)
     
-def fuckthis():
-    print("IS 0/HIGH")
-    wiringpi.digitalWrite(RMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 7
-    time.sleep(1)
-    
-    print("IS 1/LOW")
-    wiringpi.digitalWrite(RMotR_Pin, 1) 
-    time.sleep(1)
-
-    print("IS 0/HIGH")
-    wiringpi.digitalWrite(RMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 7
-    time.sleep(1)
-    
-    print("IS 1/LOW")
-    wiringpi.digitalWrite(RMotR_Pin, 1) 
-    time.sleep(1)
-
-    print("IS 0/HIGH")
-    wiringpi.digitalWrite(RMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 7
-    time.sleep(1)
-    
-    print("IS 1/LOW")
-    wiringpi.digitalWrite(RMotR_Pin, 1) 
-    time.sleep(1)
-
-    print("IS 0/HIGH")
-    wiringpi.digitalWrite(RMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 7
-    time.sleep(1)
-    
-    print("IS 1/LOW")
-    wiringpi.digitalWrite(RMotR_Pin, 1) 
-    time.sleep(1)
-    
 
 
 def readInstructions():
@@ -462,14 +430,13 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 #    wiringpi.digitalWrite(testPin, 0)  # Write 1 ( HIGH ) to pin 6
 #test3()
 
-# angle,distance = readInstructions()
-angle = PI/2
-distance = 200
+angle,distance = readInstructions()
+# angle = PI/2
+# distance = 200
 angle,distance,t = motorControl(angle,distance)
 # writeOdometry(angle,distance,t)
 # test3()
 
-#fuckthis()
 
 
 
