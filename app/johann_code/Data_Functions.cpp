@@ -117,7 +117,7 @@ namespace Data_Functions{
     }
 
     //This function will take the inputed values and set the EKF
-    void motorDataProcessing(float& ekf_w,float& ekf_v,float& ekf_t){
+    void motorDataProcessing(float& ekf_w,float& ekf_v,float& ekf_t,float&ekf_dist){
         //cout<<"Process motor Data"<<endl;
         float theta;
         float dist;
@@ -131,6 +131,7 @@ namespace Data_Functions{
         ekf_w = theta;
         ekf_v = dist/time;
         ekf_t = time;
+        ekf_dist = dist;
 
     }
 

@@ -101,7 +101,7 @@ namespace Data_Functions{
     void LandmarkProcessing();
     
     //motor
-    void motorDataProcessing(float& ekf_w,float& ekf_v,float& ekf_t);
+    void motorDataProcessing(float& ekf_w,float& ekf_v,float& ekf_t,float&ekf_dist);
 }
 
 namespace Landmark_Functions{
@@ -159,6 +159,7 @@ public:
     float v = 0;
     float w = 0;
     float t = 0;
+    float distance = 0;
     Matrix<float, dim, 1> State;
     
     
