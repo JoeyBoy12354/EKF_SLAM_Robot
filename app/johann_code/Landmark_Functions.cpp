@@ -224,7 +224,7 @@ namespace Landmark_Functions{
         int totalLinepoints = laserdata.size();
         
         //const int MAXTRIALS = 50000;//Max Times to run algorithm (pre-physical runs)
-        const int MAXTRIALS = 10000;//Max Times to run algorithm
+        const int MAXTRIALS = 8000;//Max Times to run algorithm
         const int MAXSAMPLE = 10;//Randomly selects X points
         //const int MINLINEPOINTS = 30;//If less than 40 points left don't bother trying to find consensous
         //const double RANSAC_TOLERANCE = 0.05; //RANSAC: if point is within x distance of line its part of line
