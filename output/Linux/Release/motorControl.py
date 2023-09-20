@@ -370,6 +370,7 @@ def testAngles():
     print("BEGIN TESTING ANGLES")
 
     angles = [PI/8,PI/4,PI/2,PI]
+    angles = angles + angles
     waitTime = 10 #In seconds
 
     LNoRot=0
