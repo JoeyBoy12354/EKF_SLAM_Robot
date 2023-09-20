@@ -400,11 +400,11 @@ def testAngles():
 
         #Return to position
         #Left Turn
-        if(theta<0):
+        if(theta>0):
             print("reverse turn Right")
             LNoRot,RNoRot = turnLeftR(theta)
         #Right Turn
-        elif(theta>0):
+        elif(theta<0):
             print("reverse turn Left")
             LNoRot,RNoRot = turnRightR(theta)
 
