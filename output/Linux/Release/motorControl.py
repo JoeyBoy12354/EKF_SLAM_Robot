@@ -447,12 +447,13 @@ def testAngles():
 def testDistances():
     print("BEGIN TESTING DISTANCES")
 
-    distances = [10,15,25,50] #cm
-    waitTime = 10 #In seconds
+    distances = [10,15,25,50,90] #cm
+    waitTime = 4 #In seconds
 
     
     for i in range(0,len(distances)):
         dist_F,elapsed = forward(distances[i])
+        time.sleep(waitTime)
         dist_R,elapsed = reverse(distances[i])
 
         #Print Results
