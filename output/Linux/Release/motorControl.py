@@ -492,7 +492,7 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 # testWheels()
 
 #testAngles()
-forward_slow()
+forward_slow(50)
 
 
 
