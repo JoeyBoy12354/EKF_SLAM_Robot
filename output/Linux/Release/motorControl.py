@@ -460,7 +460,7 @@ def testDistances():
         print("Dist_R = ",round(dist_R,2)," cm")
 
         #Print Results
-        print("Set:",round(distances[i],2)," Dist_F:",round(dist_F,2),", Dist_R:",round(dist_R,2))
+        print("Set:",round(distances[i],2)," Dist_F:",round(dist_F,2),", Dist_R:",round(dist_R,2),"\n")
         time.sleep(waitTime)
 
         
