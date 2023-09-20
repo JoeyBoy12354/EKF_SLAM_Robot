@@ -371,7 +371,7 @@ def testAngles():
 
     angles = [PI/8,PI/4,PI/2,PI]
     angles = angles + angles
-    waitTime = 3 #In seconds
+    waitTime = 6 #In seconds
 
     LNoRot=0
     RNoRot=0
@@ -385,24 +385,27 @@ def testAngles():
         else:
             theta = angles[i]
 
-        print("forward Turn")
         #Left Turn
         if(theta>0):
+            print("forward Turn Left")
             LNoRot,RNoRot = turnLeft(theta)
         #Right Turn
         elif(theta<0):
+            print("forward Turn Right")
             LNoRot,RNoRot = turnRight(theta)
 
         measAngle_F = getAngle(LNoRot,RNoRot)
         time.sleep(waitTime)
-        print("reverse turn")
+        
 
         #Return to position
         #Left Turn
         if(theta<0):
+            print("reverse turn Right")
             LNoRot,RNoRot = turnLeftR(theta)
         #Right Turn
         elif(theta>0):
+            print("reverse turn Left")
             LNoRot,RNoRot = turnRightR(theta)
 
         measAngle_R = getAngle(LNoRot,RNoRot)
