@@ -448,7 +448,7 @@ def testAngles():
 def testDistances():
     print("BEGIN TESTING DISTANCES")
 
-    distances = [10,15,25,50,90] #cm
+    distances = [30,30,30,30,30] #cm
     waitTime = 4 #In seconds
 
     
