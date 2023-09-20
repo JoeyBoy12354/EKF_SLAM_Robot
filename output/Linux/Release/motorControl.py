@@ -101,6 +101,7 @@ def turnRightR(theta):
     return LNoRot,RNoRot
 
 def reverse(distance):
+    print("REVERSE")
     #Forward Movement
     NoRotations = distance/(2*PI*r)
     W12_Ticks = NoRotations*20
@@ -196,7 +197,7 @@ def getDist(LNoRot,RNoRot):
     #Determine actual distance
     distL = LNoRot*2*PI*r
     distR = RNoRot*2*PI*r
-    print("DistCheck = left - right = ",distL," - ",distR," = ",distL-distR," (should be 0)")
+    #print("DistCheck = left - right = ",distL," - ",distR," = ",distL-distR," (should be 0)")
 
     return distL
 
@@ -453,8 +454,10 @@ def testDistances():
     
     for i in range(0,len(distances)):
         dist_F,elapsed = forward(distances[i])
+        print("Dist_F = ",round(dist_F,2)," cm")
         time.sleep(waitTime)
         dist_R,elapsed = reverse(distances[i])
+        print("Dist_R = ",round(dist_R,2)," cm")
 
         #Print Results
         print("Set:",round(distances[i],2)," Dist_F:",round(dist_F,2),", Dist_R:",round(dist_R,2))
