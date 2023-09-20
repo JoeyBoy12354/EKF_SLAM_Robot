@@ -404,14 +404,14 @@ def testAngles():
         #Return to position
         #Left Turn
         if(theta>0):
-            print("reverse turn Right")
+            print("reverse turn Left")
             LNoRot,RNoRot = turnLeftR(theta)
             measAngle_R = (LNoRot*2*PI*r/R)
         #Right Turn
         elif(theta<0):
-            print("reverse turn Left")
+            print("reverse turn Right")
             LNoRot,RNoRot = turnRightR(theta)
-            measAngle_R = (LNoRot*2*PI*r/R)
+            measAngle_R = (RNoRot*2*PI*r/R)
 
         #measAngle_R = getAngle(LNoRot,RNoRot)
         time.sleep(waitTime)
