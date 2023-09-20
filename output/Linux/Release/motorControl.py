@@ -491,7 +491,8 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 # writeOdometry(angle,distance,t)
 # testWheels()
 
-testAngles()
+#testAngles()
+forward_slow()
 
 
 
