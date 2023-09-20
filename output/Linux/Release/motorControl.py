@@ -80,24 +80,6 @@ def turnRight(theta):
 
     return LNoRot,RNoRot
 
-def forward(distance):
-    print("FORWARD")
-    #Forward Movement
-    NoRotations = distance/(2*PI*r)
-    W12_Ticks = NoRotations*20
-
-    wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
-    wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 7
-    old_time = time.time()
-    LNoRot,RNoRot = speedSensor(W12_Ticks)
-    elapsed = time.time() - old_time
-    wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
-    wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 7
-
-    dist = getDist(LNoRot,RNoRot)
-
-    return dist,elapsed
-
 def turnLeftR(theta):
     NoRotations = (R*theta)/(2*PI*r)
     W1_Ticks = NoRotations*20
@@ -130,6 +112,24 @@ def reverse(distance):
     elapsed = time.time() - old_time
     wiringpi.digitalWrite(LMotR_Pin, 1)  # Write 0 ( LOW ) to pin 6
     wiringpi.digitalWrite(RMotR_Pin, 1)  # Write 0 ( LOW ) to pin 7
+
+    dist = getDist(LNoRot,RNoRot)
+
+    return dist,elapsed
+
+def forward(distance):
+    print("FORWARD")
+    #Forward Movement
+    NoRotations = distance/(2*PI*r)
+    W12_Ticks = NoRotations*20
+
+    wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+    wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 7
+    old_time = time.time()
+    LNoRot,RNoRot = speedSensor(W12_Ticks)
+    elapsed = time.time() - old_time
+    wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
+    wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 7
 
     dist = getDist(LNoRot,RNoRot)
 
@@ -215,6 +215,7 @@ def Avoidance(avoidDistL,avoidDistR):
 
     return avoidDistL,avoidDistR
 
+
 def checkAvoidance(distance):
     print("\nin checkAvoidance")
 
@@ -246,7 +247,6 @@ def checkAvoidance(distance):
     
         
     return False
-
 
 def clockAvoidance(distance):
     print("\nin clock avoidance")
@@ -286,50 +286,42 @@ def clockAvoidance(distance):
     
     return totalAngle
 
+
+def readInstructions():
+    values = []
+    with open('motorCSV.csv','r') as file:
+        csv_reader = csv.reader(file)
+        for row in csv_reader:
+            values.append(float(row[0]))
     
+    return values[0],values[1]
+
+def writeOdometry(angle, distance,t):
+    existingData = []
+    with open('motorCSV.csv','r',newline='') as file:
+        csv_reader = csv.reader(file)
+        for row in csv_reader:
+            existingData.append(row[0])
+
+    if(len(existingData)<=2):
+        existingData.append(angle)
+        existingData.append(distance)
+        existingData.append(t)
+    else:
+        existingData[2] = angle
+        existingData[3] = distance
+        existingData[4] = t
+
+    with open('motorCSV.csv','w') as file:
+        csv_writer = csv.writer(file)
+        for row in existingData:
+            csv_writer.writerow([str(row)])
+
+    return
 
 
 
-
-
-
-
-
-
-    
-
-
-
-
-def test2():
-    print("TEST2")
-    wiringpi.pinMode(testPin, 1)       # Set pin 6 to 1 ( OUTPUT )
-    wiringpi.pinMode(testPin2, 1)       # Set pin 6 to 1 ( OUTPUT )
-    wiringpi.digitalWrite(testPin, 1)  # Write 1 ( Low ) to pin 6
-    wiringpi.digitalWrite(testPin2, 1)  # Write 1 ( Low ) to pin 6
-    
-    for i in range(0,4):
-        wiringpi.digitalWrite(testPin, 0)  # Write 1 ( Low ) to pin 6
-        #wiringpi.digitalWrite(testPin2, 0)  # Write 1 ( Low ) to pin 6
-        print("LOW = ",wiringpi.digitalRead(testPin))
-        time.sleep(0.6)
-        wiringpi.digitalWrite(testPin, 1)  # Write 1 ( HIGH ) to pin 6
-        #wiringpi.digitalWrite(testPin2, 0)  # Write 1 ( Low ) to pin 6
-        wiringpi.digitalRead(testPin)      # Read pin 6
-        print("HIGH = ",wiringpi.digitalRead(testPin),"\n")
-        time.sleep(0.1)
-
-    while(True):
-        wiringpi.digitalWrite(testPin, 1)  # Write 1 ( Low ) to pin 6
-        #wiringpi.digitalWrite(testPin2, 1)  # Write 1 ( Low ) to pin 6
-        print("LOW = ",wiringpi.digitalRead(testPin))
-        print("LOW = ",wiringpi.digitalRead(testPin2))
-        time.sleep(0.6)
-        wiringpi.digitalWrite(testPin, 1)  # Write 1 ( Low ) to pin 6
-        #wiringpi.digitalWrite(testPin2, 1)  # Write 1 ( Low ) to pin 6
-        time.sleep(0.6)
-
-def test3():
+def testWheels():
     print("TEST")
     wiringpi.pinMode(testPin, 1)       # Set pin 6 to 1 ( OUTPUT )
     wiringpi.pinMode(testPin2, 1)       # Set pin 6 to 1 ( OUTPUT )
@@ -374,41 +366,71 @@ def test3():
     
     time.sleep(0.5)
     
+def testAngles():
+    print("BEGIN TESTING ANGLES")
 
+    angles = [PI/8,PI/4,PI/2,PI]
+    waitTime = 10 #In seconds
 
-def readInstructions():
-    values = []
-    with open('motorCSV.csv','r') as file:
-        csv_reader = csv.reader(file)
-        for row in csv_reader:
-            values.append(float(row[0]))
+    LNoRot=0
+    RNoRot=0
+
+    measAngle_F = 0
+    measAngle_R = 0
     
-    return values[0],values[1]
+    for i in range(0,len(angles)*2):
+        if(i>=len(angles)):
+            theta = -1*angles[i]
+        else:
+            theta = angles[i]
 
-def writeOdometry(angle, distance,t):
-    existingData = []
-    with open('motorCSV.csv','r',newline='') as file:
-        csv_reader = csv.reader(file)
-        for row in csv_reader:
-            existingData.append(row[0])
+        #Left Turn
+        if(theta>0):
+            LNoRot,RNoRot = turnLeft(theta)
+        #Right Turn
+        elif(theta<0):
+            LNoRot,RNoRot = turnRight(theta)
 
-    if(len(existingData)<=2):
-        existingData.append(angle)
-        existingData.append(distance)
-        existingData.append(t)
-    else:
-        existingData[2] = angle
-        existingData[3] = distance
-        existingData[4] = t
+        measAngle_F = getAngle(LNoRot,RNoRot)
 
-    with open('motorCSV.csv','w') as file:
-        csv_writer = csv.writer(file)
-        for row in existingData:
-            csv_writer.writerow([str(row)])
+        #Return to position
+        #Left Turn
+        if(theta<0):
+            LNoRot,RNoRot = turnLeftR(theta)
+        #Right Turn
+        elif(theta>0):
+            LNoRot,RNoRot = turnRightR(theta)
 
-    return
+        measAngle_R = getAngle(LNoRot,RNoRot)
+
+        #Print Results
+        if(theta>0):
+            print("Left Turn: Set:",round(theta*180/PI,2)," Angle_F:",round(measAngle_F*180/PI,2),", Angle_R:",round(measAngle_R*180/PI,2))
+        else(theta<0):
+            print("Right Turn: Set:",round(theta*180/PI,2)," Angle_F:",round(measAngle_F*180/PI,2),", Angle_R:",round(measAngle_R*180/PI,2))
+
+        time.sleep(waitTime)
+
+def testDistances():
+    print("BEGIN TESTING DISTANCES")
+
+    distances = [10,15,25,50] #cm
+    waitTime = 10 #In seconds
+
+    
+    for i in range(0,len(distances)):
+        dist_F,elapsed = forward(distances[i])
+        dist_R,elapsed = reverse(distances[i])
+
+        #Print Results
+        print("Set:",round(distances[i],2)," Dist_F:",round(dist_F,2),", Dist_R:",round(dist_R,2))
+        time.sleep(waitTime)
+
+        
 
 
+    
+    
         
 
 
@@ -430,12 +452,14 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 #    wiringpi.digitalWrite(testPin, 0)  # Write 1 ( HIGH ) to pin 6
 #test3()
 
-angle,distance = readInstructions()
+#angle,distance = readInstructions()
 # angle = PI/2
 # distance = 200
-angle,distance,t = motorControl(angle,distance)
+#angle,distance,t = motorControl(angle,distance)
 # writeOdometry(angle,distance,t)
-# test3()
+# testWheels()
+
+testAngles()
 
 
 
