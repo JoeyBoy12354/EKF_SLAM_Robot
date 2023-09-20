@@ -135,6 +135,23 @@ def forward(distance):
 
     return dist,elapsed
 
+def forward_slow(distance):
+    print("FORWARD_SLOW")
+    #Forward Movement
+    NoRotations = distance/(2*PI*r)
+    W12_Ticks = NoRotations*20
+
+    for i in range(0,10):
+        wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+        wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 7
+        time.sleep(0.1)
+        wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
+        wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 7
+
+
+
+    return
+
 
 
 def speedSensor(NoTicks):
