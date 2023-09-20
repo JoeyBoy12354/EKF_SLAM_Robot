@@ -406,9 +406,9 @@ def testAngles():
 
         #Print Results
         if(theta>0):
-            print("Left Turn: Set:",round(theta*180/PI,2)," Angle_F:",round(measAngle_F*180/PI,2),", Angle_R:",round(measAngle_R*180/PI,2))
+            print("Left Turn: Set:",round(theta*180/PI,2)," Angle_F:",round(measAngle_F*180/PI,2),", Angle_R:",round(measAngle_R*180/PI,2),"\n")
         elif(theta<0):
-            print("Right Turn: Set:",round(theta*180/PI,2)," Angle_F:",round(measAngle_F*180/PI,2),", Angle_R:",round(measAngle_R*180/PI,2))
+            print("Right Turn: Set:",round(theta*180/PI,2)," Angle_F:",round(measAngle_F*180/PI,2),", Angle_R:",round(measAngle_R*180/PI,2),"\n")
 
         time.sleep(waitTime)
 
