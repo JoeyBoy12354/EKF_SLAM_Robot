@@ -1,6 +1,6 @@
 import odroid_wiringpi as wiringpi
 import time
-from threading import Thread
+import threading
 import csv
 import sonarControl
 
@@ -29,6 +29,8 @@ r = 32.5 #radius of wheel [mm]
 #Avoidance
 clockAngleInit = 0.959931 #55 Degree inital rotation
 clockAngleStep = 0.261799 #15 Degree step rotation
+
+runDone = False
 
 #Theta angle in radians, distance in mm
 def motorControl(theta,distance):
@@ -136,19 +138,61 @@ def forward(distance):
 
     return dist,elapsed
 
-def forward_slow(distance):
-    print("FORWARD_SLOW")
-    #Forward Movement
-    NoRotations = distance/(2*PI*r)
-    W12_Ticks = NoRotations*20
+def testThread(distance):
 
-    for i in range(0,100):
+    NoRotations = distance/(2*PI*r)
+    NoTicks = NoRotations*20
+    
+    
+    left_old = 0
+    left_new = 0
+    left_count = 0
+
+    right_old = 0
+    right_new = 0
+    right_count = 0
+
+    runDone = False
+    # Define the specific data you want to pass to the thread
+    thread_data = 0.01
+    # Create a thread and pass the data as an argument
+    thread = threading.Thread(target=forward_thread, args=(thread_data,))
+    thread.start()
+
+    while(left_count<=NoTicks and right_count<=NoTicks):
+        left_new = wiringpi.digitalRead(LSS_Pin)
+        right_new = wiringpi.digitalRead(RSS_Pin)
+
+        if(left_old == 0 and left_new == 1):
+            left_count += 1
+        
+        if(right_old == 0 and right_new == 1):
+            right_count += 1
+        left_old = left_new
+        right_old = right_new
+
+    runDone = True
+    thread.join()
+    
+    left = left_count/20
+    right = right_count/20
+
+    
+    
+
+    return left,right
+
+def forward_thread(speed):
+    print("FORWARD_Thread")
+    #Forward Movement
+
+    while(runDone == False):
         wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
         wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 7
-        time.sleep(0.01)
+        time.sleep(speed)
         wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
         wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 7
-        time.sleep(0.01)
+        time.sleep(speed)
 
 
 
@@ -180,6 +224,7 @@ def speedSensor(NoTicks):
     left = left_count/20
     right = right_count/20
 
+    
     
 
     return left,right
@@ -497,8 +542,8 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 # testWheels()
 
 #testAngles()
-testDistances()
-#forward_slow(50)
+#testDistances()
+testThread(200)
 
 
 
