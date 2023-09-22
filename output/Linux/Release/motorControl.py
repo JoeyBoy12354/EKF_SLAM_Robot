@@ -28,6 +28,7 @@ r = 32.5 #radius of wheel [mm]
 
 #Avoidance
 clockAngleInit = 0.959931 #55 Degree inital rotation
+clockAngleInit = 0.513599 #? Degree inital rotation
 clockAngleStep = 0.261799 #15 Degree step rotation
 
 runDone = False
