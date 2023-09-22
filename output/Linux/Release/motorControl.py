@@ -543,7 +543,8 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 
 #testAngles()
 #testDistances()
-testThread(200)
+testWheels()
+#testThread(200)
 
 
 
