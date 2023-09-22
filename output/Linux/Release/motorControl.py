@@ -156,7 +156,7 @@ def testThread(distance):
     right_count = 0
 
     runDone = False
-    print("Main: runDone = ",runDone)
+    print("Main: runDone = ",runDone," NoTicks = ",NoTicks)
     # Define the specific data you want to pass to the thread
     thread_data = 0.01
     # Create a thread and pass the data as an argument
