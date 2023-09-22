@@ -143,6 +143,7 @@ def forward(distance):
 
 
 def testThread(distance):
+    global runDone
 
     NoRotations = distance/(2*PI*r)
     NoTicks = NoRotations*20
@@ -175,6 +176,7 @@ def testThread(distance):
         left_old = left_new
         right_old = right_new
 
+    print("set RunDone True")
     runDone = True
     thread.join()
     
