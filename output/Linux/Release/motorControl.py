@@ -60,6 +60,7 @@ def motorControl_wThread(theta,distance):
     print("Gonna check Avoidance")
     #Check distance to obstacle
     if(checkAvoidance_wThread(distance,backangle)):
+        print("\n CLOCK AVOIDANCE!!!!! \n")
         avoidedAngle = clockAvoidance_wThread(distance,backangle)
         angle = avoidedAngle + angle
         distance = distance/2
