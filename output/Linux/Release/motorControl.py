@@ -33,47 +33,19 @@ clockAngleStep = 0.261799 #15 Degree step rotation
 runDone = False
 sonarFlag = False
 sonarOn = False
+wait = 0.2
 
-#Theta angle in radians, distance in mm
-def motorControl(theta,distance):
-    print("in motor control")
-    LNoRot=0
-    RNoRot=0
-    
-    #Rotation Movement
-    #Left Turn
-    if(theta>0):
-        LNoRot,RNoRot = turnLeft(theta)
-    #Right Turn
-    elif(theta<0):
-        LNoRot,RNoRot = turnRight(theta)
-
-    angle = getAngle(LNoRot,RNoRot)
-
-
-    #Check for obstacles ahead
-    print("Gonna check Avoidance")
-    #Check distance to obstacle
-    if(checkAvoidance(distance)):
-        avoidedAngle = clockAvoidance(distance)
-        angle = avoidedAngle + angle
-    
-
-    dist,elapsed = forward(distance)
-
-    return angle,dist,elapsed
 
 def motorControl_wThread(theta,distance):
     print("in motor control")
     LNoRot=0
     RNoRot=0
 
-    wait = 5
     backangle = 0.20944 #re-adjust swivel
     fullTurn = theta + backangle
 
     #Do turn
-    LNoRot,RNoRot  = speedControl(theta,0,True)
+    LNoRot,RNoRot  = speedControl(fullTurn,0,True)
 
     #Straighten
     if(theta>0):
@@ -87,8 +59,8 @@ def motorControl_wThread(theta,distance):
     #Check for obstacles ahead
     print("Gonna check Avoidance")
     #Check distance to obstacle
-    if(checkAvoidance(distance)):
-        avoidedAngle = clockAvoidance_wThread(distance)
+    if(checkAvoidance_wThread(distance,backangle)):
+        avoidedAngle = clockAvoidance_wThread(distance,backangle)
         angle = avoidedAngle + angle
     
 
@@ -272,7 +244,6 @@ def speedControl(theta,distance,direction):
     sonar_dist = 50
     sonar_thread = threading.Thread(target=sonarScan, args=(sonar_dist,))
     
-
     #SET THREAD AND DIRECTION
     if(theta == 0):
         NoRotations = distance/(2*PI*r) #STRAIGHT
@@ -328,6 +299,8 @@ def speedControl(theta,distance,direction):
     
     left = left_count/20
     right = right_count/20
+
+    time.sleep(wait)
 
     return left,right
 
@@ -410,7 +383,8 @@ def Avoidance(avoidDistL,avoidDistR):
 
     return avoidDistL,avoidDistR
 
-def checkAvoidance(distance):
+
+def checkAvoidance_wThread(distance,backangle):
     print("\nin checkAvoidance")
 
 
@@ -418,69 +392,34 @@ def checkAvoidance(distance):
 
     while(totalAngle<clockAngleInit):
         print("checkA: turnLeft")
-        time.sleep(1)
         #Turn Left
-        turnLeft(clockAngleStep)
+        speedControl(clockAngleStep,0,True)
+
         totalAngle += clockAngleStep
         if(sonarControl.runSonar() < distance):
             return True
     
     print("checkA: revLeft")
-    time.sleep(1)
-    turnLeftR(totalAngle)
+    speedControl(totalAngle,0,False)
     totalAngle = 0
 
     while(totalAngle<clockAngleInit):
         print("checkA: turnRight")
-        time.sleep(1)
         #Turn Right
-        turnRight(clockAngleStep)
+        speedControl(-1*clockAngleStep,0,True)
         totalAngle += clockAngleStep
         if(sonarControl.runSonar() < distance):
             return True
     
+    print("checkA: revRight")
+    speedControl(-1*totalAngle,0,True)
+    totalAngle = 0
         
+    speedControl(backangle,0,True)
+    
     return False
 
-def clockAvoidance(distance):
-    print("\nin clock avoidance")
-    time.sleep(1)
-
-    totalAngle = 0
-    #Turn Left
-    turnLeft(clockAngleInit)
-    totalAngle = clockAngleInit
-
-    if(sonarControl.runSonar() < distance):
-        print("CA: revL,turnR")
-        time.sleep(1)
-        #Turn Right
-        turnLeftR(clockAngleInit)
-        turnRight(clockAngleInit)
-        totalAngle = -clockAngleInit
-
-        if(sonarControl.runSonar() < distance):
-            print("CA: turnR")
-            time.sleep(1)
-            #Turn Right
-            turnRight(clockAngleInit)
-            totalAngle = -clockAngleInit*2
-            
-            if(sonarControl.runSonar() < distance):
-                print("CA: revR*2,turnL*2")
-                time.sleep(1)
-                #Turn Left
-                turnRightR(clockAngleInit*2)
-                turnLeft(clockAngleInit)
-                totalAngle = clockAngleInit*2
-        
-
-
-
-    
-    return totalAngle
-
-def clockAvoidance_wThread(distance):
+def clockAvoidance_wThread(distance,backangle):
     print("\nin clock avoidance")
     time.sleep(1)
 
@@ -522,6 +461,11 @@ def clockAvoidance_wThread(distance):
                 totalAngle = clockAngleInit*2
         
 
+    #Straighten
+    if(totalAngle>0):
+        speedControl(-1*backangle,0,True)
+    else:
+        speedControl(backangle,0,True)
 
 
     
