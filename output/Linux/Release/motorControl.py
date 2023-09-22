@@ -156,6 +156,7 @@ def testThread(distance):
     right_count = 0
 
     runDone = False
+    print("Main: runDone = ",runDone)
     # Define the specific data you want to pass to the thread
     thread_data = 0.01
     # Create a thread and pass the data as an argument
@@ -189,6 +190,7 @@ def testThread(distance):
 
 def forward_thread(speed):
     print("FORWARD_Thread")
+    global runDone
     #Forward Movement
 
     while(runDone == False):
