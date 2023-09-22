@@ -141,6 +141,52 @@ def forward(distance):
 
 
 
+
+def testThread(distance):
+
+    NoRotations = distance/(2*PI*r)
+    NoTicks = NoRotations*20
+    
+    left_old = 0
+    left_new = 0
+    left_count = 0
+
+    right_old = 0
+    right_new = 0
+    right_count = 0
+
+    runDone = False
+    # Define the specific data you want to pass to the thread
+    thread_data = 0.01
+    # Create a thread and pass the data as an argument
+    thread = threading.Thread(target=forward_thread, args=(thread_data,))
+    thread.start()
+
+    while(left_count<=NoTicks and right_count<=NoTicks):
+        left_new = wiringpi.digitalRead(LSS_Pin)
+        right_new = wiringpi.digitalRead(RSS_Pin)
+
+        if(left_old == 0 and left_new == 1):
+            left_count += 1
+        
+        if(right_old == 0 and right_new == 1):
+            right_count += 1
+        left_old = left_new
+        right_old = right_new
+
+    runDone = True
+    thread.join()
+    
+    left = left_count/20
+    right = right_count/20
+
+    
+    
+
+    return left,right
+
+
+
 def forward_thread(speed):
     print("FORWARD_Thread")
     #Forward Movement
@@ -712,48 +758,6 @@ def testDistances():
         print("Set:",round(distances[i],2)," Dist_F:",round(dist_F,2),", Dist_R:",round(dist_R,2),"\n")
         time.sleep(waitTime)
 
-def testThread(distance):
-
-    NoRotations = distance/(2*PI*r)
-    NoTicks = NoRotations*20
-    
-    left_old = 0
-    left_new = 0
-    left_count = 0
-
-    right_old = 0
-    right_new = 0
-    right_count = 0
-
-    runDone = False
-    # Define the specific data you want to pass to the thread
-    thread_data = 0.01
-    # Create a thread and pass the data as an argument
-    thread = threading.Thread(target=forward_thread, args=(thread_data,))
-    thread.start()
-
-    while(left_count<=NoTicks and right_count<=NoTicks):
-        left_new = wiringpi.digitalRead(LSS_Pin)
-        right_new = wiringpi.digitalRead(RSS_Pin)
-
-        if(left_old == 0 and left_new == 1):
-            left_count += 1
-        
-        if(right_old == 0 and right_new == 1):
-            right_count += 1
-        left_old = left_new
-        right_old = right_new
-
-    runDone = True
-    thread.join()
-    
-    left = left_count/20
-    right = right_count/20
-
-    
-    
-
-    return left,right
       
 def testSpeedControl(angle,distance):
     print("Forward for ",distance)
