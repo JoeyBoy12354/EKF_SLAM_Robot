@@ -242,10 +242,8 @@ def speedControl(theta,distance,direction):
 
     #SET THREAD AND DIRECTION
     if(theta == 0):
-        print("STRAIGHT")
         NoRotations = distance/(2*PI*r) #STRAIGHT
         if(direction == True):
-            print("FORWARD")
             thread = threading.Thread(target=forward_thread, args=(speed_data,))
         else:
             thread = threading.Thread(target=reverse_thread, args=(speed_data,))
@@ -266,8 +264,6 @@ def speedControl(theta,distance,direction):
 
                 
     NoTicks = NoRotations*20
-
-    print("NOTICKS = ",NoTicks)
     
     left_old = 0
     left_new = 0
@@ -284,20 +280,16 @@ def speedControl(theta,distance,direction):
         right_new = wiringpi.digitalRead(RSS_Pin)
 
         if(left_old == 0 and left_new == 1):
-            print("LCOUNT = ",left_count)
             left_count += 1
         
         if(right_old == 0 and right_new == 1):
             right_count += 1
-            print("RCOUNT = ",right_count)
         left_old = left_new
         right_old = right_new
 
-    print("RUN COMPLETED")
-    print("SONAR FLAG = ",sonarFlag)
     runDone = True
     sonarOn = False
-    print("runDone = ",runDone, " Waiting to join")
+    print("runDone = ",runDone," sonarFlag = ",sonarFlag, " Waiting to join")
     thread.join()
     sonar_thread.join()
     
