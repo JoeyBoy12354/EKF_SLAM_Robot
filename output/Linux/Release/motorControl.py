@@ -191,9 +191,9 @@ def left_thread(speed):
     #Forward Movement
 
     while(runDone == False):
-        wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+        wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
         time.sleep(speed)
-        wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
+        wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
         time.sleep(speed)
 
     return
@@ -204,9 +204,9 @@ def leftR_thread(speed):
     #Forward Movement
 
     while(runDone == False):
-        wiringpi.digitalWrite(LMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+        wiringpi.digitalWrite(RMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 6
         time.sleep(speed)
-        wiringpi.digitalWrite(LMotR_Pin, 1)  # Write 0 ( LOW ) to pin 6
+        wiringpi.digitalWrite(RMotR_Pin, 1)  # Write 0 ( LOW ) to pin 6
         time.sleep(speed)
 
     return
@@ -217,9 +217,9 @@ def right_thread(speed):
     #Forward Movement
 
     while(runDone == False):
-        wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+        wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
         time.sleep(speed)
-        wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
+        wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
         time.sleep(speed)
 
     return
@@ -230,9 +230,9 @@ def rightR_thread(speed):
     #Forward Movement
 
     while(runDone == False):
-        wiringpi.digitalWrite(RMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+        wiringpi.digitalWrite(LMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 6
         time.sleep(speed)
-        wiringpi.digitalWrite(RMotR_Pin, 1)  # Write 0 ( LOW ) to pin 6
+        wiringpi.digitalWrite(LMotR_Pin, 1)  # Write 0 ( LOW ) to pin 6
         time.sleep(speed)
 
     return
@@ -846,10 +846,6 @@ def testSpeedControl(angle,distance):
 
 
     
-        
-
-
-
     
 wiringpi.pinMode(LSS_Pin, 0)       # Set pin to 0 ( INPUT )
 wiringpi.pinMode(RSS_Pin, 0)       # Set pin to 0 ( INPUT )
