@@ -12,13 +12,13 @@ wiringpi.wiringPiSetup()      # For sequential pin numbering
 #wiringpi.wiringPiSetupGpio()  # For GPIO pin numbering
 
 PI = 3.14159265358979
-LMot_Pin = 7
-RMot_Pin = 22
-LMotR_Pin = 26
-RMotR_Pin = 2
+LMot_Pin = 22
+RMot_Pin = 7
+LMotR_Pin = 2
+RMotR_Pin = 26
 
-RSS_Pin = 4
-LSS_Pin = 3
+RSS_Pin = 3
+LSS_Pin = 4
 
 testPin = 22
 testPin2 = 26
@@ -876,13 +876,13 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 
 #testAngles()
 #testDistances()
-testWheels()
+#testWheels()
 #testThread(200)
 #testSpeedControl(PI,200)
 
-angle = -PI/8
+angle = PI/8
 distance = 200
-#motorControl_wThread(angle,distance)
+motorControl_wThread(angle,distance)
 
 
 
