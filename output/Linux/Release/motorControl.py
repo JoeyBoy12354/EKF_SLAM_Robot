@@ -803,21 +803,21 @@ def testSpeedControl(angle,distance):
     speedControl(-1*backangle,0,False)
     time.sleep(wait)
 
-    print("Right for ",angle*180/PI)
-    speedControl(-1*angle,0,True)
-    time.sleep(wait/2)
-    speedControl(backangle,0,True)
-    time.sleep(wait)
+    # print("Right for ",angle*180/PI)
+    # speedControl(-1*angle,0,True)
+    # time.sleep(wait/2)
+    # speedControl(backangle,0,True)
+    # time.sleep(wait)
 
-    print("Right_R for ",angle*180/PI)
-    speedControl(-1*angle,0,False)
-    time.sleep(wait/2)
-    speedControl(backangle,0,False)
-    time.sleep(wait)
+    # print("Right_R for ",angle*180/PI)
+    # speedControl(-1*angle,0,False)
+    # time.sleep(wait/2)
+    # speedControl(backangle,0,False)
+    # time.sleep(wait)
 
 
-    print("Forward for ",distance)
-    speedControl(0,distance,True)
+    # print("Forward for ",distance)
+    # speedControl(0,distance,True)
 
 
     
