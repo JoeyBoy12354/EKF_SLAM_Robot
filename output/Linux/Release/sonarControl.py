@@ -24,7 +24,7 @@ def runSonar():
     # Allow module to settle
     #print("Wait for module to settle")
     #time.sleep(1)
-    time.sleep(0.5)
+    time.sleep(0.6)
 
     # Send 10us pulse to trigger
     #print("Send Pulse")
