@@ -784,8 +784,8 @@ def testThread(distance):
 def testSpeedControl(angle,distance):
     wait = 5
     backangle = 0.20944
-    # print("Forward for ",distance)
-    # speedControl(0,distance,True)
+    print("Forward for ",distance)
+    speedControl(0,distance,True)
     # # print("Reverse for ",distance)
     # # speedControl(0,distance,False)
 
@@ -793,20 +793,31 @@ def testSpeedControl(angle,distance):
 
     print("Left for ",angle*180/PI)
     speedControl(angle,0,True)
-    time.sleep(wait)
-    print("Left_R for ",backangle*180/PI)
+    time.sleep(wait/2)
     speedControl(-1*backangle,0,True)
     time.sleep(wait)
 
-    # print("Right for ",angle*180/PI)
-    # speedControl(-1*angle,0,True)
-    # print("Right_R for ",angle*180/PI)
-    # speedControl(-1*angle,0,False)
-    # time.sleep(wait)
+    print("Left_R for ",backangle*180/PI)
+    speedControl(angle,0,False)
+    time.sleep(wait/2)
+    speedControl(-1*backangle,0,False)
+    time.sleep(wait)
 
-    # print("Forward for ",distance)
-    # speedControl(0,distance,True)
-    # time.sleep(wait)
+    print("Right for ",angle*180/PI)
+    speedControl(-1*angle,0,True)
+    time.sleep(wait/2)
+    speedControl(backangle,0,True)
+    time.sleep(wait)
+
+    print("Right_R for ",angle*180/PI)
+    speedControl(-1*angle,0,False)
+    time.sleep(wait/2)
+    speedControl(backangle,0,False)
+    time.sleep(wait)
+
+
+    print("Forward for ",distance)
+    speedControl(0,distance,True)
 
 
     
@@ -842,7 +853,7 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 #testDistances()
 #testWheels()
 #testThread(200)
-testSpeedControl(PI,400)
+testSpeedControl(PI,200)
 
 
 
