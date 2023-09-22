@@ -879,7 +879,7 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 #testThread(200)
 #testSpeedControl(PI,200)
 
-angle = PI/2
+angle = PI/4
 distance = 200
 motorControl_wThread(angle,distance)
 
