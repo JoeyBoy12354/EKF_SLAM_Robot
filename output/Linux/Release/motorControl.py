@@ -418,7 +418,7 @@ def checkAvoidance_wThread(distance,backangle):
             return True
     
     print("checkA: revRight")
-    speedControl(-1*totalAngle,0,True)
+    speedControl(-1*totalAngle,0,False)
     totalAngle = 0
         
     speedControl(backangle,0,True)
