@@ -237,7 +237,7 @@ def speedControl(theta,distance,direction):
     sonarOn = True
     speed_data = 0.01# Define the specific data you want to pass to the thread
     sonar_dist = 50
-    sonar_thread = threading.Thread(target=sonar_thread, args=(sonar_dist,))
+    sonar_thread = threading.Thread(target=sonarScan, args=(sonar_dist,))
     
 
     #SET THREAD AND DIRECTION
@@ -455,7 +455,7 @@ def clockAvoidance(distance):
     
     return totalAngle
 
-def sonar_thread(maxDist):
+def sonarScan(maxDist):
     global sonarFlag
     global sonarOn
     while(sonarOn==True):
