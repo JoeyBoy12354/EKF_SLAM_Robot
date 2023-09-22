@@ -62,9 +62,12 @@ def motorControl_wThread(theta,distance):
     if(checkAvoidance_wThread(distance,backangle)):
         avoidedAngle = clockAvoidance_wThread(distance,backangle)
         angle = avoidedAngle + angle
-    
+        distance = distance/2
+        dist,elapsed = speedControl(0,distance,True)
+    else:
+        dist,elapsed = speedControl(0,distance,True)
 
-    dist,elapsed = speedControl(0,distance,True)
+    
 
     return angle,dist,elapsed
 
@@ -432,8 +435,6 @@ def clockAvoidance_wThread(distance,backangle):
         print("CA: revL,turnR")
         time.sleep(1)
         #Turn Right
-        turnLeftR(clockAngleInit)
-        turnRight(clockAngleInit)
 
         speedControl(clockAngleInit,0,False)
         speedControl(-1*clockAngleInit,0,True)
@@ -443,7 +444,6 @@ def clockAvoidance_wThread(distance,backangle):
             print("CA: turnR")
             time.sleep(1)
             #Turn Right
-            turnRight(clockAngleInit)
 
             speedControl(-1*clockAngleInit,0,True)
             totalAngle = -clockAngleInit*2
@@ -452,8 +452,6 @@ def clockAvoidance_wThread(distance,backangle):
                 print("CA: revR*2,turnL*2")
                 time.sleep(1)
                 #Turn Left
-                turnRightR(clockAngleInit*2)
-                turnLeft(clockAngleInit)
 
                 speedControl(-2*clockAngleInit,0,False)
                 speedControl(clockAngleInit,0,True)
@@ -880,7 +878,7 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 #testSpeedControl(PI,200)
 
 angle = PI/4
-distance = 200
+distance = 100
 motorControl_wThread(angle,distance)
 
 
