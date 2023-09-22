@@ -142,53 +142,6 @@ def forward(distance):
 
 
 
-def testThread(distance):
-    global runDone
-
-    NoRotations = distance/(2*PI*r)
-    NoTicks = NoRotations*20
-    
-    left_old = 0
-    left_new = 0
-    left_count = 0
-
-    right_old = 0
-    right_new = 0
-    right_count = 0
-
-    runDone = False
-    print("Main: runDone = ",runDone," NoTicks = ",NoTicks)
-    # Define the specific data you want to pass to the thread
-    thread_data = 0.01
-    # Create a thread and pass the data as an argument
-    thread = threading.Thread(target=forward_thread, args=(thread_data,))
-    thread.start()
-
-    while(left_count<=NoTicks and right_count<=NoTicks):
-        left_new = wiringpi.digitalRead(LSS_Pin)
-        right_new = wiringpi.digitalRead(RSS_Pin)
-
-        if(left_old == 0 and left_new == 1):
-            left_count += 1
-        
-        if(right_old == 0 and right_new == 1):
-            right_count += 1
-        left_old = left_new
-        right_old = right_new
-
-    print("set RunDone True")
-    runDone = True
-    thread.join()
-    
-    left = left_count/20
-    right = right_count/20
-
-    
-    
-
-    return left,right
-
-
 
 def forward_thread(speed):
     print("FORWARD_Thread")
@@ -207,6 +160,7 @@ def forward_thread(speed):
 
 def reverse_thread(speed):
     print("REVERSE_Thread")
+    global runDone
     #Forward Movement
 
     while(runDone == False):
@@ -221,6 +175,7 @@ def reverse_thread(speed):
 
 def left_thread(speed):
     print("LEFT_Thread")
+    global runDone
     #Forward Movement
 
     while(runDone == False):
@@ -233,6 +188,7 @@ def left_thread(speed):
 
 def leftR_thread(speed):
     print("LEFT_R_Thread")
+    global runDone
     #Forward Movement
 
     while(runDone == False):
@@ -245,6 +201,7 @@ def leftR_thread(speed):
 
 def right_thread(speed):
     print("RIGHT_Thread")
+    global runDone
     #Forward Movement
 
     while(runDone == False):
@@ -257,6 +214,7 @@ def right_thread(speed):
 
 def rightR_thread(speed):
     print("RIGHT_R_Thread")
+    global runDone
     #Forward Movement
 
     while(runDone == False):
@@ -270,6 +228,7 @@ def rightR_thread(speed):
 
 
 def speedControl(theta,distance,direction):
+    global runDone
     runDone = False
     speed_data = 0.01# Define the specific data you want to pass to the thread
 
@@ -762,6 +721,51 @@ def testDistances():
         print("Set:",round(distances[i],2)," Dist_F:",round(dist_F,2),", Dist_R:",round(dist_R,2),"\n")
         time.sleep(waitTime)
 
+def testThread(distance):
+    global runDone
+
+    NoRotations = distance/(2*PI*r)
+    NoTicks = NoRotations*20
+    
+    left_old = 0
+    left_new = 0
+    left_count = 0
+
+    right_old = 0
+    right_new = 0
+    right_count = 0
+
+    runDone = False
+    print("Main: runDone = ",runDone," NoTicks = ",NoTicks)
+    # Define the specific data you want to pass to the thread
+    thread_data = 0.01
+    # Create a thread and pass the data as an argument
+    thread = threading.Thread(target=forward_thread, args=(thread_data,))
+    thread.start()
+
+    while(left_count<=NoTicks and right_count<=NoTicks):
+        left_new = wiringpi.digitalRead(LSS_Pin)
+        right_new = wiringpi.digitalRead(RSS_Pin)
+
+        if(left_old == 0 and left_new == 1):
+            left_count += 1
+        
+        if(right_old == 0 and right_new == 1):
+            right_count += 1
+        left_old = left_new
+        right_old = right_new
+
+    print("set RunDone True")
+    runDone = True
+    thread.join()
+    
+    left = left_count/20
+    right = right_count/20
+
+    
+    
+
+    return left,right
       
 def testSpeedControl(angle,distance):
     print("Forward for ",distance)
