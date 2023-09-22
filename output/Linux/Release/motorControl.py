@@ -464,6 +464,8 @@ def sonarScan(maxDist):
         else:
             sonarFlag = False
 
+        print(sonarControl.runSonar())
+
 
 
 def readInstructions():
