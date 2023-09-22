@@ -795,7 +795,7 @@ def testSpeedControl(angle,distance):
     speedControl(angle,0,True)
     time.sleep(wait)
     print("Left_R for ",backangle*180/PI)
-    speedControl(-1*backangle,1,False)
+    speedControl(-1*backangle,0,True)
     time.sleep(wait)
 
     # print("Right for ",angle*180/PI)
