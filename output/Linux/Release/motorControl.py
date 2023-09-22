@@ -63,6 +63,39 @@ def motorControl(theta,distance):
 
     return angle,dist,elapsed
 
+def motorControl_wThread(theta,distance):
+    print("in motor control")
+    LNoRot=0
+    RNoRot=0
+
+    wait = 5
+    backangle = 0.20944 #re-adjust swivel
+    fullTurn = theta + backangle
+
+    #Do turn
+    LNoRot,RNoRot  = speedControl(theta,0,True)
+
+    #Straighten
+    if(theta>0):
+        speedControl(-1*backangle,0,True)
+    else:
+        speedControl(backangle,0,True)
+
+    angle = getAngle(LNoRot,RNoRot) - backangle #due to overextending for swivel
+
+
+    #Check for obstacles ahead
+    print("Gonna check Avoidance")
+    #Check distance to obstacle
+    if(checkAvoidance(distance)):
+        avoidedAngle = clockAvoidance_wThread(distance)
+        angle = avoidedAngle + angle
+    
+
+    dist,elapsed = speedControl(0,distance,True)
+
+    return angle,dist,elapsed
+
 
 
 def turnLeft(theta):
@@ -439,6 +472,53 @@ def clockAvoidance(distance):
                 #Turn Left
                 turnRightR(clockAngleInit*2)
                 turnLeft(clockAngleInit)
+                totalAngle = clockAngleInit*2
+        
+
+
+
+    
+    return totalAngle
+
+def clockAvoidance_wThread(distance):
+    print("\nin clock avoidance")
+    time.sleep(1)
+
+    totalAngle = 0
+    #Turn Left
+    speedControl(clockAngleInit,0,True)
+    totalAngle = clockAngleInit
+
+    if(sonarControl.runSonar() < distance):
+        print("CA: revL,turnR")
+        time.sleep(1)
+        #Turn Right
+        turnLeftR(clockAngleInit)
+        turnRight(clockAngleInit)
+
+        speedControl(clockAngleInit,0,False)
+        speedControl(-1*clockAngleInit,0,True)
+        totalAngle = -clockAngleInit
+
+        if(sonarControl.runSonar() < distance):
+            print("CA: turnR")
+            time.sleep(1)
+            #Turn Right
+            turnRight(clockAngleInit)
+
+            speedControl(-1*clockAngleInit,0,True)
+            totalAngle = -clockAngleInit*2
+            
+            if(sonarControl.runSonar() < distance):
+                print("CA: revR*2,turnL*2")
+                time.sleep(1)
+                #Turn Left
+                turnRightR(clockAngleInit*2)
+                turnLeft(clockAngleInit)
+
+                speedControl(-2*clockAngleInit,0,False)
+                speedControl(clockAngleInit,0,True)
+
                 totalAngle = clockAngleInit*2
         
 
@@ -853,7 +933,11 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 #testDistances()
 #testWheels()
 #testThread(200)
-testSpeedControl(PI,200)
+#testSpeedControl(PI,200)
+
+angle = PI/2
+distance = 200
+motorControl_wThread(angle,distance)
 
 
 
