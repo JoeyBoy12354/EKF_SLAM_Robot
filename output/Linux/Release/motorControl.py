@@ -31,6 +31,8 @@ clockAngleInit = 0.959931 #55 Degree inital rotation
 clockAngleStep = 0.261799 #15 Degree step rotation
 
 runDone = False
+sonarFlag = False
+sonarOn = False
 
 #Theta angle in radians, distance in mm
 def motorControl(theta,distance):
@@ -229,8 +231,14 @@ def rightR_thread(speed):
 
 def speedControl(theta,distance,direction):
     global runDone
+    global sonarOn
+    global sonarFlag
     runDone = False
+    sonarOn = True
     speed_data = 0.01# Define the specific data you want to pass to the thread
+    sonar_dist = 50
+    sonar_thread = threading.Thread(target=sonar_thread, args=(sonar_dist,))
+    
 
     #SET THREAD AND DIRECTION
     if(theta == 0):
@@ -269,9 +277,9 @@ def speedControl(theta,distance,direction):
     right_new = 0
     right_count = 0
 
-    
+    sonar_thread.start()
     thread.start()
-    while(left_count<=NoTicks and right_count<=NoTicks):
+    while(left_count<=NoTicks and right_count<=NoTicks and sonarFlag == False):
         left_new = wiringpi.digitalRead(LSS_Pin)
         right_new = wiringpi.digitalRead(RSS_Pin)
 
@@ -286,9 +294,12 @@ def speedControl(theta,distance,direction):
         right_old = right_new
 
     print("RUN COMPLETED")
+    print("SONAR FLAG = ",sonarFlag)
     runDone = True
+    sonarOn = False
     print("runDone = ",runDone, " Waiting to join")
     thread.join()
+    sonar_thread.join()
     
     left = left_count/20
     right = right_count/20
@@ -443,6 +454,15 @@ def clockAvoidance(distance):
 
     
     return totalAngle
+
+def sonar_thread(maxDist):
+    global sonarFlag
+    global sonarOn
+    while(sonarOn==True):
+        if(sonarControl.runSonar() < maxDist):
+            sonarFlag = True
+        else:
+            sonarFlag = False
 
 
 
@@ -793,7 +813,7 @@ def testSpeedControl(angle,distance):
     speedControl(0,distance,True)
     time.sleep(wait)
 
-    
+
     
         
 
