@@ -783,7 +783,7 @@ def testThread(distance):
       
 def testSpeedControl(angle,distance):
     wait = 5
-    backangle = 0.349066
+    backangle = 0.174533
     # print("Forward for ",distance)
     # speedControl(0,distance,True)
     # # print("Reverse for ",distance)
