@@ -62,6 +62,7 @@ def motorControl(theta,distance):
     return angle,dist,elapsed
 
 
+
 def turnLeft(theta):
     NoRotations = (R*theta)/(2*PI*r)
     W1_Ticks = NoRotations*20
@@ -138,11 +139,114 @@ def forward(distance):
 
     return dist,elapsed
 
-def testThread(distance):
 
-    NoRotations = distance/(2*PI*r)
+
+def forward_thread(speed):
+    print("FORWARD_Thread")
+    #Forward Movement
+
+    while(runDone == False):
+        wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+        wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 7
+        time.sleep(speed)
+        wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
+        wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 7
+        time.sleep(speed)
+
+    return
+
+def reverse_thread(speed):
+    print("REVERSE_Thread")
+    #Forward Movement
+
+    while(runDone == False):
+        wiringpi.digitalWrite(LMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+        wiringpi.digitalWrite(RMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 7
+        time.sleep(speed)
+        wiringpi.digitalWrite(LMotR_Pin, 1)  # Write 0 ( LOW ) to pin 6
+        wiringpi.digitalWrite(RMotR_Pin, 1)  # Write 0 ( LOW ) to pin 7
+        time.sleep(speed)
+
+    return
+
+def left_thread(speed):
+    print("LEFT_Thread")
+    #Forward Movement
+
+    while(runDone == False):
+        wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+        time.sleep(speed)
+        wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
+        time.sleep(speed)
+
+    return
+
+def leftR_thread(speed):
+    print("LEFT_R_Thread")
+    #Forward Movement
+
+    while(runDone == False):
+        wiringpi.digitalWrite(LMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+        time.sleep(speed)
+        wiringpi.digitalWrite(LMotR_Pin, 1)  # Write 0 ( LOW ) to pin 6
+        time.sleep(speed)
+
+    return
+
+def right_thread(speed):
+    print("RIGHT_Thread")
+    #Forward Movement
+
+    while(runDone == False):
+        wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+        time.sleep(speed)
+        wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
+        time.sleep(speed)
+
+    return
+
+def rightR_thread(speed):
+    print("RIGHT_R_Thread")
+    #Forward Movement
+
+    while(runDone == False):
+        wiringpi.digitalWrite(RMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+        time.sleep(speed)
+        wiringpi.digitalWrite(RMotR_Pin, 1)  # Write 0 ( LOW ) to pin 6
+        time.sleep(speed)
+
+    return
+
+
+
+def speedControl(theta,distance,direction):
+    runDone = False
+    speed_data = 0.01# Define the specific data you want to pass to the thread
+
+    #SET THREAD AND DIRECTION
+    if(theta == 0):
+        NoRotations = distance/(2*PI*r) #STRAIGHT
+        if(direction == True):
+            thread = threading.Thread(target=forward_thread, args=(speed_data,))
+        else:
+            thread = threading.Thread(target=reverse_thread, args=(speed_data,))
+    else:
+        NoRotations = (R*abs(theta))/(2*PI*r) # ROTATE
+        
+        if(theta>0):
+            if(direction == True):
+                thread = threading.Thread(target=left_thread, args=(speed_data,))
+            else:
+                thread = threading.Thread(target=leftR_thread, args=(speed_data,))
+        else:
+            NoRotations = abs(NoRotations)
+            if(direction == True):
+                thread = threading.Thread(target=right_thread, args=(speed_data,))
+            else:
+                thread = threading.Thread(target=rightR_thread, args=(speed_data,))
+
+                
     NoTicks = NoRotations*20
-    
     
     left_old = 0
     left_new = 0
@@ -152,13 +256,8 @@ def testThread(distance):
     right_new = 0
     right_count = 0
 
-    runDone = False
-    # Define the specific data you want to pass to the thread
-    thread_data = 0.01
-    # Create a thread and pass the data as an argument
-    thread = threading.Thread(target=forward_thread, args=(thread_data,))
+    
     thread.start()
-
     while(left_count<=NoTicks and right_count<=NoTicks):
         left_new = wiringpi.digitalRead(LSS_Pin)
         right_new = wiringpi.digitalRead(RSS_Pin)
@@ -177,28 +276,7 @@ def testThread(distance):
     left = left_count/20
     right = right_count/20
 
-    
-    
-
     return left,right
-
-def forward_thread(speed):
-    print("FORWARD_Thread")
-    #Forward Movement
-
-    while(runDone == False):
-        wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
-        wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 7
-        time.sleep(speed)
-        wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
-        wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 7
-        time.sleep(speed)
-
-
-
-    return
-
-
 
 def speedSensor(NoTicks):
     left_old = 0
@@ -279,7 +357,6 @@ def Avoidance(avoidDistL,avoidDistR):
 
     return avoidDistL,avoidDistR
 
-
 def checkAvoidance(distance):
     print("\nin checkAvoidance")
 
@@ -349,6 +426,7 @@ def clockAvoidance(distance):
 
     
     return totalAngle
+
 
 
 def readInstructions():
@@ -547,8 +625,6 @@ def testWheels():
     print("Right Sensor = ",right_count/20," rotations")
         
     time.sleep(0.5)
-
-
     
 def testAngles():
     print("BEGIN TESTING ANGLES")
@@ -628,8 +704,64 @@ def testDistances():
         print("Set:",round(distances[i],2)," Dist_F:",round(dist_F,2),", Dist_R:",round(dist_R,2),"\n")
         time.sleep(waitTime)
 
-        
+def testThread(distance):
 
+    NoRotations = distance/(2*PI*r)
+    NoTicks = NoRotations*20
+    
+    left_old = 0
+    left_new = 0
+    left_count = 0
+
+    right_old = 0
+    right_new = 0
+    right_count = 0
+
+    runDone = False
+    # Define the specific data you want to pass to the thread
+    thread_data = 0.01
+    # Create a thread and pass the data as an argument
+    thread = threading.Thread(target=forward_thread, args=(thread_data,))
+    thread.start()
+
+    while(left_count<=NoTicks and right_count<=NoTicks):
+        left_new = wiringpi.digitalRead(LSS_Pin)
+        right_new = wiringpi.digitalRead(RSS_Pin)
+
+        if(left_old == 0 and left_new == 1):
+            left_count += 1
+        
+        if(right_old == 0 and right_new == 1):
+            right_count += 1
+        left_old = left_new
+        right_old = right_new
+
+    runDone = True
+    thread.join()
+    
+    left = left_count/20
+    right = right_count/20
+
+    
+    
+
+    return left,right
+      
+def testSpeedControl(angle,distance):
+    print("Forward for {distance}")
+    speedControl(0,distance,True)
+    print("Reverse for {distance}")
+    speedControl(0,distance,False)
+
+    print("Left for ",angle*180/PI)
+    speedControl(angle,0,True)
+    print("Left_R for ",angle*180/PI)
+    speedControl(angle,0,False)
+
+    print("Right for ",angle*180/PI)
+    speedControl(-1*angle,0,True)
+    print("Right_R for ",angle*180/PI)
+    speedControl(-1*angle,0,False)
 
     
     
@@ -663,8 +795,9 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 
 #testAngles()
 #testDistances()
-testWheels()
+#testWheels()
 #testThread(200)
+testSpeedControl(PI,100)
 
 
 
