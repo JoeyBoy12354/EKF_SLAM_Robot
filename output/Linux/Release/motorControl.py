@@ -155,7 +155,7 @@ def forward(distance):
 
 
 
-def forward_thread(speed):
+def forward_thread(timeOn,timeOff):
     print("FORWARD_Thread")
     global runDone
     #Forward Movement
@@ -163,10 +163,10 @@ def forward_thread(speed):
     while(runDone == False):
         wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
         wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 7
-        time.sleep(speed)
+        time.sleep(timeOn)
         wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
         wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 7
-        time.sleep(speed)
+        time.sleep(timeOff)
 
     return
 
@@ -245,7 +245,9 @@ def speedControl(theta,distance,direction):
     global sonarFlag
     runDone = False
     sonarOn = True
-    speed_data = 0.01# Define the specific data you want to pass to the thread
+    
+    timeOn = 0.009
+    timeOff = 0.001
     sonar_dist = 50
     sonar_thread = threading.Thread(target=sonarScan, args=(sonar_dist,))
     
@@ -253,23 +255,23 @@ def speedControl(theta,distance,direction):
     if(theta == 0):
         NoRotations = distance/(2*PI*r) #STRAIGHT
         if(direction == True):
-            thread = threading.Thread(target=forward_thread, args=(speed_data,))
+            thread = threading.Thread(target=forward_thread, args=(timeOn,timeOff,))
         else:
-            thread = threading.Thread(target=reverse_thread, args=(speed_data,))
+            thread = threading.Thread(target=reverse_thread, args=(timeOn,timeOff,))
     else:
         NoRotations = (R*abs(theta))/(2*PI*r) # ROTATE
         
         if(theta>0):
             if(direction == True):
-                thread = threading.Thread(target=left_thread, args=(speed_data,))
+                thread = threading.Thread(target=left_thread, args=(timeOn,timeOff,))
             else:
-                thread = threading.Thread(target=leftR_thread, args=(speed_data,))
+                thread = threading.Thread(target=leftR_thread, args=(timeOn,timeOff,))
         else:
             NoRotations = abs(NoRotations)
             if(direction == True):
-                thread = threading.Thread(target=right_thread, args=(speed_data,))
+                thread = threading.Thread(target=right_thread, args=(timeOn,timeOff,))
             else:
-                thread = threading.Thread(target=rightR_thread, args=(speed_data,))
+                thread = threading.Thread(target=rightR_thread, args=(timeOn,timeOff,))
 
                 
     NoTicks = NoRotations*20
@@ -871,7 +873,7 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 #testSpeedControl(PI,200)
 
 angle = 0
-distance = 300
+distance = 200
 motorControl_wThread(angle,distance)
 
 
