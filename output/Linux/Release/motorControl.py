@@ -409,6 +409,8 @@ def Avoidance(avoidDistL,avoidDistR):
 def checkAvoidance_wThread(distance):
     print("\nin checkAvoidance")
 
+    sonarError = 20 #how much error the sonar may have [mm]
+
 
     totalAngle = 0
 
@@ -420,7 +422,7 @@ def checkAvoidance_wThread(distance):
         print("checkA: turnLeft distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
 
         totalAngle += clockAngleStep
-        if(sonarControl.runSonar() <abs((R/2)*math.cos(PI - totalAngle))):
+        if(sonarControl.runSonar() <abs((R/2)*math.cos(PI - totalAngle)) + sonarError):
             print("RETURN TRUE distCos = ",abs((R/2)*math.cos(PI - totalAngle)))
             return True
     
@@ -437,7 +439,7 @@ def checkAvoidance_wThread(distance):
 
         print("checkA: turnRight distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
 
-        if(sonarControl.runSonar() < abs((R/2)*math.cos(PI - totalAngle))):
+        if(sonarControl.runSonar() < abs((R/2)*math.cos(PI - totalAngle)) + sonarError):
             print("RETURN TRUE distCos = ",abs((R/2)*math.cos(PI - totalAngle)))
             return True
     
