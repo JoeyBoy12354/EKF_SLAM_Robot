@@ -72,9 +72,17 @@ def motorControl_wThread(theta,distance):
         distance = distance/2
         avoidedAngle,distance = clockAvoidance_wThread(distance)
         angle = avoidedAngle + angle
-        dist,elapsed = speedControl(0,distance,True)
-    else:
-        dist,elapsed = speedControl(0,distance,True)
+    
+    if(sonarControl.runSonar()<distance+R/2):
+        #I will hit a wall, last chance to check!
+        print("\nFORWARD CHECK FOUND I WILL HIT WALL")
+        distance = distance - R/2 - 5
+        print("NEWDISTANCE = ",distance)
+        if(distance<0):
+            print("negative DISTACE ERRRORRRR!!!")
+            speedControl(0,100,False)
+        
+    dist,elapsed = speedControl(0,distance,True)
 
     
 
