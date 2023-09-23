@@ -57,6 +57,10 @@ def runSonar():
 
     print("Sonar Distance : %.1f" % distance," mm")
 
+    if(distance> 12000):
+        distance = 0
+        print("12m =< DISTANCE ! ")
+
     writeOdometry(distance)
     return distance
 
