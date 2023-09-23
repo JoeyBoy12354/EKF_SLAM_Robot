@@ -33,7 +33,8 @@ while True:
     gyro_z = (gyro_z[1] << 8 | gyro_z[0]) / 16.4  # 2000 dps range
     
     # Print the sensor data
-    print(f"Accelerometer (g): X={accel_x:.2f}, Y={accel_y:.2f}, Z={accel_z:.2f}")
-    print(f"Gyroscope (dps): X={gyro_x:.2f}, Y={gyro_y:.2f}, Z={gyro_z:.2f}")
+    print("Accelerometer (g): X={:.2f}, Y={:.2f}, Z={:.2f}".format(accel_x, accel_y, accel_z))
+    print("Gyroscope (dps): X={:.2f}, Y={:.2f}, Z={:.2f}".format(gyro_x, gyro_y, gyro_z))
+
     
     time.sleep(1)  # Wait for 1 second before reading again
