@@ -170,7 +170,7 @@ def forward_thread(timeOn,timeOff):
 
     return
 
-def reverse_thread(speed):
+def reverse_thread(timeOn,timeOff):
     print("REVERSE_Thread")
     global runDone
     #Forward Movement
@@ -178,62 +178,62 @@ def reverse_thread(speed):
     while(runDone == False):
         wiringpi.digitalWrite(LMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 6
         wiringpi.digitalWrite(RMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 7
-        time.sleep(speed)
+        time.sleep(timeOn)
         wiringpi.digitalWrite(LMotR_Pin, 1)  # Write 0 ( LOW ) to pin 6
         wiringpi.digitalWrite(RMotR_Pin, 1)  # Write 0 ( LOW ) to pin 7
-        time.sleep(speed)
+        time.sleep(timeOff)
 
     return
 
-def left_thread(speed):
+def left_thread(timeOn,timeOff):
     print("LEFT_Thread")
     global runDone
     #Forward Movement
 
     while(runDone == False):
         wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
-        time.sleep(speed)
+        time.sleep(timeOn)
         wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
-        time.sleep(speed)
+        time.sleep(timeOff)
 
     return
 
-def leftR_thread(speed):
+def leftR_thread(timeOn,timeOff):
     print("LEFT_R_Thread")
     global runDone
     #Forward Movement
 
     while(runDone == False):
         wiringpi.digitalWrite(RMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 6
-        time.sleep(speed)
+        time.sleep(timeOn)
         wiringpi.digitalWrite(RMotR_Pin, 1)  # Write 0 ( LOW ) to pin 6
-        time.sleep(speed)
+        time.sleep(timeOff)
 
     return
 
-def right_thread(speed):
+def right_thread(timeOn,timeOff):
     print("RIGHT_Thread")
     global runDone
     #Forward Movement
 
     while(runDone == False):
         wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
-        time.sleep(speed)
+        time.sleep(timeOn)
         wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
-        time.sleep(speed)
+        time.sleep(timeOff)
 
     return
 
-def rightR_thread(speed):
+def rightR_thread(timeOn,timeOff):
     print("RIGHT_R_Thread")
     global runDone
     #Forward Movement
 
     while(runDone == False):
         wiringpi.digitalWrite(LMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 6
-        time.sleep(speed)
+        time.sleep(timeOn)
         wiringpi.digitalWrite(LMotR_Pin, 1)  # Write 0 ( LOW ) to pin 6
-        time.sleep(speed)
+        time.sleep(timeOff)
 
     return
 
