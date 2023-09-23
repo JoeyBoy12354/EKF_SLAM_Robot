@@ -45,6 +45,7 @@ def motorControl_wThread(theta,distance):
 
     print("CHECK MOVEMENT SPACE")
     if(sonarControl.runSonar()<R/2):
+        print("REVERSE!")
         speedControl(0,100,False)
         #update odometry accordinglty NB!!!!!
 
