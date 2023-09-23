@@ -3,6 +3,7 @@ import time
 import threading
 import csv
 import sonarControl
+import math
 
 # One of the following MUST be called before using IO functions:
 wiringpi.wiringPiSetup()      # For sequential pin numbering
@@ -403,7 +404,7 @@ def checkAvoidance_wThread(distance):
         speedControl(clockAngleStep,0,True)
 
         totalAngle += clockAngleStep
-        if(sonarControl.runSonar() < distance):
+        if(sonarControl.runSonar() <(R/2)*math.cos(PI - totalAngle)):
             return True
     
     print("checkA: revLeft")
@@ -415,7 +416,7 @@ def checkAvoidance_wThread(distance):
         #Turn Right
         speedControl(-1*clockAngleStep,0,True)
         totalAngle += clockAngleStep
-        if(sonarControl.runSonar() < distance):
+        if(sonarControl.runSonar() < (R/2)*math.cos(PI - totalAngle)):
             return True
     
     print("checkA: revRight")
@@ -433,7 +434,7 @@ def clockAvoidance_wThread(distance):
     speedControl(clockAngleInit,0,True)
     totalAngle = clockAngleInit
 
-    if(sonarControl.runSonar() < distance):
+    if(sonarControl.runSonar() < (R/2)*math.cos(PI - totalAngle)):
         print("CA: revL,turnR")
         time.sleep(1)
         #Turn Right
@@ -442,7 +443,7 @@ def clockAvoidance_wThread(distance):
         speedControl(-1*clockAngleInit,0,True)
         totalAngle = -clockAngleInit
 
-        if(sonarControl.runSonar() < distance):
+        if(sonarControl.runSonar() < (R/2)*math.cos(PI - abs(totalAngle))):
             print("CA: turnR")
             time.sleep(1)
             #Turn Right
@@ -450,7 +451,7 @@ def clockAvoidance_wThread(distance):
             speedControl(-1*clockAngleInit,0,True)
             totalAngle = -clockAngleInit*2
             
-            if(sonarControl.runSonar() < distance):
+            if(sonarControl.runSonar() < (R/2)*math.cos(PI - abs(totalAngle))):
                 print("CA: revR*2,turnL*2")
                 time.sleep(1)
                 #Turn Left
@@ -460,7 +461,7 @@ def clockAvoidance_wThread(distance):
 
                 totalAngle = clockAngleInit*2
 
-                if(sonarControl.runSonar()<distance):
+                if(sonarControl.runSonar()<(R/2)*math.cos(PI - totalAngle)):
                     #total failure to find alternative route
                     print("\nFAILURE TO FIND ROUTE!\n")
                     distance = 0
