@@ -42,17 +42,17 @@ def motorControl_wThread(theta,distance):
     LNoRot=0
     RNoRot=0
 
-    backangle = 0.20944 #re-adjust swivel
-    fullTurn = theta + backangle
+    #backangle = 0.20944 #re-adjust swivel
+    #fullTurn = theta + backangle
 
     #Do turn
-    LNoRot,RNoRot  = speedControl(fullTurn,0,True)
+    LNoRot,RNoRot  = speedControl(theta,0,True)
 
-    #Straighten
-    if(theta>0):
-        speedControl(-1*backangle,0,True)
-    else:
-        speedControl(backangle,0,True)
+    # #Straighten
+    # if(theta>0):
+    #     speedControl(-1*backangle,0,True)
+    # else:
+    #     speedControl(backangle,0,True)
 
     angle = getAngle(LNoRot,RNoRot) - backangle #due to overextending for swivel
 
@@ -406,7 +406,6 @@ def checkAvoidance_wThread(distance,backangle):
     
     print("checkA: revLeft")
     speedControl(totalAngle,0,False)
-    speedControl(-1*backangle,0,True)
     totalAngle = 0
 
     while(totalAngle<clockAngleInit):
@@ -420,8 +419,6 @@ def checkAvoidance_wThread(distance,backangle):
     print("checkA: revRight")
     speedControl(-1*totalAngle,0,False)
     totalAngle = 0
-        
-    speedControl(backangle,0,True)
     
     return False
 
@@ -460,13 +457,6 @@ def clockAvoidance_wThread(distance,backangle):
                 speedControl(clockAngleInit,0,True)
 
                 totalAngle = clockAngleInit*2
-        
-
-    #Straighten
-    if(totalAngle>0):
-        speedControl(-1*backangle,0,True)
-    else:
-        speedControl(backangle,0,True)
 
 
     
@@ -876,8 +866,8 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 #testThread(200)
 #testSpeedControl(PI,200)
 
-angle = PI/8
-distance = 200
+angle = 0
+distance = 300
 motorControl_wThread(angle,distance)
 
 
