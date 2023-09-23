@@ -405,6 +405,7 @@ def checkAvoidance_wThread(distance):
 
         totalAngle += clockAngleStep
         if(sonarControl.runSonar() <(R/2)*math.cos(PI - totalAngle)):
+            print("RETURN TRUE distCos = ",(R/2)*math.cos(PI - totalAngle))
             return True
     
     print("checkA: revLeft")
@@ -417,6 +418,7 @@ def checkAvoidance_wThread(distance):
         speedControl(-1*clockAngleStep,0,True)
         totalAngle += clockAngleStep
         if(sonarControl.runSonar() < (R/2)*math.cos(PI - totalAngle)):
+            print("RETURN TRUE distCos = ",(R/2)*math.cos(PI - totalAngle))
             return True
     
     print("checkA: revRight")
@@ -435,7 +437,7 @@ def clockAvoidance_wThread(distance):
     totalAngle = clockAngleInit
 
     if(sonarControl.runSonar() < (R/2)*math.cos(PI - totalAngle)):
-        print("CA: revL,turnR")
+        print("CA: revL,turnR distCos = ",(R/2)*math.cos(PI - totalAngle))
         time.sleep(1)
         #Turn Right
 
@@ -444,7 +446,7 @@ def clockAvoidance_wThread(distance):
         totalAngle = -clockAngleInit
 
         if(sonarControl.runSonar() < (R/2)*math.cos(PI - abs(totalAngle))):
-            print("CA: turnR")
+            print("CA: turnR distCos = ",(R/2)*math.cos(PI - abs(totalAngle)))
             time.sleep(1)
             #Turn Right
 
@@ -452,7 +454,7 @@ def clockAvoidance_wThread(distance):
             totalAngle = -clockAngleInit*2
             
             if(sonarControl.runSonar() < (R/2)*math.cos(PI - abs(totalAngle))):
-                print("CA: revR*2,turnL*2")
+                print("CA: revR*2,turnL*2 distCos = ",(R/2)*math.cos(PI - abs(totalAngle)))
                 time.sleep(1)
                 #Turn Left
 
@@ -463,7 +465,7 @@ def clockAvoidance_wThread(distance):
 
                 if(sonarControl.runSonar()<(R/2)*math.cos(PI - totalAngle)):
                     #total failure to find alternative route
-                    print("\nFAILURE TO FIND ROUTE!\n")
+                    print("\nFAILURE TO FIND ROUTE!\n distCos = ",(R/2)*math.cos(PI - totalAngle))
                     distance = 0
 
     
