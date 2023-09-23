@@ -62,9 +62,9 @@ def motorControl_wThread(theta,distance):
     #Check distance to obstacle
     if(checkAvoidance_wThread(distance)):
         print("\n CLOCK AVOIDANCE!!!!! \n")
+        distance = distance/2
         avoidedAngle = clockAvoidance_wThread(distance)
         angle = avoidedAngle + angle
-        distance = distance/2
         dist,elapsed = speedControl(0,distance,True)
     else:
         dist,elapsed = speedControl(0,distance,True)
@@ -458,9 +458,13 @@ def clockAvoidance_wThread(distance):
 
                 totalAngle = clockAngleInit*2
 
+                if(sonarControl.runSonar()<distance):
+                    #total failure to find alternative route
+                    print("\nFAILURE TO FIND ROUTE!\n")
+                    distance = 0
 
     
-    return totalAngle
+    return totalAngle,distance
 
 def sonarScan(maxDist):
     global sonarFlag
