@@ -54,15 +54,15 @@ def motorControl_wThread(theta,distance):
     # else:
     #     speedControl(backangle,0,True)
 
-    angle = getAngle(LNoRot,RNoRot) - backangle #due to overextending for swivel
+    angle = getAngle(LNoRot,RNoRot)
 
 
     #Check for obstacles ahead
     print("Gonna check Avoidance")
     #Check distance to obstacle
-    if(checkAvoidance_wThread(distance,backangle)):
+    if(checkAvoidance_wThread(distance)):
         print("\n CLOCK AVOIDANCE!!!!! \n")
-        avoidedAngle = clockAvoidance_wThread(distance,backangle)
+        avoidedAngle = clockAvoidance_wThread(distance)
         angle = avoidedAngle + angle
         distance = distance/2
         dist,elapsed = speedControl(0,distance,True)
@@ -389,7 +389,7 @@ def Avoidance(avoidDistL,avoidDistR):
     return avoidDistL,avoidDistR
 
 
-def checkAvoidance_wThread(distance,backangle):
+def checkAvoidance_wThread(distance):
     print("\nin checkAvoidance")
 
 
@@ -422,7 +422,7 @@ def checkAvoidance_wThread(distance,backangle):
     
     return False
 
-def clockAvoidance_wThread(distance,backangle):
+def clockAvoidance_wThread(distance):
     print("\nin clock avoidance")
     time.sleep(1)
 
