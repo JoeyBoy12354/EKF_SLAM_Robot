@@ -456,31 +456,32 @@ def clockAvoidance_wThread(distance):
     print("\nin clock avoidance")
     time.sleep(1)
 
+    sonarError = 20 #how much error the sonar may have [mm]
     totalAngle = 0
     #Turn Left
+    print("CA: turnL distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
     speedControl(clockAngleInit,0,True)
     totalAngle = clockAngleInit
 
-    if(sonarControl.runSonar() < abs((R/2)*math.cos(PI - totalAngle))):
-        print("CA: revL,turnR distCos = ",abs((R/2)*math.cos(PI - totalAngle)))
-        time.sleep(1)
+    if(sonarControl.runSonar() < abs((R/2)*math.cos(PI - totalAngle)) + sonarError):
+        print("CA: revL,turnR distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
         #Turn Right
 
         speedControl(clockAngleInit,0,False)
         speedControl(-1*clockAngleInit,0,True)
         totalAngle = -clockAngleInit
 
-        if(sonarControl.runSonar() < abs((R/2)*math.cos(PI - abs(totalAngle)))):
-            print("CA: turnR distCos = ",abs((R/2)*math.cos(PI - abs(totalAngle))))
-            time.sleep(1)
+        if(sonarControl.runSonar() < abs((R/2)*math.cos(PI - abs(totalAngle))) + sonarError):
+            print("CA: turnR distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
+
             #Turn Right
 
             speedControl(-1*clockAngleInit,0,True)
             totalAngle = -clockAngleInit*2
             
-            if(sonarControl.runSonar() < abs((R/2)*math.cos(PI - abs(totalAngle)))):
-                print("CA: revR*2,turnL*2 distCos = ",abs((R/2)*math.cos(PI - abs(totalAngle))))
-                time.sleep(1)
+            if(sonarControl.runSonar() < abs((R/2)*math.cos(PI - abs(totalAngle))) + sonarError):
+                print("CA: revR*2,turnL*2 distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
+    
                 #Turn Left
 
                 speedControl(-2*clockAngleInit,0,False)
@@ -488,9 +489,9 @@ def clockAvoidance_wThread(distance):
 
                 totalAngle = clockAngleInit*2
 
-                if(sonarControl.runSonar()<abs((R/2)*math.cos(PI - totalAngle))):
+                if(sonarControl.runSonar()<abs((R/2)*math.cos(PI - totalAngle)) + sonarError):
                     #total failure to find alternative route
-                    print("\nFAILURE TO FIND ROUTE!\n distCos = ",abs((R/2)*math.cos(PI - totalAngle)))
+                    print("\nFAILURE TO FIND ROUTE!\n distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
                     distance = 0
 
     
