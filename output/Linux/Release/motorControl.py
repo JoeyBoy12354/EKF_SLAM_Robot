@@ -43,6 +43,11 @@ def motorControl_wThread(theta,distance):
     LNoRot=0
     RNoRot=0
 
+    print("CHECK MOVEMENT SPACE")
+    if(sonarControl.runSonar()<R/2):
+        speedControl(0,100,False)
+        #update odometry accordinglty NB!!!!!
+
     #backangle = 0.20944 #re-adjust swivel
     #fullTurn = theta + backangle
 
