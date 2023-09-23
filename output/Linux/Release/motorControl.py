@@ -450,8 +450,8 @@ def clockAvoidance_wThread(distance):
     speedControl(clockAngleInit,0,True)
     totalAngle = clockAngleInit
 
-    if(sonarControl.runSonar() < (R/2)*math.cos(PI - totalAngle)):
-        print("CA: revL,turnR distCos = ",(R/2)*math.cos(PI - totalAngle))
+    if(sonarControl.runSonar() < abs((R/2)*math.cos(PI - totalAngle))):
+        print("CA: revL,turnR distCos = ",abs((R/2)*math.cos(PI - totalAngle)))
         time.sleep(1)
         #Turn Right
 
@@ -459,16 +459,16 @@ def clockAvoidance_wThread(distance):
         speedControl(-1*clockAngleInit,0,True)
         totalAngle = -clockAngleInit
 
-        if(sonarControl.runSonar() < (R/2)*math.cos(PI - abs(totalAngle))):
-            print("CA: turnR distCos = ",(R/2)*math.cos(PI - abs(totalAngle)))
+        if(sonarControl.runSonar() < abs((R/2)*math.cos(PI - abs(totalAngle)))):
+            print("CA: turnR distCos = ",abs((R/2)*math.cos(PI - abs(totalAngle))))
             time.sleep(1)
             #Turn Right
 
             speedControl(-1*clockAngleInit,0,True)
             totalAngle = -clockAngleInit*2
             
-            if(sonarControl.runSonar() < (R/2)*math.cos(PI - abs(totalAngle))):
-                print("CA: revR*2,turnL*2 distCos = ",(R/2)*math.cos(PI - abs(totalAngle)))
+            if(sonarControl.runSonar() < abs((R/2)*math.cos(PI - abs(totalAngle)))):
+                print("CA: revR*2,turnL*2 distCos = ",abs((R/2)*math.cos(PI - abs(totalAngle))))
                 time.sleep(1)
                 #Turn Left
 
@@ -477,9 +477,9 @@ def clockAvoidance_wThread(distance):
 
                 totalAngle = clockAngleInit*2
 
-                if(sonarControl.runSonar()<(R/2)*math.cos(PI - totalAngle)):
+                if(sonarControl.runSonar()<abs((R/2)*math.cos(PI - totalAngle))):
                     #total failure to find alternative route
-                    print("\nFAILURE TO FIND ROUTE!\n distCos = ",(R/2)*math.cos(PI - totalAngle))
+                    print("\nFAILURE TO FIND ROUTE!\n distCos = ",abs((R/2)*math.cos(PI - totalAngle)))
                     distance = 0
 
     
