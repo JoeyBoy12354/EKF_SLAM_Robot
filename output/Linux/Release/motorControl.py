@@ -76,7 +76,7 @@ def motorControl_wThread(theta,distance):
     if(sonarControl.runSonar()<distance+R/2+30):
         #I will hit a wall, last chance to check!
         print("\nFORWARD CHECK FOUND I WILL HIT WALL")
-        distance = distance - R/2 - 30
+        distance = distance - R/2 - 50
         print("NEWDISTANCE = ",distance)
         if(distance<0):
             print("negative DISTACE ERRRORRRR!!!")
