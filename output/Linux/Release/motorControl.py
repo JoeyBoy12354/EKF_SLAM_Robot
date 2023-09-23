@@ -35,7 +35,7 @@ clockAngleStep = 0.261799 #15 Degree step rotation
 runDone = False
 sonarFlag = False
 sonarOn = False
-wait = 0.2
+wait = 0.05
 
 
 def motorControl_wThread(theta,distance):
@@ -299,7 +299,7 @@ def speedControl(theta,distance,direction):
     right_new = 0
     right_count = 0
 
-    sonar_thread.start()
+    #sonar_thread.start() #turrned off for testing
     thread.start()
     while(left_count<=NoTicks and right_count<=NoTicks and sonarFlag == False):
         left_new = wiringpi.digitalRead(LSS_Pin)
@@ -317,7 +317,7 @@ def speedControl(theta,distance,direction):
     sonarOn = False
     print("runDone = ",runDone," sonarFlag = ",sonarFlag, " Waiting to join")
     thread.join()
-    sonar_thread.join()
+    #sonar_thread.join()
     
     left = left_count/20
     right = right_count/20
