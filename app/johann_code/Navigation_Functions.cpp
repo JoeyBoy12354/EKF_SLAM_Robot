@@ -49,7 +49,7 @@ namespace Navigation_Functions{
             dist = 0;
             theta = 0;
             //mapped room
-            print("\nNAVI: EXPLORED MAP \n")
+            cout<<"\nNAVI: EXPLORED MAP \n"<<endl;
             
             return true;
         }
