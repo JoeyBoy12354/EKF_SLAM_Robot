@@ -311,7 +311,7 @@ def speedControl(theta,distance,direction):
 
     runDone = True
     sonarOn = False
-    print("runDone = ",runDone," sonarFlag = ",sonarFlag, " Waiting to join")
+    #print("runDone = ",runDone," sonarFlag = ",sonarFlag, " Waiting to join")
     thread.join()
     #sonar_thread.join()
     
