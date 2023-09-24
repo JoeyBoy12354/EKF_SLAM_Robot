@@ -61,7 +61,7 @@ namespace Navigation_Functions{
 
         //Send to motors
         writeMotorToCSV(theta,dist);
-        cout<<"Navi: Set angle = "<<theta*180/(PI)<<" Set Distance = "<<dist<<"mm"<<endl;
+        cout<<"Navi: Set angle = "<<theta*180/(PI)<<" deg Set Distance = "<<dist<<"mm"<<endl;
     
         int ret;
         ret = system("python3 motorControl.py ok go");

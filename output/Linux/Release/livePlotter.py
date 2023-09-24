@@ -74,15 +74,23 @@ def rotate_point(x, y, angle):
 
 # Function to draw a rotated triangle
 def draw_rotated_triangle(ax, x, y, direction_angle):
+    line_length = 300
+
     # Define the coordinates of the vertices of the triangle (Left Corner, Right Corner, Top Tip)
-    triangle = np.array([[0.0, 0.0], [80, 0.0], [40, 100]]) #accurate
+    triangle = np.array([[0.0, 0.0], [80, 0.0], [40, 180]]) #accurate
     #triangle = np.array([[0.0, 0.0], [330, 0.0], [165, 300]]) #scaled
 
     # Rotate the triangle based on the direction angle
     rotated_triangle = np.array([rotate_point(x, y, direction_angle) for x, y in triangle])
 
+    # Calculate the coordinates of the front of the triangle
+    front_x, front_y = rotate_point(x + 0.5 * triangle[2, 0], y + line_length, direction_angle)
+
     # Plot the rotated triangle on the existing axis
     ax.fill(rotated_triangle[:, 0], rotated_triangle[:, 1], 'b')
+
+    # Plot the front line
+    ax.plot([rotated_triangle[2, 0], front_x], [rotated_triangle[2, 1], front_y], 'r')
 
 
 
