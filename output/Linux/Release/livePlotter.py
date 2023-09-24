@@ -110,11 +110,14 @@ def animate(i):
 
     #fetchAndPlotLines()
     draw_rotated_triangle(plt.gca(),position[0],position[1],position[2])
+    plt.axhline(y=0, color='k', linestyle='--', linewidth=1)
+    plt.axvline(x=0, color='k', linestyle='--', linewidth=1)
     plt.plot(x1, y1, 'o', label='Points',markersize=0.5,color='r')
     plt.plot(x4, y4, 'o', label='Con_points', markersize=1,color='purple')
     plt.plot(x2, y2, 'X', label='Landmarks', markersize=7,color='g')
     plt.plot(x3, y3, 'X', label='RNC_points', markersize=7,color='b')
     plt.plot(x_goal, y_goal, '8', label='Goal', markersize=7,color='c')
+
     
     
     #plt.plot(x2, y2, 'X', label='RNC_lines', markersize=3,color='b')
