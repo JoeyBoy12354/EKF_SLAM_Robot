@@ -451,8 +451,13 @@ def checkAvoidance_wThread(distance):
 def clockAvoidance_wThread(distance):
     print("\nin clock avoidance")
 
+    
+
     sonarError = 20 #how much error the sonar may have [mm]
     totalAngle = 0
+
+    speedControl(0,R/2+sonarError,False)
+
     #Turn Left
     print("CA: turnL distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
     speedControl(clockAngleInit,0,True)
@@ -527,7 +532,7 @@ def writeOdometry(angle, distance):
     else:
         existingData[2] = angle
         existingData[3] = distance
-        
+
     with open('motorCSV.csv','w') as file:
         csv_writer = csv.writer(file)
         for row in existingData:
