@@ -102,7 +102,6 @@ void testPython(){
 void testMotor(){
     float angle = -PI/2;
     float distance = 0;
-    float time;
 
     writeMotorToCSV(angle,distance);
     
@@ -111,8 +110,8 @@ void testMotor(){
     cout << "ret/cpp = " << ret << endl;
 
     cout<<"Set angle = "<<angle*180/(PI)<<" Set Distance = "<<distance<<endl;
-    readMotorFromCSV(angle,distance,time);
-    cout<<"Read angle = "<<angle<<" Read Distance = "<<distance<<" Time = "<<time<<endl;
+    readMotorFromCSV(angle,distance);
+    cout<<"Read angle = "<<angle<<" Read Distance = "<<distance<<endl;
 
 }
 
