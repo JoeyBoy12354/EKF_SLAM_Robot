@@ -75,7 +75,8 @@ def motorControl_wThread(theta,distance):
         if(distance<0):
             #print("negative DISTACE ERRRORRRR!!!")
             speedControl(0,100,False)
-        
+
+    print("\n GO FORWARD FOR: ",distance,"\n") 
     dist,elapsed = speedControl(0,distance,True)
 
     
