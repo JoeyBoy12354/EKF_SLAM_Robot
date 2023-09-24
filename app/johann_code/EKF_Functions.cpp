@@ -271,7 +271,7 @@ void ExtendedKalmanFilter::runEKF() {
         //cout << "\nLINE 5\nK =\n" << Gain << "\n";
 
         updateStateOfLandmark();
-        cout << "\nLINE 6\nmu =\n" << State << "\n";
+        cout << "\nEKF(",i,")_LINE 6\nmu =\n" << State << "\n";
 
         updateCovarianceOfLandmark();
         //cout << "\nLINE 7\nsigma =\n" << Covariance << "\n";
