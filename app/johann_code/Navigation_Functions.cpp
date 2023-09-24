@@ -23,7 +23,7 @@ namespace Navigation_Functions{
 
         updateExplorations(State,Robot);
 
-        if(noNavTrials<10){
+        if(noNavTrials<2){
             for(int i = 0; i<LandmarksExplored.size();i++){
                 if(LandmarksExplored[i] != true){
                     CarPoint LM;
@@ -46,10 +46,12 @@ namespace Navigation_Functions{
             //SHOULD BE TRUE PLEASE CHANGE 
             return false;
         }else{
+            dist = 0
+            theta = 0
             //mapped room
+            print("NAVI: EXPLORED MAP ")
             
-            
-            return false;
+            return true;
         }
     }
 
