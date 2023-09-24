@@ -117,20 +117,17 @@ namespace Data_Functions{
     }
 
     //This function will take the inputed values and set the EKF
-    void motorDataProcessing(float& ekf_w,float& ekf_v,float& ekf_t,float&ekf_dist){
+    void motorDataProcessing(float& ekf_w,float&ekf_dist){
         //cout<<"Process motor Data"<<endl;
         float theta;
-        float dist;
-        float time;
+        float dist;;
       
 
         
-        readMotorFromCSV(theta,dist,time);
-        cout<<"Read angle = "<<theta<<" Read Distance = "<<dist<<" Read Time = "<<time<<endl;
+        readMotorFromCSV(theta,dist);
+        cout<<"Read angle = "<<theta<<" Read Distance = "<<endl;
         
         ekf_w = theta;
-        ekf_v = dist/time;
-        ekf_t = time;
         ekf_dist = dist;
 
     }

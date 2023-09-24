@@ -283,7 +283,7 @@ namespace CSV_Functions{
 
     }
 
-    void readMotorFromCSV(float& angle, float& distance, float& time){
+    void readMotorFromCSV(float& angle, float& distance){
         ifstream file(motorCSV);
 
         if (!file.is_open()) {
@@ -305,12 +305,12 @@ namespace CSV_Functions{
                 distance = stod(line);
             }
 
-            if (getline(file, line)){
-                time = stod(line);
-            }
         }
 
         file.close();
+
+        cout<<"CSV: readMotor, READ angle = "<<angle<<endl;
+        cout<<"CSV: readMotor, READ dist = "<<distance<<endl;
 
     }
 

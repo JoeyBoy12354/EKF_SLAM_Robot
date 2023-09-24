@@ -77,11 +77,12 @@ def motorControl_wThread(theta,distance):
             speedControl(0,100,False)
 
     print("\n GO FORWARD FOR: ",distance,"\n") 
-    dist,elapsed = speedControl(0,distance,True)
+    left,right = speedControl(0,distance,True)
+    dist = getDist(left,right)
 
     
 
-    return angle,dist,elapsed
+    return angle,dist
 
 
 
@@ -513,7 +514,7 @@ def readInstructions():
     
     return values[0],values[1]
 
-def writeOdometry(angle, distance,t):
+def writeOdometry(angle, distance):
     existingData = []
     with open('motorCSV.csv','r',newline='') as file:
         csv_reader = csv.reader(file)
@@ -523,12 +524,10 @@ def writeOdometry(angle, distance,t):
     if(len(existingData)<=2):
         existingData.append(angle)
         existingData.append(distance)
-        existingData.append(t)
     else:
         existingData[2] = angle
         existingData[3] = distance
-        existingData[4] = t
-
+        
     with open('motorCSV.csv','w') as file:
         csv_writer = csv.writer(file)
         for row in existingData:
@@ -884,10 +883,10 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 
 angle,distance = readInstructions()
 
-angle,distance,t = motorControl_wThread(angle,distance)
+angle,distance = motorControl_wThread(angle,distance)
 print("Angle turned = ",angle)
 print("distance moved = ",distance)
-writeOdometry(angle,distance,t)
+writeOdometry(angle,distance)
 # testWheels()
 
 #testAngles()

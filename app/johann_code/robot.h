@@ -85,7 +85,7 @@ namespace CSV_Functions{
 
     //Motor
     void writeMotorToCSV(float angle, float distance);
-    void readMotorFromCSV(float& angle, float& distance, float& time);
+    void readMotorFromCSV(float& angle, float& distance);
 
 
 }
@@ -101,7 +101,7 @@ namespace Data_Functions{
     void LandmarkProcessing();
     
     //motor
-    void motorDataProcessing(float& ekf_w,float& ekf_v,float& ekf_t,float&ekf_dist);
+    void motorDataProcessing(float& ekf_w,float&ekf_dist);
 }
 
 namespace Landmark_Functions{
@@ -156,9 +156,7 @@ public:
     // float w = -0.12391118;
     // float t = 0.1;
 
-    float v = 0;
     float w = 0;
-    float t = 0;
     float distance = 0;
     Matrix<float, dim, 1> State;
     
