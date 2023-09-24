@@ -59,7 +59,6 @@ void testEKF(){
 
     // ekf.v = 1.3094206;
     // ekf.w = -0.12391118;
-    ekf.t = 0.1;
 
     ekf.runEKF();
     cout<<"\n\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!EKF HAS BEEN RUN!!!!!!!!!!!!!!!!!!!!!!!\n\n\n";
