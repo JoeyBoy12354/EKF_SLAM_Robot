@@ -57,7 +57,6 @@ namespace Navigation_Functions{
 
 
     void motorControl(){
-        float time;
 
         //Send to motors
         writeMotorToCSV(theta,dist);
@@ -110,6 +109,13 @@ namespace Navigation_Functions{
     }
 
 
+    void moveCalibration(float distance){
+        print("NAVI: Calibration")
+        theta = 0;
+        dist = distance;
+
+        motorControl();
+    }
 
     //Check if we have explored any new landmarks
     void updateExplorations(MatrixXf State, CarPoint Robot){

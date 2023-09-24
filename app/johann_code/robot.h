@@ -99,6 +99,10 @@ namespace Data_Functions{
     void lidarDataProcessingFull(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints, bool firstRun);
     void lidarDataProcessing(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints);
     void LandmarkProcessing();
+
+    //calibration
+    void lidarDataProcessingCali(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints);
+    void getCaliAngle(MatrixXf State1,MatrixXf State2, float distThresh, float& caliAngle);
     
     //motor
     void motorDataProcessing(float& ekf_w,float&ekf_dist);
@@ -142,6 +146,7 @@ namespace Navigation_Functions{
     void updateExplorations(MatrixXf State, CarPoint Robot);
     void pathFinder();
     void motorControl();
+    void moveCalibration(float distance)
 }
 
 

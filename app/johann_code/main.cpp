@@ -163,19 +163,56 @@ void fullRun(ExtendedKalmanFilter ekf,bool& mapped, bool& firstRun){
 
 
 //This process will use the full map with all historic values to update the EKF and RANSAC
-void fullRunfullLandmark(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun){
-    
+void fullRunfullLandmark(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, bool& calibration){
+
+    if(calibration==false){
+        cout<<"MAIN: Calibration"<<endl;
+        //Since it is the first run we need direction calibration
+        ExtendedKalmanFilter ekf1;
+        ExtendedKalmanFilter ekf2;
+        float caliDistance = 50; //mm
+        float caliThreshold = caliDistance; //mm
+
+        
+        //Get Lidar Reading 1
+        vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
+        runLidar(lidarDataPoints);
+        cout<<"Main: Lidar Run complete"<<endl;
+        vector<CarPoint> carPoints;
+        lidarDataProcessingCali(lidarDataPoints,carPoints);
+        ekf1.distance = 0; 
+        ekf1.w = 0;
+        ekf1.runEKF();
+
+        //Move Robot
+        moveCalibration(caliDistance);
+
+        //Get Lidar Reading 2
+        vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
+        runLidar(lidarDataPoints);
+        cout<<"Main: Lidar Run complete"<<endl;
+        vector<CarPoint> carPoints;
+        lidarDataProcessingCali(lidarDataPoints,carPoints);
+        ekf2.distance = caliDistance; 
+        ekf2.w = 0;
+        ekf2.runEKF();
+
+        float caliAngle;
+        getCaliAngle(ekf1.State,ekf2.State,caliDistance,caliAngle);
+
+        ekf.w = caliAngle;
+        calibration = true;
+
+    }
+
+
     
     if(mapped==false){
         //Run Lidar
         vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
-        //runLidar(vector<PolPoint>& lidarDataPoints);
         runLidar(lidarDataPoints);
-        
-
         cout<<"Main: Lidar Run complete"<<endl;
         
-
         //Process Data
         vector<CarPoint> carPoints;
         lidarDataProcessingFull(lidarDataPoints,carPoints,firstRun);
@@ -210,11 +247,13 @@ void testRun(){
     ExtendedKalmanFilter ekf;
     bool mapped = false;
     bool firstRun = true;
+    bool calibration = false;
     
     for(int i =0;i<4;i++){
         cout<<"IN RUN LOOP: "<<i<<endl;
         cout<<"Mapped = "<<mapped<<endl;
-        fullRunfullLandmark(ekf,mapped,firstRun);
+        fullRunfullLandmark(ekf,mapped,firstRun,calibration);
+        firstRun = false
     }
     
 }

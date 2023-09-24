@@ -40,6 +40,7 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     Gain.setZero();
     
 }
+
 //This function will update the EKF State Space Model with any changes in the robot's
 //velocity[v], rotation[2] over time[t]
 void ExtendedKalmanFilter::updateMotion() {
@@ -126,8 +127,6 @@ void ExtendedKalmanFilter::isNewLandmark() {
     //cout<<"smallestDistance"<<smallestDistance<<" @"<<smallestDistanceIndex<<endl;
     
 
-
-    
     if(smallestDistance<=distThresh){
         //This is a found landmark
         EstimatedLandmark.x = State(smallestDistanceIndex);

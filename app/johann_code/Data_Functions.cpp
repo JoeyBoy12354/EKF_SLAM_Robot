@@ -20,7 +20,6 @@ namespace Data_Functions{
         return cartesianPoints;
     }
 
-
     int getIndex(vector<double> v, double K)
     {
         auto it = find(v.begin(), v.end(), K);
@@ -42,10 +41,26 @@ namespace Data_Functions{
         }
     }
     
+    void lidarDataProcessingCali(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints){
+        cout<<"\n lidarDataProcessing Calibration"<<endl;
 
+        carPoints = convertCartesian(dataPoints);
+
+        cout<<"\nRANSAC"<<endl;
+        vector<Line> detected_lines = RANSAC(carPoints);
+        writeLinesToCSV(detected_lines);
+        writeConsensusToCSV(detected_lines);
+        
+
+        vector<CarPoint> closestPoints = findNearestPoint(detected_lines);
+        writeCornersToCSV(closestPoints);
+        cout<<"\n Number of Closest Points Found:"<<closestPoints.size()<<endl;
+        
+     
+    }
 
     void lidarDataProcessingFull(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints, bool firstRun){
-        cout<<"\n lidarDataProcessing"<<endl;
+        cout<<"\n lidarDataProcessing Full"<<endl;
 
         carPoints = convertCartesian(dataPoints);
         saveCarToCSV(carPoints);
@@ -54,7 +69,6 @@ namespace Data_Functions{
         //Store Data for plotting
         if(firstRun == true){
             saveCarToFullMapCSV(carPoints);
-            firstRun = false;
         }else{
             storeMapPoints(carPoints);
         }
@@ -94,7 +108,6 @@ namespace Data_Functions{
      
     }
 
-
     void LandmarkProcessing(){
         
         vector<CarPoint> carPoints;
@@ -132,6 +145,47 @@ namespace Data_Functions{
 
     }
 
+
+    void getCaliAngle(MatrixXf State1,MatrixXf State2, float distThresh, float& caliAngle){
+        //Get list 1
+        vector<CarPoint> LMlist1
+        CarPoint LM; 
+        for(int i=0; i<State1.rows(); i++){
+            LM.x = State(i+3);
+            LM.y = State(i*2+4);
+            LMlist1.append(LM);
+        }
+
+        //Get list 2
+        vector<CarPoint> LMlist2
+        CarPoint LM; 
+        for(int i=0; i<State1.rows(); i++){
+            LM.x = State(i+3);
+            LM.y = State(i*2+4);
+            LMlist2.append(LM);
+        }
+
+        vector<float> totalAngles;
+        float sumAngles = 0;
+        for(int i=0; i<LMlist1.size(); i++){
+            for(int j=0; j<LMlist2.size(); j++){
+                //data assosciation
+                if(pointDistance(LMlist1[i],LMlist2[j]) <= distThresh){
+                    //calculate angle;
+                    float delta_x = LMlist1[0] - LMlist2[0];
+                    float delta_y = LMlist1[1] - LMlist2[0];
+                    float angle = atan2(delta_y,delta_x);
+
+                    totalAngles.append(angle);
+                    sumAngles+=angle;
+                }
+            }
+        }
+
+        caliAngle = sumAngles/totalAngle.size();
+
+        return;
+    }
 }
 
 
