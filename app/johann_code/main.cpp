@@ -183,6 +183,8 @@ void fullRunfullLandmark(ExtendedKalmanFilter ekf,bool& mapped, bool& firstRun){
         //Run EKF (Note this means that graph will updat i-1 robot positions)
         ekf.runEKF();
 
+        cout << "\nMAIN: EKF\nmu =\n" << ekf.State << "\n";
+
         storeStatePoints(ekf.State);
 
         //Complete Robot Movement

@@ -7,8 +7,8 @@ using namespace Data_Functions;
 
 int noNavTrials = 0;
 vector<bool> LandmarksExplored;
-double foundRadius = 20;//Robot must be within Xmm of LM for LM to be considered Explored
-double closeness = 110;//Robot should travel distance: (Robot->LM) - closeness mm
+double foundRadius = 250;//Robot must be within Xmm of LM for LM to be considered Explored
+double closeness = 200;//Robot should travel distance: (Robot->LM) - closeness mm
 
 float theta;
 float dist;
