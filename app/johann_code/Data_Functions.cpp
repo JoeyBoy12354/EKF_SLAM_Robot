@@ -125,7 +125,7 @@ namespace Data_Functions{
 
         
         readMotorFromCSV(theta,dist);
-        cout<<"SEND TO EKF: Read angle = "<<theta<<" Read Distance = "<<endl;
+        cout<<"DATA: SEND TO EKF: Read angle = "<<theta<<" Read Distance = "<<endl;
         
         ekf_w = theta;
         ekf_dist = dist;

@@ -163,7 +163,7 @@ void fullRun(ExtendedKalmanFilter ekf,bool& mapped, bool& firstRun){
 
 
 //This process will use the full map with all historic values to update the EKF and RANSAC
-void fullRunfullLandmark(ExtendedKalmanFilter ekf,bool& mapped, bool& firstRun){
+void fullRunfullLandmark(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun){
     
     
     if(mapped==false){
