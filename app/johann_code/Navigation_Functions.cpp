@@ -46,10 +46,10 @@ namespace Navigation_Functions{
             //SHOULD BE TRUE PLEASE CHANGE 
             return false;
         }else{
-            dist = 0
-            theta = 0
+            dist = 0;
+            theta = 0;
             //mapped room
-            print("NAVI: EXPLORED MAP ")
+            print("\nNAVI: EXPLORED MAP \n")
             
             return true;
         }
