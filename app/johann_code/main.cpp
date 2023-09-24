@@ -180,7 +180,7 @@ void fullRunfullLandmark(ExtendedKalmanFilter ekf,bool& mapped, bool& firstRun){
         vector<CarPoint> carPoints;
         lidarDataProcessingFull(lidarDataPoints,carPoints,firstRun);
 
-        ekf.distance = 25;
+        ekf.distance = 5;
         ekf.w = 0.6435;
 
         //Run EKF (Note this means that graph will updat i-1 robot positions)
