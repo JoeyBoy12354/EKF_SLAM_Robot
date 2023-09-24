@@ -55,11 +55,11 @@ def runSonar():
     #Rounding
     distance = round(distance,2)
 
-    print("Sonar Distance : %.1f" % distance," mm")
+    #print("Sonar Distance : %.1f" % distance," mm")
 
     if(distance> 12000):
         distance = 0
-        print("12m =< DISTANCE ! ")
+        #print("12m =< DISTANCE ! ")
 
     writeOdometry(distance)
     return distance

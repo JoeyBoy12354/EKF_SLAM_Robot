@@ -43,29 +43,23 @@ def motorControl_wThread(theta,distance):
     LNoRot=0
     RNoRot=0
 
-    print("CHECK MOVEMENT SPACE")
+    #print("CHECK MOVEMENT SPACE")
     if(sonarControl.runSonar()<R/2):
-        print("REVERSE!")
+        #print("REVERSE!")
         speedControl(0,100,False)
         #update odometry accordinglty NB!!!!!
 
-    #backangle = 0.20944 #re-adjust swivel
-    #fullTurn = theta + backangle
+
 
     #Do turn
     LNoRot,RNoRot  = speedControl(theta,0,True)
 
-    # #Straighten
-    # if(theta>0):
-    #     speedControl(-1*backangle,0,True)
-    # else:
-    #     speedControl(backangle,0,True)
 
     angle = getAngle(LNoRot,RNoRot)
 
 
     #Check for obstacles ahead
-    print("Gonna check Avoidance")
+    #print("Gonna check Avoidance")
     #Check distance to obstacle
     if(checkAvoidance_wThread(distance)):
         print("\n CLOCK AVOIDANCE!!!!! \n")
@@ -75,11 +69,11 @@ def motorControl_wThread(theta,distance):
     
     if(sonarControl.runSonar()<distance+R/2+30):
         #I will hit a wall, last chance to check!
-        print("\nFORWARD CHECK FOUND I WILL HIT WALL")
+        #print("\nFORWARD CHECK FOUND I WILL HIT WALL")
         distance = distance - R/2 - 50
-        print("NEWDISTANCE = ",distance)
+        #print("NEWDISTANCE = ",distance)
         if(distance<0):
-            print("negative DISTACE ERRRORRRR!!!")
+            #print("negative DISTACE ERRRORRRR!!!")
             speedControl(0,100,False)
         
     dist,elapsed = speedControl(0,distance,True)
@@ -419,7 +413,7 @@ def checkAvoidance_wThread(distance):
         #Turn Left
         speedControl(clockAngleStep,0,True)
 
-        print("checkA: turnLeft distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
+        #print("checkA: turnLeft distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
 
         totalAngle += clockAngleStep
         if(sonarControl.runSonar() <abs((R/2)*math.cos(PI - totalAngle)) + sonarError):
@@ -428,7 +422,7 @@ def checkAvoidance_wThread(distance):
     
     
     speedControl(totalAngle,0,False)
-    print("checkA: revLeft distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
+    #print("checkA: revLeft distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
     totalAngle = 0
 
     while(totalAngle<clockAngleInit):
@@ -437,7 +431,7 @@ def checkAvoidance_wThread(distance):
         speedControl(-1*clockAngleStep,0,True)
         totalAngle += clockAngleStep
 
-        print("checkA: turnRight distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
+        #print("checkA: turnRight distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
 
         if(sonarControl.runSonar() < abs((R/2)*math.cos(PI - totalAngle)) + sonarError):
             print("RETURN TRUE distCos = ",abs((R/2)*math.cos(PI - totalAngle)))
@@ -446,7 +440,7 @@ def checkAvoidance_wThread(distance):
     
     speedControl(-1*totalAngle,0,False)
 
-    print("checkA: revRight distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
+    #print("checkA: revRight distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
 
     totalAngle = 0
     
@@ -454,7 +448,6 @@ def checkAvoidance_wThread(distance):
 
 def clockAvoidance_wThread(distance):
     print("\nin clock avoidance")
-    time.sleep(1)
 
     sonarError = 20 #how much error the sonar may have [mm]
     totalAngle = 0
