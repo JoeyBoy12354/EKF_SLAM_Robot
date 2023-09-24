@@ -120,7 +120,7 @@ namespace Data_Functions{
     void motorDataProcessing(float& ekf_w,float&ekf_dist){
         //cout<<"Process motor Data"<<endl;
         float theta;
-        float dist;;
+        float dist;
       
 
         

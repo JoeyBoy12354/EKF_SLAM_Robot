@@ -2,6 +2,7 @@ import numpy as np
 import csv
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
+import math
 
 plt.style.use('fivethirtyeight')
 
@@ -21,7 +22,24 @@ def fetchRobot():
         csv_reader = csv.reader(file)
         for row in csv_reader:
             postion.append(float(row[0]))
-    return postion
+
+    file.close()
+
+    goal = []
+    #Calculate goal that we want to move
+    with open('motorCSV.csv','r') as file:
+        csv_reader = csv.reader(file)
+        for row in csv_reader:
+            goal.append(float(row[0]))
+    
+    d_x = goal[1]*math.cos(goal[0])
+    d_y = goal[1]*math.sin(goal[0])
+    x_goal = postion[0] + d_x
+    y_goal = postion[0] + d_y
+
+
+
+    return postion,x_goal,y_goal
 
 # Read the lines from the CSV file
 def fetchAndPlotLines():
@@ -74,7 +92,7 @@ def animate(i):
     x2,y2=fetchCoord('landmarkCSV.csv')
     x3,y3=fetchCoord('cornersCSV.csv')
     x4,y4=fetchCoord('consensusCSV.csv')
-    position = fetchRobot()
+    position,x_goal,y_goal = fetchRobot()
     #print("POSITION = ",position)
 
     
@@ -88,6 +106,7 @@ def animate(i):
     plt.plot(x4, y4, 'o', label='Con_points', markersize=1,color='purple')
     plt.plot(x2, y2, 'X', label='Landmarks', markersize=7,color='g')
     plt.plot(x3, y3, 'X', label='RNC_points', markersize=7,color='b')
+    plt.plot(x_goal, y_goal, '8', label='Goal', markersize=7,color='c')
     
     
     #plt.plot(x2, y2, 'X', label='RNC_lines', markersize=3,color='b')
