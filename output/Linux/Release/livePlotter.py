@@ -7,7 +7,6 @@ import math
 plt.style.use('fivethirtyeight')
 
 def fetchCoord(filename):
-    print("\n")
     x_coord = []
     y_coord = []
     with open(filename,'r') as file:
