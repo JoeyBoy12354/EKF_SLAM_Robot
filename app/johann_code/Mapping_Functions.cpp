@@ -168,7 +168,7 @@ namespace Mapping_Functions{
 
         for(int i =0;i<mapdata.size;i++){
             if(abs(mapdata[i].x-x_coord) <= distThresh){
-                searchMap.append(mapdata[i]);
+                searchMap.push_back(mapdata[i]);
             }
         }
     }
@@ -218,10 +218,10 @@ namespace Mapping_Functions{
                 newPoint.y = yPos;
                 yPos += yStep;
 
-                yPoints.append(newPoint);
+                yPoints.push_back(newPoint);
             }
             if(yPoints.size()>0){
-                points.append(yPoints);
+                points.push_back(yPoints);
             }
             
 
@@ -238,10 +238,10 @@ namespace Mapping_Functions{
                 newPoint.y = yPos;
                 yPos += yStep;
 
-                yPoints.append(newPoint);
+                yPoints.push_back(newPoint);
             }
             if(yPoints.size()>0){
-                points.append(yPoints);
+                points.push_back(yPoints);
             }
             
 
@@ -268,10 +268,10 @@ namespace Mapping_Functions{
                 newPoint.y = yPos;
                 yPos += yStep;
 
-                yPoints.append(newPoint);
+                yPoints.push_back(newPoint);
             }
             if(yPoints.size()>0){
-                points.append(yPoints);
+                points.push_back(yPoints);
             }
 
             //Do Negative Y-axis
@@ -287,10 +287,10 @@ namespace Mapping_Functions{
                 newPoint.y = yPos;
                 yPos += yStep;
 
-                yPoints.append(newPoint);
+                yPoints.push_back(newPoint);
             }
             if(yPoints.size()>0){
-                points.append(yPoints);
+                points.push_back(yPoints);
             }
             
 

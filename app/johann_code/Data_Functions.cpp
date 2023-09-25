@@ -148,21 +148,21 @@ namespace Data_Functions{
 
     void getCaliAngle(MatrixXf State1,MatrixXf State2, float distThresh, float& caliAngle){
         //Get list 1
-        vector<CarPoint> LMlist1
+        vector<CarPoint> LMlist1;
         CarPoint LM; 
         for(int i=0; i<State1.rows(); i++){
-            LM.x = State(i+3);
-            LM.y = State(i*2+4);
-            LMlist1.append(LM);
+            LM.x = State1(i+3);
+            LM.y = State1(i*2+4);
+            LMlist1.push_back(LM);
         }
 
         //Get list 2
-        vector<CarPoint> LMlist2
+        vector<CarPoint> LMlist2;
         CarPoint LM; 
-        for(int i=0; i<State1.rows(); i++){
-            LM.x = State(i+3);
-            LM.y = State(i*2+4);
-            LMlist2.append(LM);
+        for(int i=0; i<State2.rows(); i++){
+            LM.x = State2(i+3);
+            LM.y = State2(i*2+4);
+            LMlist2.push_back(LM);
         }
 
         vector<float> totalAngles;
@@ -176,7 +176,7 @@ namespace Data_Functions{
                     float delta_y = LMlist1[1] - LMlist2[0];
                     float angle = atan2(delta_y,delta_x);
 
-                    totalAngles.append(angle);
+                    totalAngles.push_back(angle);
                     sumAngles+=angle;
                 }
             }
