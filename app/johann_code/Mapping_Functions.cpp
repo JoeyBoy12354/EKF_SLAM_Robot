@@ -147,7 +147,6 @@ namespace Mapping_Functions{
         
     }
 
-
     bool gridDotBoundCheck(vector<CarPoint> searchMap, GridPoint point,float distThresh){
         for(int i = 0; i<searchMap.size(); i++){
             CarPoint point2;
@@ -189,6 +188,8 @@ namespace Mapping_Functions{
         float xPos; //holds current x-coordinate
         float yPos; //holds current y-coordinate
 
+        vector<GridPoint> yPoints;
+
 
         //Select
         //Positive x-axis
@@ -206,7 +207,7 @@ namespace Mapping_Functions{
 
 
             //Do Positive Y-Axis
-            vector<GridPoint> yPoints;
+            yPoints.clear();
             yPos = 0;
             GridPoint newPoint;
             newPoint.x = xPos;
@@ -219,10 +220,13 @@ namespace Mapping_Functions{
 
                 yPoints.append(newPoint);
             }
-            points.append(yPoints);
+            if(yPoints.size()>0){
+                points.append(yPoints);
+            }
+            
 
             //Do Negative Y-axis
-            vector<GridPoint> yPoints;
+            yPoints.clear();
             yStep = -1*yStep;
             yPos = yStep;
             GridPoint newPoint;
@@ -236,7 +240,9 @@ namespace Mapping_Functions{
 
                 yPoints.append(newPoint);
             }
-            points.append(yPoints);
+            if(yPoints.size()>0){
+                points.append(yPoints);
+            }
             
 
             yStep = -1*yStep;//Change Back to positive
@@ -251,7 +257,7 @@ namespace Mapping_Functions{
             gridGetSearchMap(mapdata,searchMap,xPos,distThresh);
 
             //Do Positive Y-Axis
-            vector<GridPoint> yPoints;
+            yPoints.clear();
             yPos = 0;
             GridPoint newPoint;
             newPoint.x = xPos;
@@ -264,10 +270,12 @@ namespace Mapping_Functions{
 
                 yPoints.append(newPoint);
             }
-            points.append(yPoints);
+            if(yPoints.size()>0){
+                points.append(yPoints);
+            }
 
             //Do Negative Y-axis
-            vector<GridPoint> yPoints;
+            yPoints.clear();
             yStep = -1*yStep;
             yPos = yStep;
             GridPoint newPoint;
@@ -281,7 +289,9 @@ namespace Mapping_Functions{
 
                 yPoints.append(newPoint);
             }
-            points.append(yPoints);
+            if(yPoints.size()>0){
+                points.append(yPoints);
+            }
             
 
             yStep = -1*yStep;//Change Back to positive

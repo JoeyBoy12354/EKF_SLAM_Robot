@@ -173,7 +173,7 @@ namespace Navigation_Functions{
     void updateExplorations(MatrixXf State, CarPoint Robot);
     void pathFinder();
     void motorControl();
-    void moveCalibration(float distance)
+    void moveCalibration(float distance);
 }
 
 

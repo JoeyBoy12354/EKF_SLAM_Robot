@@ -177,7 +177,7 @@ void fullRunfullLandmark(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun,
         //Get Lidar Reading 1
         vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
         runLidar(lidarDataPoints);
-        cout<<"Main: Lidar Run complete"<<endl;
+        cout<<"Main Cali: Lidar Run complete"<<endl;
         vector<CarPoint> carPoints;
         lidarDataProcessingCali(lidarDataPoints,carPoints);
         ekf1.distance = 0; 
@@ -188,10 +188,10 @@ void fullRunfullLandmark(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun,
         moveCalibration(caliDistance);
 
         //Get Lidar Reading 2
-        vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
+        lidarDataPoints.clear();//can be replaced with array for speed
         runLidar(lidarDataPoints);
-        cout<<"Main: Lidar Run complete"<<endl;
-        vector<CarPoint> carPoints;
+        cout<<"Main Cali: Lidar Run complete"<<endl;
+        carPoints.clear();
         lidarDataProcessingCali(lidarDataPoints,carPoints);
         ekf2.distance = caliDistance; 
         ekf2.w = 0;
@@ -253,7 +253,7 @@ void testRun(){
         cout<<"IN RUN LOOP: "<<i<<endl;
         cout<<"Mapped = "<<mapped<<endl;
         fullRunfullLandmark(ekf,mapped,firstRun,calibration);
-        firstRun = false
+        firstRun = false;
     }
     
 }
