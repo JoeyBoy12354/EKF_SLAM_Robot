@@ -7,6 +7,7 @@ import math
 plt.style.use('fivethirtyeight')
 
 def fetchCoord(filename):
+    print("\n")
     x_coord = []
     y_coord = []
     with open(filename,'r') as file:
@@ -14,6 +15,7 @@ def fetchCoord(filename):
         for row in csv_reader:
             x_coord.append(float(row[0]))
             y_coord.append(float(row[1]))
+            print(filename,": r0: ",row[0]," r1: ",row[1])
     return x_coord,y_coord
 
 def fetchRobot():
@@ -90,7 +92,7 @@ def draw_rotated_triangle(ax, x, y, direction_angle):
     ax.fill(rotated_triangle[:, 0], rotated_triangle[:, 1], 'b')
 
     # Plot the front line
-    ax.plot([rotated_triangle[2, 0], front_x], [rotated_triangle[2, 1], front_y], 'r')
+    ax.plot([rotated_triangle[2, 0], front_x], [rotated_triangle[2, 1], front_y], 'g')
 
 
 
