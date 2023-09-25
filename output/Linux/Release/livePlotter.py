@@ -15,7 +15,6 @@ def fetchCoord(filename):
         for row in csv_reader:
             x_coord.append(float(row[0]))
             y_coord.append(float(row[1]))
-            print(filename,": r0: ",row[0]," r1: ",row[1])
     return x_coord,y_coord
 
 def fetchRobot():
@@ -37,11 +36,18 @@ def fetchRobot():
     d_x = goal[1]*math.cos(goal[0])
     d_y = goal[1]*math.sin(goal[0])
     x_goal = postion[0] + d_x
-    y_goal = postion[0] + d_y
+    y_goal = postion[1] + d_y
+
+    d_x = goal[3]*math.cos(goal[2])
+    d_y = goal[3]*math.cos(goal[2])
+    x_true = postion[0] + d_x
+    y_true = postion[1] + d_y
+    angle_true = goal
+    true_move = [x_true,y_true,angle_true]
 
 
 
-    return postion,x_goal,y_goal
+    return postion,x_goal,y_goal,true_move
 
 # def fetchMotor():
 #     postion = []
@@ -136,11 +142,12 @@ def draw_rotated_triangle(ax, x, y, direction_angle):
     back_y = (triangle[0][1]+triangle[1][1])/2
 
 
-    # Plot the rotated triangle on the existing axis
-    ax.fill(triangle[:, 0], triangle[:, 1], 'b')
+    
 
     # Plot the front line
     ax.plot([front_x, back_x], [front_y, back_y], 'g')
+
+    return triangle
 
 
 
@@ -150,7 +157,7 @@ def animate(i):
     x2,y2=fetchCoord('landmarkCSV.csv')
     x3,y3=fetchCoord('cornersCSV.csv')
     x4,y4=fetchCoord('consensusCSV.csv')
-    position,x_goal,y_goal = fetchRobot()
+    position,x_goal,y_goal,true_move = fetchRobot()
 
     #print("POSITION = ",position)
 
@@ -160,7 +167,12 @@ def animate(i):
     #plt.axes().set_facecolor("black")
 
     #fetchAndPlotLines()
-    draw_rotated_triangle(plt.gca(),position[0],position[1],position[2])
+    triangle = draw_rotated_triangle(plt.gca(),position[0],position[1],position[2])
+    plt.gca().fill(triangle[:, 0], triangle[:, 1], 'b')
+
+    triangle = draw_rotated_triangle(plt.gca(),true_move[0],true_move[1],true_move[2])
+    plt.gca().fill(triangle[:, 0], triangle[:, 1], 'y')
+
     plt.axhline(y=0, color='k', linestyle='--', linewidth=1)
     plt.axvline(x=0, color='k', linestyle='--', linewidth=1)
     plt.plot(x1, y1, 'o', label='Points',markersize=0.5,color='r')
