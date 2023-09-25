@@ -152,7 +152,7 @@ namespace Mapping_Functions{
             CarPoint point2;
             point2.x = point.x;
             point2.y = point.y;
-            temp_dist = pointDistance(searchMap[i],point2)
+            float temp_dist = pointDistance(searchMap[i],point2)
             if(temp_dist <= distThresh){
                 return false;
 
@@ -166,7 +166,7 @@ namespace Mapping_Functions{
     //This function will create a search map containing points that are able to limit the grid dots (make more reasonable quicker search)
     void gridGetSearchMap(vector<CarPoint> mapdata, vector<CarPoint>& searchMap, float x_coord, float distThresh){
 
-        for(int i =0;i<mapdata.size;i++){
+        for(int i =0;i<mapdata.size();i++){
             if(abs(mapdata[i].x-x_coord) <= distThresh){
                 searchMap.push_back(mapdata[i]);
             }
@@ -189,6 +189,7 @@ namespace Mapping_Functions{
         float yPos; //holds current y-coordinate
 
         vector<GridPoint> yPoints;
+        GridPoint newPoint;
 
 
         //Select
@@ -209,11 +210,9 @@ namespace Mapping_Functions{
             //Do Positive Y-Axis
             yPoints.clear();
             yPos = 0;
-            GridPoint newPoint;
             newPoint.x = xPos;
             newPoint.y = yPos;
             while(yPoints.size()<=vLimit and gridDotBoundCheck(searchMap,newPoint,boundThresh)){
-                GridPoint newPoint;
                 newPoint.x = xPos;
                 newPoint.y = yPos;
                 yPos += yStep;
@@ -229,11 +228,9 @@ namespace Mapping_Functions{
             yPoints.clear();
             yStep = -1*yStep;
             yPos = yStep;
-            GridPoint newPoint;
             newPoint.x = xPos;
             newPoint.y = yPos;
             while(yPoints.size()<=vLimit and gridDotBoundCheck(searchMap,newPoint,boundThresh)){
-                GridPoint newPoint;
                 newPoint.x = xPos;
                 newPoint.y = yPos;
                 yPos += yStep;
@@ -259,11 +256,9 @@ namespace Mapping_Functions{
             //Do Positive Y-Axis
             yPoints.clear();
             yPos = 0;
-            GridPoint newPoint;
             newPoint.x = xPos;
             newPoint.y = yPos;
             while(yPoints.size()<=vLimit and gridDotBoundCheck(searchMap,newPoint,boundThresh)){
-                GridPoint newPoint;
                 newPoint.x = xPos;
                 newPoint.y = yPos;
                 yPos += yStep;
@@ -278,11 +273,9 @@ namespace Mapping_Functions{
             yPoints.clear();
             yStep = -1*yStep;
             yPos = yStep;
-            GridPoint newPoint;
             newPoint.x = xPos;
             newPoint.y = yPos;
             while(yPoints.size()<=vLimit and gridDotBoundCheck(searchMap,newPoint,boundThresh) ){
-                GridPoint newPoint;
                 newPoint.x = xPos;
                 newPoint.y = yPos;
                 yPos += yStep;
