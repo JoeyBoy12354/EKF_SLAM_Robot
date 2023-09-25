@@ -97,7 +97,7 @@ def draw_rotated_triangle(ax, x, y, direction_angle):
     # Define the coordinates of the vertices of the triangle (Left Corner, Right Corner, Top Tip)
     #triangle = np.array([[0.0, 0.0], [80, 0.0], [40, 180]]) #accurate
 
-    triangle = np.array([[x-40, y-90], [x+40, y-90], [x, y+90]]) #accurate + adjusted
+    triangle = np.array([[x, y-40], [x, y+40], [x-90, y]]) #accurate + adjusted
     #triangle = np.array([[0.0, 0.0], [330, 0.0], [165, 300]]) #scaled
 
     #SWAPPED DUE TO MAP INVERSION
@@ -155,7 +155,7 @@ def animate(i):
     triangle = draw_rotated_triangle(plt.gca(),position[0],position[1],position[2])
     plt.gca().fill(triangle[:, 0], triangle[:, 1], 'b')
 
-    triangle = draw_rotated_triangle(plt.gca(),0,0,np.pi/2)
+    triangle = draw_rotated_triangle(plt.gca(),0,0,0)
     plt.gca().fill(triangle[:, 0], triangle[:, 1], 'y')
 
     plt.axhline(y=0, color='k', linestyle='--', linewidth=1)
