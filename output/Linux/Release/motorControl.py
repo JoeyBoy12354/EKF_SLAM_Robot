@@ -62,11 +62,11 @@ def motorControl_wThread(theta,distance):
     #Check for obstacles ahead
     #print("Gonna check Avoidance")
     #Check distance to obstacle
-    if(checkAvoidance_wThread(distance)):
-        print("\n CLOCK AVOIDANCE!!!!! \n")
-        distance = distance/2
-        avoidedAngle,distance = clockAvoidance_wThread(distance)
-        angle = avoidedAngle + angle
+    # if(checkAvoidance_wThread(distance)):
+    #     print("\n CLOCK AVOIDANCE!!!!! \n")
+    #     distance = distance/2
+    #     avoidedAngle,distance = clockAvoidance_wThread(distance)
+    #     angle = avoidedAngle + angle
     
     if(sonarControl.runSonar()<distance+R/2+30):
         #I will hit a wall, last chance to check!
