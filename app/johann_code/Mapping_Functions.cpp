@@ -152,7 +152,7 @@ namespace Mapping_Functions{
             CarPoint point2;
             point2.x = point.x;
             point2.y = point.y;
-            float temp_dist = pointDistance(searchMap[i],point2)
+            float temp_dist = pointDistance(searchMap[i],point2);
             if(temp_dist <= distThresh){
                 return false;
 
