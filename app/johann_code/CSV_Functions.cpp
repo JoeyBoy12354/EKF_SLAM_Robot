@@ -314,4 +314,17 @@ namespace CSV_Functions{
 
     }
 
+    //Grid Map Functions
+    void saveGridToCSV(vector<vector<GridPoint>> points){
+        return;
+    }
+
+    void appendGridToCSV(vector<vector<GridPoint>> points){
+        return;
+    }
+
+    void readGridFromCSV(vector<vector<GridPoint>> points){
+        return;
+    }
+
 }

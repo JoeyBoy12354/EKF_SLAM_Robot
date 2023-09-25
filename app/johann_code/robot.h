@@ -46,6 +46,21 @@ struct CarPoint {
     }
 };
 
+struct GridPoint {
+    double x;
+    double y;
+    bool trav = false;
+
+    bool operator==(const GridPoint& other) const {
+        return x == other.x && y == other.y && trav == other.trav;
+    }
+
+    friend ostream& operator<<(ostream& os, const GridPoint& point) {
+        os << "(" << point.x << "," << point.y << ") " << point.trav;
+        return os;
+    }
+};
+
 struct Line {
     double gradient;
     double intercept;
@@ -137,6 +152,14 @@ namespace Lidar_Functions{
 namespace Mapping_Functions{
     void storeMapPoints(vector<CarPoint> lidardata);
     void storeStatePoints(Matrix<float, dim, 1> State);
+
+    void gridDataProcess(vector<CarPoint> lidarData,vector<vector<GridPoint>> gridOld, vector<vector<GridPoint>>& gridNew,
+                         Matrix<float, dim, 1> State, bool firstRun);
+    void gridDataAssosciationMove(vector<vector<GridPoint>>& gridNew, Matrix<float, dim, 1> State);
+    void gridDataAssosciationMap(vector<vector<GridPoint>> gridOld, vector<vector<GridPoint>>& gridNew);
+    bool gridDotBoundCheck(vector<CarPoint> searchMap, GridPoint point,float distThresh);
+    void gridGetSearchMap(vector<CarPoint> mapdata, vector<CarPoint>& searchMap, float x_coord, float distThresh);
+    void gridMakeDots(vector<CarPoint> mapdata, vector<vector<GridPoint>>& points);
 }
 
 namespace Navigation_Functions{
