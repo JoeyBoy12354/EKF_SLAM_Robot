@@ -103,10 +103,12 @@ def draw_rotated_triangle(ax, x, y, direction_angle):
     #SWAPPED DUE TO MAP INVERSION
     if(direction_angle<0):
         triangle[1] = rotate_pnt(triangle[1][0],triangle[1][1],direction_angle) #Right Corner
+        triangle[2] = rotate_pnt(triangle[2][0],triangle[2][1],direction_angle) #Top Tip
     elif(direction_angle>0):
         triangle[0] = rotate_pnt(triangle[0][0],triangle[0][1],direction_angle) #Left Corner
+        triangle[2] = rotate_pnt(triangle[2][0],triangle[2][1],direction_angle) #Top Tip
 
-    triangle[2] = rotate_pnt(triangle[2][0],triangle[2][1],direction_angle) #Top Tip
+    
 
 
 
@@ -153,8 +155,8 @@ def animate(i):
     triangle = draw_rotated_triangle(plt.gca(),position[0],position[1],position[2])
     plt.gca().fill(triangle[:, 0], triangle[:, 1], 'b')
 
-    #triangle = draw_rotated_triangle(plt.gca(),true_move[0],true_move[1],true_move[2])
-    #plt.gca().fill(triangle[:, 0], triangle[:, 1], 'y')
+    triangle = draw_rotated_triangle(plt.gca(),0,0,0)
+    plt.gca().fill(triangle[:, 0], triangle[:, 1], 'y')
 
     plt.axhline(y=0, color='k', linestyle='--', linewidth=1)
     plt.axvline(x=0, color='k', linestyle='--', linewidth=1)
