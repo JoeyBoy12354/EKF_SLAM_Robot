@@ -37,12 +37,15 @@ def fetchRobot():
     x_goal = postion[0] + d_x
     y_goal = postion[1] + d_y
 
-    d_x = goal[3]*math.cos(goal[2])
-    d_y = goal[3]*math.cos(goal[2])
-    x_true = postion[0] + d_x
-    y_true = postion[1] + d_y
-    angle_true = goal[2]
-    true_move = [x_true,y_true,angle_true]
+    if(len(goal)>1):
+        d_x = goal[3]*math.cos(goal[2])
+        d_y = goal[3]*math.cos(goal[2])
+        x_true = postion[0] + d_x
+        y_true = postion[1] + d_y
+        angle_true = goal[2]
+        true_move = [x_true,y_true,angle_true]
+    else:
+        true_move = [0,0,0]
 
 
 
