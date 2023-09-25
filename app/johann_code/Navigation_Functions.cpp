@@ -81,7 +81,7 @@ namespace Navigation_Functions{
         theta = atan2(deltaY,deltaX) - State(2);
 
         //FIX
-        theta = -1*theta;
+        //theta = theta;
 
         //Ensure distance > 0 
         if(dist<0){

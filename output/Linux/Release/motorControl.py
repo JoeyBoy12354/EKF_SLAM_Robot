@@ -52,6 +52,7 @@ def motorControl_wThread(theta,distance):
 
 
     #Do turn
+    print("MOTORCONTROL TURN: ",theta*180/PI," deg")
     LNoRot,RNoRot  = speedControl(theta,0,True)
 
 
