@@ -43,6 +43,31 @@ def fetchRobot():
 
     return postion,x_goal,y_goal
 
+# def fetchMotor():
+#     postion = []
+#     with open('motorCSV.csv','r') as file:
+#         csv_reader = csv.reader(file)
+#         for row in csv_reader:
+#             postion.append(float(row[0]))
+
+#     file.close()
+
+#     goal = []
+#     #Calculate goal that we want to move
+#     with open('motorCSV.csv','r') as file:
+#         csv_reader = csv.reader(file)
+#         for row in csv_reader:
+#             goal.append(float(row[0]))
+    
+#     d_x = goal[1]*math.cos(goal[0])
+#     d_y = goal[1]*math.sin(goal[0])
+#     x_goal = postion[0] + d_x
+#     y_goal = postion[0] + d_y
+
+
+
+#     return postion,x_goal,y_goal
+
 # Read the lines from the CSV file
 def fetchAndPlotLines():
     lines = []
@@ -126,6 +151,7 @@ def animate(i):
     x3,y3=fetchCoord('cornersCSV.csv')
     x4,y4=fetchCoord('consensusCSV.csv')
     position,x_goal,y_goal = fetchRobot()
+
     #print("POSITION = ",position)
 
     

@@ -34,6 +34,7 @@ namespace Mapping_Functions{
     }
 
     void storeStatePoints(Matrix<float, dim, 1> State){
+        cout<<"\nIN STORE STATE POINTS"<<endl;
         vector<CarPoint> landmarks;
         vector<float> position;
 

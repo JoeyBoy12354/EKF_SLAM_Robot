@@ -251,7 +251,7 @@ void testRun(){
     bool firstRun = true;
     bool calibration = false;
     
-    for(int i =0;i<1;i++){
+    for(int i =0;i<2;i++){
         cout<<"IN RUN LOOP: "<<i<<endl;
         cout<<"Mapped = "<<mapped<<endl;
         fullRunfullLandmark(ekf,mapped,firstRun,calibration);
