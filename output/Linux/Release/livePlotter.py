@@ -140,6 +140,10 @@ def animate(i):
 
     #print("POSITION = ",position)
 
+    #Adjustment
+    position[2] += np.pi
+
+
     
 
     plt.cla() #Clear Axis (so that we don't keep the old plot we clear it and write again)
@@ -174,7 +178,8 @@ def animate(i):
 #plot.gcf() <- get current figure
 #animate <- function to get data
 #interval <- 1000 = 1s. Every 1s the fuction will run
-ani = FuncAnimation(plt.gcf(), animate, interval=1000)
+
+ani = FuncAnimation(plt.gcf(), animate(), interval=1000)
 
 plt.tight_layout()
 plt.show()

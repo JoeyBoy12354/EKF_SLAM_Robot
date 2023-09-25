@@ -203,7 +203,7 @@ void fullRunfullLandmark(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun,
         ekf.w = caliAngle;
         calibration = true;
 
-        cout<<"\n !! caliAngle = "<<caliAngle<<endl<<endl;
+        cout<<"\n !! caliAngle = "<<caliAngle<<"rads "<<caliAngle*180/PI<<"deg"<<endl<<endl;
 
     }
 
