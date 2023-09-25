@@ -207,6 +207,9 @@ void fullRunfullLandmark(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun,
 
     }
 
+    print("WAITING FOR TIMER")
+    time.sleep(10)
+
 
     
     if(mapped==false){
@@ -256,6 +259,8 @@ void testRun(){
         cout<<"Mapped = "<<mapped<<endl;
         fullRunfullLandmark(ekf,mapped,firstRun,calibration);
         firstRun = false;
+        print("WAITING FOR TIMER")
+        time.sleep(10)
     }
     
 }
