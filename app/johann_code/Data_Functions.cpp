@@ -157,8 +157,7 @@ namespace Data_Functions{
         }
 
         //Get list 2
-        vector<CarPoint> LMlist2;
-        CarPoint LM; 
+        vector<CarPoint> LMlist2; 
         for(int i=0; i<State2.rows(); i++){
             LM.x = State2(i+3);
             LM.y = State2(i*2+4);
@@ -172,8 +171,8 @@ namespace Data_Functions{
                 //data assosciation
                 if(pointDistance(LMlist1[i],LMlist2[j]) <= distThresh){
                     //calculate angle;
-                    float delta_x = LMlist1[0] - LMlist2[0];
-                    float delta_y = LMlist1[1] - LMlist2[0];
+                    float delta_x = LMlist1[i].x - LMlist2[j].x;
+                    float delta_y = LMlist1[i].y - LMlist2[j].y;
                     float angle = atan2(delta_y,delta_x);
 
                     totalAngles.push_back(angle);
@@ -182,7 +181,7 @@ namespace Data_Functions{
             }
         }
 
-        caliAngle = sumAngles/totalAngle.size();
+        caliAngle = sumAngles/totalAngles.size();
 
         return;
     }
