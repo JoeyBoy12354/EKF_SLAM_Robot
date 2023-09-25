@@ -110,7 +110,7 @@ namespace Navigation_Functions{
 
 
     void moveCalibration(float distance){
-        print("NAVI: Calibration")
+        cou<<"NAVI: Calibration dist="<<distance<<" mm"<<endl;
         theta = 0;
         dist = distance;
 
