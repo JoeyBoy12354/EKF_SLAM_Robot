@@ -74,25 +74,48 @@ def rotate_point(x, y, angle):
     y_rotated = x * np.sin(angle) + y * np.cos(angle)
     return x_rotated, y_rotated
 
+def rotate_pnt(x,y,angle):
+    x_rot = x * np.cos(angle) - y * np.sin(angle)
+    y_rot = x * np.sin(angle) + y * np.cos(angle)
+
+    return [x_rot,y_rot]
+
 # Function to draw a rotated triangle
 def draw_rotated_triangle(ax, x, y, direction_angle):
     line_length = 300
 
     # Define the coordinates of the vertices of the triangle (Left Corner, Right Corner, Top Tip)
-    triangle = np.array([[0.0, 0.0], [80, 0.0], [40, 180]]) #accurate
+    #triangle = np.array([[0.0, 0.0], [80, 0.0], [40, 180]]) #accurate
+
+    triangle = np.array([[x-40, y-90], [x+40, y-90], [x, y+90]]) #accurate + adjusted
     #triangle = np.array([[0.0, 0.0], [330, 0.0], [165, 300]]) #scaled
 
+
+    if(direction_angle>0):
+        triangle[1] = rotate_pnt(triangle[1][0],triangle[1][1],direction_angle) #Right Corner
+    elif(direction_angle<0):
+        triangle[0] = rotate_pnt(triangle[0][0],triangle[0][1],direction_angle) #Left Corner
+
+    triangle[2] = rotate_pnt(triangle[2][0],triangle[2][1],direction_angle) #Top Tip
+
+
+
     # Rotate the triangle based on the direction angle
-    rotated_triangle = np.array([rotate_point(x, y, direction_angle) for x, y in triangle])
+    #rotated_triangle = np.array([rotate_point(x, y, direction_angle) for x, y in triangle])
 
     # Calculate the coordinates of the front of the triangle
-    front_x, front_y = rotate_point(x + 0.5 * triangle[2, 0], y + line_length, direction_angle)
+    front_x = triangle[2][0]
+    front_y = triangle[2][1]
+
+    back_x = (triangle[0][0]+triangle[1][0])/2
+    back_y = (triangle[0][1]+triangle[1][1])/2
+
 
     # Plot the rotated triangle on the existing axis
-    ax.fill(rotated_triangle[:, 0], rotated_triangle[:, 1], 'b')
+    ax.fill(triangle[:, 0], triangle[:, 1], 'b')
 
     # Plot the front line
-    ax.plot([rotated_triangle[2, 0], front_x], [rotated_triangle[2, 1], front_y], 'g')
+    ax.plot([front_x, back_x], [front_y, back_y], 'g')
 
 
 
