@@ -215,7 +215,7 @@ void fullRunfullLandmark(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun,
         ekf3.runEKF();
 
         float caliAngle2;
-        getCaliAngle(ekf2.State,ekf4.State,caliDistance,caliAngle2);
+        getCaliAngle(ekf2.State,ekf3.State,caliDistance,caliAngle2);
 
         
 
