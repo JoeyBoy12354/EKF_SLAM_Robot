@@ -141,7 +141,7 @@ def animate(i):
     #print("POSITION = ",position)
 
     #Adjustment
-    position[2] += -1*np.pi
+    position[2] += np.pi*7/8
 
 
     
