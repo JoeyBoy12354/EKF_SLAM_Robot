@@ -8,6 +8,7 @@ string motorCSV = "motorCSV.csv";
 string landmarkCSV = "landmarkCSV.csv";
 string positionCSV = "positionCSV.csv";
 string consensusCSV = "consensusCSV.csv";
+string gridCSV = "gridCSV.csv";
 
 
 namespace CSV_Functions{
@@ -316,15 +317,62 @@ namespace CSV_Functions{
 
     //Grid Map Functions
     void saveGridToCSV(vector<vector<GridPoint>> points){
+        ofstream outputFile(gridCSV);
+        if (!outputFile.is_open()) {
+            cerr << "Error opening the file: " << gridCSV << endl;
+            return;
+        }
+
+        // Write the data to the CSV file
+        for (int i=0;i<points.size();i++) {
+            outputFile << " "<< "\n";
+            for(int j=0;j<points[i].size();j++){
+                outputFile << points[i][j].x << "," << points[i][j].y << "," << points[i][j].trav <<"\n";
+            }
+            
+        }
+
+        outputFile.close();
         return;
     }
 
-    void appendGridToCSV(vector<vector<GridPoint>> points){
+    void readGridFromCSV(vector<vector<GridPoint>>& points){
+    ifstream file(gridCSV);
+
+    if (!file.is_open()) {
+        cerr << "Error opening file: " << gridCSV << endl;
         return;
     }
 
-    void readGridFromCSV(vector<vector<GridPoint>> points){
-        return;
+    string line;
+    vector<GridPoint> currentRow; // To store points in the current row
+
+    while (getline(file, line)) {
+        istringstream iss(line);
+        string x_str, y_str, trav;
+
+        if (getline(iss, x_str, ',') && getline(iss, y_str, ',') && getline(iss, trav)) {
+            GridPoint point;
+            point.x = stod(x_str);
+            point.y = stod(y_str);
+            point.trav = stod(trav);
+            
+            currentRow.push_back(point);
+        } else {
+            // Handle a new row (empty line)
+            if (!currentRow.empty()) {
+                points.push_back(currentRow);
+                currentRow.clear();
+            }
+        }
     }
+
+    // Handle the last row
+    if (!currentRow.empty()) {
+        points.push_back(currentRow);
+    }
+
+    file.close();
+}
 
 }
