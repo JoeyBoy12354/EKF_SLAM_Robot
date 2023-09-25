@@ -170,7 +170,8 @@ void fullRunfullLandmark(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun,
         //Since it is the first run we need direction calibration
         ExtendedKalmanFilter ekf1;
         ExtendedKalmanFilter ekf2;
-        float caliDistance = 50; //mm
+        ExtendedKalmanFilter ekf3;
+        float caliDistance = 20; //mm
         float caliThreshold = caliDistance; //mm
 
         
@@ -197,13 +198,34 @@ void fullRunfullLandmark(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun,
         ekf2.w = 0;
         ekf2.runEKF();
 
-        float caliAngle;
-        getCaliAngle(ekf1.State,ekf2.State,caliDistance,caliAngle);
+        float caliAngle1;
+        getCaliAngle(ekf1.State,ekf2.State,caliDistance,caliAngle1);
 
+        //Move Robot
+        moveCalibration(caliDistance);
+
+        //Get Lidar Reading 2
+        lidarDataPoints.clear();//can be replaced with array for speed
+        runLidar(lidarDataPoints);
+        cout<<"Main Cali: Lidar Run complete"<<endl;
+        carPoints.clear();
+        lidarDataProcessingCali(lidarDataPoints,carPoints);
+        ekf3.distance = caliDistance; 
+        ekf3.w = 0;
+        ekf3.runEKF();
+
+        float caliAngle2;
+        getCaliAngle(ekf2.State,ekf4.State,caliDistance,caliAngle2);
+
+        
+
+        float caliAngle = (caliAngle1+caliAngle2)/2;
+
+        cout<<"\n !! caliAngle1 = "<<caliAngle1<<"rads "<<caliAngle1*180/PI<<"deg"<<endl;
+        cout<<"!! caliAngle2 = "<<caliAngle2<<"rads "<<caliAngle2*180/PI<<"deg"<<endl;
+        cout<<"!! caliAngle_avg = "<<caliAngle<<"rads "<<caliAngle*180/PI<<"deg"<<endl<<endl;
         ekf.w = caliAngle;
         calibration = true;
-
-        cout<<"\n !! caliAngle = "<<caliAngle<<"rads "<<caliAngle*180/PI<<"deg"<<endl<<endl;
 
     }
 
