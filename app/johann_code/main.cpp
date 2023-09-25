@@ -209,35 +209,35 @@ void fullRunfullLandmark(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun,
 
 
     
-    // if(mapped==false){
-    //     //Run Lidar
-    //     vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
-    //     runLidar(lidarDataPoints);
-    //     cout<<"Main: Lidar Run complete"<<endl;
+    if(mapped==false){
+        //Run Lidar
+        vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
+        runLidar(lidarDataPoints);
+        cout<<"Main: Lidar Run complete"<<endl;
         
-    //     //Process Data
-    //     vector<CarPoint> carPoints;
-    //     lidarDataProcessingFull(lidarDataPoints,carPoints,firstRun);
+        //Process Data
+        vector<CarPoint> carPoints;
+        lidarDataProcessingFull(lidarDataPoints,carPoints,firstRun);
 
-    //     // ekf.distance = 5;
-    //     // ekf.w = 0.6435;
+        // ekf.distance = 5;
+        // ekf.w = 0.6435;
 
-    //     //Run EKF (Note this means that graph will updat i-1 robot positions)
-    //     ekf.runEKF();
+        //Run EKF (Note this means that graph will updat i-1 robot positions)
+        ekf.runEKF();
 
-    //     cout << "\nMAIN: EKF\nmu =\n" << ekf.State << "\n";
+        cout << "\nMAIN: EKF\nmu =\n" << ekf.State << "\n";
 
-    //     storeStatePoints(ekf.State);
+        storeStatePoints(ekf.State);
 
-    //     //Complete Robot Movement
-    //     mapped = updateMovement(ekf.State);// Move the robot to the location
-    //     motorDataProcessing(ekf.w,ekf.distance);//Send odometry to ekf
+        //Complete Robot Movement
+        mapped = updateMovement(ekf.State);// Move the robot to the location
+        motorDataProcessing(ekf.w,ekf.distance);//Send odometry to ekf
 
-    //     cout<<"Main: ekf.w = "<<ekf.w<<" ekf.distance = "<<ekf.distance<<endl;
+        cout<<"Main: ekf.w = "<<ekf.w<<" ekf.distance = "<<ekf.distance<<endl;
         
-    // }else{
-    //     cout<<"MAP COMPLETED !"<<endl;
-    // }
+    }else{
+        cout<<"MAP COMPLETED !"<<endl;
+    }
 
     cout<<"LEAVNG FULL RUN"<<endl;
     
