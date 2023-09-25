@@ -42,37 +42,14 @@ def fetchRobot():
     d_y = goal[3]*math.cos(goal[2])
     x_true = postion[0] + d_x
     y_true = postion[1] + d_y
-    angle_true = goal
+    angle_true = goal[2]
     true_move = [x_true,y_true,angle_true]
 
 
 
     return postion,x_goal,y_goal,true_move
 
-# def fetchMotor():
-#     postion = []
-#     with open('motorCSV.csv','r') as file:
-#         csv_reader = csv.reader(file)
-#         for row in csv_reader:
-#             postion.append(float(row[0]))
 
-#     file.close()
-
-#     goal = []
-#     #Calculate goal that we want to move
-#     with open('motorCSV.csv','r') as file:
-#         csv_reader = csv.reader(file)
-#         for row in csv_reader:
-#             goal.append(float(row[0]))
-    
-#     d_x = goal[1]*math.cos(goal[0])
-#     d_y = goal[1]*math.sin(goal[0])
-#     x_goal = postion[0] + d_x
-#     y_goal = postion[0] + d_y
-
-
-
-#     return postion,x_goal,y_goal
 
 # Read the lines from the CSV file
 def fetchAndPlotLines():
