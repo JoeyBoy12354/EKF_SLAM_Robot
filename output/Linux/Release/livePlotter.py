@@ -179,7 +179,7 @@ def animate(i):
 #animate <- function to get data
 #interval <- 1000 = 1s. Every 1s the fuction will run
 
-ani = FuncAnimation(plt.gcf(), animate(), interval=1000)
+ani = FuncAnimation(plt.gcf(), animate, interval=1000)
 
 plt.tight_layout()
 plt.show()
