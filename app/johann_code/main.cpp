@@ -121,17 +121,23 @@ void fullRun(ExtendedKalmanFilter ekf,bool& mapped, bool& firstRun){
     
     
     if(mapped==false){
+        cout<<"Main_0: ekf.w = "<<ekf.w<<" ekf.distance = "<<ekf.distance<<endl;
+
         //Run Lidar
         vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
         runLidar(lidarDataPoints);
-        
-
         cout<<"Main: Lidar Run complete"<<endl;
+
+        cout<<"Main_1: ekf.w = "<<ekf.w<<" ekf.distance = "<<ekf.distance<<endl;
 
         //Predict Position
         ekf.updateMotion();
 
+        cout<<"Main_2: ekf.w = "<<ekf.w<<" ekf.distance = "<<ekf.distance<<endl;
+
         cout<<"\n MAIN: PREDICTED POSITION: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+
+        cout<<"Main_3: ekf.w = "<<ekf.w<<" ekf.distance = "<<ekf.distance<<endl;
 
         //Process Data
         vector<CarPoint> carPoints;
@@ -158,7 +164,7 @@ void fullRun(ExtendedKalmanFilter ekf,bool& mapped, bool& firstRun){
         mapped = updateMovement(ekf.State);// Move the robot to the location
         motorDataProcessing(ekf.w,ekf.distance);//Send odometry to ekf
 
-        cout<<"Main: ekf.w = "<<ekf.w<<" ekf.distance = "<<ekf.distance<<endl;
+        cout<<"Main_end: ekf.w = "<<ekf.w<<" ekf.distance = "<<ekf.distance<<endl;
         
     }else{
         cout<<"MAP COMPLETED !"<<endl;

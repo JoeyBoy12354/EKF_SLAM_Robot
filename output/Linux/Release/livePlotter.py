@@ -174,8 +174,9 @@ def animate(i):
     triangle = draw_rotated_triangle(plt.gca(),position[0],position[1],position[2])
     plt.gca().fill(triangle[:, 0], triangle[:, 1], 'b')
 
-    triangle = draw_rotated_triangle(plt.gca(),true_move[0],true_move[1],true_move[2])
-    plt.gca().fill(triangle[:, 0], triangle[:, 1], 'y')
+    #triangle = draw_rotated_triangle(plt.gca(),0,0,0) 
+    #triangle = draw_rotated_triangle(plt.gca(),true_move[0],true_move[1],true_move[2])
+    #plt.gca().fill(triangle[:, 0], triangle[:, 1], 'y')
 
     plt.axhline(y=0, color='k', linestyle='--', linewidth=1)
     plt.axvline(x=0, color='k', linestyle='--', linewidth=1)
