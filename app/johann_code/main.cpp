@@ -23,6 +23,7 @@ using namespace Mapping_Functions;
 //g++ -g main.cpp Data_Functions.cpp  CSV_Functions.cpp EKF_Functions.cpp Landmark_Functions.cpp Simulation_Functions.cpp -o prog2
 
 void testEKF(){
+    cout<<"THIS IS BROKEN DUE TO EKF updateMotion being removed!!"<<endl;
     ExtendedKalmanFilter ekf;
 
 
@@ -122,11 +123,13 @@ void fullRun(ExtendedKalmanFilter ekf,bool& mapped, bool& firstRun){
     if(mapped==false){
         //Run Lidar
         vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
-        //runLidar(vector<PolPoint>& lidarDataPoints);
         runLidar(lidarDataPoints);
         
 
         cout<<"Main: Lidar Run complete"<<endl;
+
+        //Predict Position
+        ekf.updateMotion();
 
         //Process Data
         vector<CarPoint> carPoints;
@@ -159,52 +162,13 @@ void fullRun(ExtendedKalmanFilter ekf,bool& mapped, bool& firstRun){
         cout<<"MAP COMPLETED !"<<endl;
     }
 
-    cout<<"LEAVNG FULL RUN"<<endl;
+    cout<<"LEAVNG RUN"<<endl;
     
 }
 
 
 
-//This process will use the full map with all historic values to update the EKF and RANSAC
-void fullRunfullLandmark(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, bool& calibration){
 
-    
-
-    
-    if(mapped==false){
-        //Run Lidar
-        vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
-        runLidar(lidarDataPoints);
-        cout<<"Main: Lidar Run complete"<<endl;
-        
-        //Process Data
-        vector<CarPoint> carPoints;
-        lidarDataProcessingFull(lidarDataPoints,carPoints,firstRun);
-
-        // ekf.distance = 5;
-        // ekf.w = 0.6435;
-
-
-        //Run EKF (Note this means that graph will updat i-1 robot positions)
-        ekf.runEKF();
-
-        cout << "\nMAIN: EKF\nmu =\n" << ekf.State << "\n";
-
-        storeStatePoints(ekf.State);
-
-        //Complete Robot Movement
-        mapped = updateMovement(ekf.State);// Move the robot to the location
-        motorDataProcessing(ekf.w,ekf.distance);//Send odometry to ekf
-
-        cout<<"Main: ekf.w = "<<ekf.w<<" ekf.distance = "<<ekf.distance<<endl;
-        
-    }else{
-        cout<<"MAP COMPLETED !"<<endl;
-    }
-
-    cout<<"LEAVNG FULL RUN"<<endl;
-    
-}
 
 
 
@@ -217,7 +181,7 @@ void testRun(){
     for(int i =0;i<2;i++){
         cout<<"IN RUN LOOP: "<<i<<endl;
         cout<<"Mapped = "<<mapped<<endl;
-        fullRunfullLandmark(ekf,mapped,firstRun,calibration);
+        fullRun(ekf,mapped,firstRun,calibration);
         firstRun = false;
     }
     
@@ -244,6 +208,44 @@ int main() {
 
 
 
+
+//This process will use the full map with all historic values to update the EKF and RANSAC
+// void fullRunfullLandmark(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, bool& calibration){
+
+    
+
+    
+//     if(mapped==false){
+//         //Run Lidar
+//         vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
+//         runLidar(lidarDataPoints);
+//         cout<<"Main: Lidar Run complete"<<endl;
+        
+//         //Process Data
+//         vector<CarPoint> carPoints;
+//         lidarDataProcessingFull(lidarDataPoints,carPoints,firstRun);
+
+
+//         //Run EKF (Note this means that graph will updat i-1 robot positions)
+//         ekf.runEKF();
+
+//         cout << "\nMAIN: EKF\nmu =\n" << ekf.State << "\n";
+
+//         storeStatePoints(ekf.State);
+
+//         //Complete Robot Movement
+//         mapped = updateMovement(ekf.State);// Move the robot to the location
+//         motorDataProcessing(ekf.w,ekf.distance);//Send odometry to ekf
+
+//         cout<<"Main: ekf.w = "<<ekf.w<<" ekf.distance = "<<ekf.distance<<endl;
+        
+//     }else{
+//         cout<<"MAP COMPLETED !"<<endl;
+//     }
+
+//     cout<<"LEAVNG FULL RUN FULL LANDMARK"<<endl;
+    
+// }
 
 
 

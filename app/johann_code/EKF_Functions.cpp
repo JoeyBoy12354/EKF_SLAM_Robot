@@ -42,15 +42,16 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
 }
 
 //This function will update the EKF State Space Model with any changes in the robot's
-//velocity[v], rotation[2] over time[t]
+//x[0], y[1] and angle[2]
 void ExtendedKalmanFilter::updateMotion() {
-    float w2 = w;
-    if(w2 == 0){
-        w2 = 1;
-    }
+    
 
 
     //Old Method
+    // float w2 = w;
+    // if(w2 == 0){
+    //     w2 = 1;
+    // }
     // float theta = State(2);
     // float d_x = -1*(v/w2)*sin(theta) + (v/w2)*sin(theta + w*t);
     // float d_y = (v/w2)*cos(theta) - (v/w2)*cos(theta + w*t);
@@ -219,7 +220,7 @@ void ExtendedKalmanFilter::updateCovarianceOfLandmark() {
 void ExtendedKalmanFilter::runEKF() {
 
     // Prediction step
-    updateMotion();
+    //updateMotion(); (This is done in main.cpp)
     //cout << "LINE 2\nMu/State =\n" << State << "\nSigma/Covariance =\n" << Covariance << "\n";
 
     // cout << "\nLINE 3\nGt =\n" << Motion_Jacobian << "\nGt.T =\n" << Motion_Jacobian.transpose() << "\nSigma =\n" << Covariance << "\n";

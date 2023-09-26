@@ -111,6 +111,7 @@ namespace CSV_Functions{
 
 namespace Data_Functions{
     //processing
+    void fitCartesian(vector<CarPoint>& carPoints, float x, float y, float angle);
     vector<CarPoint> convertCartesian(vector<PolPoint>& dataPoints);
     int getIndex(vector<double> v, double K);
 
