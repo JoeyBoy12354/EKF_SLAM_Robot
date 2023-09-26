@@ -60,8 +60,12 @@ void ExtendedKalmanFilter::updateMotion() {
     // Motion_Jacobian(0,2) = -t*v*sin(State(2));
     // Motion_Jacobian(1,2) = t*v*cos(State(2));
 
-    float d_x = distance*cos(w);
-    float d_y = distance*sin(w);
+    // float d_x = distance*cos(w);
+    // float d_y = distance*sin(w);
+
+    //flip d_x and d_y
+    float d_x = -1*distance*cos(w);
+    float d_y = -1*distance*sin(w);
     float d_theta = w;
 
     Motion_Jacobian(0,2) = -distance*sin(State(2));
