@@ -176,12 +176,11 @@ void testRun(){
     ExtendedKalmanFilter ekf;
     bool mapped = false;
     bool firstRun = true;
-    bool calibration = false;
     
     for(int i =0;i<2;i++){
         cout<<"IN RUN LOOP: "<<i<<endl;
         cout<<"Mapped = "<<mapped<<endl;
-        fullRun(ekf,mapped,firstRun,calibration);
+        fullRun(ekf,mapped,firstRun);
         firstRun = false;
     }
     
@@ -208,11 +207,12 @@ int main() {
 
 
 
+// WELCOME TO THE GRAVEYARD
+
+
 
 //This process will use the full map with all historic values to update the EKF and RANSAC
 // void fullRunfullLandmark(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, bool& calibration){
-
-    
 
     
 //     if(mapped==false){
