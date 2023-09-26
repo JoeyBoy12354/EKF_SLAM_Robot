@@ -58,8 +58,9 @@ namespace Navigation_Functions{
 
     void motorControl(){
 
-        cout<<"!!!!!!!!!!!!!! !!!!!!!!! TESTING theta = 0"<<endl;
-        theta = 0;
+        cout<<"!!!!!!!!!!!!!! !!!!!!!!! TESTING CONST theta & DIST"<<endl;
+        theta = PI/2;
+        dist = 0;
 
 
         //Send to motors
