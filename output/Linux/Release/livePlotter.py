@@ -65,7 +65,7 @@ def fetchAndPlotGrid():
     for i in range(0,len(x_coord)):
         if(trav_state[i] == 'true'):
             plt.plot(x_coord[i], y_coord[i], 'o', label='Points',markersize=0.5,color='orange')
-        else(trav_state[i] == 'false'):
+        elif(trav_state[i] == 'false'):
             plt.plot(x_coord[i], y_coord[i], 'o', label='Points',markersize=0.5,color='grey')
     
 
