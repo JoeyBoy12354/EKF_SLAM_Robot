@@ -62,7 +62,7 @@ namespace Navigation_Functions{
 
         cout<<"Navi: Set angle = "<<theta*180/(PI)<<" deg Set Distance = "<<dist<<"mm"<<endl;
         theta = PI/2;
-        dist = 0;
+        dist = 100;
 
 
         //Send to motors
