@@ -8,6 +8,7 @@ using namespace Data_Functions;
 namespace Mapping_Functions{
 
     //Build Full map, place it in csv
+    //Points have to be translated
     void storeMapPoints(vector<CarPoint> lidardata){
         float distance_threshold = 30;//If two points are greater than Xmm then keep this point.
 
