@@ -20,6 +20,23 @@ namespace Data_Functions{
         return cartesianPoints;
     }
 
+    void fitCartesian(vector<CarPoint>& carPoints, float x, float y, float angle){
+
+        // Calculate trigonometric values for the angle
+        float cosAngle = cos(angle);
+        float sinAngle = sin(angle);
+
+        for (int i = 0; i < carPoints.size(); i++) {
+            // Apply rotation first
+            float rotatedX = carPoints[i].x * cosAngle - carPoints[i].y * sinAngle;
+            float rotatedY = carPoints[i].x * sinAngle + carPoints[i].y * cosAngle;
+
+            // Then apply translation
+            carPoints[i].x = rotatedX + x;
+            carPoints[i].y = rotatedY + y;
+        }
+    }
+
     int getIndex(vector<double> v, double K)
     {
         auto it = find(v.begin(), v.end(), K);
@@ -73,6 +90,7 @@ namespace Data_Functions{
             storeMapPoints(carPoints);
         }
 
+        //Reading The Full Map means we will identify all landmarks at all times (this could be problematic)
         readCarFromFullMapCSV(carPoints);
 
         cout<<"\nRANSAC"<<endl;
@@ -92,8 +110,12 @@ namespace Data_Functions{
         cout<<"\n lidarDataProcessing"<<endl;
 
         carPoints = convertCartesian(dataPoints);
+        carPoints = fitCartesian(dataPoints,x,y,angle);
+
         saveCarToCSV(carPoints);
         cout<<"\nNumber of CAR points"<<carPoints.size(); 
+
+
 
         cout<<"\nRANSAC"<<endl;
         vector<Line> detected_lines = RANSAC(carPoints);
