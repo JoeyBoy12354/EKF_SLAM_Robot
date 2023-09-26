@@ -64,24 +64,7 @@ namespace Data_Functions{
         }
     }
     
-    void lidarDataProcessingCali(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints){
-        cout<<"\n lidarDataProcessing Calibration"<<endl;
-
-        carPoints = convertCartesian(dataPoints);
-
-        cout<<"\nRANSAC"<<endl;
-        vector<Line> detected_lines = RANSAC(carPoints);
-        writeLinesToCSV(detected_lines);
-        writeConsensusToCSV(detected_lines);
-        
-
-        vector<CarPoint> closestPoints = findNearestPoint(detected_lines);
-        writeCornersToCSV(closestPoints);
-        cout<<"\n Number of Closest Points Found:"<<closestPoints.size()<<endl;
-        
-     
-    }
-
+ 
     void lidarDataProcessingFull(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints, bool firstRun){
         cout<<"\n lidarDataProcessing Full"<<endl;
 
@@ -112,7 +95,7 @@ namespace Data_Functions{
      
     }
 
-    void lidarDataProcessing(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints){
+    void lidarDataProcessing(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints, float x, float y, float angle){
         cout<<"\n lidarDataProcessing"<<endl;
 
         carPoints = convertCartesian(dataPoints);

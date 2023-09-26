@@ -117,7 +117,7 @@ namespace Data_Functions{
 
     //landmark
     void lidarDataProcessingFull(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints, bool firstRun);
-    void lidarDataProcessing(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints);
+    void lidarDataProcessing(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints, float x, float y, float angle);
     void LandmarkProcessing();
 
     //calibration

@@ -133,11 +133,11 @@ void fullRun(ExtendedKalmanFilter ekf,bool& mapped, bool& firstRun){
 
         //Process Data
         vector<CarPoint> carPoints;
-        lidarDataProcessing(lidarDataPoints,carPoints);
+        lidarDataProcessing(lidarDataPoints,carPoints,ekf.State[0],ekf.State[1],ekf.State[2]);
 
         //Get Grid
-        vector<vector<GridPoint>> gridNew;
-        gridDataProcess(carPoints, gridNew, ekf.State, firstRun);
+        // vector<vector<GridPoint>> gridNew;
+        // gridDataProcess(carPoints, gridNew, ekf.State, firstRun);
 
         //Run EKF
         ekf.runEKF();
