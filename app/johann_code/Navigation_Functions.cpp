@@ -61,7 +61,7 @@ namespace Navigation_Functions{
         cout<<"!!!!!!!!!!!!!! !!!!!!!!! TESTING CONST theta & DIST"<<endl;
 
         cout<<"Navi: Set angle = "<<theta*180/(PI)<<" deg Set Distance = "<<dist<<"mm"<<endl;
-        theta = PI/2;
+        //theta = PI/2;
         dist = 100;
 
 
