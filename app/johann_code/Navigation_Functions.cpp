@@ -80,6 +80,7 @@ namespace Navigation_Functions{
     //Set velocity and direction to a new landmark
     void landmarkExplore(CarPoint LM, MatrixXf State){
         cout<<"NAVI: Landmark Explore "<<LM.x<<", "<<LM.y<<endl;
+        cout<<"NAVI: State Position "<<State(0)<<", "<<State(1)<<State(2)*180/PI<<endl;
         //Calculate required distance and rotation
         float deltaX = LM.x - State(0);
         float deltaY = LM.y - State(1);
