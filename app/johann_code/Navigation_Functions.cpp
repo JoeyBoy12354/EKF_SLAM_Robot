@@ -58,6 +58,10 @@ namespace Navigation_Functions{
 
     void motorControl(){
 
+        cout<<"!!!!!!!!!!!!!! !!!!!!!!! TESTING theta = 0"<<endl;
+        theta = 0;
+
+
         //Send to motors
         writeMotorToCSV(theta,dist);
         cout<<"Navi: Set angle = "<<theta*180/(PI)<<" deg Set Distance = "<<dist<<"mm"<<endl;
