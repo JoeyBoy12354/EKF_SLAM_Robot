@@ -130,8 +130,11 @@ void fullRun(ExtendedKalmanFilter ekf,bool& mapped, bool& firstRun){
 
         //Process Data
         vector<CarPoint> carPoints;
-        //lidarDataProcessing(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints)
         lidarDataProcessing(lidarDataPoints,carPoints);
+
+        //Get Grid
+        vector<vector<GridPoint>> gridNew;
+        gridDataProcess(carPoints, gridNew, ekf.State, firstRun)
 
         //Run EKF
         ekf.runEKF();
@@ -181,6 +184,7 @@ void fullRunfullLandmark(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun,
         // ekf.distance = 5;
         // ekf.w = 0.6435;
 
+
         //Run EKF (Note this means that graph will updat i-1 robot positions)
         ekf.runEKF();
 
@@ -210,7 +214,7 @@ void testRun(){
     bool firstRun = true;
     bool calibration = false;
     
-    for(int i =0;i<3;i++){
+    for(int i =0;i<2;i++){
         cout<<"IN RUN LOOP: "<<i<<endl;
         cout<<"Mapped = "<<mapped<<endl;
         fullRunfullLandmark(ekf,mapped,firstRun,calibration);

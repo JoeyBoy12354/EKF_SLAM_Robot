@@ -58,12 +58,14 @@ namespace Mapping_Functions{
     }
 
 
-    void gridDataProcess(vector<CarPoint> lidarData,vector<vector<GridPoint>> gridOld, vector<vector<GridPoint>>& gridNew,
+    void gridDataProcess(vector<CarPoint> lidarData, vector<vector<GridPoint>>& gridNew,
                          Matrix<float, dim, 1> State, bool firstRun){
 
-        
+        cout<<"GRID: In grid data process"<<endl;
         gridMakeDots(lidarData,gridNew);
         if(firstRun == false){
+            vector<vector<GridPoint>> gridOld;
+            readGridFromCSV(gridOld);
             gridDataAssosciationMap(gridOld,gridNew);
             gridDataAssosciationMove(gridNew,State);
         }
