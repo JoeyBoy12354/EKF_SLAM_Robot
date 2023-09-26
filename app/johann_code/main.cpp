@@ -134,7 +134,7 @@ void fullRun(ExtendedKalmanFilter ekf,bool& mapped, bool& firstRun){
 
         //Get Grid
         vector<vector<GridPoint>> gridNew;
-        gridDataProcess(carPoints, gridNew, ekf.State, firstRun)
+        gridDataProcess(carPoints, gridNew, ekf.State, firstRun);
 
         //Run EKF
         ekf.runEKF();
