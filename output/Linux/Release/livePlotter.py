@@ -51,6 +51,25 @@ def fetchRobot():
 
     return postion,x_goal,y_goal,true_move
 
+def fetchAndPlotGrid():
+    x_coord = []
+    y_coord = []
+    trav_state = []
+    with open('gridCSV.csv','r') as file:
+        csv_reader = csv.reader(file)
+        for row in csv_reader:
+            x_coord.append(float(row[0]))
+            y_coord.append(float(row[1]))
+            trav_state.append(row[2])
+
+    for i in range(0,len(x_coord)):
+        if(trav_state[i] == 'true'):
+            plt.plot(x_coord[i], y_coord[i], 'o', label='Points',markersize=0.5,color='orange')
+        else(trav_state[i] == 'false'):
+            plt.plot(x_coord[i], y_coord[i], 'o', label='Points',markersize=0.5,color='grey')
+    
+
+    return x_coord,y_coord
 
 
 # Read the lines from the CSV file
@@ -155,7 +174,7 @@ def animate(i):
     triangle = draw_rotated_triangle(plt.gca(),position[0],position[1],position[2])
     plt.gca().fill(triangle[:, 0], triangle[:, 1], 'b')
 
-    triangle = draw_rotated_triangle(plt.gca(),0,0,0)
+    triangle = draw_rotated_triangle(plt.gca(),true_move[0],true_move[1],true_move[2])
     plt.gca().fill(triangle[:, 0], triangle[:, 1], 'y')
 
     plt.axhline(y=0, color='k', linestyle='--', linewidth=1)
