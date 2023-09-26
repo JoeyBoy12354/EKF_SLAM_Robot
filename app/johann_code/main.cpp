@@ -131,6 +131,8 @@ void fullRun(ExtendedKalmanFilter ekf,bool& mapped, bool& firstRun){
         //Predict Position
         ekf.updateMotion();
 
+        cout<<"\n MAIN: PREDICTED POSITION: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+
         //Process Data
         vector<CarPoint> carPoints;
         lidarDataProcessing(lidarDataPoints,carPoints,ekf.State[0],ekf.State[1],ekf.State[2]);
