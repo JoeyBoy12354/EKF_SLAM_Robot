@@ -117,7 +117,7 @@ void testMotor(){
 
 
 //This process will only use the latest scan to update the EKF and RANSAC
-void fullRun(ExtendedKalmanFilter ekf,bool& mapped, bool& firstRun){
+void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun){
     
     
     if(mapped==false){
@@ -164,7 +164,7 @@ void fullRun(ExtendedKalmanFilter ekf,bool& mapped, bool& firstRun){
         mapped = updateMovement(ekf.State);// Move the robot to the location
         motorDataProcessing(ekf.w,ekf.distance);//Send odometry to ekf
 
-        cout<<"Main_end: ekf.w = "<<ekf.w<<" ekf.distance = "<<ekf.distance<<endl;
+        cout<<"\nMain_end: ekf.w = "<<ekf.w<<" ekf.distance = "<<ekf.distance<<endl;
         
     }else{
         cout<<"MAP COMPLETED !"<<endl;
