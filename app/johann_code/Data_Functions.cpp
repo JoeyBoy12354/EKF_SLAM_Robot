@@ -66,6 +66,9 @@ namespace Data_Functions{
     
  
     void lidarDataProcessingFull(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints, bool firstRun){
+        
+        //I AM NOT CURRENTLY USING THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         cout<<"\n lidarDataProcessing Full"<<endl;
 
         carPoints = convertCartesian(dataPoints);
@@ -99,7 +102,7 @@ namespace Data_Functions{
         cout<<"\n lidarDataProcessing"<<endl;
 
         carPoints = convertCartesian(dataPoints);
-        fitCartesian(dataPoints,x,y,angle);
+        fitCartesian(carPoints,x,y,angle);
 
         saveCarToCSV(carPoints);
         cout<<"\nNumber of CAR points"<<carPoints.size(); 
