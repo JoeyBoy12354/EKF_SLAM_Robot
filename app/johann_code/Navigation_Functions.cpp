@@ -46,7 +46,7 @@ namespace Navigation_Functions{
             //SHOULD BE TRUE PLEASE CHANGE 
             return false;
         }else{
-            dist = 0;
+            dist = 100;
             theta = 0;
             //mapped room
             cout<<"\nNAVI: EXPLORED MAP \n"<<endl;
