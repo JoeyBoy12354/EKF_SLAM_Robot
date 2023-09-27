@@ -129,8 +129,6 @@ def draw_rotated_triangle(ax, x, y, direction_angle):
 
     
 
-
-
     # Rotate the triangle based on the direction angle
     #rotated_triangle = np.array([rotate_point(x, y, direction_angle) for x, y in triangle])
 
