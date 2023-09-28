@@ -196,7 +196,7 @@ namespace Mapping_Functions{
         float yStep = 200;//y-distance between points on same x-coordinate
         float xStep = 200;//x-distance between points on same y-coordinate
         
-        float distThresh = xStep;//If x-distance between gridPoint.x and lidarPoint.x <= Xmm then add to searchMap 
+        float distThresh = 1000;//If x-distance between gridPoint.x and lidarPoint.x <= Xmm then add to searchMap 
         float boundThresh = yStep;//If distance between gridPoint and lidarPoint <= Xmm then return false 
 
         float xPos; //holds current x-coordinate
