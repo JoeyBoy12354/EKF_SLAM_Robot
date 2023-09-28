@@ -223,7 +223,7 @@ namespace Mapping_Functions{
             cout<<"GRID: POSTIVE X-Axis WHile Loop NoRuns = "<<noRuns<<endl;
             // vector<CarPoint> searchMap;
             // gridGetSearchMap(mapdata,searchMap,xPos,distThresh);
-            cout<<"SearchMap Size = "<<searchMap.size();
+            //cout<<"SearchMap Size = "<<searchMap.size();
 
 
             //Do Positive Y-Axis
