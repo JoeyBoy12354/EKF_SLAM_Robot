@@ -61,10 +61,10 @@ namespace Mapping_Functions{
     }
 
     void getMapBounds(vector<CarPoint> map, vector<float>& bounds){
-        yMax = -10000;
-        yMin = 10000;
-        xMax = -10000;
-        xMin = 10000;
+        float yMax = -10000;
+        float yMin = 10000;
+        float xMax = -10000;
+        float xMin = 10000;
 
         for(int i =0;i<map.size();i++){
             if(map[i].y>yMax){
