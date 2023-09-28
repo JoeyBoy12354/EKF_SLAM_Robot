@@ -257,7 +257,7 @@ namespace Mapping_Functions{
         //Negative X-axis
         xStep = -1*xStep;
         xPos = xStep;
-        while(points.size()<=hLimit){
+        while(points.size()<=hLimit*2){
             cout<<"GRID: NEGATIVE X-Axis WHile Loop"<<endl;
             vector<CarPoint> searchMap;
             gridGetSearchMap(mapdata,searchMap,xPos,distThresh);
