@@ -73,7 +73,7 @@ namespace Mapping_Functions{
             if(map[i].y<yMin){
                 yMin = map[i].y;
             }
-            if(map[i].x<xMax){
+            if(map[i].x>xMax){
                 xMax = map[i].x;
             }
             if(map[i].x<xMin){
