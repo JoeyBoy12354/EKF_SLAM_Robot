@@ -61,11 +61,13 @@ namespace Mapping_Functions{
     }
 
 
-    void gridDataProcess(vector<CarPoint> lidarData, vector<vector<GridPoint>>& gridNew,
-                         Matrix<float, dim, 1> State, bool firstRun){
+    void gridDataProcess(vector<vector<GridPoint>>& gridNew,Matrix<float, dim, 1> State, bool firstRun){
 
         cout<<"\n\nGRID: In grid data process"<<endl;
-        gridMakeDots(lidarData,gridNew);
+        vector<CarPoint> map;
+        readCarFromFullMapCSV(map);
+        gridMakeDots(map,gridNew);
+
         if(firstRun == false){
             vector<vector<GridPoint>> gridOld;
             readGridFromCSV(gridOld);
@@ -155,8 +157,10 @@ namespace Mapping_Functions{
     }
 
     bool gridDotBoundCheck(vector<CarPoint> searchMap, GridPoint point,float distThresh){
-        if(searchMap.size()==0):
+        if(searchMap.size()==0){
             return false;
+        }
+            
 
         for(int i = 0; i<searchMap.size(); i++){
             CarPoint point2;

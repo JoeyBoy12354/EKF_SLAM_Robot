@@ -138,8 +138,7 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun){
         lidarDataProcessing(lidarDataPoints,carPoints,ekf.State[0],ekf.State[1],ekf.State[2]);
 
         //Get Grid
-        vector<vector<GridPoint>> gridNew;
-        gridDataProcess(carPoints, gridNew, ekf.State, firstRun);
+        
 
         //Run EKF
         ekf.runEKF();
@@ -152,6 +151,9 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun){
             storeMapPoints(carPoints);
             storeStatePoints(ekf.State);
         }
+
+        vector<vector<GridPoint>> gridNew;
+        gridDataProcess(gridNew, ekf.State, firstRun);
             
 
         //Complete Robot Movement
