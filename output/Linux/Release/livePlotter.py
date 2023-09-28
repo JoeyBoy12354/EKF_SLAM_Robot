@@ -176,6 +176,7 @@ def animate(i):
     #triangle = draw_rotated_triangle(plt.gca(),true_move[0],true_move[1],true_move[2])
     #plt.gca().fill(triangle[:, 0], triangle[:, 1], 'y')
 
+    fetchAndPlotGrid()
     plt.axhline(y=0, color='k', linestyle='--', linewidth=1)
     plt.axvline(x=0, color='k', linestyle='--', linewidth=1)
     plt.plot(x1, y1, 'o', label='Points',markersize=0.5,color='r')
