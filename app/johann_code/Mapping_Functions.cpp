@@ -155,6 +155,9 @@ namespace Mapping_Functions{
     }
 
     bool gridDotBoundCheck(vector<CarPoint> searchMap, GridPoint point,float distThresh){
+        if(searchMap.size()==0):
+            return false;
+
         for(int i = 0; i<searchMap.size(); i++){
             CarPoint point2;
             point2.x = point.x;
@@ -172,7 +175,6 @@ namespace Mapping_Functions{
    
     //This function will create a search map containing points that are able to limit the grid dots (make more reasonable quicker search)
     void gridGetSearchMap(vector<CarPoint> mapdata, vector<CarPoint>& searchMap, float x_coord, float distThresh){
-
         for(int i =0;i<mapdata.size();i++){
             if(abs(mapdata[i].x-x_coord) <= distThresh){
                 searchMap.push_back(mapdata[i]);
