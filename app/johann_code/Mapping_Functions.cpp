@@ -218,7 +218,7 @@ namespace Mapping_Functions{
 
         //Positive X-axis
         xPos = 0;
-        while(points.size()<=hLimit and noRuns<maxNoRuns){
+        while(points.size()<=hLimit && noRuns<maxNoRuns){
             cout<<"GRID: POSTIVE X-Axis WHile Loop NoRuns = "<<noRuns<<endl;
             vector<CarPoint> searchMap;
             gridGetSearchMap(mapdata,searchMap,xPos,distThresh);
@@ -229,7 +229,7 @@ namespace Mapping_Functions{
             yPos = 0;
             newPoint.x = xPos;
             newPoint.y = yPos;
-            while(yPoints.size()<=vLimit and gridDotBoundCheck(searchMap,newPoint,boundThresh)){
+            while(yPoints.size()<=vLimit && gridDotBoundCheck(searchMap,newPoint,boundThresh)){
                 newPoint.x = xPos;
                 newPoint.y = yPos;
                 yPos += yStep;
@@ -247,7 +247,7 @@ namespace Mapping_Functions{
             yPos = yStep;
             newPoint.x = xPos;
             newPoint.y = yPos;
-            while(yPoints.size()<=vLimit and gridDotBoundCheck(searchMap,newPoint,boundThresh)){
+            while(yPoints.size()<=vLimit && gridDotBoundCheck(searchMap,newPoint,boundThresh)){
                 newPoint.x = xPos;
                 newPoint.y = yPos;
                 yPos += yStep;
@@ -268,7 +268,7 @@ namespace Mapping_Functions{
         noRuns = 0;
         xStep = -1*xStep;
         xPos = xStep;
-        while(points.size()<=hLimit*2 and noRuns<maxNoRuns){
+        while(points.size()<=hLimit*2 && noRuns<maxNoRuns){
             cout<<"GRID: NEGATIVE X-Axis WHile Loop"<<endl;
             vector<CarPoint> searchMap;
             gridGetSearchMap(mapdata,searchMap,xPos,distThresh);
@@ -278,7 +278,7 @@ namespace Mapping_Functions{
             yPos = 0;
             newPoint.x = xPos;
             newPoint.y = yPos;
-            while(yPoints.size()<=vLimit and gridDotBoundCheck(searchMap,newPoint,boundThresh)){
+            while(yPoints.size()<=vLimit && gridDotBoundCheck(searchMap,newPoint,boundThresh)){
                 newPoint.x = xPos;
                 newPoint.y = yPos;
                 yPos += yStep;
@@ -295,7 +295,7 @@ namespace Mapping_Functions{
             yPos = yStep;
             newPoint.x = xPos;
             newPoint.y = yPos;
-            while(yPoints.size()<=vLimit and gridDotBoundCheck(searchMap,newPoint,boundThresh) ){
+            while(yPoints.size()<=vLimit && gridDotBoundCheck(searchMap,newPoint,boundThresh) ){
                 newPoint.x = xPos;
                 newPoint.y = yPos;
                 yPos += yStep;
