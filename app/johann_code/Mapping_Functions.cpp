@@ -60,6 +60,33 @@ namespace Mapping_Functions{
 
     }
 
+    void getMapBounds(vector<CarPoint> map, vector<float>& bounds){
+        yMax = -10000;
+        yMin = 10000;
+        xMax = -10000;
+        xMin = 10000;
+
+        for(int i =0;i<map.size();i++){
+            if(map[i].y>yMax){
+                yMax = map[i].y;
+            }
+            if(map[i].y<yMin){
+                yMin = map[i].y;
+            }
+            if(map[i].x<xMax){
+                xMax = map[i].x;
+            }
+            if(map[i].x<xMin){
+                xMin = map[i].x;
+            }
+        }
+
+        bounds.push_back(xMax);
+        bounds.push_back(xMin);
+        bounds.push_back(yMax);
+        bounds.push_back(yMin);
+    }
+
 
     void gridDataProcess(vector<vector<GridPoint>>& gridNew,Matrix<float, dim, 1> State, bool firstRun){
 
@@ -156,23 +183,32 @@ namespace Mapping_Functions{
         
     }
 
-    bool gridDotBoundCheck(vector<CarPoint> searchMap, GridPoint point,float distThresh){
+    bool gridDotBoundCheck(vector<CarPoint> searchMap, GridPoint point,float distThresh, vector<float> bounds){
         if(searchMap.size()==0){
             cout<<"Bound Check SearchMap==0"<<endl;
             return false;
         }
-            
 
+        //check if point is within max and min of lidardata bounds=[Xmax,Xmin,Ymax,Ymin]
+        if(point.x>bounds[0] and point.x<bounds[1] and point.y>bounds[2] and point.y<bounds[3] ){
+            return false;
+        }
+
+        //Get Cartesian
+        CarPoint point2;
+        point2.x = point.x;
+        point2.y = point.y;
+            
+        //check if point is far away enough from lidarPoints
         for(int i = 0; i<searchMap.size(); i++){
-            CarPoint point2;
-            point2.x = point.x;
-            point2.y = point.y;
             float temp_dist = pointDistance(searchMap[i],point2);
             if(temp_dist <= distThresh){
                 return false;
 
             }
         }
+
+        
 
         return true;
 
@@ -205,6 +241,9 @@ namespace Mapping_Functions{
         int maxNoRuns = 20;
         int noRuns = 0;
 
+        vector<float> bounds; //Xmax,Xmin,Ymax,Ymin
+        getMapBounds(mapdata,bounds);
+
         vector<GridPoint> yPoints;
         GridPoint newPoint;
 
@@ -231,7 +270,7 @@ namespace Mapping_Functions{
             yPos = 0;
             newPoint.x = xPos;
             newPoint.y = yPos;
-            while(yPoints.size()<=vLimit && gridDotBoundCheck(mapdata,newPoint,boundThresh)){
+            while(yPoints.size()<=vLimit && gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds)){
                 newPoint.x = xPos;
                 newPoint.y = yPos;
                 yPos += yStep;
@@ -249,7 +288,7 @@ namespace Mapping_Functions{
             yPos = yStep;
             newPoint.x = xPos;
             newPoint.y = yPos;
-            while(yPoints.size()<=vLimit && gridDotBoundCheck(mapdata,newPoint,boundThresh)){
+            while(yPoints.size()<=vLimit && gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds)){
                 newPoint.x = xPos;
                 newPoint.y = yPos;
                 yPos += yStep;
@@ -280,7 +319,7 @@ namespace Mapping_Functions{
             yPos = 0;
             newPoint.x = xPos;
             newPoint.y = yPos;
-            while(yPoints.size()<=vLimit && gridDotBoundCheck(mapdata,newPoint,boundThresh)){
+            while(yPoints.size()<=vLimit && gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds)){
                 newPoint.x = xPos;
                 newPoint.y = yPos;
                 yPos += yStep;
@@ -297,7 +336,7 @@ namespace Mapping_Functions{
             yPos = yStep;
             newPoint.x = xPos;
             newPoint.y = yPos;
-            while(yPoints.size()<=vLimit && gridDotBoundCheck(mapdata,newPoint,boundThresh) ){
+            while(yPoints.size()<=vLimit && gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds)){
                 newPoint.x = xPos;
                 newPoint.y = yPos;
                 yPos += yStep;
