@@ -67,9 +67,9 @@ def fetchAndPlotGrid():
 
     for i in range(0,len(x_coord)):
         if(trav_state[i] == 1):
-            plt.plot(x_coord[i], y_coord[i], 'o', label='Points',markersize=0.5,color='orange')
+            plt.plot(x_coord[i], y_coord[i], 'o', label='Points',markersize=2,color='orange')
         elif(trav_state[i] == 0):
-            plt.plot(x_coord[i], y_coord[i], 'o', label='Points',markersize=0.5,color='grey')
+            plt.plot(x_coord[i], y_coord[i], 'o', label='Points',markersize=2,color='grey')
     
 
     return x_coord,y_coord
