@@ -64,7 +64,7 @@ namespace Mapping_Functions{
     void gridDataProcess(vector<CarPoint> lidarData, vector<vector<GridPoint>>& gridNew,
                          Matrix<float, dim, 1> State, bool firstRun){
 
-        cout<<"GRID: In grid data process"<<endl;
+        cout<<"\n\nGRID: In grid data process"<<endl;
         gridMakeDots(lidarData,gridNew);
         if(firstRun == false){
             vector<vector<GridPoint>> gridOld;
@@ -74,6 +74,7 @@ namespace Mapping_Functions{
         }
 
         saveGridToCSV(gridNew);
+        cout<<"GRID:SAVED TO CSV \n\n"<<endl;
 
         
 
@@ -209,6 +210,7 @@ namespace Mapping_Functions{
         //Positive X-axis
         xPos = 0;
         while(points.size()<=hLimit){
+            cout<<"GRID: POSTIVE X-Axis WHile Loop"<<endl;
             vector<CarPoint> searchMap;
             gridGetSearchMap(mapdata,searchMap,xPos,distThresh);
 
@@ -256,6 +258,7 @@ namespace Mapping_Functions{
         xStep = -1*xStep;
         xPos = xStep;
         while(points.size()<=hLimit){
+            cout<<"GRID: NEGATIVE X-Axis WHile Loop"<<endl;
             vector<CarPoint> searchMap;
             gridGetSearchMap(mapdata,searchMap,xPos,distThresh);
 
