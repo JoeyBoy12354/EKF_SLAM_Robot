@@ -201,6 +201,9 @@ namespace Mapping_Functions{
         float xPos; //holds current x-coordinate
         float yPos; //holds current y-coordinate
 
+        int maxNoRuns = 20;
+        int noRuns = 0
+
         vector<GridPoint> yPoints;
         GridPoint newPoint;
 
@@ -215,7 +218,7 @@ namespace Mapping_Functions{
 
         //Positive X-axis
         xPos = 0;
-        while(points.size()<=hLimit){
+        while(points.size()<=hLimit || noRuns<maxNoRuns){
             cout<<"GRID: POSTIVE X-Axis WHile Loop"<<endl;
             vector<CarPoint> searchMap;
             gridGetSearchMap(mapdata,searchMap,xPos,distThresh);
@@ -258,12 +261,14 @@ namespace Mapping_Functions{
 
             yStep = -1*yStep;//Change Back to positive
             xPos += xStep;    
-            }
+            noRuns+=1;
+        }
         
         //Negative X-axis
+        noRuns = 0;
         xStep = -1*xStep;
         xPos = xStep;
-        while(points.size()<=hLimit*2){
+        while(points.size()<=hLimit*2 || noRuns<maxNoRuns){
             cout<<"GRID: NEGATIVE X-Axis WHile Loop"<<endl;
             vector<CarPoint> searchMap;
             gridGetSearchMap(mapdata,searchMap,xPos,distThresh);
@@ -304,6 +309,7 @@ namespace Mapping_Functions{
 
             yStep = -1*yStep;//Change Back to positive
             xPos += xStep;    
+            noRuns+=1;
             }
             
         
