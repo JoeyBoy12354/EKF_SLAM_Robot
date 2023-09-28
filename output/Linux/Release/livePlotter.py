@@ -60,7 +60,7 @@ def fetchAndPlotGrid():
         for row in csv_reader:
             #Check for gaps
             if row[0] != ' ':
-                print("row = ",row," row[0] = ",row[0])
+                #print("row = ",row," row[0] = ",row[0])
                 x_coord.append(float(row[0]))
                 y_coord.append(float(row[1]))
                 trav_state.append(int(row[2]))
