@@ -202,7 +202,7 @@ namespace Mapping_Functions{
         float yPos; //holds current y-coordinate
 
         int maxNoRuns = 20;
-        int noRuns = 0
+        int noRuns = 0;
 
         vector<GridPoint> yPoints;
         GridPoint newPoint;
