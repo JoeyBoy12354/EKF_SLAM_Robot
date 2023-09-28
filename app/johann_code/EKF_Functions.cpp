@@ -137,7 +137,8 @@ void ExtendedKalmanFilter::isNewLandmark() {
         EstimatedLandmark.y = State(smallestDistanceIndex+1);
         LandmarkIndex = smallestDistanceIndex;
 
-        //cout<<"Observed: ("<<ObservedLandmark.x<<","<<ObservedLandmark.y<<") "<<endl;
+        cout<<"Re-Observed: ("<<ObservedLandmark.x<<","<<ObservedLandmark.y<<") "<<
+        " Stored:("<<EstimatedLandmark.x<<","<<EstimatedLandmark.y<<") "<<endl;
         //cout<<"I have seen this one Before! Estimated: ("<<EstimatedLandmark.x<<","<<EstimatedLandmark.y<<") "<<endl;
     }else{
         //This is a new landmark

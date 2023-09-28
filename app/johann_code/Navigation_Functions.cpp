@@ -46,6 +46,7 @@ namespace Navigation_Functions{
             //SHOULD BE TRUE PLEASE CHANGE 
             return false;
         }else{
+            cout<<"MAP EXPLORED SET DIST = 100, theta = 0"
             dist = 100;
             theta = 0;
             //mapped room

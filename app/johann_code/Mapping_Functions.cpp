@@ -27,6 +27,8 @@ namespace Mapping_Functions{
                     lidardata = temp;
             }
         }
+
+        cout<<"No of New Points = "<<lidardata.size()<<endl;
     
 
         //Update full map
