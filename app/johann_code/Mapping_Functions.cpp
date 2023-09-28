@@ -218,8 +218,8 @@ namespace Mapping_Functions{
 
         //Positive X-axis
         xPos = 0;
-        while(points.size()<=hLimit || noRuns<maxNoRuns){
-            cout<<"GRID: POSTIVE X-Axis WHile Loop"<<endl;
+        while(points.size()<=hLimit and noRuns<maxNoRuns){
+            cout<<"GRID: POSTIVE X-Axis WHile Loop NoRuns = "<<noRuns<<endl;
             vector<CarPoint> searchMap;
             gridGetSearchMap(mapdata,searchMap,xPos,distThresh);
 
@@ -268,7 +268,7 @@ namespace Mapping_Functions{
         noRuns = 0;
         xStep = -1*xStep;
         xPos = xStep;
-        while(points.size()<=hLimit*2 || noRuns<maxNoRuns){
+        while(points.size()<=hLimit*2 and noRuns<maxNoRuns){
             cout<<"GRID: NEGATIVE X-Axis WHile Loop"<<endl;
             vector<CarPoint> searchMap;
             gridGetSearchMap(mapdata,searchMap,xPos,distThresh);
