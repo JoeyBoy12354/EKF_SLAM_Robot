@@ -58,14 +58,16 @@ def fetchAndPlotGrid():
     with open('gridCSV.csv','r') as file:
         csv_reader = csv.reader(file)
         for row in csv_reader:
-            x_coord.append(float(row[0]))
-            y_coord.append(float(row[1]))
-            trav_state.append(row[2])
+            #Check for gaps
+            if row[0]:
+                x_coord.append(float(row[0]))
+                y_coord.append(float(row[1]))
+                trav_state.append(int(row[2]))
 
     for i in range(0,len(x_coord)):
-        if(trav_state[i] == 'true'):
+        if(trav_state[i] == 1):
             plt.plot(x_coord[i], y_coord[i], 'o', label='Points',markersize=0.5,color='orange')
-        elif(trav_state[i] == 'false'):
+        elif(trav_state[i] == 0):
             plt.plot(x_coord[i], y_coord[i], 'o', label='Points',markersize=0.5,color='grey')
     
 
