@@ -217,15 +217,6 @@ namespace Mapping_Functions{
 
     }
    
-    //This function will create a search map containing points that are able to limit the grid dots (make more reasonable quicker search)
-    void gridGetSearchMap(vector<CarPoint> mapdata, vector<CarPoint>& searchMap, float x_coord, float distThresh){
-        for(int i =0;i<mapdata.size();i++){
-            if(abs(mapdata[i].x-x_coord) <= distThresh){
-                searchMap.push_back(mapdata[i]);
-            }
-        }
-    }
-
     void gridMakeDots(vector<CarPoint> mapdata, vector<vector<GridPoint>>& points){
         //We need to create the vertical lines
         //Might be good to calculate this with max size of current lidar scan
@@ -235,7 +226,7 @@ namespace Mapping_Functions{
         float yStep = 200;//y-distance between points on same x-coordinate
         float xStep = 200;//x-distance between points on same y-coordinate
         
-        float distThresh = 1000;//If x-distance between gridPoint.x and lidarPoint.x <= Xmm then add to searchMap 
+        
         float boundThresh = yStep;//If distance between gridPoint and lidarPoint <= Xmm then return false 
 
         float xPos; //holds current x-coordinate
@@ -262,11 +253,7 @@ namespace Mapping_Functions{
         //Positive X-axis
         xPos = 0;
         while(points.size()<=hLimit && noRuns<maxNoRuns){
-            cout<<"GRID: POSTIVE X-Axis WHile Loop NoRuns = "<<noRuns<<endl;
-            // vector<CarPoint> searchMap;
-            // gridGetSearchMap(mapdata,searchMap,xPos,distThresh);
-            //cout<<"SearchMap Size = "<<searchMap.size();
-
+            // cout<<"GRID: POSTIVE X-Axis WHile Loop NoRuns = "<<noRuns<<endl;
 
             //Do Positive Y-Axis
             yPoints.clear();
@@ -313,9 +300,7 @@ namespace Mapping_Functions{
         xStep = -1*xStep;
         xPos = xStep;
         while(points.size()<=hLimit*2 && noRuns<maxNoRuns){
-            cout<<"GRID: NEGATIVE X-Axis WHile Loop"<<endl;
-            // vector<CarPoint> searchMap;
-            // gridGetSearchMap(mapdata,searchMap,xPos,distThresh);
+            // cout<<"GRID: NEGATIVE X-Axis WHile Loop"<<endl;
 
             //Do Positive Y-Axis
             yPoints.clear();

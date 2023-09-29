@@ -164,7 +164,6 @@ namespace Mapping_Functions{
     void gridDataAssosciationMove(vector<vector<GridPoint>>& gridNew, Matrix<float, dim, 1> State);
     void gridDataAssosciationMap(vector<vector<GridPoint>> gridOld, vector<vector<GridPoint>>& gridNew);
     bool gridDotBoundCheck(vector<CarPoint> searchMap, GridPoint point,float distThresh, vector<float> bounds);
-    void gridGetSearchMap(vector<CarPoint> mapdata, vector<CarPoint>& searchMap, float x_coord, float distThresh);
     void gridMakeDots(vector<CarPoint> mapdata, vector<vector<GridPoint>>& points);
 }
 
