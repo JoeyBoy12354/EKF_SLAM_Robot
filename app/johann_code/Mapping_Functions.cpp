@@ -227,7 +227,7 @@ namespace Mapping_Functions{
     void gridMakeDots(vector<CarPoint> mapdata, vector<vector<GridPoint>>& points){
         
         for(int i=0;i<mapdata.size();i++){
-            if(mapdata[i].x > -200 && mapdata[i].x < -150 && mapdata[i].y < -400){
+            if(mapdata[i].x < -150 && mapdata[i].x > -200 && mapdata[i].y < -400){
                 cout<<"GRID mapdata:"<<mapdata[i].x<<","<<mapdata[i].y<<endl;
             }
         }
