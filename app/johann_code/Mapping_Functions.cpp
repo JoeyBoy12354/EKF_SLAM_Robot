@@ -202,6 +202,7 @@ namespace Mapping_Functions{
         CarPoint point2;
         point2.x = point.x;
         point2.y = point.y;
+        cout<<" "<<endl;
             
         //check if point is far away enough from lidarPoints
         for(int i = 0; i<searchMap.size(); i++){
@@ -226,9 +227,10 @@ namespace Mapping_Functions{
    
     void gridMakeDots(vector<CarPoint> mapdata, vector<vector<GridPoint>>& points){
         
+        cout<<"GRID1 MAPDATA"<<endl;
         for(int i = 0;i<mapdata.size();i++){
             if(mapdata[i].x>-200 && mapdata[i].x < -150 && mapdata[i].y<-400){
-                cout<<"GRID1 mapdata:"<<mapdata[i].x<<","<<mapdata[i].y<<endl;
+                cout<<"("<<mapdata[i].x<<","<<mapdata[i].y<<")";
             }
         }
             
@@ -253,11 +255,14 @@ namespace Mapping_Functions{
         vector<float> bounds; //Xmax,Xmin,Ymax,Ymin
         getMapBounds(mapdata,bounds);
 
+        cout<<endl;
+        cout<<"GRID2 MAPDATA"<<endl;
         for(int i = 0;i<mapdata.size();i++){
             if(mapdata[i].x>-200 && mapdata[i].x < -150 && mapdata[i].y<-400){
-                cout<<"GRID2 mapdata:"<<mapdata[i].x<<","<<mapdata[i].y<<endl;
+                cout<<"("<<mapdata[i].x<<","<<mapdata[i].y<<")";
             }
         }
+        cout<<endl
 
         vector<GridPoint> yPoints;
         GridPoint newPoint;
