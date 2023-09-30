@@ -196,7 +196,7 @@ namespace Mapping_Functions{
             return false;
         }
 
-        cout<<"GRID Point(inbound) x="<<point.x<<" y="<<point.y<<endl;
+        //cout<<"GRID Point(inbound) x="<<point.x<<" y="<<point.y<<endl;
 
         //Get Cartesian
         CarPoint point2;
@@ -205,12 +205,18 @@ namespace Mapping_Functions{
             
         //check if point is far away enough from lidarPoints
         for(int i = 0; i<searchMap.size(); i++){
+            
             float temp_dist = pointDistance(searchMap[i],point2);
+            if(point.x == -200 && pont.y== -400 && searchMap[i].y<-200 && searchMap[i].x<-150){
+                cout<<"temp_dist = "<<temp_dist<<endl;
+            }
             if(temp_dist <= distThresh){
                 return false;
 
             }
         }
+
+        for
 
         
 
