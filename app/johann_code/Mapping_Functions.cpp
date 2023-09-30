@@ -205,9 +205,9 @@ namespace Mapping_Functions{
         cout<<" "<<endl;
 
         cout<<"GRID3 MAPDATA"<<endl;
-        for(int i = 0;i<mapdata.size();i++){
-            if(mapdata[i].x>-200 && mapdata[i].x < -150 && mapdata[i].y<-400){
-                cout<<"("<<mapdata[i].x<<","<<mapdata[i].y<<")";
+        for(int i = 0;i<searchMap.size();i++){
+            if(searchMap[i].x>-200 && searchMap[i].x < -150 && searchMap[i].y<-400){
+                cout<<"("<<searchMap[i].x<<","<<searchMap[i].y<<")";
             }
         }
         cout<<endl;
