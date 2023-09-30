@@ -225,6 +225,14 @@ namespace Mapping_Functions{
     }
    
     void gridMakeDots(vector<CarPoint> mapdata, vector<vector<GridPoint>>& points){
+        
+        for i in range(0,len(mapdata)){
+            if(mapdata[i].x < 0 && mapdata.y<-300){
+                cout<<"GRID dist = "<<" SM:"<<mapdata[i].x<<","<<mapdata[i].y<<endl;
+            }
+        }
+            
+        
         //We need to create the vertical lines
         //Might be good to calculate this with max size of current lidar scan
         float vLimit = 10; //Max number of vertical points from x-axis in 1 direction
