@@ -202,22 +202,22 @@ namespace Mapping_Functions{
         CarPoint point2;
         point2.x = point.x;
         point2.y = point.y;
-        cout<<" "<<endl;
+        // cout<<" "<<endl;
 
-        cout<<"GRID3 MAPDATA"<<endl;
-        for(int i = 0;i<searchMap.size();i++){
-            if(searchMap[i].x>-200 && searchMap[i].x < -150 && searchMap[i].y<-400){
-                cout<<"("<<searchMap[i].x<<","<<searchMap[i].y<<")";
-            }
-        }
-        cout<<endl;
+        // cout<<"GRID3 MAPDATA"<<endl;
+        // for(int i = 0;i<searchMap.size();i++){
+        //     if(searchMap[i].x>-200 && searchMap[i].x < -150 && searchMap[i].y<-400){
+        //         cout<<"("<<searchMap[i].x<<","<<searchMap[i].y<<")";
+        //     }
+        // }
+        // cout<<endl;
             
         //check if point is far away enough from lidarPoints
         for(int i = 0; i<searchMap.size(); i++){
             
             float temp_dist = pointDistance(searchMap[i],point2);
 
-            if(point.x == -200 && point.y== -400 && searchMap[i].y < -200 && searchMap[i].x < 0){
+            if(point.x == -200 && point.y== -400 && searchMap[i].x>-200 && searchMap[i].x < -150 && searchMap[i].y<-400){
                 cout<<"GRID dist = "<<temp_dist<<" PNT:"<<point.x<<","<<point.y<<" SM:"<<searchMap[i].x<<","<<searchMap[i].y<<endl;
             }
 
@@ -235,12 +235,12 @@ namespace Mapping_Functions{
    
     void gridMakeDots(vector<CarPoint> mapdata, vector<vector<GridPoint>>& points){
         
-        cout<<"GRID1 MAPDATA"<<endl;
-        for(int i = 0;i<mapdata.size();i++){
-            if(mapdata[i].x>-200 && mapdata[i].x < -150 && mapdata[i].y<-400){
-                cout<<"("<<mapdata[i].x<<","<<mapdata[i].y<<")";
-            }
-        }
+        // cout<<"GRID1 MAPDATA"<<endl;
+        // for(int i = 0;i<mapdata.size();i++){
+        //     if(mapdata[i].x>-200 && mapdata[i].x < -150 && mapdata[i].y<-400){
+        //         cout<<"("<<mapdata[i].x<<","<<mapdata[i].y<<")";
+        //     }
+        // }
             
         
         //We need to create the vertical lines
@@ -263,14 +263,14 @@ namespace Mapping_Functions{
         vector<float> bounds; //Xmax,Xmin,Ymax,Ymin
         getMapBounds(mapdata,bounds);
 
-        cout<<endl;
-        cout<<"GRID2 MAPDATA"<<endl;
-        for(int i = 0;i<mapdata.size();i++){
-            if(mapdata[i].x>-200 && mapdata[i].x < -150 && mapdata[i].y<-400){
-                cout<<"("<<mapdata[i].x<<","<<mapdata[i].y<<")";
-            }
-        }
-        cout<<endl;
+        // cout<<endl;
+        // cout<<"GRID2 MAPDATA"<<endl;
+        // for(int i = 0;i<mapdata.size();i++){
+        //     if(mapdata[i].x>-200 && mapdata[i].x < -150 && mapdata[i].y<-400){
+        //         cout<<"("<<mapdata[i].x<<","<<mapdata[i].y<<")";
+        //     }
+        // }
+        //cout<<endl;
 
         vector<GridPoint> yPoints;
         GridPoint newPoint;
