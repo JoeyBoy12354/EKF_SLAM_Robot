@@ -217,9 +217,13 @@ namespace Mapping_Functions{
             
             float temp_dist = pointDistance(searchMap[i],point2);
 
-            if(point.x == -200 && point.y== -400 && searchMap[i].x>-200 && searchMap[i].x < -150 && searchMap[i].y<-400){
+            if(searchMap[i].x>-200 && searchMap[i].x < -150 && searchMap[i].y<-400){
                 cout<<"GRID dist = "<<temp_dist<<" PNT:"<<point.x<<","<<point.y<<" SM:"<<searchMap[i].x<<","<<searchMap[i].y<<endl;
             }
+
+            // if(point.x == -200 && point.y== -400 && searchMap[i].x>-200 && searchMap[i].x < -150 && searchMap[i].y<-400){
+            //     cout<<"GRID dist = "<<temp_dist<<" PNT:"<<point.x<<","<<point.y<<" SM:"<<searchMap[i].x<<","<<searchMap[i].y<<endl;
+            // }
 
             if(temp_dist <= distThresh){
                 return false;
