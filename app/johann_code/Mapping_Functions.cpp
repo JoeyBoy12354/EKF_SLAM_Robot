@@ -321,7 +321,7 @@ namespace Mapping_Functions{
                 newPoint.y = yPos;
                 yPos += yStep;
 
-                cout<<"PosX, NegY PNT:("<<newPoints.x<<","<<newPoint.y<<")"<<endl;
+                cout<<"PosX, NegY PNT:("<<newPoint.x<<","<<newPoint.y<<")"<<endl;
 
                 yPoints.push_back(newPoint);
             }
