@@ -228,7 +228,7 @@ namespace Mapping_Functions{
         
         for i in range(0,len(mapdata)){
             if(mapdata[i].x < 0 && mapdata.y<-300){
-                cout<<"GRID dist = "<<" SM:"<<mapdata[i].x<<","<<mapdata[i].y<<endl;
+                cout<<"GRID mapdata:"<<mapdata[i].x<<","<<mapdata[i].y<<endl;
             }
         }
             
