@@ -132,7 +132,7 @@ namespace Landmark_Functions{
     double perpendicularDistance(const CarPoint& point, Line& line);
     void findInliers(vector<Line>& lines, vector<CarPoint>& points);
     vector<Line> houghTransform(vector<CarPoint>& points, int num_theta_bins = 360, int num_rho_bins = 500);
-    double pointDistance(CarPoint& pointA, CarPoint pointB);
+    double pointDistance(CarPoint pointA, CarPoint pointB);
     vector<CarPoint> findCorners(vector<Line> lines);
     vector<CarPoint> findLazyCorners(vector<Line> lines);
 
