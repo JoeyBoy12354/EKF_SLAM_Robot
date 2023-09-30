@@ -262,7 +262,7 @@ namespace Mapping_Functions{
                 cout<<"("<<mapdata[i].x<<","<<mapdata[i].y<<")";
             }
         }
-        cout<<endl
+        cout<<endl;
 
         vector<GridPoint> yPoints;
         GridPoint newPoint;
