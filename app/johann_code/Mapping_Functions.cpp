@@ -189,13 +189,14 @@ namespace Mapping_Functions{
             return false;
         }
 
-        //cout<<"GRID Point x="<<point.x<<" y="<<point.y<<endl;
-        //cout<<"GRID: bounds xMax="<<bounds[0]<<" XMin="<<bounds[1]<<" YMax="<<bounds[2]<<" YMax="<<bounds[3]<<endl;
+        
 
         //check if point is within max and min of lidardata bounds=[Xmax,Xmin,Ymax,Ymin]
         if(point.x>bounds[0] || point.x<bounds[1] || point.y>bounds[2] || point.y<bounds[3] ){
             return false;
         }
+
+        cout<<"GRID Point(inbound) x="<<point.x<<" y="<<point.y<<endl;
 
         //Get Cartesian
         CarPoint point2;
