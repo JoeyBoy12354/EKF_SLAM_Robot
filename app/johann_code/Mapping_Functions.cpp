@@ -226,7 +226,7 @@ namespace Mapping_Functions{
         
         }
 
-        if(temp_dist < distThresh){
+        if(dist < distThresh){
             cout<<"Returning ("<<point2.x<<","<<point2.y<<") dist = "<<temp_dist<<" at ("<<smallPoint.x<<","<<smallPoint.y<<")"<<endl;
             return false;
 
