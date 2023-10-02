@@ -297,7 +297,7 @@ namespace Mapping_Functions{
             yPos = 0;
             newPoint.x = xPos;
             newPoint.y = yPos;
-            while(yPoints.size()<=vLimit && gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds)){
+            while(yPoints.size()<=vLimit && gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds) == true){
                 newPoint.x = xPos;
                 newPoint.y = yPos;
                 yPos += yStep;
@@ -315,7 +315,7 @@ namespace Mapping_Functions{
             yPos = yStep;
             newPoint.x = xPos;
             newPoint.y = yPos;
-            while(yPoints.size()<=vLimit && gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds)){
+            while(yPoints.size()<=vLimit && gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds) == true){
                 newPoint.x = xPos;
                 newPoint.y = yPos;
                 yPos += yStep;
@@ -347,7 +347,7 @@ namespace Mapping_Functions{
             yPos = 0;
             newPoint.x = xPos;
             newPoint.y = yPos;
-            while(yPoints.size()<=vLimit && gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds)){
+            while(yPoints.size()<=vLimit && gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds) == true){
                 newPoint.x = xPos;
                 newPoint.y = yPos;
                 yPos += yStep;
@@ -364,7 +364,7 @@ namespace Mapping_Functions{
             yPos = yStep;
             newPoint.x = xPos;
             newPoint.y = yPos;
-            while(yPoints.size()<=vLimit && gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds)){
+            while(yPoints.size()<=vLimit && gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds) == true){
                 newPoint.x = xPos;
                 newPoint.y = yPos;
                 yPos += yStep;
