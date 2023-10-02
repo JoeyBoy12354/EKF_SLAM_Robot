@@ -218,10 +218,10 @@ namespace Mapping_Functions{
         //check if point is far away enough from lidarPoints
         for(int i = 0; i<searchMap.size(); i++){
             
-            float temp_dist = pointDistance(searchMap[i],point2)
+            float temp_dist = pointDistance(searchMap[i],point2);
             if(dist > temp_dist){
-                dist = temp_dist
-                smallPoint = searchMap[i]
+                dist = temp_dist;
+                smallPoint = searchMap[i];
             }
         
         }
