@@ -135,6 +135,7 @@ namespace Landmark_Functions{
     double pointDistance(CarPoint pointA, CarPoint pointB);
     vector<CarPoint> findCorners(vector<Line> lines);
     vector<CarPoint> findLazyCorners(vector<Line> lines);
+    vector<CarPoint> findFancyCorners(vector<Line> lines);
 
     vector<Line> RANSAC(vector<CarPoint> laserdata);
     void LeastSquaresLineEstimate(vector<CarPoint> SelectedPoints, double& c, double& m);

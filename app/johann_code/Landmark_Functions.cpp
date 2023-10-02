@@ -161,6 +161,63 @@ namespace Landmark_Functions{
     }
 
 
+    vector<CarPoint> findFancyCorners(vector<Line> lines){
+        //Find Intercepts
+        float angleThresh = 60*PI/180;
+        float distThresh = 30;//Should be same or greater than RANSAC Tolerance
+        vector<CarPoint> corners;
+        bool angleGood = false;
+        bool boundGood = false;
+
+        for(int i =0; i<lines.size();i++){
+            for(int j=0;j<lines.size();j++){
+                CarPoint point;
+                //Find x-coordinate
+                point.x = (lines[j].intercept - lines[i].intercept)/(lines[i].gradient - lines[j].gradient);
+                //Find y-coordinate
+                point.y = lines[i].gradient*point.x + lines[i].intercept;
+        
+
+                //Is point creating a reasonable angle
+                angleGood = false;
+                //Is angle 90 degrees
+                if(lines[i].gradient*lines[j].gradient==-1){
+                    angleGood = true;
+                }else{
+                    //Absolute value to counter -90 being thrown out
+                    interAngle = abs(arctan((lines[j].gradient - lines[i].gradient)/(1 + lines[i].gradient*lines[j].gradient)));
+                    //Is angle within allowed bounds
+                    if(PI/2 - angleThresh <= interAngle && interAngle <= PI/2 + angleThresh){
+                        angleGood = true;
+                    }
+                }
+
+
+                //Is point within reasonable bounds (we only check 1 bound cause more than that seems unneccessary)
+                //Do NOTE we are using consensus limits not map limits (if corners are struggling we should use map limits)
+                //Using consensus solves the problem of wrong intercepts between walls and objects in the map
+                boundGood = false;
+                //Check Domain
+                if(point.x >= lines[i].domain_min - distThresh && lines[i].domain_max + distThresh >= point.x){
+                    //Check Range
+                    if(point.y >= lines[i].range_min - distThresh && lines[i].range_max + distThresh >= point.y){
+                        boundGood = true;
+                    }
+                }
+
+                if(boundGood == true && angleGood == true){
+                    corners.push_back(point);
+                }
+                
+            }
+        }
+
+        
+
+        return corners;
+    }
+
+
     vector<CarPoint> findNearestPoint(vector<Line> lines){
         
         vector<CarPoint> closestPoints;
@@ -209,6 +266,7 @@ namespace Landmark_Functions{
         c = (sumY - m*sumX)/Size;
         
     }
+
 
 
     vector<Line> RANSAC(vector<CarPoint> laserdata){
