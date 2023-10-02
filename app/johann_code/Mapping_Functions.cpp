@@ -204,13 +204,13 @@ namespace Mapping_Functions{
         point2.y = point.y;
         // cout<<" "<<endl;
 
-        // cout<<"GRID3 MAPDATA"<<endl;
-        // for(int i = 0;i<searchMap.size();i++){
-        //     if(searchMap[i].x>-200 && searchMap[i].x < -150 && searchMap[i].y<-400){
-        //         cout<<"("<<searchMap[i].x<<","<<searchMap[i].y<<")";
-        //     }
-        // }
-        // cout<<endl;
+        cout<<"GRID3 MAPDATA"<<endl;
+        for(int i = 0;i<searchMap.size();i++){
+            if(searchMap[i].x>-200 && searchMap[i].x < -150 && searchMap[i].y<-400){
+                cout<<"("<<searchMap[i].x<<","<<searchMap[i].y<<")";
+            }
+        }
+        cout<<endl;
             
         //check if point is far away enough from lidarPoints
         for(int i = 0; i<searchMap.size(); i++){
