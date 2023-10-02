@@ -213,29 +213,31 @@ namespace Mapping_Functions{
         }
         cout<<endl;
             
+        float dist = 10000000;
+        CarPoint smallPoint;
         //check if point is far away enough from lidarPoints
         for(int i = 0; i<searchMap.size(); i++){
             
-            float temp_dist = pointDistance(searchMap[i],point2);
-
-            // if(searchMap[i].x>-450 && searchMap[i].x < -350 && searchMap[i].y<-420){
-            //     cout<<"GRID dist = "<<temp_dist<<"("<<point.x<<","<<point.y<<");("<<searchMap[i].x<<","<<searchMap[i].y<<")"<<endl;
-            // }
-
-            // if(point.x == -200 && point.y== -400 && searchMap[i].x>-200 && searchMap[i].x < -150 && searchMap[i].y<-400){
-            //     cout<<"GRID dist = "<<temp_dist<<" PNT:"<<point.x<<","<<point.y<<" SM:"<<searchMap[i].x<<","<<searchMap[i].y<<endl;
-            // }
-
-            if(temp_dist < distThresh){
-                cout<<"Returning ("<<point2.x<<","<<point2.y<<") dist = "<<temp_dist<<endl;
-                return false;
-
+            float temp_dist = pointDistance(searchMap[i],point2)
+            if(dist > temp_dist){
+                dist = temp_dist
+                smallPoint = searchMap[i]
             }
+        
+        }
+
+        if(temp_dist < distThresh){
+            cout<<"Returning ("<<point2.x<<","<<point2.y<<") dist = "<<temp_dist<<" at ("<<smallPoint.x<<","<<smallPoint.y<<")"<<endl;
+            return false;
+
+        }else{
+            cout<<"Passing ("<<point2.x<<","<<point2.y<<") dist = "<<temp_dist<<" at ("<<smallPoint.x<<","<<smallPoint.y<<")"<<endl;
+            return true;
         }
 
 
 
-        return true;
+        
 
     }
    
