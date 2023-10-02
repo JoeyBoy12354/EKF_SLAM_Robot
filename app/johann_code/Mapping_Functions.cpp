@@ -226,7 +226,8 @@ namespace Mapping_Functions{
             //     cout<<"GRID dist = "<<temp_dist<<" PNT:"<<point.x<<","<<point.y<<" SM:"<<searchMap[i].x<<","<<searchMap[i].y<<endl;
             // }
 
-            if(temp_dist <= distThresh){
+            if(temp_dist < distThresh){
+                cout<<"Returning ("<<point2.x<<","<<point2.y<<") dist = "<<temp_dist<<endl;
                 return false;
 
             }
@@ -240,12 +241,7 @@ namespace Mapping_Functions{
    
     void gridMakeDots(vector<CarPoint> mapdata, vector<vector<GridPoint>>& points){
         
-        // cout<<"GRID1 MAPDATA"<<endl;
-        // for(int i = 0;i<mapdata.size();i++){
-        //     if(mapdata[i].x>-200 && mapdata[i].x < -150 && mapdata[i].y<-400){
-        //         cout<<"("<<mapdata[i].x<<","<<mapdata[i].y<<")";
-        //     }
-        // }
+
             
         
         //We need to create the vertical lines
@@ -257,7 +253,7 @@ namespace Mapping_Functions{
         float xStep = 200;//x-distance between points on same y-coordinate
         
         
-        float boundThresh = 200;//If distance between gridPoint and lidarPoint <= Xmm then return false 
+        float boundThresh = 180;//If distance between gridPoint and lidarPoint <= Xmm then return false 
 
         float xPos; //holds current x-coordinate
         float yPos; //holds current y-coordinate
