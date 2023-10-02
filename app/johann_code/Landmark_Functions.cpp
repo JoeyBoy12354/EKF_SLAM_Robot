@@ -185,7 +185,7 @@ namespace Landmark_Functions{
                     angleGood = true;
                 }else{
                     //Absolute value to counter -90 being thrown out
-                    float interAngle = abs(arctan((lines[j].gradient - lines[i].gradient)/(1 + lines[i].gradient*lines[j].gradient)));
+                    float interAngle = abs(atan((lines[j].gradient - lines[i].gradient)/(1 + lines[i].gradient*lines[j].gradient)));
                     //Is angle within allowed bounds
                     if(PI/2 - angleThresh <= interAngle && interAngle <= PI/2 + angleThresh){
                         angleGood = true;
