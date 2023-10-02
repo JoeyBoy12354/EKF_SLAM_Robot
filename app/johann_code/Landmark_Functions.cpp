@@ -212,6 +212,8 @@ namespace Landmark_Functions{
             }
         }
 
+        //maybe check if we have seen this corner before?
+
         
 
         return corners;
