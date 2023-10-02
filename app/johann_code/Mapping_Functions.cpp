@@ -227,11 +227,11 @@ namespace Mapping_Functions{
         }
 
         if(dist < distThresh){
-            cout<<"Returning ("<<point2.x<<","<<point2.y<<") dist = "<<temp_dist<<" at ("<<smallPoint.x<<","<<smallPoint.y<<")"<<endl;
+            cout<<"Returning ("<<point2.x<<","<<point2.y<<") dist = "<<dist<<" at ("<<smallPoint.x<<","<<smallPoint.y<<")"<<endl;
             return false;
 
         }else{
-            cout<<"Passing ("<<point2.x<<","<<point2.y<<") dist = "<<temp_dist<<" at ("<<smallPoint.x<<","<<smallPoint.y<<")"<<endl;
+            cout<<"Passing ("<<point2.x<<","<<point2.y<<") dist = "<<dist<<" at ("<<smallPoint.x<<","<<smallPoint.y<<")"<<endl;
             return true;
         }
 
