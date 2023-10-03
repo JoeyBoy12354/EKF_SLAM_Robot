@@ -496,6 +496,7 @@ namespace Landmark_Functions{
                 Line line1;
                 line1.gradient=m;
                 line1.intercept=c;
+                line1.ConsensusPoints = line2Points;
 
                 c=0;
                 m=0;
@@ -507,6 +508,7 @@ namespace Landmark_Functions{
                 Line line2;
                 line2.gradient=m;
                 line2.intercept=c;
+                line2.ConsensusPoints = line2Points;
 
 
                 //Is point creating a reasonable angle
