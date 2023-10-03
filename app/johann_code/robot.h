@@ -36,6 +36,8 @@ struct CarPoint {
     double x;
     double y;
 
+    double angle;//THIS IS PURELY FOR CORNER FINDING ALGO
+
     bool operator==(const CarPoint& other) const {
         return x == other.x && y == other.y;
     }

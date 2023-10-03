@@ -537,8 +537,9 @@ namespace Landmark_Functions{
                     interceptPoint.x = (line2.intercept - line1.intercept)/(line1.gradient - line2.gradient);
                     //Find y-coordinate
                     interceptPoint.y = line1.gradient*interceptPoint.x + line1.intercept;
+                    interceptPoint.angle = interAngle;
 
-                    double dist = pointDistance(interceptPoint,centerPoint);
+                    
 
                     cout<<"CenterPoint = "<<centerPoint<<endl;
                     cout<<"InterceptPoint = "<<interceptPoint<<endl;
@@ -548,10 +549,18 @@ namespace Landmark_Functions{
                     cout<<"line2 m= "<<line2.gradient<<" c="<<line2.intercept<<endl;
                     cout<<endl;
 
+                    //check if intercept point is basically a point we already have
+                    double dist = 1000000000;
+                    for(int i =0;i<corners.size();i++){
+                        dist_temp = pointDistance(interceptPoint,centerPoint);
+                        if(dist>dist_temp){
+                            dist = dist_temp;
+                        }
+                    }
+
                     //check if intercept is close to midpoint
-                    // if(dist < DIST_THRESHOLD){
+                    if(dist < DIST_THRESHOLD){
                         //Add corner to corner list
-                        //corners.push_back(centerPoint);
                         corners.push_back(interceptPoint);
                         
                         //Remove samples from list
@@ -562,9 +571,9 @@ namespace Landmark_Functions{
 
                         lines.push_back(line1);
                         lines.push_back(line2);
-                    // }else{
-                    //     linepoints.erase(linepoints.begin(), linepoints.begin() + INDEX_STEP);
-                    // }
+                    }else{
+                        linepoints.erase(linepoints.begin(), linepoints.begin() + INDEX_STEP);
+                    }
                 }else{
                     linepoints.erase(linepoints.begin(), linepoints.begin() + INDEX_STEP);
                 }
