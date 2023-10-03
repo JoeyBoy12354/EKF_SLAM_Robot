@@ -87,7 +87,6 @@ namespace Mapping_Functions{
         bounds.push_back(yMin);
     }
 
-
     void gridDataProcess(vector<vector<GridPoint>>& gridNew,Matrix<float, dim, 1> State, bool firstRun){
 
         cout<<"\n\nGRID: In grid data process"<<endl;
@@ -262,17 +261,12 @@ namespace Mapping_Functions{
 
         int maxNoRuns = 20;
         int noRuns = 0;
+        bool dotCheck = true;
 
         vector<float> bounds; //Xmax,Xmin,Ymax,Ymin
         getMapBounds(mapdata,bounds);
 
-        // cout<<endl;
-        // cout<<"GRID2 MAPDATA"<<endl;
-        // for(int i = 0;i<mapdata.size();i++){
-        //     if(mapdata[i].x>-200 && mapdata[i].x < -150 && mapdata[i].y<-400){
-        //         cout<<"("<<mapdata[i].x<<","<<mapdata[i].y<<")";
-        //     }
-        // }
+
         //cout<<endl;
 
         vector<GridPoint> yPoints;
@@ -293,16 +287,21 @@ namespace Mapping_Functions{
             // cout<<"GRID: POSTIVE X-Axis WHile Loop NoRuns = "<<noRuns<<endl;
 
             //Do Positive Y-Axis
+            dotCheck = true;
             yPoints.clear();
             yPos = 0;
             newPoint.x = xPos;
             newPoint.y = yPos;
-            while(yPoints.size()<=vLimit && gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds) == true){
-                newPoint.x = xPos;
-                newPoint.y = yPos;
-                yPos += yStep;
+            while(yPoints.size()<=vLimit && dotCheck == true){
+                dotCheck = (mapdata,newPoint,boundThresh,bounds);
+                if(dotCheck == true){
+                    newPoint.x = xPos;
+                    newPoint.y = yPos;
+                    yPos += yStep;
 
-                yPoints.push_back(newPoint);
+                    yPoints.push_back(newPoint);
+                }
+                
             }
             if(yPoints.size()>0){
                 points.push_back(yPoints);
@@ -310,19 +309,21 @@ namespace Mapping_Functions{
             
 
             //Do Negative Y-axis
+            dotCheck = true;
             yPoints.clear();
             yStep = -1*yStep;
             yPos = yStep;
             newPoint.x = xPos;
             newPoint.y = yPos;
-            while(yPoints.size()<=vLimit && gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds) == true){
-                newPoint.x = xPos;
-                newPoint.y = yPos;
-                yPos += yStep;
+            while(yPoints.size()<=vLimit && dotCheck == true){
+                dotCheck = (mapdata,newPoint,boundThresh,bounds);
+                if(dotCheck == true){
+                    newPoint.x = xPos;
+                    newPoint.y = yPos;
+                    yPos += yStep;
 
-                cout<<"PosX, NegY PNT:("<<newPoint.x<<","<<newPoint.y<<")"<<endl;
-
-                yPoints.push_back(newPoint);
+                    yPoints.push_back(newPoint);
+                }
             }
             if(yPoints.size()>0){
                 
@@ -343,33 +344,41 @@ namespace Mapping_Functions{
             // cout<<"GRID: NEGATIVE X-Axis WHile Loop"<<endl;
 
             //Do Positive Y-Axis
+            dotCheck = true;
             yPoints.clear();
             yPos = 0;
             newPoint.x = xPos;
             newPoint.y = yPos;
-            while(yPoints.size()<=vLimit && gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds) == true){
-                newPoint.x = xPos;
-                newPoint.y = yPos;
-                yPos += yStep;
+            while(yPoints.size()<=vLimit && dotCheck == true){
+                dotCheck = (mapdata,newPoint,boundThresh,bounds);
+                if(dotCheck == true){
+                    newPoint.x = xPos;
+                    newPoint.y = yPos;
+                    yPos += yStep;
 
-                yPoints.push_back(newPoint);
+                    yPoints.push_back(newPoint);
+                }
             }
             if(yPoints.size()>0){
                 points.push_back(yPoints);
             }
 
             //Do Negative Y-axis
+            dotCheck = true;
             yPoints.clear();
             yStep = -1*yStep;
             yPos = yStep;
             newPoint.x = xPos;
             newPoint.y = yPos;
-            while(yPoints.size()<=vLimit && gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds) == true){
-                newPoint.x = xPos;
-                newPoint.y = yPos;
-                yPos += yStep;
+            while(yPoints.size()<=vLimit && dotCheck == true){
+                dotCheck = (mapdata,newPoint,boundThresh,bounds);
+                if(dotCheck == true){
+                    newPoint.x = xPos;
+                    newPoint.y = yPos;
+                    yPos += yStep;
 
-                yPoints.push_back(newPoint);
+                    yPoints.push_back(newPoint);
+                }
             }
             if(yPoints.size()>0){
                 points.push_back(yPoints);
