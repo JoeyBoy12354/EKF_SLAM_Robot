@@ -351,6 +351,7 @@ namespace Mapping_Functions{
             }
             cout<<endl;
         }  
+        cout<<endl;
         
         //Negative X-axis
         noRuns = 0;
