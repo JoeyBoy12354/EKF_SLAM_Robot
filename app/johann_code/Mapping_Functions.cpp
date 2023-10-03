@@ -324,6 +324,8 @@ namespace Mapping_Functions{
                     cout<<"dotCheck = "<<dotCheck<<endl;
                 }
                 if(dotCheck == true){
+                    cout<<"Checked: ("<<newPoint.x<<","<<newPoint.y<<")"<<endl;
+                    cout<<"Set: ("<<xPos<<","<<yPos<<")"<<endl;
                     newPoint.x = xPos;
                     newPoint.y = yPos;
                     yPos += yStep;
