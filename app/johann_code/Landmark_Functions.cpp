@@ -530,12 +530,6 @@ namespace Landmark_Functions{
             
         }
 
-
-            
-
-
-           
-    
         return corners;
     }
 

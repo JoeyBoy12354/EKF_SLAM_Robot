@@ -119,7 +119,7 @@ namespace Data_Functions{
         // writeConsensusToCSV(detected_lines);
 
         cout<<"\nANSAC"<<endl;
-        vector<CarPoint> closestPoints = ANSAC(carPoints);
+        vector<CarPoint> closestPoints = ANSAC_CORNER(carPoints);
         writeCornersToCSV(closestPoints);
         
 
