@@ -394,16 +394,17 @@ namespace Mapping_Functions{
             xPos += xStep;    
             noRuns+=1;
             }
-            
+
+        for(int i =0;i<points.size();i++){
+            for(int j=0;j<points[i].size;j++){
+                cout<<"("<<points[i][j].x<<","<<points[i][j].y<<")";
+            }
+            cout<<endl;
+        }  
         
     }
 
-    for(int i =0;i<points.size();i++){
-        for(int j=0;j<points[i].size;j++){
-            cout<<"("<<points[i][j].x<<","<<points[i][j].y<<")";
-        }
-        cout<<endl;
-    }
+    
     
 
 }
