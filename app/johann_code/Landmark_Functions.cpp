@@ -455,7 +455,7 @@ namespace Landmark_Functions{
         vector<CarPoint> linepoints = laserdata;
         int totalLinepoints = laserdata.size();
         
-        const int MAXSAMPLE = 100;//Selects X points in window
+        const int MAXSAMPLE = 300;//Selects X points in window
 
         const double ANSAC_TOLERANCE = 30; //If point is within x distance of neighbour its part of a corner
         const float ANGLE_THRESHOLD = 30*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
@@ -542,10 +542,12 @@ namespace Landmark_Functions{
                     // }
                     cout<<endl;
                     cout<<"CenterPoint = "<<centerPoint<<endl;
-                    //currIndex += MAXSAMPLE;
+                    cout<<"line1 m= "<<line1.gradient<<" c="<<line1.intercept<<endl;
+                    cout<<"line2 m= "<<line2.gradient<<" c="<<line2.intercept<<endl;
 
                     lines.push_back(line1);
                     lines.push_back(line2);
+                   
                 }else{
                     linepoints.erase(linepoints.begin(), linepoints.begin() + INDEX_STEP);
                 }
