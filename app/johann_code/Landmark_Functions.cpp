@@ -539,12 +539,24 @@ namespace Landmark_Functions{
                     interceptPoint.y = line1.gradient*interceptPoint.x + line1.intercept;
                     interceptPoint.angle = interAngle;
 
+
                     //check if intercept point is basically a point we already have
+                    CarPoint replaceMe;
+                    replaceMe.angle = 1000000;
                     double dist = 1000000000;
                     for(int i =0;i<corners.size();i++){
-                        dist_temp = pointDistance(interceptPoint,centerPoint);
+                        dist_temp = pointDistance(interceptPoint,corners[i]);
                         if(dist>dist_temp){
                             dist = dist_temp;
+                            replaceMe = corners[i];
+                        }
+                    }
+
+                    //If intercept angle is closer to 90 degrees replace similar angle
+                    bool replace = false;
+                    if(dist < DIST_THRESHOLD){
+                        if(abs(PI/2 - replaceMe.angle) > abs(PI/2 - interceptPoint.angle) ){
+                            replace = true;
                         }
                     }
 
@@ -557,7 +569,7 @@ namespace Landmark_Functions{
                     cout<<endl;
 
                     //check if intercept is close to midpoint
-                    if(dist < DIST_THRESHOLD){
+                    if(replace = true){
                         //Add corner to corner list
                         corners.push_back(interceptPoint);
                         
