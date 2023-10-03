@@ -485,6 +485,7 @@ namespace Landmark_Functions{
             }
 
             if(tolCheck == true){
+                cout<<"tolCHheck passed"<<endl;
                 //cout<<"PASSED TOLERANCE CHECK"<<endl;
                 //COMPUTE PHASE
                 //compute model M1
@@ -531,6 +532,7 @@ namespace Landmark_Functions{
                
 
                 if(angleGood == true){
+                    cout<<"TESTA-1"<<endl;
 
                     CarPoint interceptPoint;
                     //Find x-coordinate
