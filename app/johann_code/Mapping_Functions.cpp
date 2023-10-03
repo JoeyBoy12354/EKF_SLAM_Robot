@@ -184,34 +184,18 @@ namespace Mapping_Functions{
 
     bool gridDotBoundCheck(vector<CarPoint> searchMap, GridPoint point,float distThresh, vector<float> bounds){
         if(searchMap.size()==0){
-            cout<<"Bound Check SearchMap==0"<<endl;
             return false;
         }
-
-        
 
         //check if point is within max and min of lidardata bounds=[Xmax,Xmin,Ymax,Ymin]
         if(point.x>bounds[0] || point.x<bounds[1] || point.y>bounds[2] || point.y<bounds[3] ){
             return false;
         }
 
-        //cout<<"GRID Point(inbound) x="<<point.x<<" y="<<point.y<<endl;
-
         //Get Cartesian
         CarPoint point2;
         point2.x = point.x;
-        point2.y = point.y;
-        // cout<<" "<<endl;
-
-        // cout<<"GRID3 MAPDATA"<<endl;
-        // cout<<"point: ("<<point.x<<","<<point.y<<") SM size = "<<searchMap.size()<<endl;
-        // for(int i = 0;i<searchMap.size();i++){
-        //     if(searchMap[i].x>190 && searchMap[i].x < -210 && searchMap[i].y<-400){
-        //         cout<<"("<<searchMap[i].x<<","<<searchMap[i].y<<")";
-        //     }
-        // }
-        // cout<<endl;
-            
+        point2.y = point.y;            
         float dist = 10000000;
         CarPoint smallPoint;
         //check if point is far away enough from lidarPoints
@@ -226,15 +210,9 @@ namespace Mapping_Functions{
         }
 
         if(dist < distThresh){
-            if(point2.x == 200 && point2.y == -400){
-                cout<<"Returning ("<<point2.x<<","<<point2.y<<") dist = "<<dist<<" at ("<<smallPoint.x<<","<<smallPoint.y<<")"<<endl;
-            }
             return false;
 
         }else{
-            if(point2.x == 200 && point2.y == -400){
-                cout<<"Passing ("<<point2.x<<","<<point2.y<<") dist = "<<dist<<" at ("<<smallPoint.x<<","<<smallPoint.y<<")"<<endl;
-            }
             return true;
         }
 
@@ -247,8 +225,6 @@ namespace Mapping_Functions{
     void gridMakeDots(vector<CarPoint> mapdata, vector<vector<GridPoint>>& points){
         
 
-            
-        
         //We need to create the vertical lines
         //Might be good to calculate this with max size of current lidar scan
         float vLimit = 10; //Max number of vertical points from x-axis in 1 direction
@@ -271,7 +247,6 @@ namespace Mapping_Functions{
         getMapBounds(mapdata,bounds);
 
 
-        //cout<<endl;
 
         vector<GridPoint> yPoints;
         GridPoint newPoint;
@@ -288,7 +263,6 @@ namespace Mapping_Functions{
         //Positive X-axis
         xPos = 0;
         while(points.size()<=hLimit && noRuns<maxNoRuns){
-            // cout<<"GRID: POSTIVE X-Axis WHile Loop NoRuns = "<<noRuns<<endl;
 
             //Do Positive Y-Axis
             dotCheck = true;
@@ -322,22 +296,11 @@ namespace Mapping_Functions{
             newPoint.y = yPos;
             while(yPoints.size()<=vLimit && dotCheck == true){
                 dotCheck = gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds);
-                if(newPoint.x == 200 && newPoint.y == -400){
-                    cout<<"dotCheck = "<<dotCheck<<endl;
-                }
                 if(dotCheck == true){
-                    // cout<<"Checked: ("<<newPoint.x<<","<<newPoint.y<<")"<<endl;
-                    // cout<<"Set: ("<<xPos<<","<<yPos<<")"<<endl;
                     yPoints.push_back(newPoint);
                     yPos += yStep;
                     newPoint.x = xPos;
                     newPoint.y = yPos;
-                    
-                    // if(newPoint.x == 200 && newPoint.y == -400){
-                    //     cout<<"dotCheck = "<<dotCheck<<endl;
-                    //     cout<<"PushingBack: ("<<newPoint.x<<","<<newPoint.y<<")"<<endl;
-                    // }
-                    
                 }
             }
             if(yPoints.size()>0){
@@ -349,23 +312,12 @@ namespace Mapping_Functions{
             xPos += xStep;    
             noRuns+=1;
         }
-
-        for(int i =0;i<points.size();i++){
-            cout<<"["<<i<<"]"<<endl;
-            for(int j=0;j<points[i].size();j++){
-                cout<<"("<<points[i][j].x<<","<<points[i][j].y<<")";
-            }
-            cout<<endl;
-        }  
-        cout<<endl;
         
         //Negative X-axis
         noRuns = 0;
         xStep = -1*xStep;
         xPos = xStep;
         while(points.size()<=hLimit*2 && noRuns<maxNoRuns){
-            // cout<<"GRID: NEGATIVE X-Axis WHile Loop"<<endl;
-
             //Do Positive Y-Axis
             dotCheck = true;
             yPoints.clear();
@@ -379,8 +331,6 @@ namespace Mapping_Functions{
                     yPos += yStep;
                     newPoint.x = xPos;
                     newPoint.y = yPos;
-                    
-                    
                 }
             }
             if(yPoints.size()>0){
@@ -401,8 +351,6 @@ namespace Mapping_Functions{
                     yPos += yStep;
                     newPoint.x = xPos;
                     newPoint.y = yPos;
-                    
-                    
                 }
             }
             if(yPoints.size()>0){
@@ -414,14 +362,6 @@ namespace Mapping_Functions{
             xPos += xStep;    
             noRuns+=1;
             }
-
-        for(int i =0;i<points.size();i++){
-            cout<<"["<<i<<"]"<<endl;
-            for(int j=0;j<points[i].size();j++){
-                cout<<"("<<points[i][j].x<<","<<points[i][j].y<<")";
-            }
-            cout<<endl;
-        }  
         
     }
 
