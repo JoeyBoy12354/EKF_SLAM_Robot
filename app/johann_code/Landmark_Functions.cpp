@@ -474,7 +474,7 @@ namespace Landmark_Functions{
             //SAMPLING PHASE
             vector<CarPoint> selectedPoints; //This will store our samples around the next point
             for(int i =0;i<MAXSAMPLE;i++){
-                selectedPoints.push_back(linepoints[i]+currIndex);
+                selectedPoints.push_back(linepoints[i+currIndex]);
             }
             CarPoint centerPoint = selectedPoints[int(selectedPoints.size()/2)];
 
