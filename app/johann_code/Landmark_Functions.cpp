@@ -453,11 +453,10 @@ namespace Landmark_Functions{
         vector<CarPoint> linepoints = laserdata;
         int totalLinepoints = laserdata.size();
         
-        const int MAXSAMPLE = 100;//Selects X points in window
+        const int MAXSAMPLE = 50;//Selects X points in window
 
         const double ANSAC_TOLERANCE = 10; //If point is within x distance of neighbour its part of a corner
         const float ANGLE_THRESHOLD = 30*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
-        const int MINLINEPOINTS = 30;//If less than 100 points left don't bother trying to find consensous
 
         const int INDEX_STEP= 1;//If no angle found in sample shift window by X points onwards.
 
@@ -529,7 +528,16 @@ namespace Landmark_Functions{
                     //cout<<"len of linePoint before chunk delete = "<<linepoints.size()<<endl;
                     //linepoints.erase(linepoints.begin(), linepoints.begin() + MAXSAMPLE);
                     //cout<<"len of linePoint before chunk delete = "<<linepoints.size()<<endl;
+                    
+                    // for(int i =0;i<MAXSAMPLE;i++){
+                    //     cout<<"("<<selectedPoints[i].x<<","<<selectedPoints[i].y<<")"
+
+                    // }
+                    cout<<endl;
+                    cout<<"CenterPoint = "<<centerPoint<<endl;
+                    cout<<"CurrIndex = "<<currIndex<<endl;
                     currIndex += MAXSAMPLE;
+                    cout<<"CurrIndex2 = "<<currIndex<<endl;
                 }else{
                     currIndex+=INDEX_STEP;
                 }
