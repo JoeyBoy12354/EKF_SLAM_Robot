@@ -448,12 +448,17 @@ namespace Landmark_Functions{
         //two arrays corresponding to found corners
         vector<CarPoint> corners;
         int totalLines = 0;
+        cout<<"1"<<endl;
 
         vector<Line> lines;
+
+        cout<<"2"<<endl;
 
         //array of laser data points corresponding to the seen lines
         vector<CarPoint> linepoints = laserdata;
         int totalLinepoints = laserdata.size();
+
+        cout<<"3"<<endl;
         
         const int MAXSAMPLE = 300;//Selects X points in window
 
@@ -463,10 +468,12 @@ namespace Landmark_Functions{
 
         const int INDEX_STEP= 1;//If no angle found in sample shift window by X points onwards.
 
+        cout<<"4"<<endl;
         
         //RANSAC ALGORITHM
         int currIndex = 0;
         while(MAXSAMPLE*2<linepoints.size()){
+            cout<<"5"<<endl;
             //SAMPLING PHASE
             vector<CarPoint> selectedPoints; //This will store our samples around the next point
             for(int i =0;i<MAXSAMPLE;i++){
@@ -474,6 +481,7 @@ namespace Landmark_Functions{
             }
             CarPoint centerPoint = selectedPoints[int(selectedPoints.size()/2)];
 
+            cout<<"6"<<endl;
 
             //Check Tolerance
             bool tolCheck = true;
@@ -483,6 +491,7 @@ namespace Landmark_Functions{
                     tolCheck = false;
                 }
             }
+            cout<<"7"<<endl;
 
             if(tolCheck == true){
                 cout<<"tolCHheck passed"<<endl;
