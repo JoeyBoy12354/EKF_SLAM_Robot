@@ -564,6 +564,7 @@ namespace Landmark_Functions{
                     if(dist < DIST_THRESHOLD){
                         if(abs(PI/2 - replaceMe.angle) > abs(PI/2 - interceptPoint.angle) ){
                             replace = true;
+                            cout<<"ReplacePoint = "<<replaceMe<<endl;
                         }
                     }
 
