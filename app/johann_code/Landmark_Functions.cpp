@@ -595,7 +595,9 @@ namespace Landmark_Functions{
                     linepoints.erase(linepoints.begin(), linepoints.begin() + INDEX_STEP);
                 }
             }else{
+                cout<<"8"<<endl;
                 linepoints.erase(linepoints.begin(), linepoints.begin() + INDEX_STEP);
+                cout<<"9"<<endl;
             }
 
             
