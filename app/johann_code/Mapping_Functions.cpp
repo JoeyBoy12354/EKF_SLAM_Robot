@@ -328,7 +328,8 @@ namespace Mapping_Functions{
                     newPoint.y = yPos;
                     yPos += yStep;
                     if(newPoint.x == 200 && newPoint.y == -400){
-                        cout<<"PushingBack"<<endl;
+                        cout<<"dotCheck = "<<dotCheck<<endl;
+                        cout<<"PushingBack: ("<<newPoint.x<<","<<newPoint.y<<")"<<<endl;
                     }
                     yPoints.push_back(newPoint);
                 }
