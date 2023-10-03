@@ -539,7 +539,7 @@ namespace Landmark_Functions{
                     interceptPoint.y = line1.gradient*interceptPoint.x + line1.intercept;
                     interceptPoint.angle = interAngle;
 
-
+                    cout<<"TESTA"<<endl;
                     //check if intercept point is basically a point we already have
                     CarPoint replaceMe;
                     replaceMe.angle = 1000000;
@@ -551,6 +551,8 @@ namespace Landmark_Functions{
                             replaceMe = corners[i];
                         }
                     }
+
+                    cout<<"TESTB"<<endl;
 
                     //If intercept angle is closer to 90 degrees replace similar angle
                     bool replace = false;
