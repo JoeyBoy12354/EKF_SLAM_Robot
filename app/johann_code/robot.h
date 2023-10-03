@@ -51,11 +51,11 @@ struct CornerPoint {
     double y;
     double angle;
 
-    bool operator==(const CarPoint& other) const {
+    bool operator==(const CornerPoint& other) const {
         return x == other.x && y == other.y;
     }
 
-    friend ostream& operator<<(ostream& os, const CarPoint& point) {
+    friend ostream& operator<<(ostream& os, const CornerPoint& point) {
         os << "(" << point.x << "," << point.y << ")|" << point.angle;
         return os;
     }
