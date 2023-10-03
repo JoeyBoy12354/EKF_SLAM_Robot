@@ -468,11 +468,12 @@ namespace Landmark_Functions{
         const int INDEX_STEP= 1;//If no angle found in sample shift window by X points onwards.
         
         //RANSAC ALGORITHM
+        int currIndex = 0;
         while(MAXSAMPLE*2<linepoints.size()){
             //SAMPLING PHASE
             vector<CarPoint> selectedPoints; //This will store our samples around the next point
             for(int i =0;i<MAXSAMPLE;i++){
-                selectedPoints.push_back(linepoints[i]);
+                selectedPoints.push_back(linepoints[i]+currIndex);
             }
             CarPoint centerPoint = selectedPoints[int(selectedPoints.size()/2)];
 
@@ -581,28 +582,27 @@ namespace Landmark_Functions{
                         corners.push_back(interceptPoint);
                         
                         //Remove samples from list
-                        cout<<"len of linePoint before chunk delete = "<<linepoints.size()<<endl;
-                        linepoints.erase(linepoints.begin(), linepoints.begin() + MAXSAMPLE);
-                        cout<<"len of linePoint before chunk delete = "<<linepoints.size()<<endl;
+                        currIndex = currIndex + MAXSAMPLE;
 
 
                         lines.push_back(line1);
                         lines.push_back(line2);
                     }else{
-                        linepoints.erase(linepoints.begin(), linepoints.begin() + INDEX_STEP);
+                        currIndex = currIndex + INDEX_STEP;
                     }
                 }else{
-                    linepoints.erase(linepoints.begin(), linepoints.begin() + INDEX_STEP);
+                    currIndex = currIndex + INDEX_STEP;
                 }
             }else{
                 cout<<"8"<<endl;
-                linepoints.erase(linepoints.begin(), linepoints.begin() + INDEX_STEP);
+                currIndex = currIndex + INDEX_STEP;
                 cout<<"9"<<endl;
             }
 
             
             
         }
+        cout<<"LOSER"<<endl;
 
         writeConsensusToCSV(lines);
 
