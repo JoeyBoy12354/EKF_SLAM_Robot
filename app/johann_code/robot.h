@@ -202,8 +202,6 @@ namespace Navigation_Functions{
     void moveCalibration(float distance);
 }
 
-
-
 class ExtendedKalmanFilter {
 public:
     //Testing
@@ -218,6 +216,7 @@ public:
     float distance = 0;
     Matrix<float, dim, 1> State;
     
+    float initialLandmarkCovariance_AtSi = 1;
     
 
     ExtendedKalmanFilter();

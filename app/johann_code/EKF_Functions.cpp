@@ -22,7 +22,7 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     //Covariance.setIdentity();
     Covariance.setZero();
     for (int n = 3; n < dim; n++) {
-        Covariance(n, n) = 1;
+        Covariance(n, n) = initialLandmarkCovariance_AtSi;
     }
 
 
