@@ -294,11 +294,12 @@ namespace Mapping_Functions{
             newPoint.y = yPos;
             while(yPoints.size()<=vLimit && dotCheck == true){
                 dotCheck = gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds);
+                cout<<"dotCheck = "<<dotCheck<<endl;
                 if(dotCheck == true){
                     newPoint.x = xPos;
                     newPoint.y = yPos;
                     yPos += yStep;
-
+                    cout<<"PushingBack"<<endl;
                     yPoints.push_back(newPoint);
                 }
                 
@@ -317,16 +318,16 @@ namespace Mapping_Functions{
             newPoint.y = yPos;
             while(yPoints.size()<=vLimit && dotCheck == true){
                 dotCheck = gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds);
+                cout<<"dotCheck = "<<dotCheck<<endl;
                 if(dotCheck == true){
                     newPoint.x = xPos;
                     newPoint.y = yPos;
                     yPos += yStep;
-
+                    cout<<"PushingBack"<<endl;
                     yPoints.push_back(newPoint);
                 }
             }
             if(yPoints.size()>0){
-                
                 points.push_back(yPoints);
             }
             
@@ -351,11 +352,12 @@ namespace Mapping_Functions{
             newPoint.y = yPos;
             while(yPoints.size()<=vLimit && dotCheck == true){
                 dotCheck = gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds);
+                cout<<"dotCheck = "<<dotCheck<<endl;
                 if(dotCheck == true){
                     newPoint.x = xPos;
                     newPoint.y = yPos;
                     yPos += yStep;
-
+                    cout<<"PushingBack"<<endl;
                     yPoints.push_back(newPoint);
                 }
             }
@@ -372,11 +374,12 @@ namespace Mapping_Functions{
             newPoint.y = yPos;
             while(yPoints.size()<=vLimit && dotCheck == true){
                 dotCheck = gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds);
+                cout<<"dotCheck = "<<dotCheck<<endl;
                 if(dotCheck == true){
                     newPoint.x = xPos;
                     newPoint.y = yPos;
                     yPos += yStep;
-
+                    cout<<"PushingBack"<<endl;
                     yPoints.push_back(newPoint);
                 }
             }
