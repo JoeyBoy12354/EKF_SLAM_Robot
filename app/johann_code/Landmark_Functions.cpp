@@ -467,21 +467,16 @@ namespace Landmark_Functions{
         const float DIST_THRESHOLD = 30; //If intercept point is within X of midpoint then keep corner
 
         const int INDEX_STEP= 1;//If no angle found in sample shift window by X points onwards.
-
-        cout<<"4"<<endl;
         
         //RANSAC ALGORITHM
         int currIndex = 0;
         while(MAXSAMPLE*2<linepoints.size()){
-            cout<<"5"<<endl;
             //SAMPLING PHASE
             vector<CarPoint> selectedPoints; //This will store our samples around the next point
             for(int i =0;i<MAXSAMPLE;i++){
                 selectedPoints.push_back(linepoints[i]);
             }
             CarPoint centerPoint = selectedPoints[int(selectedPoints.size()/2)];
-
-            cout<<"6"<<endl;
 
             //Check Tolerance
             bool tolCheck = true;
@@ -495,7 +490,6 @@ namespace Landmark_Functions{
 
             if(tolCheck == true){
                 cout<<"tolCHheck passed"<<endl;
-                //cout<<"PASSED TOLERANCE CHECK"<<endl;
                 //COMPUTE PHASE
                 //compute model M1
                 double c=0;
@@ -533,7 +527,6 @@ namespace Landmark_Functions{
                     //Absolute value to counter -90 being thrown out
                     interAngle = abs(atan((line2.gradient - line1.gradient)/(1 + line1.gradient*line2.gradient)));
                     //Is angle within allowed bounds
-                    //cout<<"ANGLE FOUND = "<<interAngle*180/PI<<endl;
                     if(PI/2 - ANGLE_THRESHOLD <= interAngle && interAngle <= PI/2 + ANGLE_THRESHOLD){
                         angleGood = true;
                     }
@@ -550,31 +543,31 @@ namespace Landmark_Functions{
                     interceptPoint.y = line1.gradient*interceptPoint.x + line1.intercept;
                     interceptPoint.angle = interAngle;
 
-                    cout<<"TESTA0"<<endl;
-                    //check if intercept point is basically a point we already have
-                    CarPoint replaceMe;
-                    replaceMe.angle = 1000000;
-                    double dist = 1000000000;
-                    cout<<"TESTA1"<<endl;
-                    cout<<"cornerSize = "<<corners.size()<<endl;
-                    cout<<"TESTA2"<<endl;
-                    for(int i =0;i<corners.size();i++){
-                        double dist_temp = pointDistance(interceptPoint,corners[i]);
-                        if(dist>dist_temp){
-                            dist = dist_temp;
-                            replaceMe = corners[i];
-                        }
-                    }
+                    // cout<<"TESTA0"<<endl;
+                    // //check if intercept point is basically a point we already have
+                    // CarPoint replaceMe;
+                    // replaceMe.angle = 1000000;
+                    // double dist = 1000000000;
+                    // cout<<"TESTA1"<<endl;
+                    // cout<<"cornerSize = "<<corners.size()<<endl;
+                    // cout<<"TESTA2"<<endl;
+                    // for(int i =0;i<corners.size();i++){
+                    //     double dist_temp = pointDistance(interceptPoint,corners[i]);
+                    //     if(dist>dist_temp){
+                    //         dist = dist_temp;
+                    //         replaceMe = corners[i];
+                    //     }
+                    // }
 
                     cout<<"TESTB"<<endl;
 
                     //If intercept angle is closer to 90 degrees replace similar angle
                     bool replace = false;
-                    if(dist < DIST_THRESHOLD){
-                        if(abs(PI/2 - replaceMe.angle) > abs(PI/2 - interceptPoint.angle) ){
-                            replace = true;
-                        }
-                    }
+                    // if(dist < DIST_THRESHOLD){
+                    //     if(abs(PI/2 - replaceMe.angle) > abs(PI/2 - interceptPoint.angle) ){
+                    //         replace = true;
+                    //     }
+                    // }
 
                     cout<<"CenterPoint = "<<centerPoint<<endl;
                     cout<<"InterceptPoint = "<<interceptPoint<<endl;
