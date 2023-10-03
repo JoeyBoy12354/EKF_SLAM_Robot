@@ -615,7 +615,7 @@ namespace Landmark_Functions{
             carCorners.push_back(point);
         }
 
-        cout<<"Differenc = "<<totalLinepoints.size() - count<<endl;
+        cout<<"lenTotalfix = "<<totalLinepoints.size()<<" count = "<< count<<endl;
 
         cout<<"\n\n!!!!!!!!!!!  LEAVING ANSAC !!!!!!!!!!!\n\n";
         return carCorners;
