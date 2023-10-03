@@ -99,6 +99,11 @@ namespace Landmark_Functions{
         return sqrt( pow((pointA.x - pointB.x),2) + pow((pointA.y - pointB.y),2));
     }
 
+    // Function to calculate the perpendicular distance from a Cornerpoint to a Cornerpoint
+    double pointDistanceCorner(CornerPoint pointA, CornerPoint pointB) {
+        return sqrt( pow((pointA.x - pointB.x),2) + pow((pointA.y - pointB.y),2));
+    }
+
     vector<CarPoint> findCorners(vector<Line> lines){
         double distThresh = 0.1;
         vector<CarPoint> corners;
@@ -446,7 +451,7 @@ namespace Landmark_Functions{
     vector<CarPoint> ANSAC_CORNER(vector<CarPoint> laserdata){
         cout<<"\n !!!!!!!!!!! IN ANSAC !!!!!!!!!!!!!!!\n"<<endl;
         //two arrays corresponding to found corners
-        vector<CarPoint> corners;
+        vector<CornerPoint> corners;
         int totalLines = 0;
 
         vector<Line> lines;
@@ -531,19 +536,19 @@ namespace Landmark_Functions{
                
 
                 if(angleGood == true){
-                    CarPoint interceptPoint;
+                    CornerPoint interceptPoint;
                     //Find x-coordinate
                     interceptPoint.x = (line2.intercept - line1.intercept)/(line1.gradient - line2.gradient);
                     //Find y-coordinate
                     interceptPoint.y = line1.gradient*interceptPoint.x + line1.intercept;
-                    //interceptPoint.angle = interAngle;
+                    interceptPoint.angle = interAngle;
 
                     //check if intercept point is basically a point we already have
-                    CarPoint replaceMe;
+                    CornerPoint replaceMe;
                     replaceMe.angle = 1000000;
                     double dist = 1000000000;
                     for(int i =0;i<corners.size();i++){
-                        double dist_temp = pointDistance(interceptPoint,corners[i]);
+                        double dist_temp = pointDistanceCorner(interceptPoint,corners[i]);
                         if(dist>dist_temp){
                             dist = dist_temp;
                             replaceMe = corners[i];
@@ -593,8 +598,16 @@ namespace Landmark_Functions{
 
         writeConsensusToCSV(lines);
 
+        vector<CarPoint> carCorners;
+        for(int i =0;i<corners.size;i++){
+            CarPoint point;
+            point.x = corners[i].x;
+            point.y = corners[i].y;
+            carCorners.push_back(point);
+        }
+
         cout<<"\n\n!!!!!!!!!!!  LEAVING ANSAC !!!!!!!!!!!\n\n";
-        return corners;
+        return carCorners;
     }
 
     

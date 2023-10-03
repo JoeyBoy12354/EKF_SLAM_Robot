@@ -36,7 +36,20 @@ struct CarPoint {
     double x;
     double y;
 
-    double angle;//THIS IS PURELY FOR CORNER FINDING ALGO
+    bool operator==(const CarPoint& other) const {
+        return x == other.x && y == other.y;
+    }
+
+    friend ostream& operator<<(ostream& os, const CarPoint& point) {
+        os << "(" << point.x << "," << point.y << ")";
+        return os;
+    }
+};
+
+struct CornerPoint {
+    double x;
+    double y;
+    double angle;
 
     bool operator==(const CarPoint& other) const {
         return x == other.x && y == other.y;
@@ -47,6 +60,7 @@ struct CarPoint {
         return os;
     }
 };
+
 
 struct GridPoint {
     double x;
