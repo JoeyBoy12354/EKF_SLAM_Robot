@@ -489,7 +489,7 @@ namespace Landmark_Functions{
                 }
             }
             
-            cout<<"len = "<<linepoints.size()<<endl;
+            cout<<"length = "<<linepoints.size()<<endl;
             if(tolCheck == true){
                 cout<<"tolCHheck passed"<<endl;
                 //COMPUTE PHASE
