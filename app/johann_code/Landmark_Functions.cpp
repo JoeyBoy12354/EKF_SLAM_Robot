@@ -496,7 +496,7 @@ namespace Landmark_Functions{
                 Line line1;
                 line1.gradient=m;
                 line1.intercept=c;
-                line1.ConsensusPoints = line2Points;
+                line1.ConsensusPoints = line1Points;
 
                 c=0;
                 m=0;
