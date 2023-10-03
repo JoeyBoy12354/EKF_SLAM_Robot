@@ -203,14 +203,14 @@ namespace Mapping_Functions{
         point2.y = point.y;
         // cout<<" "<<endl;
 
-        cout<<"GRID3 MAPDATA"<<endl;
-        cout<<"point: ("<<point.x<<","<<point.y<<") SM size = "<<searchMap.size()<<endl;
-        for(int i = 0;i<searchMap.size();i++){
-            if(searchMap[i].x>190 && searchMap[i].x < -210 && searchMap[i].y<-400){
-                cout<<"("<<searchMap[i].x<<","<<searchMap[i].y<<")";
-            }
-        }
-        cout<<endl;
+        // cout<<"GRID3 MAPDATA"<<endl;
+        // cout<<"point: ("<<point.x<<","<<point.y<<") SM size = "<<searchMap.size()<<endl;
+        // for(int i = 0;i<searchMap.size();i++){
+        //     if(searchMap[i].x>190 && searchMap[i].x < -210 && searchMap[i].y<-400){
+        //         cout<<"("<<searchMap[i].x<<","<<searchMap[i].y<<")";
+        //     }
+        // }
+        // cout<<endl;
             
         float dist = 10000000;
         CarPoint smallPoint;
@@ -342,6 +342,14 @@ namespace Mapping_Functions{
             xPos += xStep;    
             noRuns+=1;
         }
+
+        for(int i =0;i<points.size();i++){
+            cout<<"["<<i<<"]"<<endl;
+            for(int j=0;j<points[i].size();j++){
+                cout<<"("<<points[i][j].x<<","<<points[i][j].y<<")";
+            }
+            cout<<endl;
+        }  
         
         //Negative X-axis
         noRuns = 0;
@@ -396,6 +404,7 @@ namespace Mapping_Functions{
             }
 
         for(int i =0;i<points.size();i++){
+            cout<<"["<<i<<"]"<<endl;
             for(int j=0;j<points[i].size();j++){
                 cout<<"("<<points[i][j].x<<","<<points[i][j].y<<")";
             }
