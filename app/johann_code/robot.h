@@ -145,7 +145,7 @@ namespace Landmark_Functions{
     vector<CarPoint> findFancyCorners(vector<Line> lines);
 
     vector<Line> RANSAC(vector<CarPoint> laserdata);
-    vector<Carpoint> ANSAC_CORNER(vector<CarPoint> laserdata);
+    vector<CarPoint> ANSAC_CORNER(vector<CarPoint> laserdata);
     void LeastSquaresLineEstimate(vector<CarPoint> SelectedPoints, double& c, double& m);
     vector<CarPoint> findNearestPoint(vector<Line> lines);
 }
