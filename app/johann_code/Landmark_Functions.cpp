@@ -470,12 +470,15 @@ namespace Landmark_Functions{
         //RANSAC ALGORITHM
         int currIndex = 0;
         while(MAXSAMPLE*2<linepoints.size()){
+            cout<<"1"<<endl;
             //SAMPLING PHASE
             vector<CarPoint> selectedPoints; //This will store our samples around the next point
             for(int i =0;i<MAXSAMPLE;i++){
                 selectedPoints.push_back(linepoints[i]+currIndex);
             }
             CarPoint centerPoint = selectedPoints[int(selectedPoints.size()/2)];
+
+            cout<<"2"<<endl;
 
             //Check Tolerance
             tolCheck = true;
@@ -602,7 +605,6 @@ namespace Landmark_Functions{
             
             
         }
-        cout<<"LOSER"<<endl;
 
         writeConsensusToCSV(lines);
 
