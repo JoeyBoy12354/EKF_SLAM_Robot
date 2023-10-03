@@ -558,8 +558,6 @@ namespace Landmark_Functions{
                             replaceMeIndex = i;
                         }
                     }
-
-                    
                     // cout<<"CenterPoint = "<<centerPoint<<endl;
                     // cout<<"InterceptPoint = "<<interceptPoint<<endl;
                     // cout<<"Dist = "<<dist<<endl;
@@ -568,25 +566,20 @@ namespace Landmark_Functions{
                     // cout<<"line2 m= "<<line2.gradient<<" c="<<line2.intercept<<endl;
                     // cout<<endl;
 
-                    
                     replace = false;
                     //If similar point
                     if(dist < DIST_THRESHOLD){
                         //If intercept angle is closer to 90 degrees replace similar angle
                         if(abs(PI/2 - replaceMe.angle) > abs(PI/2 - interceptPoint.angle) ){
                             replace = true;
-                            cout<<"ReplacePoint = "<<replaceMe<<endl;
                         }
 
                         //check if intercept is close to midpoint
                         if(replace == true){
                             //Add corner to corner list
                             corners[replaceMeIndex] = interceptPoint;
-                            
                             //Remove samples from list
                             currIndex = currIndex + MAXSAMPLE;
-
-
                             lines.push_back(line1);
                             lines.push_back(line2);
                         }else{
@@ -594,18 +587,10 @@ namespace Landmark_Functions{
                         }
 
                     }else{
-                        // cout<<"InterceptPoint = "<<interceptPoint<<endl;
-                        // cout<<"Dist = "<<dist<<endl;
-                        // for(int i =0;i<corner.size();i++){
-                        //     cout<<corner[i];
-                        // }
-                        // cout<<endl;
                         //Add corner to corner list
                         corners.push_back(interceptPoint);
-                        
                         //Remove samples from list
                         currIndex = currIndex + MAXSAMPLE;
-
 
                         lines.push_back(line1);
                         lines.push_back(line2);
