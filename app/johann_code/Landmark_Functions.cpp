@@ -550,7 +550,9 @@ namespace Landmark_Functions{
                     linepoints.erase(linepoints.begin(), linepoints.begin() + INDEX_STEP);
                 }
             }else{
+                cout<<"LinePoint size pre = "<<linepoints.size()<<endl;
                 linepoints.erase(linepoints.begin(), linepoints.begin() + INDEX_STEP);
+                cout<<"LinePoint size post = "<<linepoints.size()<<endl;
             }
 
             
