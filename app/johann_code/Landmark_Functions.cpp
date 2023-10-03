@@ -458,7 +458,7 @@ namespace Landmark_Functions{
         const int MAXSAMPLE = 100;//Selects X points in window
 
         const double ANSAC_TOLERANCE = 30; //If point is within x distance of neighbour its part of a corner
-        const float ANGLE_THRESHOLD = 10*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
+        const float ANGLE_THRESHOLD = 30*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
 
         const int INDEX_STEP= 1;//If no angle found in sample shift window by X points onwards.
 
@@ -520,10 +520,12 @@ namespace Landmark_Functions{
                     //Absolute value to counter -90 being thrown out
                     float interAngle = abs(atan((line2.gradient - line1.gradient)/(1 + line1.gradient*line2.gradient)));
                     //Is angle within allowed bounds
+                     cout<<"ANGLE FOUND = "<<interAngle*180/PI<<endl;
                     if(PI/2 - ANGLE_THRESHOLD <= interAngle && interAngle <= PI/2 + ANGLE_THRESHOLD){
                         angleGood = true;
                     }
                 }
+               
 
                 if(angleGood == true){
                     //Add corner to corner list
