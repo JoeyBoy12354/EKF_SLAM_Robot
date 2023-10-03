@@ -293,7 +293,7 @@ namespace Mapping_Functions{
             newPoint.x = xPos;
             newPoint.y = yPos;
             while(yPoints.size()<=vLimit && dotCheck == true){
-                dotCheck = (mapdata,newPoint,boundThresh,bounds);
+                dotCheck = gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds);
                 if(dotCheck == true){
                     newPoint.x = xPos;
                     newPoint.y = yPos;
@@ -316,7 +316,7 @@ namespace Mapping_Functions{
             newPoint.x = xPos;
             newPoint.y = yPos;
             while(yPoints.size()<=vLimit && dotCheck == true){
-                dotCheck = (mapdata,newPoint,boundThresh,bounds);
+                dotCheck = gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds);
                 if(dotCheck == true){
                     newPoint.x = xPos;
                     newPoint.y = yPos;
@@ -350,7 +350,7 @@ namespace Mapping_Functions{
             newPoint.x = xPos;
             newPoint.y = yPos;
             while(yPoints.size()<=vLimit && dotCheck == true){
-                dotCheck = (mapdata,newPoint,boundThresh,bounds);
+                dotCheck = gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds);
                 if(dotCheck == true){
                     newPoint.x = xPos;
                     newPoint.y = yPos;
@@ -371,7 +371,7 @@ namespace Mapping_Functions{
             newPoint.x = xPos;
             newPoint.y = yPos;
             while(yPoints.size()<=vLimit && dotCheck == true){
-                dotCheck = (mapdata,newPoint,boundThresh,bounds);
+                dotCheck = gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds);
                 if(dotCheck == true){
                     newPoint.x = xPos;
                     newPoint.y = yPos;
