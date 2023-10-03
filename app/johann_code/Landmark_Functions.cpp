@@ -578,6 +578,7 @@ namespace Landmark_Functions{
 
                     //check if intercept is close to midpoint
                     if(replace = true){
+                        cout<<"newPoint replace"<<endl;
                         //Add corner to corner list
                         corners[replaceMeIndex] = interceptPoint;
                         
@@ -588,6 +589,7 @@ namespace Landmark_Functions{
                         lines.push_back(line1);
                         lines.push_back(line2);
                     }else{
+                        cout<<"newPoint add"<<endl;
                         //Add corner to corner list
                         corners.push_back(interceptPoint);
                         
