@@ -452,7 +452,7 @@ namespace Landmark_Functions{
         vector<CarPoint> linepoints = laserdata;
         int totalLinepoints = laserdata.size();
         
-        const int MAXSAMPLE = 10;//Selects X points in window
+        const int MAXSAMPLE = 100;//Selects X points in window
 
         const double ANSAC_TOLERANCE = 10; //If point is within x distance of neighbour its part of a corner
         const float ANGLE_THRESHOLD = 30*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
