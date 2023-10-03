@@ -465,11 +465,11 @@ namespace Landmark_Functions{
         
         //RANSAC ALGORITHM
         int currIndex = 0;
-        while(currIndex<linepoints.size()-1){
+        while(MAXSAMPLE*2>linepoints.size()){
             //SAMPLING PHASE
             vector<CarPoint> selectedPoints; //This will store our samples around the next point
             for(int i =0;i<MAXSAMPLE;i++){
-                selectedPoints.push_back(linepoints[i + currIndex]);
+                selectedPoints.push_back(linepoints[i]);
             }
             CarPoint centerPoint = selectedPoints[int(selectedPoints.size()/2)];
 
@@ -529,9 +529,9 @@ namespace Landmark_Functions{
                     //Add corner to corner list
                     corners.push_back(centerPoint);
                     //Remove samples from list
-                    //cout<<"len of linePoint before chunk delete = "<<linepoints.size()<<endl;
-                    //linepoints.erase(linepoints.begin(), linepoints.begin() + MAXSAMPLE);
-                    //cout<<"len of linePoint before chunk delete = "<<linepoints.size()<<endl;
+                    cout<<"len of linePoint before chunk delete = "<<linepoints.size()<<endl;
+                    linepoints.erase(linepoints.begin(), linepoints.begin() + MAXSAMPLE);
+                    cout<<"len of linePoint before chunk delete = "<<linepoints.size()<<endl;
                     
                     // for(int i =0;i<MAXSAMPLE;i++){
                     //     cout<<"("<<selectedPoints[i].x<<","<<selectedPoints[i].y<<")"
@@ -539,17 +539,15 @@ namespace Landmark_Functions{
                     // }
                     cout<<endl;
                     cout<<"CenterPoint = "<<centerPoint<<endl;
-                    cout<<"CurrIndex = "<<currIndex<<endl;
-                    currIndex += MAXSAMPLE;
-                    cout<<"CurrIndex2 = "<<currIndex<<endl;
+                    //currIndex += MAXSAMPLE;
 
                     lines.push_back(line1);
                     lines.push_back(line2);
                 }else{
-                    currIndex+=INDEX_STEP;
+                    linepoints.erase(linepoints.begin(), linepoints.begin() + INDEX_STEP);
                 }
             }else{
-                currIndex+=INDEX_STEP;
+                linepoints.erase(linepoints.begin(), linepoints.begin() + INDEX_STEP);
             }
 
             
