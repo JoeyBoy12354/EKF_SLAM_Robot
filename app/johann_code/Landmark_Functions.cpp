@@ -545,7 +545,7 @@ namespace Landmark_Functions{
                     replaceMe.angle = 1000000;
                     double dist = 1000000000;
                     for(int i =0;i<corners.size();i++){
-                        dist_temp = pointDistance(interceptPoint,corners[i]);
+                        double dist_temp = pointDistance(interceptPoint,corners[i]);
                         if(dist>dist_temp){
                             dist = dist_temp;
                             replaceMe = corners[i];
