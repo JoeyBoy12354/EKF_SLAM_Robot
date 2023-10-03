@@ -468,7 +468,7 @@ namespace Landmark_Functions{
 
         const double ANSAC_TOLERANCE = 30; //If point is within x distance of neighbour its part of a corner
         const float ANGLE_THRESHOLD = 8*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
-        const float DIST_THRESHOLD = 30; //If intercept point is within X of midpoint then keep corner
+        const float DIST_THRESHOLD = 50; //If intercept point is within X of midpoint then keep corner
 
         const int INDEX_STEP= 1;//If no angle found in sample shift window by X points onwards.
         
@@ -588,6 +588,12 @@ namespace Landmark_Functions{
                         lines.push_back(line1);
                         lines.push_back(line2);
                     }else{
+                        cout<<"InterceptPoint = "<<interceptPoint<<endl;
+                        cout<<"Dist = "<<dist<<endl;
+                        for(int i =0;i<corner.size();i++){
+                            cout<<corner[i];
+                        }
+                        cout<<endl;
                         //Add corner to corner list
                         corners.push_back(interceptPoint);
                         
