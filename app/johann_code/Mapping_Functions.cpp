@@ -226,11 +226,15 @@ namespace Mapping_Functions{
         }
 
         if(dist < distThresh){
-            cout<<"Returning ("<<point2.x<<","<<point2.y<<") dist = "<<dist<<" at ("<<smallPoint.x<<","<<smallPoint.y<<")"<<endl;
+            if(point2.x == 200 && point2.y == -400){
+                cout<<"Returning ("<<point2.x<<","<<point2.y<<") dist = "<<dist<<" at ("<<smallPoint.x<<","<<smallPoint.y<<")"<<endl;
+            }
             return false;
 
         }else{
-            cout<<"Passing ("<<point2.x<<","<<point2.y<<") dist = "<<dist<<" at ("<<smallPoint.x<<","<<smallPoint.y<<")"<<endl;
+            if(point2.x == 200 && point2.y == -400){
+                cout<<"Passing ("<<point2.x<<","<<point2.y<<") dist = "<<dist<<" at ("<<smallPoint.x<<","<<smallPoint.y<<")"<<endl;
+            }
             return true;
         }
 
@@ -294,12 +298,10 @@ namespace Mapping_Functions{
             newPoint.y = yPos;
             while(yPoints.size()<=vLimit && dotCheck == true){
                 dotCheck = gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds);
-                cout<<"dotCheck = "<<dotCheck<<endl;
                 if(dotCheck == true){
                     newPoint.x = xPos;
                     newPoint.y = yPos;
                     yPos += yStep;
-                    cout<<"PushingBack"<<endl;
                     yPoints.push_back(newPoint);
                 }
                 
@@ -318,12 +320,16 @@ namespace Mapping_Functions{
             newPoint.y = yPos;
             while(yPoints.size()<=vLimit && dotCheck == true){
                 dotCheck = gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds);
-                cout<<"dotCheck = "<<dotCheck<<endl;
+                if(newPoint.x == 200 && newPoint.y == -400){
+                    cout<<"dotCheck = "<<dotCheck<<endl;
+                }
                 if(dotCheck == true){
                     newPoint.x = xPos;
                     newPoint.y = yPos;
                     yPos += yStep;
-                    cout<<"PushingBack"<<endl;
+                    if(newPoint.x == 200 && newPoint.y == -400){
+                        cout<<"PushingBack"<<endl;
+                    }
                     yPoints.push_back(newPoint);
                 }
             }
@@ -352,12 +358,10 @@ namespace Mapping_Functions{
             newPoint.y = yPos;
             while(yPoints.size()<=vLimit && dotCheck == true){
                 dotCheck = gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds);
-                cout<<"dotCheck = "<<dotCheck<<endl;
                 if(dotCheck == true){
                     newPoint.x = xPos;
                     newPoint.y = yPos;
                     yPos += yStep;
-                    cout<<"PushingBack"<<endl;
                     yPoints.push_back(newPoint);
                 }
             }
@@ -374,12 +378,10 @@ namespace Mapping_Functions{
             newPoint.y = yPos;
             while(yPoints.size()<=vLimit && dotCheck == true){
                 dotCheck = gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds);
-                cout<<"dotCheck = "<<dotCheck<<endl;
                 if(dotCheck == true){
                     newPoint.x = xPos;
                     newPoint.y = yPos;
                     yPos += yStep;
-                    cout<<"PushingBack"<<endl;
                     yPoints.push_back(newPoint);
                 }
             }
