@@ -568,13 +568,13 @@ namespace Landmark_Functions{
                         }
                     }
 
-                    cout<<"CenterPoint = "<<centerPoint<<endl;
-                    cout<<"InterceptPoint = "<<interceptPoint<<endl;
-                    cout<<"Dist = "<<dist<<endl;
-                    cout<<"Max = "<<selectedPoints[selectedPoints.size()]<<"Min = "<<selectedPoints[0]<<endl;
-                    cout<<"line1 m= "<<line1.gradient<<" c="<<line1.intercept<<endl;
-                    cout<<"line2 m= "<<line2.gradient<<" c="<<line2.intercept<<endl;
-                    cout<<endl;
+                    // cout<<"CenterPoint = "<<centerPoint<<endl;
+                    // cout<<"InterceptPoint = "<<interceptPoint<<endl;
+                    // cout<<"Dist = "<<dist<<endl;
+                    // cout<<"Max = "<<selectedPoints[selectedPoints.size()]<<"Min = "<<selectedPoints[0]<<endl;
+                    // cout<<"line1 m= "<<line1.gradient<<" c="<<line1.intercept<<endl;
+                    // cout<<"line2 m= "<<line2.gradient<<" c="<<line2.intercept<<endl;
+                    // cout<<endl;
 
                     //check if intercept is close to midpoint
                     if(replace == true){
