@@ -598,8 +598,9 @@ namespace Landmark_Functions{
 
         writeConsensusToCSV(lines);
 
+        //Convert Corners to Cartesian
         vector<CarPoint> carCorners;
-        for(int i =0;i<corners.size;i++){
+        for(int i =0;i<corners.size();i++){
             CarPoint point;
             point.x = corners[i].x;
             point.y = corners[i].y;
