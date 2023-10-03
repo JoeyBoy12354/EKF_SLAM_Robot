@@ -56,7 +56,7 @@ struct CornerPoint {
     }
 
     friend ostream& operator<<(ostream& os, const CarPoint& point) {
-        os << "(" << point.x << "," << point.y << ")";
+        os << "(" << point.x << "," << point.y << ")|" << point.angle;
         return os;
     }
 };
