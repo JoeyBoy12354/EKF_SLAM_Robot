@@ -539,16 +539,6 @@ namespace Landmark_Functions{
                     interceptPoint.y = line1.gradient*interceptPoint.x + line1.intercept;
                     interceptPoint.angle = interAngle;
 
-                    
-
-                    cout<<"CenterPoint = "<<centerPoint<<endl;
-                    cout<<"InterceptPoint = "<<interceptPoint<<endl;
-                    cout<<"Dist = "<<dist<<" angle = "<<interAngle*180/PI<<endl;
-                    cout<<"Max = "<<selectedPoints[selectedPoints.size()]<<"Min = "<<selectedPoints[0]<<endl;
-                    cout<<"line1 m= "<<line1.gradient<<" c="<<line1.intercept<<endl;
-                    cout<<"line2 m= "<<line2.gradient<<" c="<<line2.intercept<<endl;
-                    cout<<endl;
-
                     //check if intercept point is basically a point we already have
                     double dist = 1000000000;
                     for(int i =0;i<corners.size();i++){
@@ -557,6 +547,14 @@ namespace Landmark_Functions{
                             dist = dist_temp;
                         }
                     }
+
+                    cout<<"CenterPoint = "<<centerPoint<<endl;
+                    cout<<"InterceptPoint = "<<interceptPoint<<endl;
+                    cout<<"Dist = "<<dist<<" angle = "<<interAngle*180/PI<<endl;
+                    cout<<"Max = "<<selectedPoints[selectedPoints.size()]<<"Min = "<<selectedPoints[0]<<endl;
+                    cout<<"line1 m= "<<line1.gradient<<" c="<<line1.intercept<<endl;
+                    cout<<"line2 m= "<<line2.gradient<<" c="<<line2.intercept<<endl;
+                    cout<<endl;
 
                     //check if intercept is close to midpoint
                     if(dist < DIST_THRESHOLD){
