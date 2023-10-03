@@ -474,7 +474,7 @@ namespace Landmark_Functions{
 
             //Check Tolerance
             bool tolCheck = true;
-            for(int i = 0;i<selected.size()-1;i++){
+            for(int i = 0;i<selectedPoints.size()-1;i++){
                 //If this is triggered then points are too far from neighbours and we should stop
                 if(pointDistance(selectedPoints[i],selectedPoints[i+1]) > ANSAC_TOLERANCE){
                     tolCheck = false;
