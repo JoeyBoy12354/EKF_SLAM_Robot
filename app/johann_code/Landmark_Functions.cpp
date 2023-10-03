@@ -484,6 +484,7 @@ namespace Landmark_Functions{
             }
 
             if(tolCheck == true){
+                cout<<"PASSED TOLERANCE CHECK"<<endl;
                 //COMPUTE PHASE
                 //compute model M1
                 double c=0;
