@@ -197,9 +197,14 @@ namespace Navigation_Functions{
     void landmarkExplore(CarPoint LM, MatrixXf State);
     void randomExplore();
     void updateExplorations(MatrixXf State, CarPoint Robot);
-    void pathFinder();
     void motorControl();
-    void moveCalibration(float distance);
+
+    //Grid
+    void updateMovementGrid(MatrixXf State, vector<vector<GridPoint>> gridMap);
+    void motorControlGrid(float angle, float distance);
+
+    //PostMap
+    void pathFinder();
 }
 
 class ExtendedKalmanFilter {

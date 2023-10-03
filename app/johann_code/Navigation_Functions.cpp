@@ -120,15 +120,6 @@ namespace Navigation_Functions{
 
     }
 
-
-    void moveCalibration(float distance){
-        cout<<"NAVI: Calibration dist="<<distance<<" mm"<<endl;
-        theta = 0;
-        dist = distance;
-
-        motorControl();
-    }
-
     //Check if we have explored any new landmarks
     void updateExplorations(MatrixXf State, CarPoint Robot){
         int NoLandmarks = (State.rows() - 3)/2;
@@ -154,6 +145,80 @@ namespace Navigation_Functions{
 
         
     }
+
+
+
+
+
+
+    void motorControlGrid(float angle, float distance){
+
+        cout<<"!!!!!!!!!!!!!! !!!!!!!!! TESTING CONST theta & DIST"<<endl;
+
+        cout<<"Navi: Set angle = "<<angle*180/(PI)<<" deg Set Distance = "<<distance<<"mm"<<endl;
+        angle = 0;
+        distance = 0;
+
+
+        //Send to motors
+        writeMotorToCSV(angle,distance);
+        cout<<"Navi test: Set angle = "<<angle*180/(PI)<<" deg Set Distance = "<<distance<<"mm"<<endl;
+    
+        int ret;
+        ret = system("python3 motorControl.py ok go");
+        cout << "ret/cpp = " << ret << endl;
+
+        
+
+    }
+
+    void updateMovementGrid(MatrixXf State, vector<vector<GridPoint>> gridMap){
+        //take grid map
+        mapped = true;
+        float smallDistance = 10000000;
+        CarPoint closestPoint;
+        CarPoint robotPoint;
+        robotPoint.x = State(0);
+        robotPoint.y = State(1);
+
+        //find closest non-traversed point
+        for(int i =0;i<gridMap.size();i++){
+            for(int j=0;gridMap[i].size();j++){
+                CarPoint tempPoint;
+                tempPoint.x = gridMap[i][j].x;
+                tempPoint.y = gridMap[i][j].y;
+
+                //Only check points that have not been traversed
+                if(gridMap[i][j].trav == false){
+                    bool mapped = false;
+                    float temp_dist = pointDistance(tempPoint,robotPoint);
+                    if(temp_dist<smallDistance){
+                        smallDistance = temp_dist;
+                        closestPoint = tempPoint;
+                    }
+                }  
+            }
+        }
+
+        //Set destination
+        float deltaX = closestPoint.x - State(0);
+        float deltaY = closestPoint.y - State(1);
+        float distance = deltaX*deltaX + deltaY*deltaY;
+        distance = sqrt(distance) - closeness;
+        float angle = atan2(deltaY,deltaX) - State(2);
+
+        //Set motors
+        if(mapped == false){
+            motorControlGrid(angle,distance);
+        }
+        
+        return mapped;
+    }
+
+
+
+
+
 
     //Move through the map post mapping
     void pathFinder(){
