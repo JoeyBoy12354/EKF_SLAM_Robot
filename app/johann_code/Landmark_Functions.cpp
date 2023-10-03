@@ -535,7 +535,7 @@ namespace Landmark_Functions{
                     //Find x-coordinate
                     interceptPoint.x = (line2.intercept - line1.intercept)/(line1.gradient - line2.gradient);
                     //Find y-coordinate
-                    interceptPoint.y = line1.gradient*point.x + line1.intercept;
+                    interceptPoint.y = line1.gradient*interceptPoint.x + line1.intercept;
 
                     double dist = pointDistance(interceptPoint,centerPoint);
 
