@@ -459,6 +459,7 @@ namespace Landmark_Functions{
 
         const double ANSAC_TOLERANCE = 30; //If point is within x distance of neighbour its part of a corner
         const float ANGLE_THRESHOLD = 30*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
+        const float DIST_THRESHOLD = 30; //If intercept point is within X of midpoint then keep corner
 
         const int INDEX_STEP= 1;//If no angle found in sample shift window by X points onwards.
 
@@ -529,33 +530,42 @@ namespace Landmark_Functions{
                
 
                 if(angleGood == true){
-                    //Add corner to corner list
-                    corners.push_back(centerPoint);
-                    //Remove samples from list
-                    cout<<"len of linePoint before chunk delete = "<<linepoints.size()<<endl;
-                    linepoints.erase(linepoints.begin(), linepoints.begin() + MAXSAMPLE);
-                    cout<<"len of linePoint before chunk delete = "<<linepoints.size()<<endl;
-                    
-                    // for(int i =0;i<MAXSAMPLE;i++){
-                    //     cout<<"("<<selectedPoints[i].x<<","<<selectedPoints[i].y<<")"
 
-                    // }
-                    cout<<endl;
-                    cout<<"CenterPoint = "<<centerPoint<<endl;
-                    cout<<"Max = "<<selectedPoints[selectedPoints.size()]<<"Min = "<<selectedPoints[0]<<endl;
-                    cout<<"line1 m= "<<line1.gradient<<" c="<<line1.intercept<<endl;
-                    cout<<"line2 m= "<<line2.gradient<<" c="<<line2.intercept<<endl;
+                    CarPoint interceptPoint;
+                    //Find x-coordinate
+                    interceptPoint.x = (line2.intercept - line1.intercept)/(line1.gradient - line2.gradient);
+                    //Find y-coordinate
+                    interceptPoint.y = lines1.gradient*point.x + lines1.intercept;
 
-                    lines.push_back(line1);
-                    lines.push_back(line2);
-                   
+                    //check if intercept is close to midpoint
+                    if(pointDistance(interceptPoint,centerPoint) < DIST_THRESHOLD){
+                        //Add corner to corner list
+                        corners.push_back(centerPoint);
+                        //Remove samples from list
+                        cout<<"len of linePoint before chunk delete = "<<linepoints.size()<<endl;
+                        linepoints.erase(linepoints.begin(), linepoints.begin() + MAXSAMPLE);
+                        cout<<"len of linePoint before chunk delete = "<<linepoints.size()<<endl;
+                        
+                        // for(int i =0;i<MAXSAMPLE;i++){
+                        //     cout<<"("<<selectedPoints[i].x<<","<<selectedPoints[i].y<<")"
+
+                        // }
+                        cout<<endl;
+                        cout<<"CenterPoint = "<<centerPoint<<endl;
+                        cout<<"Max = "<<selectedPoints[selectedPoints.size()]<<"Min = "<<selectedPoints[0]<<endl;
+                        cout<<"line1 m= "<<line1.gradient<<" c="<<line1.intercept<<endl;
+                        cout<<"line2 m= "<<line2.gradient<<" c="<<line2.intercept<<endl;
+
+                        lines.push_back(line1);
+                        lines.push_back(line2);
+                    }else{
+                        linepoints.erase(linepoints.begin(), linepoints.begin() + INDEX_STEP);
+                    }
                 }else{
                     linepoints.erase(linepoints.begin(), linepoints.begin() + INDEX_STEP);
                 }
             }else{
-                //cout<<"LinePoint size pre = "<<linepoints.size()<<endl;
                 linepoints.erase(linepoints.begin(), linepoints.begin() + INDEX_STEP);
-                //cout<<"LinePoint size post = "<<linepoints.size()<<endl;
             }
 
             
