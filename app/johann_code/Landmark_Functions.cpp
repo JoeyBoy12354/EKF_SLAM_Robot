@@ -470,15 +470,12 @@ namespace Landmark_Functions{
         //RANSAC ALGORITHM
         int currIndex = 0;
         while(MAXSAMPLE*2<currIndex){
-            cout<<"1"<<endl;
             //SAMPLING PHASE
             vector<CarPoint> selectedPoints; //This will store our samples around the next point
             for(int i =0;i<MAXSAMPLE;i++){
                 selectedPoints.push_back(linepoints[i+currIndex]);
             }
             CarPoint centerPoint = selectedPoints[int(selectedPoints.size()/2)];
-
-            cout<<"2"<<endl;
 
             //Check Tolerance
             tolCheck = true;
@@ -488,10 +485,8 @@ namespace Landmark_Functions{
                     tolCheck = false;
                 }
             }
-            
-            cout<<"length = "<<linepoints.size()<<endl;
+
             if(tolCheck == true){
-                cout<<"tolCHheck passed"<<endl;
                 //COMPUTE PHASE
                 //compute model M1
                 double c=0;
@@ -536,8 +531,6 @@ namespace Landmark_Functions{
                
 
                 if(angleGood == true){
-                    cout<<"TESTA-1"<<endl;
-
                     CarPoint interceptPoint;
                     //Find x-coordinate
                     interceptPoint.x = (line2.intercept - line1.intercept)/(line1.gradient - line2.gradient);
@@ -545,35 +538,29 @@ namespace Landmark_Functions{
                     interceptPoint.y = line1.gradient*interceptPoint.x + line1.intercept;
                     //interceptPoint.angle = interAngle;
 
-                    // cout<<"TESTA0"<<endl;
-                    // //check if intercept point is basically a point we already have
-                    // CarPoint replaceMe;
-                    // replaceMe.angle = 1000000;
-                    // double dist = 1000000000;
-                    // cout<<"TESTA1"<<endl;
-                    // cout<<"cornerSize = "<<corners.size()<<endl;
-                    // cout<<"TESTA2"<<endl;
-                    // for(int i =0;i<corners.size();i++){
-                    //     double dist_temp = pointDistance(interceptPoint,corners[i]);
-                    //     if(dist>dist_temp){
-                    //         dist = dist_temp;
-                    //         replaceMe = corners[i];
-                    //     }
-                    // }
-
-                    cout<<"TESTB"<<endl;
+                    //check if intercept point is basically a point we already have
+                    CarPoint replaceMe;
+                    replaceMe.angle = 1000000;
+                    double dist = 1000000000;
+                    for(int i =0;i<corners.size();i++){
+                        double dist_temp = pointDistance(interceptPoint,corners[i]);
+                        if(dist>dist_temp){
+                            dist = dist_temp;
+                            replaceMe = corners[i];
+                        }
+                    }
 
                     //If intercept angle is closer to 90 degrees replace similar angle
                     replace = false;
-                    // if(dist < DIST_THRESHOLD){
-                    //     if(abs(PI/2 - replaceMe.angle) > abs(PI/2 - interceptPoint.angle) ){
-                    //         replace = true;
-                    //     }
-                    // }
+                    if(dist < DIST_THRESHOLD){
+                        if(abs(PI/2 - replaceMe.angle) > abs(PI/2 - interceptPoint.angle) ){
+                            replace = true;
+                        }
+                    }
 
                     cout<<"CenterPoint = "<<centerPoint<<endl;
                     cout<<"InterceptPoint = "<<interceptPoint<<endl;
-                    //cout<<"Dist = "<<dist<<" angle = "<<interAngle*180/PI<<endl;
+                    cout<<"Dist = "<<dist<<" angle = "<<interAngle*180/PI<<endl;
                     cout<<"Max = "<<selectedPoints[selectedPoints.size()]<<"Min = "<<selectedPoints[0]<<endl;
                     cout<<"line1 m= "<<line1.gradient<<" c="<<line1.intercept<<endl;
                     cout<<"line2 m= "<<line2.gradient<<" c="<<line2.intercept<<endl;
@@ -597,9 +584,7 @@ namespace Landmark_Functions{
                     currIndex = currIndex + INDEX_STEP;
                 }
             }else{
-                cout<<"8"<<endl;
                 currIndex = currIndex + INDEX_STEP;
-                cout<<"9"<<endl;
             }
 
             
