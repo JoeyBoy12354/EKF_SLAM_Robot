@@ -515,12 +515,13 @@ namespace Landmark_Functions{
 
                 //Is point creating a reasonable angle
                 bool angleGood = false;
+                float interAngle = PI/2;
                 //Is angle 90 degrees
                 if(line1.gradient*line2.gradient==-1){
                     angleGood = true;
                 }else{
                     //Absolute value to counter -90 being thrown out
-                    float interAngle = abs(atan((line2.gradient - line1.gradient)/(1 + line1.gradient*line2.gradient)));
+                    interAngle = abs(atan((line2.gradient - line1.gradient)/(1 + line1.gradient*line2.gradient)));
                     //Is angle within allowed bounds
                     //cout<<"ANGLE FOUND = "<<interAngle*180/PI<<endl;
                     if(PI/2 - ANGLE_THRESHOLD <= interAngle && interAngle <= PI/2 + ANGLE_THRESHOLD){
