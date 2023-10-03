@@ -537,8 +537,10 @@ namespace Landmark_Functions{
                     //Find y-coordinate
                     interceptPoint.y = lines1.gradient*point.x + lines1.intercept;
 
+                    double dist = pointDistance(interceptPoint,centerPoint);
+
                     //check if intercept is close to midpoint
-                    if(pointDistance(interceptPoint,centerPoint) < DIST_THRESHOLD){
+                    if(dist < DIST_THRESHOLD){
                         //Add corner to corner list
                         corners.push_back(centerPoint);
                         //Remove samples from list
@@ -552,6 +554,8 @@ namespace Landmark_Functions{
                         // }
                         cout<<endl;
                         cout<<"CenterPoint = "<<centerPoint<<endl;
+                        cout<<"InterceptPoint = "<<interceptPoint<<endl;
+                        cout<<"Dist = "<<dist<<endl;
                         cout<<"Max = "<<selectedPoints[selectedPoints.size()]<<"Min = "<<selectedPoints[0]<<endl;
                         cout<<"line1 m= "<<line1.gradient<<" c="<<line1.intercept<<endl;
                         cout<<"line2 m= "<<line2.gradient<<" c="<<line2.intercept<<endl;
