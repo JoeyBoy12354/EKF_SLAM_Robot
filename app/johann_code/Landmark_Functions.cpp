@@ -449,6 +449,8 @@ namespace Landmark_Functions{
         vector<CarPoint> corners;
         int totalLines = 0;
 
+        vector<Line> lines;
+
         //array of laser data points corresponding to the seen lines
         vector<CarPoint> linepoints = laserdata;
         int totalLinepoints = laserdata.size();
@@ -456,7 +458,7 @@ namespace Landmark_Functions{
         const int MAXSAMPLE = 100;//Selects X points in window
 
         const double ANSAC_TOLERANCE = 10; //If point is within x distance of neighbour its part of a corner
-        const float ANGLE_THRESHOLD = 30*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
+        const float ANGLE_THRESHOLD = 10*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
 
         const int INDEX_STEP= 1;//If no angle found in sample shift window by X points onwards.
 
@@ -538,6 +540,9 @@ namespace Landmark_Functions{
                     cout<<"CurrIndex = "<<currIndex<<endl;
                     currIndex += MAXSAMPLE;
                     cout<<"CurrIndex2 = "<<currIndex<<endl;
+
+                    lines.push_back(line1);
+                    lines.push_back(line2);
                 }else{
                     currIndex+=INDEX_STEP;
                 }
@@ -548,6 +553,8 @@ namespace Landmark_Functions{
             
             
         }
+
+        writeConsensusToCSV(lines);
 
         cout<<"\n\n!!!!!!!!!!!  LEAVING ANSAC !!!!!!!!!!!\n\n";
         return corners;
