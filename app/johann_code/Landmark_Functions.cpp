@@ -508,7 +508,7 @@ namespace Landmark_Functions{
 
 
                 //Is point creating a reasonable angle
-                angleGood = false;
+                bool angleGood = false;
                 //Is angle 90 degrees
                 if(line1.gradient*line2.gradient==-1){
                     angleGood = true;
