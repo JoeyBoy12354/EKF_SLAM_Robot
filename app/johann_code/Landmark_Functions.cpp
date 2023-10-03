@@ -469,14 +469,14 @@ namespace Landmark_Functions{
             for(int i =0;i<MAXSAMPLE;i++){
                 selectedPoints.push_back(linepoints[i + currIndex]);
             }
-            int centerPoint = selectedPoints[int(selectedPoints.size()/2)];
+            CarPoint centerPoint = selectedPoints[int(selectedPoints.size()/2)];
 
 
             //Check Tolerance
             bool tolCheck = true;
             for(int i = 0;i<selected.size()-1;i++){
                 //If this is triggered then points are too far from neighbours and we should stop
-                if(pointDistance(selectedPoints[i],selectedPoints[i+1]) > RANSAC_TOLERANCE){
+                if(pointDistance(selectedPoints[i],selectedPoints[i+1]) > ANSAC_TOLERANCE){
                     tolCheck = false;
                 }
             }
@@ -486,14 +486,22 @@ namespace Landmark_Functions{
                 //compute model M1
                 double c=0;
                 double m=0;
-                LeastSquaresLineEstimate(selectedPoints[0:int(selectedPoints/2)], c, m);
+                vector<CarPoint> line1Points; //This will store our samples around the next point
+                for(int i =0;i<int(MAXSAMPLE/2);i++){
+                    line1Points.push_back(selectedPoints[i]);
+                }
+                LeastSquaresLineEstimate(line1Points, c, m);
                 Line line1;
                 line1.gradient=m;
                 line1.intercept=c;
 
                 c=0;
                 m=0;
-                LeastSquaresLineEstimate(selectedPoints[0:int(selectedPoints/2)], c, m);
+                vector<CarPoint> line2Points; //This will store our samples around the next point
+                for(int i =int(MAXSAMPLE/2); i<MAXSAMPLE; i++){
+                    line2Points.push_back(selectedPoints[i]);
+                }
+                LeastSquaresLineEstimate(line2Points, c, m);
                 Line line2;
                 line2.gradient=m;
                 line2.intercept=c;
