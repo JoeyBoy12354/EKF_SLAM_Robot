@@ -443,154 +443,101 @@ namespace Landmark_Functions{
     
 
 
-    // vector<Line> RANSAC_CORNER(vector<CarPoint> laserdata){
-    //     //two arrays corresponding to found corners
-    //     vector<Corner> corners;
-    //     int totalLines = 0;
+    vector<CarPoint> ANSAC_CORNER(vector<CarPoint> laserdata){
+        //two arrays corresponding to found corners
+        vector<CarPoint> corners;
+        int totalLines = 0;
 
-    //     //array of laser data points corresponding to the seen lines
-    //     vector<CarPoint> linepoints = laserdata;
-    //     int totalLinepoints = laserdata.size();
+        //array of laser data points corresponding to the seen lines
+        vector<CarPoint> linepoints = laserdata;
+        int totalLinepoints = laserdata.size();
         
-    //     //const int MAXTRIALS = 50000;//Max Times to run algorithm (pre-physical runs)
-    //     const int MAXTRIALS = 8000;//Max Times to run algorithm
-    //     const int MAXSAMPLE = 10;//Randomly selects X points
-    //     //const int MINLINEPOINTS = 30;//If less than 40 points left don't bother trying to find consensous
-    //     //const double RANSAC_TOLERANCE = 0.05; //RANSAC: if point is within x distance of line its part of line
-    //     //const int RANSAC_CONSENSUS = 30; //RANSAC: at least X points in consensus required to determine if a line will be deemed valid 
+        const int MAXSAMPLE = 10;//Selects X points in window
 
-    //     //As of right now 24 August we are in mm and doing about 10000 samples
-    //     const double RANSAC_TOLERANCE = 40; //RANSAC: if point is within x distance of line its part of line [mm]
-    //     const int RANSAC_CONSENSUS = 600; //RANSAC: at least X points in consensus required to determine if a line will be deemed valid 
-    //     const int MINLINEPOINTS = 30;//If less than 100 points left don't bother trying to find consensous
+        const double ANSAC_TOLERANCE = 10; //If point is within x distance of neighbour its part of a corner
+        const float ANGLE_THRESHOLD = 30*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
+        const int MINLINEPOINTS = 30;//If less than 100 points left don't bother trying to find consensous
+
+        const int INDEX_STEP= 1;//If no angle found in sample shift window by X points onwards.
 
         
-    //     //RANSAC ALGORITHM
-    //     int noTrials = 0;
-    //     while(noTrials<MAXTRIALS && totalLinepoints > MINLINEPOINTS){
-    //         //SAMPLING PHASE
-
-    //         vector<CarPoint> rndSelectedPoints; //This will store our samples around the random point
-    //         CarPoint temp;
-    //         bool newpoint;
-
-    //         //– Randomly select a subset S1 of n data points and
-    //         //compute the model M1
-    //         //Initial version chooses entirely randomly. Now choose
-    //         //one point randomly and then sample from neighbours within some defined
-    //         //radius
-
-    //         //Grab a random centerPoint from all unassigned points
-    //         int centerPoint = (rand() % totalLinepoints); //random value between 0 and totalLinePoints=laserData.size() -1
-    //         rndSelectedPoints.push_back(linepoints[centerPoint]); 
-
-    //         int nextpoint = 1;
-    //          //Select MAXSAMPLE points randomly around centerPoint
-    //         for(int i = 1; i<MAXSAMPLE; i++){
-    //             newpoint = false;
-    //             while(!newpoint){
-    //                 //Get next point nearby centerpoint
-    //                 if(i%2==0){
-    //                     nextPoint = i;
-    //                 }else{
-    //                     nextPoint = -1*i;
-    //                 }
-    //                 int neighbourPoint = centerPoint +  nextPoint; 
-                    
-    //                 if(0<=neighbourPoint && neighbourPoint<linepoints.size()){
-    //                     temp = linepoints[neighbourPoint];
-    //                     for(int j = 0; j<i; j++){
-    //                         if(rndSelectedPoints[j] == temp)
-    //                             break; //point has already been selected
-    //                         if(j>=i-1)
-    //                             newpoint = true; //point has not already been selected
-    //                     }
-    //                 }
-
-    //             }
-    //             rndSelectedPoints.push_back(temp);
-    //         }
+        //RANSAC ALGORITHM
+        int currIndex = 0;
+        while(currIndex<linepoints.size()-1){
+            //SAMPLING PHASE
+            vector<CarPoint> selectedPoints; //This will store our samples around the next point
+            for(int i =0;i<MAXSAMPLE;i++){
+                selectedPoints.push_back(linepoints[i + currIndex]);
+            }
+            int centerPoint = selectedPoints[int(selectedPoints.size()/2)];
 
 
+            //Check Tolerance
+            bool tolCheck = true;
+            for(int i = 0;i<selected.size()-1;i++){
+                //If this is triggered then points are too far from neighbours and we should stop
+                if(pointDistance(selectedPoints[i],selectedPoints[i+1]) > RANSAC_TOLERANCE){
+                    tolCheck = false;
+                }
+            }
 
-    //         //compute model M1
-    //         double c=0;
-    //         double m=0;
-    //         //y = c+ mx 
+            if(tolCheck == true){
+                //COMPUTE PHASE
+                //compute model M1
+                double c=0;
+                double m=0;
+                LeastSquaresLineEstimate(selectedPoints[0:int(selectedPoints/2)], c, m);
+                Line line1;
+                line1.gradient=m;
+                line1.intercept=c;
+
+                c=0;
+                m=0;
+                LeastSquaresLineEstimate(selectedPoints[0:int(selectedPoints/2)], c, m);
+                Line line2;
+                line2.gradient=m;
+                line2.intercept=c;
 
 
-    //         //COMPUTE PHASE
-    //         LeastSquaresLineEstimate(rndSelectedPoints, c, m);
-    //         Line newLine;
-    //         newLine.gradient=m;
-    //         newLine.intercept=c;
+                //Is point creating a reasonable angle
+                angleGood = false;
+                //Is angle 90 degrees
+                if(line1.gradient*line2.gradient==-1){
+                    angleGood = true;
+                }else{
+                    //Absolute value to counter -90 being thrown out
+                    float interAngle = abs(atan((line2.gradient - line1.gradient)/(1 + line1.gradient*line2.gradient)));
+                    //Is angle within allowed bounds
+                    if(PI/2 - ANGLE_THRESHOLD <= interAngle && interAngle <= PI/2 + ANGLE_THRESHOLD){
+                        angleGood = true;
+                    }
+                }
+
+                if(angleGood == true){
+                    //Add corner to corner list
+                    corners.push_back(centerPoint);
+                    //Remove samples from list
+                    linepoints.erase(linepoints.begin(), linepoints.begin() + MAXSAMPLE);
+                    currIndex += MAXSAMPLE;
+                }else{
+                    currIndex+=INDEX_STEP;
+                }
+            }else{
+                currIndex+=INDEX_STEP;
+            }
+
+            
+            
+        }
 
 
-    //         //– Determine the consensus set S1* of points is P
-    //         //compatible with M1 (within some error tolerance)
-    //         vector<CarPoint> consensusPoints;//assigned points
-    //         int totalConsensusPoints = 0;
-
-    //         vector<CarPoint> newLinePoints; //unassigned points
-    //         int totalNewLinePoints = 0;
+            
 
 
-    //         double d = 0; 
-    //         //Go through all points that are unassigned
-    //         for(int i=0; i<totalLinepoints; i++){
-
-    //             d = perpendicularDistance(linepoints[i], newLine);
-                
-    //             if (d<RANSAC_TOLERANCE){
-    //                 //count all assigned points
-    //                 //add points which are close to line
-    //                 consensusPoints.push_back(linepoints[i]);
-    //                 totalConsensusPoints++;
-
-    //             }
-    //             else{
-    //                 //count all points that are unassigned
-    //                 //add points which are not close to line
-    //                 newLinePoints.push_back(linepoints[i]);
-    //                 totalNewLinePoints++;
-    //             } 
-    //         }
-
-    //         //– If #(S1*) > t, use S1* to compute (maybe using least
-    //         //squares) a new model M1*
-    //         if(totalConsensusPoints>RANSAC_CONSENSUS){
-    //             //cout<<"totalConsensusPoints"<<totalConsensusPoints<<endl;
-    //             //Calculate updated line equation based on consensus points
-    //             LeastSquaresLineEstimate(consensusPoints, newLine.intercept, newLine.gradient);
-
-    //             //Remove points that have now been associated to this line
-    //             linepoints = newLinePoints;
-    //             totalLinepoints = totalNewLinePoints;
-
-    //             //add line to found corners
-    //             newLine.ConsensusPoints = consensusPoints;
-    //             corners.push_back(newLine);
-
-    //             totalLines++;
-    //             //restart search since we found a line
-    //             //noTrials = MAXTRIALS; //when maxtrials = debugging
-    //             noTrials = 0;
-    //         }
-
-    //         else{
-    //             //cout<<"totalConsensusPoints= "<<totalConsensusPoints<<endl;
-    //             //DEBUG add point that we chose as middle value
-    //             //tempLandmarks[centerPoint] = GetLandmark(laserdata[centerPoint], centerPoint, robotPosition);
-    //             //– If #(S1*) < t, randomly select another subset S2 and
-    //             //repeat
-    //             //– If, after some predetermined number of trials there is
-    //             //no consensus set with t points, return with failure
-    //             noTrials++; 
-    //         } 
-    //     }
+           
     
-    //     return corners;
-    // }
+        return corners;
+    }
 
     
 

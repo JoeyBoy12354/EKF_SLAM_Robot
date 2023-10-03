@@ -76,28 +76,28 @@ def fetchAndPlotGrid():
 
 
 # Read the lines from the CSV file
-def fetchAndPlotLines():
-    lines = []
-    with open('linesCSV.csv', 'r') as file:
-        csv_reader = csv.DictReader(file)
-        for row in csv_reader:
-            lines.append({
-                'gradient': float(row['Gradient']),
-                'intercept': float(row['Intercept']),
-                'domain_min': float(row['Domain_Min']),
-                'domain_max': float(row['Domain_Max']),
-                'range_min': float(row['Range_Min']),
-                'range_max': float(row['Range_Max'])
-            })
+# def fetchAndPlotLines():
+#     lines = []
+#     with open('linesCSV.csv', 'r') as file:
+#         csv_reader = csv.DictReader(file)
+#         for row in csv_reader:
+#             lines.append({
+#                 'gradient': float(row['Gradient']),
+#                 'intercept': float(row['Intercept']),
+#                 'domain_min': float(row['Domain_Min']),
+#                 'domain_max': float(row['Domain_Max']),
+#                 'range_min': float(row['Range_Min']),
+#                 'range_max': float(row['Range_Max'])
+#             })
 
-    # Plot the lines
-    for line in lines:
-        x_values = [line['domain_min'], line['domain_max']]
-        y_min = line['gradient']*x_values[0] + line['intercept']
-        y_max = line['gradient']*x_values[1] + line['intercept']
-        y_values = [y_min,y_max]
-        #plt.plot(x_values, y_values, label=f"Line {line['gradient']}x+{line['intercept']}", color='b')
-        plt.plot(x_values, y_values, color='b')
+#     # Plot the lines
+#     for line in lines:
+#         x_values = [line['domain_min'], line['domain_max']]
+#         y_min = line['gradient']*x_values[0] + line['intercept']
+#         y_max = line['gradient']*x_values[1] + line['intercept']
+#         y_values = [y_min,y_max]
+#         #plt.plot(x_values, y_values, label=f"Line {line['gradient']}x+{line['intercept']}", color='b')
+#         plt.plot(x_values, y_values, color='b')
 
 
 

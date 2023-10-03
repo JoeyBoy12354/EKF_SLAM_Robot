@@ -113,14 +113,18 @@ namespace Data_Functions{
 
 
 
-        cout<<"\nRANSAC"<<endl;
-        vector<Line> detected_lines = RANSAC(carPoints);
-        writeLinesToCSV(detected_lines);
-        writeConsensusToCSV(detected_lines);
+        // cout<<"\nRANSAC"<<endl;
+        // vector<Line> detected_lines = RANSAC(carPoints);
+        // writeLinesToCSV(detected_lines);
+        // writeConsensusToCSV(detected_lines);
+
+        cout<<"\nANSAC"<<endl;
+        vector<CarPoint> closestPoints = ANSAC(detected_lines);
+        writeCornersToCSV(closestPoints);
         
 
-        vector<CarPoint> closestPoints = findNearestPoint(detected_lines);
-        writeCornersToCSV(closestPoints);
+        // vector<CarPoint> closestPoints = findNearestPoint(detected_lines);
+        // writeCornersToCSV(closestPoints);
         cout<<"\n Number of Closest Points Found:"<<closestPoints.size()<<endl;
         
      
