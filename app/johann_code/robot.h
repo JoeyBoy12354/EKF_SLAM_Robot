@@ -56,7 +56,7 @@ struct CornerPoint {
     }
 
     friend ostream& operator<<(ostream& os, const CornerPoint& point) {
-        os << "(" << point.x << "," << point.y << ")|" << point.angle;
+        os << "(" << point.x << "," << point.y << ")|" << point.angle*180/PI;
         return os;
     }
 };
