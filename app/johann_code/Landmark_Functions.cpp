@@ -444,6 +444,7 @@ namespace Landmark_Functions{
 
 
     vector<CarPoint> ANSAC_CORNER(vector<CarPoint> laserdata){
+        cout<<"\n !!!!!!!!!!! IN ANSAC !!!!!!!!!!!!!!!\n"<<endl;
         //two arrays corresponding to found corners
         vector<CarPoint> corners;
         int totalLines = 0;
@@ -525,7 +526,9 @@ namespace Landmark_Functions{
                     //Add corner to corner list
                     corners.push_back(centerPoint);
                     //Remove samples from list
-                    linepoints.erase(linepoints.begin(), linepoints.begin() + MAXSAMPLE);
+                    //cout<<"len of linePoint before chunk delete = "<<linepoints.size()<<endl;
+                    //linepoints.erase(linepoints.begin(), linepoints.begin() + MAXSAMPLE);
+                    //cout<<"len of linePoint before chunk delete = "<<linepoints.size()<<endl;
                     currIndex += MAXSAMPLE;
                 }else{
                     currIndex+=INDEX_STEP;
@@ -538,6 +541,7 @@ namespace Landmark_Functions{
             
         }
 
+        cout<<"\n\n!!!!!!!!!!!  LEAVING ANSAC !!!!!!!!!!!\n\n";
         return corners;
     }
 
