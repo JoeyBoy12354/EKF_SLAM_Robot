@@ -396,7 +396,7 @@ namespace Mapping_Functions{
             }
 
         for(int i =0;i<points.size();i++){
-            for(int j=0;j<points[i].size;j++){
+            for(int j=0;j<points[i].size();j++){
                 cout<<"("<<points[i][j].x<<","<<points[i][j].y<<")";
             }
             cout<<endl;
