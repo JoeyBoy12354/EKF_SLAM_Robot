@@ -272,7 +272,7 @@ namespace Landmark_Functions{
     
 
 
-    vector<Line> RANSAC(vector<CarPoint> laserdata){make
+    vector<Line> RANSAC(vector<CarPoint> laserdata){
         //two arrays corresponding to found lines
         vector<Line> lines;
         int totalLines = 0;
