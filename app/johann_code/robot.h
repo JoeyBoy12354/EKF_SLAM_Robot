@@ -74,6 +74,13 @@ struct Line {
     vector<CarPoint> ConsensusPoints;
 };
 
+struct Corner{
+    double x;//midpoint
+    double y;//midpoint
+
+    vector<CarPoint> ConsensusPoints;
+}
+
 namespace CSV_Functions{
     void savePolToCSV(const vector<PolPoint>& points, const string& filename);
     void appendPolToCSV(const vector<PolPoint>& points, const string& filename);
