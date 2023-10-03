@@ -539,11 +539,14 @@ namespace Landmark_Functions{
                     interceptPoint.y = line1.gradient*interceptPoint.x + line1.intercept;
                     interceptPoint.angle = interAngle;
 
-                    cout<<"TESTA"<<endl;
+                    cout<<"TESTA0"<<endl;
                     //check if intercept point is basically a point we already have
                     CarPoint replaceMe;
                     replaceMe.angle = 1000000;
                     double dist = 1000000000;
+                    cout<<"TESTA1"<<endl;
+                    cout<<"cornerSize = "<<corners.size()<<endl;
+                    cout<<"TESTA2"<<endl;
                     for(int i =0;i<corners.size();i++){
                         double dist_temp = pointDistance(interceptPoint,corners[i]);
                         if(dist>dist_temp){
