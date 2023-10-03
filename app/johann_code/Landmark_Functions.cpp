@@ -474,6 +474,7 @@ namespace Landmark_Functions{
         
         //RANSAC ALGORITHM
         int currIndex = 0;
+        int count = 0;
         while(MAXSAMPLE*2<currIndex){
             //SAMPLING PHASE
             vector<CarPoint> selectedPoints; //This will store our samples around the next point
@@ -487,6 +488,7 @@ namespace Landmark_Functions{
             for(int i = 0;i<selectedPoints.size()-1;i++){
                 //If this is triggered then points are too far from neighbours and we should stop
                 if(pointDistance(selectedPoints[i],selectedPoints[i+1]) > ANSAC_TOLERANCE){
+                    count++;
                     tolCheck = false;
                 }
             }
@@ -612,6 +614,8 @@ namespace Landmark_Functions{
             point.y = corners[i].y;
             carCorners.push_back(point);
         }
+
+        cout<<"Differenc = "<<totalLinepoints.size() - count<<endl;
 
         cout<<"\n\n!!!!!!!!!!!  LEAVING ANSAC !!!!!!!!!!!\n\n";
         return carCorners;
