@@ -448,17 +448,16 @@ namespace Landmark_Functions{
         //two arrays corresponding to found corners
         vector<CarPoint> corners;
         int totalLines = 0;
-        cout<<"1"<<endl;
 
         vector<Line> lines;
-
-        cout<<"2"<<endl;
-
         //array of laser data points corresponding to the seen lines
         vector<CarPoint> linepoints = laserdata;
         int totalLinepoints = laserdata.size();
 
-        cout<<"3"<<endl;
+        //checks
+        bool tolCheck = true;
+        bool angleGood = false;
+        bool replace = false;
         
         const int MAXSAMPLE = 300;//Selects X points in window
 
@@ -469,7 +468,6 @@ namespace Landmark_Functions{
         const int INDEX_STEP= 1;//If no angle found in sample shift window by X points onwards.
         
         //RANSAC ALGORITHM
-        int currIndex = 0;
         while(MAXSAMPLE*2<linepoints.size()){
             //SAMPLING PHASE
             vector<CarPoint> selectedPoints; //This will store our samples around the next point
@@ -479,15 +477,15 @@ namespace Landmark_Functions{
             CarPoint centerPoint = selectedPoints[int(selectedPoints.size()/2)];
 
             //Check Tolerance
-            bool tolCheck = true;
+            tolCheck = true;
             for(int i = 0;i<selectedPoints.size()-1;i++){
                 //If this is triggered then points are too far from neighbours and we should stop
                 if(pointDistance(selectedPoints[i],selectedPoints[i+1]) > ANSAC_TOLERANCE){
                     tolCheck = false;
                 }
             }
-            cout<<"7"<<endl;
-
+            
+            cout<<"len = "<<linepoints.size()<<endl;
             if(tolCheck == true){
                 cout<<"tolCHheck passed"<<endl;
                 //COMPUTE PHASE
@@ -518,7 +516,7 @@ namespace Landmark_Functions{
 
 
                 //Is point creating a reasonable angle
-                bool angleGood = false;
+                angleGood = false;
                 float interAngle = PI/2;
                 //Is angle 90 degrees
                 if(line1.gradient*line2.gradient==-1){
@@ -541,7 +539,7 @@ namespace Landmark_Functions{
                     interceptPoint.x = (line2.intercept - line1.intercept)/(line1.gradient - line2.gradient);
                     //Find y-coordinate
                     interceptPoint.y = line1.gradient*interceptPoint.x + line1.intercept;
-                    interceptPoint.angle = interAngle;
+                    //interceptPoint.angle = interAngle;
 
                     // cout<<"TESTA0"<<endl;
                     // //check if intercept point is basically a point we already have
@@ -562,7 +560,7 @@ namespace Landmark_Functions{
                     cout<<"TESTB"<<endl;
 
                     //If intercept angle is closer to 90 degrees replace similar angle
-                    bool replace = false;
+                    replace = false;
                     // if(dist < DIST_THRESHOLD){
                     //     if(abs(PI/2 - replaceMe.angle) > abs(PI/2 - interceptPoint.angle) ){
                     //         replace = true;
