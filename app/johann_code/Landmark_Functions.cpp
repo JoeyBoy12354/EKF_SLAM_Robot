@@ -535,12 +535,6 @@ namespace Landmark_Functions{
                         angleGood = true;
                     }
                 }
-
-                cout<<"CenterPoint = "<<centerPoint<<endl;
-                cout<<"Max = "<<selectedPoints[selectedPoints.size()]<<"Min = "<<selectedPoints[0]<<endl;
-                cout<<"line1 m= "<<line1.gradient<<" c="<<line1.intercept<<endl;
-                cout<<"line2 m= "<<line2.gradient<<" c="<<line2.intercept<<endl;
-                cout<<endl;
                
 
                 if(angleGood == true){
@@ -554,12 +548,14 @@ namespace Landmark_Functions{
                     //check if intercept point is basically a point we already have
                     CornerPoint replaceMe;
                     replaceMe.angle = 1000000;
+                    int replaceMeIndex = 0;
                     double dist = 1000000000;
                     for(int i =0;i<corners.size();i++){
                         double dist_temp = pointDistanceCorner(interceptPoint,corners[i]);
                         if(dist>dist_temp){
                             dist = dist_temp;
                             replaceMe = corners[i];
+                            replaceMeIndex = i;
                         }
                     }
 
@@ -582,7 +578,7 @@ namespace Landmark_Functions{
                     //check if intercept is close to midpoint
                     if(replace = true){
                         //Add corner to corner list
-                        corners.push_back(interceptPoint);
+                        corners[replaceMeIndex] = interceptPoint;
                         
                         //Remove samples from list
                         currIndex = currIndex + MAXSAMPLE;
@@ -591,7 +587,15 @@ namespace Landmark_Functions{
                         lines.push_back(line1);
                         lines.push_back(line2);
                     }else{
-                        currIndex = currIndex + INDEX_STEP;
+                        //Add corner to corner list
+                        corners.push_back(interceptPoint);
+                        
+                        //Remove samples from list
+                        currIndex = currIndex + MAXSAMPLE;
+
+
+                        lines.push_back(line1);
+                        lines.push_back(line2);
                     }
                 }else{
                     currIndex = currIndex + INDEX_STEP;
