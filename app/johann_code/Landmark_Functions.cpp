@@ -469,7 +469,7 @@ namespace Landmark_Functions{
         
         //RANSAC ALGORITHM
         int currIndex = 0;
-        while(MAXSAMPLE*2<linepoints.size()){
+        while(MAXSAMPLE*2<currIndex){
             cout<<"1"<<endl;
             //SAMPLING PHASE
             vector<CarPoint> selectedPoints; //This will store our samples around the next point
