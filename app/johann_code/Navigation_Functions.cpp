@@ -150,7 +150,7 @@ namespace Navigation_Functions{
 
 
 
-
+    //Set motors and start them
     void motorControlGrid(float angle, float distance){
 
         cout<<"!!!!!!!!!!!!!! !!!!!!!!! TESTING CONST theta & DIST"<<endl;
@@ -172,7 +172,8 @@ namespace Navigation_Functions{
 
     }
 
-    void updateMovementGrid(MatrixXf State, vector<vector<GridPoint>> gridMap){
+    //Set distance and angle to go to grid point
+    bool updateMovementGrid(MatrixXf State, vector<vector<GridPoint>> gridMap){
         //take grid map
         mapped = true;
         float smallDistance = 10000000;
