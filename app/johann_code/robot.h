@@ -200,7 +200,7 @@ namespace Navigation_Functions{
     void motorControl();
 
     //Grid
-    void updateMovementGrid(MatrixXf State, vector<vector<GridPoint>> gridMap);
+    bool updateMovementGrid(MatrixXf State, vector<vector<GridPoint>> gridMap);
     void motorControlGrid(float angle, float distance);
 
     //PostMap
