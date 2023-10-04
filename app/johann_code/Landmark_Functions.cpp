@@ -607,6 +607,7 @@ namespace Landmark_Functions{
             
         }
 
+        writeLinesToCSV(lines)
         writeConsensusToCSV(lines);
 
         //Convert Corners to Cartesian
