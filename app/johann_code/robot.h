@@ -204,7 +204,7 @@ namespace Navigation_Functions{
     void motorControlGrid(float angle, float distance);
 
     //PostMap
-    void pathFinder();
+    void pathFinder(vector<vector<GridPoint>> gridMap, MatrixXf State);
 }
 
 class ExtendedKalmanFilter {

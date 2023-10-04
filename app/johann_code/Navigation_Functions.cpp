@@ -175,7 +175,7 @@ namespace Navigation_Functions{
     //Set distance and angle to go to grid point
     bool updateMovementGrid(MatrixXf State, vector<vector<GridPoint>> gridMap){
         //take grid map
-        mapped = true;
+        bool mapped = true;
         float smallDistance = 10000000;
         CarPoint closestPoint;
         CarPoint robotPoint;
