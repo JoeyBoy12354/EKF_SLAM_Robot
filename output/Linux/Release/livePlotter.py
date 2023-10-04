@@ -97,6 +97,12 @@ def fetchAndPlotLines():
         y_max = line['gradient']*x_values[1] + line['intercept']
         y_values = [y_min,y_max]
         #plt.plot(x_values, y_values, label=f"Line {line['gradient']}x+{line['intercept']}", color='b')
+        
+        # #sanity check to make lines look better
+        # if(y_max>600):
+        #     y_max = 600
+        # if(y_min<-600):
+        #     y_min = -600
         plt.plot(x_values, y_values, color='b')
 
 
