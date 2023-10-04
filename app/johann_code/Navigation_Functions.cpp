@@ -221,7 +221,18 @@ namespace Navigation_Functions{
 
 
     //Move through the map post mapping
-    void pathFinder(){
+    void pathFinder(vector<vector<GridPoint>> gridMap, MatrixXf State){
+        //Assume there is a grid point at (0,0)
+
+        GridPoint myRobot;
+        myRobot.x = State(0);
+        myRobot.y = State(1);
+
+        GridPoint Goal;
+        Goal.x = 0;
+        Goal.y = 0;
+
+
         cout<<"\nNot yet implemented"<<endl;
         return;
     }
