@@ -580,8 +580,8 @@ namespace Landmark_Functions{
                             corners[replaceMeIndex] = interceptPoint;
                             //Remove samples from list
                             currIndex = currIndex + MAXSAMPLE;
-                            lines.push_back(line1);
-                            lines.push_back(line2);
+                            lines[2*replaceMeIndex] = line1;
+                            lines[2*replaceMeIndex + 1] = line2;
                         }else{
                             currIndex = currIndex + INDEX_STEP;
                         }
