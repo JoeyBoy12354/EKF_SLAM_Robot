@@ -601,10 +601,10 @@ namespace Landmark_Functions{
                             //Remove samples from list
                             currIndex = currIndex + MAXSAMPLE;
 
-                            line1.domain_max = interceptPoint.x + 200;
-                            line1.domain_min = interceptPoint.x - 200;
-                            line2.domain_max = interceptPoint.x + 200;
-                            line2.domain_min = interceptPoint.x - 200;
+                            line1.domain_max = interceptPoint.x + 50;
+                            line1.domain_min = interceptPoint.x - 50;
+                            line2.domain_max = interceptPoint.x + 50;
+                            line2.domain_min = interceptPoint.x - 50;
 
                             lines[2*replaceMeIndex] = line1;
                             lines[2*replaceMeIndex + 1] = line2;
@@ -618,10 +618,10 @@ namespace Landmark_Functions{
                         //Remove samples from list
                         currIndex = currIndex + MAXSAMPLE;
 
-                        line1.domain_max = interceptPoint.x + 200;
-                        line1.domain_min = interceptPoint.x - 200;
-                        line2.domain_max = interceptPoint.x + 200;
-                        line2.domain_min = interceptPoint.x - 200;
+                        line1.domain_max = interceptPoint.x + 50;
+                        line1.domain_min = interceptPoint.x - 50;
+                        line2.domain_max = interceptPoint.x + 50;
+                        line2.domain_min = interceptPoint.x - 50;
 
                         lines.push_back(line1);
                         lines.push_back(line2);
