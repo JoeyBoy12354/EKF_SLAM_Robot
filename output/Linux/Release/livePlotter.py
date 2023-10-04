@@ -86,8 +86,8 @@ def fetchAndPlotLines():
                 'intercept': float(row['Intercept']),
                 'domain_min': float(row['Domain_Min']),
                 'domain_max': float(row['Domain_Max']),
-                'range_min': float(row['Range_Min']),
-                'range_max': float(row['Range_Max'])
+                # 'range_min': float(row['Range_Min']),
+                # 'range_max': float(row['Range_Max'])
             })
 
     # Plot the lines
@@ -173,7 +173,7 @@ def animate(i):
 
     
 
-    fetchAndPlotLines()
+    #fetchAndPlotLines()
     triangle = draw_rotated_triangle(plt.gca(),position[0],position[1],position[2])
     plt.gca().fill(triangle[:, 0], triangle[:, 1], 'b')
 

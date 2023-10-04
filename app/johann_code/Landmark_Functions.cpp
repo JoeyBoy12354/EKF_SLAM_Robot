@@ -496,29 +496,49 @@ namespace Landmark_Functions{
             if(tolCheck == true){
                 //COMPUTE PHASE
                 //compute model M1
+                float x_min = 1000000; //Only used for plotting
+                float x_max = -1000000;
                 double c=0;
                 double m=0;
                 vector<CarPoint> line1Points; //This will store our samples around the next point
                 for(int i =0;i<int(MAXSAMPLE/2);i++){
                     line1Points.push_back(selectedPoints[i]);
+                    if(selectedPoints[i].x > x_max){
+                        x_max = selectedPoints[i].x;
+                    }
+                    if(selectedPoints[i].x < x_min){
+                        x_min = selectedPoints[i].x;
+                    }
                 }
                 LeastSquaresLineEstimate(line1Points, c, m);
                 Line line1;
                 line1.gradient=m;
                 line1.intercept=c;
                 line1.ConsensusPoints = line1Points;
+                line1.domain_max = x_max;
+                line1.domain_min = x_min;
 
+                x_min = 1000000;
+                x_max = -1000000;
                 c=0;
                 m=0;
                 vector<CarPoint> line2Points; //This will store our samples around the next point
                 for(int i =int(MAXSAMPLE/2); i<MAXSAMPLE; i++){
                     line2Points.push_back(selectedPoints[i]);
+                    if(selectedPoints[i].x > x_max){
+                        x_max = selectedPoints[i].x;
+                    }
+                    if(selectedPoints[i].x < x_min){
+                        x_min = selectedPoints[i].x;
+                    }
                 }
                 LeastSquaresLineEstimate(line2Points, c, m);
                 Line line2;
                 line2.gradient=m;
                 line2.intercept=c;
                 line2.ConsensusPoints = line2Points;
+                line2.domain_max = x_max;
+                line2.domain_min = x_min;
 
 
                 //Is point creating a reasonable angle
