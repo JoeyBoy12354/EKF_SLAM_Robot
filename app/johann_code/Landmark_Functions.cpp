@@ -464,7 +464,7 @@ namespace Landmark_Functions{
         bool angleGood = false;
         bool replace = false;
         
-        const int MAXSAMPLE = 50;//Selects X points in window
+        const int MAXSAMPLE = 300;//Selects X points in window
 
         const double ANSAC_TOLERANCE = 30; //If point is within x distance of neighbour its part of a corner
         const float ANGLE_THRESHOLD = 8*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
