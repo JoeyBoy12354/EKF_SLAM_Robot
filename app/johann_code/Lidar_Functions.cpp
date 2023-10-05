@@ -243,7 +243,7 @@ namespace Lidar_Functions{
         // check health...
         if (!checkSLAMTECLIDARHealth(drv)) {
             error = true;
-            cout<<"Bad health"<<endkl
+            cout<<"Bad health"<<endl;
             goto on_finished;
         }
 
