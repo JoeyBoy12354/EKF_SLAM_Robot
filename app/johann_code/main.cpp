@@ -127,11 +127,12 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun){
         //Run Lidar
         vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
         bool error = true;
-        int count = 5;
+        int count = 0;
         while(error == true && count<5){
             runLidar(lidarDataPoints, error);
             count +=1;
         }
+        cout<<"count = "
         
         cout<<"Main: Lidar Run complete"<<endl;
 
