@@ -66,7 +66,7 @@ namespace Lidar_Functions{
 
     //main(int argc, const char * argv[]) 
 
-    int runLidar(vector<PolPoint>& lidarDataPoints){
+    int runLidar(vector<PolPoint>& lidarDataPoints, bool& error){
         int argc = 5;
         const char * argv[] = {
             "./johann_code",
@@ -221,6 +221,7 @@ namespace Lidar_Functions{
                     , opt_channel_param_first)):(fprintf(stderr, "Error, cannot connect to the specified ip addr %s.\n"
                     , opt_channel_param_first));
             
+            error = true;
             goto on_finished;
         }
 
@@ -241,6 +242,8 @@ namespace Lidar_Functions{
 
         // check health...
         if (!checkSLAMTECLIDARHealth(drv)) {
+            error = true;
+            cout<<"Bad health"<<endkl
             goto on_finished;
         }
 
@@ -300,16 +303,20 @@ namespace Lidar_Functions{
 
             }else{
                 cout<<"SL is not ok"<<endl;
+                error = true;
+                goto on_finished;
             }
 
             if (ctrl_c_pressed){ 
                 printf("I am in break statement Lidar_function");
+                error = false;
                 drv->setMotorSpeed(stop);
                 break;
             }
         }
 
         printf("I have reached max NoPoints in Lidar_function");
+        error = false;
         drv->setMotorSpeed(stop);
         
 

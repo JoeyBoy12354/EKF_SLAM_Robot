@@ -75,7 +75,8 @@ void testEKF(){
 
 void testLidar(){
     vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
-    runLidar(lidarDataPoints);
+    bool error = true;
+    runLidar(lidarDataPoints,error);
 }
 
 void testLandmarkIdentification(){
@@ -84,7 +85,8 @@ void testLandmarkIdentification(){
 
 void testLidarLandmark(){
     vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
-    runLidar(lidarDataPoints);
+    bool error = true;
+    runLidar(lidarDataPoints,error);
     int ret;
     ret = system("python3 CSV_Files/motorControl.py ok go");
     cout << "ret/cpp = " << ret << endl;
@@ -124,7 +126,11 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun){
 
         //Run Lidar
         vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
-        runLidar(lidarDataPoints);
+        bool error = true;
+        while(error == true){
+            runLidar(lidarDataPoints, error);
+        }
+        
         cout<<"Main: Lidar Run complete"<<endl;
 
         //Predict Position

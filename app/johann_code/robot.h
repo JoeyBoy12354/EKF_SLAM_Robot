@@ -176,7 +176,7 @@ namespace Lidar_Functions{
     void print_usage(int argc, const char * argv[]);
     bool checkSLAMTECLIDARHealth(ILidarDriver * drv);
     void ctrlc(int);
-    int runLidar(vector<PolPoint>& lidarDataPoints);
+    int runLidar(vector<PolPoint>& lidarDataPoints, bool& error);
 }
 
 namespace Mapping_Functions{
