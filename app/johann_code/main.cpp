@@ -132,7 +132,7 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun){
             runLidar(lidarDataPoints, error);
             count +=1;
         }
-        cout<<"count = "
+        cout<<"count = "<<count<<endl;
         
         cout<<"Main: Lidar Run complete"<<endl;
 
