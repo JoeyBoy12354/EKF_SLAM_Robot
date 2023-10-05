@@ -129,6 +129,7 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun){
         bool error = true;
         int count = 0;
         while(error == true && count<5){
+            cout<<"\nAttempt "<<count<<endl;
             runLidar(lidarDataPoints, error);
             count +=1;
         }
