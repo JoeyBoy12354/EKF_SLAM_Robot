@@ -471,6 +471,7 @@ namespace Landmark_Functions{
         const float DIST_THRESHOLD = 50; //If intercept point is within X of a corner we have then toss or replace
 
         const int INDEX_STEP= 1;//If no angle found in sample shift window by X points onwards.
+        const float PLOT_LINE_LEN = 20; //Plot line domain is intercept.x +- X
         
         //RANSAC ALGORITHM
         int currIndex = 0;
@@ -601,10 +602,10 @@ namespace Landmark_Functions{
                             //Remove samples from list
                             currIndex = currIndex + MAXSAMPLE;
 
-                            line1.domain_max = interceptPoint.x + 50;
-                            line1.domain_min = interceptPoint.x - 50;
-                            line2.domain_max = interceptPoint.x + 50;
-                            line2.domain_min = interceptPoint.x - 50;
+                            line1.domain_max = interceptPoint.x + PLOT_LINE_LEN;
+                            line1.domain_min = interceptPoint.x - PLOT_LINE_LEN;
+                            line2.domain_max = interceptPoint.x + PLOT_LINE_LEN;
+                            line2.domain_min = interceptPoint.x - PLOT_LINE_LEN;
 
                             lines[2*replaceMeIndex] = line1;
                             lines[2*replaceMeIndex + 1] = line2;
@@ -618,10 +619,10 @@ namespace Landmark_Functions{
                         //Remove samples from list
                         currIndex = currIndex + MAXSAMPLE;
 
-                        line1.domain_max = interceptPoint.x + 50;
-                        line1.domain_min = interceptPoint.x - 50;
-                        line2.domain_max = interceptPoint.x + 50;
-                        line2.domain_min = interceptPoint.x - 50;
+                        line1.domain_max = interceptPoint.x + PLOT_LINE_LEN;
+                        line1.domain_min = interceptPoint.x - PLOT_LINE_LEN;
+                        line2.domain_max = interceptPoint.x + PLOT_LINE_LEN;
+                        line2.domain_min = interceptPoint.x - PLOT_LINE_LEN;
 
                         lines.push_back(line1);
                         lines.push_back(line2);
