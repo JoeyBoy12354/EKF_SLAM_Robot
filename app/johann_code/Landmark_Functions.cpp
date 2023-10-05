@@ -466,12 +466,12 @@ namespace Landmark_Functions{
         
         const int MAXSAMPLE = 300;//Selects X points in window
 
-        const double ANSAC_TOLERANCE = 20; //If point is within x distance of neighbour its part of a corner
+        const double ANSAC_TOLERANCE = 23; //If point is within x distance of neighbour its part of a corner
         const float ANGLE_THRESHOLD = 8*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
         const float DIST_THRESHOLD = 50; //If intercept point is within X of a corner we have then toss or replace
 
         const int INDEX_STEP= 1;//If no angle found in sample shift window by X points onwards.
-        const float PLOT_LINE_LEN = 20; //Plot line domain is intercept.x +- X
+        const float PLOT_LINE_LEN = 50; //Plot line domain is intercept.x +- X
         
         //RANSAC ALGORITHM
         int currIndex = 0;
@@ -604,8 +604,13 @@ namespace Landmark_Functions{
 
                             line1.domain_max = interceptPoint.x + PLOT_LINE_LEN;
                             line1.domain_min = interceptPoint.x - PLOT_LINE_LEN;
+                            line1.range_max = interceptPoint.x + PLOT_LINE_LEN;
+                            line1.range_min = interceptPoint.x - PLOT_LINE_LEN;
+                            
                             line2.domain_max = interceptPoint.x + PLOT_LINE_LEN;
                             line2.domain_min = interceptPoint.x - PLOT_LINE_LEN;
+                            line2.range_max = interceptPoint.x + PLOT_LINE_LEN;
+                            line2.range_min = interceptPoint.x - PLOT_LINE_LEN;
 
                             lines[2*replaceMeIndex] = line1;
                             lines[2*replaceMeIndex + 1] = line2;
@@ -621,8 +626,13 @@ namespace Landmark_Functions{
 
                         line1.domain_max = interceptPoint.x + PLOT_LINE_LEN;
                         line1.domain_min = interceptPoint.x - PLOT_LINE_LEN;
+                        line1.range_max = interceptPoint.x + PLOT_LINE_LEN;
+                        line1.range_min = interceptPoint.x - PLOT_LINE_LEN;
+                        
                         line2.domain_max = interceptPoint.x + PLOT_LINE_LEN;
                         line2.domain_min = interceptPoint.x - PLOT_LINE_LEN;
+                        line2.range_max = interceptPoint.x + PLOT_LINE_LEN;
+                        line2.range_min = interceptPoint.x - PLOT_LINE_LEN;
 
                         lines.push_back(line1);
                         lines.push_back(line2);

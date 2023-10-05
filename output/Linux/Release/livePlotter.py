@@ -86,8 +86,8 @@ def fetchAndPlotLines():
                 'intercept': float(row['Intercept']),
                 'domain_min': float(row['Domain_Min']),
                 'domain_max': float(row['Domain_Max']),
-                # 'range_min': float(row['Range_Min']),
-                # 'range_max': float(row['Range_Max'])
+                'range_min': float(row['Range_Min']),
+                'range_max': float(row['Range_Max'])
             })
 
     # Plot the lines
@@ -97,6 +97,18 @@ def fetchAndPlotLines():
         y_max = line['gradient']*x_values[1] + line['intercept']
         y_values = [y_min,y_max]
         #plt.plot(x_values, y_values, label=f"Line {line['gradient']}x+{line['intercept']}", color='b')
+
+        #Shrink line until it fits within set bounds that were set in Landmark function
+        step = 0.2
+        while(y_max>line['range_max']):
+            x_values[1] = x_values[1]*step
+            y_max = line['gradient']*x_values[1] + line['intercept']
+        
+        while(y_min<line['range_min']):
+            x_values[0] = x_values[0]*step
+            y_min = line['gradient']*x_values[0] + line['intercept']
+
+
         
         # #sanity check to make lines look better
         # if(y_max>600):
