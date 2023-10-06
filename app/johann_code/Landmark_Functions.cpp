@@ -529,7 +529,9 @@ namespace Landmark_Functions{
                 }
             }
 
+
             //Only do if line1 passed test
+            Line line2; //Because C++ is nonsense
             if(tolCheck1 == true){
                 x_min = 1000000;
                 x_max = -1000000;
@@ -546,7 +548,7 @@ namespace Landmark_Functions{
                     }
                 }
                 LeastSquaresLineEstimate(line2Points, c, m);
-                Line line2;
+                //Line line2;
                 line2.gradient=m;
                 line2.intercept=c;
                 line2.ConsensusPoints = line2Points;
