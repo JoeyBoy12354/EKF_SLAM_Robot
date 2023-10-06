@@ -469,6 +469,53 @@ namespace Landmark_Functions{
         }
     }
 
+    bool checkForHoles(vector<CarPoint> points) {
+        float avg = 0;
+        float max = -1;
+        float temp_max;
+        vector<float> distances;
+
+        // Calculate distances and store them in the 'distances' vector
+        for (int i = 0; i < points.size() - 1; i++) {
+            distances.push_back(pointDistance(points[i], points[i + 1]));
+        }
+
+        // Bubble sort the 'distances' vector from smallest to largest
+        int n = distances.size();
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (distances[j] > distances[j + 1]) {
+                    // Swap the elements if they are in the wrong order
+                    float temp = distances[j];
+                    distances[j] = distances[j + 1];
+                    distances[j + 1] = temp;
+                }
+            }
+        }
+
+        // Calculate the mean of the 'distances' vector
+        for (float distance : distances) {
+            avg += distance;
+        }
+        avg /= distances.size();
+
+        // Define an outlier threshold (3 times the mean)
+        float outlierThreshold = 3 * avg;
+
+        bool hole = false;
+        // Now you can look for outliers by comparing each distance to the threshold
+        for (float distance : distances) {
+            if (distance > outlierThreshold) {
+                // Handle the outlier here (e.g., print it or store it in another vector)
+                // You can also update 'max' if the outlier distance is the largest encountered so far
+                hole = true;
+            
+            }
+        }
+
+        return true;
+    }
+
 
     vector<CarPoint> ANSAC_CORNER(vector<CarPoint> laserdata){
         cout<<"\n !!!!!!!!!!! IN ANSAC !!!!!!!!!!!!!!!\n"<<endl;
