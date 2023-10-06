@@ -544,79 +544,7 @@ namespace Landmark_Functions{
     }
 
 
-    
-    vector<CarPoint> myFinder(vector<CarPoint> laserdata){
-        int sampleSize = 50;
-        int NoSamples = int(laserdata.size()/sampleSize);
-        float angleThresh = 20*PI/180;
-        float errorThresh = 5;
-
-        //Step 1, get lines
-        vector<vector<CarPoint>> consensusPoints;
-        vector<Line> lines;
-        vector<CarPoint> Corners;
-
-        for(int i=0;i<NoSamples;i++){
-            //GET NEW LINE
-            Line newLine;
-            for(int j=0;j<sampleSize;j++){
-                newLine.ConsensusPoints.push_back(laserdata[i*sampleSize + j]);
-            }
-            LeastSquaresLineEstimate(newLine.ConsensusPoints, newLine.c, newLine.m);
-            lines.push_back(newLine);
-
-            //Ensure that line is remotely close to something fucking useful.
-            //By taking the average distance between the points in the sample.
-            //And taking the average error distance between points and the line.
-            //We can determine if the line is well fitted.
-            float inlierError = 0;
-            float smallestP2P = 1000000000;
-            for(int j=0;j<sampleSize;j++){
-                inlierError += pow(perpendicularDistance(newLine.ConsensusPoints[j], newLine),2);
-                if(j<sampleSize-1){
-                    float tempP2P = pointDistance(newLine.ConsensusPoints[j],newLine.ConsensusPoints[j+1]);
-                    if(tempP2P<smallestP2P){
-                        smallestP2P = temP2P;
-                    }
-                }
-                
-            }
-            inlierError = pow(inlierError/sampleSize,0.5);
-
-            //We need some form of normalization
-            //Normalize to the smallest point to point distance in the set
-            float error_norm = inlierError/smallestP2P;
-
-            cout<<"ERROR NORM = "<<error_norm<<endl;
-        
-            if(error_norm<errorThresh){
-                for(int k=0;k<lines.size()-1;k++){
-                    //Check if a near 90 degree angle is formed between any of the line
-                    float angle = getAngle(newLine,lines[k]);
-                    if(PI/2 - angleThresh <= angle && angle <= PI/2 + angleThresh){
-                        //if a near 90 degree angle is formed between two lines then store that as a corner
-                        
-                        //Calculate Intercept
-                        CornerPoint interceptPoint = getIntercept(newLine,lines[k]);
-
-
-
-                    
-
-
-                    }
-
-
-                    
-                }
-
-            }
-
-
-        }
-    }
-
-
+ 
     vector<CarPoint> ANSAC_CORNER(vector<CarPoint> laserdata){
         cout<<"\n !!!!!!!!!!! IN ANSAC !!!!!!!!!!!!!!!\n"<<endl;
         //two arrays corresponding to found corners
@@ -881,3 +809,80 @@ namespace Landmark_Functions{
     
 
 }
+
+
+
+
+
+   
+    // vector<CarPoint> myFinder(vector<CarPoint> laserdata){
+    //     int sampleSize = 50;
+    //     int NoSamples = int(laserdata.size()/sampleSize);
+    //     float angleThresh = 20*PI/180;
+    //     float errorThresh = 5;
+
+    //     //Step 1, get lines
+    //     vector<vector<CarPoint>> consensusPoints;
+    //     vector<Line> lines;
+    //     vector<CarPoint> Corners;
+
+    //     for(int i=0;i<NoSamples;i++){
+    //         //GET NEW LINE
+    //         Line newLine;
+    //         for(int j=0;j<sampleSize;j++){
+    //             newLine.ConsensusPoints.push_back(laserdata[i*sampleSize + j]);
+    //         }
+    //         LeastSquaresLineEstimate(newLine.ConsensusPoints, newLine.c, newLine.m);
+    //         lines.push_back(newLine);
+
+    //         //Ensure that line is remotely close to something fucking useful.
+    //         //By taking the average distance between the points in the sample.
+    //         //And taking the average error distance between points and the line.
+    //         //We can determine if the line is well fitted.
+    //         float inlierError = 0;
+    //         float smallestP2P = 1000000000;
+    //         for(int j=0;j<sampleSize;j++){
+    //             inlierError += pow(perpendicularDistance(newLine.ConsensusPoints[j], newLine),2);
+    //             if(j<sampleSize-1){
+    //                 float tempP2P = pointDistance(newLine.ConsensusPoints[j],newLine.ConsensusPoints[j+1]);
+    //                 if(tempP2P<smallestP2P){
+    //                     smallestP2P = temP2P;
+    //                 }
+    //             }
+                
+    //         }
+    //         inlierError = pow(inlierError/sampleSize,0.5);
+
+    //         //We need some form of normalization
+    //         //Normalize to the smallest point to point distance in the set
+    //         float error_norm = inlierError/smallestP2P;
+
+    //         cout<<"ERROR NORM = "<<error_norm<<endl;
+        
+    //         if(error_norm<errorThresh){
+    //             for(int k=0;k<lines.size()-1;k++){
+    //                 //Check if a near 90 degree angle is formed between any of the line
+    //                 float angle = getAngle(newLine,lines[k]);
+    //                 if(PI/2 - angleThresh <= angle && angle <= PI/2 + angleThresh){
+    //                     //if a near 90 degree angle is formed between two lines then store that as a corner
+                        
+    //                     //Calculate Intercept
+    //                     CornerPoint interceptPoint = getIntercept(newLine,lines[k]);
+
+
+
+                    
+
+
+    //                 }
+
+
+                    
+    //             }
+
+    //         }
+
+
+    //     }
+    // }
+
