@@ -109,7 +109,7 @@ def fetchAndPlotLines():
         y_down = y_inter
         x_up = x_inter
         x_down = x_inter
-        while((y_down>y_min or y_down<y_max) and (y_up>y_min or y_up<y_max)):
+        while((y_down>y_min and y_down<y_max) and (y_up>y_min and y_up<y_max)):
             y_up = line['gradient']*x_up + line['intercept']
             y_down = line['gradient']*x_down + line['intercept']
             x_up += step
