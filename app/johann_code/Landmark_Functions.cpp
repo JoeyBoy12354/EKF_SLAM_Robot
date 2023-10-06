@@ -473,7 +473,7 @@ namespace Landmark_Functions{
         
         const int MAXSAMPLE = 30;//Selects X points in window
 
-        const double ANSAC_TOLERANCE = 200; //If point is within x distance of line it is part of line (would be smart to make this be determind by the average smallest distance between lidar points)
+        const double ANSAC_TOLERANCE = 500; //If point is within x distance of line it is part of line (would be smart to make this be determind by the average smallest distance between lidar points)
         const float ANGLE_THRESHOLD = 20*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
         const float DIST_THRESHOLD = 50; //If intercept point (new corner) is within X of a corner we have then toss or replace
 
