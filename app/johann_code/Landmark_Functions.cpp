@@ -622,7 +622,7 @@ namespace Landmark_Functions{
                     angleGood == true;
                 }
                
-                cout<<"FICLLAKSDKJASDASD"<<endl;
+                cout<<"angle = "<<interAngle<<endl;
                 if(angleGood == true){
                     
                     CornerPoint interceptPoint;
