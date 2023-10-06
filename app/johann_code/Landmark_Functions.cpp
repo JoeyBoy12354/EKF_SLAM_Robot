@@ -566,7 +566,7 @@ namespace Landmark_Functions{
 
                 //Is point creating a reasonable angle
                 angleGood = false;
-                float interAngle = getIntercept(line1,line2);
+                float interAngle = getAngle(line1,line2);
                 if(PI/2 - ANGLE_THRESHOLD <= interAngle && interAngle <= PI/2 + ANGLE_THRESHOLD){
                     angleGood == true;
                 }
