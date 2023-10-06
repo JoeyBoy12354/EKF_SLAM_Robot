@@ -466,9 +466,9 @@ namespace Landmark_Functions{
         
         const int MAXSAMPLE = 300;//Selects X points in window
 
-        const double ANSAC_TOLERANCE = 15; //If point is within x distance of neighbour its part of a corner
+        const double ANSAC_TOLERANCE = 50; //If point is within x distance of line it is part of line
         const float ANGLE_THRESHOLD = 20*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
-        const float DIST_THRESHOLD = 50; //If intercept point is within X of a corner we have then toss or replace
+        const float DIST_THRESHOLD = 50; //If intercept point (new corner) is within X of a corner we have then toss or replace
 
         const int INDEX_STEP= 1;//If no angle found in sample shift window by X points onwards.
         
@@ -484,40 +484,52 @@ namespace Landmark_Functions{
             CarPoint centerPoint = selectedPoints[int(selectedPoints.size()/2)];
 
             //Check Tolerance
+            // tolCheck = true;
+            // for(int i = 0;i<selectedPoints.size()-1;i++){
+            //     //If this is triggered then points are too far from neighbours and we should stop
+            //     //THIS will fail if the room is big or small since that changes how far points are from one another
+            //     if(pointDistance(selectedPoints[i],selectedPoints[i+1]) > ANSAC_TOLERANCE){
+            //         count++;
+            //         tolCheck = false;
+            //     }
+            // }
+
+            //COMPUTE PHASE
+            //compute model M1
+            float x_min = 1000000; //Only used for plotting
+            float x_max = -1000000;
+            double c=0;
+            double m=0;
+            vector<CarPoint> line1Points; //This will store our samples around the next point
+            for(int i =0;i<int(MAXSAMPLE/2);i++){
+                line1Points.push_back(selectedPoints[i]);
+                if(selectedPoints[i].x > x_max){
+                    x_max = selectedPoints[i].x;
+                }
+                if(selectedPoints[i].x < x_min){
+                    x_min = selectedPoints[i].x;
+                }
+            }
+            LeastSquaresLineEstimate(line1Points, c, m);
+            Line line1;
+            line1.gradient=m;
+            line1.intercept=c;
+            line1.ConsensusPoints = line1Points;
+            line1.domain_max = x_max;
+            line1.domain_min = x_min;
+
+            //Check tolerance of points near line
             tolCheck = true;
-            for(int i = 0;i<selectedPoints.size()-1;i++){
+            for(int i = 0;i<selectedPoints.size();i++){
                 //If this is triggered then points are too far from neighbours and we should stop
-                if(pointDistance(selectedPoints[i],selectedPoints[i+1]) > ANSAC_TOLERANCE){
-                    count++;
+                //THIS will fail if the room is big or small since that changes how far points are from one another
+                if(perpendicularDistance(line1Points[i],line1) > ANSAC_TOLERANCE){
                     tolCheck = false;
                 }
             }
 
-            if(tolCheck == true){
-                //COMPUTE PHASE
-                //compute model M1
-                float x_min = 1000000; //Only used for plotting
-                float x_max = -1000000;
-                double c=0;
-                double m=0;
-                vector<CarPoint> line1Points; //This will store our samples around the next point
-                for(int i =0;i<int(MAXSAMPLE/2);i++){
-                    line1Points.push_back(selectedPoints[i]);
-                    if(selectedPoints[i].x > x_max){
-                        x_max = selectedPoints[i].x;
-                    }
-                    if(selectedPoints[i].x < x_min){
-                        x_min = selectedPoints[i].x;
-                    }
-                }
-                LeastSquaresLineEstimate(line1Points, c, m);
-                Line line1;
-                line1.gradient=m;
-                line1.intercept=c;
-                line1.ConsensusPoints = line1Points;
-                line1.domain_max = x_max;
-                line1.domain_min = x_min;
 
+            if(tolCheck == true){
                 x_min = 1000000;
                 x_max = -1000000;
                 c=0;
@@ -540,7 +552,18 @@ namespace Landmark_Functions{
                 line2.domain_max = x_max;
                 line2.domain_min = x_min;
 
+                tolCheck = true;
+                for(int i = 0;i<selectedPoints.size();i++){
+                    //If this is triggered then points are too far from neighbours and we should stop
+                    //THIS will fail if the room is big or small since that changes how far points are from one another
+                    if(perpendicularDistance(line2Points[i],line2) > ANSAC_TOLERANCE){
+                        tolCheck = false;
+                    }
+                }
 
+            }
+
+            if(tolCheck == true){
                 //Is point creating a reasonable angle
                 angleGood = false;
                 float interAngle = PI/2;
