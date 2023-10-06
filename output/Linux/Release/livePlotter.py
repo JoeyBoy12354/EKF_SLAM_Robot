@@ -100,6 +100,7 @@ def fetchAndPlotLines():
         #Point of interception
         x_inter = line['domain_min']
         y_inter = line['gradient']*x_inter + line['intercept']
+        print("y = ",line['gradient'],"x + ",line['intercept'])
 
         #Set bounds
         y_min = y_inter - limit
@@ -114,11 +115,11 @@ def fetchAndPlotLines():
             y_down = line['gradient']*x_down + line['intercept']
             x_up += step
             x_down -= step
-            print("y_d_u[",y_down,y_up,"] limit[",y_min,y_max,"]")
+            #print("y_d_u[",y_down,y_up,"] limit[",y_min,y_max,"]")
                     
         x_values = [x_up,x_down]
         y_values = [y_up,y_down]
-        print("x_values = ",x_values," y_values = ",y_values)
+        #print("x_values = ",x_values," y_values = ",y_values)
         plt.plot(x_values, y_values, color='b')
 
 
