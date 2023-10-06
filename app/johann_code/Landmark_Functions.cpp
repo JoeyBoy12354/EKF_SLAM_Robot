@@ -459,13 +459,18 @@ namespace Landmark_Functions{
         vector<CarPoint> linepoints = laserdata;
         int totalLinepoints = laserdata.size();
 
+        //To print stats
+        int tolCheck1Passes=0;
+        int tolCheckBothPasses=0;
+        int tolCheckAnglePasses=0;
+
         //checks
         bool tolCheck1 = true;
         bool tolCheck2 = true;
         bool angleGood = false;
         bool replace = false;
         
-        const int MAXSAMPLE = 300;//Selects X points in window
+        const int MAXSAMPLE = 50;//Selects X points in window
 
         const double ANSAC_TOLERANCE = 50; //If point is within x distance of line it is part of line
         const float ANGLE_THRESHOLD = 20*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
@@ -533,6 +538,7 @@ namespace Landmark_Functions{
             //Only do if line1 passed test
             Line line2; //Because C++ is nonsense
             if(tolCheck1 == true){
+                tolCheck1Passes++;
                 x_min = 1000000;
                 x_max = -1000000;
                 c=0;
@@ -568,6 +574,7 @@ namespace Landmark_Functions{
 
             //Only do if both lines passed tolerance check 
             if(tolCheck1 == true and tolCheck2 == true){
+                tolCheckBothPasses++;
                 //Is point creating a reasonable angle
                 angleGood = false;
                 float interAngle = PI/2;
@@ -585,6 +592,7 @@ namespace Landmark_Functions{
                
 
                 if(angleGood == true){
+                    tolCheckAnglePasses++;
                     CornerPoint interceptPoint;
                     //Find x-coordinate
                     interceptPoint.x = (line2.intercept - line1.intercept)/(line1.gradient - line2.gradient);
@@ -688,6 +696,7 @@ namespace Landmark_Functions{
         }
 
         cout<<"lenTotalfix = "<<linepoints.size()<<" count = "<< count<<endl;
+        cout<<"STATS\n"<<"Tol1 passes = "<<tolCheck1Passes<<"\nTolBoth passes"<<tolCheckBothPasses<<"\n TolAnglePass"<<tolCheckAnglePasses<<endl;
 
         cout<<"\n\n!!!!!!!!!!!  LEAVING ANSAC !!!!!!!!!!!\n\n";
         return carCorners;
