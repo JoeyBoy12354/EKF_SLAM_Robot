@@ -78,7 +78,7 @@ def fetchAndPlotGrid():
 # Read the lines from the CSV file
 def fetchAndPlotLines():
     #Initialize
-    step = 0.5 # The x value will differ by X-amount on each iteration of while loop
+    step = 10 # The x value will differ by X-amount on each iteration of while loop
     limit = 50 # The y value may be a maximum of y_intercept +- X
     
     lines = []
@@ -114,6 +114,7 @@ def fetchAndPlotLines():
             y_down = line['gradient']*x_down + line['intercept']
             x_up += step
             x_down -= step
+            print("y_d_u[",y_down,y_up,"] limit[",y_min,y_max,"]")
                     
         x_values = [x_up,x_down]
         y_values = [y_up,y_down]
