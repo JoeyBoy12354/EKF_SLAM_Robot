@@ -536,7 +536,7 @@ namespace Landmark_Functions{
         const int MAXSAMPLE = 50;//Selects X points in window
 
         const double ANSAC_TOLERANCE = 23; //If point is within x distance of neighbour its part of a corner
-        const float ANGLE_THRESHOLD = 8*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
+        const float ANGLE_THRESHOLD = 20*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
         const float DIST_THRESHOLD = 50; //If intercept point is within X of a corner we have then toss or replace
 
         const int INDEX_STEP= 1;//If no angle found in sample shift window by X points onwards.
@@ -564,8 +564,10 @@ namespace Landmark_Functions{
             // }
 
             tolCheck = checkForHoles(selectedPoints);
+            
 
             if(tolCheck == true){
+                cout<<"FICLLAKSDKJASDASD"<<endl;
                 //COMPUTE PHASE
                 //compute model M1
                 float x_min = 1000000; //Only used for plotting
