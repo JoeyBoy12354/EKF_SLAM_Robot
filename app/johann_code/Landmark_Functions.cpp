@@ -535,7 +535,7 @@ namespace Landmark_Functions{
         
         const int MAXSAMPLE = 50;//Selects X points in window
 
-        const double ANSAC_TOLERANCE = 23; //If point is within x distance of neighbour its part of a corner
+        //const double ANSAC_TOLERANCE = 23; //If point is within x distance of neighbour its part of a corner
         const float ANGLE_THRESHOLD_LOW = 70*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
         const float ANGLE_THRESHOLD_HIGH = 110*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
         const float DIST_THRESHOLD = 50; //If intercept point is within X of a corner we have then toss or replace
@@ -624,7 +624,7 @@ namespace Landmark_Functions{
                 }
                
 
-                cout<<"angle = "<<interAngle*180/PI<<" low="<<ANGLE_THRESHOLD_LOW*180/PI<<" hi="<<ANGLE_THRESHOLD_HIGH*180/PI<<endl;
+                
                 if(angleGood == true){
                     
                     CornerPoint interceptPoint;
@@ -633,6 +633,8 @@ namespace Landmark_Functions{
                     //Find y-coordinate
                     interceptPoint.y = line1.gradient*interceptPoint.x + line1.intercept;
                     interceptPoint.angle = interAngle;
+                    cout<<"angle = "<<interAngle*180/PI<<" low="<<ANGLE_THRESHOLD_LOW*180/PI<<" hi="<<ANGLE_THRESHOLD_HIGH*180/PI<<endl;
+                    cout<<"POINT = "<<interceptPoint;
 
                     //check if intercept point is basically a point we already have
                     CornerPoint replaceMe;
