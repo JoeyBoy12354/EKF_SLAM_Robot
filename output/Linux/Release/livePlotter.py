@@ -119,7 +119,8 @@ def fetchAndPlotLines():
             print("x_value = ",x_values[0])
             y_min = line['gradient']*x_values[0] + line['intercept']
             print("line_min",line['range_min'],"y_min = ",y_min)
-            break
+            if(x_values[0]>10000000):
+                break
 
 
         print("FPL I")
