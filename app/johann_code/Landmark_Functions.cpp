@@ -276,7 +276,7 @@ namespace Landmark_Functions{
 
     
 
-    //This has problems with lidar data at different distances from lidar
+
     vector<Line> RANSAC(vector<CarPoint> laserdata){
         //two arrays corresponding to found lines
         vector<Line> lines;
@@ -445,6 +445,8 @@ namespace Landmark_Functions{
         return lines;
     }
 
+    
+
     CarPoint getIntercept(Line line1, Line line2){
         CarPoint interceptPoint;
         //Find x-coordinate
@@ -467,87 +469,7 @@ namespace Landmark_Functions{
         }
     }
 
-    float distanceBetweenPointandSample(CarPoint point,vector<CarPoint> sample){
-        float minDist=10000000;
-        float tempDist=0;
-        for(int i =0;i<sample.size();i++){
-            tempDist = pointDistance(point,sample[i]);
-            if(tempDist<minDist){
-                minDist = tempDist;
-            }
-        }
-        return minDist;
-    }
 
-
-
-    vector<CarPoint> gradientAnalysis(vector<CarPoint> laserdata){
-        int sampleSize = 50;
-        int NoSamples = int(laserdata.size()/sampleSize);
-        float angleThresh = 20*PI/180;
-        float errorThresh = 5;
-        float sampleToCornerThresh = 300;
-
-        //Step 1, get lines
-        vector<Line> lines;
-        vector<CarPoint> Corners;
-        
-        for(int i=0;i<NoSamples;i++){
-            //GET NEW LINE
-            Line newLine;
-            for(int j=0;j<sampleSize;j++){
-                newLine.ConsensusPoints.push_back(laserdata[i*sampleSize + j]);
-            }
-            LeastSquaresLineEstimate(newLine.ConsensusPoints, newLine.intercept, newLine.gradient);
-            lines.push_back(newLine);
-        }
-
-        //Now that we have all the lines we can check for sharp changes in gradients between the lines
-        //In other words we will calculate angles of intercept
-        bool notNext = false;
-        float angle;
-        for(int i =0;i<lines.size();i++){
-            Line line1 = lines[i];
-            Line line2;
-
-            //Compare current to next
-            if(i<lines.size()-1){
-                angle = getAngle(lines[i],lines[i+1]);
-                if(PI/2 - angleThresh <= angle && angle <= PI/2 + angleThresh){
-                    notNext = true;
-                    line2 = lines[i+1];
-                }
-            }
-            //Compare current to next next (in case next is the corner)
-            if(i<lines.size()-2 && notNext == false){
-                angle = getAngle(lines[i],lines[i+2]);
-                if(PI/2 - angleThresh <= angle && angle <= PI/2 + angleThresh){
-                    notNext = true;
-                    line2 = lines[i+2];
-                }
-            }
-
-            //We have a corner somewhere. We must now ensure that is actually near a line
-            if(notNext == true){
-                CarPoint corner = getIntercept(line1,line2);
-                float dist = distanceBetweenPointandSample(corner,line2.ConsensusPoints);
-                if(dist<sampleToCornerThresh){
-                    Corners.push_back(corner);
-                }
-            }
-
-
-
-
-        }
-
-        cout<<"\n\n!!!!!!!!!!!  KYS !!!!!!!!!!!\n\n";
-        return Corners;
-
-    }
-
-
- 
     vector<CarPoint> ANSAC_CORNER(vector<CarPoint> laserdata){
         cout<<"\n !!!!!!!!!!! IN ANSAC !!!!!!!!!!!!!!!\n"<<endl;
         //two arrays corresponding to found corners
@@ -559,25 +481,19 @@ namespace Landmark_Functions{
         vector<CarPoint> linepoints = laserdata;
         int totalLinepoints = laserdata.size();
 
-        //To print stats
-        int tolCheck1Passes=0;
-        int tolCheckBothPasses=0;
-        int tolCheckAnglePasses=0;
-        double perpDistance = 0;
-
         //checks
-        bool tolCheck1 = true;
-        bool tolCheck2 = true;
+        bool tolCheck = true;
         bool angleGood = false;
         bool replace = false;
         
         const int MAXSAMPLE = 50;//Selects X points in window
 
-        const double ANSAC_TOLERANCE = 900; //If point is within x distance of line it is part of line (would be smart to make this be determind by the average smallest distance between lidar points)
-        const float ANGLE_THRESHOLD = 20*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
-        const float DIST_THRESHOLD = 50; //If intercept point (new corner) is within X of a corner we have then toss or replace
+        const double ANSAC_TOLERANCE = 23; //If point is within x distance of neighbour its part of a corner
+        const float ANGLE_THRESHOLD = 8*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
+        const float DIST_THRESHOLD = 50; //If intercept point is within X of a corner we have then toss or replace
 
         const int INDEX_STEP= 1;//If no angle found in sample shift window by X points onwards.
+        const float PLOT_LINE_LEN = 50; //Plot line domain is intercept.x +- X
         
         //RANSAC ALGORITHM
         int currIndex = 0;
@@ -591,61 +507,40 @@ namespace Landmark_Functions{
             CarPoint centerPoint = selectedPoints[int(selectedPoints.size()/2)];
 
             //Check Tolerance
-            // tolCheck = true;
-            // for(int i = 0;i<selectedPoints.size()-1;i++){
-            //     //If this is triggered then points are too far from neighbours and we should stop
-            //     //THIS will fail if the room is big or small since that changes how far points are from one another
-            //     if(pointDistance(selectedPoints[i],selectedPoints[i+1]) > ANSAC_TOLERANCE){
-            //         count++;
-            //         tolCheck = false;
-            //     }
-            // }
-
-            //COMPUTE PHASE
-            //compute model M1
-            float x_min = 1000000; //Only used for plotting
-            float x_max = -1000000;
-            double c=0;
-            double m=0;
-            vector<CarPoint> line1Points; //This will store our samples around the next point
-            for(int i =0;i<int(MAXSAMPLE/2);i++){
-                line1Points.push_back(selectedPoints[i]);
-                if(selectedPoints[i].x > x_max){
-                    x_max = selectedPoints[i].x;
-                }
-                if(selectedPoints[i].x < x_min){
-                    x_min = selectedPoints[i].x;
+            tolCheck = true;
+            for(int i = 0;i<selectedPoints.size()-1;i++){
+                //If this is triggered then points are too far from neighbours and we should stop
+                if(pointDistance(selectedPoints[i],selectedPoints[i+1]) > ANSAC_TOLERANCE){
+                    count++;
+                    tolCheck = false;
                 }
             }
-            LeastSquaresLineEstimate(line1Points, c, m);
-            Line line1;
-            line1.gradient=m;
-            line1.intercept=c;
-            line1.ConsensusPoints = line1Points;
-            line1.domain_max = x_max;
-            line1.domain_min = x_min;
 
-            perpDistance = 0;
-            //Check tolerance of points near line
-            tolCheck1 = true;
-            for(int i = 0;i<selectedPoints.size();i++){
-                //If this is triggered then points are too far from line and we should stop
-                //THIS will fail if the room is big or small since that changes how far points are from one another
-                double pDist = perpendicularDistance(line1Points[i],line1);
-                if(pDist > ANSAC_TOLERANCE){
-                    tolCheck1 = false;
-                    if(pDist > perpDistance){
-                        perpDistance = pDist;
+            if(tolCheck == true){
+                //COMPUTE PHASE
+                //compute model M1
+                float x_min = 1000000; //Only used for plotting
+                float x_max = -1000000;
+                double c=0;
+                double m=0;
+                vector<CarPoint> line1Points; //This will store our samples around the next point
+                for(int i =0;i<int(MAXSAMPLE/2);i++){
+                    line1Points.push_back(selectedPoints[i]);
+                    if(selectedPoints[i].x > x_max){
+                        x_max = selectedPoints[i].x;
+                    }
+                    if(selectedPoints[i].x < x_min){
+                        x_min = selectedPoints[i].x;
                     }
                 }
-            }
-            cout<<"perDistance = "<<perpDistance<<endl;
+                LeastSquaresLineEstimate(line1Points, c, m);
+                Line line1;
+                line1.gradient=m;
+                line1.intercept=c;
+                line1.ConsensusPoints = line1Points;
+                line1.domain_max = x_max;
+                line1.domain_min = x_min;
 
-
-            //Only do if line1 passed test
-            Line line2; //Because C++ is nonsense
-            if(tolCheck1 == true){
-                tolCheck1Passes++;
                 x_min = 1000000;
                 x_max = -1000000;
                 c=0;
@@ -661,45 +556,23 @@ namespace Landmark_Functions{
                     }
                 }
                 LeastSquaresLineEstimate(line2Points, c, m);
-                //Line line2;
+                Line line2;
                 line2.gradient=m;
                 line2.intercept=c;
                 line2.ConsensusPoints = line2Points;
                 line2.domain_max = x_max;
                 line2.domain_min = x_min;
 
-                tolCheck2 = true;
-                for(int i = 0;i<selectedPoints.size();i++){
-                    //If this is triggered then points are too far from neighbours and we should stop
-                    //THIS will fail if the room is big or small since that changes how far points are from one another
-                    if(perpendicularDistance(line2Points[i],line2) > ANSAC_TOLERANCE){
-                        tolCheck2 = false;
-                    }
-                }
 
-            }
-
-            //Only do if both lines passed tolerance check 
-            if(tolCheck1 == true and tolCheck2 == true){
-                tolCheckBothPasses++;
                 //Is point creating a reasonable angle
                 angleGood = false;
-                float interAngle = PI/2;
-                //Is angle 90 degrees
-                if(line1.gradient*line2.gradient==-1){
-                    angleGood = true;
-                }else{
-                    //Absolute value to counter -90 being thrown out
-                    interAngle = abs(atan((line2.gradient - line1.gradient)/(1 + line1.gradient*line2.gradient)));
-                    //Is angle within allowed bounds
-                    if(PI/2 - ANGLE_THRESHOLD <= interAngle && interAngle <= PI/2 + ANGLE_THRESHOLD){
-                        angleGood = true;
-                    }
+                float interAngle = getIntercept(line1,line2);
+                if(PI/2 - ANGLE_THRESHOLD <= interAngle && interAngle <= PI/2 + ANGLE_THRESHOLD){
+                    angleGood == true;
                 }
                
 
                 if(angleGood == true){
-                    tolCheckAnglePasses++;
                     CornerPoint interceptPoint;
                     //Find x-coordinate
                     interceptPoint.x = (line2.intercept - line1.intercept)/(line1.gradient - line2.gradient);
@@ -743,15 +616,15 @@ namespace Landmark_Functions{
                             //Remove samples from list
                             currIndex = currIndex + MAXSAMPLE;
 
-                            line1.domain_max = interceptPoint.x;
-                            line1.domain_min = interceptPoint.x;
-                            line1.range_max = interceptPoint.y;
-                            line1.range_min = interceptPoint.y;
+                            line1.domain_max = interceptPoint.x + PLOT_LINE_LEN;
+                            line1.domain_min = interceptPoint.x - PLOT_LINE_LEN;
+                            line1.range_max = interceptPoint.x + PLOT_LINE_LEN;
+                            line1.range_min = interceptPoint.x - PLOT_LINE_LEN;
                             
-                            line2.domain_max = interceptPoint.x;
-                            line2.domain_min = interceptPoint.x;
-                            line2.range_max = interceptPoint.y;
-                            line2.range_min = interceptPoint.y;
+                            line2.domain_max = interceptPoint.x + PLOT_LINE_LEN;
+                            line2.domain_min = interceptPoint.x - PLOT_LINE_LEN;
+                            line2.range_max = interceptPoint.x + PLOT_LINE_LEN;
+                            line2.range_min = interceptPoint.x - PLOT_LINE_LEN;
 
                             lines[2*replaceMeIndex] = line1;
                             lines[2*replaceMeIndex + 1] = line2;
@@ -765,15 +638,15 @@ namespace Landmark_Functions{
                         //Remove samples from list
                         currIndex = currIndex + MAXSAMPLE;
 
-                        line1.domain_max = interceptPoint.x;
-                        line1.domain_min = interceptPoint.x;
-                        line1.range_max = interceptPoint.y;
-                        line1.range_min = interceptPoint.y;
+                        line1.domain_max = interceptPoint.x + PLOT_LINE_LEN;
+                        line1.domain_min = interceptPoint.x - PLOT_LINE_LEN;
+                        line1.range_max = interceptPoint.x + PLOT_LINE_LEN;
+                        line1.range_min = interceptPoint.x - PLOT_LINE_LEN;
                         
-                        line2.domain_max = interceptPoint.x;
-                        line2.domain_min = interceptPoint.x;
-                        line2.range_max = interceptPoint.y;
-                        line2.range_min = interceptPoint.y;
+                        line2.domain_max = interceptPoint.x + PLOT_LINE_LEN;
+                        line2.domain_min = interceptPoint.x - PLOT_LINE_LEN;
+                        line2.range_max = interceptPoint.x + PLOT_LINE_LEN;
+                        line2.range_min = interceptPoint.x - PLOT_LINE_LEN;
 
                         lines.push_back(line1);
                         lines.push_back(line2);
@@ -803,7 +676,6 @@ namespace Landmark_Functions{
         }
 
         cout<<"lenTotalfix = "<<linepoints.size()<<" count = "<< count<<endl;
-        cout<<"STATS\n"<<"Tol1 passes = "<<tolCheck1Passes<<"\nTolBoth passes = "<<tolCheckBothPasses<<"\n TolAngle passes = "<<tolCheckAnglePasses<<endl;
 
         cout<<"\n\n!!!!!!!!!!!  LEAVING ANSAC !!!!!!!!!!!\n\n";
         return carCorners;
@@ -812,80 +684,3 @@ namespace Landmark_Functions{
     
 
 }
-
-
-
-
-
-   
-    // vector<CarPoint> myFinder(vector<CarPoint> laserdata){
-    //     int sampleSize = 50;
-    //     int NoSamples = int(laserdata.size()/sampleSize);
-    //     float angleThresh = 20*PI/180;
-    //     float errorThresh = 5;
-
-    //     //Step 1, get lines
-    //     vector<vector<CarPoint>> consensusPoints;
-    //     vector<Line> lines;
-    //     vector<CarPoint> Corners;
-
-    //     for(int i=0;i<NoSamples;i++){
-    //         //GET NEW LINE
-    //         Line newLine;
-    //         for(int j=0;j<sampleSize;j++){
-    //             newLine.ConsensusPoints.push_back(laserdata[i*sampleSize + j]);
-    //         }
-    //         LeastSquaresLineEstimate(newLine.ConsensusPoints, newLine.c, newLine.m);
-    //         lines.push_back(newLine);
-
-    //         //Ensure that line is remotely close to something fucking useful.
-    //         //By taking the average distance between the points in the sample.
-    //         //And taking the average error distance between points and the line.
-    //         //We can determine if the line is well fitted.
-    //         float inlierError = 0;
-    //         float smallestP2P = 1000000000;
-    //         for(int j=0;j<sampleSize;j++){
-    //             inlierError += pow(perpendicularDistance(newLine.ConsensusPoints[j], newLine),2);
-    //             if(j<sampleSize-1){
-    //                 float tempP2P = pointDistance(newLine.ConsensusPoints[j],newLine.ConsensusPoints[j+1]);
-    //                 if(tempP2P<smallestP2P){
-    //                     smallestP2P = temP2P;
-    //                 }
-    //             }
-                
-    //         }
-    //         inlierError = pow(inlierError/sampleSize,0.5);
-
-    //         //We need some form of normalization
-    //         //Normalize to the smallest point to point distance in the set
-    //         float error_norm = inlierError/smallestP2P;
-
-    //         cout<<"ERROR NORM = "<<error_norm<<endl;
-        
-    //         if(error_norm<errorThresh){
-    //             for(int k=0;k<lines.size()-1;k++){
-    //                 //Check if a near 90 degree angle is formed between any of the line
-    //                 float angle = getAngle(newLine,lines[k]);
-    //                 if(PI/2 - angleThresh <= angle && angle <= PI/2 + angleThresh){
-    //                     //if a near 90 degree angle is formed between two lines then store that as a corner
-                        
-    //                     //Calculate Intercept
-    //                     CornerPoint interceptPoint = getIntercept(newLine,lines[k]);
-
-
-
-                    
-
-
-    //                 }
-
-
-                    
-    //             }
-
-    //         }
-
-
-    //     }
-    // }
-

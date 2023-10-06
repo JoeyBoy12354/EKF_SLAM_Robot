@@ -166,8 +166,8 @@ namespace Landmark_Functions{
     vector<CarPoint> findNearestPoint(vector<Line> lines);
     float getAngle(Line l1, Line l2);
     CarPoint getIntercept(Line line1, Line line2);
-    vector<CarPoint> gradientAnalysis(vector<CarPoint> laserdata);
-    float distanceBetweenPointandSample(CarPoint point,vector<CarPoint> sample);
+    // vector<CarPoint> gradientAnalysis(vector<CarPoint> laserdata);
+    // float distanceBetweenPointandSample(CarPoint point,vector<CarPoint> sample);
 }
 
 namespace Simulation_Functions{
