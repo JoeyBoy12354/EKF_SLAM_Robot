@@ -460,7 +460,8 @@ namespace Landmark_Functions{
         int totalLinepoints = laserdata.size();
 
         //checks
-        bool tolCheck = true;
+        bool tolCheck1 = true;
+        bool tolCheck2 = true;
         bool angleGood = false;
         bool replace = false;
         
@@ -519,17 +520,17 @@ namespace Landmark_Functions{
             line1.domain_min = x_min;
 
             //Check tolerance of points near line
-            tolCheck = true;
+            tolCheck1 = true;
             for(int i = 0;i<selectedPoints.size();i++){
                 //If this is triggered then points are too far from line and we should stop
                 //THIS will fail if the room is big or small since that changes how far points are from one another
                 if(perpendicularDistance(line1Points[i],line1) > ANSAC_TOLERANCE){
-                    tolCheck = false;
+                    tolCheck1 = false;
                 }
             }
 
             //Only do if line1 passed test
-            if(tolCheck == true){
+            if(tolCheck1 == true){
                 x_min = 1000000;
                 x_max = -1000000;
                 c=0;
@@ -552,18 +553,19 @@ namespace Landmark_Functions{
                 line2.domain_max = x_max;
                 line2.domain_min = x_min;
 
-                tolCheck = true;
+                tolCheck2 = true;
                 for(int i = 0;i<selectedPoints.size();i++){
                     //If this is triggered then points are too far from neighbours and we should stop
                     //THIS will fail if the room is big or small since that changes how far points are from one another
                     if(perpendicularDistance(line2Points[i],line2) > ANSAC_TOLERANCE){
-                        tolCheck = false;
+                        tolCheck2 = false;
                     }
                 }
 
             }
 
-            if(tolCheck == true){
+            //Only do if both lines passed tolerance check 
+            if(tolCheck1 == true and tolCheck2 == true){
                 //Is point creating a reasonable angle
                 angleGood = false;
                 float interAngle = PI/2;
