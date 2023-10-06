@@ -472,7 +472,7 @@ namespace Landmark_Functions{
         
         const int MAXSAMPLE = 50;//Selects X points in window
 
-        const double ANSAC_TOLERANCE = 50; //If point is within x distance of line it is part of line
+        const double ANSAC_TOLERANCE = 100; //If point is within x distance of line it is part of line
         const float ANGLE_THRESHOLD = 20*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
         const float DIST_THRESHOLD = 50; //If intercept point (new corner) is within X of a corner we have then toss or replace
 
@@ -696,7 +696,7 @@ namespace Landmark_Functions{
         }
 
         cout<<"lenTotalfix = "<<linepoints.size()<<" count = "<< count<<endl;
-        cout<<"STATS\n"<<"Tol1 passes = "<<tolCheck1Passes<<"\nTolBoth passes"<<tolCheckBothPasses<<"\n TolAnglePass"<<tolCheckAnglePasses<<endl;
+        cout<<"STATS\n"<<"Tol1 passes = "<<tolCheck1Passes<<"\nTolBoth passes = "<<tolCheckBothPasses<<"\n TolAngle passes = s"<<tolCheckAnglePasses<<endl;
 
         cout<<"\n\n!!!!!!!!!!!  LEAVING ANSAC !!!!!!!!!!!\n\n";
         return carCorners;
