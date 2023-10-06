@@ -276,7 +276,7 @@ namespace Landmark_Functions{
 
     
 
-
+    //This has problems with lidar data at different distances from lidar
     vector<Line> RANSAC(vector<CarPoint> laserdata){
         //two arrays corresponding to found lines
         vector<Line> lines;
@@ -445,7 +445,176 @@ namespace Landmark_Functions{
         return lines;
     }
 
+    CarPoint getIntercept(Line line1, Line line2){
+        CarPoint interceptPoint;
+        //Find x-coordinate
+        interceptPoint.x = (line2.intercept - line1.intercept)/(line1.gradient - line2.gradient);
+        //Find y-coordinate
+        interceptPoint.y = line1.gradient*interceptPoint.x + line1.intercept;
+        return CarPoint
+    }
+
+    float getAngle(Line line1, Line line2){
+        //Is point creating a reasonable angle
+        float interAngle = PI/2;
+        //Is angle 90 degrees
+        if(line1.gradient*line2.gradient==-1){
+            return interAngle;
+        }else{
+            //Absolute value to counter -90 being thrown out
+            interAngle = abs(atan((line2.gradient - line1.gradient)/(1 + line1.gradient*line2.gradient)));
+            return interAngle;
+        }
+    }
+
+    float distanceBetweenPointandSample(CarPoint point,vector<CarPoint> sample){
+        float minDist=10000000;
+        float tempDist=0;
+        for(int i =0;i<sample.size();i++){
+            tempDist = pointDistance(point,sample[i]);
+            if(tempDist<minDist){
+                minDist = tempDist;
+            }
+        }
+        return minDist;
+    }
+
+
+
+    vector<CarPoint> gradientAnalysis(vector<CarPoint> laserdata){
+        int sampleSize = 50;
+        int NoSamples = int(laserdata.size()/sampleSize);
+        float angleThresh = 20*PI/180;
+        float errorThresh = 5;
+        float sampleToCornerThresh = 300;
+
+        //Step 1, get lines
+        vector<Line> lines;
+        vector<CarPoint> Corners;
+        
+        for(int i=0;i<NoSamples;i++){
+            //GET NEW LINE
+            Line newLine;
+            for(int j=0;j<sampleSize;j++){
+                newLine.ConsensusPoints.push_back(laserdata[i*sampleSize + j]);
+            }
+            LeastSquaresLineEstimate(newLine.ConsensusPoints, newLine.c, newLine.m);
+            lines.push_back(newLine);
+        }
+
+        //Now that we have all the lines we can check for sharp changes in gradients between the lines
+        //In other words we will calculate angles of intercept
+        bool notNext = false;
+        float angle;
+        for(int i =0;i<lines.size();i++){
+            Line line1 = line[i];
+            Line line2;
+
+            //Compare current to next
+            if(i<lines.size()-1){
+                angle = getAngle(lines[i],lines[i+1]);
+                if(PI/2 - angleThresh <= angle && angle <= PI/2 + angleThresh){
+                    notNext = true;
+                    line2 = lines[i+1];
+                }
+            }
+            //Compare current to next next (in case next is the corner)
+            if(i<lines.size()-2 && notNext == false){
+                angle = getAngle(lines[i],lines[i+2]);
+                if(PI/2 - angleThresh <= angle && angle <= PI/2 + angleThresh){
+                    notNext = true;
+                    line2 = lines[i+2];
+                }
+            }
+
+            //We have a corner somewhere. We must now ensure that is actually near a line
+            if(notNext == true){
+                CarPoint corner = getIntercept(line1,line2);
+                float dist = distanceBetweenPointandSample(corner,line2);
+                if(dist<sampleToCornerThresh){
+                    corners.push_back(corner);
+                }
+            }
+
+
+
+
+        }
+
+    }
+
+
     
+    vector<CarPoint> myFinder(vector<CarPoint> laserdata){
+        int sampleSize = 50;
+        int NoSamples = int(laserdata.size()/sampleSize);
+        float angleThresh = 20*PI/180;
+        float errorThresh = 5;
+
+        //Step 1, get lines
+        vector<vector<CarPoint>> consensusPoints;
+        vector<Line> lines;
+        vector<CarPoint> Corners;
+
+        for(int i=0;i<NoSamples;i++){
+            //GET NEW LINE
+            Line newLine;
+            for(int j=0;j<sampleSize;j++){
+                newLine.ConsensusPoints.push_back(laserdata[i*sampleSize + j]);
+            }
+            LeastSquaresLineEstimate(newLine.ConsensusPoints, newLine.c, newLine.m);
+            lines.push_back(newLine);
+
+            //Ensure that line is remotely close to something fucking useful.
+            //By taking the average distance between the points in the sample.
+            //And taking the average error distance between points and the line.
+            //We can determine if the line is well fitted.
+            float inlierError = 0;
+            float smallestP2P = 1000000000;
+            for(int j=0;j<sampleSize;j++){
+                inlierError += pow(perpendicularDistance(newLine.ConsensusPoints[j], newLine),2);
+                if(j<sampleSize-1){
+                    float tempP2P = pointDistance(newLine.ConsensusPoints[j],newLine.ConsensusPoints[j+1]);
+                    if(tempP2P<smallestP2P){
+                        smallestP2P = temP2P;
+                    }
+                }
+                
+            }
+            inlierError = pow(inlierError/sampleSize,0.5);
+
+            //We need some form of normalization
+            //Normalize to the smallest point to point distance in the set
+            float error_norm = inlierError/smallestP2P;
+
+            cout<<"ERROR NORM = "<<error_norm<<endl;
+        
+            if(error_norm<errorThresh){
+                for(int k=0;k<lines.size()-1;k++){
+                    //Check if a near 90 degree angle is formed between any of the line
+                    float angle = getAngle(newLine,lines[k]);
+                    if(PI/2 - angleThresh <= angle && angle <= PI/2 + angleThresh){
+                        //if a near 90 degree angle is formed between two lines then store that as a corner
+                        
+                        //Calculate Intercept
+                        CornerPoint interceptPoint = getIntercept(newLine,lines[k]);
+
+
+
+                    
+
+
+                    }
+
+
+                    
+                }
+
+            }
+
+
+        }
+    }
 
 
     vector<CarPoint> ANSAC_CORNER(vector<CarPoint> laserdata){

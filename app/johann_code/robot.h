@@ -164,6 +164,8 @@ namespace Landmark_Functions{
     vector<CarPoint> ANSAC_CORNER(vector<CarPoint> laserdata);
     void LeastSquaresLineEstimate(vector<CarPoint> SelectedPoints, double& c, double& m);
     vector<CarPoint> findNearestPoint(vector<Line> lines);
+    float getAngle(Line l1, Line l2);
+    CarPoint getIntercept(Line line1, Line line2);
 }
 
 namespace Simulation_Functions{
