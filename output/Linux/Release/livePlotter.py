@@ -95,7 +95,7 @@ def fetchAndPlotLines():
     # Plot the lines
     for line in lines:
         x_values = [line['domain_min'], line['domain_max']]
-        print("x_values = ",x_values)
+        
         y_min = line['gradient']*x_values[0] + line['intercept']
         y_max = line['gradient']*x_values[1] + line['intercept']
         y_values = [y_min,y_max]
@@ -114,11 +114,12 @@ def fetchAndPlotLines():
         print("FPL E")
         step = 1/step
         while(y_min<line['range_min']):
-            print("FPL F")
+            print("x_values = ",x_values)
             x_values[0] = x_values[0]*step
             print("x_value = ",x_values[0])
             y_min = line['gradient']*x_values[0] + line['intercept']
             print("line_min",line['range_min'],"y_min = ",y_min)
+            break
 
 
         print("FPL I")
