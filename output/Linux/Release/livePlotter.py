@@ -77,7 +77,10 @@ def fetchAndPlotGrid():
 
 # Read the lines from the CSV file
 def fetchAndPlotLines():
-    print("FETCHING AND PLOTTING LINES")
+    #Initialize
+    step = 0.5 # The x value will differ by X-amount on each iteration of while loop
+    limit = 50 # The y value may be a maximum of y_intercept +- X
+    
     lines = []
     with open('linesCSV.csv', 'r') as file:
         csv_reader = csv.DictReader(file)
@@ -91,44 +94,29 @@ def fetchAndPlotLines():
                 'range_max': float(row['Range_Max'])
             })
 
-    print("FPL A")
+
     # Plot the lines
     for line in lines:
-        x_values = [line['domain_min'], line['domain_max']]
-        
-        y_min = line['gradient']*x_values[0] + line['intercept']
-        y_max = line['gradient']*x_values[1] + line['intercept']
-        y_values = [y_min,y_max]
-        #plt.plot(x_values, y_values, label=f"Line {line['gradient']}x+{line['intercept']}", color='b')
+        #Point of interception
+        x_inter = line['domain_min']
+        y_inter = line['gradient']*x_inter + line['intercept']
 
-        print("FPL B")
+        #Set bounds
+        y_min = y_inter - limit
+        y_max = y_inter + limit
 
-        #Shrink line until it fits within set bounds that were set in Landmark function
-        step = 0.5
-        while(y_max>line['range_max']):
-            print("FPL C")
-            x_values[1] = x_values[1]*step
-            print("FPL D")
-            y_max = line['gradient']*x_values[1] + line['intercept']
-            print("y_max = ",y_max)
-        print("FPL E")
-        step = 1/step
-        while(y_min<line['range_min']):
-            print("x_values = ",x_values)
-            x_values[0] = x_values[0]*step
-            print("x_value = ",x_values[0])
-            y_min = line['gradient']*x_values[0] + line['intercept']
-            print("line_min",line['range_min'],"y_min = ",y_min)
-            if(x_values[0]>10000000):
-                break
-
-
-        print("FPL I")
-        # #sanity check to make lines look better
-        # if(y_max>600):
-        #     y_max = 600
-        # if(y_min<-600):
-        #     y_min = -600
+        y_up = 0
+        y_down = 0
+        x_up = x_inter
+        x_down = x_inter
+        while((y_down<y_min or y_down>y_max) and (y_up<y_min or y_up>y_max)):
+            y_up = line['gradient']*x_up + line['intercept']
+            y_down = line['gradient']*x_down + line['intercept']
+            x_up += step
+            x_down -= step
+                    
+        x_values = [x_up,x_down]
+        y_values = [y_up,y_down]
         plt.plot(x_values, y_values, color='b')
 
 

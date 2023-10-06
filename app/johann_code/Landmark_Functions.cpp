@@ -471,7 +471,6 @@ namespace Landmark_Functions{
         const float DIST_THRESHOLD = 50; //If intercept point is within X of a corner we have then toss or replace
 
         const int INDEX_STEP= 1;//If no angle found in sample shift window by X points onwards.
-        const float PLOT_LINE_LEN = 50; //Plot line domain is intercept.x +- X
         
         //RANSAC ALGORITHM
         int currIndex = 0;
@@ -602,15 +601,15 @@ namespace Landmark_Functions{
                             //Remove samples from list
                             currIndex = currIndex + MAXSAMPLE;
 
-                            line1.domain_max = interceptPoint.x + PLOT_LINE_LEN;
-                            line1.domain_min = interceptPoint.x - PLOT_LINE_LEN;
-                            line1.range_max = interceptPoint.y + PLOT_LINE_LEN;
-                            line1.range_min = interceptPoint.y - PLOT_LINE_LEN;
+                            line1.domain_max = interceptPoint.x;
+                            line1.domain_min = interceptPoint.x;
+                            line1.range_max = interceptPoint.y;
+                            line1.range_min = interceptPoint.y;
                             
-                            line2.domain_max = interceptPoint.x + PLOT_LINE_LEN;
-                            line2.domain_min = interceptPoint.x - PLOT_LINE_LEN;
-                            line2.range_max = interceptPoint.y + PLOT_LINE_LEN;
-                            line2.range_min = interceptPoint.y - PLOT_LINE_LEN;
+                            line2.domain_max = interceptPoint.x;
+                            line2.domain_min = interceptPoint.x;
+                            line2.range_max = interceptPoint.y;
+                            line2.range_min = interceptPoint.y;
 
                             lines[2*replaceMeIndex] = line1;
                             lines[2*replaceMeIndex + 1] = line2;
@@ -624,15 +623,15 @@ namespace Landmark_Functions{
                         //Remove samples from list
                         currIndex = currIndex + MAXSAMPLE;
 
-                        line1.domain_max = interceptPoint.x + PLOT_LINE_LEN;
-                        line1.domain_min = interceptPoint.x - PLOT_LINE_LEN;
-                        line1.range_max = interceptPoint.y + PLOT_LINE_LEN;
-                        line1.range_min = interceptPoint.y - PLOT_LINE_LEN;
+                        line1.domain_max = interceptPoint.x;
+                        line1.domain_min = interceptPoint.x;
+                        line1.range_max = interceptPoint.y;
+                        line1.range_min = interceptPoint.y;
                         
-                        line2.domain_max = interceptPoint.x + PLOT_LINE_LEN;
-                        line2.domain_min = interceptPoint.x - PLOT_LINE_LEN;
-                        line2.range_max = interceptPoint.y + PLOT_LINE_LEN;
-                        line2.range_min = interceptPoint.y - PLOT_LINE_LEN;
+                        line2.domain_max = interceptPoint.x;
+                        line2.domain_min = interceptPoint.x;
+                        line2.range_max = interceptPoint.y;
+                        line2.range_min = interceptPoint.y;
 
                         lines.push_back(line1);
                         lines.push_back(line2);
