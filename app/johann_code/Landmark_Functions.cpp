@@ -451,7 +451,7 @@ namespace Landmark_Functions{
         interceptPoint.x = (line2.intercept - line1.intercept)/(line1.gradient - line2.gradient);
         //Find y-coordinate
         interceptPoint.y = line1.gradient*interceptPoint.x + line1.intercept;
-        return CarPoint
+        return CarPoint;
     }
 
     float getAngle(Line line1, Line line2){
@@ -498,7 +498,7 @@ namespace Landmark_Functions{
             for(int j=0;j<sampleSize;j++){
                 newLine.ConsensusPoints.push_back(laserdata[i*sampleSize + j]);
             }
-            LeastSquaresLineEstimate(newLine.ConsensusPoints, newLine.c, newLine.m);
+            LeastSquaresLineEstimate(newLine.ConsensusPoints, newLine.intercept, newLine.gradient);
             lines.push_back(newLine);
         }
 
@@ -507,7 +507,7 @@ namespace Landmark_Functions{
         bool notNext = false;
         float angle;
         for(int i =0;i<lines.size();i++){
-            Line line1 = line[i];
+            Line line1 = lines[i];
             Line line2;
 
             //Compare current to next
@@ -530,9 +530,9 @@ namespace Landmark_Functions{
             //We have a corner somewhere. We must now ensure that is actually near a line
             if(notNext == true){
                 CarPoint corner = getIntercept(line1,line2);
-                float dist = distanceBetweenPointandSample(corner,line2);
+                float dist = distanceBetweenPointandSample(corner,line2.ConsensusPoints);
                 if(dist<sampleToCornerThresh){
-                    corners.push_back(corner);
+                    Corners.push_back(corner);
                 }
             }
 
@@ -540,6 +540,8 @@ namespace Landmark_Functions{
 
 
         }
+
+        return Corners;
 
     }
 
