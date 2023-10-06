@@ -622,9 +622,9 @@ namespace Landmark_Functions{
                     angleGood == true;
                 }
                
-
+                cout<<"FICLLAKSDKJASDASD"<<endl;
                 if(angleGood == true){
-                    cout<<"FICLLAKSDKJASDASD"<<endl;
+                    
                     CornerPoint interceptPoint;
                     //Find x-coordinate
                     interceptPoint.x = (line2.intercept - line1.intercept)/(line1.gradient - line2.gradient);
