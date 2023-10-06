@@ -502,18 +502,18 @@ namespace Landmark_Functions{
         // Define an outlier threshold (3 times the mean)
         float outlierThreshold = 3 * avg;
 
-        bool hole = false;
+        bool noHole = true;
         // Now you can look for outliers by comparing each distance to the threshold
         for (float distance : distances) {
             if (distance > outlierThreshold) {
                 // Handle the outlier here (e.g., print it or store it in another vector)
                 // You can also update 'max' if the outlier distance is the largest encountered so far
-                hole = true;
+                noHole = false;
             
             }
         }
 
-        return true;
+        return noHole;
     }
 
 
@@ -554,14 +554,16 @@ namespace Landmark_Functions{
             CarPoint centerPoint = selectedPoints[int(selectedPoints.size()/2)];
 
             //Check Tolerance
-            tolCheck = true;
-            for(int i = 0;i<selectedPoints.size()-1;i++){
-                //If this is triggered then points are too far from neighbours and we should stop
-                if(pointDistance(selectedPoints[i],selectedPoints[i+1]) > ANSAC_TOLERANCE){
-                    count++;
-                    tolCheck = false;
-                }
-            }
+            // tolCheck = true;
+            // for(int i = 0;i<selectedPoints.size()-1;i++){
+            //     //If this is triggered then points are too far from neighbours and we should stop
+            //     if(pointDistance(selectedPoints[i],selectedPoints[i+1]) > ANSAC_TOLERANCE){
+            //         count++;
+            //         tolCheck = false;
+            //     }
+            // }
+
+            tolCheck = checkForHoles(selectedPoints);
 
             if(tolCheck == true){
                 //COMPUTE PHASE
