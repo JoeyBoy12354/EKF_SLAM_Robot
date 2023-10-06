@@ -91,6 +91,7 @@ def fetchAndPlotLines():
                 'range_max': float(row['Range_Max'])
             })
 
+    print("FPL A")
     # Plot the lines
     for line in lines:
         x_values = [line['domain_min'], line['domain_max']]
@@ -99,10 +100,14 @@ def fetchAndPlotLines():
         y_values = [y_min,y_max]
         #plt.plot(x_values, y_values, label=f"Line {line['gradient']}x+{line['intercept']}", color='b')
 
+        print("FPL B")
+
         #Shrink line until it fits within set bounds that were set in Landmark function
         step = 0.5
         while(y_max>line['range_max']):
+            print("FPL C")
             x_values[1] = x_values[1]*step
+            print("FPL D")
             y_max = line['gradient']*x_values[1] + line['intercept']
             print("y_max = ",y_max)
         
