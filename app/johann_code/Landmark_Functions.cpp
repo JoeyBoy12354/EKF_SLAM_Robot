@@ -567,7 +567,7 @@ namespace Landmark_Functions{
             
 
             if(tolCheck == true){
-                cout<<"FICLLAKSDKJASDASD"<<endl;
+                
                 //COMPUTE PHASE
                 //compute model M1
                 float x_min = 1000000; //Only used for plotting
@@ -624,6 +624,7 @@ namespace Landmark_Functions{
                
 
                 if(angleGood == true){
+                    cout<<"FICLLAKSDKJASDASD"<<endl;
                     CornerPoint interceptPoint;
                     //Find x-coordinate
                     interceptPoint.x = (line2.intercept - line1.intercept)/(line1.gradient - line2.gradient);
