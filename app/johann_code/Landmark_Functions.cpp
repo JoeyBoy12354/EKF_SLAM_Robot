@@ -534,7 +534,7 @@ namespace Landmark_Functions{
                 double pDist = perpendicularDistance(line1Points[i],line1);
                 if(pDist > ANSAC_TOLERANCE){
                     tolCheck1 = false;
-                    if(pDist > perpDistace){
+                    if(pDist > perpDistance){
                         perpDistance = pDist;
                     }
                 }
