@@ -137,44 +137,50 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun){
         
         cout<<"Main: Lidar Run complete"<<endl;
 
-        //Predict Position
-        ekf.updateMotion();
+        if(error == false){
+            //Predict Position
+            ekf.updateMotion();
 
-        cout<<"\n MAIN: PREDICTED POSITION: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
-        cout << "\nEKF 6\nState =\n" << ekf.State << "\n";
+            cout<<"\n MAIN: PREDICTED POSITION: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+            cout << "\nEKF 6\nState =\n" << ekf.State << "\n";
 
-        //Process Data
-        vector<CarPoint> carPoints;
-        lidarDataProcessing(lidarDataPoints,carPoints,ekf.State[0],ekf.State[1],ekf.State[2]);
+            //Process Data
+            vector<CarPoint> carPoints;
+            lidarDataProcessing(lidarDataPoints,carPoints,ekf.State[0],ekf.State[1],ekf.State[2]);
 
-        //Get Grid
-        
-
-        //Run EKF
-        ekf.runEKF();
-
-        //Store Data for plotting
-        if(firstRun == true){
-            saveCarToFullMapCSV(carPoints);
-            firstRun = false;
-        }else{
-            storeMapPoints(carPoints);
-            storeStatePoints(ekf.State);
-        }
-
-        vector<vector<GridPoint>> gridNew;
-        gridDataProcess(gridNew, ekf.State, firstRun);
+            //Get Grid
             
 
-        //Complete Robot Movement
-        mapped = updateMovement(ekf.State);// Move the robot to the location
-        motorDataProcessing(ekf.w,ekf.distance);//Send odometry to ekf
+            //Run EKF
+            ekf.runEKF();
 
-        cout<<"\nMain_end: ekf.w = "<<ekf.w<<" ekf.distance = "<<ekf.distance<<endl;
+            //Store Data for plotting
+            if(firstRun == true){
+                saveCarToFullMapCSV(carPoints);
+                firstRun = false;
+            }else{
+                storeMapPoints(carPoints);
+                storeStatePoints(ekf.State);
+            }
+
+            vector<vector<GridPoint>> gridNew;
+            gridDataProcess(gridNew, ekf.State, firstRun);
+                
+
+            //Complete Robot Movement
+            mapped = updateMovement(ekf.State);// Move the robot to the location
+            motorDataProcessing(ekf.w,ekf.distance);//Send odometry to ekf
+
+            cout<<"\nMain_end: ekf.w = "<<ekf.w<<" ekf.distance = "<<ekf.distance<<endl;
+    
+        }else{
+            cout<<" NO PROCESSING DUE TO LIDAR ERROR"<<endl;
+        }
         
     }else{
         cout<<"MAP COMPLETED !"<<endl;
     }
+    
 
     cout<<"LEAVNG RUN"<<endl;
     
