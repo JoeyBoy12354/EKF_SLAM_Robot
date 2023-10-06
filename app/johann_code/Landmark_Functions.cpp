@@ -604,13 +604,13 @@ namespace Landmark_Functions{
 
                             line1.domain_max = interceptPoint.x + PLOT_LINE_LEN;
                             line1.domain_min = interceptPoint.x - PLOT_LINE_LEN;
-                            line1.range_max = interceptPoint.x + PLOT_LINE_LEN;
-                            line1.range_min = interceptPoint.x - PLOT_LINE_LEN;
+                            line1.range_max = interceptPoint.y + PLOT_LINE_LEN;
+                            line1.range_min = interceptPoint.y - PLOT_LINE_LEN;
                             
                             line2.domain_max = interceptPoint.x + PLOT_LINE_LEN;
                             line2.domain_min = interceptPoint.x - PLOT_LINE_LEN;
-                            line2.range_max = interceptPoint.x + PLOT_LINE_LEN;
-                            line2.range_min = interceptPoint.x - PLOT_LINE_LEN;
+                            line2.range_max = interceptPoint.y + PLOT_LINE_LEN;
+                            line2.range_min = interceptPoint.y - PLOT_LINE_LEN;
 
                             lines[2*replaceMeIndex] = line1;
                             lines[2*replaceMeIndex + 1] = line2;
@@ -626,13 +626,13 @@ namespace Landmark_Functions{
 
                         line1.domain_max = interceptPoint.x + PLOT_LINE_LEN;
                         line1.domain_min = interceptPoint.x - PLOT_LINE_LEN;
-                        line1.range_max = interceptPoint.x + PLOT_LINE_LEN;
-                        line1.range_min = interceptPoint.x - PLOT_LINE_LEN;
+                        line1.range_max = interceptPoint.y + PLOT_LINE_LEN;
+                        line1.range_min = interceptPoint.y - PLOT_LINE_LEN;
                         
                         line2.domain_max = interceptPoint.x + PLOT_LINE_LEN;
                         line2.domain_min = interceptPoint.x - PLOT_LINE_LEN;
-                        line2.range_max = interceptPoint.x + PLOT_LINE_LEN;
-                        line2.range_min = interceptPoint.x - PLOT_LINE_LEN;
+                        line2.range_max = interceptPoint.y + PLOT_LINE_LEN;
+                        line2.range_min = interceptPoint.y - PLOT_LINE_LEN;
 
                         lines.push_back(line1);
                         lines.push_back(line2);

@@ -95,6 +95,7 @@ def fetchAndPlotLines():
     # Plot the lines
     for line in lines:
         x_values = [line['domain_min'], line['domain_max']]
+        print("x_values = ",x_values)
         y_min = line['gradient']*x_values[0] + line['intercept']
         y_max = line['gradient']*x_values[1] + line['intercept']
         y_values = [y_min,y_max]
