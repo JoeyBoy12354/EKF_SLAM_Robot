@@ -521,14 +521,14 @@ namespace Landmark_Functions{
             //Check tolerance of points near line
             tolCheck = true;
             for(int i = 0;i<selectedPoints.size();i++){
-                //If this is triggered then points are too far from neighbours and we should stop
+                //If this is triggered then points are too far from line and we should stop
                 //THIS will fail if the room is big or small since that changes how far points are from one another
                 if(perpendicularDistance(line1Points[i],line1) > ANSAC_TOLERANCE){
                     tolCheck = false;
                 }
             }
 
-
+            //Only do if line1 passed test
             if(tolCheck == true){
                 x_min = 1000000;
                 x_max = -1000000;
