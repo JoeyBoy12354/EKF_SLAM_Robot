@@ -451,7 +451,7 @@ namespace Landmark_Functions{
         interceptPoint.x = (line2.intercept - line1.intercept)/(line1.gradient - line2.gradient);
         //Find y-coordinate
         interceptPoint.y = line1.gradient*interceptPoint.x + line1.intercept;
-        return CarPoint;
+        return interceptPoint;
     }
 
     float getAngle(Line line1, Line line2){
