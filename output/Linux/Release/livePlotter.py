@@ -99,10 +99,11 @@ def fetchAndPlotLines():
         #plt.plot(x_values, y_values, label=f"Line {line['gradient']}x+{line['intercept']}", color='b')
 
         #Shrink line until it fits within set bounds that were set in Landmark function
-        step = 0.2
+        step = 0.5
         while(y_max>line['range_max']):
             x_values[1] = x_values[1]*step
             y_max = line['gradient']*x_values[1] + line['intercept']
+            print("y_max = ",y_max)
         
         while(y_min<line['range_min']):
             x_values[0] = x_values[0]*step
