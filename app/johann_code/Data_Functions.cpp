@@ -118,8 +118,12 @@ namespace Data_Functions{
         // writeLinesToCSV(detected_lines);
         // writeConsensusToCSV(detected_lines);
 
-        cout<<"\nANSAC"<<endl;
-        vector<CarPoint> closestPoints = ANSAC_CORNER(carPoints);
+        // cout<<"\nANSAC"<<endl;
+        // vector<CarPoint> closestPoints = ANSAC_CORNER(carPoints);
+        // writeCornersToCSV(closestPoints);
+
+        cout<<"\nGRADIENT CORNERS"<<endl;
+        vector<CarPoint> closestPoints = gradientAnalysis(carPoints);
         writeCornersToCSV(closestPoints);
         
 
