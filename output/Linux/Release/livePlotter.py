@@ -115,9 +115,9 @@ def fetchAndPlotLines():
         while(y_min<line['range_min']):
             print("FPL F")
             x_values[0] = x_values[0]*step
-            print("FPL G")
+            print("x_value = ",x_values[0])
             y_min = line['gradient']*x_values[0] + line['intercept']
-            print("FPL H")
+            print("line_min",line['range_min'],"y_min = ",y_min)
 
 
         print("FPL I")
