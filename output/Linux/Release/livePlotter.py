@@ -105,8 +105,8 @@ def fetchAndPlotLines():
         y_min = y_inter - limit
         y_max = y_inter + limit
 
-        y_up = 0
-        y_down = 0
+        y_up = y_inter
+        y_down = y_inter
         x_up = x_inter
         x_down = x_inter
         while((y_down>y_min or y_down<y_max) and (y_up>y_min or y_up<y_max)):
