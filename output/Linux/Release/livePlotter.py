@@ -117,6 +117,7 @@ def fetchAndPlotLines():
                     
         x_values = [x_up,x_down]
         y_values = [y_up,y_down]
+        print("x_values = ",x_values," y_values = ",y_values)
         plt.plot(x_values, y_values, color='b')
 
 
@@ -180,9 +181,6 @@ def animate(i):
     x3,y3=fetchCoord('cornersCSV.csv')
     x4,y4=fetchCoord('consensusCSV.csv')
     position,x_goal,y_goal,true_move = fetchRobot()
-
-    print("1")
-
     #print("POSITION = ",position)
 
     #Adjustment
@@ -194,13 +192,9 @@ def animate(i):
     plt.cla() #Clear Axis (so that we don't keep the old plot we clear it and write again)
     #plt.axes().set_facecolor("black")
 
-    
-    print("begin PLOT")
     fetchAndPlotLines()
     triangle = draw_rotated_triangle(plt.gca(),position[0],position[1],position[2])
     plt.gca().fill(triangle[:, 0], triangle[:, 1], 'b')
-
-    print("A")
 
     #triangle = draw_rotated_triangle(plt.gca(),0,0,0) 
     #triangle = draw_rotated_triangle(plt.gca(),true_move[0],true_move[1],true_move[2])
@@ -211,16 +205,10 @@ def animate(i):
     plt.axvline(x=0, color='k', linestyle='--', linewidth=1)
     fetchAndPlotGrid()
 
-    print("B")
-
-    
-    
     plt.plot(x1, y1, 'o', label='Points',markersize=0.5,color='r')
     plt.plot(x4, y4, 'o', label='Con_points', markersize=1,color='purple')
     plt.plot(x2, y2, 'X', label='Landmarks', markersize=7,color='g')
     plt.plot(x3, y3, 'X', label='RNC_points', markersize=7,color='b')
-
-    print("C")
     
 
 
