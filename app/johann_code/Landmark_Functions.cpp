@@ -463,6 +463,7 @@ namespace Landmark_Functions{
         int tolCheck1Passes=0;
         int tolCheckBothPasses=0;
         int tolCheckAnglePasses=0;
+        double perpDistance = 0;
 
         //checks
         bool tolCheck1 = true;
@@ -524,16 +525,21 @@ namespace Landmark_Functions{
             line1.domain_max = x_max;
             line1.domain_min = x_min;
 
-            perpDistance = 
+            perpDistance = 0;
             //Check tolerance of points near line
             tolCheck1 = true;
             for(int i = 0;i<selectedPoints.size();i++){
                 //If this is triggered then points are too far from line and we should stop
                 //THIS will fail if the room is big or small since that changes how far points are from one another
-                if(perpendicularDistance(line1Points[i],line1) > ANSAC_TOLERANCE){
+                double pDist = perpendicularDistance(line1Points[i],line1);
+                if(pDist > ANSAC_TOLERANCE){
                     tolCheck1 = false;
+                    if(pDist > perpDistace){
+                        perpDistance = pDist;
+                    }
                 }
             }
+            cout<<"perDistance = "<<perpDistance<<endl;
 
 
             //Only do if line1 passed test
