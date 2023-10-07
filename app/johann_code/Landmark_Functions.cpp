@@ -1002,6 +1002,19 @@ namespace Landmark_Functions{
         return carCorners;
     }
 
+
+    float distanceBetweenPointandSample(CarPoint point,vector<CarPoint> sample){
+        float minDist=10000000;
+        float tempDist=0;
+        for(int i =0;i<sample.size();i++){
+            tempDist = pointDistance(point,sample[i]);
+            if(tempDist<minDist){
+                minDist = tempDist;
+            }
+        }
+        return minDist;
+    }
+
     
     vector<CarPoint> gradientAnalysis(vector<CarPoint> laserdata){
         int sampleSize = 50;

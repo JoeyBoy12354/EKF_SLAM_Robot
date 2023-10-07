@@ -180,6 +180,7 @@ namespace Landmark_Functions{
     vector<Line> RANSAC_Manager(vector<CarPoint> laserdata);
     vector<Line> RANSAC2(vector<CarPoint> laserdata);
     vector<CarPoint> gradientAnalysis(vector<CarPoint> laserdata);
+    float distanceBetweenPointandSample(CarPoint point,vector<CarPoint> sample);
 }
 
 
