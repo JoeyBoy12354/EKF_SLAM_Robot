@@ -459,6 +459,8 @@ namespace Landmark_Functions{
                 section.push_back(laserdata[i*sectionSize + j]);
             }
 
+            cout<<"SectionSize = "<<sectionSize<<" True Size = "<<section.size()<<endl;
+
             vector<Line> lines = RANSAC2(section);
             for(int j=0;j<lines.size();j++){
                 sectionLines.push_back(lines[j]);
