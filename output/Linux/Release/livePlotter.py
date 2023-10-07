@@ -170,7 +170,6 @@ def fetchAndPlotSection():
     x_coord = []
     y_coord = []
     
-    col = 'orange'
     with open('sectionCSV.csv','r') as file:
         csv_reader = csv.reader(file)
 
@@ -217,7 +216,7 @@ def fetchAndPlotSection():
     #for i in range(0,len(my)):
     # print("LEN Y = ",len(Y))
     # print("LEN X = ",len(X))
-
+    print(len(X[0]))
     plt.plot(X[0], Y[0], 'o', label='Points',markersize=2,color='blue')
     
     # for i in range(0,len(Y)):
