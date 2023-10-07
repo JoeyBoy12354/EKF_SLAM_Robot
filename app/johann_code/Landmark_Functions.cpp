@@ -480,7 +480,7 @@ namespace Landmark_Functions{
             
         }
 
-        sectionLines.push_back(lines[j]);
+        sectionVector.push_back(section);
 
         saveSectionsToCSV(sectionVector);
 
