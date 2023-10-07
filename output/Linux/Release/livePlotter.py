@@ -214,10 +214,12 @@ def fetchAndPlotSection():
             #     else:
             #         col = 'orange'
     #for i in range(0,len(my)):
-
+    print("LEN Y = ",len(Y))
+    print("LEN X = ",len(X))
     col = 'orange'
     for i in range(0,len(Y)):
         plt.plot(X[i], Y[i], 'o', label='Points',markersize=2,color=col)
+        
         if(col=='orange'):
             col = 'g'
         else:
@@ -309,7 +311,7 @@ def animate(i):
     #plt.axvline(x=0, color='k', linestyle='--', linewidth=1)
     #fetchAndPlotGrid()
 
-    plt.plot(x1, y1, 'o', label='Points',markersize=0.5,color='r')
+    #plt.plot(x1, y1, 'o', label='Points',markersize=0.5,color='r')
     #plt.plot(x4, y4, 'o', label='Con_points', markersize=1,color='purple')
     #plt.plot(x2, y2, 'X', label='Landmarks', markersize=7,color='g')
     #plt.plot(x3, y3, 'X', label='RNC_points', markersize=7,color='b')
