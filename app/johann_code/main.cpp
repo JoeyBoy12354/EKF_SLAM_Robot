@@ -79,7 +79,7 @@ void testLidar(){
     runLidar(lidarDataPoints,error);
 }
 
-void testLandmarkIdentification(){
+void testLandmarkIdentification(bool& firstRun){
     //LandmarkProcessing();
     //Run Lidar
     vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
@@ -95,10 +95,18 @@ void testLandmarkIdentification(){
     cout<<"Main: Lidar Run complete"<<endl;
 
     carPoints = convertCartesian(dataPoints);
-    fitCartesian(carPoints,x,y,angle);
+    //fitCartesian(carPoints,x,y,angle); for this test we are not moving
 
     saveCarToCSV(carPoints);
     cout<<"\nNumber of CAR points"<<carPoints.size(); 
+
+    if(firstRun == true){
+        saveCarToFullMapCSV(carPoints);
+        firstRun = false;
+    }else{
+        storeMapPoints(carPoints);
+        storeStatePoints(ekf.State);
+    }
 
     LandmarkProcessing2(CarPoint);
 }
@@ -227,13 +235,19 @@ void testRun(){
 }
 
 
-
+void testLM(){
+    bool firstRun = true;
+    int noRuns = 2;
+    for(int i =0;i<noRuns;i++){
+        testLandmarkIdentification(firstRun);
+    }
+}
 
 int main() {
     cout<<"Started in Main"<<endl;
     
     //testPython();
-    testLandmarkIdentification();
+    testLM();
     //testMotor();
     //testLidar();
 
