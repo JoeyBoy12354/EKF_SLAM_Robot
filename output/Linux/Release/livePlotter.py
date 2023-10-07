@@ -177,25 +177,34 @@ def fetchAndPlotSection():
 
         AllSections = []
         mySection = []
+        my_x = []
+        my_y = []
         #len(csv_reader)
         count = 0
         sectionSize = 0
         for row in csv_reader:
             #Check for gaps
             if row[0] != ' ':
-                sectionSize +=1
+                my_x.append(float(row[0]))
+                my_y.append(float(row[1]))
+                #sectionSize +=1
                 #print("x = ",row[0]," ,",row[1])
-                plt.plot(float(row[0]), float(row[1]), 'o', label='Points',markersize=2,color=col)
-                mySection.append([float(row[0]),float(row[1])])
-            else:
-                print("gap ",count," sectSize = ",sectionSize)
-                count+=1
-                sectionSize = 0
-                AllSections.append(mySection)
-                if(col == 'orange'):
-                    col = 'g'
-                else:
-                    col = 'orange'
+                #plt.plot(float(row[0]), float(row[1]), 'o', label='Points',markersize=2,color=col)
+                #mySection.append([float(row[0]),float(row[1])])
+
+
+            # else:
+            #     print("gap ",count," sectSize = ",sectionSize)
+            #     count+=1
+            #     sectionSize = 0
+            #     AllSections.append(mySection)
+            #     if(col == 'orange'):
+            #         col = 'g'
+            #     else:
+            #         col = 'orange'
+    #@for i in range(0,len(mySection)):
+    plt.plot(my_x, my_y, 'o', label='Points',markersize=2,color='g')
+
     return
 
 
