@@ -97,7 +97,7 @@ void testLandmarkIdentification(bool& firstRun){
     
     cout<<"Main: Lidar Run complete"<<endl;
 
-    vector<CarPoint> carPoints = convertCartesian(dataPoints);
+    vector<CarPoint> carPoints = convertCartesian(lidarDataPoints);
     //fitCartesian(carPoints,x,y,angle); for this test we are not moving
 
     saveCarToCSV(carPoints);
