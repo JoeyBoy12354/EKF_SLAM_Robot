@@ -202,30 +202,12 @@ def fetchAndPlotSection():
         X.append(my_x)
         Y.append(my_y)
 
-            # else:
-            #     print("gap ",count," sectSize = ",sectionSize)
-            #     count+=1
-            #     sectionSize = 0
-            #     AllSections.append(mySection)
-            #     if(col == 'orange'):
-            #         col = 'g'
-            #     else:
-            #         col = 'orange'
-    #for i in range(0,len(my)):
-    print("LEN Y = ",len(Y))
-    print("LEN X = ",len(X))
-    print(len(X[0]))
-    print(len(X[1]))
-    print(len(X[2]))
-    print(len(X[3]))
-    plt.plot(X[0], Y[0], 'o', label='Points',markersize=10,color='blue')
-    plt.plot(X[1], Y[1], '.', label='Points',markersize=7,color='orange')
     
-    # for i in range(0,len(Y)):
-    #     if(i%2 == 0):
-    #         plt.plot(X[i], Y[i], 'o', label='Points',markersize=10,color='blue')
-    #     else:
-    #         plt.plot(X[i], Y[i], '.', label='Points',markersize=7,color='orange')
+    for i in range(0,len(Y)):
+        if(i%2 == 0):
+            plt.plot(X[i], Y[i], 'o', label='Points',markersize=10,color='blue')
+        else:
+            plt.plot(X[i], Y[i], '.', label='Points',markersize=7,color='orange')
         
 
     return
@@ -301,7 +283,7 @@ def animate(i):
     plt.cla() #Clear Axis (so that we don't keep the old plot we clear it and write again)
     #plt.axes().set_facecolor("black")
 
-    fetchAndPlotLines2()
+    #fetchAndPlotLines2()
     #triangle = draw_rotated_triangle(plt.gca(),position[0],position[1],position[2])
     #plt.gca().fill(triangle[:, 0], triangle[:, 1], 'b')
 
@@ -315,7 +297,7 @@ def animate(i):
     #fetchAndPlotGrid()
 
     plt.plot(x1, y1, 'o', label='Points',markersize=0.5,color='r')
-    plt.plot(x4, y4, 'o', label='Con_points', markersize=1,color='purple')
+    #plt.plot(x4, y4, 'o', label='Con_points', markersize=1,color='purple')
     #plt.plot(x2, y2, 'X', label='Landmarks', markersize=7,color='g')
     #plt.plot(x3, y3, 'X', label='RNC_points', markersize=7,color='b')
     fetchAndPlotSection()
