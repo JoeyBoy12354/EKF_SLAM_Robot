@@ -167,6 +167,7 @@ def fetchAndPlotLines2():
         plt.plot(x_values, y_values)
 
 def fetchAndPlotSection():
+    print("in sectionCSV")
     x_coord = []
     y_coord = []
     
