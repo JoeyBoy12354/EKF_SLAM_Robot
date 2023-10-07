@@ -587,15 +587,17 @@ namespace Landmark_Functions{
 
             //Non-random sample (sample sequentially)
             int counter = 0;
+            int index = 0;
             while(counter<=MAXSAMPLE){
-                if(centerPoint - i >=0){
+                if(centerPoint - index >=0){
                     rndSelectedPoints.push_back(linepoints[centerPoint - i]); 
                     counter+=1;
                 }
-                if(centerPoint + i <= linepoints.size()){
+                if(centerPoint + index <= linepoints.size()){
                     rndSelectedPoints.push_back(linepoints[centerPoint - i]); 
                     counter+=1;
                 }
+                index+=1;
                 
 
             }
