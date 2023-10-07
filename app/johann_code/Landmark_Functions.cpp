@@ -515,6 +515,7 @@ namespace Landmark_Functions{
     }
 
     vector<Line> RANSAC2(vector<CarPoint> laserdata){
+        cout<<"IN RANSAC2"<<endl;
         //two arrays corresponding to found lines
         vector<Line> lines;
         int totalLines = 0;
