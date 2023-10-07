@@ -470,7 +470,7 @@ namespace Landmark_Functions{
                 section.clear();
 
                 for(int j = 0; j < lines.size(); j++){
-                    sectionLine.push_back(lines[j]);
+                    sectionLines.push_back(lines[j]);
                 }
             }else{
                 //Add to current section
