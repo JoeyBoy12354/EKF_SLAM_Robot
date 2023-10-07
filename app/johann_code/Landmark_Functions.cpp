@@ -602,8 +602,6 @@ namespace Landmark_Functions{
 
             }
 
-            cout<<"LEFT FOR LOOP"<<endl;
-
             //compute model M1
             double c=0;
             double m=0;
