@@ -450,25 +450,55 @@ namespace Landmark_Functions{
         //Create Sections
         const int NoSections = 5;
         const int sectionSize = int(laserdata.size()/NoSections);
+        const int DIST_RATIO = 10; //If the ratio between previous distance and current distance is greater than X there is a hole
 
+        int laserdataSize;
         vector<Line> sectionLines;
 
-        for(int i =0;i<NoSections;i++){
-            vector<CarPoint> section;
-            for(int j=0;j<sectionSize;j++){
-                section.push_back(laserdata[i*sectionSize + j]);
+        vector<CarPoint> section;
+        section.push_back(laserdata[0])
+        for(int i =1;i<laserdata.size()-1;i++){
+            float dist =  pointDistance(laserdata[i],laserdata[i+1]);
+            float prevDist = pointDistance(laserdata[i-1],laserdata[i]);
+
+            //New sample set
+            if(dist/prevDist > 10){
+                //Hole detected make new section
+                vector<Line> lines = RANSAC2(section);
+
+                cout<<"SectionSize = "<<section.size()<<"NoLine = "<<lines.size();
+                section.clear();
+
+                for(int j = 0; j < lines.size(); j++){
+                    sectionLine.push_back(lines[j]);
+                }
+            }else{
+                //Add to current section
+                section.push_back(laserdata[i])
             }
+            
+            
+
+        }
+
+
+        // for(int i =0;i<NoSections;i++){
+        //     vector<CarPoint> section;
+        //     for(int j=0;j<sectionSize;j++){
+        //         laserdata
+        //         section.push_back(laserdata[i*sectionSize + j]);
+        //     }
 
             
 
-            vector<Line> lines = RANSAC2(section);
-            cout<<"SectionSize = "<<sectionSize<<" True Size = "<<section.size()<<"NoLine = "<<lines.size();
-            cout<<" ["<<section[0]<<section[section.size()-1]<<"]"<<endl;
-            for(int j=0;j<lines.size();j++){
-                sectionLines.push_back(lines[j]);
-            }
+        //     vector<Line> lines = RANSAC2(section);
+        //     cout<<"SectionSize = "<<sectionSize<<" True Size = "<<section.size()<<"NoLine = "<<lines.size();
+        //     cout<<" ["<<section[0]<<section[section.size()-1]<<"]"<<endl;
+        //     for(int j=0;j<lines.size();j++){
+        //         sectionLines.push_back(lines[j]);
+        //     }
 
-        }
+        // }
 
 
         //We now have all the lines
