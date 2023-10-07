@@ -480,7 +480,7 @@ namespace Landmark_Functions{
             
         }
 
-        section.push_back(laserdata[i]);
+        sectionLines.push_back(lines[j]);
 
         saveSectionsToCSV(sectionVector);
 
