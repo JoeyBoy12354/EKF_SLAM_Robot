@@ -1,0 +1,172 @@
+#include "robot.h"
+
+using namespace std;
+
+#define CONV PI/180;
+
+namespace Landmark_Functions2{
+    float EPSILON = 10;
+    float DELTA = 501;
+    float SNUM = 6;
+    float PMIN = 20;
+    float GMAX = 20;
+    float SEED_SEGMENTS = [];
+    float LINE_SEGMENTS = [];
+    float LASERPOINTS = [];
+    float LINE_PARAMS;
+    float NO = LASERPOINTS.size() - 1;
+    float LMIN = 20; //minimum length of line segment
+    float LR = 0; //real length of line segement
+    float PR = 0; //Number of laser points contained in the line segment
+
+
+    //C++ Functions
+    //This will extract the denominator from the value and return it as an integer
+    int extractDenominator(float input) {
+        int precision = 1000000;  // Set a high precision for the float-to-integer conversion
+        int numerator = static_cast<int>(input * precision);  // Convert float to integer
+        int gcd = gcd(numerator, precision);  // Calculate gcd with precision
+        int denominator = precision / gcd;  // Calculate the denominator
+    return denominator;
+}
+
+    //Euclidian distance from point1 to point2
+    float dist_point2point(vector<float> point1, vector<float> point2){
+        float Px = pow((point1[0] - point2[0]),2);
+        float Py = pow((point1[1] - point2[1]),2);
+        return pow((Px+Py),0.5);
+    }
+
+    //Distance point to line written in general form
+    float dist_point2line(vector<float> params, vecotr<float> point){
+        float A = params[0];
+        float B = params[1];
+        float C = params[2];
+        float distance = abs(A * point[0] + B * point[1] + C)/pow(pow(A,2) + pow(B,2));
+        return distance;
+    }
+
+    //Extract two points from a line equation under the slope intercepts form
+    vector<vector<float>> line_2points(float m, float b){
+        float x = 5;
+        float y = m * x + b;
+        float x2 = 2000;
+        float y2 = m * x2 + b;
+        return [[x,y],[x2,y2]];
+    }
+
+    //Genral form to slope-intercept
+    vector<float> lineForm_G2SI(float A, float B, float C){
+        float m = -1*A / B;
+        float b = -1*C / B;
+        return [m,b];
+    }
+
+    //Slope-intercept to general form
+    vector<float> lineForm_SI2G(float m, float b){
+        float A = -1*m;
+        float B - 1;
+        float C = -1*B;
+        if( A<0 ){
+            A = -1*A;
+            B = -1*B;
+            C = -1*C;
+        }
+        float den_a = extractDenominator(A);
+        float den_c = extractDenominator(C);
+
+        float gcd = gcd(den_a,den_c);
+        float lcm = (den_a * den_c) / gcd;
+
+        A = A * lcm;
+        B = B * lcm;
+        C = C * lcm;
+        
+        return [A,B,C];
+    }
+
+    //Will find the intersection between two line in general form (assume lines will intersect)
+    vector<float> line_intersect_general(vector<float> params1, vector<float> params2){
+        float a1 = params1[0];
+        float b1 = params1[1];
+        float c1 = params1[2];
+
+        float a2 = params2[0];
+        float b2 = params2[1];
+        float c2 = params2[2];
+
+        float x = (c1 * b1 - b1 *c2) / (b1 * a2 - a1 * b2);
+        float y = (a1 * c2 - a2 * c1) / (b1 * a2 - a1 * b2);
+        return [x,y];
+    }
+
+    //Extract the formula for a line from 2 points
+    vector<float> points_2line(vector<float> point1, vector<float> point2){
+        float m = 0;
+        float b = 0;
+        if(point2[0] == point1[0]){
+            //do nothing
+        }else{
+            m = (point2[1] - point1[1])(point2[0] - point1[0]);
+            b = point2[1] - m * point2[0];
+        }
+
+        return m,b;
+    }
+
+    //Orthogonal position of a point onto a line
+    vector<float> projection_point2line(vector<float> point, float m, float b){
+        float x = point[0];
+        float y = point[1];
+        float m2 = -1/m;
+        float c2 = y - m2 * x;
+        float intersection_x = - (b-c2)/(m-m2);
+        float intersection_y = m2 * intersection_x +c2'
+        return intersection_x,intersection_y;
+    }
+
+    //Convert Polar to cartesian and fit a point
+    CarPoint AD2Pos(float distance,float angle,float robot_x,float robot_y){
+        CarPoint newPoint;
+        newPoint.x = distance * cos(angle) + robot_x;
+        newPoint.y = distance * sin(angle) + robot_y;
+        return newPoint;
+    }
+
+    //Convert Polar points to cartesian, returning just cartesian for map plot and referencing lmData for feature detection vector
+    vector<CarPoint> laser_points_set(vector<PolPoint> lidardata, vector<float>& lmData, float robot_x,float robot_y){
+        vector<CarPoint> carpoints;
+        for(int i =0;i<lidardata.size();i++){
+            float angle =lidardata[1]*PI/180;
+            CarPoint newPoint = AD2Pos(lidardata[0],angle,robot_x,robot_y);
+            carpoints.append(newPoint);
+            float x  = newPoint.x;
+            float y = newPoint.y;
+            lmData.push_back([x,y,angle]);
+        }
+        NP = lmData.size();
+
+        return carpoints;
+    }
+
+    //Define a function (quadratic) to fit data with
+    float linear_func(vector<float> p, float x){
+        float m = p[0];
+        float b = p[1];
+        return m * x + p;
+    }
+
+    float odr_fit(vector<float> laser_data){
+        vector<float> x;
+        vector<float> y;
+        for(int i =0;i<laser_data.size();i++){
+            x.push_back(laser_data[i][0]);
+            y.push_back(laser_data[i][1]);
+        }
+
+        //Create a model for fitting
+        
+    }
+    
+
+}

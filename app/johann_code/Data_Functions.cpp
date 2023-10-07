@@ -68,6 +68,7 @@ namespace Data_Functions{
         }
     }
     
+
  
     void lidarDataProcessingFull(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints, bool firstRun){
         
@@ -152,6 +153,18 @@ namespace Data_Functions{
         writeCornersToCSV(closestPoints);
 
         cout<<"\n Number of Closest Points Found:"<<closestPoints.size()<<endl;
+
+    }
+
+    void LandmarkProcessing2(vector<CarPoint> carPoints){
+        cout<<"\n Number of Points Read:"<<carPoints.size()<<endl;
+
+        cout<<"\n RANSAC_Manager\n"<<endl;
+        vector<Line> detected_lines = RANSAC_Manager(carPoints);
+        writeLinesToCSV(detected_lines);
+        
+
+        cout<<"\n Number of Lines Found:"<<detected_lines.size()<<endl;
 
     }
 

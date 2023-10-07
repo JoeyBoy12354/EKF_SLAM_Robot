@@ -80,7 +80,27 @@ void testLidar(){
 }
 
 void testLandmarkIdentification(){
-    LandmarkProcessing();
+    //LandmarkProcessing();
+    //Run Lidar
+    vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
+    bool error = true;
+    int count = 0;
+    while(error == true && count<5){
+        cout<<"\nAttempt "<<count<<endl;
+        runLidar(lidarDataPoints, error);
+        count +=1;
+    }
+    cout<<"count = "<<count<<endl;
+    
+    cout<<"Main: Lidar Run complete"<<endl;
+
+    carPoints = convertCartesian(dataPoints);
+    fitCartesian(carPoints,x,y,angle);
+
+    saveCarToCSV(carPoints);
+    cout<<"\nNumber of CAR points"<<carPoints.size(); 
+
+    LandmarkProcessing2(CarPoint);
 }
 
 void testLidarLandmark(){
@@ -213,11 +233,11 @@ int main() {
     cout<<"Started in Main"<<endl;
     
     //testPython();
-    //testLandmarkIdentification();
+    testLandmarkIdentification();
     //testMotor();
     //testLidar();
 
-    testRun();
+    //testRun();
     
     
   

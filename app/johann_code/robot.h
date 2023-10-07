@@ -9,7 +9,10 @@
 #include <random>
 #include <vector>
 #include <cmath>
-#include <random>
+
+#include <sstream>
+#include <numeric>
+
 
 //Lidar Functions Includes
 #include <stdio.h>
@@ -169,7 +172,11 @@ namespace Landmark_Functions{
     bool checkForHoles(vector<CarPoint> points);
     // vector<CarPoint> gradientAnalysis(vector<CarPoint> laserdata);
     // float distanceBetweenPointandSample(CarPoint point,vector<CarPoint> sample);
+
+    vector<CarPoint> RANSAC_Manager(vector<CarPoint> laserdata);
+    vector<Line> RANSAC2(vector<CarPoint> laserdata);
 }
+
 
 namespace Simulation_Functions{
     vector<PolPoint> generateLidarData();
