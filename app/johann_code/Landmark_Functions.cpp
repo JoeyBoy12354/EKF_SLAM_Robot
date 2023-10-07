@@ -559,7 +559,7 @@ namespace Landmark_Functions{
             rndSelectedPoints.push_back(linepoints[centerPoint]); 
 
              //Select MAXSAMPLE points randomly around centerPoint
-             cout<<"ENTER FOR LOOP"<<endl;
+             //cout<<"ENTER FOR LOOP"<<endl;
             for(int i = 1; i<MAXSAMPLE; i++){
                 newpoint = false;
                 //cout<<"ENTER WHILE LOOP"<<endl;
@@ -572,7 +572,7 @@ namespace Landmark_Functions{
                         temp = linepoints[neighbourPoint];
                         for(int j = 0; j<i; j++){
                             if(rndSelectedPoints[j] == temp){
-                                cout<<"been here"<<endl;
+                                //cout<<"been here"<<endl;
                                 break; //point has already been selected
                             }  
                             if(j>=i-1){
