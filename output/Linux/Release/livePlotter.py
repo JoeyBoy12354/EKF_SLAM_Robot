@@ -172,14 +172,16 @@ def fetchAndPlotSection():
     
     with open('sectionCSV.csv','r') as file:
         csv_reader = csv.reader(file)
-        my_x = []
-        my_y = []
+        
 
         X = []
         Y = []
+        my_x = []
+        my_y = []
         #len(csv_reader)
         for row in csv_reader:
             #Check for gaps
+            
             if row[0] != ';':
                 my_x.append(float(row[0]))
                 my_y.append(float(row[1]))
@@ -193,8 +195,9 @@ def fetchAndPlotSection():
                     plt.plot(my_x[len(my_x) - 1], my_y[len(my_y) - 1], 'o', label='Xnts',markersize=10)
                     X.append(my_x)
                     Y.append(my_y)
-                    my_y.clear()
-                    my_x.clear()
+                    my_x = []
+                    my_y = []
+                    
 
         X.append(my_x)
         Y.append(my_y)
