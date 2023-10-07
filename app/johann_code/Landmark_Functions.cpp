@@ -474,7 +474,7 @@ namespace Landmark_Functions{
                 }
             }else{
                 //Add to current section
-                section.push_back(laserdata[i])
+                section.push_back(laserdata[i]);
             }
             
             
