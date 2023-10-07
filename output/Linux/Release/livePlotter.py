@@ -167,7 +167,6 @@ def fetchAndPlotLines2():
         plt.plot(x_values, y_values)
 
 def fetchAndPlotSection():
-    print("in sectionCSV")
     x_coord = []
     y_coord = []
     
@@ -193,7 +192,7 @@ def fetchAndPlotSection():
                 #mySection.append([float(row[0]),float(row[1])])
             else:
                 if(len(my_x) > 1):
-                    plt.plot(my_x[len(my_x) - 1], my_y[len(my_y) - 1], 'o', label='Xnts',markersize=20,color='orange')
+                    plt.plot(my_x[len(my_x) - 1], my_y[len(my_y) - 1], 'o', label='Xnts',markersize=10)
 
 
             # else:
