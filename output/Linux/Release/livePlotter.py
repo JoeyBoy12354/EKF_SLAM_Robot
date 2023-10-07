@@ -177,7 +177,7 @@ def fetchAndPlotSection():
         for row in csv_reader:
             #Check for gaps
             if row[0] != ' ':
-                print("x")
+                print("x = ",row[0]," ,",row[1])
                 plt.plot(row[0], row[1], 'o', label='Points',markersize=2,color=col)
             else:
                 if(col == 'orange'):
