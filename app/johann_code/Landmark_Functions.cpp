@@ -832,6 +832,7 @@ namespace Landmark_Functions{
             
 
             if(tolCheck == true){
+                cout<<"TolCheck passed"<<endl;
                 
                 //COMPUTE PHASE
                 //compute model M1
