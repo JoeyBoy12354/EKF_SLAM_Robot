@@ -205,9 +205,9 @@ def fetchAndPlotSection():
     
     for i in range(0,len(Y)):
         if(i%2 == 0):
-            plt.plot(X[i], Y[i], 'o', label='Points',markersize=10,color='blue')
+            plt.plot(X[i], Y[i], 'o', label='Points',markersize=2,color='blue')
         else:
-            plt.plot(X[i], Y[i], '.', label='Points',markersize=7,color='orange')
+            plt.plot(X[i], Y[i], '.', label='Points',markersize=2,color='orange')
         
 
     return
