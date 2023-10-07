@@ -295,7 +295,7 @@ def animate(i):
     plt.cla() #Clear Axis (so that we don't keep the old plot we clear it and write again)
     #plt.axes().set_facecolor("black")
 
-    #fetchAndPlotLines2()
+    fetchAndPlotLines2()
     #triangle = draw_rotated_triangle(plt.gca(),position[0],position[1],position[2])
     #plt.gca().fill(triangle[:, 0], triangle[:, 1], 'b')
 
@@ -309,10 +309,10 @@ def animate(i):
     #fetchAndPlotGrid()
 
     plt.plot(x1, y1, 'o', label='Points',markersize=0.5,color='r')
-    #plt.plot(x4, y4, 'o', label='Con_points', markersize=1,color='purple')
+    plt.plot(x4, y4, 'o', label='Con_points', markersize=1,color='purple')
     #plt.plot(x2, y2, 'X', label='Landmarks', markersize=7,color='g')
     #plt.plot(x3, y3, 'X', label='RNC_points', markersize=7,color='b')
-    fetchAndPlotSection()
+    #fetchAndPlotSection()
 
 
     
