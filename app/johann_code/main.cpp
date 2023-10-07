@@ -98,7 +98,7 @@ void testLandmarkIdentification(bool& firstRun){
     cout<<"Main: Lidar Run complete"<<endl;
 
     vector<PolPoint> sortedPoints = sortPoints(lidarDataPoints);
-    cout<<"Sorting completed"
+    cout<<"Sorting completed";
 
     vector<CarPoint> carPoints = convertCartesian(sortedPoints);
     //fitCartesian(carPoints,x,y,angle); for this test we are not moving
