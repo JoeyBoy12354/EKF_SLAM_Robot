@@ -188,22 +188,22 @@ namespace Data_Functions{
         cout<<"\n Number of Points Read:"<<carPoints.size()<<endl;
 
         cout<<"\n RANSAC_Manager\n"<<endl;
-        vector<Line> detected_lines = RANSAC_Manager(carPoints);
-        writeLinesToCSV(detected_lines);
-        writeConsensusToCSV(detected_lines);
+        // vector<Line> detected_lines = RANSAC_Manager(carPoints);
+        // writeLinesToCSV(detected_lines);
+        // writeConsensusToCSV(detected_lines);
         
 
-        cout<<"\n Number of Lines Found:"<<detected_lines.size()<<endl;
-        for(int i =0;i<detected_lines.size();i++){
-            cout<<"y = "<<detected_lines[i].gradient<<"x + "<<detected_lines[i].intercept<<" | conLen = "<<detected_lines[i].ConsensusPoints.size()<<endl;
-        }
+        // cout<<"\n Number of Lines Found:"<<detected_lines.size()<<endl;
+        // for(int i =0;i<detected_lines.size();i++){
+        //     cout<<"y = "<<detected_lines[i].gradient<<"x + "<<detected_lines[i].intercept<<" | conLen = "<<detected_lines[i].ConsensusPoints.size()<<endl;
+        // }
 
-        // cout<<"\n ANSAC RUN \n"<<endl;
-        // vector<CarPoint> closestPoints = ANSAC_CORNER(carPoints);
-        // writeCornersToCSV(closestPoints);
+        cout<<"\n ANSAC RUN \n"<<endl;
+        vector<CarPoint> closestPoints = ANSAC_CORNER(carPoints);
+        writeCornersToCSV(closestPoints);
 
 
-        // cout<<"NUMBER OF CLOSEST POINTS = "<<closestPoints.size()<<endl;
+        cout<<"NUMBER OF CLOSEST POINTS = "<<closestPoints.size()<<endl;
 
         
 
