@@ -571,7 +571,7 @@ namespace Landmark_Functions{
                         temp = linepoints[neighbourPoint];
                         for(int j = 0; j<i; j++){
                             if(rndSelectedPoints[j] == temp)
-                                //cout<<"been here"<<endl;
+                                cout<<"been here"<<endl;
                                 break; //point has already been selected
                             if(j>=i-1)
                                 newpoint = true; //point has not already been selected
