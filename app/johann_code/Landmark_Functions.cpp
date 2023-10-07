@@ -450,7 +450,7 @@ namespace Landmark_Functions{
         //Create Sections
         const int NoSections = 5;
         const int sectionSize = int(laserdata.size()/NoSections);
-        const int DIST_RATIO = 20; //If the ratio between previous distance and current distance is greater than X there is a hole
+        const int DIST_RATIO = 40; //If the ratio between previous distance and current distance is greater than X there is a hole
 
         int laserdataSize;
         vector<Line> sectionLines;
