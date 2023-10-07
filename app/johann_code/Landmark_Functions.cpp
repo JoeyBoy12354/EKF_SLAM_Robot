@@ -449,7 +449,7 @@ namespace Landmark_Functions{
     vector<Line> RANSAC_Manager(vector<CarPoint> laserdata){
         //Create Sections
         
-        const int DIST_RATIO = 40; //If the ratio between previous distance and current distance is greater than X there is a hole
+        const int DIST_RATIO = 30; //If the ratio between previous distance and current distance is greater than X there is a hole
 
         int laserdataSize;
         vector<Line> sectionLines;
@@ -479,6 +479,8 @@ namespace Landmark_Functions{
             }
             
         }
+
+        section.push_back(laserdata[i]);
 
         saveSectionsToCSV(sectionVector);
 
@@ -556,7 +558,7 @@ namespace Landmark_Functions{
             int centerPoint = (rand() % totalLinepoints); //random value between 0 and totalLinePoints=laserData.size() -1
             rndSelectedPoints.push_back(linepoints[centerPoint]); 
 
-             //Select MAXSAMPLE points randomly around centerPoint
+            //  //Select MAXSAMPLE points randomly around centerPoint
             //  cout<<"ENTER FOR LOOP"<<endl;
             // for(int i = 1; i<MAXSAMPLE; i++){
             //     newpoint = false;
