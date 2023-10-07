@@ -223,7 +223,7 @@ def fetchAndPlotSection():
             plt.plot(X[i], Y[i], 'o', label='Points',markersize=2,color='blue')
         else:
             print(" i = ",i)
-            plt.plot(X[i], Y[i], 'o', label='Points',markersize=2,color='orange')
+            plt.plot(X[i], Y[i], '.', label='Points',markersize=7,color='orange')
         
 
     return
