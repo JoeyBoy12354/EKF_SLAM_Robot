@@ -165,6 +165,10 @@ namespace Data_Functions{
         
 
         cout<<"\n Number of Lines Found:"<<detected_lines.size()<<endl;
+        for(int i =0;i<detected_lines.size();i++){
+            cout<<"y = "<<detected_lines[i].gradient<<"x + "<<detected_lines[i].intercept<<" | conLen = "<<detected_lines[i].ConsensusPoints.size()<<endl;
+        }
+        
 
     }
 
