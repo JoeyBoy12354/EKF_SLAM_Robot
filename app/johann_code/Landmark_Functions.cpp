@@ -558,51 +558,51 @@ namespace Landmark_Functions{
             int centerPoint = (rand() % totalLinepoints); //random value between 0 and totalLinePoints=laserData.size() -1
             rndSelectedPoints.push_back(linepoints[centerPoint]); 
 
-            //  //Select MAXSAMPLE points randomly around centerPoint
-            //  cout<<"ENTER FOR LOOP"<<endl;
-            // for(int i = 1; i<MAXSAMPLE; i++){
-            //     newpoint = false;
-            //     //cout<<"ENTER WHILE LOOP"<<endl;
-            //     while(!newpoint){
-            //         //Get random point nearby centerpoint
-            //         int random = rand()%(MAXSAMPLE*2) - 10; //randomn value 0-10
-            //         int neighbourPoint = centerPoint +  random; 
+             //Select MAXSAMPLE points randomly around centerPoint
+             cout<<"ENTER FOR LOOP"<<endl;
+            for(int i = 1; i<MAXSAMPLE; i++){
+                newpoint = false;
+                //cout<<"ENTER WHILE LOOP"<<endl;
+                while(!newpoint){
+                    //Get random point nearby centerpoint
+                    int random = rand()%(MAXSAMPLE*2) - 12; //randomn value 0-10
+                    int neighbourPoint = centerPoint +  random; 
                     
-            //         if(0<=neighbourPoint && neighbourPoint<linepoints.size()){
-            //             temp = linepoints[neighbourPoint];
-            //             for(int j = 0; j<i; j++){
-            //                 if(rndSelectedPoints[j] == temp){
-            //                     cout<<"been here"<<endl;
-            //                     break; //point has already been selected
-            //                 }  
-            //                 if(j>=i-1){
-            //                    newpoint = true; //point has not already been selected 
-            //                 }
+                    if(0<=neighbourPoint && neighbourPoint<linepoints.size()){
+                        temp = linepoints[neighbourPoint];
+                        for(int j = 0; j<i; j++){
+                            if(rndSelectedPoints[j] == temp){
+                                cout<<"been here"<<endl;
+                                break; //point has already been selected
+                            }  
+                            if(j>=i-1){
+                               newpoint = true; //point has not already been selected 
+                            }
                                 
-            //             }
-            //         }
+                        }
+                    }
 
-            //     }
-            //     //cout<<"LEFT WHILE LOOP"<<endl;
-            //     rndSelectedPoints.push_back(temp);
-            // }
+                }
+                //cout<<"LEFT WHILE LOOP"<<endl;
+                rndSelectedPoints.push_back(temp);
+            }
 
             //Non-random sample (sample sequentially)
-            int counter = 0;
-            int index = 0;
-            while(counter<=MAXSAMPLE){
-                if(centerPoint - index >=0){
-                    rndSelectedPoints.push_back(linepoints[centerPoint - index]); 
-                    counter+=1;
-                }
-                if(centerPoint + index <= linepoints.size()){
-                    rndSelectedPoints.push_back(linepoints[centerPoint - index]); 
-                    counter+=1;
-                }
-                index+=1;
+            // int counter = 0;
+            // int index = 0;
+            // while(counter<=MAXSAMPLE){
+            //     if(centerPoint - index >=0){
+            //         rndSelectedPoints.push_back(linepoints[centerPoint - index]); 
+            //         counter+=1;
+            //     }
+            //     if(centerPoint + index <= linepoints.size()){
+            //         rndSelectedPoints.push_back(linepoints[centerPoint - index]); 
+            //         counter+=1;
+            //     }
+            //     index+=1;
                 
 
-            }
+            // }
 
             //compute model M1
             double c=0;
