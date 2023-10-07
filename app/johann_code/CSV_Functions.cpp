@@ -186,6 +186,7 @@ namespace CSV_Functions{
 
     //Line and Corner Functions
     void writeConsensusToCSV(const vector<Line>& lines) {
+        cout<<"WRITING CONSENSUS"<<endl;
         ofstream csvFile(consensusCSV);
         if (!csvFile) {
             cerr << "Error opening file: " << consensusCSV << endl;
