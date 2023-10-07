@@ -183,7 +183,7 @@ def fetchAndPlotSection():
                 plt.plot(row[0], row[1], 'o', label='Points',markersize=2,color=col)
             else:
                 print("gap ",count)
-                count++
+                count+=1
                 if(col == 'orange'):
                     col = 'g'
                 else:
