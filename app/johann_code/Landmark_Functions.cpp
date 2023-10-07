@@ -451,7 +451,7 @@ namespace Landmark_Functions{
         const int NoSections = 5;
         const int sectionSize = int(laserdata.size()/NoSections);
 
-        vector<lines> sectionLines;
+        vector<Line> sectionLines;
 
         for(int i =0;i<NoSections;i++){
             vector<CarPoint> section;
