@@ -18,6 +18,12 @@ namespace Data_Functions{
         // Sort dataPoints based on angle in ascending order
         sort(dataPoints.begin(), dataPoints.end(), compareByAngle);
 
+        //Delete duplicates
+        dataPoints.erase(std::unique(dataPoints.begin(), dataPoints.end(), 
+                     [](const PolPoint& a, const PolPoint& b) {
+                         return a.angle == b.angle;
+                     }), dataPoints.end());
+
         // Copy the sorted dataPoints to sortedPoints
         sortedPoints = dataPoints;
 

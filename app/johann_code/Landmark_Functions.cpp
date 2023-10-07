@@ -526,7 +526,7 @@ namespace Landmark_Functions{
         
         //const int MAXTRIALS = 50000;//Max Times to run algorithm (pre-physical runs)
         const int MAXTRIALS = 500;//Max Times to run algorithm
-        const int MAXSAMPLE = 5;//Randomly selects X points
+        const int MAXSAMPLE = 10;//Randomly selects X points
         //const int MINLINEPOINTS = 30;//If less than 40 points left don't bother trying to find consensous
         //const double RANSAC_TOLERANCE = 0.05; //RANSAC: if point is within x distance of line its part of line
         //const int RANSAC_CONSENSUS = 30; //RANSAC: at least X points in consensus required to determine if a line will be deemed valid 
