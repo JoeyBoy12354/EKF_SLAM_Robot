@@ -94,7 +94,7 @@ void testLandmarkIdentification(bool& firstRun){
     
     cout<<"Main: Lidar Run complete"<<endl;
 
-    carPoints = convertCartesian(dataPoints);
+    vector<CarPoint> carPoints = convertCartesian(dataPoints);
     //fitCartesian(carPoints,x,y,angle); for this test we are not moving
 
     saveCarToCSV(carPoints);
@@ -105,7 +105,6 @@ void testLandmarkIdentification(bool& firstRun){
         firstRun = false;
     }else{
         storeMapPoints(carPoints);
-        storeStatePoints(ekf.State);
     }
 
     LandmarkProcessing2(CarPoint);
