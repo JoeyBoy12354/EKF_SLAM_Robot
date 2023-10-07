@@ -800,8 +800,8 @@ namespace Landmark_Functions{
         const int MAXSAMPLE = 50;//Selects X points in window
 
         //const double ANSAC_TOLERANCE = 23; //If point is within x distance of neighbour its part of a corner
-        const float ANGLE_THRESHOLD_LOW = 44*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
-        const float ANGLE_THRESHOLD_HIGH = 135*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
+        const float ANGLE_THRESHOLD_LOW = 47*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
+        const float ANGLE_THRESHOLD_HIGH = 137*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
         const float DIST_THRESHOLD = 50; //If intercept point is within X of a corner we have then toss or replace
 
         const int INDEX_STEP= 1;//If no angle found in sample shift window by X points onwards.
