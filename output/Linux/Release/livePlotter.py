@@ -205,7 +205,7 @@ def fetchAndPlotSection():
     
     for i in range(0,len(Y)):
         if(i%2 == 0):
-            plt.plot(X[i], Y[i], 'o', label='Points',markersize=2,color='blue')
+            plt.plot(X[i], Y[i], '.', label='Points',markersize=2,color='blue')
         else:
             plt.plot(X[i], Y[i], '.', label='Points',markersize=2,color='orange')
         
@@ -298,7 +298,7 @@ def animate(i):
     #fetchAndPlotGrid()
 
     plt.plot(x1, y1, 'o', label='Points',markersize=0.5,color='r')
-    plt.plot(x4, y4, 'o', label='Con_points', markersize=1,color='purple')
+    plt.plot(x4, y4, 'o', label='Con_points', markersize=3,color='purple')
     #plt.plot(x2, y2, 'X', label='Landmarks', markersize=7,color='g')
     #plt.plot(x3, y3, 'X', label='RNC_points', markersize=7,color='b')
     
