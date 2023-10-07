@@ -485,6 +485,7 @@ namespace Landmark_Functions{
         const int NoSections = 5;
         const int sectionSize = int(laserdata.size()/NoSections);
         vector<CarPoint> section;
+        vector<vector<CarPoint>> sectionVector;
 
 
         for(int i =0;i<NoSections;i++){
@@ -494,7 +495,7 @@ namespace Landmark_Functions{
             }
 
             
-
+            sectionVector.append(section)
             vector<Line> lines = RANSAC2(section);
             cout<<"SectionSize = "<<sectionSize<<" True Size = "<<section.size()<<"NoLine = "<<lines.size();
             cout<<" ["<<section[0]<<section[section.size()-1]<<"]"<<endl;
@@ -503,6 +504,7 @@ namespace Landmark_Functions{
             }
 
         }
+        saveSectionsToCSV(sectionVector);
 
 
         //We now have all the lines
