@@ -212,6 +212,9 @@ def fetchAndPlotSection():
     print("LEN Y = ",len(Y))
     print("LEN X = ",len(X))
     print(len(X[0]))
+    print(len(X[1]))
+    print(len(X[2]))
+    print(len(X[3]))
     plt.plot(X[0], Y[0], 'o', label='Points',markersize=10,color='blue')
     plt.plot(X[1], Y[1], '.', label='Points',markersize=7,color='orange')
     
