@@ -312,7 +312,7 @@ def animate(i):
     plt.plot(x4, y4, 'o', label='Con_points', markersize=1,color='purple')
     #plt.plot(x2, y2, 'X', label='Landmarks', markersize=7,color='g')
     #plt.plot(x3, y3, 'X', label='RNC_points', markersize=7,color='b')
-    #fetchAndPlotSection()
+    fetchAndPlotSection()
 
 
     
