@@ -214,13 +214,15 @@ def fetchAndPlotSection():
             #     else:
             #         col = 'orange'
     #for i in range(0,len(my)):
-    print("LEN Y = ",len(Y))
-    print("LEN X = ",len(X))
+    # print("LEN Y = ",len(Y))
+    # print("LEN X = ",len(X))
     
     for i in range(0,len(Y)):
         if(i%2 == 0):
+            print(" i = ",i)
             plt.plot(X[i], Y[i], 'o', label='Points',markersize=2,color='blue')
         else:
+            print(" i = ",i)
             plt.plot(X[i], Y[i], 'o', label='Points',markersize=2,color='orange')
         
 
