@@ -535,7 +535,7 @@ namespace Landmark_Functions{
 
         //As of right now 24 August we are in mm and doing about 10000 samples
         const double RANSAC_TOLERANCE = 5; //RANSAC: if point is within x distance of line its part of line [mm]
-        const int RANSAC_CONSENSUS = 50; //RANSAC: at least X points in consensus required to determine if a line will be deemed valid 
+        const int RANSAC_CONSENSUS = 80; //RANSAC: at least X points in consensus required to determine if a line will be deemed valid 
         const int MINLINEPOINTS = 10;//If less than X points left don't bother trying to find consensous
 
         
