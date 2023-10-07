@@ -557,31 +557,49 @@ namespace Landmark_Functions{
             rndSelectedPoints.push_back(linepoints[centerPoint]); 
 
              //Select MAXSAMPLE points randomly around centerPoint
-             cout<<"ENTER FOR LOOP"<<endl;
-            for(int i = 1; i<MAXSAMPLE; i++){
-                newpoint = false;
-                //cout<<"ENTER WHILE LOOP"<<endl;
-                while(!newpoint){
-                    //Get random point nearby centerpoint
-                    int random = rand()%(MAXSAMPLE*2) - 10; //randomn value 0-10
-                    //int neighbourPoint = centerPoint +  ((rand()%2) - 1) * (rand()%MAXSAMPLE);
-                    int neighbourPoint = centerPoint +  random; 
+            //  cout<<"ENTER FOR LOOP"<<endl;
+            // for(int i = 1; i<MAXSAMPLE; i++){
+            //     newpoint = false;
+            //     //cout<<"ENTER WHILE LOOP"<<endl;
+            //     while(!newpoint){
+            //         //Get random point nearby centerpoint
+            //         int random = rand()%(MAXSAMPLE*2) - 10; //randomn value 0-10
+            //         int neighbourPoint = centerPoint +  random; 
                     
-                    if(0<=neighbourPoint && neighbourPoint<linepoints.size()){
-                        temp = linepoints[neighbourPoint];
-                        for(int j = 0; j<i; j++){
-                            if(rndSelectedPoints[j] == temp)
-                                cout<<"been here"<<endl;
-                                break; //point has already been selected
-                            if(j>=i-1)
-                                newpoint = true; //point has not already been selected
-                        }
-                    }
+            //         if(0<=neighbourPoint && neighbourPoint<linepoints.size()){
+            //             temp = linepoints[neighbourPoint];
+            //             for(int j = 0; j<i; j++){
+            //                 if(rndSelectedPoints[j] == temp){
+            //                     cout<<"been here"<<endl;
+            //                     break; //point has already been selected
+            //                 }  
+            //                 if(j>=i-1){
+            //                    newpoint = true; //point has not already been selected 
+            //                 }
+                                
+            //             }
+            //         }
 
+            //     }
+            //     //cout<<"LEFT WHILE LOOP"<<endl;
+            //     rndSelectedPoints.push_back(temp);
+            // }
+
+            //Non-random sample (sample sequentially)
+            int counter = 0;
+            while(counter<=MAXSAMPLE){
+                if(centerPoint - i >=0){
+                    rndSelectedPoints.push_back(linepoints[centerPoint - i]); 
+                    counter+=1;
                 }
-                //cout<<"LEFT WHILE LOOP"<<endl;
-                rndSelectedPoints.push_back(temp);
+                if(centerPoint + i <= linepoints.size()){
+                    rndSelectedPoints.push_back(linepoints[centerPoint - i]); 
+                    counter+=1;
+                }
+                
+
             }
+
             cout<<"LEFT FOR LOOP"<<endl;
 
             //compute model M1

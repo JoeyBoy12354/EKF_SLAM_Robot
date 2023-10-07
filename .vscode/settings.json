@@ -7,6 +7,7 @@
         "fstream": "cpp",
         "cmath": "cpp",
         "xstring": "cpp",
-        "numeric": "cpp"
+        "numeric": "cpp",
+        "random": "cpp"
     }
 }
