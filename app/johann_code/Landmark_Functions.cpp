@@ -456,8 +456,8 @@ namespace Landmark_Functions{
         vector<Line> sectionLines;
 
         vector<CarPoint> section;
-        section.push_back(laserdata[0])
-        for(int i =1;i<laserdata.size()-1;i++){
+        section.push_back(laserdata[0]);
+        for(int i = 1; i<laserdata.size()-1;i++){
             float dist =  pointDistance(laserdata[i],laserdata[i+1]);
             float prevDist = pointDistance(laserdata[i-1],laserdata[i]);
 
