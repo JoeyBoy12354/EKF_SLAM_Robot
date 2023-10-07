@@ -268,8 +268,8 @@ def draw_rotated_triangle(ax, x, y, direction_angle):
 def animate(i):
     #fetchFromCSV
     x1,y1=fetchCoord('fullMapCSV.csv')
-    # x2,y2=fetchCoord('landmarkCSV.csv')
-    # x3,y3=fetchCoord('cornersCSV.csv')
+    x2,y2=fetchCoord('landmarkCSV.csv')
+    x3,y3=fetchCoord('cornersCSV.csv')
     x4,y4=fetchCoord('consensusCSV.csv')
     #position,x_goal,y_goal,true_move = fetchRobot()
     #print("POSITION = ",position)
@@ -299,8 +299,8 @@ def animate(i):
 
     plt.plot(x1, y1, 'o', label='Points',markersize=0.5,color='r')
     plt.plot(x4, y4, 'o', label='Con_points', markersize=3,color='purple')
-    #plt.plot(x2, y2, 'X', label='Landmarks', markersize=7,color='g')
-    #plt.plot(x3, y3, 'X', label='RNC_points', markersize=7,color='b')
+    plt.plot(x2, y2, 'X', label='Landmarks', markersize=7,color='g')
+    plt.plot(x3, y3, 'X', label='RNC_points', markersize=7,color='b')
     
 
 
