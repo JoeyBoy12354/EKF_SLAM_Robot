@@ -484,7 +484,7 @@ namespace Landmark_Functions{
 
         // saveSectionsToCSV(sectionVector);
 
-        const int NoSections = 8;
+        const int NoSections = 1;
         const int sectionSize = int(laserdata.size()/NoSections);
         vector<CarPoint> section;
         vector<vector<CarPoint>> sectionVector;
