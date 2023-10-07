@@ -525,7 +525,7 @@ namespace Landmark_Functions{
         int totalLinepoints = laserdata.size();
         
         //const int MAXTRIALS = 50000;//Max Times to run algorithm (pre-physical runs)
-        const int MAXTRIALS = 500;//Max Times to run algorithm
+        const int MAXTRIALS = 1000;//Max Times to run algorithm
         const int MAXSAMPLE = 10;//Randomly selects X points
         //const int MINLINEPOINTS = 30;//If less than 40 points left don't bother trying to find consensous
         //const double RANSAC_TOLERANCE = 0.05; //RANSAC: if point is within x distance of line its part of line
@@ -533,7 +533,7 @@ namespace Landmark_Functions{
 
         //As of right now 24 August we are in mm and doing about 10000 samples
         const double RANSAC_TOLERANCE = 3; //RANSAC: if point is within x distance of line its part of line [mm]
-        const int RANSAC_CONSENSUS = 10; //RANSAC: at least X points in consensus required to determine if a line will be deemed valid 
+        const int RANSAC_CONSENSUS = 20; //RANSAC: at least X points in consensus required to determine if a line will be deemed valid 
         const int MINLINEPOINTS = 10;//If less than X points left don't bother trying to find consensous
 
         
