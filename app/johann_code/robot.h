@@ -145,9 +145,9 @@ namespace Data_Functions{
     void lidarDataProcessingFull(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints, bool firstRun);
     void lidarDataProcessing(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints, float x, float y, float angle);
     void LandmarkProcessing();
+    void LandmarkProcessing2(vector<CarPoint> carPoints);
 
     //calibration
-    void lidarDataProcessingCali(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints);
     void getCaliAngle(MatrixXf State1,MatrixXf State2, float distThresh, float& caliAngle);
     
     //motor
