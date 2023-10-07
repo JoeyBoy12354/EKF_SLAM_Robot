@@ -486,6 +486,7 @@ namespace Landmark_Functions{
         const int sectionSize = int(laserdata.size()/NoSections);
         vector<CarPoint> section;
         vector<vector<CarPoint>> sectionVector;
+        vector<Line> sectionLines;
 
 
         for(int i =0;i<NoSections;i++){
@@ -497,8 +498,10 @@ namespace Landmark_Functions{
             
             sectionVector.append(section);
             vector<Line> lines = RANSAC2(section);
+
             cout<<"SectionSize = "<<sectionSize<<" True Size = "<<section.size()<<"NoLine = "<<lines.size();
             cout<<" ["<<section[0]<<section[section.size()-1]<<"]"<<endl;
+            
             for(int j=0;j<lines.size();j++){
                 sectionLines.push_back(lines[j]);
             }
