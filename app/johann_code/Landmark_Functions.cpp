@@ -800,7 +800,7 @@ namespace Landmark_Functions{
         const int MAXSAMPLE = 50;//Selects X points in window
 
         //const double ANSAC_TOLERANCE = 23; //If point is within x distance of neighbour its part of a corner
-        const float ANGLE_THRESHOLD_LOW = 45*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
+        const float ANGLE_THRESHOLD_LOW = 44*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
         const float ANGLE_THRESHOLD_HIGH = 135*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
         const float DIST_THRESHOLD = 50; //If intercept point is within X of a corner we have then toss or replace
 
@@ -888,7 +888,7 @@ namespace Landmark_Functions{
                 }
                
 
-               cout<<"angle = "<<interAngle*180/PI<<endl; 
+               //cout<<"angle = "<<interAngle*180/PI<<endl; 
                 if(angleGood == true){
                     cout<<"ANGLE = "<<interAngle*180/PI<<endl;
                     
@@ -1003,5 +1003,69 @@ namespace Landmark_Functions{
     }
 
     
+    vector<CarPoint> gradientAnalysis(vector<CarPoint> laserdata){
+        int sampleSize = 50;
+        int NoSamples = int(laserdata.size()/sampleSize);
+        float angleThresh = 20*PI/180;
+        float errorThresh = 5;
+        float sampleToCornerThresh = 300;
+
+        //Step 1, get lines
+        vector<Line> lines;
+        vector<CarPoint> Corners;
+        
+        for(int i=0;i<NoSamples;i++){
+            //GET NEW LINE
+            Line newLine;
+            for(int j=0;j<sampleSize;j++){
+                newLine.ConsensusPoints.push_back(laserdata[i*sampleSize + j]);
+            }
+            LeastSquaresLineEstimate(newLine.ConsensusPoints, newLine.intercept, newLine.gradient);
+            lines.push_back(newLine);
+        }
+
+        //Now that we have all the lines we can check for sharp changes in gradients between the lines
+        //In other words we will calculate angles of intercept
+        bool notNext = false;
+        float angle;
+        for(int i =0;i<lines.size();i++){
+            Line line1 = lines[i];
+            Line line2;
+
+            //Compare current to next
+            if(i<lines.size()-1){
+                angle = getAngle(lines[i],lines[i+1]);
+                if(PI/2 - angleThresh <= angle && angle <= PI/2 + angleThresh){
+                    notNext = true;
+                    line2 = lines[i+1];
+                }
+            }
+            //Compare current to next next (in case next is the corner)
+            if(i<lines.size()-2 && notNext == false){
+                angle = getAngle(lines[i],lines[i+2]);
+                if(PI/2 - angleThresh <= angle && angle <= PI/2 + angleThresh){
+                    notNext = true;
+                    line2 = lines[i+2];
+                }
+            }
+
+            //We have a corner somewhere. We must now ensure that is actually near a line
+            if(notNext == true){
+                CarPoint corner = getIntercept(line1,line2);
+                float dist = distanceBetweenPointandSample(corner,line2.ConsensusPoints);
+                if(dist<sampleToCornerThresh){
+                    Corners.push_back(corner);
+                }
+            }
+
+
+
+
+        }
+
+        cout<<"\n\n!!!!!!!!!!!  KYS !!!!!!!!!!!\n\n";
+        return Corners;
+
+    }
 
 }
