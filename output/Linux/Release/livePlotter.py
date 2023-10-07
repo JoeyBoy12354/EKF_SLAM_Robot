@@ -195,6 +195,7 @@ def fetchAndPlotSection():
                 #mySection.append([float(row[0]),float(row[1])])
             else:
                 if(len(my_x) > 1):
+                    print("SEQ : max= ",my_x[len(my_x) - 1], my_y[len(my_y) - 1],"  min = ",my_x[0], my_y[0])
                     plt.plot(my_x[len(my_x) - 1], my_y[len(my_y) - 1], 'o', label='Xnts',markersize=10)
                     X.append(my_x)
                     Y.append(my_y)
@@ -219,10 +220,8 @@ def fetchAndPlotSection():
     
     for i in range(0,len(Y)):
         if(i%2 == 0):
-            print(" i = ",i)
             plt.plot(X[i], Y[i], 'o', label='Points',markersize=2,color='blue')
         else:
-            print(" i = ",i)
             plt.plot(X[i], Y[i], '.', label='Points',markersize=7,color='orange')
         
 
