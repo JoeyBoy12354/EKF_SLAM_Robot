@@ -198,14 +198,14 @@ namespace Data_Functions{
         //     cout<<"y = "<<detected_lines[i].gradient<<"x + "<<detected_lines[i].intercept<<" | conLen = "<<detected_lines[i].ConsensusPoints.size()<<endl;
         // }
 
-        // cout<<"\n ANSAC RUN \n"<<endl;
-        // vector<CarPoint> closestPoints = ANSAC_CORNER(carPoints);
-        // writeCornersToCSV(closestPoints);
+        cout<<"\n ANSAC RUN \n"<<endl;
+        vector<CarPoint> closestPoints = ANSAC_CORNER(carPoints);
+        writeCornersToCSV(closestPoints);
 
         
-        cout<<"\n GRADIENT ANALYSOIS RUN \n"<<endl;
-        vector<CarPoint> closestPoints = gradientAnalysis(carPoints);
-        writeCornersToCSV(closestPoints);
+        // cout<<"\n GRADIENT ANALYSOIS RUN \n"<<endl;
+        // vector<CarPoint> closestPoints = gradientAnalysis(carPoints);
+        // writeCornersToCSV(closestPoints);
 
 
         cout<<"NUMBER OF CLOSEST POINTS = "<<closestPoints.size()<<endl;
