@@ -145,7 +145,7 @@ namespace Data_Functions{
         vector<Line> detected_lines = RANSAC(carPoints);
         writeLinesToCSV(detected_lines);
         
-        writeConsensusToCSV(detected_lines);
+        
         
 
         cout<<"\n Number of Lines Found:"<<detected_lines.size()<<endl;
@@ -164,6 +164,7 @@ namespace Data_Functions{
         cout<<"\n RANSAC_Manager\n"<<endl;
         vector<Line> detected_lines = RANSAC_Manager(carPoints);
         writeLinesToCSV(detected_lines);
+        writeConsensusToCSV(detected_lines);
         
 
         cout<<"\n Number of Lines Found:"<<detected_lines.size()<<endl;
