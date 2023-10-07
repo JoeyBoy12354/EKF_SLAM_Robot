@@ -590,11 +590,11 @@ namespace Landmark_Functions{
             int index = 0;
             while(counter<=MAXSAMPLE){
                 if(centerPoint - index >=0){
-                    rndSelectedPoints.push_back(linepoints[centerPoint - i]); 
+                    rndSelectedPoints.push_back(linepoints[centerPoint - index]); 
                     counter+=1;
                 }
                 if(centerPoint + index <= linepoints.size()){
-                    rndSelectedPoints.push_back(linepoints[centerPoint - i]); 
+                    rndSelectedPoints.push_back(linepoints[centerPoint - index]); 
                     counter+=1;
                 }
                 index+=1;
