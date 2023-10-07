@@ -557,8 +557,10 @@ namespace Landmark_Functions{
             rndSelectedPoints.push_back(linepoints[centerPoint]); 
 
              //Select MAXSAMPLE points randomly around centerPoint
+             cout<<"ENTER FOR LOOP"<<endl;
             for(int i = 1; i<MAXSAMPLE; i++){
                 newpoint = false;
+                cout<<"ENTER WHILE LOOP"<<endl;
                 while(!newpoint){
                     //Get random point nearby centerpoint
                     int random = rand()%(MAXSAMPLE*2) - 10; //randomn value 0-10
@@ -576,8 +578,10 @@ namespace Landmark_Functions{
                     }
 
                 }
+                cout<<"LEFT WHILE LOOP"<<endl;
                 rndSelectedPoints.push_back(temp);
             }
+            cout<<"LEFT FOR LOOP"<<endl;
 
             //compute model M1
             double c=0;
