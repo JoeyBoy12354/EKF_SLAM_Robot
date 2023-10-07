@@ -187,7 +187,7 @@ namespace Data_Functions{
     void LandmarkProcessing2(vector<CarPoint> carPoints){
         cout<<"\n Number of Points Read:"<<carPoints.size()<<endl;
 
-        cout<<"\n RANSAC_Manager\n"<<endl;
+        //cout<<"\n RANSAC_Manager\n"<<endl;
         // vector<Line> detected_lines = RANSAC_Manager(carPoints);
         // writeLinesToCSV(detected_lines);
         // writeConsensusToCSV(detected_lines);
@@ -198,8 +198,13 @@ namespace Data_Functions{
         //     cout<<"y = "<<detected_lines[i].gradient<<"x + "<<detected_lines[i].intercept<<" | conLen = "<<detected_lines[i].ConsensusPoints.size()<<endl;
         // }
 
-        cout<<"\n ANSAC RUN \n"<<endl;
-        vector<CarPoint> closestPoints = ANSAC_CORNER(carPoints);
+        // cout<<"\n ANSAC RUN \n"<<endl;
+        // vector<CarPoint> closestPoints = ANSAC_CORNER(carPoints);
+        // writeCornersToCSV(closestPoints);
+
+        
+        cout<<"\n GRADIENT ANALYSOIS RUN \n"<<endl;
+        vector<CarPoint> closestPoints = gradientAnalysis(vector<CarPoint> laserdata);
         writeCornersToCSV(closestPoints);
 
 
