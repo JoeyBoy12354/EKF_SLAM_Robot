@@ -150,6 +150,15 @@ def fetchAndPlotLines2():
         y_min = line['gradient']*x_min + line['intercept']
         print("y = ",line['gradient'],"x + ",line['intercept'])
 
+        #Check if line is vertical
+        lineError = abs(line['range_max'] - line['range_min'])/2
+        if(abs(y_max-line['range_max']*2) > lineError or abs(y_min-line['range_min']) < lineError):
+            y_max = line['range_max']
+            y_min = line['range_min']
+            x_max = (y_max  - line['intercept'])/line['gradient']
+            x_min = (y_min  - line['intercept'])/line['gradient']
+
+
         
         x_values = [x_max,x_min]
         y_values = [y_max,y_min]
