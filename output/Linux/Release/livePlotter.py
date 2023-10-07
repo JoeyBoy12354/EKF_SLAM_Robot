@@ -191,6 +191,8 @@ def fetchAndPlotSection():
                 #print("x = ",row[0]," ,",row[1])
                 #plt.plot(float(row[0]), float(row[1]), 'o', label='Points',markersize=2,color=col)
                 #mySection.append([float(row[0]),float(row[1])])
+            else:
+                plt.plot(float(row[0]), float(row[1]), 'o', label='Xnts',markersize=20,color='orange')
 
 
             # else:
