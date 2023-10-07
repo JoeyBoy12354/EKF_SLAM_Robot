@@ -122,6 +122,40 @@ def fetchAndPlotLines():
         #print("x_values = ",x_values," y_values = ",y_values)
         plt.plot(x_values, y_values, color='b')
 
+def fetchAndPlotLines2():
+    #Initialize
+    step = 1 # The x value will differ by X-amount on each iteration of while loop
+    limit = 50 # The y value may be a maximum of y_intercept +- X
+    
+    lines = []
+    with open('linesCSV.csv', 'r') as file:
+        csv_reader = csv.DictReader(file)
+        for row in csv_reader:
+            lines.append({
+                'gradient': float(row['Gradient']),
+                'intercept': float(row['Intercept']),
+                'domain_min': float(row['Domain_Min']),
+                'domain_max': float(row['Domain_Max']),
+                'range_min': float(row['Range_Min']),
+                'range_max': float(row['Range_Max'])
+            })
+
+
+    # Plot the lines
+    for line in lines:
+        #Point of interception
+        x_max = line['domain_max']
+        x_min = line['domain_min']
+        y_max = line['gradient']*x_max + line['intercept']
+        y_min = line['gradient']*x_min + line['intercept']
+        print("y = ",line['gradient'],"x + ",line['intercept'])
+
+        
+        x_values = [x_max,x_min]
+        y_values = [y_max,y_min]
+        #print("x_values = ",x_values," y_values = ",y_values)
+        plt.plot(x_values, y_values, color='b')
+
 
 
 def rotate_point(x, y, angle):
@@ -194,7 +228,7 @@ def animate(i):
     plt.cla() #Clear Axis (so that we don't keep the old plot we clear it and write again)
     #plt.axes().set_facecolor("black")
 
-    fetchAndPlotLines()
+    fetchAndPlotLines2()
     #triangle = draw_rotated_triangle(plt.gca(),position[0],position[1],position[2])
     #plt.gca().fill(triangle[:, 0], triangle[:, 1], 'b')
 
