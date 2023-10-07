@@ -172,17 +172,12 @@ def fetchAndPlotSection():
     
     with open('sectionCSV.csv','r') as file:
         csv_reader = csv.reader(file)
-
-        AllSections = []
-        mySection = []
         my_x = []
         my_y = []
 
         X = []
         Y = []
         #len(csv_reader)
-        count = 0
-        sectionSize = 0
         for row in csv_reader:
             #Check for gaps
             if row[0] != ' ':
