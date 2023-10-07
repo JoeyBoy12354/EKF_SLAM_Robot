@@ -199,7 +199,7 @@ namespace Data_Functions{
             cout<<"y = "<<detected_lines[i].gradient<<"x + "<<detected_lines[i].intercept<<" | conLen = "<<detected_lines[i].ConsensusPoints.size()<<endl;
         }
 
-        vector<CarPoint> closestPoints.size() =  findFancyCorners(detected_lines);
+        vector<CarPoint> closestPoints =  findFancyCorners(detected_lines);
         writeCornersToCSV(closestPoints);
 
 
