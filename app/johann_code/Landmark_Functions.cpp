@@ -888,7 +888,7 @@ namespace Landmark_Functions{
                 }
                
 
-               //cout<<"angle = "<<interAngle*180/PI<<endl; 
+               cout<<"angle = "<<interAngle*180/PI<<endl; 
                 if(angleGood == true){
                     cout<<"ANGLE = "<<interAngle*180/PI<<endl;
                     
