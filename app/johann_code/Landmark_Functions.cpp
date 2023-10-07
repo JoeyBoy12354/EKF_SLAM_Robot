@@ -490,7 +490,7 @@ namespace Landmark_Functions{
 
 
         for(int i =0;i<NoSections;i++){
-            section.clear()
+            section.clear();
             for(int j=0;j<sectionSize;j++){
                 section.push_back(laserdata[i*sectionSize + j]);
             }
@@ -501,7 +501,7 @@ namespace Landmark_Functions{
 
             cout<<"SectionSize = "<<sectionSize<<" True Size = "<<section.size()<<"NoLine = "<<lines.size();
             cout<<" ["<<section[0]<<section[section.size()-1]<<"]"<<endl;
-            
+
             for(int j=0;j<lines.size();j++){
                 sectionLines.push_back(lines[j]);
             }
