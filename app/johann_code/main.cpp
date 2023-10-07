@@ -81,6 +81,9 @@ void testLidar(){
 
 void testLandmarkIdentification(bool& firstRun){
     //LandmarkProcessing();
+    
+    
+    
     //Run Lidar
     vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
     bool error = true;
@@ -107,7 +110,7 @@ void testLandmarkIdentification(bool& firstRun){
         storeMapPoints(carPoints);
     }
 
-    LandmarkProcessing2(CarPoint);
+    LandmarkProcessing2(carPoints);
 }
 
 void testLidarLandmark(){
