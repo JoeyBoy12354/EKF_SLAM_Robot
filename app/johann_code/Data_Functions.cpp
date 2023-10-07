@@ -17,6 +17,9 @@ namespace Data_Functions{
 
         // Sort dataPoints based on angle in ascending order
         sort(dataPoints.begin(), dataPoints.end(), compareByAngle);
+        cout<<"START Point = "<<dataPoints[0].angle<<" END Point "<<dataPoints[dataPoints.size()-1].angle;
+
+        cout<<"START LEN = "<<dataPoints.size();
 
         //Delete duplicates
         dataPoints.erase(std::unique(dataPoints.begin(), dataPoints.end(), 
@@ -24,6 +27,7 @@ namespace Data_Functions{
                          return a.angle == b.angle;
                      }), dataPoints.end());
 
+        cout<<"END LEN = "<<dataPoints.size();
         // Copy the sorted dataPoints to sortedPoints
         sortedPoints = dataPoints;
 
