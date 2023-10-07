@@ -148,7 +148,7 @@ def fetchAndPlotLines2():
         x_min = line['domain_min']
         y_max = line['gradient']*x_max + line['intercept']
         y_min = line['gradient']*x_min + line['intercept']
-        print("y = ",line['gradient'],"x + ",line['intercept'])
+        #print("y = ",line['gradient'],"x + ",line['intercept'])
 
         #Check if line is vertical
         lineError = abs(line['range_max'] - line['range_min'])/2
@@ -217,7 +217,7 @@ def fetchAndPlotSection():
 
     col = 'orange'
     for i in range(0,len(Y)):
-        plt.plot(X[i], Y[i], 'o', label='Points',markersize=2,color='g')
+        plt.plot(X[i], Y[i], 'o', label='Points',markersize=2,color=col)
         if(col=='orange'):
             col = 'g'
         else:
@@ -279,7 +279,6 @@ def draw_rotated_triangle(ax, x, y, direction_angle):
 
 
 def animate(i):
-    print("0")
     #fetchFromCSV
     x1,y1=fetchCoord('fullMapCSV.csv')
     # x2,y2=fetchCoord('landmarkCSV.csv')
