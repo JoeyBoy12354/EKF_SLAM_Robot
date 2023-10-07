@@ -828,8 +828,8 @@ namespace Landmark_Functions{
             //     }
             // }
 
-            tolCheck = checkForHoles(selectedPoints);
-            
+            //tolCheck = checkForHoles(selectedPoints);
+            tolCheck = true;
 
             if(tolCheck == true){
                 
