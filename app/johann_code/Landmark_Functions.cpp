@@ -468,7 +468,6 @@ namespace Landmark_Functions{
 
                 cout<<"SectionSize = "<<section.size()<<"NoLine = "<<lines.size()<<endl<<"distRatio = "<<dist/prevDist;
                 section.clear();
-                i = 
 
                 for(int j = 0; j < lines.size(); j++){
                     sectionLines.push_back(lines[j]);
