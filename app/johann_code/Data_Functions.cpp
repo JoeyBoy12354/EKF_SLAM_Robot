@@ -204,7 +204,7 @@ namespace Data_Functions{
 
         
         cout<<"\n GRADIENT ANALYSOIS RUN \n"<<endl;
-        vector<CarPoint> closestPoints = gradientAnalysis(vector<CarPoint> laserdata);
+        vector<CarPoint> closestPoints = gradientAnalysis(carPoints);
         writeCornersToCSV(closestPoints);
 
 
