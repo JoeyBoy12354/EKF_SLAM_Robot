@@ -225,6 +225,8 @@ def fetchAndPlotSection():
         else:
             col = 'orange'
 
+        print("col = ",col)
+
     return
 
 
