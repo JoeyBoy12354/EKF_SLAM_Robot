@@ -884,11 +884,11 @@ namespace Landmark_Functions{
                 angleGood = false;
                 float interAngle = getAngle(line1,line2);
                 if(ANGLE_THRESHOLD_LOW <= interAngle && interAngle <= ANGLE_THRESHOLD_HIGH){
-                    angleGood == true;
+                    angleGood = true;
                 }
                
 
-               cout<<"angle = "<<interAngle*180/PI<<endl; 
+               //cout<<"angle = "<<interAngle*180/PI<<endl; 
                 if(angleGood == true){
                     cout<<"ANGLE = "<<interAngle*180/PI<<endl;
                     
