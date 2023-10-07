@@ -496,7 +496,7 @@ namespace Landmark_Functions{
             }
 
             
-            sectionVector.append(section);
+            sectionVector.push_back(section);
             vector<Line> lines = RANSAC2(section);
 
             cout<<"SectionSize = "<<sectionSize<<" True Size = "<<section.size()<<"NoLine = "<<lines.size();
