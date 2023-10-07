@@ -225,7 +225,7 @@ def fetchAndPlotSection():
         else:
             col = 'orange'
 
-        print("col = ",col)
+        print("col = ",col," len Y[",i,"] = ",len(Y[i]))
 
     return
 
