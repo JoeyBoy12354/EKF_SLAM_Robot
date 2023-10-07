@@ -466,7 +466,7 @@ namespace Landmark_Functions{
                 //Hole detected make new section
                 vector<Line> lines = RANSAC2(section);
 
-                cout<<"SectionSize = "<<section.size()<<"NoLine = "<<lines.size()<<endl<<"distRatio = "<<dist/prevDist;
+                cout<<"SectionSize = "<<section.size()<<"NoLine = "<<lines.size()<<"distRatio = "<<dist/prevDist<<endl;;
                 section.clear();
 
                 for(int j = 0; j < lines.size(); j++){
