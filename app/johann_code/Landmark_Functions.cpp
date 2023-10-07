@@ -449,60 +449,60 @@ namespace Landmark_Functions{
     vector<Line> RANSAC_Manager(vector<CarPoint> laserdata){
         //Create Sections
         
-        const int DIST_RATIO = 40; //If the ratio between previous distance and current distance is greater than X there is a hole
+        // const int DIST_RATIO = 40; //If the ratio between previous distance and current distance is greater than X there is a hole
 
-        int laserdataSize;
-        vector<Line> sectionLines;
+        // int laserdataSize;
+        // vector<Line> sectionLines;
 
-        vector<vector<CarPoint>> sectionVector;
-        vector<CarPoint> section;
-        section.push_back(laserdata[0]);
-        for(int i = 1; i<laserdata.size()-1;i++){
-            float dist =  pointDistance(laserdata[i],laserdata[i+1]);
-            float prevDist = pointDistance(laserdata[i-1],laserdata[i]);
+        // vector<vector<CarPoint>> sectionVector;
+        // vector<CarPoint> section;
+        // section.push_back(laserdata[0]);
+        // for(int i = 1; i<laserdata.size()-1;i++){
+        //     float dist =  pointDistance(laserdata[i],laserdata[i+1]);
+        //     float prevDist = pointDistance(laserdata[i-1],laserdata[i]);
 
-            //New sample set
-            if(dist/prevDist > DIST_RATIO){
-                //Hole detected make new section
-                vector<Line> lines = RANSAC2(section);
-                sectionVector.push_back(section);
+        //     //New sample set
+        //     if(dist/prevDist > DIST_RATIO){
+        //         //Hole detected make new section
+        //         vector<Line> lines = RANSAC2(section);
+        //         sectionVector.push_back(section);
 
-                cout<<"SectionSize = "<<section.size()<<" NoLine = "<<lines.size()<<" distRatio = "<<dist/prevDist<<endl;;
-                section.clear();
+        //         cout<<"SectionSize = "<<section.size()<<" NoLine = "<<lines.size()<<" distRatio = "<<dist/prevDist<<endl;;
+        //         section.clear();
 
-                for(int j = 0; j < lines.size(); j++){
-                    sectionLines.push_back(lines[j]);
-                }
-            }else{
-                //Add to current section
-                section.push_back(laserdata[i]);
-            }
-            
-        }
-
-        saveSectionsToCSV(sectionVector);
-
-        // const int NoSections = 5;
-        // const int sectionSize = int(laserdata.size()/NoSections);
-
-
-        // for(int i =0;i<NoSections;i++){
-        //     vector<CarPoint> section;
-        //     for(int j=0;j<sectionSize;j++){
-        //         laserdata
-        //         section.push_back(laserdata[i*sectionSize + j]);
+        //         for(int j = 0; j < lines.size(); j++){
+        //             sectionLines.push_back(lines[j]);
+        //         }
+        //     }else{
+        //         //Add to current section
+        //         section.push_back(laserdata[i]);
         //     }
-
             
-
-        //     vector<Line> lines = RANSAC2(section);
-        //     cout<<"SectionSize = "<<sectionSize<<" True Size = "<<section.size()<<"NoLine = "<<lines.size();
-        //     cout<<" ["<<section[0]<<section[section.size()-1]<<"]"<<endl;
-        //     for(int j=0;j<lines.size();j++){
-        //         sectionLines.push_back(lines[j]);
-        //     }
-
         // }
+
+        // saveSectionsToCSV(sectionVector);
+
+        const int NoSections = 5;
+        const int sectionSize = int(laserdata.size()/NoSections);
+        vector<CarPoint> section;
+
+
+        for(int i =0;i<NoSections;i++){
+            section.clear()
+            for(int j=0;j<sectionSize;j++){
+                section.push_back(laserdata[i*sectionSize + j]);
+            }
+
+            
+
+            vector<Line> lines = RANSAC2(section);
+            cout<<"SectionSize = "<<sectionSize<<" True Size = "<<section.size()<<"NoLine = "<<lines.size();
+            cout<<" ["<<section[0]<<section[section.size()-1]<<"]"<<endl;
+            for(int j=0;j<lines.size();j++){
+                sectionLines.push_back(lines[j]);
+            }
+
+        }
 
 
         //We now have all the lines
