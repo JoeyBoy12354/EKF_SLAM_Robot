@@ -12,6 +12,7 @@
 
 #include <sstream>
 #include <numeric>
+#include <algorithm>
 
 
 //Lidar Functions Includes
@@ -141,6 +142,8 @@ namespace Data_Functions{
     void fitCartesian(vector<CarPoint>& carPoints, float x, float y, float angle);
     vector<CarPoint> convertCartesian(vector<PolPoint>& dataPoints);
     int getIndex(vector<double> v, double K);
+    vector<PolPoint> sortPoints(vector<PolPoint> dataPoints);
+    bool compareByAngle(const PolPoint& a, const PolPoint& b);
 
     //landmark
     void lidarDataProcessingFull(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints, bool firstRun);

@@ -8,6 +8,22 @@ using namespace Mapping_Functions;
 
 namespace Data_Functions{
 
+    bool compareByAngle(const PolPoint& a, const PolPoint& b) {
+        return a.angle < b.angle;
+    }
+
+    vector<PolPoint> sortPoints(vector<PolPoint> dataPoints) {
+        vector<PolPoint> sortedPoints;
+
+        // Sort dataPoints based on angle in ascending order
+        sort(dataPoints.begin(), dataPoints.end(), compareByAngle);
+
+        // Copy the sorted dataPoints to sortedPoints
+        sortedPoints = dataPoints;
+
+        return sortedPoints;
+    }
+
     vector<CarPoint> convertCartesian(vector<PolPoint>& dataPoints){
         vector<CarPoint> cartesianPoints;
         for (const PolPoint& polarPoint : dataPoints) {
