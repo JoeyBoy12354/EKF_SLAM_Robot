@@ -527,7 +527,7 @@ namespace Landmark_Functions{
         int totalLinepoints = laserdata.size();
         
         //const int MAXTRIALS = 50000;//Max Times to run algorithm (pre-physical runs)
-        const int MAXTRIALS = 5000;//Max Times to run algorithm
+        const int MAXTRIALS = 8000;//Max Times to run algorithm
         const int MAXSAMPLE = 10;//Randomly selects X points
         //const int MINLINEPOINTS = 30;//If less than 40 points left don't bother trying to find consensous
         //const double RANSAC_TOLERANCE = 0.05; //RANSAC: if point is within x distance of line its part of line
@@ -797,7 +797,7 @@ namespace Landmark_Functions{
         bool angleGood = false;
         bool replace = false;
         
-        const int MAXSAMPLE = 20;//Selects X points in window
+        const int MAXSAMPLE = 50;//Selects X points in window
 
         //const double ANSAC_TOLERANCE = 23; //If point is within x distance of neighbour its part of a corner
         const float ANGLE_THRESHOLD_LOW = 60*PI/180; //If angle made by intercepts is within PI/2 +- X then keep corner
