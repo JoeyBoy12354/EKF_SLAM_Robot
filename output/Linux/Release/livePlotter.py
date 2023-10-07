@@ -174,6 +174,9 @@ def fetchAndPlotSection():
     col = 'orange'
     with open('sectionCSV.csv','r') as file:
         csv_reader = csv.reader(file)
+
+        AllSections = []
+        mySection = []
         #len(csv_reader)
         count = 0
         sectionSize = 0
@@ -182,11 +185,13 @@ def fetchAndPlotSection():
             if row[0] != ' ':
                 sectionSize +=1
                 #print("x = ",row[0]," ,",row[1])
-                plt.plot(row[0], row[1], 'o', label='Points',markersize=2,color=col)
+                plt.plot(float(row[0]), float(row[1]), 'o', label='Points',markersize=2,color=col)
+                mySection.append([float(row[0]),float(row[1])])
             else:
                 print("gap ",count," sectSize = ",sectionSize)
                 count+=1
                 sectionSize = 0
+                AllSections.append(mySection)
                 if(col == 'orange'):
                     col = 'g'
                 else:
