@@ -565,7 +565,7 @@ namespace Landmark_Functions{
                 //cout<<"ENTER WHILE LOOP"<<endl;
                 while(!newpoint){
                     //Get random point nearby centerpoint
-                    int random = rand()%(MAXSAMPLE*4) - 10; //randomn value 0-10
+                    int random = rand()%(MAXSAMPLE*2) - 10; //randomn value 0-10
                     int neighbourPoint = centerPoint +  random; 
                     
                     if(0<=neighbourPoint && neighbourPoint<linepoints.size()){
