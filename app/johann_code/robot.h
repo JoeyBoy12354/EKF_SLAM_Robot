@@ -117,6 +117,7 @@ namespace CSV_Functions{
     void savePositionToCSV(vector<float> position);
 
     //Lines
+    void saveSectionsToCSV(vector<vector<CarPoint>> points)
     void writeLinesToCSV(const vector<Line>& lines);
     void writeConsensusToCSV(const vector<Line>& lines);
 

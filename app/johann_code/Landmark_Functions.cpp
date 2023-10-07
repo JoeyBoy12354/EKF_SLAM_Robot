@@ -448,13 +448,13 @@ namespace Landmark_Functions{
 
     vector<Line> RANSAC_Manager(vector<CarPoint> laserdata){
         //Create Sections
-        const int NoSections = 5;
-        const int sectionSize = int(laserdata.size()/NoSections);
+        
         const int DIST_RATIO = 40; //If the ratio between previous distance and current distance is greater than X there is a hole
 
         int laserdataSize;
         vector<Line> sectionLines;
 
+        vector<vector<CarPoint>> sectionVector;
         vector<CarPoint> section;
         section.push_back(laserdata[0]);
         for(int i = 1; i<laserdata.size()-1;i++){
@@ -465,6 +465,7 @@ namespace Landmark_Functions{
             if(dist/prevDist > DIST_RATIO){
                 //Hole detected make new section
                 vector<Line> lines = RANSAC2(section);
+                sectionVector.push_back(section);
 
                 cout<<"SectionSize = "<<section.size()<<" NoLine = "<<lines.size()<<" distRatio = "<<dist/prevDist<<endl;;
                 section.clear();
@@ -477,9 +478,12 @@ namespace Landmark_Functions{
                 section.push_back(laserdata[i]);
             }
             
-            
-
         }
+
+        saveSectionsToCSV(sectionVector);
+
+        // const int NoSections = 5;
+        // const int sectionSize = int(laserdata.size()/NoSections);
 
 
         // for(int i =0;i<NoSections;i++){

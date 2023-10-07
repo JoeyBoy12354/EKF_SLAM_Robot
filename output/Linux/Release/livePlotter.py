@@ -166,6 +166,24 @@ def fetchAndPlotLines2():
         #plt.plot(x_values, y_values, color='b')
         plt.plot(x_values, y_values)
 
+def fetchAndPlotSection():
+    x_coord = []
+    y_coord = []
+    
+    col = 'orange'
+    with open('sectionCSV.csv','r') as file:
+        csv_reader = csv.reader(file)
+        for row in csv_reader:
+            #Check for gaps
+            if row[0] != ' ':
+                plt.plot(row[0], row[1], 'o', label='Points',markersize=2,color=col)
+            else:
+                if(col == 'orange'):
+                    col = 'g'
+                else:
+                    col = 'orange'
+    return
+
 
 
 def rotate_point(x, y, angle):

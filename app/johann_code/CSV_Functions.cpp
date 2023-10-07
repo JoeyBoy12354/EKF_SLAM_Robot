@@ -9,6 +9,7 @@ string landmarkCSV = "landmarkCSV.csv";
 string positionCSV = "positionCSV.csv";
 string consensusCSV = "consensusCSV.csv";
 string gridCSV = "gridCSV.csv";
+string sectionCSV = "sectionCSV.csv";
 
 
 namespace CSV_Functions{
@@ -185,6 +186,27 @@ namespace CSV_Functions{
 
 
     //Line and Corner Functions
+     void saveSectionsToCSV(vector<vector<CarPoint>> points){
+        ofstream outputFile(sectionCSV, ios::trunc);  // Open the file in truncation mode to clear its contents
+        if (!outputFile.is_open()) {
+            cerr << "Error opening the file: " << gridCSV << endl;
+            return;
+        }
+
+        // Write the data to the CSV file
+        for (int i=0;i<points.size();i++) {
+            outputFile << " "<< "\n";
+            for(int j=0;j<points[i].size();j++){
+                outputFile << points[i][j].x << "," << points[i][j].y << "\n";
+            }
+            
+        }
+
+        outputFile.close();
+        return;
+    }
+
+
     void writeConsensusToCSV(const vector<Line>& lines) {
         ofstream csvFile(consensusCSV);
         if (!csvFile) {
