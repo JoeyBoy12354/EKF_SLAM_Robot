@@ -832,7 +832,6 @@ namespace Landmark_Functions{
             
 
             if(tolCheck == true){
-                cout<<"TolCheck passed"<<endl;
                 
                 //COMPUTE PHASE
                 //compute model M1
@@ -889,7 +888,7 @@ namespace Landmark_Functions{
                 }
                
 
-                
+               cout<<"angle = "<<interAngle*180/PI<<endl; 
                 if(angleGood == true){
                     cout<<"ANGLE = "<<interAngle*180/PI<<endl;
                     
