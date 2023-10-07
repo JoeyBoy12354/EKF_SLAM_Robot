@@ -154,7 +154,8 @@ def fetchAndPlotLines2():
         x_values = [x_max,x_min]
         y_values = [y_max,y_min]
         #print("x_values = ",x_values," y_values = ",y_values)
-        plt.plot(x_values, y_values, color='b')
+        #plt.plot(x_values, y_values, color='b')
+        plt.plot(x_values, y_values)
 
 
 
