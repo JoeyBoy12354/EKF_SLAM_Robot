@@ -180,7 +180,7 @@ def fetchAndPlotSection():
         #len(csv_reader)
         for row in csv_reader:
             #Check for gaps
-            if row[0] != ' ':
+            if row[0] != ';':
                 my_x.append(float(row[0]))
                 my_y.append(float(row[1]))
                 #sectionSize +=1

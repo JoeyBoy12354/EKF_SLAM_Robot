@@ -195,7 +195,7 @@ namespace CSV_Functions{
 
         // Write the data to the CSV file
         for (int i=0;i<points.size();i++) {
-            outputFile << " "<< "\n";
+            outputFile << ";"<< "\n";
             for(int j=0;j<points[i].size();j++){
                 outputFile << points[i][j].x << "," << points[i][j].y << "\n";
             }
