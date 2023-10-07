@@ -173,7 +173,7 @@ namespace Landmark_Functions{
     // vector<CarPoint> gradientAnalysis(vector<CarPoint> laserdata);
     // float distanceBetweenPointandSample(CarPoint point,vector<CarPoint> sample);
 
-    vector<CarPoint> RANSAC_Manager(vector<CarPoint> laserdata);
+    vector<Line> RANSAC_Manager(vector<CarPoint> laserdata);
     vector<Line> RANSAC2(vector<CarPoint> laserdata);
 }
 

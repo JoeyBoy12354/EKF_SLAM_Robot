@@ -446,7 +446,7 @@ namespace Landmark_Functions{
     }
 
 
-    vector<CarPoint> RANSAC_Manager(vector<CarPoint> laserdata){
+    vector<Line> RANSAC_Manager(vector<CarPoint> laserdata){
         //Create Sections
         const int NoSections = 5;
         const int sectionSize = int(laserdata.size()/NoSections);
