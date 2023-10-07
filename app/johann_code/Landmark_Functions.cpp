@@ -526,7 +526,7 @@ namespace Landmark_Functions{
         
         //const int MAXTRIALS = 50000;//Max Times to run algorithm (pre-physical runs)
         const int MAXTRIALS = 500;//Max Times to run algorithm
-        const int MAXSAMPLE = 10;//Randomly selects X points
+        const int MAXSAMPLE = 20;//Randomly selects X points
         //const int MINLINEPOINTS = 30;//If less than 40 points left don't bother trying to find consensous
         //const double RANSAC_TOLERANCE = 0.05; //RANSAC: if point is within x distance of line its part of line
         //const int RANSAC_CONSENSUS = 30; //RANSAC: at least X points in consensus required to determine if a line will be deemed valid 
@@ -560,7 +560,7 @@ namespace Landmark_Functions{
              cout<<"ENTER FOR LOOP"<<endl;
             for(int i = 1; i<MAXSAMPLE; i++){
                 newpoint = false;
-                cout<<"ENTER WHILE LOOP"<<endl;
+                //cout<<"ENTER WHILE LOOP"<<endl;
                 while(!newpoint){
                     //Get random point nearby centerpoint
                     int random = rand()%(MAXSAMPLE*2) - 10; //randomn value 0-10
@@ -571,7 +571,7 @@ namespace Landmark_Functions{
                         temp = linepoints[neighbourPoint];
                         for(int j = 0; j<i; j++){
                             if(rndSelectedPoints[j] == temp)
-                                cout<<"been here"<<endl;
+                                //cout<<"been here"<<endl;
                                 break; //point has already been selected
                             if(j>=i-1)
                                 newpoint = true; //point has not already been selected
@@ -579,7 +579,7 @@ namespace Landmark_Functions{
                     }
 
                 }
-                cout<<"LEFT WHILE LOOP"<<endl;
+                //cout<<"LEFT WHILE LOOP"<<endl;
                 rndSelectedPoints.push_back(temp);
             }
             cout<<"LEFT FOR LOOP"<<endl;
