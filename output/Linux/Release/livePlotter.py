@@ -176,14 +176,17 @@ def fetchAndPlotSection():
         csv_reader = csv.reader(file)
         #len(csv_reader)
         count = 0
+        sectionSize = 0
         for row in csv_reader:
             #Check for gaps
             if row[0] != ' ':
+                sectionSize +=1
                 #print("x = ",row[0]," ,",row[1])
                 plt.plot(row[0], row[1], 'o', label='Points',markersize=2,color=col)
             else:
-                print("gap ",count)
+                print("gap ",count," sectSize = ",sectionSize)
                 count+=1
+                sectionSize = 0
                 if(col == 'orange'):
                     col = 'g'
                 else:
