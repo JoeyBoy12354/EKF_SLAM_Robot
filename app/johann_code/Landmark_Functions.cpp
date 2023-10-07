@@ -890,6 +890,7 @@ namespace Landmark_Functions{
 
                 
                 if(angleGood == true){
+                    cout<<"ANGLE = "<<interAngle*180/PI<<endl;
                     
                     CornerPoint interceptPoint;
                     //Find x-coordinate
