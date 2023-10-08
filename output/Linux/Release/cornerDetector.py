@@ -147,6 +147,38 @@ def find_corners(best_models, angleThresh = 30*np.pi/180):
 
     return corners
 
+def filter_corners(corners,x1,y1,duplicateThresh = 40, closenessThresh = 40):
+    #Remove Duplicates
+    clean_corners = []
+    for i in range(0,len(corners)):
+        dup = False
+        for j in range(0,len(clean_corners)):
+            dist = math.sqrt(pow(corners[i][0] - clean_corners[j][0] ,2) + pow(corners[i][1] - clean_corners[j][1] ,2))
+            if(dist < duplicateThresh):
+                dup = True
+        if(dup == False):
+            clean_corners.append(corners[i])
+
+    #Remove Points far away from data
+    close_corners = []
+    
+    for i in range(0,len(clean_corners)):
+        dist_min = 10000000
+        for j in range(0,len(x1)):
+            dist_temp = math.sqrt(pow(x1[j] - clean_corners[i][0] ,2) + pow(y1[j] - clean_corners[i][1] ,2))
+            if(dist_min > dist_temp):
+                dist_min = dist_temp
+            
+        if(dist_min < closenessThresh):
+            print(i," ",clean_corners[i], " dist = ",dist_min)
+            close_corners.append(clean_corners[i]) 
+
+
+    print("Num Corners = ",len(corners))
+    print("Num UniqueCorners = ",len(clean_corners))
+    print("Num CloseCorners = ",len(close_corners))
+    return close_corners
+
 
 
 x1,y1=fetchCoord()
@@ -154,6 +186,7 @@ print("CD: NoPoints = ",len(x1))
 best_models = manager(x1,y1)
 print("CD: NoLines = ",len(best_models))
 corners = find_corners(best_models)
-writeCoord(corners)
+filtered_corners = filter_corners(corners)
+writeCoord(filtered_corners)
 
-print("CD: NoCorners = ",len(corners))
+print("CD: NoCorners = ",len(filtered_corners))

@@ -123,7 +123,7 @@ def calculate_intercept_point(line1,line2):
     return x,y
     
 
-def find_corners(best_models, angleThresh = 30*np.pi/180):
+def find_corners(best_models,x1,y1, angleThresh = 30*np.pi/180,duplicateThresh = 40,closenessThresh = 40):
     corners = []
     for i in range(0,len(best_models)):
 
@@ -138,10 +138,10 @@ def find_corners(best_models, angleThresh = 30*np.pi/180):
             if(interAngle < np.pi/2+angleThresh and interAngle > np.pi/2-angleThresh):
                 corners.append([x,y])
                 #x,y = calculate_intercept_point(best_models[i],best_models[i+1])
-                print()
-                print(i,": y = ",best_models[i][0][0]," + ",best_models[i][1][0])
-                print(i+1,": y = ",best_models[i+1][0][0]," + ",best_models[i+1][0][0])
-                plt.plot(x, y, 'X', label='Points',markersize=20,color='g')
+                # print()
+                # print(i,": y = ",best_models[i][0][0]," + ",best_models[i][1][0])
+                # print(i+1,": y = ",best_models[i+1][0][0]," + ",best_models[i+1][0][0])
+                # plt.plot(x, y, 'X', label='Points',markersize=20,color='g')
             
             elif(i<len(best_models)-2):
                 #interAngle = calculate_intercept_angle(best_models[i-1],best_models[i+2])
@@ -156,25 +156,46 @@ def find_corners(best_models, angleThresh = 30*np.pi/180):
                 if(interAngle2 < np.pi/2+angleThresh and interAngle2 > np.pi/2-angleThresh): ang2 = False
 
                 if(ang1 == True and ang2 == True):
-                    print("SC")
-                    print(i,": y = ",best_models[i][0][0]," + ",best_models[i][1][0])
-                    print(i+1,": y = ",best_models[i+1][0][0]," + ",best_models[i+1][0][0])
-                    print(i+2,": y = ",best_models[i+2][0][0]," + ",best_models[i+2][0][0])
+                    # print("SC")
+                    # print(i,": y = ",best_models[i][0][0]," + ",best_models[i][1][0])
+                    # print(i+1,": y = ",best_models[i+1][0][0]," + ",best_models[i+1][0][0])
+                    # print(i+2,": y = ",best_models[i+2][0][0]," + ",best_models[i+2][0][0])
 
                     x,y = calculate_intercept_point(best_models[i],best_models[i+2])
                     corners.append([x,y])
-                    plt.plot(x, y, 'X', label='Points',markersize=20,color='orange')
+                    #plt.plot(x, y, 'X', label='Points',markersize=20,color='orange')
 
         
-        #for(int i =0;i)
+        #Remove Duplicates
+        clean_corners = []
+        for i in range(0,len(corners)):
+            dup = False
+            for j in range(0,len(clean_corners)):
+                dist = math.sqrt(pow(corners[i][0] - clean_corners[j][0] ,2) + pow(corners[i][1] - clean_corners[j][1] ,2))
+                if(dist < duplicateThresh):
+                    dup = True
+            if(dup == False):
+                clean_corners.append(corners[i])
 
-
-
-
+        #Remove Points far away from data
+        close_corners = []
+        
+        for i in range(0,len(clean_corners)):
+            dist_min = 10000000
+            for j in range(0,len(x1)):
+                dist_temp = math.sqrt(pow(x1[j] - clean_corners[i][0] ,2) + pow(y1[j] - clean_corners[i][1] ,2))
+                if(dist_min > dist_temp):
+                    dist_min = dist_temp
+                
+            if(dist_min < closenessThresh):
+                print(i," ",clean_corners[i], " dist = ",dist_min)
+                close_corners.append(clean_corners[i]) 
 
 
     print("Num Corners = ",len(corners))
-    return corners
+    print("Num UniqueCorners = ",len(clean_corners))
+    print("Num CloseCorners = ",len(close_corners))
+    return close_corners
         #Is there a corner between myself and the next line?
 
 
@@ -184,8 +205,9 @@ def find_corners(best_models, angleThresh = 30*np.pi/180):
 x1,y1=fetchCoord('mapCSV3.csv')
 best_models = manager(x1,y1)
 plt.plot(x1, y1, 'o', label='Points',markersize=0.5,color='grey')
-corners = find_corners(best_models)
-print(corners)
+corners = find_corners(best_models,x1,y1)
+for i in range(0,len(corners)):
+    plt.plot(corners[i][0],corners[i][1],'X',markersize=20,color='g')
 writeCoord(corners)
 # plt.ylim([-300,300])
 # plt.xlim([-300,300])
