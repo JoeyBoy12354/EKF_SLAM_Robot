@@ -150,7 +150,9 @@ def find_corners(best_models, angleThresh = 30*np.pi/180):
 
 
 x1,y1=fetchCoord()
+print("CD: NoPoints = ",len(x1))
 best_models = manager(x1,y1)
+print("CD: NoLines = ",len(best_models))
 corners = find_corners(best_models)
 writeCoord(corners)
 
