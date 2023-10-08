@@ -144,7 +144,10 @@ namespace Data_Functions{
     int getIndex(vector<double> v, double K);
     vector<PolPoint> sortPoints(vector<PolPoint> dataPoints);
     bool compareByAngle(const PolPoint& a, const PolPoint& b);
+
+    //The boys from Landmark.cpp
     double pointDistance(CarPoint pointA, CarPoint pointB);
+    double perpendicularDistance(const CarPoint& point, Line& line);
 
     //landmark
     void lidarDataProcessingFull(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints, bool firstRun);

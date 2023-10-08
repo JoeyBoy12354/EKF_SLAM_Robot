@@ -249,7 +249,10 @@ namespace Data_Functions{
         return sqrt( pow((pointA.x - pointB.x),2) + pow((pointA.y - pointB.y),2));
     }
 
-
+    // Function to calculate the perpendicular distance from a point to a line
+    double perpendicularDistance(const CarPoint& point, Line& line) {
+        return fabs((line.gradient * point.x - point.y + line.intercept)) / sqrt(1 + line.gradient * line.gradient);
+    }
     
 }
 
