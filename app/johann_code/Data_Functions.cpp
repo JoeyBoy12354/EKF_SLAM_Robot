@@ -203,14 +203,17 @@ namespace Data_Functions{
         // writeCornersToCSV(closestPoints);
 
 
-        cout<<"\n ANSAC RUN \n"<<endl;
-        vector<CarPoint> closestPoints = ANSAC_CORNER(carPoints);
-        writeCornersToCSV(closestPoints);
+        // cout<<"\n ANSAC RUN \n"<<endl;
+        // vector<CarPoint> closestPoints = ANSAC_CORNER(carPoints);
+        // writeCornersToCSV(closestPoints);
 
         
         // cout<<"\n GRADIENT ANALYSOIS RUN \n"<<endl;
         // vector<CarPoint> closestPoints = gradientAnalysis(carPoints);
         // writeCornersToCSV(closestPoints);
+
+        cout<<"\n RANSAC py RUN \n"<<endl;
+        vector<CarPoint> closestPoints = getCorners();
 
 
         cout<<"NUMBER OF CLOSEST POINTS = "<<closestPoints.size()<<endl;

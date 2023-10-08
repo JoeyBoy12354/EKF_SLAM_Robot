@@ -159,29 +159,10 @@ namespace Data_Functions{
 }
 
 namespace Landmark_Functions{
-    double perpendicularDistance(const CarPoint& point, Line& line);
-    void findInliers(vector<Line>& lines, vector<CarPoint>& points);
-    vector<Line> houghTransform(vector<CarPoint>& points, int num_theta_bins = 360, int num_rho_bins = 500);
-    double pointDistance(CarPoint pointA, CarPoint pointB);
-    vector<CarPoint> findCorners(vector<Line> lines);
-    vector<CarPoint> findLazyCorners(vector<Line> lines);
-    vector<CarPoint> findFancyCorners(vector<Line> lines);
-
-    vector<Line> RANSAC(vector<CarPoint> laserdata);
-    vector<CarPoint> ANSAC_CORNER(vector<CarPoint> laserdata);
-    void LeastSquaresLineEstimate(vector<CarPoint> SelectedPoints, double& c, double& m);
-    vector<CarPoint> findNearestPoint(vector<Line> lines);
-    float getAngle(Line l1, Line l2);
-    CarPoint getIntercept(Line line1, Line line2);
-    bool checkForHoles(vector<CarPoint> points);
-    // vector<CarPoint> gradientAnalysis(vector<CarPoint> laserdata);
-    // float distanceBetweenPointandSample(CarPoint point,vector<CarPoint> sample);
-
-    vector<Line> RANSAC_Manager(vector<CarPoint> laserdata);
-    vector<Line> RANSAC2(vector<CarPoint> laserdata);
-    vector<CarPoint> gradientAnalysis(vector<CarPoint> laserdata);
-    float distanceBetweenPointandSample(CarPoint point,vector<CarPoint> sample);
+    vector<CarPoint> getCorners();
 }
+
+
 
 
 namespace Simulation_Functions{
@@ -281,3 +262,33 @@ private:
 };
 
 #endif
+
+
+
+
+
+// namespace Landmark_Functions{
+    
+//     double perpendicularDistance(const CarPoint& point, Line& line);
+//     void findInliers(vector<Line>& lines, vector<CarPoint>& points);
+//     vector<Line> houghTransform(vector<CarPoint>& points, int num_theta_bins = 360, int num_rho_bins = 500);
+//     double pointDistance(CarPoint pointA, CarPoint pointB);
+//     vector<CarPoint> findCorners(vector<Line> lines);
+//     vector<CarPoint> findLazyCorners(vector<Line> lines);
+//     vector<CarPoint> findFancyCorners(vector<Line> lines);
+
+//     vector<Line> RANSAC(vector<CarPoint> laserdata);
+//     vector<CarPoint> ANSAC_CORNER(vector<CarPoint> laserdata);
+//     void LeastSquaresLineEstimate(vector<CarPoint> SelectedPoints, double& c, double& m);
+//     vector<CarPoint> findNearestPoint(vector<Line> lines);
+//     float getAngle(Line l1, Line l2);
+//     CarPoint getIntercept(Line line1, Line line2);
+//     bool checkForHoles(vector<CarPoint> points);
+//     // vector<CarPoint> gradientAnalysis(vector<CarPoint> laserdata);
+//     // float distanceBetweenPointandSample(CarPoint point,vector<CarPoint> sample);
+
+//     vector<Line> RANSAC_Manager(vector<CarPoint> laserdata);
+//     vector<Line> RANSAC2(vector<CarPoint> laserdata);
+//     vector<CarPoint> gradientAnalysis(vector<CarPoint> laserdata);
+//     float distanceBetweenPointandSample(CarPoint point,vector<CarPoint> sample);
+// }
