@@ -181,7 +181,7 @@ def find_corners(best_models, angleThresh = 30*np.pi/180):
         
 
 
-x1,y1=fetchCoord('map2.csv')
+x1,y1=fetchCoord('mapCSV3.csv')
 best_models = manager(x1,y1)
 plt.plot(x1, y1, 'o', label='Points',markersize=0.5,color='grey')
 corners = find_corners(best_models)
