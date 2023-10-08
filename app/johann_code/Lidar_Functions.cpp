@@ -76,8 +76,10 @@ namespace Lidar_Functions{
             "115200"
         };
         bool newScan = true;
-        int NoPoints = 10000;
-        int NoPointsPerScan = 100000;
+        // int NoPoints = 10000;
+        // int NoPointsPerScan = 100000;
+        int NoPoints = 8192;
+        int NoPointsPerScan = 8192;
         sl_u16 stop = 0;
 
         const char * opt_is_channel = NULL; 
