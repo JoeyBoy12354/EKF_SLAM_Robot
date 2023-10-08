@@ -51,7 +51,10 @@ namespace Mapping_Functions{
             CarPoint LM;
             LM.x = State[i];
             LM.y = State[i+1];
-            landmarks.push_back(LM);
+            if(LM.x != 0 && LM.y !=0 ){
+                landmarks.push_back(LM);
+            }
+            
         }
 
         saveLandmarkToCSV(landmarks);
