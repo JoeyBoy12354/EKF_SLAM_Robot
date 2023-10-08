@@ -186,7 +186,7 @@ print("CD: NoPoints = ",len(x1))
 best_models = manager(x1,y1)
 print("CD: NoLines = ",len(best_models))
 corners = find_corners(best_models)
-filtered_corners = filter_corners(corners)
+filtered_corners = filter_corners(corners,x1,y1)
 writeCoord(filtered_corners)
 
 print("CD: NoCorners = ",len(filtered_corners))
