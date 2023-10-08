@@ -8,7 +8,8 @@ namespace Landmark_Functions{
 
     vector<CarPoint> getCorners(){
         int ret;
-        ret = system("python3 cornerDetector.py ok go");
+        //ret = system("python3 cornerDetector.py ok go");
+        ret = system("/usr/bin/python3 cornerDetector.py ok go");
         cout << "ret/cpp = " << ret << endl;
 
         vector<CarPoint> corners;
