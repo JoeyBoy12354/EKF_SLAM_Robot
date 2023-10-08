@@ -181,7 +181,7 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun){
             vector<CarPoint> carPoints;
             lidarDataProcessing(lidarDataPoints,carPoints,ekf.State[0],ekf.State[1],ekf.State[2]);
 
-            //Get Grid
+            
             
 
             //Run EKF
@@ -196,6 +196,7 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun){
                 storeStatePoints(ekf.State);
             }
 
+            //Get Grid
             vector<vector<GridPoint>> gridNew;
             gridDataProcess(gridNew, ekf.State, firstRun);
                 
@@ -252,11 +253,11 @@ int main() {
     cout<<"Started in Main"<<endl;
     
     //testPython();
-    testLM();
+    //testLM();
     //testMotor();
     //testLidar();
 
-    //testRun();
+    testRun();
     
     
   

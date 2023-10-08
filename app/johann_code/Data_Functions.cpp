@@ -138,26 +138,13 @@ namespace Data_Functions{
         saveCarToCSV(carPoints);
         cout<<"\nNumber of CAR points"<<carPoints.size(); 
 
+        cout<<"\n RANSAC py RUN \n"<<endl;
+        vector<CarPoint> cornerPoints = getCorners();
 
 
-        // cout<<"\nRANSAC"<<endl;
-        // vector<Line> detected_lines = RANSAC(carPoints);
-        // writeLinesToCSV(detected_lines);
-        // writeConsensusToCSV(detected_lines);
+        cout<<"DATA: NUMBER OF CORNERS POINTS = "<<cornerPoints.size()<<endl;
 
-        // cout<<"\nANSAC"<<endl;
-        // vector<CarPoint> closestPoints = ANSAC_CORNER(carPoints);
-        // writeCornersToCSV(closestPoints);
-
-        // // cout<<"\nGRADIENT CORNERS"<<endl;
-        // // vector<CarPoint> closestPoints = gradientAnalysis(carPoints);
-        // // writeCornersToCSV(closestPoints);
-        
-
-        // // vector<CarPoint> closestPoints = findNearestPoint(detected_lines);
-        // // writeCornersToCSV(closestPoints);
-        // cout<<"\n Number of Closest Points Found:"<<closestPoints.size()<<endl;
-        
+        return;
      
     }
 

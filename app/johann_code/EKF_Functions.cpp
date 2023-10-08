@@ -86,15 +86,6 @@ void ExtendedKalmanFilter::updateCovarianceOfRobot() {
 
 // Perform lidar observation and return landmarks (should be replace with function in Data_Functions)
 vector<CarPoint> ExtendedKalmanFilter::observeEnvironment() {
-    // vector<PolPoint> dataPoints = generateLidarData();
-    // vector<CarPoint> carPoints = convertCartesian(dataPoints);
-    // saveCarToCSV(carPoints);
-
-    // vector<Line> detected_lines = houghTransform(carPoints);
-    // writeLinesToCSV(detected_lines);
-
-    // vector<CarPoint> corners = findLazyCorners(detected_lines);
-    // writeCornersToCSV(corners);
 
     vector<CarPoint> corners;
     readCornersFromCSV(corners);
