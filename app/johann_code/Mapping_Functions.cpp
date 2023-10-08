@@ -31,7 +31,7 @@ namespace Mapping_Functions{
     
 
         //Update full map
-        writeConsensusToCSV(lidardata);
+        
         appendCarToFullMapCSV(lidardata);
         
     }
