@@ -242,7 +242,7 @@ void testRun(){
 
 void testLM(){
     bool firstRun = true;
-    int noRuns = 2;
+    int noRuns = 8;
     for(int i =0;i<noRuns;i++){
         testLandmarkIdentification(firstRun);
     }
