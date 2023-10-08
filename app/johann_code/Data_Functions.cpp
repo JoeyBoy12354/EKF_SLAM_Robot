@@ -116,15 +116,15 @@ namespace Data_Functions{
         //Reading The Full Map means we will identify all landmarks at all times (this could be problematic)
         readCarFromFullMapCSV(carPoints);
 
-        cout<<"\nRANSAC"<<endl;
-        vector<Line> detected_lines = RANSAC(carPoints);
-        writeLinesToCSV(detected_lines);
-        writeConsensusToCSV(detected_lines);
+        // cout<<"\nRANSAC"<<endl;
+        // vector<Line> detected_lines = RANSAC(carPoints);
+        // writeLinesToCSV(detected_lines);
+        // writeConsensusToCSV(detected_lines);
         
 
-        vector<CarPoint> closestPoints = findNearestPoint(detected_lines);
-        writeCornersToCSV(closestPoints);
-        cout<<"\n Number of Closest Points Found:"<<closestPoints.size()<<endl;
+        // vector<CarPoint> closestPoints = findNearestPoint(detected_lines);
+        // writeCornersToCSV(closestPoints);
+        // cout<<"\n Number of Closest Points Found:"<<closestPoints.size()<<endl;
         
      
     }
@@ -145,18 +145,18 @@ namespace Data_Functions{
         // writeLinesToCSV(detected_lines);
         // writeConsensusToCSV(detected_lines);
 
-        cout<<"\nANSAC"<<endl;
-        vector<CarPoint> closestPoints = ANSAC_CORNER(carPoints);
-        writeCornersToCSV(closestPoints);
-
-        // cout<<"\nGRADIENT CORNERS"<<endl;
-        // vector<CarPoint> closestPoints = gradientAnalysis(carPoints);
+        // cout<<"\nANSAC"<<endl;
+        // vector<CarPoint> closestPoints = ANSAC_CORNER(carPoints);
         // writeCornersToCSV(closestPoints);
+
+        // // cout<<"\nGRADIENT CORNERS"<<endl;
+        // // vector<CarPoint> closestPoints = gradientAnalysis(carPoints);
+        // // writeCornersToCSV(closestPoints);
         
 
-        // vector<CarPoint> closestPoints = findNearestPoint(detected_lines);
-        // writeCornersToCSV(closestPoints);
-        cout<<"\n Number of Closest Points Found:"<<closestPoints.size()<<endl;
+        // // vector<CarPoint> closestPoints = findNearestPoint(detected_lines);
+        // // writeCornersToCSV(closestPoints);
+        // cout<<"\n Number of Closest Points Found:"<<closestPoints.size()<<endl;
         
      
     }
@@ -167,20 +167,20 @@ namespace Data_Functions{
         readCarFromCSV(carPoints);
         cout<<"\n Number of Points Read:"<<carPoints.size()<<endl;
 
-        cout<<"\n RANSAC\n"<<endl;
-        vector<Line> detected_lines = RANSAC(carPoints);
-        writeLinesToCSV(detected_lines);
+        // cout<<"\n RANSAC\n"<<endl;
+        // vector<Line> detected_lines = RANSAC(carPoints);
+        // writeLinesToCSV(detected_lines);
         
         
         
 
-        cout<<"\n Number of Lines Found:"<<detected_lines.size()<<endl;
+        // cout<<"\n Number of Lines Found:"<<detected_lines.size()<<endl;
 
-        cout<<"\n findNearestPoints\n"<<endl;
-        vector<CarPoint> closestPoints = findNearestPoint(detected_lines);
-        writeCornersToCSV(closestPoints);
+        // cout<<"\n findNearestPoints\n"<<endl;
+        // vector<CarPoint> closestPoints = findNearestPoint(detected_lines);
+        // writeCornersToCSV(closestPoints);
 
-        cout<<"\n Number of Closest Points Found:"<<closestPoints.size()<<endl;
+        // cout<<"\n Number of Closest Points Found:"<<closestPoints.size()<<endl;
 
     }
 
@@ -245,46 +245,48 @@ namespace Data_Functions{
     }
 
 
-    void getCaliAngle(MatrixXf State1,MatrixXf State2, float distThresh, float& caliAngle){
-        //Get list 1
-        vector<CarPoint> LMlist1;
-        CarPoint LM; 
-        for(int i=0; i<State1.rows(); i++){
-            LM.x = State1(i+3);
-            LM.y = State1(i*2+4);
-            LMlist1.push_back(LM);
-        }
-
-        //Get list 2
-        vector<CarPoint> LMlist2; 
-        for(int i=0; i<State2.rows(); i++){
-            LM.x = State2(i+3);
-            LM.y = State2(i*2+4);
-            LMlist2.push_back(LM);
-        }
-
-        vector<float> totalAngles;
-        float sumAngles = 0;
-        for(int i=0; i<LMlist1.size(); i++){
-            for(int j=0; j<LMlist2.size(); j++){
-                //data assosciation
-                if(pointDistance(LMlist1[i],LMlist2[j]) <= distThresh){
-                    //calculate angle;
-                    float delta_x = LMlist1[i].x - LMlist2[j].x;
-                    float delta_y = LMlist1[i].y - LMlist2[j].y;
-                    float angle = atan2(delta_y,delta_x);
-
-                    totalAngles.push_back(angle);
-                    sumAngles+=angle;
-                }
-            }
-        }
-
-        caliAngle = sumAngles/totalAngles.size();
-
-        return;
-    }
+    
 }
+
+// void getCaliAngle(MatrixXf State1,MatrixXf State2, float distThresh, float& caliAngle){
+//         //Get list 1
+//         vector<CarPoint> LMlist1;
+//         CarPoint LM; 
+//         for(int i=0; i<State1.rows(); i++){
+//             LM.x = State1(i+3);
+//             LM.y = State1(i*2+4);
+//             LMlist1.push_back(LM);
+//         }
+
+//         //Get list 2
+//         vector<CarPoint> LMlist2; 
+//         for(int i=0; i<State2.rows(); i++){
+//             LM.x = State2(i+3);
+//             LM.y = State2(i*2+4);
+//             LMlist2.push_back(LM);
+//         }
+
+//         vector<float> totalAngles;
+//         float sumAngles = 0;
+//         for(int i=0; i<LMlist1.size(); i++){
+//             for(int j=0; j<LMlist2.size(); j++){
+//                 //data assosciation
+//                 if(pointDistance(LMlist1[i],LMlist2[j]) <= distThresh){
+//                     //calculate angle;
+//                     float delta_x = LMlist1[i].x - LMlist2[j].x;
+//                     float delta_y = LMlist1[i].y - LMlist2[j].y;
+//                     float angle = atan2(delta_y,delta_x);
+
+//                     totalAngles.push_back(angle);
+//                     sumAngles+=angle;
+//                 }
+//             }
+//         }
+
+//         caliAngle = sumAngles/totalAngles.size();
+
+//         return;
+//     }
 
 
 
