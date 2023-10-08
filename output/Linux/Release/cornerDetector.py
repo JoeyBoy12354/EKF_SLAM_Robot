@@ -1,5 +1,4 @@
 import csv
-import matplotlib.pyplot as plt
 import numpy as np
 import math
 
@@ -86,14 +85,6 @@ def manager(x_coords,y_coords):
         result = ransac(x,y)
         best_models.append(result)
         
-
-        #Plotting
-        m = result[0][0]
-        b = result[1][0]
-        if(i%2==0):
-            plt.plot(x,m*x+b,'b',linewidth=4)
-        else:
-            plt.plot(x,m*x+b,'r',linewidth=4)
 
     return best_models
 
