@@ -45,7 +45,7 @@ namespace CSV_Functions{
     }
 
     //New Map Functions
-    void c(const vector<CarPoint>& points) {
+    void saveCarToCSV(const vector<CarPoint>& points) {
         ofstream outputFile(mapCSV);
         if (!outputFile.is_open()) {
             cerr << "Error opening the file: " << mapCSV << endl;
