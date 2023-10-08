@@ -66,7 +66,7 @@ def ransac(X,y,max_iters=200,samples_to_fit=2,inlier_threshold=5,min_inliers=35)
     return best_model
 
 def manager(x_coords,y_coords):
-    sample_size = 500 #worked well for map1
+    sample_size = 200 #worked well for map1
     num_samples = int(len(x_coords)/sample_size)
     best_models = []
 
@@ -188,7 +188,7 @@ def find_corners(best_models,x1,y1, angleThresh = 30*np.pi/180,duplicateThresh =
                     dist_min = dist_temp
                 
             if(dist_min < closenessThresh):
-                print(i," ",clean_corners[i], " dist = ",dist_min)
+                #print(i," ",clean_corners[i], " dist = ",dist_min)
                 close_corners.append(clean_corners[i]) 
 
 
