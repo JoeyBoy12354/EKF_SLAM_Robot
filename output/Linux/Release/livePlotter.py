@@ -281,21 +281,21 @@ def animate(i):
     
 
     plt.cla() #Clear Axis (so that we don't keep the old plot we clear it and write again)
-    #plt.axes().set_facecolor("black")
+    plt.axes().set_facecolor("black")
     #fetchAndPlotSection()
 
     #fetchAndPlotLines()
-    #triangle = draw_rotated_triangle(plt.gca(),position[0],position[1],position[2])
-    #plt.gca().fill(triangle[:, 0], triangle[:, 1], 'b')
+    triangle = draw_rotated_triangle(plt.gca(),position[0],position[1],position[2])
+    plt.gca().fill(triangle[:, 0], triangle[:, 1], 'b')
 
     #triangle = draw_rotated_triangle(plt.gca(),0,0,0) 
     #triangle = draw_rotated_triangle(plt.gca(),true_move[0],true_move[1],true_move[2])
     #plt.gca().fill(triangle[:, 0], triangle[:, 1], 'y')
 
     #plt.plot(x_goal, y_goal, '8', label='Goal', markersize=7,color='c')
-    #plt.axhline(y=0, color='k', linestyle='--', linewidth=1)
-    #plt.axvline(x=0, color='k', linestyle='--', linewidth=1)
-    #fetchAndPlotGrid()
+    plt.axhline(y=0, color='k', linestyle='--', linewidth=1)
+    plt.axvline(x=0, color='k', linestyle='--', linewidth=1)
+    fetchAndPlotGrid()
 
     plt.plot(x1, y1, 'o', label='Points',markersize=0.5,color='r')
     #plt.plot(x4, y4, 'o', label='Con_points', markersize=3,color='purple')
