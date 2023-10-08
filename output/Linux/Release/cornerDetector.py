@@ -4,7 +4,7 @@ import math
 
 
 
-def fetchCoord(filename = 'cornersCSV.csv'):
+def fetchCoord(filename = 'mapCSV.csv'):
     x_coord = []
     y_coord = []
     with open(filename,'r') as file:
