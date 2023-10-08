@@ -158,6 +158,9 @@ def find_corners(best_models, angleThresh = 30*np.pi/180):
 
 
 
-x1,y1=fetchCoord('map2.csv')
+x1,y1=fetchCoord()
 best_models = manager(x1,y1)
 corners = find_corners(best_models)
+writeCoord(corners)
+
+print("CD: NoCorners = ",len(corners))
