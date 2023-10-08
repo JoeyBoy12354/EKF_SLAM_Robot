@@ -281,7 +281,7 @@ def animate(i):
     
 
     plt.cla() #Clear Axis (so that we don't keep the old plot we clear it and write again)
-    plt.axes().set_facecolor("black")
+    #plt.axes().set_facecolor("black")
     #fetchAndPlotSection()
 
     #fetchAndPlotLines()

@@ -60,6 +60,7 @@ namespace Navigation_Functions{
     void motorControl(){
 
         cout<<"!!!!!!!!!!!!!! !!!!!!!!! TESTING CONST theta & DIST"<<endl;
+        
 
         cout<<"Navi: Set angle = "<<theta*180/(PI)<<" deg Set Distance = "<<dist<<"mm"<<endl;
         theta = 0;
