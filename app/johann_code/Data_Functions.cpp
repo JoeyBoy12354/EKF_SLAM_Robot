@@ -244,6 +244,11 @@ namespace Data_Functions{
 
     }
 
+    // Function to calculate the perpendicular distance from a point to a point
+    double pointDistance(CarPoint pointA, CarPoint pointB) {
+        return sqrt( pow((pointA.x - pointB.x),2) + pow((pointA.y - pointB.y),2));
+    }
+
 
     
 }

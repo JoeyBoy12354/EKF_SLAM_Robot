@@ -144,12 +144,14 @@ namespace Data_Functions{
     int getIndex(vector<double> v, double K);
     vector<PolPoint> sortPoints(vector<PolPoint> dataPoints);
     bool compareByAngle(const PolPoint& a, const PolPoint& b);
+    double pointDistance(CarPoint pointA, CarPoint pointB);
 
     //landmark
     void lidarDataProcessingFull(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints, bool firstRun);
     void lidarDataProcessing(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints, float x, float y, float angle);
     void LandmarkProcessing();
     void LandmarkProcessing2(vector<CarPoint> carPoints);
+
 
     //calibration
     //void getCaliAngle(MatrixXf State1,MatrixXf State2, float distThresh, float& caliAngle);
