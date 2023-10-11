@@ -188,7 +188,7 @@ namespace Navigation_Functions{
 
         //find closest non-traversed point
         for(int i =0;i<gridMap.size();i++){
-            for(int j=0;gridMap[i].size();j++){
+            for(int j=0;j<gridMap[i].size();j++){
                 CarPoint tempPoint;
                 tempPoint.x = gridMap[i][j].x;
                 tempPoint.y = gridMap[i][j].y;
