@@ -219,10 +219,10 @@ namespace Data_Functions{
         
         readMotorFromCSV(theta,dist);
         cout<<"DATA: SEND TO EKF: Read angle = "<<theta<<" Read Distance = "<<endl;
-        cout<<"DATA:FOR TESTING I FORCE THIS TO BE 0 and 0 was "<<endl;
-        theta = 0;
-        dist = 0;
-        cout<<"DATA: SEND TO EKF (TEST_VAL): Read angle = "<<theta<<" Read Distance = "<<endl;
+        // cout<<"DATA:FOR TESTING I FORCE THIS TO BE 0 and 0 was "<<endl;
+        // theta = 0;
+        // dist = 0;
+        // cout<<"DATA: SEND TO EKF (TEST_VAL): Read angle = "<<theta<<" Read Distance = "<<endl;
         
         ekf_w = theta;
         ekf_dist = dist;

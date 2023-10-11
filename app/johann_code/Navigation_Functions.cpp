@@ -164,6 +164,8 @@ namespace Navigation_Functions{
         //Send to motors
         writeMotorToCSV(angle,distance);
         cout<<"Navi test: Set angle = "<<angle*180/(PI)<<" deg Set Distance = "<<distance<<"mm"<<endl;
+
+        cout<<"NAVI: Run python"<<endl;
     
         int ret;
         ret = system("python3 motorControl.py ok go");
