@@ -889,7 +889,7 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 
 angle,distance = readInstructions()
 angle = PI/2
-distance = 30
+distance = 200
 
 
 angle,distance = motorControl_wThread(angle,distance)
