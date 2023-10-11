@@ -154,11 +154,11 @@ namespace Navigation_Functions{
     //Set motors and start them
     void motorControlGrid(float angle, float distance){
 
-        cout<<"!!!!!!!!!!!!!! !!!!!!!!! TESTING CONST theta & DIST"<<endl;
+        // cout<<"!!!!!!!!!!!!!! !!!!!!!!! TESTING CONST theta & DIST"<<endl;
 
         cout<<"Navi: Set angle = "<<angle*180/(PI)<<" deg Set Distance = "<<distance<<"mm"<<endl;
-        angle = 0;
-        distance = 0;
+        // angle = 0;
+        // distance = 0;
 
 
         //Send to motors
