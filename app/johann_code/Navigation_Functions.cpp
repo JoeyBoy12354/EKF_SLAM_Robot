@@ -231,7 +231,7 @@ namespace Navigation_Functions{
         //Get the start node as the gridpoint nearest to myRobot
 
         for(int i =0;i<gridMap.size();i++){
-            for(int j =0;j<gridMap[i].size();j++)
+           // for(int j =0;j<gridMap[i].size();j++)
         }
 
 
