@@ -175,6 +175,7 @@ namespace Navigation_Functions{
 
     //Set distance and angle to go to nearest unexplored grid point
     bool updateMovementGrid(MatrixXf State, vector<vector<GridPoint>> gridMap){
+        cout<<"IN update Movement Grid"<<endl;
         //take grid map
         bool mapped = true;
         float smallDistance = 10000000;
@@ -182,6 +183,8 @@ namespace Navigation_Functions{
         CarPoint robotPoint;
         robotPoint.x = State(0);
         robotPoint.y = State(1);
+
+        cout<<"A"<<endl;
 
         //find closest non-traversed point
         for(int i =0;i<gridMap.size();i++){
@@ -202,6 +205,7 @@ namespace Navigation_Functions{
             }
         }
 
+        cout<<"B"<<endl;
         //Set destination
         float deltaX = closestPoint.x - State(0);
         float deltaY = closestPoint.y - State(1);
