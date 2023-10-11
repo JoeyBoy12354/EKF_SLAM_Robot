@@ -220,9 +220,7 @@ namespace Navigation_Functions{
 
 
 
-
-
-    //Move through the map post mapping
+    // //Find array of gridPoints to traverse through
     void pathFinder(vector<vector<GridPoint>> gridMap, MatrixXf State,GridPoint goal){
         //Assume there is a grid point at (0,0)
 
@@ -230,14 +228,22 @@ namespace Navigation_Functions{
         myRobot.x = State(0);
         myRobot.y = State(1);
 
-        GridPoint Goal;
-        Goal.x = 0;
-        Goal.y = 0;
+        //Get the start node as the gridpoint nearest to myRobot
+
+        for(int i =0;i<gridMap.size();i++){
+            for(int j =0;j<gridMap[i].size();j++)
+        }
 
 
         cout<<"\nNot yet implemented"<<endl;
         return;
     }
+
+    //Note that start and goal must be gridpoints in gridmap
+    // vector<GridPoint> pathFinder(vector<vector<GridPoint>>& gridMap, const GridPoint& start, const GridPoint& goal) {
+        
+    
+    // }
 
 
 }
