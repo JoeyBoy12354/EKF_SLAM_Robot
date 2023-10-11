@@ -173,7 +173,7 @@ namespace Navigation_Functions{
 
     }
 
-    //Set distance and angle to go to grid point
+    //Set distance and angle to go to nearest unexplored grid point
     bool updateMovementGrid(MatrixXf State, vector<vector<GridPoint>> gridMap){
         //take grid map
         bool mapped = true;
@@ -223,7 +223,7 @@ namespace Navigation_Functions{
 
 
     //Move through the map post mapping
-    void pathFinder(vector<vector<GridPoint>> gridMap, MatrixXf State){
+    void pathFinder(vector<vector<GridPoint>> gridMap, MatrixXf State,GridPoint goal){
         //Assume there is a grid point at (0,0)
 
         GridPoint myRobot;
