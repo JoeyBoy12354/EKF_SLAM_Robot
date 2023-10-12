@@ -891,6 +891,7 @@ angle,distance = readInstructions()
 angle = PI/2
 distance = 200
 
+print("TEST SET angle = ",angle," distance = ",distance)
 
 angle,distance = motorControl_wThread(angle,distance)
 print("Angle turned = ",angle)
