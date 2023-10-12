@@ -205,6 +205,7 @@ def reverse_thread(timeOn,timeOff):
 
 def left_thread(timeOn,timeOff):
     print("MC: LEFT_Thread")
+    print("timeOn = ",timeOn," timeOff = ",timeOff)
     global runDone
     #Forward Movement
 
@@ -231,6 +232,7 @@ def leftR_thread(timeOn,timeOff):
 
 def right_thread(timeOn,timeOff):
     print("MC: RIGHT_Thread")
+    print("timeOn = ",timeOn," timeOff = ",timeOff)
     global runDone
     #Forward Movement
 
