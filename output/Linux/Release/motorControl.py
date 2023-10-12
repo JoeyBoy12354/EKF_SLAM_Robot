@@ -59,7 +59,7 @@ def motorControl_wThread(theta,distance):
     theta = -PI/2
     LNoRot,RNoRot  = speedControl(theta,0,True)
 
-    return
+    return angle,distance
 
 
     angle = getAngle(LNoRot,RNoRot)
@@ -205,7 +205,6 @@ def reverse_thread(timeOn,timeOff):
 
 def left_thread(timeOn,timeOff):
     print("MC: LEFT_Thread")
-    print("timeOn = ",timeOn," timeOff = ",timeOff)
     global runDone
     #Forward Movement
 
@@ -232,7 +231,6 @@ def leftR_thread(timeOn,timeOff):
 
 def right_thread(timeOn,timeOff):
     print("MC: RIGHT_Thread")
-    print("timeOn = ",timeOn," timeOff = ",timeOff)
     global runDone
     #Forward Movement
 
@@ -242,6 +240,7 @@ def right_thread(timeOn,timeOff):
         wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
         time.sleep(timeOff)
 
+    print("leaving")
     return
 
 def rightR_thread(timeOn,timeOff):
