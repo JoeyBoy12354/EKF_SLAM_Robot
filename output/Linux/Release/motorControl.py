@@ -52,17 +52,14 @@ def motorControl_wThread(theta,distance):
 
 
     #Do turn
-    print("MC:TURN: ",theta*180/PI," deg")
-    theta = PI/2
-    LNoRot,RNoRot  = speedControl(theta,0,True)
+    # print("MC:TURN: ",theta*180/PI," deg")
+    # theta = PI/2
+    # LNoRot,RNoRot  = speedControl(theta,0,True)
 
-    theta = -PI/2
-    LNoRot,RNoRot  = speedControl(theta,0,True)
+    # theta = -PI/2
+    # LNoRot,RNoRot  = speedControl(theta,0,True)
 
-    return theta,distance
-
-
-    angle = getAngle(LNoRot,RNoRot)
+    # angle = getAngle(LNoRot,RNoRot)
 
 
     #Check for obstacles ahead
