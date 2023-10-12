@@ -257,10 +257,10 @@ int main() {
     
     //testPython();
     //testLM();
-    //testMotor();
+    testMotor();
     //testLidar();
 
-    testRun();
+    //testRun();
     
     
   
