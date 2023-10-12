@@ -59,7 +59,7 @@ def motorControl_wThread(theta,distance):
     theta = -PI/2
     LNoRot,RNoRot  = speedControl(theta,0,True)
 
-    return angle,distance
+    return theta,distance
 
 
     angle = getAngle(LNoRot,RNoRot)
