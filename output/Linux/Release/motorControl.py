@@ -44,10 +44,10 @@ def motorControl_wThread(theta,distance):
     RNoRot=0
 
     #print("CHECK MOVEMENT SPACE")
-    if(sonarControl.runSonar()<R/2):
-        #print("REVERSE!")
-        speedControl(0,100,False)
-        #update odometry accordinglty NB!!!!!
+    # if(sonarControl.runSonar()<R/2):
+    #     #print("REVERSE!")
+    #     speedControl(0,100,False)
+    #     #update odometry accordinglty NB!!!!!
 
 
 
@@ -68,14 +68,14 @@ def motorControl_wThread(theta,distance):
     #     avoidedAngle,distance = clockAvoidance_wThread(distance)
     #     angle = avoidedAngle + angle
     
-    if(sonarControl.runSonar()<distance+R/2+30):
-        #I will hit a wall, last chance to check!
-        #print("\nFORWARD CHECK FOUND I WILL HIT WALL")
-        distance = distance - R/2 - 50
-        #print("NEWDISTANCE = ",distance)
-        if(distance<0):
-            #print("negative DISTACE ERRRORRRR!!!")
-            speedControl(0,100,False)
+    # if(sonarControl.runSonar()<distance+R/2+30):
+    #     #I will hit a wall, last chance to check!
+    #     #print("\nFORWARD CHECK FOUND I WILL HIT WALL")
+    #     distance = distance - R/2 - 50
+    #     #print("NEWDISTANCE = ",distance)
+    #     if(distance<0):
+    #         #print("negative DISTACE ERRRORRRR!!!")
+    #         speedControl(0,100,False)
 
     print("\n GO FORWARD FOR: ",distance,"\n") 
     left,right = speedControl(0,distance,True)
