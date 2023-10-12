@@ -53,7 +53,13 @@ def motorControl_wThread(theta,distance):
 
     #Do turn
     print("MC:TURN: ",theta*180/PI," deg")
+    theta = PI/2
     LNoRot,RNoRot  = speedControl(theta,0,True)
+
+    theta = -PI/2
+    LNoRot,RNoRot  = speedControl(theta,0,True)
+
+    return
 
 
     angle = getAngle(LNoRot,RNoRot)
