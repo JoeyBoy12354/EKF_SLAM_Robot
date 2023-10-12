@@ -39,7 +39,7 @@ wait = 0.05
 
 
 def motorControl_wThread(theta,distance):
-    print("in motor control")
+    print("MC: in MC")
     LNoRot=0
     RNoRot=0
 
@@ -52,7 +52,7 @@ def motorControl_wThread(theta,distance):
 
 
     #Do turn
-    print("MOTORCONTROL TURN: ",theta*180/PI," deg")
+    print("MC:TURN: ",theta*180/PI," deg")
     LNoRot,RNoRot  = speedControl(theta,0,True)
 
 
@@ -77,7 +77,7 @@ def motorControl_wThread(theta,distance):
     #         #print("negative DISTACE ERRRORRRR!!!")
     #         speedControl(0,100,False)
 
-    print("\n GO FORWARD FOR: ",distance,"\n") 
+    print("MC GO FORWARD FOR: ",distance,"\n") 
     left,right = speedControl(0,distance,True)
     dist = getDist(left,right)
 
@@ -128,7 +128,7 @@ def turnRightR(theta):
     return LNoRot,RNoRot
 
 def reverse(distance):
-    print("REVERSE")
+    print("MC: REVERSE")
     #Forward Movement
     NoRotations = distance/(2*PI*r)
     W12_Ticks = NoRotations*20
@@ -146,7 +146,7 @@ def reverse(distance):
     return dist,elapsed
 
 def forward(distance):
-    print("FORWARD")
+    print("MC: FORWARD")
     #Forward Movement
     NoRotations = distance/(2*PI*r)
     W12_Ticks = NoRotations*20
@@ -168,7 +168,7 @@ def forward(distance):
 
 
 def forward_thread(timeOn,timeOff):
-    print("FORWARD_Thread")
+    print("MC: FORWARD_Thread")
     global runDone
     #Forward Movement
 
@@ -183,7 +183,7 @@ def forward_thread(timeOn,timeOff):
     return
 
 def reverse_thread(timeOn,timeOff):
-    print("REVERSE_Thread")
+    print("MC: REVERSE_Thread")
     global runDone
     #Forward Movement
 
@@ -198,7 +198,7 @@ def reverse_thread(timeOn,timeOff):
     return
 
 def left_thread(timeOn,timeOff):
-    print("LEFT_Thread")
+    print("MC: LEFT_Thread")
     global runDone
     #Forward Movement
 
@@ -211,7 +211,7 @@ def left_thread(timeOn,timeOff):
     return
 
 def leftR_thread(timeOn,timeOff):
-    print("LEFT_R_Thread")
+    print("MC: LEFT_R_Thread")
     global runDone
     #Forward Movement
 
@@ -224,7 +224,7 @@ def leftR_thread(timeOn,timeOff):
     return
 
 def right_thread(timeOn,timeOff):
-    print("RIGHT_Thread")
+    print("MC: RIGHT_Thread")
     global runDone
     #Forward Movement
 
@@ -237,7 +237,7 @@ def right_thread(timeOn,timeOff):
     return
 
 def rightR_thread(timeOn,timeOff):
-    print("RIGHT_R_Thread")
+    print("MC: RIGHT_R_Thread")
     global runDone
     #Forward Movement
 
@@ -357,7 +357,7 @@ def getAngle(LNoRot,RNoRot):
     thetaL = (LNoRot*2*PI*r/R)
     thetaR = (RNoRot*2*PI*r/R)
     angle = thetaR-thetaL
-    print("Angle = left - right = ",thetaR* 180/(PI)," - ",thetaL* 180/(PI)," = ",(thetaR-thetaL)* 180/(PI))
+    print("MC: Angle = left - right = ",thetaR* 180/(PI)," - ",thetaL* 180/(PI)," = ",(thetaR-thetaL)* 180/(PI))
 
     return angle
 
@@ -386,7 +386,7 @@ def Avoidance(avoidDistL,avoidDistR):
         #Check Right
         obs_distance = sonarControl.runSonar()
         if(obs_distance<avoidDistR):
-            print("OBSTACLE DETECTED AVOID, I AM BOXED IN !")
+            print("MC: OBSTACLE DETECTED AVOID, I AM BOXED IN !")
         
         # GO FORWARD AND REPOSITION
         else:
@@ -404,7 +404,7 @@ def Avoidance(avoidDistL,avoidDistR):
 
 
 def checkAvoidance_wThread(distance):
-    print("\nin checkAvoidance")
+    print("\n MC: in checkAvoidance")
 
     sonarError = 20 #how much error the sonar may have [mm]
 
@@ -420,7 +420,7 @@ def checkAvoidance_wThread(distance):
 
         totalAngle += clockAngleStep
         if(sonarControl.runSonar() <abs((R/2)*math.cos(PI - totalAngle)) + sonarError):
-            print("RETURN TRUE distCos = ",abs((R/2)*math.cos(PI - totalAngle)))
+            print("MC: RETURN TRUE distCos = ",abs((R/2)*math.cos(PI - totalAngle)))
             return True
     
     
@@ -437,7 +437,7 @@ def checkAvoidance_wThread(distance):
         #print("checkA: turnRight distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
 
         if(sonarControl.runSonar() < abs((R/2)*math.cos(PI - totalAngle)) + sonarError):
-            print("RETURN TRUE distCos = ",abs((R/2)*math.cos(PI - totalAngle)))
+            print("MC:  RETURN TRUE distCos = ",abs((R/2)*math.cos(PI - totalAngle)))
             return True
     
     
@@ -450,7 +450,7 @@ def checkAvoidance_wThread(distance):
     return False
 
 def clockAvoidance_wThread(distance):
-    print("\nin clock avoidance")
+    print("\nMC:  in clock avoidance")
 
     
 
@@ -460,12 +460,12 @@ def clockAvoidance_wThread(distance):
     speedControl(0,R/2+sonarError,False)
 
     #Turn Left
-    print("CA: turnL distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
+    print("MC: CA: turnL distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
     speedControl(clockAngleInit,0,True)
     totalAngle = clockAngleInit
 
     if(sonarControl.runSonar() < abs((R/2)*math.cos(PI - totalAngle)) + sonarError):
-        print("CA: revL,turnR distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
+        print("MC:  CA: revL,turnR distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
         #Turn Right
 
         speedControl(clockAngleInit,0,False)
@@ -473,7 +473,7 @@ def clockAvoidance_wThread(distance):
         totalAngle = -clockAngleInit
 
         if(sonarControl.runSonar() < abs((R/2)*math.cos(PI - abs(totalAngle))) + sonarError):
-            print("CA: turnR distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
+            print("MC: CA: turnR distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
 
             #Turn Right
 
@@ -481,7 +481,7 @@ def clockAvoidance_wThread(distance):
             totalAngle = -clockAngleInit*2
             
             if(sonarControl.runSonar() < abs((R/2)*math.cos(PI - abs(totalAngle))) + sonarError):
-                print("CA: revR*2,turnL*2 distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
+                print("MC: CA: revR*2,turnL*2 distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
     
                 #Turn Left
 
@@ -492,7 +492,7 @@ def clockAvoidance_wThread(distance):
 
                 if(sonarControl.runSonar()<abs((R/2)*math.cos(PI - totalAngle)) + sonarError):
                     #total failure to find alternative route
-                    print("\nFAILURE TO FIND ROUTE!\n distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
+                    print("\nMC:  FAILURE TO FIND ROUTE!\n distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
                     distance = 0
 
     
@@ -507,7 +507,7 @@ def sonarScan(maxDist):
         else:
             sonarFlag = False
 
-        print(sonarControl.runSonar())
+        print("MC: ",sonarControl.runSonar())
 
 
 
@@ -544,7 +544,7 @@ def writeOdometry(angle, distance):
 
 
 def testWheels():
-    print("TEST")
+    print("MC: TEST")
 
 
 
@@ -569,11 +569,11 @@ def testWheels():
 
         if(left_old == 0 and left_new == 1):
             left_count += 1
-            print("Left = ",left_count)
+            print("MC: Left = ",left_count)
         
         if(right_old == 0 and right_new == 1):
             right_count += 1
-            print("Right = ",right_count)
+            print("MC: Right = ",right_count)
 
         left_old = left_new
         right_old = right_new
@@ -582,9 +582,9 @@ def testWheels():
     wiringpi.digitalWrite(LMot_Pin, 1) 
     wiringpi.digitalWrite(LMotR_Pin, 1) 
 
-    print("LEFT WHEEL FORWARD")
-    print("Left Sensor = ",left_count/20," rotations")
-    print("Right Sensor = ",right_count/20," rotations")
+    print("MC: LEFT WHEEL FORWARD")
+    print("MC: Left Sensor = ",left_count/20," rotations")
+    print("MC: Right Sensor = ",right_count/20," rotations")
         
     time.sleep(0.5)
 
@@ -608,11 +608,11 @@ def testWheels():
 
         if(left_old == 0 and left_new == 1):
             left_count += 1
-            print("Left = ",left_count)
+            print("MC: Left = ",left_count)
         
         if(right_old == 0 and right_new == 1):
             right_count += 1
-            print("Right = ",right_count)
+            print("MC: Right = ",right_count)
 
         left_old = left_new
         right_old = right_new
@@ -621,9 +621,9 @@ def testWheels():
     wiringpi.digitalWrite(LMot_Pin, 1) 
     wiringpi.digitalWrite(LMotR_Pin, 1) 
 
-    print("LEFT WHEEL REVERSE")
-    print("Left Sensor = ",left_count/20," rotations")
-    print("Right Sensor = ",right_count/20," rotations")
+    print("MC: LEFT WHEEL REVERSE")
+    print("MC: Left Sensor = ",left_count/20," rotations")
+    print("MC: Right Sensor = ",right_count/20," rotations")
         
     time.sleep(0.5)
 
@@ -649,11 +649,11 @@ def testWheels():
 
         if(left_old == 0 and left_new == 1):
             left_count += 1
-            print("Left = ",left_count)
+            print("MC: Left = ",left_count)
         
         if(right_old == 0 and right_new == 1):
             right_count += 1
-            print("Right = ",right_count)
+            print("MC: Right = ",right_count)
 
         left_old = left_new
         right_old = right_new
@@ -662,9 +662,9 @@ def testWheels():
     wiringpi.digitalWrite(LMot_Pin, 1) 
     wiringpi.digitalWrite(LMotR_Pin, 1) 
 
-    print("RIGHT WHEEL FORWARD")
-    print("Left Sensor = ",left_count/20," rotations")
-    print("Right Sensor = ",right_count/20," rotations")
+    print("MC: RIGHT WHEEL FORWARD")
+    print("MC: Left Sensor = ",left_count/20," rotations")
+    print("MC: Right Sensor = ",right_count/20," rotations")
         
     time.sleep(0.5)
 
@@ -687,11 +687,11 @@ def testWheels():
 
         if(left_old == 0 and left_new == 1):
             left_count += 1
-            print("Left = ",left_count)
+            print("MC: Left = ",left_count)
         
         if(right_old == 0 and right_new == 1):
             right_count += 1
-            print("Right = ",right_count)
+            print("MC: Right = ",right_count)
 
         left_old = left_new
         right_old = right_new
@@ -700,14 +700,14 @@ def testWheels():
     wiringpi.digitalWrite(LMot_Pin, 1) 
     wiringpi.digitalWrite(LMotR_Pin, 1) 
 
-    print("RIGHT WHEEL REVERSE")
-    print("Left Sensor = ",left_count/20," rotations")
-    print("Right Sensor = ",right_count/20," rotations")
+    print("MC: RIGHT WHEEL REVERSE")
+    print("MC: Left Sensor = ",left_count/20," rotations")
+    print("MC: Right Sensor = ",right_count/20," rotations")
         
     time.sleep(0.5)
     
 def testAngles():
-    print("BEGIN TESTING ANGLES")
+    print("MC: BEGIN TESTING ANGLES")
 
     angles = [PI/8,PI/4,PI/2,PI]
     angles = angles + angles
@@ -727,47 +727,47 @@ def testAngles():
 
         #Left Turn
         if(theta>0):
-            print("forward Turn Left")
+            print("MC: forward Turn Left")
             LNoRot,RNoRot = turnLeft(theta)
             measAngle_F = (RNoRot*2*PI*r/R)
     
         #Right Turn
         elif(theta<0):
-            print("forward Turn Right")
+            print("MC: forward Turn Right")
             LNoRot,RNoRot = turnRight(theta)
             measAngle_F = (LNoRot*2*PI*r/R)
 
         #measAngle_F = getAngle(LNoRot,RNoRot)
-        print("measAngle_F = ",measAngle_F)
+        print("MC: measAngle_F = ",measAngle_F)
         time.sleep(waitTime)
         
 
         #Return to position
         #Left Turn
         if(theta>0):
-            print("reverse turn Left")
+            print("MC: reverse turn Left")
             LNoRot,RNoRot = turnLeftR(theta)
             measAngle_R = (RNoRot*2*PI*r/R)
         #Right Turn
         elif(theta<0):
-            print("reverse turn Right")
+            print("MC: reverse turn Right")
             LNoRot,RNoRot = turnRightR(theta)
             measAngle_R = (LNoRot*2*PI*r/R)
 
         #measAngle_R = getAngle(LNoRot,RNoRot)
-        print("measAngle_R = ",measAngle_R)
+        print("MC: measAngle_R = ",measAngle_R)
         time.sleep(waitTime)
 
         #Print Results
         if(theta>0):
-            print("Left Turn: Set:",round(theta*180/PI,2)," Angle_F:",round(measAngle_F*180/PI,2),", Angle_R:",round(measAngle_R*180/PI,2),"\n")
+            print("MC: Left Turn: Set:",round(theta*180/PI,2)," Angle_F:",round(measAngle_F*180/PI,2),", Angle_R:",round(measAngle_R*180/PI,2),"\n")
         elif(theta<0):
-            print("Right Turn: Set:",round(theta*180/PI,2)," Angle_F:",round(measAngle_F*180/PI,2),", Angle_R:",round(measAngle_R*180/PI,2),"\n")
+            print("MC: Right Turn: Set:",round(theta*180/PI,2)," Angle_F:",round(measAngle_F*180/PI,2),", Angle_R:",round(measAngle_R*180/PI,2),"\n")
 
         time.sleep(waitTime)
 
 def testDistances():
-    print("BEGIN TESTING DISTANCES")
+    print("MC: BEGIN TESTING DISTANCES")
 
     distances = [300,300,300,300,300] #cm
     waitTime = 4 #In seconds
@@ -775,13 +775,13 @@ def testDistances():
     
     for i in range(0,len(distances)):
         dist_F,elapsed = forward(distances[i])
-        print("Dist_F = ",round(dist_F,2)," cm")
+        print("MC: Dist_F = ",round(dist_F,2)," cm")
         time.sleep(waitTime)
         dist_R,elapsed = reverse(distances[i])
-        print("Dist_R = ",round(dist_R,2)," cm")
+        print("MC: Dist_R = ",round(dist_R,2)," cm")
 
         #Print Results
-        print("Set:",round(distances[i],2)," Dist_F:",round(dist_F,2),", Dist_R:",round(dist_R,2),"\n")
+        print("MC: Set:",round(distances[i],2)," Dist_F:",round(dist_F,2),", Dist_R:",round(dist_R,2),"\n")
         time.sleep(waitTime)
 
 def testThread(distance):
@@ -799,7 +799,7 @@ def testThread(distance):
     right_count = 0
 
     runDone = False
-    print("Main: runDone = ",runDone," NoTicks = ",NoTicks)
+    print("MC: Main: runDone = ",runDone," NoTicks = ",NoTicks)
     # Define the specific data you want to pass to the thread
     thread_data = 0.01
     # Create a thread and pass the data as an argument
@@ -818,7 +818,7 @@ def testThread(distance):
         left_old = left_new
         right_old = right_new
 
-    print("set RunDone True")
+    print("MC: set RunDone True")
     runDone = True
     thread.join()
     
@@ -833,7 +833,7 @@ def testThread(distance):
 def testSpeedControl(angle,distance):
     wait = 5
     backangle = 0.20944
-    print("Forward for ",distance)
+    print("MC: Forward for ",distance)
     speedControl(0,distance,True)
     # # print("Reverse for ",distance)
     # # speedControl(0,distance,False)
@@ -852,13 +852,13 @@ def testSpeedControl(angle,distance):
     # speedControl(backangle,0,True)
     # time.sleep(wait)
 
-    print("Right for ",angle*180/PI)
+    print("MC: Right for ",angle*180/PI)
     speedControl(-1*angle,0,True)
     time.sleep(wait/2)
     speedControl(backangle,0,True)
     time.sleep(wait)
 
-    print("Right_R for ",angle*180/PI)
+    print("MC: Right_R for ",angle*180/PI)
     speedControl(-1*angle,0,False)
     time.sleep(wait/2)
     speedControl(-1*backangle,0,True)
@@ -892,11 +892,11 @@ angle,distance = readInstructions()
 angle = 0
 distance = 200
 
-print("TEST SET angle = ",angle," distance = ",distance)
+print("MC: TEST SET angle = ",angle," distance = ",distance)
 
 angle,distance = motorControl_wThread(angle,distance)
-print("Angle turned = ",angle)
-print("distance moved = ",distance)
+print("MC: Angle turned = ",angle)
+print("MC: distance moved = ",distance)
 writeOdometry(angle,distance)
 # testWheels()
 
