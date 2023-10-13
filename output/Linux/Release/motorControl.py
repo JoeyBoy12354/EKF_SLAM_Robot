@@ -90,86 +90,6 @@ def motorControl_wThread(theta,distance):
 
 
 
-def turnLeft(theta):
-    NoRotations = (R*theta)/(2*PI*r)
-    W1_Ticks = NoRotations*20
-
-    wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
-    LNoRot,RNoRot = speedSensor(W1_Ticks)
-    wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
-
-    return LNoRot,RNoRot
-
-def turnRight(theta):
-    NoRotations = (R*abs(theta))/(2*PI*r)
-    W2_Ticks = NoRotations*20
-
-    wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 7
-    LNoRot,RNoRot = speedSensor(W2_Ticks)
-    wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 7
-
-    return LNoRot,RNoRot
-
-def turnLeftR(theta):
-    NoRotations = (R*theta)/(2*PI*r)
-    W1_Ticks = NoRotations*20
-
-    wiringpi.digitalWrite(LMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 6
-    LNoRot,RNoRot = speedSensor(W1_Ticks)
-    wiringpi.digitalWrite(LMotR_Pin, 1)  # Write 0 ( LOW ) to pin 6
-
-    return LNoRot,RNoRot
-
-def turnRightR(theta):
-    NoRotations = (R*abs(theta))/(2*PI*r)
-    W2_Ticks = NoRotations*20
-
-    wiringpi.digitalWrite(RMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 7
-    LNoRot,RNoRot = speedSensor(W2_Ticks)
-    wiringpi.digitalWrite(RMotR_Pin, 1)  # Write 0 ( LOW ) to pin 7
-
-    return LNoRot,RNoRot
-
-def reverse(distance):
-    print("MC: REVERSE")
-    #Forward Movement
-    NoRotations = distance/(2*PI*r)
-    W12_Ticks = NoRotations*20
-
-    wiringpi.digitalWrite(LMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 6
-    wiringpi.digitalWrite(RMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 7
-    old_time = time.time()
-    LNoRot,RNoRot = speedSensor(W12_Ticks)
-    elapsed = time.time() - old_time
-    wiringpi.digitalWrite(LMotR_Pin, 1)  # Write 0 ( LOW ) to pin 6
-    wiringpi.digitalWrite(RMotR_Pin, 1)  # Write 0 ( LOW ) to pin 7
-
-    dist = getDist(LNoRot,RNoRot)
-
-    return dist,elapsed
-
-def forward(distance):
-    print("MC: FORWARD")
-    #Forward Movement
-    NoRotations = distance/(2*PI*r)
-    W12_Ticks = NoRotations*20
-
-    wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
-    wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 7
-    old_time = time.time()
-    LNoRot,RNoRot = speedSensor(W12_Ticks)
-    elapsed = time.time() - old_time
-    wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
-    wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 7
-
-    dist = getDist(LNoRot,RNoRot)
-
-    return dist,elapsed
-
-
-
-
-
 def forward_thread(timeOn,timeOff):
     print("MC: FORWARD_Thread")
     global runDone
@@ -405,7 +325,6 @@ def Avoidance(avoidDistL,avoidDistR):
         avoidDistR = avoidDistR + avoidDistL
 
     return avoidDistL,avoidDistR
-
 
 def checkAvoidance_wThread(distance):
     print("\n MC: in checkAvoidance")
