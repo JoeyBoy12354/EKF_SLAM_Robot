@@ -177,7 +177,7 @@ namespace Navigation_Functions{
 
 
     //Set distance and angle to go to nearest unexplored grid point
-    bool updateMovementGrid(MatrixXf State, vector<vector<GridPoint>> gridMap){
+    bool updateMovementGrid(MatrixXf State, vector<vector<GridPoint>> gridMap, float& lidar_x,float& lidar_y)){
         cout<<"IN update Movement Grid"<<endl;
         //take grid map
         bool mapped = true;
@@ -262,11 +262,6 @@ namespace Navigation_Functions{
         cout<<"Origin Ax,Ay = "<<Ax<<","<<Ay<<endl;
         cout<<"Lidar Bx,By = "<<Bx<<","<<By<<endl;
         cout<<"This is new lidar coordinate after turn: ("<<Cx<<", "<<Cy<<")"<<endl;
-
-
-
-
-
         cout<<"NAVI,GRID: distance = "<<distance<<<<endl;;
         cout<<"NAVI,GRID: dot current location: "<<robotPoint<<endl;
         cout<<"NAVI,GRID: dot to visit: "<<closestPoint<<endl;
@@ -274,6 +269,8 @@ namespace Navigation_Functions{
 
         //Set motors
         if(mapped == false){
+            lidar_x = Cx;
+            lidar_y = Cy;
             //cout<<"GRID: updateMoveent, force==noMovement"<<endl;
             //motorControlGrid(angle,distance);
         }

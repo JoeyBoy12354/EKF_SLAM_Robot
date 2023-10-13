@@ -218,7 +218,7 @@ namespace Navigation_Functions{
     void motorControl();
 
     //Grid
-    bool updateMovementGrid(MatrixXf State, vector<vector<GridPoint>> gridMap);
+    bool updateMovementGrid(MatrixXf State, vector<vector<GridPoint>> gridMap, float& lidar_x,float& lidar_y);
     void motorControlGrid(float angle, float distance);
 
     //PostMap
@@ -237,6 +237,8 @@ public:
 
     float w = 0;
     float distance = 0;
+    float lidar_x = 0;
+    float lidar_y = 0;
     Matrix<float, dim, 1> State;
     
     float initialLandmarkCovariance_AtSi = 1;

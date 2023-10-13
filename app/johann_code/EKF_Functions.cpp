@@ -63,12 +63,26 @@ void ExtendedKalmanFilter::updateMotion() {
     // float d_y = distance*sin(w);
 
     //flip d_x and d_y
-    float d_x = -distance*cos(w);
-    float d_y = distance*sin(w);
+    //The distance is set to negative due to forward motions being in the negative x-direction
+    //It is assumed that lidar_x is already calculated with this in mind
+    float d_x = -distance*cos(w) + lidar_x;
+    float d_y = distance*sin(w)+ lidar_y;
     float d_theta = w;
 
-    Motion_Jacobian(0,2) = -distance*sin(State(2));
-    Motion_Jacobian(1,2) = distance*cos(State(2));
+    // Motion_Jacobian(0,2) = -distance*sin(State(2));
+    // Motion_Jacobian(1,2) = distance*cos(State(2));
+    CarPoint robot;
+    robot.x = State(0);
+    robot.y = State(1);
+
+    CarPoint lidar;
+    lidar.x = lidar_x;
+    lidar.y = lidar_y;
+
+    float dist2 = pointDistance(robot,lidar);
+
+    Motion_Jacobian(0,2) = -(distance+dist2)*sin(State(2));
+    Motion_Jacobian(1,2) = (distance+dist2)*cos(State(2));
 
     cout<<"\nEKF: dist = "<<distance<<"\nEKF: w = "<<w<<"\nEKF: d_x = "<<d_x<<"\nEKF: d_y = "<<d_y<<"\nEKF: d_theta = "<<d_theta<<endl;
     
