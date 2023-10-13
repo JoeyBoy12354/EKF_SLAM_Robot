@@ -206,6 +206,7 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun){
             //motorDataProcessing(ekf.w,ekf.distance);//Send odometry to ekf
 
             mapped = updateMovementGrid(ekf.State,gridNew);// Move the robot to the location
+            motorDataProcessing(ekf.w,ekf.distance);
             //motorControlGrid(ekf.w,ekf.distance);//Send odometry to ekf
 
 
