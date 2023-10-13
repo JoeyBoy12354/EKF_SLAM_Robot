@@ -156,7 +156,7 @@ namespace Navigation_Functions{
 
         // cout<<"!!!!!!!!!!!!!! !!!!!!!!! TESTING CONST theta & DIST"<<endl;
 
-        cout<<"Navi: Set angle = "<<angle*180/(PI)<<" deg Set Distance = "<<distance<<"mm"<<endl;
+        cout<<"NAVI: Set angle = "<<angle*180/(PI)<<" deg Set Distance = "<<distance<<"mm"<<endl;
         // angle = 0;
         // distance = 0;
 
@@ -208,18 +208,19 @@ namespace Navigation_Functions{
 
         
         //Set destination
-        float deltaX = closestPoint.x - State(0);
-        float deltaY = closestPoint.y - State(1);
+        float deltaX = closestPoint.x - robotPoint.x;
+        float deltaY = closestPoint.y - robotPoint.x;
         float distance = deltaX*deltaX + deltaY*deltaY;
         distance = sqrt(distance) - closeness;
         float angle = atan2(deltaY,deltaX) - State(2);
 
-        cout<<"GRID: dot to visit: "<<closestPoint<<endl;
-        cout<<"GRID: movement: "<<distance<<"mm "<<angle*180/PI<<" deg"<<endl;
+        cout<<"NAVI,GRID: dot current location: "<<robotPoint<<endl;
+        cout<<"NAVI,GRID: dot to visit: "<<closestPoint<<endl;
+        cout<<"NAVI,GRID: movement: "<<distance<<"mm "<<angle*180/PI<<" deg"<<endl;
 
         //Set motors
         if(mapped == false){
-            cout<<"GRID: updateMoveent, force==noMovement"<<endl;
+            //cout<<"GRID: updateMoveent, force==noMovement"<<endl;
             motorControlGrid(angle,distance);
         }
         
