@@ -221,11 +221,12 @@ namespace Navigation_Functions{
 
         //atan2() measures the angle between the point (x,y) and positive x
         //New distance model
+
         float wheel_lidar_x = 81;
         float wheel_lidar_y = 71;
         float r = sqrt(wheel_lidar_x*wheel_lidar_x + wheel_lidar_y*wheel_lidar_y);
-        float beta = State(2);
-        float alpha = atan2(deltaY,deltaX);
+        //float beta = State(2);
+        float alpha = atan2(deltaY,deltaX) ;
 
         float Ax = robotPoint.x - wheel_lidar_x;
         float Ay = robotPoint.y - wheel_lidar_y;
@@ -235,8 +236,11 @@ namespace Navigation_Functions{
         float By = robotPoint.y;
         // float Cx=Ax+(Bx - Ax)*cos(alpha) - (By - Ay)*sin(alpha);
         // float Cy=Ay+(Bx - Ax)*sin(alpha) + (By - Ay)*cos(alpha);
-        float Cx=Ax+(Bx)*cos(alpha) - (By)*sin(alpha);
-        float Cy=Ay+(Bx)*sin(alpha) + (By)*cos(alpha);
+        // float Cx=Ax+(Bx)*cos(alpha) - (By)*sin(alpha);
+        // float Cy=Ay+(Bx)*sin(alpha) + (By)*cos(alpha);
+
+        float Cx=Ax+(Bx-Ax)*cos(angle) - (By-Ay)*sin(angle);
+        float Cy=Ay+(Bx-Ax)*sin(angle) + (By-Ay)*cos(angle);
 
         cout<<"Origin Ax,Ay = "<<Ax<<","<<Ay<<endl;
         cout<<"Lidar Bx,By = "<<Bx<<","<<By<<endl;
