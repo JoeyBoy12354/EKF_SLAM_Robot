@@ -231,8 +231,8 @@ namespace Navigation_Functions{
         float Ay = robotPoint.y - wheel_lidar_y;
         float Bx = r*cos(beta);
         float By = r*sin(beta);
-        float Cx=Ax+(Bx - Ax)cos(alpha) - (By - Ay)sin(alpha);
-        float Cy=Ay+(Bx - Ax)sin(alpha) + (By - Ay)cos(alpha);
+        float Cx=Ax+(Bx - Ax)*cos(alpha) - (By - Ay)*sin(alpha);
+        float Cy=Ay+(Bx - Ax)*sin(alpha) + (By - Ay)*cos(alpha);
 
         cout<<"This is new lidar coordinate after turn: ("<<Cx<<", "<<Cy<<")"<<endl;
 
