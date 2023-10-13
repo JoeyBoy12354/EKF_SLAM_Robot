@@ -53,11 +53,11 @@ def motorControl_wThread(theta,distance):
 
     #Do turn
     print("MC:TURN: ",theta*180/PI," deg")
-    theta = PI/2
+    #theta = PI/2
     LNoRot,RNoRot  = speedControl(theta,0,True)
 
-    theta = -PI/2
-    LNoRot,RNoRot  = speedControl(theta,0,True)
+    # theta = -PI/2
+    # LNoRot,RNoRot  = speedControl(theta,0,True)
 
     angle = getAngle(LNoRot,RNoRot)
 
@@ -653,11 +653,11 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 #test3()
 
 angle,distance = readInstructions()
-angle = PI/2
+#angle = PI/2
 #angle = 0
 #distance = 300
 
-print("MC: TEST SET angle = ",angle," distance = ",distance)
+print("MC: READ angle = ",angle," distance = ",distance)
 
 angle,distance = motorControl_wThread(angle,distance)
 print("MC: Angle turned = ",angle)
@@ -672,7 +672,7 @@ writeOdometry(angle,distance)
 
 #angle = 0
 # distance = 200
-motorControl_wThread(angle,distance)
+#motorControl_wThread(angle,distance)
 
 
 
