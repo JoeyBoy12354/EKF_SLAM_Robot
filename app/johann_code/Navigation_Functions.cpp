@@ -269,7 +269,7 @@ namespace Navigation_Functions{
             lidar_x = Cx;
             lidar_y = Cy;
             //cout<<"GRID: updateMoveent, force==noMovement"<<endl;
-            motorControlGrid(angle,distance);
+            //motorControlGrid(angle,distance);
         }
         
         return mapped;
