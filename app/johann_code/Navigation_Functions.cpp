@@ -262,7 +262,7 @@ namespace Navigation_Functions{
         cout<<"Origin Ax,Ay = "<<Ax<<","<<Ay<<endl;
         cout<<"Lidar Bx,By = "<<Bx<<","<<By<<endl;
         cout<<"This is new lidar coordinate after turn: ("<<Cx<<", "<<Cy<<")"<<endl;
-        cout<<"NAVI,GRID: distance = "<<distance<<<<endl;;
+        cout<<"NAVI,GRID: distance = "<<distance<<endl;;
         cout<<"NAVI,GRID: dot current location: "<<robotPoint<<endl;
         cout<<"NAVI,GRID: dot to visit: "<<closestPoint<<endl;
         cout<<"NAVI,GRID: movement: "<<distance<<"mm "<<angle*180/PI<<" deg"<<endl;
