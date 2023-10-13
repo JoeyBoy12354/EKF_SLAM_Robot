@@ -237,11 +237,11 @@ namespace Navigation_Functions{
         if(angle>0){
             //Do left turn centered on left wheel
             Ax = robotPoint.x + wheel_lidar_x;
-            Ay = robotPoint.y - wheel_lidar_y;
+            Ay = robotPoint.y + wheel_lidar_y;
         }else{
             //Do right turn centered on right wheel
             Ax = robotPoint.x + wheel_lidar_x;
-            Ay = robotPoint.y + wheel_lidar_y;
+            Ay = robotPoint.y - wheel_lidar_y;
         }
         
         Cx=Ax+(Bx-Ax)*cos(angle) - (By-Ay)*sin(angle);
