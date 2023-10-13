@@ -209,8 +209,11 @@ namespace Navigation_Functions{
         
         //Set destination
         float deltaX = closestPoint.x - robotPoint.x;
+        cout<<"NAVI,GRID: deltaX = "<<deltaX<<<endl;
         float deltaY = closestPoint.y - robotPoint.x;
+        cout<<"NAVI,GRID: deltaY = "<<deltaX<<<endl;
         float distance = deltaX*deltaX + deltaY*deltaY;
+        cout<<"NAVI,GRID: dist1 = "<<distance<<<endl;
         float dist2 = sqrt(distance);
         distance = sqrt(distance) - closeness;
         float angle = atan2(deltaY,deltaX) - State(2);
