@@ -234,7 +234,7 @@ void testRun(){
     bool mapped = false;
     bool firstRun = true;
     
-    for(int i =0;i<6;i++){
+    for(int i =0;i<2;i++){
         cout<<"IN RUN LOOP: "<<i<<endl;
         cout<<"Mapped = "<<mapped<<endl;
         fullRun(ekf,mapped,firstRun);
@@ -257,10 +257,10 @@ int main() {
     
     //testPython();
     //testLM();
-    testMotor();
+    //testMotor();
     //testLidar();
 
-    //testRun();
+    testRun();
     
     
   

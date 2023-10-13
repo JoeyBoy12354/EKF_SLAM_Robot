@@ -197,7 +197,7 @@ namespace Navigation_Functions{
 
                 //Only check points that have not been traversed
                 if(gridMap[i][j].trav == false){
-                    bool mapped = false;
+                    mapped = false;
                     float temp_dist = pointDistance(tempPoint,robotPoint);
                     if(temp_dist<smallDistance){
                         smallDistance = temp_dist;
@@ -207,7 +207,7 @@ namespace Navigation_Functions{
             }
         }
 
-        cout<<"B"<<endl;
+        
         //Set destination
         float deltaX = closestPoint.x - State(0);
         float deltaY = closestPoint.y - State(1);
@@ -215,8 +215,12 @@ namespace Navigation_Functions{
         distance = sqrt(distance) - closeness;
         float angle = atan2(deltaY,deltaX) - State(2);
 
+        cout<<"GRID: dot to visit: "<<closestPoint<<endl;
+        cout<<"GRID: movement: "<<distance<<"mm "<<angle*180/PI<<" deg"<<endl;
+
         //Set motors
         if(mapped == false){
+            cout<<"GRID: updateMoveent, force==noMovement"<<endl;
             motorControlGrid(angle,distance);
         }
         
