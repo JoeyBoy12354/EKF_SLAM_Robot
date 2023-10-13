@@ -252,7 +252,7 @@ namespace Navigation_Functions{
         deltaY = closestPoint.y - Cy;
         cout<<"NAVI,GRID: deltaY = "<<deltaY<<" = "<<closestPoint.y<<" - "<<robotPoint.y<<endl;
         float distance = deltaX*deltaX + deltaY*deltaY;
-        /cout<<"NAVI,GRID: dist1 = "<<distance<<" = "<<deltaX*deltaX<<" - "<<deltaY*deltaY<<endl;
+        cout<<"NAVI,GRID: dist1 = "<<distance<<" = "<<deltaX*deltaX<<" - "<<deltaY*deltaY<<endl;
         distance = sqrt(distance);
 
         cout<<"Angle = "<<angle*180/PI<<endl;
