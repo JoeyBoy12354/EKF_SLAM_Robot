@@ -229,8 +229,10 @@ namespace Navigation_Functions{
 
         float Ax = robotPoint.x - wheel_lidar_x;
         float Ay = robotPoint.y - wheel_lidar_y;
-        float Bx = r*cos(beta);
-        float By = r*sin(beta);
+        // float Bx = r*cos(beta);
+        // float By = r*sin(beta);
+        float Bx = robotPoint.x;
+        float By = robotPoint.y;
         // float Cx=Ax+(Bx - Ax)*cos(alpha) - (By - Ay)*sin(alpha);
         // float Cy=Ay+(Bx - Ax)*sin(alpha) + (By - Ay)*cos(alpha);
         float Cx=Ax+(Bx)*cos(alpha) - (By)*sin(alpha);
