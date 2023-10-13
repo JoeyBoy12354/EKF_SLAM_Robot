@@ -236,6 +236,8 @@ namespace Navigation_Functions{
         float Cx=Ax+(Bx)*cos(alpha) - (By)*sin(alpha);
         float Cy=Ay+(Bx)*sin(alpha) + (By)*cos(alpha);
 
+        cout<<"Origin Ax,Ay = "<<Ax<<","<<Ay<<endl;
+        cout<<"Lidar Bx,By = "<<Bx<<","<<By<<endl;
         cout<<"This is new lidar coordinate after turn: ("<<Cx<<", "<<Cy<<")"<<endl;
 
 
