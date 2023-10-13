@@ -39,7 +39,6 @@ wait = 0.05
 
 
 def motorControl_wThread(theta,distance):
-    print("MC: in MC")
     LNoRot=0
     RNoRot=0
 
@@ -80,7 +79,7 @@ def motorControl_wThread(theta,distance):
     #         #print("negative DISTACE ERRRORRRR!!!")
     #         speedControl(0,100,False)
 
-    print("MC GO FORWARD FOR: ",distance,"\n") 
+    print("MC GO FORWARD FOR: ",distance) 
     left,right = speedControl(0,distance,True)
     dist = getDist(left,right)
 
@@ -656,8 +655,6 @@ angle,distance = readInstructions()
 #angle = PI/2
 #angle = 0
 #distance = 300
-
-print("MC: READ angle = ",angle," distance = ",distance)
 
 angle,distance = motorControl_wThread(angle,distance)
 print("MC: Angle turned = ",angle)
