@@ -228,14 +228,16 @@ namespace Navigation_Functions{
         //float beta = State(2);
         //float alpha = atan2(deltaY,deltaX);
 
+        float Ax = 0;
+        float Ay = 0;
         if(angle>0){
             //Do left turn centered on left wheel
-            float Ax = robotPoint.x - wheel_lidar_x;
-            float Ay = robotPoint.y - wheel_lidar_y;
+            Ax = robotPoint.x - wheel_lidar_x;
+            Ay = robotPoint.y - wheel_lidar_y;
         }else{
             //Do right turn centered on right wheel
-            float Ax = robotPoint.x + wheel_lidar_x;
-            float Ay = robotPoint.y - wheel_lidar_y;
+            Ax = robotPoint.x + wheel_lidar_x;
+            Ay = robotPoint.y - wheel_lidar_y;
         }
         
         float Bx = robotPoint.x;
