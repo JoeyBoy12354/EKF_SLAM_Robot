@@ -177,7 +177,7 @@ namespace Navigation_Functions{
 
 
     //Set distance and angle to go to nearest unexplored grid point
-    bool updateMovementGrid(MatrixXf State, vector<vector<GridPoint>> gridMap, float& lidar_x,float& lidar_y)){
+    bool updateMovementGrid(MatrixXf State, vector<vector<GridPoint>> gridMap, float& lidar_x,float& lidar_y){
         cout<<"IN update Movement Grid"<<endl;
         //take grid map
         bool mapped = true;
