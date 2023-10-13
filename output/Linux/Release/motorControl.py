@@ -708,13 +708,13 @@ writeOdometry(angle,distance)
 
 #testAngles()
 #testDistances()
-testWheels()
+#testWheels()
 #testThread(200)
 #testSpeedControl(PI,200)
 
 #angle = 0
 # distance = 200
-# motorControl_wThread(angle,distance)
+motorControl_wThread(angle,distance)
 
 
 
