@@ -244,6 +244,13 @@ namespace Navigation_Functions{
 
             Cy=Ax+(Bx-Ax)*cos(angle) - (By-Ay)*sin(angle);
             Cx=Ay+(Bx-Ax)*sin(angle) + (By-Ay)*cos(angle);
+            cout<<"This is new lidar coordinate after turn: ("<<Cx<<", "<<Cy<<")"<<endl;
+
+            Cx=Ax+(Bx-Ax)*cos(angle) - (By-Ay)*sin(angle);
+            Cy=Ay+(Bx-Ax)*sin(angle) + (By-Ay)*cos(angle);
+            cout<<"This is new lidar coordinate after turn: ("<<Cx<<", "<<Cy<<")"<<endl;
+            
+            
         }else{
             //Do right turn centered on right wheel
             Ax = robotPoint.x + wheel_lidar_x;
