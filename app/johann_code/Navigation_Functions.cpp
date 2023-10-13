@@ -174,6 +174,10 @@ namespace Navigation_Functions{
 
     }
 
+    // void test(){
+        
+    // }
+
     //Set distance and angle to go to nearest unexplored grid point
     bool updateMovementGrid(MatrixXf State, vector<vector<GridPoint>> gridMap){
         cout<<"IN update Movement Grid"<<endl;
@@ -230,10 +234,10 @@ namespace Navigation_Functions{
 
         float Ax = 0;
         float Ay = 0;
-        if(angle<0){
+        if(angle>0){
             //Do left turn centered on left wheel
-            Ax = robotPoint.x + wheel_lidar_x;
-            Ay = robotPoint.y + wheel_lidar_y;
+            Ax = robotPoint.x - wheel_lidar_x;
+            Ay = robotPoint.y - wheel_lidar_y;
         }else{
             //Do right turn centered on right wheel
             Ax = robotPoint.x + wheel_lidar_x;
