@@ -656,7 +656,7 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 angle,distance = readInstructions()
 #angle = PI/2
 angle = 0
-distance = 200*4
+distance = 300
 
 print("MC: TEST SET angle = ",angle," distance = ",distance)
 
