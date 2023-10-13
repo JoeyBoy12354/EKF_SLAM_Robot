@@ -247,7 +247,6 @@ def speedControl(theta,distance,direction):
 
     print("LEFT SPEED = ",left/delta_time," rotations/s")
     print("RIGHT SPEED = ",right/delta_time," rotations/s")
-    print("RIGHT/LEFT = ",(right/delta_time)/(left/delta_time))
 
     time.sleep(wait)
 
