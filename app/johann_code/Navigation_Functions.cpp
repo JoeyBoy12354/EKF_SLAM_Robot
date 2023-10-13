@@ -214,11 +214,11 @@ namespace Navigation_Functions{
         // cout<<"NAVI,GRID: deltaX = "<<deltaX<<" = "<<closestPoint.x<<" - "<<robotPoint.x<<endl;
         float deltaY = closestPoint.y - robotPoint.y;
         // cout<<"NAVI,GRID: deltaY = "<<deltaY<<" = "<<closestPoint.y<<" - "<<robotPoint.y<<endl;
-        float distance = deltaX*deltaX + deltaY*deltaY;
+        //float distance = deltaX*deltaX + deltaY*deltaY;
         // cout<<"NAVI,GRID: dist1 = "<<distance<<" = "<<deltaX*deltaX<<" - "<<deltaY*deltaY<<endl;
-        float dist2 = sqrt(distance);
+        //float dist2 = sqrt(distance);
         // cout<<"NAVI,GRID: distance = "<<dist2<<" - "<<closeness<<endl;;
-        distance = sqrt(distance) - closeness;
+        //distance = sqrt(distance) - closeness;
         float angle = atan2(deltaY,deltaX) - State(2);
 
         //atan2() measures the angle between the point (x,y) and positive x
@@ -227,9 +227,6 @@ namespace Navigation_Functions{
         float wheel_lidar_x = 81;
         float wheel_lidar_y = 71;
         float r = sqrt(wheel_lidar_x*wheel_lidar_x + wheel_lidar_y*wheel_lidar_y);
-        //float beta = State(2);
-        //float alpha = atan2(deltaY,deltaX);
-
         float Ax = 0;
         float Ay = 0;
         float Bx = robotPoint.x;
@@ -248,21 +245,18 @@ namespace Navigation_Functions{
             //Do right turn centered on right wheel
             Ax = robotPoint.x + wheel_lidar_x;
             Ay = robotPoint.y + wheel_lidar_y;
-
-            // Cx=Ax+(Bx-Ax)*cos(angle) - (By-Ay)*sin(angle);
-            // Cy=Ay+(Bx-Ax)*sin(angle) + (By-Ay)*cos(angle);
         }
         
-
         Cx=Ax+(Bx-Ax)*cos(angle) - (By-Ay)*sin(angle);
         Cy=Ay+(Bx-Ax)*sin(angle) + (By-Ay)*cos(angle);
-        
 
-        // Cx=Ax+(Bx−Ax)cosα−(By−Ay)sinα
-        // Cy=Ay+(Bx−Ax)sinα+(By−Ay)cosα
-
-        // float Cx=Ax+(Bx-Ax)*cos(angle) - (By-Ay)*sin(angle);
-        // float Cy=Ay+(Bx-Ax)*sin(angle) + (By-Ay)*cos(angle);
+        deltaX = closestPoint.x - Cx;
+        // cout<<"NAVI,GRID: deltaX = "<<deltaX<<" = "<<closestPoint.x<<" - "<<robotPoint.x<<endl;
+        deltaY = closestPoint.y - Cy;
+        // cout<<"NAVI,GRID: deltaY = "<<deltaY<<" = "<<closestPoint.y<<" - "<<robotPoint.y<<endl;
+        float distance = deltaX*deltaX + deltaY*deltaY;
+        // cout<<"NAVI,GRID: dist1 = "<<distance<<" = "<<deltaX*deltaX<<" - "<<deltaY*deltaY<<endl;
+        distance = sqrt(distance);
 
         cout<<"Angle = "<<angle*180/PI<<endl;
         cout<<"Origin Ax,Ay = "<<Ax<<","<<Ay<<endl;
@@ -270,7 +264,10 @@ namespace Navigation_Functions{
         cout<<"This is new lidar coordinate after turn: ("<<Cx<<", "<<Cy<<")"<<endl;
 
 
-        cout<<"NAVI,GRID: distance = "<<dist2<<" - "<<closeness<<endl;;
+
+
+
+        cout<<"NAVI,GRID: distance = "<<distance<<<<endl;;
         cout<<"NAVI,GRID: dot current location: "<<robotPoint<<endl;
         cout<<"NAVI,GRID: dot to visit: "<<closestPoint<<endl;
         cout<<"NAVI,GRID: movement: "<<distance<<"mm "<<angle*180/PI<<" deg"<<endl;
