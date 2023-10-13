@@ -219,6 +219,24 @@ namespace Navigation_Functions{
         distance = sqrt(distance) - closeness;
         float angle = atan2(deltaY,deltaX) - State(2);
 
+        //atan2() measures the angle between the point (x,y) and positive x
+        //New distance model
+        float wheel_lidar_x = 81;
+        float wheel_lidar_y = 71;
+        float r = sqrt(wheel_lidar_x*wheel_lidar_x + wheel_lidar_y*wheel_lidar_y);
+        float beta = State(2);
+        float alpha = atan2(deltaY,deltaX);
+
+        float Ax = robotPoint.x - wheel_lidar_x;
+        float Ay = robotPoint.y - wheel_lidar_y;
+        float Bx = r*cos(beta);
+        float By = r*sin(beta);
+        float Cx=Ax+(Bx - Ax)cos(alpha) - (By - Ay)sin(alpha);
+        float Cy=Ay+(Bx - Ax)sin(alpha) + (By - Ay)cos(alpha);
+
+        cout<<"This is new lidar coordinate after turn: ("<<Cx<<", "<<Cy<<")"<<endl;
+
+
         cout<<"NAVI,GRID: distance = "<<dist2<<" - "<<closeness<<endl;;
         cout<<"NAVI,GRID: dot current location: "<<robotPoint<<endl;
         cout<<"NAVI,GRID: dot to visit: "<<closestPoint<<endl;
