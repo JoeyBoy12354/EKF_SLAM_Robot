@@ -226,22 +226,25 @@ namespace Navigation_Functions{
         float wheel_lidar_y = 71;
         float r = sqrt(wheel_lidar_x*wheel_lidar_x + wheel_lidar_y*wheel_lidar_y);
         //float beta = State(2);
-        float alpha = atan2(deltaY,deltaX) ;
+        //float alpha = atan2(deltaY,deltaX);
 
-        float Ax = robotPoint.x - wheel_lidar_x;
-        float Ay = robotPoint.y - wheel_lidar_y;
-        // float Bx = r*cos(beta);
-        // float By = r*sin(beta);
+        if(angle>0){
+            //Do left turn centered on left wheel
+            float Ax = robotPoint.x - wheel_lidar_x;
+            float Ay = robotPoint.y - wheel_lidar_y;
+        }else{
+            //Do right turn centered on right wheel
+            float Ax = robotPoint.x + wheel_lidar_x;
+            float Ay = robotPoint.y - wheel_lidar_y;
+        }
+        
         float Bx = robotPoint.x;
         float By = robotPoint.y;
-        // float Cx=Ax+(Bx - Ax)*cos(alpha) - (By - Ay)*sin(alpha);
-        // float Cy=Ay+(Bx - Ax)*sin(alpha) + (By - Ay)*cos(alpha);
-        // float Cx=Ax+(Bx)*cos(alpha) - (By)*sin(alpha);
-        // float Cy=Ay+(Bx)*sin(alpha) + (By)*cos(alpha);
 
         float Cx=Ax+(Bx-Ax)*cos(angle) - (By-Ay)*sin(angle);
         float Cy=Ay+(Bx-Ax)*sin(angle) + (By-Ay)*cos(angle);
 
+        cout<<"Angle = "<<angle*180/PI<<endl;
         cout<<"Origin Ax,Ay = "<<Ax<<","<<Ay<<endl;
         cout<<"Lidar Bx,By = "<<Bx<<","<<By<<endl;
         cout<<"This is new lidar coordinate after turn: ("<<Cx<<", "<<Cy<<")"<<endl;
