@@ -237,7 +237,7 @@ namespace Navigation_Functions{
         float Cx=0;
         float Cy=0;
         //angle = -1*angle;
-        angle = 0;
+        angle = PI;
         if(angle>0){
             //Do left turn centered on left wheel
             Ax = robotPoint.x + wheel_lidar_x;
