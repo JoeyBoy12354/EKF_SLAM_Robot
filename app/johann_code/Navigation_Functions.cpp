@@ -8,7 +8,7 @@ using namespace Data_Functions;
 int noNavTrials = 0;
 vector<bool> LandmarksExplored;
 double foundRadius = 250;//Robot must be within Xmm of LM for LM to be considered Explored
-double closeness = 200;//Robot should travel distance: (Robot->LM) - closeness mm
+double closeness = 150;//Robot should travel distance: (Robot->LM) - closeness mm
 
 float theta;
 float dist;
@@ -209,13 +209,13 @@ namespace Navigation_Functions{
         
         //Set destination
         float deltaX = closestPoint.x - robotPoint.x;
-        cout<<"NAVI,GRID: deltaX = "<<deltaX<<" = "<<closestPoint.x<<" - "<<robotPoint.x<<endl;
+        // cout<<"NAVI,GRID: deltaX = "<<deltaX<<" = "<<closestPoint.x<<" - "<<robotPoint.x<<endl;
         float deltaY = closestPoint.y - robotPoint.y;
-        cout<<"NAVI,GRID: deltaY = "<<deltaY<<" = "<<closestPoint.y<<" - "<<robotPoint.y<<endl;
+        // cout<<"NAVI,GRID: deltaY = "<<deltaY<<" = "<<closestPoint.y<<" - "<<robotPoint.y<<endl;
         float distance = deltaX*deltaX + deltaY*deltaY;
-        cout<<"NAVI,GRID: dist1 = "<<distance<<" = "<<deltaX*deltaX<<" - "<<deltaY*deltaY<<endl;
+        // cout<<"NAVI,GRID: dist1 = "<<distance<<" = "<<deltaX*deltaX<<" - "<<deltaY*deltaY<<endl;
         float dist2 = sqrt(distance);
-        cout<<"NAVI,GRID: distance = "<<dist2<<" - "<<closeness<<endl;;
+        // cout<<"NAVI,GRID: distance = "<<dist2<<" - "<<closeness<<endl;;
         distance = sqrt(distance) - closeness;
         float angle = atan2(deltaY,deltaX) - State(2);
 
