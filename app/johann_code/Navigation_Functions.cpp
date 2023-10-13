@@ -239,8 +239,6 @@ namespace Navigation_Functions{
             //Do left turn centered on left wheel
             Ax = robotPoint.x + wheel_lidar_x;
             Ay = robotPoint.y - wheel_lidar_y;
-
-
         }else{
             //Do right turn centered on right wheel
             Ax = robotPoint.x + wheel_lidar_x;
@@ -251,11 +249,11 @@ namespace Navigation_Functions{
         Cy=Ay+(Bx-Ax)*sin(angle) + (By-Ay)*cos(angle);
 
         deltaX = closestPoint.x - Cx;
-        // cout<<"NAVI,GRID: deltaX = "<<deltaX<<" = "<<closestPoint.x<<" - "<<robotPoint.x<<endl;
+        cout<<"NAVI,GRID: deltaX = "<<deltaX<<" = "<<closestPoint.x<<" - "<<robotPoint.x<<endl;
         deltaY = closestPoint.y - Cy;
-        // cout<<"NAVI,GRID: deltaY = "<<deltaY<<" = "<<closestPoint.y<<" - "<<robotPoint.y<<endl;
+        cout<<"NAVI,GRID: deltaY = "<<deltaY<<" = "<<closestPoint.y<<" - "<<robotPoint.y<<endl;
         float distance = deltaX*deltaX + deltaY*deltaY;
-        // cout<<"NAVI,GRID: dist1 = "<<distance<<" = "<<deltaX*deltaX<<" - "<<deltaY*deltaY<<endl;
+        /cout<<"NAVI,GRID: dist1 = "<<distance<<" = "<<deltaX*deltaX<<" - "<<deltaY*deltaY<<endl;
         distance = sqrt(distance);
 
         cout<<"Angle = "<<angle*180/PI<<endl;
