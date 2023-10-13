@@ -244,7 +244,6 @@ namespace Navigation_Functions{
 
             Cx=Ax+(Bx-Ax)*cos(angle) - (By-Ay)*sin(angle);
             Cy=Ay+(Bx-Ax)*sin(angle) + (By-Ay)*cos(angle);
-            cout<<"This is new lidar coordinate after turn: ("<<Cx<<", "<<Cy<<")"<<endl;
             
             
         }else{
