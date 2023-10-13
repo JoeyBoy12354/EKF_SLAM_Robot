@@ -230,7 +230,7 @@ namespace Navigation_Functions{
 
         float Ax = 0;
         float Ay = 0;
-        if(angle>0){
+        if(angle<0){
             //Do left turn centered on left wheel
             Ax = robotPoint.x + wheel_lidar_x;
             Ay = robotPoint.y + wheel_lidar_y;
@@ -242,6 +242,9 @@ namespace Navigation_Functions{
         
         float Bx = robotPoint.x;
         float By = robotPoint.y;
+
+        // Cx=Ax+(Bx−Ax)cosα−(By−Ay)sinα
+        // Cy=Ay+(Bx−Ax)sinα+(By−Ay)cosα
 
         float Cx=Ax+(Bx-Ax)*cos(angle) - (By-Ay)*sin(angle);
         float Cy=Ay+(Bx-Ax)*sin(angle) + (By-Ay)*cos(angle);
