@@ -245,7 +245,7 @@ namespace Navigation_Functions{
         //Set motors
         if(mapped == false){
             //cout<<"GRID: updateMoveent, force==noMovement"<<endl;
-            motorControlGrid(angle,distance);
+            //motorControlGrid(angle,distance);
         }
         
         return mapped;

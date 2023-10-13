@@ -236,7 +236,7 @@ void testRun(){
     bool mapped = false;
     bool firstRun = true;
     
-    for(int i =0;i<2;i++){
+    for(int i =0;i<1;i++){
         cout<<"IN RUN LOOP: "<<i<<endl;
         cout<<"Mapped = "<<mapped<<endl;
         fullRun(ekf,mapped,firstRun);
