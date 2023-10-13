@@ -43,9 +43,6 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
 //This function will update the EKF State Space Model with any changes in the robot's
 //x[0], y[1] and angle[2]
 void ExtendedKalmanFilter::updateMotion() {
-    
-
-
     //Old Method
     // float w2 = w;
     // if(w2 == 0){
