@@ -234,7 +234,7 @@ namespace Navigation_Functions{
         float Cx=0;
         float Cy=0;
         //angle = -1*angle;
-        if(angle<0){
+        if(angle>0){
             //Do left turn centered on left wheel
             Ax = robotPoint.x + wheel_lidar_x;
             Ay = robotPoint.y - wheel_lidar_y;
@@ -244,8 +244,8 @@ namespace Navigation_Functions{
             Ay = robotPoint.y + wheel_lidar_y;
         }
         
-        Cx=Ax+(Bx-Ax)*cos(angle) - (By-Ay)*sin(angle);
-        Cy=Ay+(Bx-Ax)*sin(angle) + (By-Ay)*cos(angle);
+        Cx=Ax+(Bx-Ax)*cos(-angle) - (By-Ay)*sin(-angle);
+        Cy=Ay+(Bx-Ax)*sin(-angle) + (By-Ay)*cos(-angle);
 
         deltaX = closestPoint.x - Cx;
         cout<<"NAVI,GRID: deltaX = "<<deltaX<<" = "<<closestPoint.x<<" - "<<robotPoint.x<<endl;
