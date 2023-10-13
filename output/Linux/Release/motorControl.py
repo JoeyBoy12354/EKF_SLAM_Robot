@@ -221,6 +221,7 @@ def speedControl(theta,distance,direction):
     right_count = 0
 
     #sonar_thread.start() #turrned off for testing
+    startT = time.time()
     thread.start()
     while(left_count<=NoTicks and right_count<=NoTicks and sonarFlag == False):
         left_new = wiringpi.digitalRead(LSS_Pin)
@@ -238,10 +239,14 @@ def speedControl(theta,distance,direction):
     sonarOn = False
     #print("runDone = ",runDone," sonarFlag = ",sonarFlag, " Waiting to join")
     thread.join()
+    delta_time = time.time() - startT
     #sonar_thread.join()
     
     left = left_count/20
     right = right_count/20
+
+    print("LEFT SPEED = ",left/delta_time," rotations/s")
+    print("RIGHT SPEED = ",right/delta_time," rotations/s")
 
     time.sleep(wait)
 
@@ -467,167 +472,45 @@ def writeOdometry(angle, distance):
 
 
 def testWheels():
-    print("MC: TEST")
+    print("MC: TEST Wheel Speed")
+    distance = 600
+    NoRotations = distance/(2*PI*r) #STRAIGHT
+    NoTicks = NoRotations*20
 
+    left_old,left_new,left_count = 0
+    right_old,right_new,right_count = 0
 
+    print("TEST LEFT THREAd")
+    timeOn = 0.009
+    timeOff = 0.001
+    thread = threading.Thread(target=forward_thread, args=(timeOn,timeOff,))
 
+    #sonar_thread.start() #turrned off for testing
+    thread.start()
+    while(left_count<=NoTicks and right_count<=NoTicks and sonarFlag == False):
+        left_new = wiringpi.digitalRead(LSS_Pin)
+        right_new = wiringpi.digitalRead(RSS_Pin)
 
-    #LEFT WHEEL
+        if(left_old == 0 and left_new == 1):
+            left_count += 1
+        
+        if(right_old == 0 and right_new == 1):
+            right_count += 1
+        left_old = left_new
+        right_old = right_new
+
+    runDone = True
+    sonarOn = False
+    #print("runDone = ",runDone," sonarFlag = ",sonarFlag, " Waiting to join")
+    thread.join()
+    #sonar_thread.join()
     
-    left_old = 0
-    left_new = 0
-    left_count = 0
+    left = left_count/20
+    right = right_count/20
 
-    right_old = 0
-    right_new = 0
-    right_count = 0
 
-    wiringpi.digitalWrite(RMot_Pin, 1) 
-    wiringpi.digitalWrite(RMotR_Pin, 1) 
-    wiringpi.digitalWrite(LMot_Pin, 0) 
-    wiringpi.digitalWrite(LMotR_Pin, 1) 
-    while(left_count<60 and right_count<60):
-        left_new = wiringpi.digitalRead(LSS_Pin)
-        right_new = wiringpi.digitalRead(RSS_Pin)
-
-        if(left_old == 0 and left_new == 1):
-            left_count += 1
-            print("MC: Left = ",left_count)
         
-        if(right_old == 0 and right_new == 1):
-            right_count += 1
-            print("MC: Right = ",right_count)
-
-        left_old = left_new
-        right_old = right_new
-    wiringpi.digitalWrite(RMot_Pin, 1) 
-    wiringpi.digitalWrite(RMotR_Pin, 1) 
-    wiringpi.digitalWrite(LMot_Pin, 1) 
-    wiringpi.digitalWrite(LMotR_Pin, 1) 
-
-    print("MC: LEFT WHEEL FORWARD")
-    print("MC: Left Sensor = ",left_count/20," rotations")
-    print("MC: Right Sensor = ",right_count/20," rotations")
-        
-    time.sleep(0.5)
-
-
-    #LEFT WHEEL REVERSE
-    left_old = 0
-    left_new = 0
-    left_count = 0
-
-    right_old = 0
-    right_new = 0
-    right_count = 0
-
-    wiringpi.digitalWrite(RMot_Pin, 1) 
-    wiringpi.digitalWrite(RMotR_Pin, 1) 
-    wiringpi.digitalWrite(LMot_Pin, 1) 
-    wiringpi.digitalWrite(LMotR_Pin, 0) 
-    while(left_count<60 and right_count<60):
-        left_new = wiringpi.digitalRead(LSS_Pin)
-        right_new = wiringpi.digitalRead(RSS_Pin)
-
-        if(left_old == 0 and left_new == 1):
-            left_count += 1
-            print("MC: Left = ",left_count)
-        
-        if(right_old == 0 and right_new == 1):
-            right_count += 1
-            print("MC: Right = ",right_count)
-
-        left_old = left_new
-        right_old = right_new
-    wiringpi.digitalWrite(RMot_Pin, 1) 
-    wiringpi.digitalWrite(RMotR_Pin, 1) 
-    wiringpi.digitalWrite(LMot_Pin, 1) 
-    wiringpi.digitalWrite(LMotR_Pin, 1) 
-
-    print("MC: LEFT WHEEL REVERSE")
-    print("MC: Left Sensor = ",left_count/20," rotations")
-    print("MC: Right Sensor = ",right_count/20," rotations")
-        
-    time.sleep(0.5)
-
-
-
-
-    #RIGHT WHEEL
-    left_old = 0
-    left_new = 0
-    left_count = 0
-
-    right_old = 0
-    right_new = 0
-    right_count = 0
-
-    wiringpi.digitalWrite(RMot_Pin, 0) 
-    wiringpi.digitalWrite(RMotR_Pin, 1) 
-    wiringpi.digitalWrite(LMot_Pin, 1) 
-    wiringpi.digitalWrite(LMotR_Pin, 1) 
-    while(left_count<60 and right_count<60):
-        left_new = wiringpi.digitalRead(LSS_Pin)
-        right_new = wiringpi.digitalRead(RSS_Pin)
-
-        if(left_old == 0 and left_new == 1):
-            left_count += 1
-            print("MC: Left = ",left_count)
-        
-        if(right_old == 0 and right_new == 1):
-            right_count += 1
-            print("MC: Right = ",right_count)
-
-        left_old = left_new
-        right_old = right_new
-    wiringpi.digitalWrite(RMot_Pin, 1) 
-    wiringpi.digitalWrite(RMotR_Pin, 1) 
-    wiringpi.digitalWrite(LMot_Pin, 1) 
-    wiringpi.digitalWrite(LMotR_Pin, 1) 
-
-    print("MC: RIGHT WHEEL FORWARD")
-    print("MC: Left Sensor = ",left_count/20," rotations")
-    print("MC: Right Sensor = ",right_count/20," rotations")
-        
-    time.sleep(0.5)
-
-    #RIGHT WHEEL REVERSE
-    left_old = 0
-    left_new = 0
-    left_count = 0
-
-    right_old = 0
-    right_new = 0
-    right_count = 0
-
-    wiringpi.digitalWrite(RMot_Pin, 1) 
-    wiringpi.digitalWrite(RMotR_Pin, 0) 
-    wiringpi.digitalWrite(LMot_Pin, 1) 
-    wiringpi.digitalWrite(LMotR_Pin, 1) 
-    while(left_count<60 and right_count<60):
-        left_new = wiringpi.digitalRead(LSS_Pin)
-        right_new = wiringpi.digitalRead(RSS_Pin)
-
-        if(left_old == 0 and left_new == 1):
-            left_count += 1
-            print("MC: Left = ",left_count)
-        
-        if(right_old == 0 and right_new == 1):
-            right_count += 1
-            print("MC: Right = ",right_count)
-
-        left_old = left_new
-        right_old = right_new
-    wiringpi.digitalWrite(RMot_Pin, 1) 
-    wiringpi.digitalWrite(RMotR_Pin, 1) 
-    wiringpi.digitalWrite(LMot_Pin, 1) 
-    wiringpi.digitalWrite(LMotR_Pin, 1) 
-
-    print("MC: RIGHT WHEEL REVERSE")
-    print("MC: Left Sensor = ",left_count/20," rotations")
-    print("MC: Right Sensor = ",right_count/20," rotations")
-        
-    time.sleep(0.5)
+    
     
 def testAngles():
     print("MC: BEGIN TESTING ANGLES")
@@ -825,7 +708,7 @@ writeOdometry(angle,distance)
 
 #testAngles()
 #testDistances()
-#testWheels()
+testWheels()
 #testThread(200)
 #testSpeedControl(PI,200)
 
