@@ -171,7 +171,7 @@ def filter_corners(corners,x1,y1,duplicateThresh = 40, closenessThresh = 40):
                 dist_min = dist_temp
             
         if(dist_min < closenessThresh):
-            print(i," ",clean_corners[i], " dist = ",dist_min)
+            #print(i," ",clean_corners[i], " dist = ",dist_min)
             close_corners.append(clean_corners[i]) 
 
 
