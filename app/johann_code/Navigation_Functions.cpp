@@ -258,8 +258,8 @@ namespace Navigation_Functions{
         // Cx=Ax+(Bx−Ax)cosα−(By−Ay)sinα
         // Cy=Ay+(Bx−Ax)sinα+(By−Ay)cosα
 
-        float Cx=Ax+(Bx-Ax)*cos(angle) - (By-Ay)*sin(angle);
-        float Cy=Ay+(Bx-Ax)*sin(angle) + (By-Ay)*cos(angle);
+        // float Cx=Ax+(Bx-Ax)*cos(angle) - (By-Ay)*sin(angle);
+        // float Cy=Ay+(Bx-Ax)*sin(angle) + (By-Ay)*cos(angle);
 
         cout<<"Angle = "<<angle*180/PI<<endl;
         cout<<"Origin Ax,Ay = "<<Ax<<","<<Ay<<endl;
