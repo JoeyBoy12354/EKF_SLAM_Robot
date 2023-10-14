@@ -329,20 +329,20 @@ namespace Navigation_Functions{
         // Cx=Ax+(Bx-Ax)*cos(-angle) - (By-Ay)*sin(-angle);
         // Cy=Ay+(Bx-Ax)*sin(-angle) + (By-Ay)*cos(-angle);
 
-        deltaX = closestPoint.x - Cx;
+        deltaX = closestPoint.x - C.x;
         cout<<"NAVI,GRID: deltaX = "<<deltaX<<" = "<<closestPoint.x<<" - "<<robotPoint.x<<endl;
-        deltaY = closestPoint.y - Cy;
+        deltaY = closestPoint.y - C.y;
         cout<<"NAVI,GRID: deltaY = "<<deltaY<<" = "<<closestPoint.y<<" - "<<robotPoint.y<<endl;
         float distance = deltaX*deltaX + deltaY*deltaY;
         cout<<"NAVI,GRID: dist1 = "<<distance<<" = "<<deltaX*deltaX<<" - "<<deltaY*deltaY<<endl;
         distance = sqrt(distance);
 
         cout<<"Angle = "<<angle*180/PI<<endl;
-        cout<<"Origin Ax,Ay = "<<Ax<<","<<Ay<<endl;
-        cout<<"Lidar Bx,By = "<<Bx<<","<<By<<endl;
+        cout<<"Origin Ax,Ay = "<<A<<endl;
+        cout<<"Lidar Bx,By = "<<B<<endl;
         cout<<"NAVI,GRID: dot current location: "<<robotPoint<<endl;
         cout<<"NAVI,GRID: dot to visit: "<<closestPoint<<endl;
-        cout<<"This is new lidar coordinate after turn: ("<<Cx<<", "<<Cy<<")"<<endl;
+        cout<<"This is new lidar coordinate after turn:"<<C<<endl;
         cout<<"NAVI,GRID: distance = "<<distance<<endl;;
         
         cout<<"NAVI,GRID: movement: "<<distance<<"mm "<<angle*180/PI<<" deg"<<endl;
