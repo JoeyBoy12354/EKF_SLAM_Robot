@@ -241,6 +241,8 @@ namespace Navigation_Functions{
             }
         }
 
+        closestPoint = {0,-200};
+
         
 
         
@@ -248,6 +250,8 @@ namespace Navigation_Functions{
         float deltaX = -1*closestPoint.x - robotPoint.x;
         float deltaY = closestPoint.y - robotPoint.y;
         float angle = atan2(deltaY,deltaX) - State(2);
+
+    
 
         // // Calculate the angle in radians
         // float angle = atan2(deltaY, deltaX);
