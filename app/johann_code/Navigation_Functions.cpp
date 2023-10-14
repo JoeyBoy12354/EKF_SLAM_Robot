@@ -212,6 +212,7 @@ namespace Navigation_Functions{
 
     //Perform rotation and translation of triangle state
     CarPoint triangularRepositioning(MatrixXf State, float angle){
+        cout<<"IN triangFunction "<<endl;
 
         vector<CarPoint> triangle_init = {{0, 0}, {81, 71}, {81, -71}};
         vector<CarPoint> triangle_rot = rotateTriangle(triangle_init,State(2));
@@ -240,7 +241,7 @@ namespace Navigation_Functions{
         cout<<"NAVI,GRID: tri_rot = "<<triangle_rot[0]<<","<<triangle_rot[1]<<","<<triangle_rot[2]<<endl;
         cout<<"NAVI,GRID: tri_shift = "<<triangle_shift[0]<<","<<triangle_shift[1]<<","<<triangle_shift[2]<<endl;
 
-        return C
+        return C;
 
     }
 
