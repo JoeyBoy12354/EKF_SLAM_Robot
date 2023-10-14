@@ -651,15 +651,15 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 #    wiringpi.digitalWrite(testPin, 0)  # Write 1 ( HIGH ) to pin 6
 #test3()
 print()
-angle,distance = readInstructions()
+#angle,distance = readInstructions()
 #angle = PI/2
-#angle = 0
-#distance = 300
+angle = 0
+distance = 300
 
 angle,distance = motorControl_wThread(angle,distance)
 print("MC: Angle turned = ",angle)
 print("MC: distance moved = ",distance)
-writeOdometry(angle,distance)
+#writeOdometry(angle,distance)
 print()
 # testWheels()
 
