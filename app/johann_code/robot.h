@@ -40,6 +40,8 @@ struct CarPoint {
     double x;
     double y;
 
+    CarPoint(double x, double y) : x(x), y(y) {}
+
     bool operator==(const CarPoint& other) const {
         return x == other.x && y == other.y;
     }
@@ -54,8 +56,6 @@ struct CornerPoint {
     double x;
     double y;
     double angle;
-
-    CarPoint(double x, double y) : x(x), y(y) {}
 
     bool operator==(const CornerPoint& other) const {
         return x == other.x && y == other.y;
