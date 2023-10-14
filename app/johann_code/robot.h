@@ -231,6 +231,7 @@ namespace Navigation_Functions{
     //Triangle 
     vector<CarPoint> translateTriangle(vector<CarPoint> triangle,CarPoint reference);
     vector<CarPoint> rotateTriangle(const vector<CarPoint> triangle,double angleRad);
+    CarPoint triangularRepositioning(MatrixXf State, float angle);
 
     //PostMap
     void pathFinder(vector<vector<GridPoint>> gridMap, MatrixXf State);

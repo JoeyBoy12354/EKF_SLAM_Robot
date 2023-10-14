@@ -174,7 +174,7 @@ namespace Navigation_Functions{
 
     }
 
-
+    //rotate triangle around (0,0) for angle amount
     vector<CarPoint> rotateTriangle(const vector<CarPoint> triangle,double angleRad) {        
         // Create a rotation matrix
         // double cosA = cos(angleRad);
@@ -201,12 +201,47 @@ namespace Navigation_Functions{
         return rotatedTriangle;
     }
 
+    //Translate triangle towards reference point
     vector<CarPoint> translateTriangle(vector<CarPoint> triangle,CarPoint reference){
         triangle[0] = {reference.x,reference.y};
         triangle[1] = {triangle[1].x + reference.x, triangle[1].y + reference.y};
         triangle[2] = {triangle[2].x + reference.x, triangle[2].y + reference.y};
 
         return triangle;
+    }
+
+    //Perform rotation and translation of triangle state
+    CarPoint triangularRepositioning(MatrixXf State, float angle){
+
+        vector<CarPoint> triangle_init = {{0, 0}, {81, 71}, {81, -71}};
+        vector<CarPoint> triangle_rot = rotateTriangle(triangle_init,State(2));
+        vector<CarPoint> triangle_shift = translateTriangle(triangle_rot,{State(0),State(1)});
+        saveTriangleToCSV(triangle_shift);
+
+        CarPoint C; //Will hold the value of the tip/front of triangle after rotation
+        CarPoint B = {triangle_shift[0].x,triangle_shift[0].y}; //Will hold the value of the tip/front of triangle
+        CarPoint A; //This point will hold the coordinate of the corner around which we will rotate
+
+        CarPoint T1 = A = {triangle_shift[1].x,triangle_shift[1].y};
+        CarPoint T2 = A = {triangle_shift[2].x,triangle_shift[2].y};
+        cout<<"NAVI,GRID: Wheels = "<<T1<<","<<T2<<endl;
+        if(angle>0){
+            //Rotate around right corner
+            A = {triangle_shift[1].x,triangle_shift[1].y};
+        }else{
+            //Rotate around left corner
+            A = {triangle_shift[2].x,triangle_shift[2].y};
+        } 
+
+        //Rotate around A
+        C.x=A.x+(B.x-A.x)*cos(-angle) - (B.y-A.y)*sin(-angle);
+        C.y=A.y+(B.x-A.x)*sin(-angle) + (B.y-A.y)*cos(-angle);
+
+        cout<<"NAVI,GRID: tri_rot = "<<triangle_rot[0]<<","<<triangle_rot[1]<<","<<triangle_rot[2]<<endl;
+        cout<<"NAVI,GRID: tri_shift = "<<triangle_shift[0]<<","<<triangle_shift[1]<<","<<triangle_shift[2]<<endl;
+
+        return C
+
     }
 
 

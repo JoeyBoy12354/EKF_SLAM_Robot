@@ -66,6 +66,24 @@ void ExtendedKalmanFilter::updateMotion() {
     float d_y = distance*sin(w)+ lidar_y;
     float d_theta = w;
 
+    CarPoint C = triangularRepositioning(State, w);// Get lidar point with odomotorey angle reading.
+
+    float CAngle = State(2) + w;//Get angle from positive x to line between (0,0) and (C.x,C.y)
+    float Cd_x = -distance*cos(CAngle);
+    float Cd_y = distance*sin(CAngle);
+
+    cout<<"EKF: ++C = "<<C<<endl;
+    cout<<"EKF: ++Cangle = "<<CAngle<<endl;
+    cout<<"EKF: ++Cd_x = "<<Cd_x<<endl;
+    cout<<"EKF: ++Cd_y = "<<Cd_y<<endl;
+    cout<<"EKF: ++X = "<<State(0) + Cd_x<<endl;
+    cout<<"EKF: ++Y = "<<State(1) + Cd_y<<endl<<endl;
+    
+
+
+
+
+
     cout<<"EKF: distance = "<<distance<<"mm   |  Angle"<<w*180/PI<<endl;
     cout<<"EKF: d_x: "<<-distance*cos(w)<<" + "<<lidar_x<<" = "<<d_x<<endl;
     cout<<"EKF: d_y: "<<distance*sin(w)<<" + "<<lidar_y<<" = "<<d_x<<endl;
