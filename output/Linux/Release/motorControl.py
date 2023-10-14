@@ -284,10 +284,18 @@ def getAngle(LNoRot,RNoRot):
     #Determine actual angle
     thetaL = (LNoRot*2*PI*r/R)
     thetaR = (RNoRot*2*PI*r/R)
-    angle = thetaL-thetaR
-    print("MC: Angle = left - right = ",thetaL* 180/(PI)," - ",thetaR* 180/(PI)," = ",(thetaL-thetaR)* 180/(PI))
 
-    return angle
+    #Assumme the other wheel picking up roations is shaking
+    if(thetaL>thetaR):
+        return thetaL
+    else:
+        return thetaR
+
+    
+    # angle = thetaL-thetaR
+    # print("MC: Angle = left - right = ",thetaL* 180/(PI)," - ",thetaR* 180/(PI)," = ",(thetaL-thetaR)* 180/(PI))
+
+    # return angle
 
 def getDist(LNoRot,RNoRot):
     #Determine actual distance
