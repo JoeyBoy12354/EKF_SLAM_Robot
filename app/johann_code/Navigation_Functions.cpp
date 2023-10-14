@@ -241,11 +241,11 @@ namespace Navigation_Functions{
             }
         }
 
-        closestPoint = {0,200};
-        robotPoint = {0,0};
-        State(0) = robotPoint.x;
-        State(1) = robotPoint.y;
-        State(2) = 0;
+        // closestPoint = {0,200};
+        // robotPoint = {0,0};
+        // State(0) = robotPoint.x;
+        // State(1) = robotPoint.y;
+        // State(2) = 0;
 
         
 
