@@ -265,7 +265,7 @@ namespace Navigation_Functions{
         CarPoint B = {triangle_shift[0].x,triangle_shift[0].y}; //Will hold the value of the tip/front of triangle
         CarPoint A; //This point will hold the coordinate of the corner around which we will rotate
         angle = -1*angle;
-        
+
         if(angle>0){
             //Rotate around right corner
             A = {triangle_shift[1].x,triangle_shift[1].y};
@@ -354,7 +354,7 @@ namespace Navigation_Functions{
             lidar_x = C.x;
             lidar_y = C.y;
             //cout<<"GRID: updateMoveent, force==noMovement"<<endl;
-            //motorControlGrid(angle,distance);
+            motorControlGrid(angle,distance);
         }
         
         return mapped;
