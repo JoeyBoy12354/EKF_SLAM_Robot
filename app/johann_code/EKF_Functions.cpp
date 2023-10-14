@@ -63,52 +63,61 @@ void ExtendedKalmanFilter::updateMotion() {
     //flip d_x and d_y
     //The distance is set to negative due to forward motions being in the negative x-direction
     //It is assumed that lidar_x is already calculated with this in mind
-    float d_x = -distance*cos(w) + lidar_x;
-    float d_y = distance*sin(w)+ lidar_y;
-    float d_theta = w;
+    
+    
+    // float d_x = -distance*cos(w) + lidar_x;
+    // float d_y = distance*sin(w)+ lidar_y;
+    // float d_theta = w;
 
     CarPoint C = triangularRepositioning(State, w);// Get lidar point with odomotorey angle reading.
 
     float CAngle = State(2) + w;//Get angle from positive x to line between (0,0) and (C.x,C.y)
-    float Cd_x = -distance*cos(CAngle);
-    float Cd_y = distance*sin(CAngle);
+    float Cd_x = -distance*cos(CAngle); //DeltaX change from forward movement
+    float Cd_y = distance*sin(CAngle); //DeltaY change from forward movement
 
-    cout<<"EKF: ++C = "<<C<<endl;
-    cout<<"EKF: ++Cangle = "<<CAngle<<endl;
-    cout<<"EKF: ++Cd_x = "<<Cd_x<<endl;
-    cout<<"EKF: ++Cd_y = "<<Cd_y<<endl;
-    cout<<"EKF: ++X = "<<State(0) + Cd_x<<endl;
-    cout<<"EKF: ++Y = "<<State(1) + Cd_y<<endl<<endl;
+    // cout<<"EKF: ++C = "<<C<<endl;
+    // cout<<"EKF: ++Cangle = "<<CAngle<<endl;
+    // cout<<"EKF: ++Cd_x = "<<Cd_x<<endl;
+    // cout<<"EKF: ++Cd_y = "<<Cd_y<<endl;
+    // cout<<"EKF: ++X = "<<C.x + Cd_x<<endl;
+    // cout<<"EKF: ++Y = "<<C.y + Cd_y<<endl<<endl;
+
     
 
-
-
-
-
     cout<<"EKF: distance = "<<distance<<"mm   |  Angle"<<w*180/PI<<endl;
-    cout<<"EKF: d_x: "<<-distance*cos(w)<<" + "<<lidar_x<<" = "<<d_x<<endl;
-    cout<<"EKF: d_y: "<<distance*sin(w)<<" + "<<lidar_y<<" = "<<d_x<<endl;
-    cout<<"EKF: d_theta: "<<d_theta<<endl;
+    cout<<"EKF: d_x: "<<Cd_x<<endl;
+    cout<<"EKF: d_y: "<<Cd_y<<endl;
+    cout<<"EKF: d_theta: "<<w*180/PI<<endl;
+    
+
+    // cout<<"EKF: distance = "<<distance<<"mm   |  Angle"<<w*180/PI<<endl;
+    // cout<<"EKF: d_x: "<<-distance*cos(w)<<" + "<<lidar_x<<" = "<<d_x<<endl;
+    // cout<<"EKF: d_y: "<<distance*sin(w)<<" + "<<lidar_y<<" = "<<d_x<<endl;
+    // cout<<"EKF: d_theta: "<<d_theta<<endl;
+
     // Motion_Jacobian(0,2) = -distance*sin(State(2));
     // Motion_Jacobian(1,2) = distance*cos(State(2));
     CarPoint robot;
     robot.x = State(0);
     robot.y = State(1);
 
-    CarPoint lidar;
-    lidar.x = lidar_x;
-    lidar.y = lidar_y;
+    float dist2 = pointDistance(robot,C);
 
-    float dist2 = pointDistance(robot,lidar);
-
+    //I believe this Jacobian's value can be estimated with v = distance/time
     Motion_Jacobian(0,2) = -(distance+dist2)*sin(State(2));
     Motion_Jacobian(1,2) = (distance+dist2)*cos(State(2));
 
+    //State is now updated with C(x,y) calculated from State when performing triangular repositioning.
+    //The d_x and d_y from the distance moved forward is then added 
+    State(0) = C.x + Cd_x;
+    State(1) = C.y + Cd_y;
+    State(2) = State(2) + w;
+
     //cout<<"\nEKF: dist = "<<distance<<"\nEKF: w = "<<w<<"\nEKF: d_x = "<<d_x<<"\nEKF: d_y = "<<d_y<<"\nEKF: d_theta = "<<d_theta<<endl;
     
-    State(0) = State(0) + d_x;
-    State(1) = State(1) + d_y;
-    State(2) = State(2) + d_theta;
+    // State(0) = State(0) + d_x;
+    // State(1) = State(1) + d_y;
+    // State(2) = State(2) + d_theta;
 
     angleInBounds(State(2));
 
