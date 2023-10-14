@@ -257,6 +257,12 @@ namespace Navigation_Functions{
         float deltaY = closestPoint.y - robotPoint.y;
         float angle = atan2(deltaY,deltaX) - State(2);
 
+        cout<<"NAVI,GRID: deltaX = "<<deltaX<<" = "<<-1*closestPoint.x<<" - "<<robotPoint.x<<endl;
+        cout<<"NAVI,GRID: deltaY = "<<deltaY<<" = "<<-1*closestPoint.y<<" - "<<robotPoint.y<<endl;
+        cout<<"NAVI,GRID angle = "<<angle*180/PI<<" = "<<atan2(deltaY,deltaX)*180/PI<<" - "<<State(2)*180/PI<<endl;
+        cout<<endl;
+        
+
     
 
         // // Calculate the angle in radians
