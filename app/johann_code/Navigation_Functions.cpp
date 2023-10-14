@@ -264,7 +264,8 @@ namespace Navigation_Functions{
         CarPoint C; //Will hold the value of the tip/front of triangle after rotation
         CarPoint B = {triangle_shift[0].x,triangle_shift[0].y}; //Will hold the value of the tip/front of triangle
         CarPoint A; //This point will hold the coordinate of the corner around which we will rotate
-        angle = -1*angle
+        angle = -1*angle;
+        
         if(angle>0){
             //Rotate around right corner
             A = {triangle_shift[1].x,triangle_shift[1].y};
