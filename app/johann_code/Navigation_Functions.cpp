@@ -296,7 +296,7 @@ namespace Navigation_Functions{
 
         CarPoint T1 = A = {triangle_shift[1].x,triangle_shift[1].y};
         CarPoint T2 = A = {triangle_shift[2].x,triangle_shift[2].y};
-        cout<<"NAVI,GRID: Wheels = "<<T1<<","<<T2<<<<endl;
+        cout<<"NAVI,GRID: Wheels = "<<T1<<","<<T2<<endl;
         if(angle>0){
             //Rotate around right corner
             A = {triangle_shift[1].x,triangle_shift[1].y};
