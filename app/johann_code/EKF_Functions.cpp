@@ -3,6 +3,7 @@
 using namespace CSV_Functions;
 using namespace Data_Functions;
 using namespace Simulation_Functions;
+using namespace Navigation_Functions;
 
 
 ExtendedKalmanFilter::ExtendedKalmanFilter() {
