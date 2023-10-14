@@ -241,6 +241,15 @@ namespace Data_Functions{
         return fabs((line.gradient * point.x - point.y + line.intercept)) / sqrt(1 + line.gradient * line.gradient);
     }
     
+
+    void angleInBounds(float& angle){
+        while(angle>2*PI){
+            angle = angle - 2*PI;
+        }
+        while(angle<-2*PI){
+            angle = angle + 2*PI;
+        }
+    }
 }
 
 // void getCaliAngle(MatrixXf State1,MatrixXf State2, float distThresh, float& caliAngle){

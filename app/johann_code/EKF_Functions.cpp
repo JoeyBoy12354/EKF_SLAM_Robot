@@ -87,6 +87,8 @@ void ExtendedKalmanFilter::updateMotion() {
     State(1) = State(1) + d_y;
     State(2) = State(2) + d_theta;
 
+    angleInBounds(State(2));
+
 }
 
 // Update covariance of robot using Gt and Rt
@@ -213,6 +215,7 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     // cout<<"\nz-zcap = \n"<<z-z_cap<<endl;
     // cout<<"\ngain* (z-zcap) = \n"<<(z-z_cap)<<endl;
     State = State + Gain*(z-z_cap);
+    angleInBounds(State(2));
     }
 
 // Update Covariance Matrix with new landmark

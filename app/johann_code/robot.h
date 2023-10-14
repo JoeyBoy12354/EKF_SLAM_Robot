@@ -170,6 +170,7 @@ namespace Data_Functions{
     //The boys from Landmark.cpp
     double pointDistance(CarPoint pointA, CarPoint pointB);
     double perpendicularDistance(const CarPoint& point, Line& line);
+    void angleInBounds(float& angle);
 
     //landmark
     void lidarDataProcessingFull(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints, bool firstRun);
