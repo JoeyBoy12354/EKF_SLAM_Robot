@@ -330,11 +330,12 @@ namespace Navigation_Functions{
         
         // Cx=Ax+(Bx-Ax)*cos(-angle) - (By-Ay)*sin(-angle);
         // Cy=Ay+(Bx-Ax)*sin(-angle) + (By-Ay)*cos(-angle);
+        
 
         deltaX = closestPoint.x - C.x;
-        cout<<"NAVI,GRID: deltaX = "<<deltaX<<" = "<<closestPoint.x<<" - "<<robotPoint.x<<endl;
+        cout<<"NAVI,GRID: deltaX = "<<deltaX<<" = "<<closestPoint.x<<" - "<<C.x<<endl;
         deltaY = closestPoint.y - C.y;
-        cout<<"NAVI,GRID: deltaY = "<<deltaY<<" = "<<closestPoint.y<<" - "<<robotPoint.y<<endl;
+        cout<<"NAVI,GRID: deltaY = "<<deltaY<<" = "<<closestPoint.y<<" - "<<C.y<<endl;
         float distance = deltaX*deltaX + deltaY*deltaY;
         cout<<"NAVI,GRID: dist1 = "<<distance<<" = "<<deltaX*deltaX<<" - "<<deltaY*deltaY<<endl;
         distance = sqrt(distance);
