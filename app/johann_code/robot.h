@@ -40,7 +40,8 @@ struct CarPoint {
     double x;
     double y;
 
-    CarPoint(double x, double y) : x(x), y(y) {}
+    //CarPoint(double x, double y) : x(x), y(y) {}
+    CarPoint(double x = 0, double y = 0) : x(x), y(y) {}
 
     bool operator==(const CarPoint& other) const {
         return x == other.x && y == other.y;
