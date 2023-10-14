@@ -66,6 +66,10 @@ void ExtendedKalmanFilter::updateMotion() {
     float d_y = distance*sin(w)+ lidar_y;
     float d_theta = w;
 
+    cout<<"EKF: distance = "<<distance<<"mm   |  Angle"<<w*180/PI<<endl;
+    cout<<"EKF: d_x: "<<-distance*cos(w)<<" + "<<lidar_x<<" = "<<d_x<<endl;
+    cout<<"EKF: d_y: "<<distance*sin(w)<<" + "<<lidar_y<<" = "<<d_x<<endl;
+    cout<<"EKF: d_theta: "<<d_theta<<endl;
     // Motion_Jacobian(0,2) = -distance*sin(State(2));
     // Motion_Jacobian(1,2) = distance*cos(State(2));
     CarPoint robot;
@@ -81,7 +85,7 @@ void ExtendedKalmanFilter::updateMotion() {
     Motion_Jacobian(0,2) = -(distance+dist2)*sin(State(2));
     Motion_Jacobian(1,2) = (distance+dist2)*cos(State(2));
 
-    cout<<"\nEKF: dist = "<<distance<<"\nEKF: w = "<<w<<"\nEKF: d_x = "<<d_x<<"\nEKF: d_y = "<<d_y<<"\nEKF: d_theta = "<<d_theta<<endl;
+    //cout<<"\nEKF: dist = "<<distance<<"\nEKF: w = "<<w<<"\nEKF: d_x = "<<d_x<<"\nEKF: d_y = "<<d_y<<"\nEKF: d_theta = "<<d_theta<<endl;
     
     State(0) = State(0) + d_x;
     State(1) = State(1) + d_y;
