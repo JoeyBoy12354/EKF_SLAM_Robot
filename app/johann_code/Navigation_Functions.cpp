@@ -241,7 +241,13 @@ namespace Navigation_Functions{
             }
         }
 
-        //closestPoint = {0,-200};
+        closestPoint = {-200,200};
+        robotPoint = {-203,-14};
+        State(0) = robotPoint.x;
+        State(1) = robotPoint.y;
+        State(2) = -0.071;
+
+        
 
         
 
@@ -368,7 +374,7 @@ namespace Navigation_Functions{
             lidar_x = C.x;
             lidar_y = C.y;
             //cout<<"GRID: updateMoveent, force==noMovement"<<endl;
-            motorControlGrid(angle,distance);
+            //motorControlGrid(angle,distance);
         }
         
         return mapped;
