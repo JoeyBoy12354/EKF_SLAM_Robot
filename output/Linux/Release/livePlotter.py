@@ -263,6 +263,15 @@ def draw_rotated_triangle(ax, x, y, direction_angle):
 
     return triangle
 
+def plotTriangle(x,y):
+    #triangle = [[x[0],y[0]],[x[1],y[1]],[x[2],y[2]]]
+
+    colors = ['r', 'g', 'b']  # Red, Green, Blue for corners
+
+    for i in range(3):
+        plt.scatter(x[i], y[i], c=colors[i], s=100, label=f'Point {i+1}')
+    plt.plot(x + [x[0]], y + [y[0]], 'k-', linewidth=2)
+
 
 
 def animate(i):
@@ -271,6 +280,7 @@ def animate(i):
     x2,y2=fetchCoord('landmarkCSV.csv')
     x3,y3=fetchCoord('cornersCSV.csv')
     x4,y4=fetchCoord('mapCSV.csv')
+    x5,y5=fetchCoord('triangleCSV.csv')
     position,x_goal,y_goal,true_move = fetchRobot()
     #print("POSITION = ",position)
 
@@ -285,8 +295,10 @@ def animate(i):
     #fetchAndPlotSection()
 
     #fetchAndPlotLines()
-    triangle = draw_rotated_triangle(plt.gca(),position[0],position[1],position[2])
-    plt.gca().fill(triangle[:, 0], triangle[:, 1], 'b')
+    #triangle = draw_rotated_triangle(plt.gca(),position[0],position[1],position[2])
+    #plt.gca().fill(triangle[:, 0], triangle[:, 1], 'b')
+
+    plotTriangle(x5,y5)
 
     #triangle = draw_rotated_triangle(plt.gca(),0,0,0) 
     #triangle = draw_rotated_triangle(plt.gca(),true_move[0],true_move[1],true_move[2])

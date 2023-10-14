@@ -286,6 +286,7 @@ namespace Navigation_Functions{
         vector<CarPoint> triangle_init = {{0, 0}, {81, 71}, {81, -71}};
         vector<CarPoint> triangle_rot = rotateTriangle(triangle_init,State(2));
         vector<CarPoint> triangle_shift = translateTriangle(triangle_rot,{State(0),State(1)});
+        saveTriangleToCSV(triangle_shift);
 
         CarPoint C; //Will hold the value of the tip/front of triangle after rotation
         CarPoint B = {triangle_shift[0].x,triangle_shift[0].y}; //Will hold the value of the tip/front of triangle

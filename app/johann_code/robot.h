@@ -153,6 +153,9 @@ namespace CSV_Functions{
     void saveGridToCSV(vector<vector<GridPoint>> points);
     void readGridFromCSV(vector<vector<GridPoint>>& points);
 
+    //Triangle
+    void saveTriangleToCSV(vector<CarPoint> triangle);
+
 
 }
 

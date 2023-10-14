@@ -10,6 +10,7 @@ string positionCSV = "positionCSV.csv";
 string consensusCSV = "consensusCSV.csv";
 string gridCSV = "gridCSV.csv";
 string sectionCSV = "sectionCSV.csv";
+string triangleCSV = "triangleCSV.csv";
 
 
 namespace CSV_Functions{
@@ -398,5 +399,23 @@ namespace CSV_Functions{
 
     file.close();
 }
+
+
+    //Triangle Functions
+    void saveTriangleToCSV(vector<CarPoint> triangle){
+        ofstream outputFile(triangleCSV);
+        if (!outputFile.is_open()) {
+            cerr << "Error opening the file: " << triangleCSV << endl;
+            return;
+        }
+
+        // Write the data to the CSV file
+        for (const CarPoint& point : triangle) {
+            outputFile << point.x << "," << point.y << "\n";
+        }
+
+        outputFile.close();
+
+    }
 
 }
