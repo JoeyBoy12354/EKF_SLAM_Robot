@@ -241,7 +241,7 @@ namespace Navigation_Functions{
             }
         }
 
-        closestPoint = {200};
+        //closestPoint = {200,0};
 
         
 
@@ -352,6 +352,8 @@ namespace Navigation_Functions{
         cout<<"NAVI,GRID: dist1 = "<<distance<<" = "<<deltaX*deltaX<<" - "<<deltaY*deltaY<<endl;
         distance = sqrt(distance);
 
+        distance =0;
+
         cout<<"NAVI,GRID rotate angle = "<<angle*180/PI<<endl;
         cout<<"NAVI,GRID around A = "<<A<<endl;
         cout<<"NAVI,GRID from B = "<<B<<endl;
@@ -366,7 +368,7 @@ namespace Navigation_Functions{
             lidar_x = C.x;
             lidar_y = C.y;
             //cout<<"GRID: updateMoveent, force==noMovement"<<endl;
-            //motorControlGrid(angle,distance);
+            motorControlGrid(angle,distance);
         }
         
         return mapped;
