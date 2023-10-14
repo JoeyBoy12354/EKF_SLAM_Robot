@@ -294,6 +294,9 @@ namespace Navigation_Functions{
         CarPoint B = {triangle_shift[0].x,triangle_shift[0].y}; //Will hold the value of the tip/front of triangle
         CarPoint A; //This point will hold the coordinate of the corner around which we will rotate
 
+        CarPoint T1 = A = {triangle_shift[1].x,triangle_shift[1].y};
+        CarPoint T2 = A = {triangle_shift[2].x,triangle_shift[2].y};
+        cout<<"NAVI,GRID: Wheels = "<<T1<<","<<T2<<<<endl;
         if(angle>0){
             //Rotate around right corner
             A = {triangle_shift[1].x,triangle_shift[1].y};

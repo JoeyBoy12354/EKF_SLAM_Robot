@@ -284,8 +284,8 @@ def getAngle(LNoRot,RNoRot):
     #Determine actual angle
     thetaL = (LNoRot*2*PI*r/R)
     thetaR = (RNoRot*2*PI*r/R)
-    angle = thetaR-thetaL
-    print("MC: Angle = left - right = ",thetaR* 180/(PI)," - ",thetaL* 180/(PI)," = ",(thetaR-thetaL)* 180/(PI))
+    angle = thetaL-thetaR
+    print("MC: Angle = left - right = ",thetaL* 180/(PI)," - ",thetaR* 180/(PI)," = ",(thetaL-thetaR)* 180/(PI))
 
     return angle
 
