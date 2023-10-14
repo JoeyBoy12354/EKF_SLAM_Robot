@@ -198,7 +198,7 @@ namespace Navigation_Functions{
         return rotatedTriangle;
     }
 
-    vector<CarPoint> translateTriangle(const vector<CarPoint> triangle,CarPoint reference){
+    vector<CarPoint> translateTriangle(vector<CarPoint> triangle,CarPoint reference){
         triangle[0] = {reference.x,reference.y};
         triangle[1] = {triangle[1].x + reference.x, triangle[1].y + reference.y};
         triangle[2] = {triangle[2].x + reference.x, triangle[2].y + reference.y};

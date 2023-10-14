@@ -225,7 +225,7 @@ namespace Navigation_Functions{
     void motorControlGrid(float angle, float distance);
 
     //Triangle 
-    vector<CarPoint> translateTriangle(const vector<CarPoint> triangle,CarPoint reference);
+    vector<CarPoint> translateTriangle(vector<CarPoint> triangle,CarPoint reference);
     vector<CarPoint> rotateTriangle(const vector<CarPoint> triangle,double angleRad);
 
     //PostMap
