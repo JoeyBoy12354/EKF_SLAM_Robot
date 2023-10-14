@@ -55,6 +55,8 @@ struct CornerPoint {
     double y;
     double angle;
 
+    CarPoint(double x, double y) : x(x), y(y) {}
+
     bool operator==(const CornerPoint& other) const {
         return x == other.x && y == other.y;
     }
@@ -220,6 +222,10 @@ namespace Navigation_Functions{
     //Grid
     bool updateMovementGrid(MatrixXf State, vector<vector<GridPoint>> gridMap, float& lidar_x,float& lidar_y);
     void motorControlGrid(float angle, float distance);
+
+    //Triangle 
+    vector<CarPoint> translateTriangle(const vector<CarPoint> triangle,CarPoint reference);
+    vector<CarPoint> rotateTriangle(const vector<CarPoint> triangle,double angleRad);
 
     //PostMap
     void pathFinder(vector<vector<GridPoint>> gridMap, MatrixXf State);

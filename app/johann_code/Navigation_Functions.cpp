@@ -175,6 +175,39 @@ namespace Navigation_Functions{
     }
 
 
+    vector<CarPoint> rotateTriangle(const vector<CarPoint> triangle,double angleRad) {        
+        // Create a rotation matrix
+        double cosA = cos(angleRad);
+        double sinA = sin(angleRad);
+
+        // Initialize the rotation matrix
+        double rotationMatrix[2][2] = {
+            {cosA, -sinA},
+            {sinA, cosA}
+        };
+
+        // Rotate each vertex of the triangle
+        vector<CarPoint> rotatedTriangle;
+        for (const CarPoint& vertex : triangle) {
+            CarPoint rotatedVertex;
+            rotatedVertex.x = vertex.x * rotationMatrix[0][0] + vertex.y * rotationMatrix[0][1];
+            rotatedVertex.y = vertex.x * rotationMatrix[1][0] + vertex.y * rotationMatrix[1][1];
+            rotatedTriangle.push_back(rotatedVertex);
+        }
+
+        return rotatedTriangle;
+    }
+
+    vector<CarPoint> translateTriangle(const vector<CarPoint> triangle,CarPoint reference){
+        triangle[0] = {reference.x,reference.y};
+        triangle[1] = {triangle[1].x + reference.x, triangle[1].y + reference.y};
+        triangle[2] = {triangle[2].x + reference.x, triangle[2].y + reference.y};
+
+        return triangle;
+    }
+
+
+
 
     //Set distance and angle to go to nearest unexplored grid point
     bool updateMovementGrid(MatrixXf State, vector<vector<GridPoint>> gridMap, float& lidar_x,float& lidar_y){
@@ -220,35 +253,81 @@ namespace Navigation_Functions{
         // cout<<"NAVI,GRID: distance = "<<dist2<<" - "<<closeness<<endl;;
         //distance = sqrt(distance) - closeness;
         float angle = atan2(deltaY,deltaX) - State(2);
+        
+
+        //BEGIN NewCode
+        //Get triangle values corresponding to current position before we rotate
+        vector<CarPoint> triangle_init = {{0, 0}, {81, 71}, {81, -71}};
+        vector<CarPoint> triangle_rot = rotateTriangle(triangle_init,State(2));
+        vector<CarPoint> triangle_shift = translateTriangle(triangle_rot,{State(0),State(1)});
+
+        CarPoint C; //Will hold the value of the tip/front of triangle after rotation
+        CarPoint B = {triangle_shift[0].x,triangle_shift[0].y}; //Will hold the value of the tip/front of triangle
+        CarPoint A; //This point will hold the coordinate of the corner around which we will rotate
+        if(angle>0){
+            //Rotate around right corner
+            A = {triangle_shift[1].x,triangle_shift[1].y};
+        }else{
+            //Rotate around left corner
+            A = {triangle_shift[2].x,triangle_shift[2].y};
+        }   
+
+        //Rotate around A
+        C.x=A.x+(B.x-A.x)*cos(-angle) - (B.y-A.y)*sin(-angle);
+        C.y=A.y+(B.x-A.x)*sin(-angle) + (B.y-A.y)*cos(-angle);
+
+        cout<<"NAVI,GRID: tri_rot = "<<triangle_rot[0]<<","<<triangle_rot[1]<<","<<triangle_rot[2]<<endl;
+        cout<<"NAVI,GRID: tri_shift = "<<triangle_shift[0]<<","<<triangle_shift[1]<<","<<triangle_shift[2]<<endl;
+
+        
+
+        //END NewCode
+
 
         //atan2() measures the angle between the point (x,y) and positive x
         //New distance model
 
-        float wheel_lidar_x = 81;
-        float wheel_lidar_y = 71;
-        float r = sqrt(wheel_lidar_x*wheel_lidar_x + wheel_lidar_y*wheel_lidar_y);
-        float Ax = 0;
-        float Ay = 0;
-        float Bx = robotPoint.x;
-        float By = robotPoint.y;
-        float Cx=0;
-        float Cy=0;
-        //angle = -1*angle;
-        if(angle>0){
-            //Do left turn centered on left wheel
-            
-
-            Ax = robotPoint.x + wheel_lidar_x;
-            Ay = robotPoint.y + wheel_lidar_y;
-        }else{
-            //Do right turn centered on right wheel
-            Ax = robotPoint.x + wheel_lidar_x;
-            Ay = robotPoint.y - wheel_lidar_y;
-            
-        }
+        // float wheel_lidar_x = 81;
+        // float wheel_lidar_y = 71;
+        // float r = sqrt(wheel_lidar_x*wheel_lidar_x + wheel_lidar_y*wheel_lidar_y);
+        // float Ax = 0;
+        // float Ay = 0;
+        // float Bx = robotPoint.x;
+        // float By = robotPoint.y;
+        // float Cx=0;
+        // float Cy=0;
+        // //angle = -1*angle;
         
-        Cx=Ax+(Bx-Ax)*cos(-angle) - (By-Ay)*sin(-angle);
-        Cy=Ay+(Bx-Ax)*sin(-angle) + (By-Ay)*cos(-angle);
+        // if(angle>0){
+        //     //Do left turn centered on left wheel
+        //     Ax = robotPoint.x + wheel_lidar_x;
+        //     Ay = robotPoint.y + wheel_lidar_y;
+        // }else{
+        //     //Do right turn centered on right wheel
+        //     Ax = robotPoint.x + wheel_lidar_x;
+        //     Ay = robotPoint.y - wheel_lidar_y;
+            
+        // }
+
+        // Ax = robotPoint.x + wheel_lidar_x * cos(angle)
+        // Ay = robotPoint.y + wheel_lidar_y * sin(angle)
+
+        // Bx = robotPoint.x + wheel_lidar_x * cos(angle + PI)
+        // By = robotPoint.y + wheel_lidar_y * sin(angle + PI)
+
+        // if (angle > 0) {
+        //     // Do left turn centered on left wheel
+        //     Ax = robotPoint.x + wheel_lidar_x * cos(State(3)) - wheel_lidar_y * sin(State(3));
+        //     Ay = robotPoint.y + wheel_lidar_x * sin(State(3)) + wheel_lidar_y * cos(State(3));
+        // } else {
+        //     // Do right turn centered on right wheel
+        //     Ax = robotPoint.x + wheel_lidar_x * cos(State(3)) + wheel_lidar_y * sin(State(3));
+        //     Ay = robotPoint.y - wheel_lidar_x * sin(State(3)) + wheel_lidar_y * cos(State(3));
+        // }
+
+        
+        // Cx=Ax+(Bx-Ax)*cos(-angle) - (By-Ay)*sin(-angle);
+        // Cy=Ay+(Bx-Ax)*sin(-angle) + (By-Ay)*cos(-angle);
 
         deltaX = closestPoint.x - Cx;
         cout<<"NAVI,GRID: deltaX = "<<deltaX<<" = "<<closestPoint.x<<" - "<<robotPoint.x<<endl;
@@ -261,10 +340,11 @@ namespace Navigation_Functions{
         cout<<"Angle = "<<angle*180/PI<<endl;
         cout<<"Origin Ax,Ay = "<<Ax<<","<<Ay<<endl;
         cout<<"Lidar Bx,By = "<<Bx<<","<<By<<endl;
-        cout<<"This is new lidar coordinate after turn: ("<<Cx<<", "<<Cy<<")"<<endl;
-        cout<<"NAVI,GRID: distance = "<<distance<<endl;;
         cout<<"NAVI,GRID: dot current location: "<<robotPoint<<endl;
         cout<<"NAVI,GRID: dot to visit: "<<closestPoint<<endl;
+        cout<<"This is new lidar coordinate after turn: ("<<Cx<<", "<<Cy<<")"<<endl;
+        cout<<"NAVI,GRID: distance = "<<distance<<endl;;
+        
         cout<<"NAVI,GRID: movement: "<<distance<<"mm "<<angle*180/PI<<" deg"<<endl;
 
         //Set motors
