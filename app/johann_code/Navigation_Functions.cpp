@@ -177,8 +177,11 @@ namespace Navigation_Functions{
 
     vector<CarPoint> rotateTriangle(const vector<CarPoint> triangle,double angleRad) {        
         // Create a rotation matrix
-        double cosA = cos(angleRad);
-        double sinA = sin(angleRad);
+        // double cosA = cos(angleRad);
+        // double sinA = sin(angleRad);
+
+        double cosA = cos(-angleRad);
+        double sinA = sin(-angleRad);
 
         // Initialize the rotation matrix
         double rotationMatrix[2][2] = {
