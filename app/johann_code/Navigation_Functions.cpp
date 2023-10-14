@@ -241,7 +241,7 @@ namespace Navigation_Functions{
             }
         }
 
-        //closestPoint = {200,0};
+        closestPoint = {0,-200};
 
         
 
