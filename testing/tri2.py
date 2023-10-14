@@ -44,8 +44,8 @@ def plot_colored_triangle(triangle):
     for i in range(3):
         plt.scatter(x[i], y[i], c=colors[i], s=100, label=f'Point {i+1}')
 
-    plt.xlim(-210, 210)
-    plt.ylim(-210, 210)
+    plt.xlim(-610, 610)
+    plt.ylim(-610, 610)
     plt.plot(x + [x[0]], y + [y[0]], 'k-', linewidth=2)
     plt.legend()
     plt.xlabel('X')
@@ -55,11 +55,12 @@ def plot_colored_triangle(triangle):
     
 
 def main():
-    ClosePoint = [0,-200]
-    #State = [-50, -135, 60]
-    State = [0, 0, 0]
+    ClosePoint = [-200,600]
+    State = [-203.68, 14.6187, 4]
+    #State = [0, 0, 0]
     angle = math.atan2(ClosePoint[0] - State[0],ClosePoint[1] - State[1]) - math.radians(State[2])
-    angle = math.pi/2
+    #angle = math.pi - angle
+    #angle = math.pi/2
 
     # Define the initial triangle vertices [a, b, c]
     initial_triangle = [CarPoint(0, 0), CarPoint(81, 71), CarPoint(81, -71)]
@@ -88,7 +89,7 @@ def main():
     print("from: ",B.x,",",B.y)
     print("result: ",C.x,",",C.y)
     # Plot the rotated triangle with different colored corners
-    #plot_colored_triangle(final_triangle)
+    plot_colored_triangle(final_triangle)
     plot_colored_triangle(initial_triangle)
     plot_colored_triangle(rotated_triangle)
     plot_colored_triangle(trans_triangle)
