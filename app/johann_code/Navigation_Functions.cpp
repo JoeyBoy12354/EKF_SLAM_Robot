@@ -242,19 +242,21 @@ namespace Navigation_Functions{
         }
 
         
+
+        
         //Set destination
-        float deltaX = closestPoint.x - robotPoint.x;
+        float deltaX = -1*closestPoint.x - robotPoint.x;
         float deltaY = closestPoint.y - robotPoint.y;
-        //float angle = atan2(deltaY,deltaX) - State(2);
+        float angle = atan2(deltaY,deltaX) - State(2);
 
-        // Calculate the angle in radians
-        float angle = atan2(deltaY, deltaX);
+        // // Calculate the angle in radians
+        // float angle = atan2(deltaY, deltaX);
 
-        // Convert the angle to degrees
-        angle = angle * 180.0 / M_PI;
+        // // Convert the angle to degrees
+        // angle = angle * 180.0 / M_PI;
 
-        // Invert the angle
-        angle = 180.0 - angle;
+        // // Invert the angle
+        // angle = 180.0 - angle;
 
         // // Ensure the angle is within the range [0, 360)
         // if (angle < 0) {
