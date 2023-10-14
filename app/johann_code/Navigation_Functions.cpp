@@ -241,7 +241,7 @@ namespace Navigation_Functions{
             }
         }
 
-        closestPoint = {0,-200};
+        //closestPoint = {0,-200};
 
         
 
@@ -352,7 +352,7 @@ namespace Navigation_Functions{
         cout<<"NAVI,GRID: dist1 = "<<distance<<" = "<<deltaX*deltaX<<" - "<<deltaY*deltaY<<endl;
         distance = sqrt(distance);
 
-        distance =0;
+        //distance =0;
 
         cout<<"NAVI,GRID rotate angle = "<<angle*180/PI<<endl;
         cout<<"NAVI,GRID around A = "<<A<<endl;
