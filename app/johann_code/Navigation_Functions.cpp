@@ -244,15 +244,22 @@ namespace Navigation_Functions{
         
         //Set destination
         float deltaX = closestPoint.x - robotPoint.x;
-        // cout<<"NAVI,GRID: deltaX = "<<deltaX<<" = "<<closestPoint.x<<" - "<<robotPoint.x<<endl;
         float deltaY = closestPoint.y - robotPoint.y;
-        // cout<<"NAVI,GRID: deltaY = "<<deltaY<<" = "<<closestPoint.y<<" - "<<robotPoint.y<<endl;
-        //float distance = deltaX*deltaX + deltaY*deltaY;
-        // cout<<"NAVI,GRID: dist1 = "<<distance<<" = "<<deltaX*deltaX<<" - "<<deltaY*deltaY<<endl;
-        //float dist2 = sqrt(distance);
-        // cout<<"NAVI,GRID: distance = "<<dist2<<" - "<<closeness<<endl;;
-        //distance = sqrt(distance) - closeness;
-        float angle = atan2(deltaY,deltaX) - State(2);
+        //float angle = atan2(deltaY,deltaX) - State(2);
+
+        // Calculate the angle in radians
+        float angle = atan2(deltaY, deltaX);
+
+        // Convert the angle to degrees
+        angle = angle * 180.0 / M_PI;
+
+        // Invert the angle
+        angle = 180.0 - angle;
+
+        // // Ensure the angle is within the range [0, 360)
+        // if (angle < 0) {
+        //     angle += 360.0;
+        // }
         
 
         //BEGIN NewCode
@@ -340,22 +347,21 @@ namespace Navigation_Functions{
         cout<<"NAVI,GRID: dist1 = "<<distance<<" = "<<deltaX*deltaX<<" - "<<deltaY*deltaY<<endl;
         distance = sqrt(distance);
 
-        cout<<"Angle = "<<angle*180/PI<<endl;
-        cout<<"Origin Ax,Ay = "<<A<<endl;
-        cout<<"Lidar Bx,By = "<<B<<endl;
-        cout<<"NAVI,GRID: dot current location: "<<robotPoint<<endl;
-        cout<<"NAVI,GRID: dot to visit: "<<closestPoint<<endl;
-        cout<<"This is new lidar coordinate after turn:"<<C<<endl;
-        cout<<"NAVI,GRID: distance = "<<distance<<endl;;
+        cout<<"NAVI,GRID rotate angle = "<<angle*180/PI<<endl;
+        cout<<"NAVI,GRID around A = "<<A<<endl;
+        cout<<"NAVI,GRID from B = "<<B<<endl;
+        cout<<"NAVI,GRID resulting C "<<C<<endl;
+        cout<<"NAVI,GRID to visit: "<<closestPoint<<endl;
+        cout<<"NAVI,GRID then distance = "<<distance<<endl;
         
-        cout<<"NAVI,GRID: movement: "<<distance<<"mm "<<angle*180/PI<<" deg"<<endl;
+        //cout<<"NAVI,GRID: movement: "<<distance<<"mm "<<angle*180/PI<<" deg"<<endl;
 
         //Set motors
         if(mapped == false){
             lidar_x = C.x;
             lidar_y = C.y;
             //cout<<"GRID: updateMoveent, force==noMovement"<<endl;
-            motorControlGrid(angle,distance);
+            //motorControlGrid(angle,distance);
         }
         
         return mapped;
