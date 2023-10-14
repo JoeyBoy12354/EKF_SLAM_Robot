@@ -335,8 +335,8 @@ namespace CSV_Functions{
 
         file.close();
 
-        cout<<"CSV: readMotor, READ angle = "<<angle<<endl;
-        cout<<"CSV: readMotor, READ dist = "<<distance<<endl;
+        // cout<<"CSV: readMotor, READ angle = "<<angle<<endl;
+        // cout<<"CSV: readMotor, READ dist = "<<distance<<endl;
 
     }
 

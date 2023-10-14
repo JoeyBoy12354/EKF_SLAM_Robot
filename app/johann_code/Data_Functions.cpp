@@ -130,7 +130,7 @@ namespace Data_Functions{
     }
 
     void lidarDataProcessing(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints, float x, float y, float angle){
-        cout<<"\n lidarDataProcessing"<<endl;
+        //cout<<"\n lidarDataProcessing"<<endl;
 
         carPoints = convertCartesian(dataPoints);
         fitCartesian(carPoints,x,y,angle);
@@ -138,7 +138,7 @@ namespace Data_Functions{
         saveCarToCSV(carPoints);
         cout<<"\nNumber of CAR points"<<carPoints.size(); 
 
-        cout<<"\n RANSAC py RUN \n"<<endl;
+        //cout<<"\n RANSAC py RUN \n"<<endl;
         vector<CarPoint> cornerPoints = getCorners();
 
 
@@ -218,7 +218,7 @@ namespace Data_Functions{
 
         
         readMotorFromCSV(theta,dist);
-        cout<<"DATA: SEND TO EKF: Read angle = "<<theta<<" Read Distance = "<<endl;
+        //cout<<"DATA: SEND TO EKF: Read angle = "<<theta<<" Read Distance = "<<endl;
         // cout<<"DATA:FOR TESTING I FORCE THIS TO BE 0 and 0 was "<<endl;
         // theta = 0;
         // dist = 0;

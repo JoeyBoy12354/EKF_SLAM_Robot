@@ -15,7 +15,7 @@ namespace Landmark_Functions{
         vector<CarPoint> corners;
         readCornersFromCSV(corners);
 
-        cout<<"LM: Number of Corners = "<<corners.size();
+        //cout<<"LM: Number of Corners = "<<corners.size();
 
         return corners;
     }

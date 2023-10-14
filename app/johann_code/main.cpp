@@ -166,16 +166,16 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun){
             runLidar(lidarDataPoints, error);
             count +=1;
         }
-        cout<<"count = "<<count<<endl;
+        //cout<<"count = "<<count<<endl;
         
-        cout<<"Main: Lidar Run complete"<<endl;
+        //cout<<"Main: Lidar Run complete"<<endl;
 
         if(error == false){
             //Predict Position
             ekf.updateMotion();
 
             cout<<"\n MAIN: PREDICTED POSITION: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
-            cout << "\nEKF 6\nState =\n" << ekf.State << "\n";
+            //cout << "\nEKF 6\nState =\n" << ekf.State << "\n";
 
             //Process Data
             vector<CarPoint> carPoints;
@@ -236,8 +236,8 @@ void testRun(){
     bool firstRun = true;
     
     for(int i =0;i<4;i++){
-        cout<<"IN RUN LOOP: "<<i<<endl;
-        cout<<"Mapped = "<<mapped<<endl;
+        // cout<<"IN RUN LOOP: "<<i<<endl;
+        // cout<<"Mapped = "<<mapped<<endl;
         fullRun(ekf,mapped,firstRun);
         firstRun = false;
     }

@@ -175,19 +175,19 @@ def filter_corners(corners,x1,y1,duplicateThresh = 40, closenessThresh = 40):
             close_corners.append(clean_corners[i]) 
 
 
-    print("Num Corners = ",len(corners))
-    print("Num UniqueCorners = ",len(clean_corners))
-    print("Num CloseCorners = ",len(close_corners))
+    # print("Num Corners = ",len(corners))
+    # print("Num UniqueCorners = ",len(clean_corners))
+    # print("Num CloseCorners = ",len(close_corners))
     return close_corners
 
 
 
 x1,y1=fetchCoord()
-print("CD: NoPoints = ",len(x1))
+#print("CD: NoPoints = ",len(x1))
 best_models = manager(x1,y1)
-print("CD: NoLines = ",len(best_models))
+#print("CD: NoLines = ",len(best_models))
 corners = find_corners(best_models)
 filtered_corners = filter_corners(corners,x1,y1)
 writeCoord(filtered_corners)
 
-print("CD: NoCorners = ",len(filtered_corners))
+#print("CD: NoCorners = ",len(filtered_corners))
