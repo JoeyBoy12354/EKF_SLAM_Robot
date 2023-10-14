@@ -381,7 +381,7 @@ namespace Navigation_Functions{
             lidar_x = C.x;
             lidar_y = C.y;
             //cout<<"GRID: updateMoveent, force==noMovement"<<endl;
-            //motorControlGrid(angle,distance);
+            motorControlGrid(angle,distance);
         }
         
         return mapped;
