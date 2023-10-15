@@ -328,6 +328,8 @@ void simRun(){
     ekf.TestValues.push_back({813.554,486.389});
     ekf.TestValues.push_back({817.647,-594.362});
     simRun(ekf,true);
+
+    cout<<"SORCERY"<<endl;
 }
 
 
