@@ -146,7 +146,7 @@ namespace Data_Functions{
 
         cout<<"DATA: NUMBER OF CORNERS POINTS = "<<cornerPoints.size()<<endl;
         for(int i =0;i<cornerPoints.size();i++){
-            cout<<corner<<" | ";
+            cout<<cornerPoints[i]<<" | ";
         }
         cout<<endl;
 
