@@ -1,0 +1,345 @@
+Started in Main
+MCAL: IN motor calibration
+MC: RIGHT_Thread
+MC: LEFT_Thread
+leaving
+TIME =  0.5105259418487549 s
+LEFT SPEED =  0.8814439445925631  rotations/s, ROTATIONS =  0.45 , TICKS =  9
+RIGHT SPEED =  0.9793821606584034  rotations/s, ROTATIONS =  0.5 , TICKS =  10
+MC: RIGHT_Thread
+MC: LEFT_Thread
+leaving
+TIME =  0.5188422203063965 s
+LEFT SPEED =  0.8673156932646259  rotations/s, ROTATIONS =  0.45 , TICKS =  9
+RIGHT SPEED =  0.963684103627362  rotations/s, ROTATIONS =  0.5 , TICKS =  10
+MC: RIGHT_Thread
+MC: LEFT_Thread
+leaving
+TIME =  0.5089502334594727 s
+LEFT SPEED =  0.9824143248768441  rotations/s, ROTATIONS =  0.5 , TICKS =  10
+RIGHT SPEED =  0.8841728923891596  rotations/s, ROTATIONS =  0.45 , TICKS =  9
+MC: RIGHT_Thread
+MC: LEFT_Thread
+leaving
+TIME =  0.49661946296691895 s
+LEFT SPEED =  1.0068070973555585  rotations/s, ROTATIONS =  0.5 , TICKS =  10
+RIGHT SPEED =  0.9061263876200027  rotations/s, ROTATIONS =  0.45 , TICKS =  9
+MC: RIGHT_R_Thread
+MC: LEFT_R_Thread
+TIME =  1.5469996929168701 s
+LEFT SPEED =  1.2928250788653985  rotations/s, ROTATIONS =  2.0 , TICKS =  40
+RIGHT SPEED =  1.2605044518937636  rotations/s, ROTATIONS =  1.95 , TICKS =  39
+MC: RIGHT_Thread
+MC: LEFT_Thread
+leaving
+TIME =  0.5078163146972656 s
+LEFT SPEED =  0.9846079882212423  rotations/s, ROTATIONS =  0.5 , TICKS =  10
+RIGHT SPEED =  0.8861471893991181  rotations/s, ROTATIONS =  0.45 , TICKS =  9
+MC: RIGHT_Thread
+MC: LEFT_Thread
+leaving
+TIME =  0.46697258949279785 s
+LEFT SPEED =  0.8565813261854618  rotations/s, ROTATIONS =  0.4 , TICKS =  8
+RIGHT SPEED =  1.070726657731827  rotations/s, ROTATIONS =  0.5 , TICKS =  10
+MC: RIGHT_Thread
+MC: LEFT_Thread
+leaving
+TIME =  0.47339320182800293 s
+LEFT SPEED =  1.0562044365429313  rotations/s, ROTATIONS =  0.5 , TICKS =  10
+RIGHT SPEED =  0.9505839928886383  rotations/s, ROTATIONS =  0.45 , TICKS =  9
+MC: RIGHT_Thread
+MC: LEFT_Thread
+leaving
+TIME =  0.4717392921447754 s
+LEFT SPEED =  1.059907470770002  rotations/s, ROTATIONS =  0.5 , TICKS =  10
+RIGHT SPEED =  0.8479259766160018  rotations/s, ROTATIONS =  0.4 , TICKS =  8
+MC: RIGHT_R_Thread
+MC: LEFT_R_Thread
+TIME =  1.541355848312378 s
+LEFT SPEED =  1.2975589006197297  rotations/s, ROTATIONS =  2.0 , TICKS =  40
+RIGHT SPEED =  1.2651199281042365  rotations/s, ROTATIONS =  1.95 , TICKS =  39
+MCAL: time Left =  0.008763157894736842 s  0.001236842105263156 s
+MCAL: time Right =  0.009 s  0.001 s
+
+ YOU HAVE 10s TO MOVE ME TO STARTING POSITION 
+
+ret/cpp = 0
+
+ i = 0
+------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+
+
+Attempt 0
+SLAMTEC LIDAR S/N: ABCF99F6C9E59AD4C5E59CF7571D3414SLAMTEC Lidar health status : 0
+Entering scan loop
+I have reached max NoPoints in Lidar_functioncount = 1
+IN triangFunction 
+NAVI,GRID: Wheels = (81,71),(81,-71)
+NAVI,GRID: tri_rot = (0,0),(81,71),(81,-71)
+NAVI,GRID: tri_shift = (0,0),(81,71),(81,-71)
+EKF: distance = 0mm   |  Angle0
+EKF: d_x: -0
+EKF: d_y: 0
+EKF: d_theta: 0
+
+ MAIN: after_motion State: x=0, y=0, w=0 deg
+Fit Cartesian for: (0,0) | 0
+
+Number of CAR points8399ret/cpp = 0
+DATA: NUMBER OF CORNERS POINTS = 2
+(768.194,849.759) | (779.026,-695.532) | 
+
+ MAIN: after_ekf State: x=0, y=0, w=0 deg
+(768.194,849.759) | (779.026,-695.532) | 
+
+ CSV: Saving Full Map (overwriting old)
+
+
+GRID: In grid data process
+GRID:SAVED TO CSV 
+
+
+IN update Movement Grid
+A
+NAVI,GRID: tri_shift = (0,0),(81,71),(81,-71)
+NAVI,GRID around A = (81,-71) from B = (0,0) resulting C (0,0) to visit: (-200,-200)
+NAVI: Set angle = 0 deg Set Distance = 100mm
+MC:TURN:  0.0  deg
+MC:DO NOTHING
+MC GO FORWARD FOR:  100.0
+MC: RIGHT_Thread
+MC: LEFT_Thread
+leaving
+TIME =  0.4845564365386963 s
+LEFT SPEED =  1.0318715474540403  rotations/s, ROTATIONS =  0.5 , TICKS =  10
+RIGHT SPEED =  0.9286843927086362  rotations/s, ROTATIONS =  0.45 , TICKS =  9
+MC: Straight angle_diff =  4.105263157894734
+MC: Old angle =  0.0
+MC: Angle turned =  4.105263157894734
+MC: distance moved =  102.10176124166827
+ret/cpp = 0
+LEAVNG RUN
+
+ i = 1
+------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+
+
+Attempt 0
+SLAMTEC LIDAR S/N: ABCF99F6C9E59AD4C5E59CF7571D3414SLAMTEC Lidar health status : 0
+Entering scan loop
+I have reached max NoPoints in Lidar_functioncount = 1
+IN triangFunction 
+NAVI,GRID: Wheels = (81,71),(81,-71)
+NAVI,GRID: tri_rot = (0,0),(81,71),(81,-71)
+NAVI,GRID: tri_shift = (0,0),(81,71),(81,-71)
+EKF: distance = 102.102mm   |  Angle4.10526
+EKF: d_x: -101.84
+EKF: d_y: 7.30937
+EKF: d_theta: 4.10526
+
+ MAIN: after_motion State: x=-106.715, y=13.2903, w=4.10526 deg
+Fit Cartesian for: (-106.715,13.2903) | 4.10526
+
+Number of CAR points8497ret/cpp = 0
+DATA: NUMBER OF CORNERS POINTS = 3
+(759.479,-732.339) | (806.747,812.973) | (754.556,-646.375) | 
+Re-Observed: (759.479,-732.339)  Stored:(779.026,-695.532) 
+
+ MAIN: after_ekf State: x=-106.715, y=13.2903, w=4.10526 deg
+(768.194,849.759) | (782.488,-697.27) | (806.747,812.973) | (754.556,-646.375) | 
+No of New Points = 0
+
+IN STORE STATE POINTS
+
+
+GRID: In grid data process
+GRID:SAVED TO CSV 
+
+
+IN update Movement Grid
+A
+NAVI,GRID: tri_shift = (-106.715,13.2903),(-20.8398,78.3094),(-31.0054,-63.3263)
+NAVI,GRID around A = (-31.0054,-63.3263) from B = (-106.715,13.2903) resulting C (-106.715,13.2903) to visit: (-200,-200)
+NAVI: Set angle = 0 deg Set Distance = 100mm
+MC:TURN:  0.0  deg
+MC:DO NOTHING
+MC GO FORWARD FOR:  100.0
+MC: RIGHT_Thread
+MC: LEFT_Thread
+leaving
+TIME =  0.48833250999450684 s
+LEFT SPEED =  0.9215032601557942  rotations/s, ROTATIONS =  0.45 , TICKS =  9
+RIGHT SPEED =  1.0238925112842159  rotations/s, ROTATIONS =  0.5 , TICKS =  10
+MC: Straight angle_diff =  -4.105263157894734
+MC: Old angle =  0.0
+MC: Angle turned =  -4.105263157894734
+MC: distance moved =  91.89158511750145
+ret/cpp = 0
+LEAVNG RUN
+
+ i = 2
+------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+
+
+Attempt 0
+SLAMTEC LIDAR S/N: ABCF99F6C9E59AD4C5E59CF7571D3414SLAMTEC Lidar health status : 0
+Entering scan loop
+I have reached max NoPoints in Lidar_functioncount = 1
+IN triangFunction 
+NAVI,GRID: Wheels = (-20.8398,78.3094),(-31.0054,-63.3263)
+NAVI,GRID: tri_rot = (0,0),(85.875,65.0191),(75.7093,-76.6165)
+NAVI,GRID: tri_shift = (-106.715,13.2903),(-20.8398,78.3094),(-31.0054,-63.3263)
+EKF: distance = 91.8916mm   |  Angle-4.10526
+EKF: d_x: -91.8916
+EKF: d_y: 0
+EKF: d_theta: -4.10526
+
+ MAIN: after_motion State: x=-203.897, y=7.67371, w=0 deg
+Fit Cartesian for: (-203.897,7.67371) | 0
+
+Number of CAR points8505ret/cpp = 0
+DATA: NUMBER OF CORNERS POINTS = 3
+(851.122,-657.023) | (758.965,878.97) | (834.064,-584.707) | 
+Re-Observed: (758.965,878.97)  Stored:(768.194,849.759) 
+
+ MAIN: after_ekf State: x=-203.897, y=7.67371, w=0 deg
+(774.217,851.531) | (782.488,-697.27) | (806.747,812.973) | (754.556,-646.375) | (851.122,-657.023) | (834.064,-584.707) | 
+No of New Points = 1
+
+IN STORE STATE POINTS
+
+
+GRID: In grid data process
+GRID:SAVED TO CSV 
+
+
+IN update Movement Grid
+A
+NAVI,GRID: tri_shift = (-203.897,7.67371),(-122.897,78.6737),(-122.897,-63.3263)
+NAVI,GRID around A = (-122.897,-63.3263) from B = (-203.897,7.67371) resulting C (-203.897,7.67371) to visit: (-200,-200)
+NAVI: Set angle = 0 deg Set Distance = 100mm
+MC:TURN:  0.0  deg
+MC:DO NOTHING
+MC GO FORWARD FOR:  100.0
+MC: RIGHT_Thread
+MC: LEFT_Thread
+leaving
+TIME =  0.49951720237731934 s
+LEFT SPEED =  0.9008698756686349  rotations/s, ROTATIONS =  0.45 , TICKS =  9
+RIGHT SPEED =  1.0009665285207054  rotations/s, ROTATIONS =  0.5 , TICKS =  10
+MC: Straight angle_diff =  -4.105263157894734
+MC: Old angle =  0.0
+MC: Angle turned =  -4.105263157894734
+MC: distance moved =  91.89158511750145
+ret/cpp = 0
+LEAVNG RUN
+
+ i = 3
+------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+
+
+Attempt 0
+SLAMTEC LIDAR S/N: ABCF99F6C9E59AD4C5E59CF7571D3414SLAMTEC Lidar health status : 0
+Entering scan loop
+SL is not ok
+
+Attempt 1
+SLAMTEC LIDAR S/N: ABCF99F6C9E59AD4C5E59CF7571D3414SLAMTEC Lidar health status : 0
+Entering scan loop
+I have reached max NoPoints in Lidar_functioncount = 2
+IN triangFunction 
+NAVI,GRID: Wheels = (-122.897,78.6737),(-122.897,-63.3263)
+NAVI,GRID: tri_rot = (0,0),(81,71),(81,-71)
+NAVI,GRID: tri_shift = (-203.897,7.67371),(-122.897,78.6737),(-122.897,-63.3263)
+EKF: distance = 91.8916mm   |  Angle-4.10526
+EKF: d_x: -91.6558
+EKF: d_y: -6.57843
+EKF: d_theta: -4.10526
+
+ MAIN: after_motion State: x=-300.428, y=-4.88561, w=-4.10526 deg
+Fit Cartesian for: (-300.428,-4.88561) | -4.10526
+
+Number of CAR points8552ret/cpp = 0
+DATA: NUMBER OF CORNERS POINTS = 2
+(723.963,927.258) | (892.788,-506.772) | 
+
+ MAIN: after_ekf State: x=-300.428, y=-4.88561, w=-4.10526 deg
+(774.217,851.531) | (782.488,-697.27) | (806.747,812.973) | (754.556,-646.375) | (851.122,-657.023) | (834.064,-584.707) | (723.963,927.258) | (892.788,-506.772) | 
+No of New Points = 1
+
+IN STORE STATE POINTS
+
+
+GRID: In grid data process
+GRID:SAVED TO CSV 
+
+
+IN update Movement Grid
+A
+NAVI,GRID: tri_shift = (-300.428,-4.88561),(-224.718,71.7309),(-214.553,-69.9047)
+NAVI,GRID around A = (-214.553,-69.9047) from B = (-300.428,-4.88561) resulting C (-300.428,-4.88561) to visit: (-600,0)
+NAVI: Set angle = 0 deg Set Distance = 100mm
+MC:TURN:  0.0  deg
+MC:DO NOTHING
+MC GO FORWARD FOR:  100.0
+MC: RIGHT_Thread
+MC: LEFT_Thread
+leaving
+TIME =  0.510991096496582 s
+LEFT SPEED =  0.9784906301265553  rotations/s, ROTATIONS =  0.5 , TICKS =  10
+RIGHT SPEED =  0.8806415671138998  rotations/s, ROTATIONS =  0.45 , TICKS =  9
+MC: Straight angle_diff =  4.105263157894734
+MC: Old angle =  0.0
+MC: Angle turned =  4.105263157894734
+MC: distance moved =  102.10176124166827
+ret/cpp = 0
+LEAVNG RUN
+
+ i = FINALRUN
+------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+
+
+Attempt 0
+SLAMTEC LIDAR S/N: ABCF99F6C9E59AD4C5E59CF7571D3414SLAMTEC Lidar health status : 0
+Entering scan loop
+I have reached max NoPoints in Lidar_functioncount = 1
+IN triangFunction 
+NAVI,GRID: Wheels = (-224.718,71.7309),(-214.553,-69.9047)
+NAVI,GRID: tri_rot = (0,0),(75.7093,76.6165),(85.875,-65.0191)
+NAVI,GRID: tri_shift = (-300.428,-4.88561),(-224.718,71.7309),(-214.553,-69.9047)
+EKF: distance = 102.102mm   |  Angle4.10526
+EKF: d_x: -102.102
+EKF: d_y: 0
+EKF: d_theta: 4.10526
+
+ MAIN: after_motion State: x=-407.82, y=0.730937, w=0 deg
+Fit Cartesian for: (-407.82,0.730937) | 0
+
+Number of CAR points8604ret/cpp = 0
+DATA: NUMBER OF CORNERS POINTS = 3
+(-1240.53,-640.468) | (816.374,841.329) | (859.091,-598.162) | 
+Re-Observed: (816.374,841.329)  Stored:(806.747,812.973) 
+Re-Observed: (859.091,-598.162)  Stored:(834.064,-584.707) 
+
+ MAIN: after_ekf State: x=-407.82, y=0.730937, w=0 deg
+(774.217,851.531) | (782.488,-697.27) | (818.824,814.692) | (754.556,-646.375) | (851.122,-657.023) | (847.279,-586.646) | (723.963,927.258) | (892.788,-506.772) | (-1240.53,-640.468) | 
+No of New Points = 1
+
+IN STORE STATE POINTS
+
+
+GRID: In grid data process
+GRID:SAVED TO CSV 
+
+
+LEAVNG RUN

@@ -140,9 +140,9 @@ vector<CarPoint> ExtendedKalmanFilter::observeEnvironment() {
 
 // Check if a new landmark is observed
 void ExtendedKalmanFilter::isNewLandmark() {
-    float distThresh = 50; //editing this effects the localization heavily (10)
+    float distThresh = 100; //editing this effects the localization heavily (10)
 
-    //z is the Range-Bearing of the actual landmark we have just found from Sensors
+    //z is the Range-Bearing of the actual landmark we have just found from Sensors (Observed)
     float deltaX = ObservedLandmark.x - State(0);
     float deltaY = ObservedLandmark.y - State(1);
     float q = deltaX*deltaX + deltaY*deltaY;
@@ -163,7 +163,7 @@ void ExtendedKalmanFilter::isNewLandmark() {
 
     double smallestDistance = *min_element(Distances.begin(), Distances.end());
     int smallestDistanceIndex = Indexes[getIndex(Distances,smallestDistance)];
-    //cout<<"smallestDistance"<<smallestDistance<<" @"<<smallestDistanceIndex<<endl;
+    cout<<"smallestDistance"<<smallestDistance<<" @"<<smallestDistanceIndex<<endl;
     
 
     if(smallestDistance<=distThresh){
@@ -177,11 +177,14 @@ void ExtendedKalmanFilter::isNewLandmark() {
         //cout<<"I have seen this one Before! Estimated: ("<<EstimatedLandmark.x<<","<<EstimatedLandmark.y<<") "<<endl;
     }else{
         //This is a new landmark
-        //cout<< "\nNewLandmark"<<endl;
+        cout<< "\nNewLandmark"<<endl;
 
-        //Calculate landmark position
-        EstimatedLandmark.x = State(0) + z(0)*cos(z(1) + State(2));
-        EstimatedLandmark.y = State(1) + z(0)*sin(z(1) + State(2));
+        //Calculate landmark position (why do this?)
+        // EstimatedLandmark.x = State(0) + z(0)*cos(z(1) + State(2));
+        // EstimatedLandmark.y = State(1) + z(0)*sin(z(1) + State(2));
+
+        EstimatedLandmark.x = ObservedLandmark.x;
+        EstimatedLandmark.y = ObservedLandmark.y;
 
         NoLandmarksFound += 1;
         LandmarkIndex = 1+NoLandmarksFound*2;
@@ -198,6 +201,9 @@ void ExtendedKalmanFilter::isNewLandmark() {
 
 // Calculate estimated observation
 void ExtendedKalmanFilter::getEstimatedObservation(float deltaX, float deltaY, float q) {
+    // float deltaX = EstimatedLandmark.x - State(0);
+    // float deltaY = EstimatedLandmark.y - State(1);
+    // float q = deltaX * deltaX + deltaY * deltaY;
     z_cap(0) = sqrt(q);
     z_cap(1) = atan2(deltaY,deltaX) - State[2];
 }
@@ -243,10 +249,12 @@ void ExtendedKalmanFilter::getGainMatrix() {
 
 // Update State Matrix with new landmark
 void ExtendedKalmanFilter::updateStateOfLandmark() {
-    // cout<<"\nGain = \n"<<Gain<<endl;
-    // cout<<"\nz-zcap = \n"<<z-z_cap<<endl;
-    // cout<<"\ngain* (z-zcap) = \n"<<(z-z_cap)<<endl;
+    cout<<"\nGain = \n"<<Gain<<endl;
+    cout<<"\nz-zcap = \n"<<z-z_cap<<endl;
+    cout<<"\ngain* (z-zcap) = \n"<<(z-z_cap)<<endl;
+    cout<<"\nSTATE_1 = "<<State<<endl;
     State = State + Gain*(z-z_cap);
+    cout<<"\nSTATE_2 = "<<State<<endl;
     angleInBounds(State(2));
     }
 
@@ -278,6 +286,7 @@ void ExtendedKalmanFilter::runEKF() {
     for (int i = 0; i < landmarks.size(); i++) {
         //cout<<"\n\nXXXXX N E X T   P O I N T "<<i<<" XXXXX"<<endl;
 
+        
         //Round Landmark
         //Round to 4 decimal
         // landmarks[i].x = round(landmarks[i].x * 10000.0) / 10000.0;
@@ -295,8 +304,8 @@ void ExtendedKalmanFilter::runEKF() {
         z_cap(0) = sqrt(q);
         z_cap(1) = atan2(deltaY, deltaX) - State(2);
 
-        // cout<<"\nObsLM.x = "<<ObservedLandmark.x<<"ObsLM.y = "<<ObservedLandmark.y<<endl;
-        // cout<<"EstLM.x = "<<EstimatedLandmark.x<<"EstLM.y = "<<EstimatedLandmark.y<<endl;
+        cout<<"\nObsLM.x = "<<ObservedLandmark.x<<"ObsLM.y = "<<ObservedLandmark.y<<endl;
+        cout<<"EstLM.x = "<<EstimatedLandmark.x<<"EstLM.y = "<<EstimatedLandmark.y<<endl;
         // cout<<"deltaX = "<<deltaX<<" deltaY = "<<deltaY<<" q = "<<q<<endl;
         // cout<<"z.r = "<<z(0)<<"z.theta = "<<z(1)<<endl;
         // cout<<"z_cap.r = "<<z_cap(0)<<"z_cap.theta = "<<z_cap(1)<<endl;
