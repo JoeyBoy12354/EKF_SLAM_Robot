@@ -172,12 +172,12 @@ void ExtendedKalmanFilter::isNewLandmark() {
         EstimatedLandmark.y = State(smallestDistanceIndex+1);
         LandmarkIndex = smallestDistanceIndex;
 
-        cout<<"Re-Observed: ("<<ObservedLandmark.x<<","<<ObservedLandmark.y<<") "<<
-        " Stored:("<<EstimatedLandmark.x<<","<<EstimatedLandmark.y<<") "<<endl;
+        // cout<<"Re-Observed: ("<<ObservedLandmark.x<<","<<ObservedLandmark.y<<") "<<
+        // " Stored:("<<EstimatedLandmark.x<<","<<EstimatedLandmark.y<<") "<<endl;
         //cout<<"I have seen this one Before! Estimated: ("<<EstimatedLandmark.x<<","<<EstimatedLandmark.y<<") "<<endl;
     }else{
         //This is a new landmark
-        cout<<"NewLandmark : "<<ObservedLandmark<<" smallDist = "<<smallestDistance<<" to ("<<State(smallestDistanceIndex)<<","<<State(smallestDistanceIndex+1)<<")"<<endl;
+        //cout<<"NewLandmark : "<<ObservedLandmark<<" smallDist = "<<smallestDistance<<" to ("<<State(smallestDistanceIndex)<<","<<State(smallestDistanceIndex+1)<<")"<<endl;
 
         //Calculate landmark position (why do this?)
         // EstimatedLandmark.x = State(0) + z(0)*cos(z(1) + State(2));
@@ -257,23 +257,23 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     }
 
 
-    cout<<"z-zcap = \n"<<z-z_cap<<endl;
+    //cout<<"z-zcap = \n"<<z-z_cap<<endl;
     
     Matrix<float, dim, 1> Gain2 = Gain*(z-z_cap);
-    cout<<"gain* (z-zcap) = \n"<<endl;
-    for(int i =0;i<dim;i++){
-        if(Gain2[i] != 0){
-            cout<<Gain2[i]<<endl;
-        }
-    }
+    // cout<<"gain* (z-zcap) = \n"<<endl;
+    // for(int i =0;i<dim;i++){
+    //     if(Gain2[i] != 0){
+    //         cout<<Gain2[i]<<endl;
+    //     }
+    // }
 
-    cout<<"\n EKF: State1: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
-    for(int i =3;i<dim;i=i+2){
-        if(State[i] != 0 && State[i+1] != 0){
-            cout<<"("<<State[i]<<","<<State[i+1]<<") | ";
-        }
-    }
-    cout<<endl;
+    // cout<<"\n EKF: State1: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
+    // for(int i =3;i<dim;i=i+2){
+    //     if(State[i] != 0 && State[i+1] != 0){
+    //         cout<<"("<<State[i]<<","<<State[i+1]<<") | ";
+    //     }
+    // }
+    // cout<<endl;
 
     State = State + Gain*(z-z_cap);
     
@@ -309,8 +309,8 @@ void ExtendedKalmanFilter::runEKF() {
     // Correction step
     //vector<CarPoint> landmarks = observeEnvironment();
     vector<CarPoint> landmarks = TestValues;
-    cout<<"size = "<<landmarks.size()<<endl;
-    cout<<"landmarks = "<<landmarks[0]<<landmarks[1]<<endl;
+    // cout<<"size = "<<landmarks.size()<<endl;
+    // cout<<"landmarks = "<<landmarks[0]<<landmarks[1]<<endl;
     // landmarks = Simulation_Functions::landmarkNoise(landmarks);
 
     //cout<<"LANDMARKS = "<<fixed<<setprecision(10)<<landmarks[0]<<landmarks[1]<<landmarks[2]<<landmarks[3]<<endl;
