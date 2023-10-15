@@ -165,6 +165,7 @@ void calibrateMotors(){
 
 //This process will only use the latest scan to update the EKF and RANSAC
 void simRun(ExtendedKalmanFilter& ekf bool final){
+    cout<<"In SIM RUN"<<endl;
 
     if(final == false){
         ekf.updateMotion();
