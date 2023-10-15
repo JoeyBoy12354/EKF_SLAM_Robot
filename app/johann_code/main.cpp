@@ -271,7 +271,7 @@ void testRun(){
     }
 
     finalRun = 1;
-    for(int i =0;i<2;i++){
+    for(int i =0;i<4;i++){
         cout<<"\n i = "<<"FINALRUN "<<i<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
         fullRun(ekf,mapped,firstRun,finalRun);
