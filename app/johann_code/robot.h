@@ -289,18 +289,18 @@ private:
     int NoLandmarksFound = 0;
     int LandmarkIndex = 0;
 
-    // float sigma_r = 100; //100
-    // float sigma_theta = 17;//17
+    float sigma_r = 100; //100
+    float sigma_theta = 17;//17
 
-    // float sigma_odo_x = 0.001;
-    // float sigma_odo_y = 0.001;
-    // float sigma_odo_theta = 0.00017;
-
-    float sigma_r = 100;//*
-    float sigma_theta = 17;//* 
-    float sigma_odo_x = 0.01;
+    float sigma_odo_x = 0.0001;
     float sigma_odo_y = 0.01;
     float sigma_odo_theta = 0.17;
+
+    // float sigma_r = 100;//*
+    // float sigma_theta = 17;//* 
+    // float sigma_odo_x = 0.01;
+    // float sigma_odo_y = 0.01;
+    // float sigma_odo_theta = 0.17;
 
 
     //Covariance for EKF simulation
