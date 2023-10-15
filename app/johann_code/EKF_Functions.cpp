@@ -84,10 +84,10 @@ void ExtendedKalmanFilter::updateMotion() {
 
     
 
-    cout<<"EKF: distance = "<<distance<<"mm   |  Angle"<<w*180/PI<<endl;
-    cout<<"EKF: d_x: "<<Cd_x<<endl;
-    cout<<"EKF: d_y: "<<Cd_y<<endl;
-    cout<<"EKF: d_theta: "<<w*180/PI<<endl;
+    // cout<<"EKF: distance = "<<distance<<"mm   |  Angle"<<w*180/PI<<endl;
+    // cout<<"EKF: d_x: "<<Cd_x<<endl;
+    // cout<<"EKF: d_y: "<<Cd_y<<endl;
+    // cout<<"EKF: d_theta: "<<w*180/PI<<endl;
     
 
     // cout<<"EKF: distance = "<<distance<<"mm   |  Angle"<<w*180/PI<<endl;
