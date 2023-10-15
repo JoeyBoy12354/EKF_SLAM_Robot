@@ -212,7 +212,7 @@ namespace Navigation_Functions{
 
     //Perform rotation and translation of triangle state
     CarPoint triangularRepositioning(MatrixXf State, float angle){
-        cout<<"IN triangFunction "<<endl;
+        //cout<<"IN triangFunction "<<endl;
 
         vector<CarPoint> triangle_init = {{0, 0}, {81, 71}, {81, -71}};
         vector<CarPoint> triangle_rot = rotateTriangle(triangle_init,State(2));
@@ -225,7 +225,7 @@ namespace Navigation_Functions{
 
         CarPoint T1 = A = {triangle_shift[1].x,triangle_shift[1].y};
         CarPoint T2 = A = {triangle_shift[2].x,triangle_shift[2].y};
-        cout<<"NAVI,GRID: Wheels = "<<T1<<","<<T2<<endl;
+        //cout<<"NAVI,GRID: Wheels = "<<T1<<","<<T2<<endl;
         if(angle>0){
             //Rotate around right corner
             A = {triangle_shift[1].x,triangle_shift[1].y};
@@ -238,7 +238,7 @@ namespace Navigation_Functions{
         C.x=A.x+(B.x-A.x)*cos(-angle) - (B.y-A.y)*sin(-angle);
         C.y=A.y+(B.x-A.x)*sin(-angle) + (B.y-A.y)*cos(-angle);
 
-        cout<<"NAVI,GRID: tri_rot = "<<triangle_rot[0]<<","<<triangle_rot[1]<<","<<triangle_rot[2]<<endl;
+        //cout<<"NAVI,GRID: tri_rot = "<<triangle_rot[0]<<","<<triangle_rot[1]<<","<<triangle_rot[2]<<endl;
         cout<<"NAVI,GRID: tri_shift = "<<triangle_shift[0]<<","<<triangle_shift[1]<<","<<triangle_shift[2]<<endl;
 
         return C;
@@ -258,8 +258,6 @@ namespace Navigation_Functions{
         CarPoint robotPoint;
         robotPoint.x = State(0);
         robotPoint.y = State(1);
-
-        cout<<"A"<<endl;
 
         //find closest non-traversed point
         for(int i =0;i<gridMap.size();i++){

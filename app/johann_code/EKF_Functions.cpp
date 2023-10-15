@@ -125,10 +125,8 @@ void ExtendedKalmanFilter::updateMotion() {
 
 // Update covariance of robot using Gt and Rt
 void ExtendedKalmanFilter::updateCovarianceOfRobot() {
-    cout << "\nLINE 7\nsigma =\n" << Covariance << "\n";
     Covariance = Motion_Jacobian*Covariance*(Motion_Jacobian.transpose()) + Motion_Noise; //Textbook
     //Covariance = Motion_Jacobian.transpose()*Covariance*Motion_Jacobian + Motion_Noise;//Example
-    cout << "\nLINE 7\nsigma =\n" << Covariance << "\n";
 }
 
 // Perform lidar observation and return landmarks (should be replace with function in Data_Functions)
@@ -165,7 +163,7 @@ void ExtendedKalmanFilter::isNewLandmark() {
 
     double smallestDistance = *min_element(Distances.begin(), Distances.end());
     int smallestDistanceIndex = Indexes[getIndex(Distances,smallestDistance)];
-    cout<<"smallestDistance"<<smallestDistance<<" @"<<smallestDistanceIndex<<endl;
+    //cout<<"smallestDistance"<<smallestDistance<<" @"<<smallestDistanceIndex<<endl;
     
 
     if(smallestDistance<=distThresh){
@@ -179,7 +177,7 @@ void ExtendedKalmanFilter::isNewLandmark() {
         //cout<<"I have seen this one Before! Estimated: ("<<EstimatedLandmark.x<<","<<EstimatedLandmark.y<<") "<<endl;
     }else{
         //This is a new landmark
-        cout<< "\nNewLandmark"<<endl;
+        cout<<"NewLandmark : "<<ObservedLandmark<<" smallDist = "<<smallestDistance<<" to ("<<State(smallestDistanceIndex)<<","<<State(smallestDistanceIndex+1)<<")"<<endl;
 
         //Calculate landmark position (why do this?)
         // EstimatedLandmark.x = State(0) + z(0)*cos(z(1) + State(2));
@@ -252,11 +250,17 @@ void ExtendedKalmanFilter::getGainMatrix() {
 // Update State Matrix with new landmark
 void ExtendedKalmanFilter::updateStateOfLandmark() {
     cout<<"\nGain = \n"<<Gain<<endl;
-    cout<<"\nz-zcap = \n"<<z-z_cap<<endl;
-    cout<<"\ngain* (z-zcap) = \n"<<(z-z_cap)<<endl;
+    for(int i =3;i<dim;i=i+2){
+        if(Gain[i][0] != 0 && Gain[i][1] != 0){
+            cout<<State[i]<<" | "<<State[i+1]<<endl;
+        }
+    }
+
+
+    cout<<"z-zcap = \n"<<z-z_cap<<endl;
+    cout<<"gain* (z-zcap) = \n"<<Gain*(z-z_cap)<<endl;
 
     cout<<"\n EKF: State1: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
-
     for(int i =3;i<dim;i=i+2){
         if(State[i] != 0 && State[i+1] != 0){
             cout<<"("<<State[i]<<","<<State[i+1]<<") | ";
@@ -267,7 +271,6 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     State = State + Gain*(z-z_cap);
     
     cout<<"\n EKF: State2: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
-
     for(int i =3;i<dim;i=i+2){
         if(State[i] != 0 && State[i+1] != 0){
             cout<<"("<<State[i]<<","<<State[i+1]<<") | ";
@@ -324,7 +327,7 @@ void ExtendedKalmanFilter::runEKF() {
         z_cap(0) = sqrt(q);
         z_cap(1) = atan2(deltaY, deltaX) - State(2);
 
-        cout<<"\nObsLM.x = "<<ObservedLandmark.x<<"ObsLM.y = "<<ObservedLandmark.y<<endl;
+        cout<<"ObsLM.x = "<<ObservedLandmark.x<<"ObsLM.y = "<<ObservedLandmark.y<<endl;
         cout<<"EstLM.x = "<<EstimatedLandmark.x<<"EstLM.y = "<<EstimatedLandmark.y<<endl;
         // cout<<"deltaX = "<<deltaX<<" deltaY = "<<deltaY<<" q = "<<q<<endl;
         // cout<<"z.r = "<<z(0)<<"z.theta = "<<z(1)<<endl;
@@ -343,6 +346,6 @@ void ExtendedKalmanFilter::runEKF() {
         //cout << "\nEKF("<<i<<")_LINE 6\nmu =\n" << State << "\n";
 
         updateCovarianceOfLandmark();
-        cout << "\nLINE 7\nsigma =\n" << Covariance << "\n";
+        //cout << "\nLINE 7\nsigma =\n" << Covariance << "\n";
     }
 }

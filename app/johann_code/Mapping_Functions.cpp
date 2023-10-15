@@ -31,13 +31,11 @@ namespace Mapping_Functions{
     
 
         //Update full map
-        
         appendCarToFullMapCSV(lidardata);
         
     }
 
     void storeStatePoints(Matrix<float, dim, 1> State){
-        cout<<"\nIN STORE STATE POINTS"<<endl;
         vector<CarPoint> landmarks;
         vector<float> position;
 
@@ -92,7 +90,7 @@ namespace Mapping_Functions{
 
     void gridDataProcess(vector<vector<GridPoint>>& gridNew,Matrix<float, dim, 1> State, bool firstRun){
 
-        cout<<"\n\nGRID: In grid data process"<<endl;
+        cout<<"GRID: In grid data process"<<endl;
         vector<CarPoint> map;
         readCarFromFullMapCSV(map);
         gridMakeDots(map,gridNew);
@@ -105,7 +103,7 @@ namespace Mapping_Functions{
         }
 
         saveGridToCSV(gridNew);
-        cout<<"GRID:SAVED TO CSV \n\n"<<endl;
+        cout<<"GRID:SAVED TO CSV"<<endl;
 
         
 

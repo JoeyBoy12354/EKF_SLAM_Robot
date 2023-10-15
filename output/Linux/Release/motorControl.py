@@ -52,7 +52,7 @@ timeOffR = 0.001
 
 #MOTOR THREADS
 def left_thread(timeOn,timeOff):
-    print("MC: LEFT_Thread")
+    #print("MC: LEFT_Thread")
     global runDone
     #Forward Movement
 
@@ -65,7 +65,7 @@ def left_thread(timeOn,timeOff):
     return
 
 def leftR_thread(timeOn,timeOff):
-    print("MC: LEFT_R_Thread")
+    #print("MC: LEFT_R_Thread")
     global runDone
     #Forward Movement
 
@@ -78,7 +78,7 @@ def leftR_thread(timeOn,timeOff):
     return
 
 def right_thread(timeOn,timeOff):
-    print("MC: RIGHT_Thread")
+    #print("MC: RIGHT_Thread")
     global runDone
     #Forward Movement
 
@@ -88,11 +88,11 @@ def right_thread(timeOn,timeOff):
         wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
         time.sleep(timeOff)
 
-    print("leaving")
+    #print("leaving")
     return
 
 def rightR_thread(timeOn,timeOff):
-    print("MC: RIGHT_R_Thread")
+    #print("MC: RIGHT_R_Thread")
     global runDone
     #Forward Movement
 
@@ -153,8 +153,8 @@ def motorControl_wThread(theta,distance):
     left,right = speedControl(0,distance,True)
     dist = getDist(left,right)
     angle_diff = getAngleDifference(left,right)
-    print("MC: Straight angle_diff = ",angle_diff* 180/(math.pi))
-    print("MC: Old angle = ",angle*180/(math.pi))
+    # print("MC: Straight angle_diff = ",angle_diff* 180/(math.pi))
+    # print("MC: Old angle = ",angle*180/(math.pi))
     #angle = angle + angle_diff #Only sum angle diff cause the angleDiff function will return positive or negative
 
     
@@ -201,7 +201,7 @@ def speedControl(theta,distance,direction):
             else:
                 thread = threading.Thread(target=rightR_thread, args=(timeOnR,timeOffR,))
     else:
-        print("MC:DO NOTHING")
+        #print("MC:DO NOTHING")
         return 0,0
                 
     NoTicks = NoRotations*20
