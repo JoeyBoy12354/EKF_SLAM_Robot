@@ -291,7 +291,7 @@ private:
     float sigma_r = 150; //100
     //float sigma_theta = 0.17;
     //float sigma_theta = 1.7;
-    float sigma_theta = 17;
+    float sigma_theta = 25.5;//17
 
     float sigma_odo_x = 0.01;
     float sigma_odo_y = 0.01;
