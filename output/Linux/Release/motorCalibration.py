@@ -45,8 +45,8 @@ def motorCalibrate():
 
     writeCalibration(timeOnL,timeOnR,timeOffL,timeOffR)
 
-    for i in range(0,runs):
-        mc.speedControl(0,distance,False)
+    #Return to previous position attempt
+    mc.speedControl(0,distance*runs,False)
 
     print("MCAL: time Left = ",timeOnL,"s ",timeOffL,"s")
     print("MCAL: time Right = ",timeOnR,"s ",timeOffR,"s")
