@@ -270,10 +270,10 @@ void testRun(){
         firstRun = false;
     }
 
+    finalRun = 1;
     for(int i =0;i<2;i++){
         cout<<"\n i = "<<"FINALRUN "<<i<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
-        finalRun = 1;
         fullRun(ekf,mapped,firstRun,finalRun);
         ekf.distance = 0;
         ekf.w = 0;
