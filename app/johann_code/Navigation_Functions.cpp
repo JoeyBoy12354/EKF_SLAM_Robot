@@ -297,7 +297,8 @@ namespace Navigation_Functions{
         float angle = atan2(deltaY,deltaX) - State(2);
         angle = PI-angle;
 
-        angle = PI/2;
+        //angle = PI/2;
+        angle = 0;
 
         cout<<"NAVI,GRID: deltaX = "<<deltaX<<" = "<<-1*closestPoint.x<<" - "<<robotPoint.x<<endl;
         cout<<"NAVI,GRID: deltaY = "<<deltaY<<" = "<<-1*closestPoint.y<<" - "<<robotPoint.y<<endl;
