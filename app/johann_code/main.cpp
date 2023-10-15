@@ -152,7 +152,7 @@ void testMotor(){
 
 
 //This process will only use the latest scan to update the EKF and RANSAC
-void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun){
+void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, bool finalRun){
     
     
     if(mapped==false){
@@ -182,8 +182,6 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun){
             lidarDataProcessing(lidarDataPoints,carPoints,ekf.State[0],ekf.State[1],ekf.State[2]);
 
             
-            
-
             //Run EKF
             ekf.runEKF();
 
@@ -204,8 +202,11 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun){
             //Complete Robot Movement
             // mapped = updateMovement(ekf.State);// Move the robot to the location
             //motorDataProcessing(ekf.w,ekf.distance);//Send odometry to ekf
-            mapped = updateMovementGrid(ekf.State,gridNew,ekf.lidar_x,ekf.lidar_y);// Move the robot to the location
-            motorDataProcessing(ekf.w,ekf.distance);
+            if(finalRun == false){
+                mapped = updateMovementGrid(ekf.State,gridNew,ekf.lidar_x,ekf.lidar_y);// Move the robot to the location
+                motorDataProcessing(ekf.w,ekf.distance);
+            }
+            
             //motorControlGrid(ekf.w,ekf.distance);//Send odometry to ekf
 
 
@@ -234,6 +235,7 @@ void testRun(){
     ExtendedKalmanFilter ekf;
     bool mapped = false;
     bool firstRun = true;
+    bool finalRun = false;
     
     for(int i =0;i<4;i++){
         cout<<"\n i = "<<i<<endl;
@@ -242,10 +244,17 @@ void testRun(){
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
         // cout<<"IN RUN LOOP: "<<i<<endl;
         // cout<<"Mapped = "<<mapped<<endl;
-        fullRun(ekf,mapped,firstRun);
+        fullRun(ekf,mapped,firstRun,finalRun);
         
         firstRun = false;
     }
+    cout<<"\n i = "<<"FINALRUN"<<endl;
+        cout<<"------------------------------------------------------------------------------------------------------------\n";
+        cout<<"------------------------------------------------------------------------------------------------------------\n";
+        cout<<"------------------------------------------------------------------------------------------------------------\n\n";
+    finalRun = true;
+    fullRun(ekf,mapped,firstRun,finalRun);
+
     
 }
 
