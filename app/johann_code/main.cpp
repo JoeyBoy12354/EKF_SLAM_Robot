@@ -284,6 +284,14 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalRu
 void simRun(){
     ExtendedKalmanFilter ekf;
 
+    ekf.sigma_r = 100; //100
+    ekf.sigma_theta = 17;//17
+
+    ekf.sigma_odo_x = 0.01;
+    ekf.sigma_odo_y = 0.01;
+    ekf.sigma_odo_theta = 0.17;
+    
+
     cout<<"sigma_r = "<<ekf.sigma_r<<endl;
     cout<<"sigma_theta = "<<ekf.sigma_theta<<endl;
     cout<<"sigma_odo_x = "<<ekf.sigma_odo_x<<endl;
@@ -330,6 +338,7 @@ void simRun(){
     simRun(ekf,true);
 
     cout<<"SORCERY"<<endl;
+    return;
 }
 
 
