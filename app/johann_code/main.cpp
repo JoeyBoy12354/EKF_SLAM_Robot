@@ -286,26 +286,37 @@ void simRun(){
 
     ekf.w=0;
     ekf.distance =0;
-    ekf.TestValues = [{793.426,806.399}, {759.393,-641.327}]
+    ekf.TestValues.push_back({793.426,806.399});
+    ekf.TestValues.push_back({759.393,-641.327});
     simRun(ekf,false);
 
     ekf.w=0;
     ekf.distance =102.1;
-    ekf.TestValues = [{803.1,442.369} , {772.873,-644.434}]
+    ekf.TestValues.push_back({793.426,806.399});
+    ekf.TestValues.push_back({793.426,806.399});
+    ekf.TestValues = [{803.1,442.369} , {772.873,-644.434}];
     simRun(ekf,false);
 
     ekf.w=0;
     ekf.distance =91.89158511750145;
-    ekf.TestValues = [{852.718,402.318} , {765.385,-667.562}]
+    ekf.TestValues.push_back({793.426,806.399});
+    ekf.TestValues.push_back({793.426,806.399});
+    ekf.TestValues = [{852.718,402.318} , {765.385,-667.562}];
     simRun(ekf,false);
 
-    ekf.TestValues = [{826.94,432.343} , {804.766,-652.828}]
+    ekf.TestValues.push_back({793.426,806.399});
+    ekf.TestValues.push_back({793.426,806.399});
+    ekf.TestValues = [{826.94,432.343} , {804.766,-652.828}];
     simRun(ekf,true);
 
-    ekf.TestValues = [{829.686,448.039} , {794.628,-619.954}]
+    ekf.TestValues.push_back({793.426,806.399});
+    ekf.TestValues.push_back({793.426,806.399});
+    ekf.TestValues = [{829.686,448.039} , {794.628,-619.954}];
     simRun(ekf,false);
 
-    ekf.TestValues = [{813.554,486.389} , {817.647,-594.362}]
+    ekf.TestValues.push_back({793.426,806.399});
+    ekf.TestValues.push_back({793.426,806.399});
+    ekf.TestValues = [{813.554,486.389} , {817.647,-594.362}];
     simRun(ekf,false);
 
    
