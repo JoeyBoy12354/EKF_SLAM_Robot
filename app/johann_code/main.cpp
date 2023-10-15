@@ -153,9 +153,9 @@ void testMotor(){
 
 void calibrateMotors(){
     writeMotorStateToCSV(true);
-    
+
     int ret;
-    ret = system("python3 motorCalibration.py ok go");
+    ret = system("python3 motorControl.py ok go");
     cout << "ret/cpp = " << ret << endl;
 
     writeMotorStateToCSV(false);
