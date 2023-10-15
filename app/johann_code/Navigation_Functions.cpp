@@ -364,7 +364,7 @@ namespace Navigation_Functions{
         //cout<<"NAVI,GRID: dist1 = "<<distance<<" = "<<deltaX*deltaX<<" - "<<deltaY*deltaY<<endl;
         distance = sqrt(distance);
         //distance = 100;
-        distance = 0;
+        distance = 100;
 
         //distance =0;
 
