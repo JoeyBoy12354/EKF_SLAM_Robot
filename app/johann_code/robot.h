@@ -288,14 +288,14 @@ private:
     //Every mm error = 0.1
     int NoLandmarksFound = 0;
     int LandmarkIndex = 0;
-    float sigma_r = 150; //100
+    float sigma_r = 100; //100
     //float sigma_theta = 0.17;
     //float sigma_theta = 1.7;
-    float sigma_theta = 25.5;//17
+    float sigma_theta = 17;//17
 
-    float sigma_odo_x = 0.01;
-    float sigma_odo_y = 0.01;
-    float sigma_odo_theta = 0.17;
+    float sigma_odo_x = 0.001;
+    float sigma_odo_y = 0.001;
+    float sigma_odo_theta = 0.017;
 
 
     //Covariance for EKF simulation
