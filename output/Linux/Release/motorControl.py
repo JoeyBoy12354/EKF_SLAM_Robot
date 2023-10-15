@@ -458,6 +458,7 @@ def sonarScan(maxDist):
 
 #CALIBRATION CODE
 def motorCorrection(distance,runs,left_sum,right_sum):
+    time.sleep(0.6)
     for i in range(0,runs):
         left,right = speedControl(0,distance,True)
         left_sum+=left
