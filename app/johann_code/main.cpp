@@ -283,15 +283,7 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalRu
 
 void simRun(){
     ExtendedKalmanFilter ekf;
-
-    ekf.sigma_r = 10000000; //100
-    ekf.sigma_theta = 1.712;//17
-
-    ekf.sigma_odo_x = 0;
-    ekf.sigma_odo_y =0;
-    ekf.sigma_odo_theta = 0.122;
     
-
     cout<<"sigma_r = "<<ekf.sigma_r<<endl;
     cout<<"sigma_theta = "<<ekf.sigma_theta<<endl;
     cout<<"sigma_odo_x = "<<ekf.sigma_odo_x<<endl;
@@ -306,26 +298,12 @@ void simRun(){
     ekf.TestValues.push_back({759.393,-641.327});
     simRun(ekf,false);
 
-    cout<<"sigma_r = "<<ekf.sigma_r<<endl;
-    cout<<"sigma_theta = "<<ekf.sigma_theta<<endl;
-    cout<<"sigma_odo_x = "<<ekf.sigma_odo_x<<endl;
-    cout<<"sigma_odo_y = "<<ekf.sigma_odo_y<<endl;
-    cout<<"sigma_odo_theta = "<<ekf.sigma_odo_theta<<endl;
-    
-
     ekf.w=0;
     ekf.distance =102.1;
     ekf.TestValues.clear();
     ekf.TestValues.push_back({803.1,442.369});
     ekf.TestValues.push_back({772.873,-644.434});
     simRun(ekf,false);
-
-    cout<<"sigma_r = "<<ekf.sigma_r<<endl;
-    cout<<"sigma_theta = "<<ekf.sigma_theta<<endl;
-    cout<<"sigma_odo_x = "<<ekf.sigma_odo_x<<endl;
-    cout<<"sigma_odo_y = "<<ekf.sigma_odo_y<<endl;
-    cout<<"sigma_odo_theta = "<<ekf.sigma_odo_theta<<endl;
-    
 
     ekf.w=0;
     ekf.distance =91.89158511750145;
