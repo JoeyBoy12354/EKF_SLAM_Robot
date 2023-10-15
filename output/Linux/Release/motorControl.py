@@ -47,89 +47,10 @@ timeOffR = 0.001
 
 
 
-def motorControl_wThread(theta,distance):
-    LNoRot=0
-    RNoRot=0
-
-    #print("CHECK MOVEMENT SPACE")
-    # if(sonarControl.runSonar()<R/2):
-    #     #print("REVERSE!")
-    #     speedControl(0,100,False)
-    #     #update odometry accordinglty NB!!!!!
 
 
 
-    #Do turn
-    print("MC:TURN: ",theta*180/math.pi," deg")
-    #theta = math.pi/2
-    LNoRot,RNoRot  = speedControl(theta,0,True)
-
-    # theta = -math.pi/2
-    # LNoRot,RNoRot  = speedControl(theta,0,True)
-
-    angle = getAngle(LNoRot,RNoRot)
-
-    time.sleep(1)
-
-
-    #Check for obstacles ahead
-    #print("Gonna check Avoidance")
-    #Check distance to obstacle
-    # if(checkAvoidance_wThread(distance)):
-    #     print("\n CLOCK AVOIDANCE!!!!! \n")
-    #     distance = distance/2
-    #     avoidedAngle,distance = clockAvoidance_wThread(distance)
-    #     angle = avoidedAngle + angle
-    
-    # if(sonarControl.runSonar()<distance+R/2+30):
-    #     #I will hit a wall, last chance to check!
-    #     #print("\nFORWARD CHECK FOUND I WILL HIT WALL")
-    #     distance = distance - R/2 - 50
-    #     #print("NEWDISTANCE = ",distance)
-    #     if(distance<0):
-    #         #print("negative DISTACE ERRRORRRR!!!")
-    #         speedControl(0,100,False)
-
-    print("MC GO FORWARD FOR: ",distance) 
-    left,right = speedControl(0,distance,True)
-    dist = getDist(left,right)
-
-    
-
-    return angle,dist
-
-
-
-# def forward_thread(timeOn,timeOff):
-#     print("MC: FORWARD_Thread")
-#     global runDone
-#     #Forward Movement
-
-#     while(runDone == False):
-#         wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
-#         wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 7
-#         time.sleep(timeOn)
-#         wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
-#         wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 7
-#         time.sleep(timeOff)
-
-#     return
-
-# def reverse_thread(timeOn,timeOff):
-#     print("MC: REVERSE_Thread")
-#     global runDone
-#     #Forward Movement
-
-#     while(runDone == False):
-#         wiringpi.digitalWrite(LMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 6
-#         wiringpi.digitalWrite(RMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 7
-#         time.sleep(timeOn)
-#         wiringpi.digitalWrite(LMotR_Pin, 1)  # Write 0 ( LOW ) to pin 6
-#         wiringpi.digitalWrite(RMotR_Pin, 1)  # Write 0 ( LOW ) to pin 7
-#         time.sleep(timeOff)
-
-#     return
-
+#MOTOR THREADS
 def left_thread(timeOn,timeOff):
     print("MC: LEFT_Thread")
     global runDone
@@ -184,6 +105,62 @@ def rightR_thread(timeOn,timeOff):
     return
 
 
+#MOTOR CONTROL
+def motorControl_wThread(theta,distance):
+    LNoRot=0
+    RNoRot=0
+
+    #print("CHECK MOVEMENT SPACE")
+    # if(sonarControl.runSonar()<R/2):
+    #     #print("REVERSE!")
+    #     speedControl(0,100,False)
+    #     #update odometry accordinglty NB!!!!!
+
+
+
+    #Do turn
+    print("MC:TURN: ",theta*180/math.pi," deg")
+    #theta = math.pi/2
+    LNoRot,RNoRot  = speedControl(theta,0,True)
+
+    # theta = -math.pi/2
+    # LNoRot,RNoRot  = speedControl(theta,0,True)
+
+    angle = getAngle(LNoRot,RNoRot)
+
+    time.sleep(1)
+
+
+    #Check for obstacles ahead
+    #print("Gonna check Avoidance")
+    #Check distance to obstacle
+    # if(checkAvoidance_wThread(distance)):
+    #     print("\n CLOCK AVOIDANCE!!!!! \n")
+    #     distance = distance/2
+    #     avoidedAngle,distance = clockAvoidance_wThread(distance)
+    #     angle = avoidedAngle + angle
+    
+    # if(sonarControl.runSonar()<distance+R/2+30):
+    #     #I will hit a wall, last chance to check!
+    #     #print("\nFORWARD CHECK FOUND I WILL HIT WALL")
+    #     distance = distance - R/2 - 50
+    #     #print("NEWDISTANCE = ",distance)
+    #     if(distance<0):
+    #         #print("negative DISTACE ERRRORRRR!!!")
+    #         speedControl(0,100,False)
+
+    print("MC GO FORWARD FOR: ",distance) 
+    left,right = speedControl(0,distance,True)
+    dist = getDist(left,right)
+    angle_diff = getAngleDifference(left,right)
+    print("MC: Straight angle_diff = ",angle_diff* 180/(math.pi))
+    print("MC: Old angle = ",angle*180/(math.pi))
+    angle = angle + angle_diff #Only sum angle diff cause the angleDiff function will return positive or negative
+
+    
+    
+
+    return angle,dist
 
 def speedControl(theta,distance,direction):
     global runDone
@@ -316,19 +293,20 @@ def getAngle(LNoRot,RNoRot):
     thetaL = (LNoRot*2*math.pi*r/R)
     thetaR = (RNoRot*2*math.pi*r/R)
 
-
     #Assumme the other wheel picking up roations is shaking
     if(thetaL>thetaR):
-        
         return thetaL
     else:
         return thetaR
 
-    
-    # angle = thetaL-thetaR
-    # print("MC: Angle = left - right = ",thetaL* 180/(math.pi)," - ",thetaR* 180/(math.pi)," = ",(thetaL-thetaR)* 180/(math.pi))
+def getAngleDifference(LNoRot,RNoRot):
+    #Determine actual angle
+    thetaL = (LNoRot*2*math.pi*r/R)
+    thetaR = (RNoRot*2*math.pi*r/R)
 
-    # return angle
+    return thetaL-thetaR
+
+
 
 def getDist(LNoRot,RNoRot):
     #Determine actual distance
@@ -340,7 +318,7 @@ def getDist(LNoRot,RNoRot):
 
 
 
-
+#AVOIDANCE CODE
 #OLD AND NOT USED
 def Avoidance(avoidDistL,avoidDistR):
     #print("\nOBSTACLE DETECTED Turn left!")
@@ -478,9 +456,23 @@ def sonarScan(maxDist):
         print("MC: ",sonarControl.runSonar())
 
 
+#CALIBRATION CODE
+def motorCorrection(runs,left_sum,right_sum):
+    for i in range(0,runs):
+        left,right = speedControl(0,distance,True)
+        left_sum+=left
+        right_sum+=right
+        time.sleep(0.6)
+    speedControl(0,distance*runs,False)
 
+    return left_sum,right_sum
+    
 
 def motorCalibrate():
+    global timeOnL
+    global timeOnR
+    global timeOffL
+    global timeOffR
 
     print("MCAL: IN motor calibration")
     #default times
@@ -496,18 +488,10 @@ def motorCalibrate():
 
     left_avg = 0
     right_avg = 0
-    for i in range(0,runs):
-        left,right = speedControl(0,distance,True)
-        left_avg+=left
-        right_avg+=right
-        time.sleep(0.2)
-    
-    left_avg = left_avg/runs
-    right_avg = right_avg/runs
-
-    print("left_avg = ",left_avg)
-    print("right_avg = ",left_avg)
-
+    left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
+    left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
+    left_avg = left_avg/(runs*2)
+    right_avg = right_avg/(runs*2)
     
     
     if(left_avg>right_avg):
@@ -521,8 +505,6 @@ def motorCalibrate():
     writeCalibration(timeOnL,timeOnR,timeOffL,timeOffR)
 
     #Return to previous position attempt
-    speedControl(0,distance*runs,False)
-
     print("MCAL: time Left = ",timeOnL,"s ",timeOffL,"s")
     print("MCAL: time Right = ",timeOnR,"s ",timeOffR,"s")
 
@@ -533,7 +515,7 @@ def motorCalibrate():
     return
 
 
-
+#CSV CODE
 def writeCalibration(timeOnL, timeOnR, timeOffL, timeOffR):
     existingData = [timeOnL, timeOnR, timeOffL, timeOffR]
 
@@ -588,7 +570,8 @@ def readState():
 
             return state == 1
 
-    
+
+#TEST CODE 
 def testAngles():
     print("MC: BEGIN TESTING ANGLES")
 
