@@ -73,57 +73,57 @@ void testEKF(){
     }
 }
 
-// void testLidar(){
-//     vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
-//     bool error = true;
-//     runLidar(lidarDataPoints,error);
-// }
+void testLidar(){
+    vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
+    bool error = true;
+    runLidar(lidarDataPoints,error);
+}
 
-// void testLandmarkIdentification(bool& firstRun){
-//     //LandmarkProcessing();
+void testLandmarkIdentification(bool& firstRun){
+    //LandmarkProcessing();
     
     
     
-//     //Run Lidar
-//     vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
-//     bool error = true;
-//     int count = 0;
-//     while(error == true && count<5){
-//         cout<<"\nAttempt "<<count<<endl;
-//         runLidar(lidarDataPoints, error);
-//         count +=1;
-//     }
-//     cout<<"count = "<<count<<endl;
+    //Run Lidar
+    vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
+    bool error = true;
+    int count = 0;
+    while(error == true && count<5){
+        cout<<"\nAttempt "<<count<<endl;
+        runLidar(lidarDataPoints, error);
+        count +=1;
+    }
+    cout<<"count = "<<count<<endl;
     
-//     cout<<"Main: Lidar Run complete"<<endl;
+    cout<<"Main: Lidar Run complete"<<endl;
 
-//     vector<PolPoint> sortedPoints = sortPoints(lidarDataPoints);
-//     cout<<"Sorting completed";
+    vector<PolPoint> sortedPoints = sortPoints(lidarDataPoints);
+    cout<<"Sorting completed";
 
-//     vector<CarPoint> carPoints = convertCartesian(sortedPoints);
-//     //fitCartesian(carPoints,x,y,angle); for this test we are not moving
+    vector<CarPoint> carPoints = convertCartesian(sortedPoints);
+    //fitCartesian(carPoints,x,y,angle); for this test we are not moving
 
-//     saveCarToCSV(carPoints);
-//     cout<<"\nNumber of CAR points"<<carPoints.size(); 
+    saveCarToCSV(carPoints);
+    cout<<"\nNumber of CAR points"<<carPoints.size(); 
 
-//     if(firstRun == true){
-//         saveCarToFullMapCSV(carPoints);
-//         firstRun = false;
-//     }else{
-//         storeMapPoints(carPoints);
-//     }
+    if(firstRun == true){
+        saveCarToFullMapCSV(carPoints);
+        firstRun = false;
+    }else{
+        storeMapPoints(carPoints);
+    }
 
-//     LandmarkProcessing2(carPoints);
-// }
+    LandmarkProcessing2(carPoints);
+}
 
-// void testLidarLandmark(){
-//     vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
-//     bool error = true;
-//     runLidar(lidarDataPoints,error);
-//     int ret;
-//     ret = system("python3 CSV_Files/motorControl.py ok go");
-//     cout << "ret/cpp = " << ret << endl;
-// }
+void testLidarLandmark(){
+    vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
+    bool error = true;
+    runLidar(lidarDataPoints,error);
+    int ret;
+    ret = system("python3 CSV_Files/motorControl.py ok go");
+    cout << "ret/cpp = " << ret << endl;
+}
 
 void testPython(){
     int ret;
@@ -193,89 +193,89 @@ void simRun(ExtendedKalmanFilter& ekf bool final){
 
 
 //This process will only use the latest scan to update the EKF and RANSAC
-// void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalRun){
+void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalRun){
     
     
-//     if(mapped==false){
+    if(mapped==false){
 
-//         //Run Lidar
-//         vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
-//         bool error = true;
-//         int count = 0;
-//         while(error == true && count<5){
-//             cout<<"\nAttempt "<<count<<endl;
-//             runLidar(lidarDataPoints, error);
-//             count +=1;
-//         }
-//         cout<<"count = "<<count<<endl;
+        //Run Lidar
+        vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
+        bool error = true;
+        int count = 0;
+        while(error == true && count<5){
+            cout<<"\nAttempt "<<count<<endl;
+            runLidar(lidarDataPoints, error);
+            count +=1;
+        }
+        cout<<"count = "<<count<<endl;
         
-//         //cout<<"Main: Lidar Run complete"<<endl;
+        //cout<<"Main: Lidar Run complete"<<endl;
 
-//         if(error == false){
-//             //Predict Position
-//             if(finalRun <= 1){
-//                 ekf.updateMotion();
-//             }
+        if(error == false){
+            //Predict Position
+            if(finalRun <= 1){
+                ekf.updateMotion();
+            }
 
-//             cout<<"\n MAIN: after_motion State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
-//             //cout << "\nEKF 6\nState =\n" << ekf.State << "\n";
+            cout<<"\n MAIN: after_motion State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+            //cout << "\nEKF 6\nState =\n" << ekf.State << "\n";
 
-//             //Process Data
-//             vector<CarPoint> carPoints;
-//             lidarDataProcessing(lidarDataPoints,carPoints,ekf.State[0],ekf.State[1],ekf.State[2]);
+            //Process Data
+            vector<CarPoint> carPoints;
+            lidarDataProcessing(lidarDataPoints,carPoints,ekf.State[0],ekf.State[1],ekf.State[2]);
 
             
-//             //Run EKF
-//             ekf.runEKF();
+            //Run EKF
+            ekf.runEKF();
 
-//             cout<<"\n MAIN: after_ekf State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+            cout<<"\n MAIN: after_ekf State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
 
-//             for(int i =3;i<dim;i=i+2){
-//                 if(ekf.State[i] != 0 && ekf.State[i+1] != 0){
-//                     cout<<"("<<ekf.State[i]<<","<<ekf.State[i+1]<<") | ";
-//                 }
-//             }
-//             cout<<endl;
+            for(int i =3;i<dim;i=i+2){
+                if(ekf.State[i] != 0 && ekf.State[i+1] != 0){
+                    cout<<"("<<ekf.State[i]<<","<<ekf.State[i+1]<<") | ";
+                }
+            }
+            cout<<endl;
 
-//             //Store Data for plotting
-//             if(firstRun == true){
-//                 saveCarToFullMapCSV(carPoints);
-//                 firstRun = false;
-//             }else{
-//                 storeMapPoints(carPoints);
-//                 storeStatePoints(ekf.State);
-//             }
+            //Store Data for plotting
+            if(firstRun == true){
+                saveCarToFullMapCSV(carPoints);
+                firstRun = false;
+            }else{
+                storeMapPoints(carPoints);
+                storeStatePoints(ekf.State);
+            }
 
-//             //Get Grid
-//             vector<vector<GridPoint>> gridNew;
-//             gridDataProcess(gridNew, ekf.State, firstRun);
+            //Get Grid
+            vector<vector<GridPoint>> gridNew;
+            gridDataProcess(gridNew, ekf.State, firstRun);
                 
 
-//             //Complete Robot Movement
-//             // mapped = updateMovement(ekf.State);// Move the robot to the location
-//             //motorDataProcessing(ekf.w,ekf.distance);//Send odometry to ekf
-//             if(finalRun == 0){
-//                 mapped = updateMovementGrid(ekf.State,gridNew,ekf.lidar_x,ekf.lidar_y);// Move the robot to the location
-//                 motorDataProcessing(ekf.w,ekf.distance);
-//             }
+            //Complete Robot Movement
+            // mapped = updateMovement(ekf.State);// Move the robot to the location
+            //motorDataProcessing(ekf.w,ekf.distance);//Send odometry to ekf
+            if(finalRun == 0){
+                mapped = updateMovementGrid(ekf.State,gridNew,ekf.lidar_x,ekf.lidar_y);// Move the robot to the location
+                motorDataProcessing(ekf.w,ekf.distance);
+            }
             
-//             //motorControlGrid(ekf.w,ekf.distance);//Send odometry to ekf
+            //motorControlGrid(ekf.w,ekf.distance);//Send odometry to ekf
 
 
-//             //cout<<"\nMain_end: ekf.w = "<<ekf.w<<" ekf.distance = "<<ekf.distance<<endl;
+            //cout<<"\nMain_end: ekf.w = "<<ekf.w<<" ekf.distance = "<<ekf.distance<<endl;
     
-//         }else{
-//             cout<<" NO PROCESSING DUE TO LIDAR ERROR"<<endl;
-//         }
+        }else{
+            cout<<" NO PROCESSING DUE TO LIDAR ERROR"<<endl;
+        }
         
-//     }else{
-//         cout<<"MAP COMPLETED !"<<endl;
-//     }
+    }else{
+        cout<<"MAP COMPLETED !"<<endl;
+    }
     
 
-//     cout<<"LEAVNG RUN"<<endl;
+    cout<<"LEAVNG RUN"<<endl;
     
-// }
+}
 
 
 
@@ -345,13 +345,13 @@ void testRun(){
 }
 
 
-// void testLM(){
-//     bool firstRun = true;
-//     int noRuns = 8;
-//     for(int i =0;i<noRuns;i++){
-//         testLandmarkIdentification(firstRun);
-//     }
-// }
+void testLM(){
+    bool firstRun = true;
+    int noRuns = 8;
+    for(int i =0;i<noRuns;i++){
+        testLandmarkIdentification(firstRun);
+    }
+}
 
 int main() {
     cout<<"Started in Main"<<endl;
