@@ -284,14 +284,16 @@ private:
     CarPoint EstimatedLandmark;
     CarPoint ObservedLandmark;
 
+    //Every degree error = 1 (remember to conver to radians)
+    //Every mm error = 0.1
     int NoLandmarksFound = 0;
     int LandmarkIndex = 0;
-    float sigma_r = 0.5;
-    float sigma_theta = 0.5;
+    float sigma_r = 1;
+    float sigma_theta = 0.17;
 
-    float sigma_odo_x = 0.1;
-    float sigma_odo_y = 0.1;
-    float sigma_odo_theta = 1.7;
+    float sigma_odo_x = 0.01;
+    float sigma_odo_y = 0.01;
+    float sigma_odo_theta = 0.17;
 
 
     //Covariance for EKF simulation

@@ -11,3 +11,14 @@ This proved to make that the EKF actually changes the x y and z values. It did n
 
 README 5 - 6
 Had bugs
+
+README 7
+During motion the y-value had a tendency to jump and the angle would move to -4.62.
+During finals y value began to tend to true y
+
+README 8:
+float sigma_r = 1;
+float sigma_theta = 0.17;
+float sigma_odo_x = 0.01;
+float sigma_odo_y = 0.01;
+float sigma_odo_theta = 0.17;
