@@ -71,6 +71,8 @@ def motorControl_wThread(theta,distance):
     global stat_angle
     stat_angle = angle*180/math.pi
 
+    time.sleep(1)
+
 
     #Check for obstacles ahead
     #print("Gonna check Avoidance")
@@ -255,8 +257,9 @@ def speedControl(theta,distance,direction):
     left = left_count/20
     right = right_count/20
 
-    print("LEFT SPEED = ",left/delta_time," rotations/s")
-    print("RIGHT SPEED = ",right/delta_time," rotations/s")
+    print("TIME = ",delta_time," s")
+    print("LEFT SPEED = ",left/delta_time," rotations/s, ROTATIONS = ",left)
+    print("RIGHT SPEED = ",right/delta_time," rotations/s, ROTATIONS = ",right)
 
     #STATS
     global stat_speed_L
@@ -701,7 +704,6 @@ angle,distance = readInstructions()
 angle,distance = motorControl_wThread(angle,distance)
 print("MC: Angle turned = ",angle*180/math.pi)
 print("MC: distance moved = ",distance)
-writeStats()
 writeOdometry(angle,distance)
 print()
 # testWheels()

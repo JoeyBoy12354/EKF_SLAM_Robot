@@ -17,3 +17,9 @@ Distance was set to 100mm
 README 7
 Changed the motorControl to work with math.pi
 Changed distance back 0mm
+-Worked Well
+
+
+README 8
+Changed distance back 100mm
+-Broke again
