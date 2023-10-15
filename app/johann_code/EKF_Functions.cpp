@@ -11,9 +11,9 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     Motion_Jacobian.setIdentity();
 
     Motion_Noise.setZero();
-    // Motion_Noise(0,0) = 0.25;
-    // Motion_Noise(1,1) = 0.25;
-    // Motion_Noise(2,2) = 0.27415568;
+    Motion_Noise(0,0) = sigma_odo_x*sigma_odo_x;
+    Motion_Noise(1,1) = sigma_odo_y*sigma_odo_y;
+    Motion_Noise(2,2) = sigma_theta*sigma_odo_theta;
 
     // Motion_Noise(0,0) = 0.0001;
     // Motion_Noise(1,1) = 0.0001;
