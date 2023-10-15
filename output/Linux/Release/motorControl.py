@@ -128,7 +128,7 @@ def motorControl_wThread(theta,distance):
 
     angle = getAngle(LNoRot,RNoRot)
 
-    time.sleep(1)
+    time.sleep(0.6)
 
 
     #Check for obstacles ahead
@@ -251,8 +251,8 @@ def speedControl(theta,distance,direction):
     right = right_count/20
 
     print("TIME = ",delta_time,"s")
-    print("LEFT SPEED = ",left/delta_time," rotations/s, ROTATIONS = ",left)
-    print("RIGHT SPEED = ",right/delta_time," rotations/s, ROTATIONS = ",right)
+    print("LEFT SPEED = ",left/delta_time," rotations/s, ROTATIONS = ",left,", TICKS = ",left_count)
+    print("RIGHT SPEED = ",right/delta_time," rotations/s, ROTATIONS = ",right,", TICKS = ",right_count)
 
 
     time.sleep(wait)
