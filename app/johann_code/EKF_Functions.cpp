@@ -249,10 +249,10 @@ void ExtendedKalmanFilter::getGainMatrix() {
 
 // Update State Matrix with new landmark
 void ExtendedKalmanFilter::updateStateOfLandmark() {
-    cout<<"\nGain = \n"<<Gain<<endl;
+    cout<<"\nGain = "<<endl;
     for(int i =3;i<dim;i=i+2){
-        if(Gain[i][0] != 0 && Gain[i][1] != 0){
-            cout<<State[i]<<" | "<<State[i+1]<<endl;
+        if(Gain(i,0) != 0 && Gain(i,0) != 0){
+            cout<<Gain(i,0)<<" | "<<Gain(i,0)<<endl;
         }
     }
 
