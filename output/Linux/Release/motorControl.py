@@ -486,8 +486,10 @@ def motorCalibrate():
     #default times
     timeOn = 0.009
     timeOff = 0.001
-    timeOnL,timeOnR = timeOn
-    timeOffL,timeOffR = timeOff
+    timeOnL = timeOn
+    timeOnR = timeOn
+    timeOffL = timeOff
+    timeOffR = timeOff
 
     distance = 100
     runs = 4
