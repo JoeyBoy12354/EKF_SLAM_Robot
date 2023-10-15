@@ -253,6 +253,13 @@ public:
     float lidar_x = 0;
     float lidar_y = 0;
     Matrix<float, dim, 1> State;
+
+    float sigma_r = 100; //100
+    float sigma_theta = 17;//17
+
+    float sigma_odo_x = 0.01;
+    float sigma_odo_y = 0.0001;
+    float sigma_odo_theta = 0.17;
     
     float initialLandmarkCovariance_AtSi = 1;
     
@@ -289,12 +296,7 @@ private:
     int NoLandmarksFound = 0;
     int LandmarkIndex = 0;
 
-    float sigma_r = 100; //100
-    float sigma_theta = 17;//17
-
-    float sigma_odo_x = 0.01;
-    float sigma_odo_y = 0.0001;
-    float sigma_odo_theta = 0.17;
+    
 
     // float sigma_r = 100;//*
     // float sigma_theta = 17;//* 
