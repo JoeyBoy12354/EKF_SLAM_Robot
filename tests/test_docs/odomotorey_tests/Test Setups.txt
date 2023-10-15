@@ -12,6 +12,8 @@ Changed the EKF update Motion such that it will use the triangular methods
 
 README 6
 Added a final Run
+Distance was set to 100mm
 
 README 7
 Changed the motorControl to work with math.pi
+Changed distance back 0mm
