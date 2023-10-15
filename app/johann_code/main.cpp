@@ -283,7 +283,6 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalRu
 
 void simRun(){
     ExtendedKalmanFilter ekf;
-    
     cout<<"sigma_r = "<<ekf.sigma_r<<endl;
     cout<<"sigma_theta = "<<ekf.sigma_theta<<endl;
     cout<<"sigma_odo_x = "<<ekf.sigma_odo_x<<endl;
@@ -376,7 +375,7 @@ void testLM(){
 }
 
 int main() {
-    cout<<"Started in Main"<<endl;
+    //cout<<"Started in Main"<<endl;
     
     //testPython();
     //testLM();
