@@ -314,12 +314,12 @@ void simRun(){
     ekf.TestValues.clear();
     ekf.TestValues.push_back({829.686,448.039});
     ekf.TestValues.push_back({794.628,-619.954});
-    simRun(ekf,false);
+    simRun(ekf,true);
 
     ekf.TestValues.clear();
     ekf.TestValues.push_back({813.554,486.389});
     ekf.TestValues.push_back({817.647,-594.362});
-    simRun(ekf,false);
+    simRun(ekf,true);
 }
 
 
