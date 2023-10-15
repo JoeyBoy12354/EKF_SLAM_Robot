@@ -284,11 +284,11 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalRu
 void simRun(){
     ExtendedKalmanFilter ekf;
 
-    cout<<"sigma_r = "<<sigma_r<<endl;
-    cout<<"sigma_theta = "<<sigma_theta<<endl;
-    cout<<"sigma_odo_x = "<<sigma_odo_x<<endl;
-    cout<<"sigma_odo_y = "<<sigma_odo_y<<endl;
-    cout<<"sigma_odo_theta = "<<sigma_odo_theta<<endl;
+    cout<<"sigma_r = "<<ekf.sigma_r<<endl;
+    cout<<"sigma_theta = "<<ekf.sigma_theta<<endl;
+    cout<<"sigma_odo_x = "<<ekf.sigma_odo_x<<endl;
+    cout<<"sigma_odo_y = "<<ekf.sigma_odo_y<<endl;
+    cout<<"sigma_odo_theta = "<<ekf.sigma_odo_theta<<endl;
     
     
 
