@@ -148,7 +148,7 @@ def find_corners(best_models, angleThresh = 30*np.pi/180):
 
     return corners
 
-def filter_corners(corners,x1,y1,duplicateThresh = 40, closenessThresh = 40):
+def filter_corners(corners,x1,y1,duplicateThresh = 100, closenessThresh = 40):
     #Remove Duplicates
     clean_corners = []
     for i in range(0,len(corners)):
