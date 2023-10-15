@@ -1,0 +1,17 @@
+README 1-5
+Distance = 0
+Angle = 90
+
+README 2
+Changed the Motor Control to return left-right angle instead of right-left
+
+*Between 2 and 5 I made it so that Motor Control will return just the angle of the wheel and not difference in angle
+
+README 5
+Changed the EKF update Motion such that it will use the triangular methods
+
+README 6
+Added a final Run
+
+README 7
+Changed the motorControl to work with math.pi

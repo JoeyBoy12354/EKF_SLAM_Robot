@@ -36,6 +36,15 @@ sonarFlag = False
 sonarOn = False
 wait = 0.05
 
+#Stats
+stat_angle = 0
+stat_speed_L = 0
+stat_speed_R = 0
+stat_rotations_L = 0
+stat_rotations_R = 0
+stat_time = 0
+
+
 
 def motorControl_wThread(theta,distance):
     LNoRot=0
@@ -58,6 +67,9 @@ def motorControl_wThread(theta,distance):
     # LNoRot,RNoRot  = speedControl(theta,0,True)
 
     angle = getAngle(LNoRot,RNoRot)
+
+    global stat_angle
+    stat_angle = angle*180/math.pi
 
 
     #Check for obstacles ahead
@@ -246,6 +258,18 @@ def speedControl(theta,distance,direction):
     print("LEFT SPEED = ",left/delta_time," rotations/s")
     print("RIGHT SPEED = ",right/delta_time," rotations/s")
 
+    #STATS
+    global stat_speed_L
+    global stat_speed_R
+    global stat_rotations_L
+    global stat_rotations_R
+    global stat_time
+    stat_rotations_L = left
+    stat_rotations_R = right
+    stat_time = delta_time
+    stat_speed_L = left/delta_time
+    stat_speed_R = right/delta_time
+
     time.sleep(wait)
 
     return left,right
@@ -284,8 +308,10 @@ def getAngle(LNoRot,RNoRot):
     thetaL = (LNoRot*2*math.pi*r/R)
     thetaR = (RNoRot*2*math.pi*r/R)
 
+
     #Assumme the other wheel picking up roations is shaking
     if(thetaL>thetaR):
+        
         return thetaL
     else:
         return thetaR
@@ -472,6 +498,15 @@ def writeOdometry(angle, distance):
         csv_writer = csv.writer(file)
         for row in existingData:
             csv_writer.writerow([str(row)])
+
+    return
+
+def writeStats():
+    existingData = [stat_speed_L,stat_speed_R,stat_rotations_L,stat_rotations_R,stat_time,angle]
+
+    with open('motorStatsCSV.csv', 'a', newline='') as file:  # Use 'a' to append data
+        csv_writer = csv.writer(file)
+        csv_writer.writerow(existingData)
 
     return
 
@@ -666,6 +701,7 @@ angle,distance = readInstructions()
 angle,distance = motorControl_wThread(angle,distance)
 print("MC: Angle turned = ",angle*180/math.pi)
 print("MC: distance moved = ",distance)
+writeStats()
 writeOdometry(angle,distance)
 print()
 # testWheels()
