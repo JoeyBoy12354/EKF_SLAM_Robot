@@ -239,7 +239,7 @@ namespace Navigation_Functions{
         C.y=A.y+(B.x-A.x)*sin(-angle) + (B.y-A.y)*cos(-angle);
 
         //cout<<"NAVI,GRID: tri_rot = "<<triangle_rot[0]<<","<<triangle_rot[1]<<","<<triangle_rot[2]<<endl;
-        cout<<"NAVI,GRID: tri_shift = "<<triangle_shift[0]<<","<<triangle_shift[1]<<","<<triangle_shift[2]<<endl;
+        //cout<<"NAVI,GRID: tri_shift = "<<triangle_shift[0]<<","<<triangle_shift[1]<<","<<triangle_shift[2]<<endl;
 
         return C;
 
