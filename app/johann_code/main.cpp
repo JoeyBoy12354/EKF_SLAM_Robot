@@ -151,6 +151,12 @@ void testMotor(){
 }
 
 
+void calibrateMotors(){
+    int ret;
+    ret = system("python3 motorCalibration.py ok go");
+    cout << "ret/cpp = " << ret << endl;
+}
+
 //This process will only use the latest scan to update the EKF and RANSAC
 void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, bool finalRun){
     
@@ -230,12 +236,13 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, bool finalR
 
 
 
-
 void testRun(){
     ExtendedKalmanFilter ekf;
     bool mapped = false;
     bool firstRun = true;
     bool finalRun = false;
+
+    calibrateMotors();
     
     for(int i =0;i<4;i++){
         cout<<"\n i = "<<i<<endl;

@@ -36,13 +36,14 @@ sonarFlag = False
 sonarOn = False
 wait = 0.05
 
-#Stats
-stat_angle = 0
-stat_speed_L = 0
-stat_speed_R = 0
-stat_rotations_L = 0
-stat_rotations_R = 0
-stat_time = 0
+#Calibration
+timeOn = 0.009
+timeOff = 0.001
+
+timeOnL = 0.009
+timeOnR = 0.009
+timeOffL = 0.001
+timeOffR = 0.001
 
 
 
@@ -67,9 +68,6 @@ def motorControl_wThread(theta,distance):
     # LNoRot,RNoRot  = speedControl(theta,0,True)
 
     angle = getAngle(LNoRot,RNoRot)
-
-    global stat_angle
-    stat_angle = angle*180/math.pi
 
     time.sleep(1)
 
@@ -102,35 +100,35 @@ def motorControl_wThread(theta,distance):
 
 
 
-def forward_thread(timeOn,timeOff):
-    print("MC: FORWARD_Thread")
-    global runDone
-    #Forward Movement
+# def forward_thread(timeOn,timeOff):
+#     print("MC: FORWARD_Thread")
+#     global runDone
+#     #Forward Movement
 
-    while(runDone == False):
-        wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
-        wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 7
-        time.sleep(timeOn)
-        wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
-        wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 7
-        time.sleep(timeOff)
+#     while(runDone == False):
+#         wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+#         wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 7
+#         time.sleep(timeOn)
+#         wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
+#         wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 7
+#         time.sleep(timeOff)
 
-    return
+#     return
 
-def reverse_thread(timeOn,timeOff):
-    print("MC: REVERSE_Thread")
-    global runDone
-    #Forward Movement
+# def reverse_thread(timeOn,timeOff):
+#     print("MC: REVERSE_Thread")
+#     global runDone
+#     #Forward Movement
 
-    while(runDone == False):
-        wiringpi.digitalWrite(LMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 6
-        wiringpi.digitalWrite(RMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 7
-        time.sleep(timeOn)
-        wiringpi.digitalWrite(LMotR_Pin, 1)  # Write 0 ( LOW ) to pin 6
-        wiringpi.digitalWrite(RMotR_Pin, 1)  # Write 0 ( LOW ) to pin 7
-        time.sleep(timeOff)
+#     while(runDone == False):
+#         wiringpi.digitalWrite(LMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+#         wiringpi.digitalWrite(RMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 7
+#         time.sleep(timeOn)
+#         wiringpi.digitalWrite(LMotR_Pin, 1)  # Write 0 ( LOW ) to pin 6
+#         wiringpi.digitalWrite(RMotR_Pin, 1)  # Write 0 ( LOW ) to pin 7
+#         time.sleep(timeOff)
 
-    return
+#     return
 
 def left_thread(timeOn,timeOff):
     print("MC: LEFT_Thread")
@@ -191,35 +189,40 @@ def speedControl(theta,distance,direction):
     global runDone
     global sonarOn
     global sonarFlag
+    global timeOnL
+    global timeOnR
+    global timeOffL
+    global timeOffR
     runDone = False
     sonarOn = True
     
-    timeOn = 0.009
-    timeOff = 0.001
+
     sonar_dist = 50
-    sonar_thread = threading.Thread(target=sonarScan, args=(sonar_dist,))
+    #sonar_thread = threading.Thread(target=sonarScan, args=(sonar_dist,))
     
     #SET THREAD AND DIRECTION
     if(theta == 0 and distance > 0):
         NoRotations = distance/(2*math.pi*r) #STRAIGHT
         if(direction == True):
-            thread = threading.Thread(target=forward_thread, args=(timeOn,timeOff,))
+            threadL = threading.Thread(target=left_thread, args=(timeOnL,timeOffL,))
+            threadR = threading.Thread(target=right_thread, args=(timeOnR,timeOffR,))
         else:
-            thread = threading.Thread(target=reverse_thread, args=(timeOn,timeOff,))
+            threadL = threading.Thread(target=leftR_thread, args=(timeOnL,timeOffL,))
+            threadR = threading.Thread(target=rightR_thread, args=(timeOnR,timeOffR,))
     elif(theta != 0 and distance == 0):
         NoRotations = (R*abs(theta))/(2*math.pi*r) # ROTATE
         
         if(theta>0):
             if(direction == True):
-                thread = threading.Thread(target=left_thread, args=(timeOn,timeOff,))
+                thread = threading.Thread(target=left_thread, args=(timeOnL,timeOffL,))
             else:
-                thread = threading.Thread(target=leftR_thread, args=(timeOn,timeOff,))
+                thread = threading.Thread(target=leftR_thread, args=(timeOnL,timeOffL,))
         else:
             NoRotations = abs(NoRotations)
             if(direction == True):
-                thread = threading.Thread(target=right_thread, args=(timeOn,timeOff,))
+                thread = threading.Thread(target=right_thread, args=(timeOnR,timeOffR,))
             else:
-                thread = threading.Thread(target=rightR_thread, args=(timeOn,timeOff,))
+                thread = threading.Thread(target=rightR_thread, args=(timeOnR,timeOffR,))
     else:
         print("MC:DO NOTHING")
         return 0,0
@@ -236,7 +239,12 @@ def speedControl(theta,distance,direction):
 
     #sonar_thread.start() #turrned off for testing
     startT = time.time()
-    thread.start()
+    if(theta == 0 and distance > 0):
+        threadR.start()
+        threadL.start()
+    else:
+        thread.start()
+
     while(left_count<=NoTicks and right_count<=NoTicks and sonarFlag == False):
         left_new = wiringpi.digitalRead(LSS_Pin)
         right_new = wiringpi.digitalRead(RSS_Pin)
@@ -252,7 +260,13 @@ def speedControl(theta,distance,direction):
     runDone = True
     sonarOn = False
     #print("runDone = ",runDone," sonarFlag = ",sonarFlag, " Waiting to join")
-    thread.join()
+
+    if(theta == 0 and distance > 0):
+        threadR.join()
+        threadL.join()
+    else:
+        thread.join()
+
     delta_time = time.time() - startT
     #sonar_thread.join()
     
@@ -263,17 +277,6 @@ def speedControl(theta,distance,direction):
     print("LEFT SPEED = ",left/delta_time," rotations/s, ROTATIONS = ",left)
     print("RIGHT SPEED = ",right/delta_time," rotations/s, ROTATIONS = ",right)
 
-    #STATS
-    global stat_speed_L
-    global stat_speed_R
-    global stat_rotations_L
-    global stat_rotations_R
-    global stat_time
-    stat_rotations_L = left
-    stat_rotations_R = right
-    stat_time = delta_time
-    stat_speed_L = left/delta_time
-    stat_speed_R = right/delta_time
 
     time.sleep(wait)
 
@@ -506,14 +509,12 @@ def writeOdometry(angle, distance):
 
     return
 
-def writeStats():
-    existingData = [stat_speed_L,stat_speed_R,stat_rotations_L,stat_rotations_R,stat_time,angle]
-
-    with open('motorStatsCSV.csv', 'a', newline='') as file:  # Use 'a' to append data
-        csv_writer = csv.writer(file)
-        csv_writer.writerow(existingData)
-
-    return
+def readCalibration():
+    with open('motorCalCSV.csv', 'r', newline='') as file:
+        csv_reader = csv.reader(file)
+        for row in csv_reader:
+            timeOnL, timeOnR, timeOffL, timeOffR = map(float, row)
+            return timeOnL, timeOnR, timeOffL, timeOffR
 
 
     
@@ -699,6 +700,9 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 #test3()
 print()
 angle,distance = readInstructions()
+timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
+print("MC: time Left = ",timeOnL,"s ",timeOffL,"s")
+print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
 #angle = math.pi/2
 #angle = 0
 #distance = 300
