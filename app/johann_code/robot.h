@@ -248,11 +248,11 @@ public:
     // float w = -0.12391118;
     // float t = 0.1;
 
-    float sigma_r = 100;//*
+    float sigma_r = 10;//*
     float sigma_theta = 17;//* 
     float sigma_odo_x = 0.01;
     float sigma_odo_y = 0.01;
-    float sigma_odo_theta = 0.0017;
+    float sigma_odo_theta = 0.17;
 
     float w = 0;
     float distance = 0;
