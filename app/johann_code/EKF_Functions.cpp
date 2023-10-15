@@ -125,8 +125,10 @@ void ExtendedKalmanFilter::updateMotion() {
 
 // Update covariance of robot using Gt and Rt
 void ExtendedKalmanFilter::updateCovarianceOfRobot() {
+    cout << "\nLINE 7\nsigma =\n" << Covariance << "\n";
     Covariance = Motion_Jacobian*Covariance*(Motion_Jacobian.transpose()) + Motion_Noise; //Textbook
     //Covariance = Motion_Jacobian.transpose()*Covariance*Motion_Jacobian + Motion_Noise;//Example
+    cout << "\nLINE 7\nsigma =\n" << Covariance << "\n";
 }
 
 // Perform lidar observation and return landmarks (should be replace with function in Data_Functions)
