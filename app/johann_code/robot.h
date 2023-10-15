@@ -295,7 +295,7 @@ private:
 
     float sigma_odo_x = 0.001;
     float sigma_odo_y = 0.001;
-    float sigma_odo_theta = 0.0017;
+    float sigma_odo_theta = 0.00017;
 
 
     //Covariance for EKF simulation
