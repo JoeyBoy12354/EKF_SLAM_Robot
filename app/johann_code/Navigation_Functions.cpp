@@ -409,7 +409,7 @@ namespace Navigation_Functions{
         float distance = deltaX*deltaX + deltaY*deltaY;
         cout<<"NAVI,GRID: dist1 = "<<distance<<" = "<<deltaX*deltaX<<" - "<<deltaY*deltaY<<endl;
         distance = sqrt(distance);
-        distance = 10;
+        distance = 100;
 
         //distance =0;
 
