@@ -26,6 +26,7 @@ def motorCalibrate():
         left,right = mc.speedControl(0,distance,True)
         left_avg+=left
         right_avg+=right
+        time.sleep(0.01)
     
     left_avg = left_avg/runs
     right_avg = right_avg/runs
