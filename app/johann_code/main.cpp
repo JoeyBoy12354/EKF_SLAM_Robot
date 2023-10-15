@@ -285,10 +285,10 @@ void simRun(){
     ExtendedKalmanFilter ekf;
 
     ekf.sigma_r = 10000000; //100
-    ekf.sigma_theta = 1712;//17
+    ekf.sigma_theta = 1.712;//17
 
     ekf.sigma_odo_x = 0.0461;
-    ekf.sigma_odo_y = 0.02001;
+    ekf.sigma_odo_y = 2001;
     ekf.sigma_odo_theta = 0.228817;
     
 
