@@ -287,7 +287,7 @@ void simRun(){
     ekf.sigma_r = 100; //100
     ekf.sigma_theta = 17;//17
 
-    ekf.sigma_odo_x = 0.01;
+    ekf.sigma_odo_x = 0.0001;
     ekf.sigma_odo_y = 0.01;
     ekf.sigma_odo_theta = 0.17;
     
