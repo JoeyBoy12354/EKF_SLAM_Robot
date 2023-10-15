@@ -10,6 +10,12 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     State.setZero();
     Motion_Jacobian.setIdentity();
 
+    cout<<"INIT_sigma_r = "<<sigma_r<<endl;
+    cout<<"INIT_sigma_theta = "<<sigma_theta<<endl;
+    cout<<"INIT_sigma_odo_x = "<<sigma_odo_x<<endl;
+    cout<<"INIT_sigma_odo_y = "<<sigma_odo_y<<endl;
+    cout<<"INIT_sigma_odo_theta = "<<sigma_odo_theta<<endl;
+
     Motion_Noise.setZero();
     Motion_Noise(0,0) = sigma_odo_x*sigma_odo_x;
     Motion_Noise(1,1) = sigma_odo_y*sigma_odo_y;

@@ -287,9 +287,9 @@ void simRun(){
     ekf.sigma_r = 10000000; //100
     ekf.sigma_theta = 1.712;//17
 
-    ekf.sigma_odo_x = 0.0461;
-    ekf.sigma_odo_y = 2001;
-    ekf.sigma_odo_theta = 0.228817;
+    ekf.sigma_odo_x = 0;
+    ekf.sigma_odo_y =;
+    ekf.sigma_odo_theta = 0.2;
     
 
     cout<<"sigma_r = "<<ekf.sigma_r<<endl;
