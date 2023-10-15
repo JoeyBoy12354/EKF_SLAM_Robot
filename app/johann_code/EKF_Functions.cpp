@@ -252,9 +252,27 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     cout<<"\nGain = \n"<<Gain<<endl;
     cout<<"\nz-zcap = \n"<<z-z_cap<<endl;
     cout<<"\ngain* (z-zcap) = \n"<<(z-z_cap)<<endl;
-    cout<<"\nSTATE_1 = "<<State<<endl;
+
+    cout<<"\n EKF: State1: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
+
+    for(int i =3;i<dim;i=i+2){
+        if(State[i] != 0 && State[i+1] != 0){
+            cout<<"("<<State[i]<<","<<State[i+1]<<") | ";
+        }
+    }
+    cout<<endl;
+
     State = State + Gain*(z-z_cap);
-    cout<<"\nSTATE_2 = "<<State<<endl;
+    
+    cout<<"\n EKF: State2: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
+
+    for(int i =3;i<dim;i=i+2){
+        if(State[i] != 0 && State[i+1] != 0){
+            cout<<"("<<State[i]<<","<<State[i+1]<<") | ";
+        }
+    }
+    cout<<endl;
+
     angleInBounds(State(2));
     }
 
