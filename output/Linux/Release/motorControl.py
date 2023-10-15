@@ -479,6 +479,63 @@ def sonarScan(maxDist):
 
 
 
+
+def motorCalibrate():
+
+    print("MCAL: IN motor calibration")
+    #default times
+    timeOn = 0.009
+    timeOff = 0.001
+
+    distance = 100
+    runs = 4
+
+    left_avg = 0
+    right_avg = 0
+    for i in range(0,runs):
+        left,right = speedControl(0,distance,True)
+        left_avg+=left
+        right_avg+=right
+        time.sleep(0.01)
+    
+    left_avg = left_avg/runs
+    right_avg = right_avg/runs
+
+    
+
+    if(left_avg>right_avg):
+        timeOnL = (right_avg/left_avg)*timeOn
+        timeOffL = timeOn+timeOff-timeOnL
+    elif(right_avg>left_avg):
+        timeOnR = (left_avg/right_avg)*timeOn
+        timeOffR = timeOn+timeOff-timeOnR
+    else:
+        timeOnL,timeOnR = timeOn
+        timeOffL,timeOffR = timeOff
+
+    writeCalibration(timeOnL,timeOnR,timeOffL,timeOffR)
+
+    #Return to previous position attempt
+    speedControl(0,distance*runs,False)
+
+    print("MCAL: time Left = ",timeOnL,"s ",timeOffL,"s")
+    print("MCAL: time Right = ",timeOnR,"s ",timeOffR,"s")
+
+    
+    print("\n YOU HAVE 10s TO MOVE ME TO STARTING POSITION \n")
+    time.sleep(10)
+
+    return
+
+
+
+def writeCalibration(timeOnL, timeOnR, timeOffL, timeOffR):
+    existingData = [timeOnL, timeOnR, timeOffL, timeOffR]
+
+    with open('motorCalCSV.csv', 'w', newline='') as file:
+        csv_writer = csv.writer(file)
+        csv_writer.writerow(existingData)
+
 def readInstructions():
     values = []
     with open('motorCSV.csv','r') as file:
@@ -509,6 +566,7 @@ def writeOdometry(angle, distance):
 
     return
 
+#This function will read the cali values
 def readCalibration():
     with open('motorCalCSV.csv', 'r', newline='') as file:
         csv_reader = csv.reader(file)
@@ -516,6 +574,14 @@ def readCalibration():
             timeOnL, timeOnR, timeOffL, timeOffR = map(float, row)
             return timeOnL, timeOnR, timeOffL, timeOffR
 
+#Thus function will read the state, either calibration or mapping
+def readState():
+    with open('motorStateCSV.csv', 'r', newline='') as file:
+        csv_reader = csv.reader(file)
+        for row in csv_reader:
+            state = int(row[0])
+
+            return state == 1
 
     
 def testAngles():
@@ -695,33 +761,25 @@ wiringpi.digitalWrite(RMot_Pin, 1)
 wiringpi.digitalWrite(LMotR_Pin, 1)
 wiringpi.digitalWrite(LMot_Pin, 1)
 
-#while True:
-#    wiringpi.digitalWrite(testPin, 0)  # Write 1 ( HIGH ) to pin 6
-#test3()
-print()
-angle,distance = readInstructions()
-timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
-print("MC: time Left = ",timeOnL,"s ",timeOffL,"s")
-print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
-#angle = math.pi/2
-#angle = 0
-#distance = 300
 
-angle,distance = motorControl_wThread(angle,distance)
-print("MC: Angle turned = ",angle*180/math.pi)
-print("MC: distance moved = ",distance)
-writeOdometry(angle,distance)
-print()
-# testWheels()
 
-#testAngles()
-#testDistances()
-#testThread(200)
-#testSpeedControl(math.pi,200)
 
-#angle = 0
-# distance = 200
-#motorControl_wThread(angle,distance)
+
+if(readState() == True):
+    motorCalibrate()
+else:
+    print()
+    angle,distance = readInstructions()
+    timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
+    print("MC: time Left = ",timeOnL,"s ",timeOffL,"s")
+    print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
+
+
+    angle,distance = motorControl_wThread(angle,distance)
+    print("MC: Angle turned = ",angle*180/math.pi)
+    print("MC: distance moved = ",distance)
+    writeOdometry(angle,distance)
+    print()
 
 
 

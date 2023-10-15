@@ -152,9 +152,14 @@ void testMotor(){
 
 
 void calibrateMotors(){
+    writeMotorStateToCSV(true);
+    
     int ret;
     ret = system("python3 motorCalibration.py ok go");
     cout << "ret/cpp = " << ret << endl;
+
+    writeMotorStateToCSV(false);
+    return;
 }
 
 //This process will only use the latest scan to update the EKF and RANSAC

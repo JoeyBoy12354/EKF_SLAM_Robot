@@ -148,6 +148,7 @@ namespace CSV_Functions{
     //Motor
     void writeMotorToCSV(float angle, float distance);
     void readMotorFromCSV(float& angle, float& distance);
+    void writeMotorStateToCSV(bool state);
 
     //Grid
     void saveGridToCSV(vector<vector<GridPoint>> points);

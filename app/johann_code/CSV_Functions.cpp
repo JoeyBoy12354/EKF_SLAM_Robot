@@ -11,6 +11,7 @@ string consensusCSV = "consensusCSV.csv";
 string gridCSV = "gridCSV.csv";
 string sectionCSV = "sectionCSV.csv";
 string triangleCSV = "triangleCSV.csv";
+string motorStateCSV = "motorStateCSV.csv";
 
 
 namespace CSV_Functions{
@@ -338,6 +339,18 @@ namespace CSV_Functions{
         // cout<<"CSV: readMotor, READ angle = "<<angle<<endl;
         // cout<<"CSV: readMotor, READ dist = "<<distance<<endl;
 
+    }
+
+    void writeMotorStateToCSV(bool state){
+        ofstream outputFile(motorStateCSV);
+        if (!outputFile.is_open()) {
+            cerr << "Error opening the file: " << motorStateCSV << endl;
+            return;
+        }
+
+        outputFile << (state ? "1" : "0") << "\n";
+
+        outputFile.close();
     }
 
     //Grid Map Functions
