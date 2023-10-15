@@ -486,6 +486,8 @@ def motorCalibrate():
     #default times
     timeOn = 0.009
     timeOff = 0.001
+    timeOnL,timeOnR = timeOn
+    timeOffL,timeOffR = timeOff
 
     distance = 100
     runs = 4
@@ -496,22 +498,23 @@ def motorCalibrate():
         left,right = speedControl(0,distance,True)
         left_avg+=left
         right_avg+=right
-        time.sleep(0.01)
+        time.sleep(0.2)
     
     left_avg = left_avg/runs
     right_avg = right_avg/runs
 
-    
+    print("left_avg = ",left_avg)
+    print("right_avg = ",left_avg)
 
+    
+    
     if(left_avg>right_avg):
         timeOnL = (right_avg/left_avg)*timeOn
         timeOffL = timeOn+timeOff-timeOnL
     elif(right_avg>left_avg):
         timeOnR = (left_avg/right_avg)*timeOn
         timeOffR = timeOn+timeOff-timeOnR
-    else:
-        timeOnL,timeOnR = timeOn
-        timeOffL,timeOffR = timeOff
+        
 
     writeCalibration(timeOnL,timeOnR,timeOffL,timeOffR)
 
