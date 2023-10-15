@@ -164,7 +164,7 @@ namespace Navigation_Functions{
         //Send to motors
         writeMotorToCSV(angle,distance);
 
-        cout<<"NAVI: Run python"<<endl;
+        //cout<<"NAVI: Run python"<<endl;
     
         int ret;
         ret = system("python3 motorControl.py ok go");
@@ -300,10 +300,10 @@ namespace Navigation_Functions{
         angle = PI/2;
         //angle = 0;
 
-        cout<<"NAVI,GRID: deltaX = "<<deltaX<<" = "<<-1*closestPoint.x<<" - "<<robotPoint.x<<endl;
-        cout<<"NAVI,GRID: deltaY = "<<deltaY<<" = "<<-1*closestPoint.y<<" - "<<robotPoint.y<<endl;
-        cout<<"NAVI,GRID angle = "<<angle*180/PI<<" = "<<atan2(deltaY,deltaX)*180/PI<<" - "<<State(2)*180/PI<<endl;
-        cout<<endl;
+        // cout<<"NAVI,GRID: deltaX = "<<deltaX<<" = "<<-1*closestPoint.x<<" - "<<robotPoint.x<<endl;
+        // cout<<"NAVI,GRID: deltaY = "<<deltaY<<" = "<<-1*closestPoint.y<<" - "<<robotPoint.y<<endl;
+        // cout<<"NAVI,GRID angle = "<<angle*180/PI<<" = "<<atan2(deltaY,deltaX)*180/PI<<" - "<<State(2)*180/PI<<endl;
+        // cout<<endl;
         
 
     
@@ -336,7 +336,7 @@ namespace Navigation_Functions{
 
         CarPoint T1 = A = {triangle_shift[1].x,triangle_shift[1].y};
         CarPoint T2 = A = {triangle_shift[2].x,triangle_shift[2].y};
-        cout<<"NAVI,GRID: Wheels = "<<T1<<","<<T2<<endl;
+        //cout<<"NAVI,GRID: Wheels = "<<T1<<","<<T2<<endl;
         if(angle>0){
             //Rotate around right corner
             A = {triangle_shift[1].x,triangle_shift[1].y};
@@ -349,78 +349,28 @@ namespace Navigation_Functions{
         C.x=A.x+(B.x-A.x)*cos(-angle) - (B.y-A.y)*sin(-angle);
         C.y=A.y+(B.x-A.x)*sin(-angle) + (B.y-A.y)*cos(-angle);
 
-        cout<<"NAVI,GRID: tri_rot = "<<triangle_rot[0]<<","<<triangle_rot[1]<<","<<triangle_rot[2]<<endl;
+        //cout<<"NAVI,GRID: tri_rot = "<<triangle_rot[0]<<","<<triangle_rot[1]<<","<<triangle_rot[2]<<endl;
         cout<<"NAVI,GRID: tri_shift = "<<triangle_shift[0]<<","<<triangle_shift[1]<<","<<triangle_shift[2]<<endl;
 
         
 
         //END NewCode
 
-
-        //atan2() measures the angle between the point (x,y) and positive x
-        //New distance model
-
-        // float wheel_lidar_x = 81;
-        // float wheel_lidar_y = 71;
-        // float r = sqrt(wheel_lidar_x*wheel_lidar_x + wheel_lidar_y*wheel_lidar_y);
-        // float Ax = 0;
-        // float Ay = 0;
-        // float Bx = robotPoint.x;
-        // float By = robotPoint.y;
-        // float Cx=0;
-        // float Cy=0;
-        // //angle = -1*angle;
-        
-        // if(angle>0){
-        //     //Do left turn centered on left wheel
-        //     Ax = robotPoint.x + wheel_lidar_x;
-        //     Ay = robotPoint.y + wheel_lidar_y;
-        // }else{
-        //     //Do right turn centered on right wheel
-        //     Ax = robotPoint.x + wheel_lidar_x;
-        //     Ay = robotPoint.y - wheel_lidar_y;
-            
-        // }
-
-        // Ax = robotPoint.x + wheel_lidar_x * cos(angle)
-        // Ay = robotPoint.y + wheel_lidar_y * sin(angle)
-
-        // Bx = robotPoint.x + wheel_lidar_x * cos(angle + PI)
-        // By = robotPoint.y + wheel_lidar_y * sin(angle + PI)
-
-        // if (angle > 0) {
-        //     // Do left turn centered on left wheel
-        //     Ax = robotPoint.x + wheel_lidar_x * cos(State(3)) - wheel_lidar_y * sin(State(3));
-        //     Ay = robotPoint.y + wheel_lidar_x * sin(State(3)) + wheel_lidar_y * cos(State(3));
-        // } else {
-        //     // Do right turn centered on right wheel
-        //     Ax = robotPoint.x + wheel_lidar_x * cos(State(3)) + wheel_lidar_y * sin(State(3));
-        //     Ay = robotPoint.y - wheel_lidar_x * sin(State(3)) + wheel_lidar_y * cos(State(3));
-        // }
-
-        
-        // Cx=Ax+(Bx-Ax)*cos(-angle) - (By-Ay)*sin(-angle);
-        // Cy=Ay+(Bx-Ax)*sin(-angle) + (By-Ay)*cos(-angle);
-        
-
         deltaX = closestPoint.x - C.x;
-        cout<<"NAVI,GRID: deltaX = "<<deltaX<<" = "<<closestPoint.x<<" - "<<C.x<<endl;
+        //cout<<"NAVI,GRID: deltaX = "<<deltaX<<" = "<<closestPoint.x<<" - "<<C.x<<endl;
         deltaY = closestPoint.y - C.y;
-        cout<<"NAVI,GRID: deltaY = "<<deltaY<<" = "<<closestPoint.y<<" - "<<C.y<<endl;
+        //cout<<"NAVI,GRID: deltaY = "<<deltaY<<" = "<<closestPoint.y<<" - "<<C.y<<endl;
         float distance = deltaX*deltaX + deltaY*deltaY;
-        cout<<"NAVI,GRID: dist1 = "<<distance<<" = "<<deltaX*deltaX<<" - "<<deltaY*deltaY<<endl;
+        //cout<<"NAVI,GRID: dist1 = "<<distance<<" = "<<deltaX*deltaX<<" - "<<deltaY*deltaY<<endl;
         distance = sqrt(distance);
         distance = 100;
         //distance = 0;
 
         //distance =0;
 
-        cout<<"NAVI,GRID rotate angle = "<<angle*180/PI<<endl;
-        cout<<"NAVI,GRID around A = "<<A<<endl;
-        cout<<"NAVI,GRID from B = "<<B<<endl;
-        cout<<"NAVI,GRID resulting C "<<C<<endl;
-        cout<<"NAVI,GRID to visit: "<<closestPoint<<endl;
-        cout<<"NAVI,GRID then distance = "<<distance<<endl;
+        //cout<<"NAVI,GRID rotate angle = "<<angle*180/PI<<endl;
+        cout<<"NAVI,GRID around A = "<<A<<" from B = "<<B<<" resulting C "<<C<<" to visit: "<<closestPoint<<endl;
+        //cout<<"NAVI,GRID then distance = "<<distance<<endl;
         
         //cout<<"NAVI,GRID: movement: "<<distance<<"mm "<<angle*180/PI<<" deg"<<endl;
 

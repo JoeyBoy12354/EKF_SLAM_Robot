@@ -185,7 +185,7 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, bool finalR
             //Predict Position
             ekf.updateMotion();
 
-            cout<<"\n MAIN: PREDICTED POSITION: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+            cout<<"\n MAIN: after_motion State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
             //cout << "\nEKF 6\nState =\n" << ekf.State << "\n";
 
             //Process Data
@@ -195,6 +195,15 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, bool finalR
             
             //Run EKF
             ekf.runEKF();
+
+            cout<<"\n MAIN: after_ekf State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+
+            for(int i =3;i<dim;i=i+2){
+                if(ekf.State[i] != 0 && ekf.State[i+1] != 0){
+                    cout<<"("<<ekf.State[i]<<","<<ekf.State[i+1]<<") | ";
+                }
+            }
+            cout<<endl;
 
             //Store Data for plotting
             if(firstRun == true){
@@ -221,7 +230,7 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, bool finalR
             //motorControlGrid(ekf.w,ekf.distance);//Send odometry to ekf
 
 
-            cout<<"\nMain_end: ekf.w = "<<ekf.w<<" ekf.distance = "<<ekf.distance<<endl;
+            //cout<<"\nMain_end: ekf.w = "<<ekf.w<<" ekf.distance = "<<ekf.distance<<endl;
     
         }else{
             cout<<" NO PROCESSING DUE TO LIDAR ERROR"<<endl;

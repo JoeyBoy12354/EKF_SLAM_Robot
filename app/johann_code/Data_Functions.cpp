@@ -49,7 +49,7 @@ namespace Data_Functions{
     void fitCartesian(vector<CarPoint>& carPoints, float x, float y, float angle){
 
         cout<<"Fit Cartesian for: ("<<x<<","<<y<<") | "<<angle*180/PI<<endl;
-        cout<<"Could be: "<<(PI-angle)*180/PI<<endl;
+        // cout<<"Could be: "<<(PI-angle)*180/PI<<endl;
         if(x==0 and y==0 and angle==0){
             return; //just due to me being scared
         }else{
@@ -145,6 +145,10 @@ namespace Data_Functions{
 
 
         cout<<"DATA: NUMBER OF CORNERS POINTS = "<<cornerPoints.size()<<endl;
+        for(int i =0;i<cornerPoints.size();i++){
+            cout<<corner<<" | ";
+        }
+        cout<<endl;
 
         return;
      
