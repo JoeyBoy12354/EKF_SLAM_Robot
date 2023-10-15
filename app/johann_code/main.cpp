@@ -163,7 +163,7 @@ void calibrateMotors(){
 }
 
 //This process will only use the latest scan to update the EKF and RANSAC
-void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, bool finalRun){
+void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalRun){
     
     
     if(mapped==false){
@@ -183,7 +183,9 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, bool finalR
 
         if(error == false){
             //Predict Position
-            ekf.updateMotion();
+            if(finalRun == 1){
+                ekf.updateMotion();
+            }
 
             cout<<"\n MAIN: after_motion State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
             //cout << "\nEKF 6\nState =\n" << ekf.State << "\n";
@@ -222,7 +224,7 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, bool finalR
             //Complete Robot Movement
             // mapped = updateMovement(ekf.State);// Move the robot to the location
             //motorDataProcessing(ekf.w,ekf.distance);//Send odometry to ekf
-            if(finalRun == false){
+            if(finalRun == 0){
                 mapped = updateMovementGrid(ekf.State,gridNew,ekf.lidar_x,ekf.lidar_y);// Move the robot to the location
                 motorDataProcessing(ekf.w,ekf.distance);
             }
@@ -254,11 +256,11 @@ void testRun(){
     ExtendedKalmanFilter ekf;
     bool mapped = false;
     bool firstRun = true;
-    bool finalRun = false;
+    int finalRun = 0;
 
     calibrateMotors();
     
-    for(int i =0;i<3;i++){
+    for(int i =0;i<2;i++){
         cout<<"\n i = "<<i<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
         // cout<<"IN RUN LOOP: "<<i<<endl;
@@ -271,8 +273,11 @@ void testRun(){
     for(int i =0;i<2;i++){
         cout<<"\n i = "<<"FINALRUN "<<i<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
-        finalRun = true;
+        finalRun = 1;
         fullRun(ekf,mapped,firstRun,finalRun);
+        ekf.distance = 0;
+        ekf.w = 0;
+        finalRun = 2;
     }
     
     

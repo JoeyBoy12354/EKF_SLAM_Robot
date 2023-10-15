@@ -250,7 +250,7 @@ void ExtendedKalmanFilter::getGainMatrix() {
 // Update State Matrix with new landmark
 void ExtendedKalmanFilter::updateStateOfLandmark() {
     cout<<"\nGain = "<<endl;
-    for(int i =3;i<dim;i=i+2){
+    for(int i =0;i<dim;i++){
         if(Gain(i,0) != 0 && Gain(i,0) != 0){
             cout<<Gain(i,0)<<" | "<<Gain(i,0)<<endl;
         }
@@ -258,7 +258,14 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
 
 
     cout<<"z-zcap = \n"<<z-z_cap<<endl;
-    cout<<"gain* (z-zcap) = \n"<<Gain*(z-z_cap)<<endl;
+    
+    Matrix<float, dim, 1> Gain2 = Gain*(z-z_cap);
+    cout<<"gain* (z-zcap) = \n"<<endl;
+    for(int i =0;i<dim;i++){
+        if(Gain2[i] != 0){
+            cout<<Gain2[i]<<endl;
+        }
+    }
 
     cout<<"\n EKF: State1: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
     for(int i =3;i<dim;i=i+2){
