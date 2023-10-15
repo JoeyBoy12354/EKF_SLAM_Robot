@@ -12,7 +12,6 @@ wiringpi.wiringPiSetup()      # For sequential pin numbering
 # OR
 #wiringpi.wiringPiSetupGpio()  # For GPIO pin numbering
 
-PI = 3.14159265358979
 LMot_Pin = 22
 RMot_Pin = 7
 LMotR_Pin = 2
@@ -51,11 +50,11 @@ def motorControl_wThread(theta,distance):
 
 
     #Do turn
-    print("MC:TURN: ",theta*180/PI," deg")
-    #theta = PI/2
+    print("MC:TURN: ",theta*180/math.pi," deg")
+    #theta = math.pi/2
     LNoRot,RNoRot  = speedControl(theta,0,True)
 
-    # theta = -PI/2
+    # theta = -math.pi/2
     # LNoRot,RNoRot  = speedControl(theta,0,True)
 
     angle = getAngle(LNoRot,RNoRot)
@@ -188,13 +187,13 @@ def speedControl(theta,distance,direction):
     
     #SET THREAD AND DIRECTION
     if(theta == 0):
-        NoRotations = distance/(2*PI*r) #STRAIGHT
+        NoRotations = distance/(2*math.pi*r) #STRAIGHT
         if(direction == True):
             thread = threading.Thread(target=forward_thread, args=(timeOn,timeOff,))
         else:
             thread = threading.Thread(target=reverse_thread, args=(timeOn,timeOff,))
     else:
-        NoRotations = (R*abs(theta))/(2*PI*r) # ROTATE
+        NoRotations = (R*abs(theta))/(2*math.pi*r) # ROTATE
         
         if(theta>0):
             if(direction == True):
@@ -282,8 +281,8 @@ def speedSensor(NoTicks):
 
 def getAngle(LNoRot,RNoRot):
     #Determine actual angle
-    thetaL = (LNoRot*2*PI*r/R)
-    thetaR = (RNoRot*2*PI*r/R)
+    thetaL = (LNoRot*2*math.pi*r/R)
+    thetaR = (RNoRot*2*math.pi*r/R)
 
     #Assumme the other wheel picking up roations is shaking
     if(thetaL>thetaR):
@@ -293,14 +292,14 @@ def getAngle(LNoRot,RNoRot):
 
     
     # angle = thetaL-thetaR
-    # print("MC: Angle = left - right = ",thetaL* 180/(PI)," - ",thetaR* 180/(PI)," = ",(thetaL-thetaR)* 180/(PI))
+    # print("MC: Angle = left - right = ",thetaL* 180/(math.pi)," - ",thetaR* 180/(math.pi)," = ",(thetaL-thetaR)* 180/(math.pi))
 
     # return angle
 
 def getDist(LNoRot,RNoRot):
     #Determine actual distance
-    distL = LNoRot*2*PI*r
-    distR = RNoRot*2*PI*r
+    distL = LNoRot*2*math.pi*r
+    distR = RNoRot*2*math.pi*r
     #print("DistCheck = left - right = ",distL," - ",distR," = ",distL-distR," (should be 0)")
 
     return distL
@@ -311,13 +310,13 @@ def getDist(LNoRot,RNoRot):
 #OLD AND NOT USED
 def Avoidance(avoidDistL,avoidDistR):
     #print("\nOBSTACLE DETECTED Turn left!")
-    turnLeft(PI/2)
+    turnLeft(math.pi/2)
 
     #Check left
     obs_distance = sonarControl.runSonar()
     if(obs_distance<avoidDistL):
         #print("OBSTACLE DETECTED IN AVOID PATH Turn right!")
-        turnRight(PI/2)
+        turnRight(math.pi/2)
 
         #Check Right
         obs_distance = sonarControl.runSonar()
@@ -327,13 +326,13 @@ def Avoidance(avoidDistL,avoidDistR):
         # GO FORWARD AND REPOSITION
         else:
             forward(avoidDistR)
-            turnLeft(PI/2)#Face Back (Turn Left)
+            turnLeft(math.pi/2)#Face Back (Turn Left)
             avoidDistL = avoidDistL + avoidDistR
 
     # GO FORWARD AND REPOSITION
     else:
         forward(avoidDistR)
-        turnRight(PI/2)#Face Back (Turn Right)
+        turnRight(math.pi/2)#Face Back (Turn Right)
         avoidDistR = avoidDistR + avoidDistL
 
     return avoidDistL,avoidDistR
@@ -351,16 +350,16 @@ def checkAvoidance_wThread(distance):
         #Turn Left
         speedControl(clockAngleStep,0,True)
 
-        #print("checkA: turnLeft distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
+        #print("checkA: turnLeft distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
 
         totalAngle += clockAngleStep
-        if(sonarControl.runSonar() <abs((R/2)*math.cos(PI - totalAngle)) + sonarError):
-            print("MC: RETURN TRUE distCos = ",abs((R/2)*math.cos(PI - totalAngle)))
+        if(sonarControl.runSonar() <abs((R/2)*math.cos(math.pi - totalAngle)) + sonarError):
+            print("MC: RETURN TRUE distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)))
             return True
     
     
     speedControl(totalAngle,0,False)
-    #print("checkA: revLeft distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
+    #print("checkA: revLeft distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
     totalAngle = 0
 
     while(totalAngle<clockAngleInit):
@@ -369,16 +368,16 @@ def checkAvoidance_wThread(distance):
         speedControl(-1*clockAngleStep,0,True)
         totalAngle += clockAngleStep
 
-        #print("checkA: turnRight distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
+        #print("checkA: turnRight distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
 
-        if(sonarControl.runSonar() < abs((R/2)*math.cos(PI - totalAngle)) + sonarError):
-            print("MC:  RETURN TRUE distCos = ",abs((R/2)*math.cos(PI - totalAngle)))
+        if(sonarControl.runSonar() < abs((R/2)*math.cos(math.pi - totalAngle)) + sonarError):
+            print("MC:  RETURN TRUE distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)))
             return True
     
     
     speedControl(-1*totalAngle,0,False)
 
-    #print("checkA: revRight distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
+    #print("checkA: revRight distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
 
     totalAngle = 0
     
@@ -395,28 +394,28 @@ def clockAvoidance_wThread(distance):
     speedControl(0,R/2+sonarError,False)
 
     #Turn Left
-    print("MC: CA: turnL distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
+    print("MC: CA: turnL distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
     speedControl(clockAngleInit,0,True)
     totalAngle = clockAngleInit
 
-    if(sonarControl.runSonar() < abs((R/2)*math.cos(PI - totalAngle)) + sonarError):
-        print("MC:  CA: revL,turnR distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
+    if(sonarControl.runSonar() < abs((R/2)*math.cos(math.pi - totalAngle)) + sonarError):
+        print("MC:  CA: revL,turnR distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
         #Turn Right
 
         speedControl(clockAngleInit,0,False)
         speedControl(-1*clockAngleInit,0,True)
         totalAngle = -clockAngleInit
 
-        if(sonarControl.runSonar() < abs((R/2)*math.cos(PI - abs(totalAngle))) + sonarError):
-            print("MC: CA: turnR distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
+        if(sonarControl.runSonar() < abs((R/2)*math.cos(math.pi - abs(totalAngle))) + sonarError):
+            print("MC: CA: turnR distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
 
             #Turn Right
 
             speedControl(-1*clockAngleInit,0,True)
             totalAngle = -clockAngleInit*2
             
-            if(sonarControl.runSonar() < abs((R/2)*math.cos(PI - abs(totalAngle))) + sonarError):
-                print("MC: CA: revR*2,turnL*2 distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
+            if(sonarControl.runSonar() < abs((R/2)*math.cos(math.pi - abs(totalAngle))) + sonarError):
+                print("MC: CA: revR*2,turnL*2 distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
     
                 #Turn Left
 
@@ -425,9 +424,9 @@ def clockAvoidance_wThread(distance):
 
                 totalAngle = clockAngleInit*2
 
-                if(sonarControl.runSonar()<abs((R/2)*math.cos(PI - totalAngle)) + sonarError):
+                if(sonarControl.runSonar()<abs((R/2)*math.cos(math.pi - totalAngle)) + sonarError):
                     #total failure to find alternative route
-                    print("\nMC:  FAILURE TO FIND ROUTE!\n distCos = ",abs((R/2)*math.cos(PI - totalAngle)), " | ",sonarControl.runSonar() )
+                    print("\nMC:  FAILURE TO FIND ROUTE!\n distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
                     distance = 0
 
     
@@ -481,7 +480,7 @@ def writeOdometry(angle, distance):
 def testAngles():
     print("MC: BEGIN TESTING ANGLES")
 
-    angles = [PI/8,PI/4,PI/2,PI]
+    angles = [math.pi/8,math.pi/4,math.pi/2,math.pi]
     angles = angles + angles
     waitTime = 6 #In seconds
 
@@ -501,13 +500,13 @@ def testAngles():
         if(theta>0):
             print("MC: forward Turn Left")
             LNoRot,RNoRot = turnLeft(theta)
-            measAngle_F = (RNoRot*2*PI*r/R)
+            measAngle_F = (RNoRot*2*math.pi*r/R)
     
         #Right Turn
         elif(theta<0):
             print("MC: forward Turn Right")
             LNoRot,RNoRot = turnRight(theta)
-            measAngle_F = (LNoRot*2*PI*r/R)
+            measAngle_F = (LNoRot*2*math.pi*r/R)
 
         #measAngle_F = getAngle(LNoRot,RNoRot)
         print("MC: measAngle_F = ",measAngle_F)
@@ -519,12 +518,12 @@ def testAngles():
         if(theta>0):
             print("MC: reverse turn Left")
             LNoRot,RNoRot = turnLeftR(theta)
-            measAngle_R = (RNoRot*2*PI*r/R)
+            measAngle_R = (RNoRot*2*math.pi*r/R)
         #Right Turn
         elif(theta<0):
             print("MC: reverse turn Right")
             LNoRot,RNoRot = turnRightR(theta)
-            measAngle_R = (LNoRot*2*PI*r/R)
+            measAngle_R = (LNoRot*2*math.pi*r/R)
 
         #measAngle_R = getAngle(LNoRot,RNoRot)
         print("MC: measAngle_R = ",measAngle_R)
@@ -532,9 +531,9 @@ def testAngles():
 
         #Print Results
         if(theta>0):
-            print("MC: Left Turn: Set:",round(theta*180/PI,2)," Angle_F:",round(measAngle_F*180/PI,2),", Angle_R:",round(measAngle_R*180/PI,2),"\n")
+            print("MC: Left Turn: Set:",round(theta*180/math.pi,2)," Angle_F:",round(measAngle_F*180/math.pi,2),", Angle_R:",round(measAngle_R*180/math.pi,2),"\n")
         elif(theta<0):
-            print("MC: Right Turn: Set:",round(theta*180/PI,2)," Angle_F:",round(measAngle_F*180/PI,2),", Angle_R:",round(measAngle_R*180/PI,2),"\n")
+            print("MC: Right Turn: Set:",round(theta*180/math.pi,2)," Angle_F:",round(measAngle_F*180/math.pi,2),", Angle_R:",round(measAngle_R*180/math.pi,2),"\n")
 
         time.sleep(waitTime)
 
@@ -559,7 +558,7 @@ def testDistances():
 def testThread(distance):
     global runDone
 
-    NoRotations = distance/(2*PI*r)
+    NoRotations = distance/(2*math.pi*r)
     NoTicks = NoRotations*20
     
     left_old = 0
@@ -612,25 +611,25 @@ def testSpeedControl(angle,distance):
 
     # time.sleep(wait)
 
-    # print("Left for ",angle*180/PI)
+    # print("Left for ",angle*180/math.pi)
     # speedControl(angle,0,True)
     # time.sleep(wait/2)
     # speedControl(-1*backangle,0,True)
     # time.sleep(wait)
 
-    # print("Left_R for ",backangle*180/PI)
+    # print("Left_R for ",backangle*180/math.pi)
     # speedControl(angle,0,False)
     # time.sleep(wait/2)
     # speedControl(backangle,0,True)
     # time.sleep(wait)
 
-    print("MC: Right for ",angle*180/PI)
+    print("MC: Right for ",angle*180/math.pi)
     speedControl(-1*angle,0,True)
     time.sleep(wait/2)
     speedControl(backangle,0,True)
     time.sleep(wait)
 
-    print("MC: Right_R for ",angle*180/PI)
+    print("MC: Right_R for ",angle*180/math.pi)
     speedControl(-1*angle,0,False)
     time.sleep(wait/2)
     speedControl(-1*backangle,0,True)
@@ -660,12 +659,12 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 #test3()
 print()
 angle,distance = readInstructions()
-#angle = PI/2
+#angle = math.pi/2
 #angle = 0
 #distance = 300
 
 angle,distance = motorControl_wThread(angle,distance)
-print("MC: Angle turned = ",angle)
+print("MC: Angle turned = ",angle*180/math.pi)
 print("MC: distance moved = ",distance)
 writeOdometry(angle,distance)
 print()
@@ -674,7 +673,7 @@ print()
 #testAngles()
 #testDistances()
 #testThread(200)
-#testSpeedControl(PI,200)
+#testSpeedControl(math.pi,200)
 
 #angle = 0
 # distance = 200
