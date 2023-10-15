@@ -183,7 +183,7 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalRu
 
         if(error == false){
             //Predict Position
-            if(finalRun == 1){
+            if(finalRun >= 1){
                 ekf.updateMotion();
             }
 
