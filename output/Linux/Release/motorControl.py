@@ -257,7 +257,7 @@ def speedControl(theta,distance,direction):
     left = left_count/20
     right = right_count/20
 
-    print("TIME = ",delta_time," s")
+    print("TIME = ",delta_time,"s")
     print("LEFT SPEED = ",left/delta_time," rotations/s, ROTATIONS = ",left)
     print("RIGHT SPEED = ",right/delta_time," rotations/s, ROTATIONS = ",right)
 
