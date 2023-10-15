@@ -267,11 +267,14 @@ void testRun(){
         
         firstRun = false;
     }
-    cout<<"\n i = "<<"FINALRUN"<<endl;
-        cout<<"------------------------------------------------------------------------------------------------------------\n\n";
-    finalRun = true;
-    fullRun(ekf,mapped,firstRun,finalRun);
 
+    for(int i =0;i<2;i++){
+        cout<<"\n i = "<<"FINALRUN "<<i<<endl;
+        cout<<"------------------------------------------------------------------------------------------------------------\n\n";
+        finalRun = true;
+        fullRun(ekf,mapped,firstRun,finalRun);
+    }
+    
     
 }
 
