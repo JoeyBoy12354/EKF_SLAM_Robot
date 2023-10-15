@@ -3,6 +3,9 @@ We had straight difference influence the runs
 
 README 4
 We removed straight difference from the runs and added motion noise as:
+float sigma_r = 0.5;
+float sigma_theta = 0.5;
+
 float sigma_odo_x = 0.1;
 float sigma_odo_y = 0.1;
 float sigma_odo_theta = 1.7;
@@ -17,6 +20,13 @@ During motion the y-value had a tendency to jump and the angle would move to -4.
 During finals y value began to tend to true y
 
 README 8:
+float sigma_r = 1;
+float sigma_theta = 0.17;
+float sigma_odo_x = 0.01;
+float sigma_odo_y = 0.01;
+float sigma_odo_theta = 0.17;
+
+README 9:
 float sigma_r = 1;
 float sigma_theta = 0.17;
 float sigma_odo_x = 0.01;
