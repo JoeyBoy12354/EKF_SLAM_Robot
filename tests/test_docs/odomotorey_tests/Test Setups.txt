@@ -23,3 +23,9 @@ Changed distance back 0mm
 README 8
 Changed distance back 100mm
 -Broke again
+
+README 9 
+Added pause between movements
+
+README 10 
+straights only

@@ -200,13 +200,13 @@ def speedControl(theta,distance,direction):
     sonar_thread = threading.Thread(target=sonarScan, args=(sonar_dist,))
     
     #SET THREAD AND DIRECTION
-    if(theta == 0):
+    if(theta == 0 and distance > 0):
         NoRotations = distance/(2*math.pi*r) #STRAIGHT
         if(direction == True):
             thread = threading.Thread(target=forward_thread, args=(timeOn,timeOff,))
         else:
             thread = threading.Thread(target=reverse_thread, args=(timeOn,timeOff,))
-    else:
+    elif(theta != 0 and distance == 0):
         NoRotations = (R*abs(theta))/(2*math.pi*r) # ROTATE
         
         if(theta>0):
@@ -220,7 +220,9 @@ def speedControl(theta,distance,direction):
                 thread = threading.Thread(target=right_thread, args=(timeOn,timeOff,))
             else:
                 thread = threading.Thread(target=rightR_thread, args=(timeOn,timeOff,))
-
+    else:
+        print("MC:DO NOTHING")
+        return 0,0
                 
     NoTicks = NoRotations*20
     
