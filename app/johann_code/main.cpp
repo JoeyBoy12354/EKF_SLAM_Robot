@@ -279,7 +279,7 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalRu
 
 
 
-void simRun2(){
+void simRun1(){
     ExtendedKalmanFilter ekf;
     cout<<"sigma_r = "<<ekf.sigma_r<<endl;
     cout<<"sigma_theta = "<<ekf.sigma_theta<<endl;
@@ -342,7 +342,7 @@ void simRun2(){
     return;
 }
 
-void simRun(){
+void simRun2(){
     ExtendedKalmanFilter ekf;
     cout<<"sigma_r = "<<ekf.sigma_r<<endl;
     cout<<"sigma_theta = "<<ekf.sigma_theta<<endl;
@@ -390,6 +390,84 @@ void simRun(){
     cout<<"SORCERY"<<endl;
     return;
 }
+
+void simRun3(){
+    ExtendedKalmanFilter ekf;
+    cout<<"sigma_r = "<<ekf.sigma_r<<endl;
+    cout<<"sigma_theta = "<<ekf.sigma_theta<<endl;
+    cout<<"sigma_odo_x = "<<ekf.sigma_odo_x<<endl;
+    cout<<"sigma_odo_y = "<<ekf.sigma_odo_y<<endl;
+    cout<<"sigma_odo_theta = "<<ekf.sigma_odo_theta<<endl;
+    
+    ekf.w=0;
+    ekf.distance =0;
+    ekf.TestValues.push_back({763.226,821.155});
+    ekf.TestValues.push_back({-1027.73,1024.49});
+    ekf.TestValues.push_back({768.733,-702.785});
+    ekf.TestValues.push_back({765.71,597.332});
+    ekf.TestValues.push_back({-1027.62,-585.177});
+    simRun(ekf,false);
+
+    ekf.w=0;
+    ekf.distance =91.89158511750145;
+    ekf.TestValues.clear();
+    ekf.TestValues.push_back({807.103,795.645});
+    ekf.TestValues.push_back({-978.576,1050.07});
+    ekf.TestValues.push_back({768.434,-722.174});
+    ekf.TestValues.push_back({-1016.22,-564.596});
+    ekf.TestValues.push_back({804.18,580.847});
+    simRun(ekf,false);
+
+    ekf.w=0;
+    ekf.distance =91.89158511750145;
+    ekf.TestValues.clear();
+    ekf.TestValues.push_back({847.053,773.736});
+    ekf.TestValues.push_back({783.505,-741.488});
+    ekf.TestValues.push_back({-998.814,-552.505});
+    ekf.TestValues.push_back({-927.949,1063.87});
+    ekf.TestValues.push_back({840.862,559.079});
+    simRun(ekf,false);
+
+    ekf.w=0;
+    ekf.distance =102.10176124166827;
+    ekf.TestValues.clear();
+    ekf.TestValues.push_back({881.274,511.251});
+    ekf.TestValues.push_back({-907.695,1095.98});
+    ekf.TestValues.push_back({-1001.92,-519.256});
+    ekf.TestValues.push_back({769.952,-789.791});
+    ekf.TestValues.push_back({893.194,733.529});
+    simRun(ekf,false);
+
+    cout<<"-----------------------------------------"<<endl;
+
+    ekf.TestValues.clear();
+    ekf.TestValues.push_back({888.939,486.888});
+    ekf.TestValues.push_back({-888.473,1107.94});
+    ekf.TestValues.push_back({771.318,-795.827});
+    ekf.TestValues.push_back({908.979,712.507});
+    ekf.TestValues.push_back({-1011.13,-507.74});
+    simRun(ekf,true);
+
+    ekf.TestValues.clear();
+    ekf.TestValues.push_back({903.269,451.617});
+    ekf.TestValues.push_back({-857.008,1126.25});
+    ekf.TestValues.push_back({-1026.89,-480.472});
+    ekf.TestValues.push_back({731.178,-839.262});
+    ekf.TestValues.push_back({925.612,678.594});
+    simRun(ekf,true);
+
+    ekf.TestValues.clear();
+    ekf.TestValues.push_back({915.606,424.298});
+    ekf.TestValues.push_back({-821.015,1146.44});
+    ekf.TestValues.push_back({704.389,-872.277});
+    ekf.TestValues.push_back({948.087,644.084});
+    ekf.TestValues.push_back({-1041.74,-459.041});
+    simRun(ekf,true);
+
+    cout<<"SORCERY"<<endl;
+    return;
+}
+
 
 
 
@@ -441,9 +519,9 @@ int main() {
     //testMotor();
     //testLidar();
 
-    testRun();
+    //testRun();
     
-    //simRun2();
+    simRun3();
   
     return 0;
 }

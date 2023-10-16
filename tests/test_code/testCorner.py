@@ -290,14 +290,20 @@ def brute_force(mapCSV,sample_size,max_iters,inlier_thresh,min_inliers):
 
 
 
-#brute_force('map1.csv',sample_size=100,max_iters=200,inlier_thresh=0.15,min_inliers=4)
-brute_force('map2.csv',sample_size=100,max_iters=200,inlier_thresh=0.15,min_inliers=4)
-#brute_force('map3.csv',sample_size=100,max_iters=200,inlier_thresh=0.15,min_inliers=4)
-brute_force('map4.csv',sample_size=100,max_iters=200,inlier_thresh=0.15,min_inliers=4)
-brute_force('map5.csv',sample_size=100,max_iters=200,inlier_thresh=0.15,min_inliers=4)
-brute_force('map6.csv',sample_size=100,max_iters=200,inlier_thresh=0.15,min_inliers=4)
+#brute_force('map2.csv',sample_size=100,max_iters=200,inlier_thresh=0.3,min_inliers=5)
 
-# x1,y1=fetchCoord('map1.csv')
+brute_force('map3.csv',sample_size=100,max_iters=200,inlier_thresh=0.3,min_inliers=5)
+brute_force('map1.csv',sample_size=100,max_iters=200,inlier_thresh=0.3,min_inliers=5)
+brute_force('map2.csv',sample_size=100,max_iters=200,inlier_thresh=0.3,min_inliers=5)
+
+brute_force('map4.csv',sample_size=100,max_iters=200,inlier_thresh=0.3,min_inliers=5)
+brute_force('map5.csv',sample_size=100,max_iters=200,inlier_thresh=0.3,min_inliers=5)
+brute_force('map6.csv',sample_size=100,max_iters=200,inlier_thresh=0.3,min_inliers=5)
+
+
+# brute_force('map3.csv',sample_size=100,max_iters=200,inlier_thresh=0.15,min_inliers=4)
+
+#x1,y1=fetchCoord('map2.csv')
 # best_models = manager(x1,y1,sample_size=100,max_iters=200,inlier_threshold=0.15,min_inliers=4)
 # plt.plot(x1, y1, 'o', label='Points',markersize=0.5,color='grey')
 
