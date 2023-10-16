@@ -539,9 +539,9 @@ void simRun5(){
     ekf.w=0;
     ekf.distance =110;
     ekf.TestValues.clear();
-    ekf.TestValues.push_back({900,817.63269807});
-    ekf.TestValues.push_back({850,-682.3673019});
-    ekf.TestValues.push_back({-1100,-682.3673019});
+    ekf.TestValues.push_back({700,817.63269807});
+    ekf.TestValues.push_back({650,-682.3673019});
+    ekf.TestValues.push_back({-900,-682.3673019});
     simRun(ekf,false);
 
     state.push_back(ekf.State(0));
