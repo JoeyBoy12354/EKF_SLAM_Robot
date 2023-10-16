@@ -479,31 +479,31 @@ void simRun4(){
     simRun(ekf,false);
 
     ekf.w=0;
-    ekf.distance = 20;
+    ekf.distance =91.89158511750145;
     ekf.TestValues.clear();
-    ekf.TestValues.push_back({763.226,821.155});
-    ekf.TestValues.push_back({-1027.73,1024.49});
-    ekf.TestValues.push_back({768.733,-702.785});
+    ekf.TestValues.push_back({807.103,795.645});
+    ekf.TestValues.push_back({-978.576,1050.07});
+    ekf.TestValues.push_back({768.434,-722.174});
     simRun(ekf,false);
 
     cout<<"-----------------------------------------"<<endl;
 
     ekf.TestValues.clear();
-    ekf.TestValues.push_back({763.226,821.155});
-    ekf.TestValues.push_back({-1027.73,1024.49});
-    ekf.TestValues.push_back({768.733,-702.785});
+    ekf.TestValues.push_back({807.103,795.645});
+    ekf.TestValues.push_back({-978.576,1050.07});
+    ekf.TestValues.push_back({768.434,-722.174});
     simRun(ekf,true);
 
     ekf.TestValues.clear();
-    ekf.TestValues.push_back({763.226,821.155});
-    ekf.TestValues.push_back({-1027.73,1024.49});
-    ekf.TestValues.push_back({768.733,-702.785});
+    ekf.TestValues.push_back({807.103,795.645});
+    ekf.TestValues.push_back({-978.576,1050.07});
+    ekf.TestValues.push_back({768.434,-722.174});
     simRun(ekf,true);
 
     ekf.TestValues.clear();
-    ekf.TestValues.push_back({763.226,821.155});
-    ekf.TestValues.push_back({-1027.73,1024.49});
-    ekf.TestValues.push_back({768.733,-702.785});
+    ekf.TestValues.push_back({807.103,795.645});
+    ekf.TestValues.push_back({-978.576,1050.07});
+    ekf.TestValues.push_back({768.434,-722.174});
     simRun(ekf,true);
 
     cout<<"SORCERY"<<endl;
