@@ -514,18 +514,13 @@ void simRun5(){
     ExtendedKalmanFilter ekf;
     vector<vector<float>> states;
     vector<float> state;
-    vector<float> groundtruth{ 100, 17.63269806, 10*(PI/180) };
+    float x = -50;
+    float w = 10*(PI/180);
+
+    vector<float> groundtruth{ x, -1*(x/(cos(w)))*sin(w), w };
     
     ekf.w=0;
     ekf.distance =0;
-    ekf.TestValues.push_back({800,800});
-    ekf.TestValues.push_back({750,-700});
-    ekf.TestValues.push_back({-1000,-700});
-    simRun(ekf,false);
-
-    ekf.w=0;
-    ekf.distance =0;
-    ekf.TestValues.clear();
     ekf.TestValues.push_back({800,800});
     ekf.TestValues.push_back({750,-700});
     ekf.TestValues.push_back({-1000,-700});
@@ -534,14 +529,23 @@ void simRun5(){
     //Set distance = 110 and angle = 0
     //Set true landmark distance = 100 and angle = 10 degrees 
     //Thus landmarks must converge to (100,17.63269806) | 10
+
+    CarPoint LM1 = {800+x,800+y};
+    CarPoint LM2 = {750+x,-700+y};
+    CarPoint LM3 = {-1000+x,-700+y};
+
+    cout<<"LM1 = "<<LM1<<endl;
+    cout<<"LM2 = "<<LM2<<endl;
+    cout<<"LM3 = "<<LM3<<endl;
+
     
 
     ekf.w=0;
-    ekf.distance =110;
+    ekf.distance =60;
     ekf.TestValues.clear();
-    ekf.TestValues.push_back({700,817.63269807});
-    ekf.TestValues.push_back({650,-682.3673019});
-    ekf.TestValues.push_back({-900,-682.3673019});
+    ekf.TestValues.push_back(LM1);
+    ekf.TestValues.push_back(LM2);
+    ekf.TestValues.push_back(LM3);
     simRun(ekf,false);
 
     state.push_back(ekf.State(0));
@@ -553,9 +557,9 @@ void simRun5(){
 
     for(int i =0;i<1;i++){
         ekf.TestValues.clear();
-        ekf.TestValues.push_back({900,817.63269807});
-        ekf.TestValues.push_back({850,-682.3673019});
-        ekf.TestValues.push_back({-1100,-682.3673019});
+        ekf.TestValues.push_back(LM1);
+        ekf.TestValues.push_back(LM2);
+        ekf.TestValues.push_back(LM3);
         simRun(ekf,true);
 
         state.clear();
