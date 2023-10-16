@@ -585,8 +585,8 @@ void simRun5(){
         stddev[2]+= abs(states[i][2] - groundtruth[2]);
     }
 
-    cout<<"stddev x:"<<stddev[0]/states.size()<<" y:"<<stddev[1]/states.size()<<" theta:"<<stddev[2]/states.size()<<endl;
-    cout<<"avg x:"<<avg[0]/states.size()<<" y:"<<avg[1]/states.size()<<" theta:"<<avg[2]/states.size()<<endl;
+    cout<<"stddev x:"<<stddev[0]/states.size()<<" y:"<<stddev[1]/states.size()<<" theta:"<<(stddev[2]/states.size())*180/PI<<endl;
+    cout<<"avg x:"<<avg[0]/states.size()<<" y:"<<avg[1]/states.size()<<" theta:"<<(avg[2]/states.size())*180/PI<<endl;
 
     return;
 }

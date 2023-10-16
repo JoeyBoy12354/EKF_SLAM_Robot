@@ -272,17 +272,17 @@ void ExtendedKalmanFilter::getGainMatrix() {
 
 // Update State Matrix with new landmark
 void ExtendedKalmanFilter::updateStateOfLandmark() {
-    cout<<"\nGain = "<<endl;
-    for(int i =0;i<dim;i++){
-        if(Gain(i,0) != 0 && Gain(i,0) != 0){
-            cout<<Gain(i,0)<<" | "<<Gain(i,0)<<endl;
-        }
-    }
+    // cout<<"\nGain = "<<endl;
+    // for(int i =0;i<dim;i++){
+    //     if(Gain(i,0) != 0 && Gain(i,0) != 0){
+    //         cout<<Gain(i,0)<<" | "<<Gain(i,0)<<endl;
+    //     }
+    // }
 
 
     // //cout<<"z-zcap = \n"<<z-z_cap<<endl;
 
-    cout<<"(z-z_cap).r = "<<(z-z_cap)(0)<<"(z-z_cap).theta = "<<(z-z_cap)(1)*180/PI<<endl;
+    //cout<<"(z-z_cap).r = "<<(z-z_cap)(0)<<"(z-z_cap).theta = "<<(z-z_cap)(1)*180/PI<<endl;
     
     //Matrix<float, dim, 1> Gain2 = Gain*(z-z_cap);
     // cout<<"gain* (z-zcap) = \n"<<endl;
@@ -302,13 +302,13 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
 
     State = State + Gain*(z-z_cap);
     
-    cout<<"\n EKF: State2: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
-    for(int i =3;i<dim;i=i+2){
-        if(State[i] != 0 && State[i+1] != 0){
-            cout<<"("<<State[i]<<","<<State[i+1]<<") | ";
-        }
-    }
-    cout<<endl;
+    // cout<<"\n EKF: State2: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
+    // for(int i =3;i<dim;i=i+2){
+    //     if(State[i] != 0 && State[i+1] != 0){
+    //         cout<<"("<<State[i]<<","<<State[i+1]<<") | ";
+    //     }
+    // }
+    // cout<<endl;
 
     angleInBounds(State(2));
     }
@@ -334,11 +334,11 @@ void ExtendedKalmanFilter::runEKF() {
     // Correction step
     //vector<CarPoint> landmarks = observeEnvironment();
     vector<CarPoint> landmarks = TestValues;
-    cout<<"size = "<<landmarks.size()<<endl;
-    cout<<"landmarks = "<<endl;
-    for(int i =0;i<landmarks.size();i++)
-        cout<<landmarks[i];
-    cout<<endl;
+    // cout<<"size = "<<landmarks.size()<<endl;
+    // cout<<"landmarks = "<<endl;
+    // for(int i =0;i<landmarks.size();i++)
+    //     cout<<landmarks[i];
+    // cout<<endl;
     // landmarks = Simulation_Functions::landmarkNoise(landmarks);
 
     //cout<<"LANDMARKS = "<<fixed<<setprecision(10)<<landmarks[0]<<landmarks[1]<<landmarks[2]<<landmarks[3]<<endl;
