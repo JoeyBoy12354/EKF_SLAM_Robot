@@ -28,7 +28,7 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     //Covariance.setIdentity();
 
     //Use initialLandmarkCovariance_AtSi;
-    float test = 10;
+    float test = 1;
     Covariance.setZero();
     for (int n = 3; n < dim; n++) {
         Covariance(n, n) = test;
@@ -260,12 +260,12 @@ void ExtendedKalmanFilter::getGainMatrix() {
 
 // Update State Matrix with new landmark
 void ExtendedKalmanFilter::updateStateOfLandmark() {
-    // cout<<"\nGain = "<<endl;
-    // for(int i =0;i<dim;i++){
-    //     if(Gain(i,0) != 0 && Gain(i,0) != 0){
-    //         cout<<Gain(i,0)<<" | "<<Gain(i,0)<<endl;
-    //     }
-    // }
+    cout<<"\nGain = "<<endl;
+    for(int i =0;i<dim;i++){
+        if(Gain(i,0) != 0 && Gain(i,0) != 0){
+            cout<<Gain(i,0)<<" | "<<Gain(i,0)<<endl;
+        }
+    }
 
 
     //cout<<"z-zcap = \n"<<z-z_cap<<endl;
