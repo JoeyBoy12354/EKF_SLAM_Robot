@@ -249,7 +249,8 @@ public:
     // float t = 0.1;
 
     float sigma_r = 100;//*
-    float sigma_theta = 0.17;//* 
+    //float sigma_theta = 0.17;//* 
+    float sigma_theta = 0.1;//* 
     float sigma_odo_x = 0.01;
     float sigma_odo_y = 0.01;
     float sigma_odo_theta = 0.017;
