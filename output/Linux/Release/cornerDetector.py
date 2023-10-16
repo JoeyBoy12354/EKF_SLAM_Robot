@@ -46,7 +46,8 @@ def evaluate_model(X,y,theta,inlier_threshold):
 
     return num_inliers
 
-def ransac(X,y,max_iters=200,samples_to_fit=2,inlier_threshold=5,min_inliers=35):
+#X,y,max_iters=200,samples_to_fit=2,inlier_threshold=5,min_inliers=35
+def ransac(X,y,max_iters=500,samples_to_fit=2,inlier_threshold=0.1,min_inliers=8):
 
     best_model=None
     best_model_performance=0
@@ -68,7 +69,7 @@ def ransac(X,y,max_iters=200,samples_to_fit=2,inlier_threshold=5,min_inliers=35)
 
 def manager(x_coords,y_coords):
     #sample_size = 500 #worked well before lowerd lidar points
-    sample_size = 500 #worked well for map1
+    sample_size = 100 #worked well for map1
     num_samples = int(len(x_coords)/sample_size)
     best_models = []
 
