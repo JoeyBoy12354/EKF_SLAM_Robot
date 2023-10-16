@@ -255,12 +255,12 @@ void ExtendedKalmanFilter::getGainMatrix() {
 
 // Update State Matrix with new landmark
 void ExtendedKalmanFilter::updateStateOfLandmark() {
-    cout<<"\nGain = "<<endl;
-    for(int i =0;i<dim;i++){
-        if(Gain(i,0) != 0 && Gain(i,0) != 0){
-            cout<<Gain(i,0)<<" | "<<Gain(i,0)<<endl;
-        }
-    }
+    // cout<<"\nGain = "<<endl;
+    // for(int i =0;i<dim;i++){
+    //     if(Gain(i,0) != 0 && Gain(i,0) != 0){
+    //         cout<<Gain(i,0)<<" | "<<Gain(i,0)<<endl;
+    //     }
+    // }
 
 
     //cout<<"z-zcap = \n"<<z-z_cap<<endl;
@@ -345,8 +345,8 @@ void ExtendedKalmanFilter::runEKF() {
         // cout<<"ObsLM.x = "<<ObservedLandmark.x<<"ObsLM.y = "<<ObservedLandmark.y<<endl;
         // cout<<"EstLM.x = "<<EstimatedLandmark.x<<"EstLM.y = "<<EstimatedLandmark.y<<endl;
         // cout<<"deltaX = "<<deltaX<<" deltaY = "<<deltaY<<" q = "<<q<<endl;
-        // cout<<"z.r = "<<z(0)<<"z.theta = "<<z(1)<<endl;
-        // cout<<"z_cap.r = "<<z_cap(0)<<"z_cap.theta = "<<z_cap(1)<<endl;
+        cout<<"z.r = "<<z(0)<<"z.theta = "<<z(1)<<endl;
+        cout<<"z_cap.r = "<<z_cap(0)<<"z_cap.theta = "<<z_cap(1)<<endl;
 
         getEstimatedObservation(deltaX, deltaY, q);
 
