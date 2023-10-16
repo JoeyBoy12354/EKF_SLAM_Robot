@@ -510,6 +510,76 @@ void simRun4(){
     return;
 }
 
+void simRun5(){
+    ExtendedKalmanFilter ekf;
+    vector<vector<float>> states;
+    vector<float> state;
+    vector<float> groundtruth{ 100, 17.63269806, 10*(PI/180) };
+    
+    ekf.w=0;
+    ekf.distance =0;
+    ekf.TestValues.push_back({800,800});
+    ekf.TestValues.push_back({750,-700});
+    ekf.TestValues.push_back({-1000,-700});
+    simRun(ekf,false);
+
+    //Set distance = 110 and angle = 0
+    //Set true landmark distance = 100 and angle = 10 degrees 
+    //Thus landmarks must converge to (100,17.63269806) | 10
+    
+
+    ekf.w=0;
+    ekf.distance =110;
+    ekf.TestValues.clear();
+    ekf.TestValues.push_back({900,817.63269807});
+    ekf.TestValues.push_back({850,-682.3673019});
+    ekf.TestValues.push_back({-1100,-682.3673019});
+    simRun(ekf,false);
+
+    state.push_back(ekf.State(0));
+    state.push_back(ekf.State(1));
+    state.push_back(ekf.State(2));
+    states.push_back(state);
+
+    cout<<"-----------------------------------------"<<endl;
+
+    for i in range(0,3):
+        ekf.TestValues.clear();
+        ekf.TestValues.push_back({900,817.63269807});
+        ekf.TestValues.push_back({850,-682.3673019});
+        ekf.TestValues.push_back({-1100,-682.3673019});
+        simRun(ekf,true);
+
+        state.clear();
+        state.push_back(ekf.State(0));
+        state.push_back(ekf.State(1));
+        state.push_back(ekf.State(2));
+        states.push_back(state);
+
+
+    //Do stats
+    vector<float> stddev(3,0);
+    vector<float> avg(3,0);
+
+    for(int i=0;i<states.size();i++){
+        avg[0]+=states[j][0];
+        avg[1]+=states[j][1];
+        avg[2]+=states[j][2];
+
+        stddev[0]+= abs(states[j][0] - groundtruth[0]);
+        stddev[1]+= abs(states[j][1] - groundtruth[1]);
+        stddev[2]+= abs(states[j][2] - groundtruth[2]);
+    }
+
+    stddev = stddev/states.size();
+    avg = avg/states.size();
+
+    cout<<"stddev x:"<<stddev[0]<<" y:"<<stddev[1]<<" theta:"<<stddev[2]<<endl;
+    cout<<"avg x:"<<avg[0]<<" y:"<<avg[1]<<" theta:"<<avg[2]<<endl;
+
+    return;
+}
+
 
 
 void testRun(){
@@ -562,7 +632,7 @@ int main() {
 
     //testRun();
     
-    simRun4();
+    simRun5();
   
     return 0;
 }
