@@ -248,9 +248,9 @@ public:
     // float w = -0.12391118;
     // float t = 0.1;
 
-    float sigma_r = 10;//*
+    float sigma_r = 5;//*
     //float sigma_theta = 0.17;//* 
-    float sigma_theta = 0.04;//* 
+    float sigma_theta = 0.06;//* 
     float sigma_odo_x = 0.01;
     float sigma_odo_y = 0.01;
     float sigma_odo_theta = 0.017;
