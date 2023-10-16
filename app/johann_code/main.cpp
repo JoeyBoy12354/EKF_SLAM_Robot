@@ -279,7 +279,68 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalRu
 
 
 
+void simRun2(){
+    ExtendedKalmanFilter ekf;
+    cout<<"sigma_r = "<<ekf.sigma_r<<endl;
+    cout<<"sigma_theta = "<<ekf.sigma_theta<<endl;
+    cout<<"sigma_odo_x = "<<ekf.sigma_odo_x<<endl;
+    cout<<"sigma_odo_y = "<<ekf.sigma_odo_y<<endl;
+    cout<<"sigma_odo_theta = "<<ekf.sigma_odo_theta<<endl;
+    
+    ekf.w=0;
+    ekf.distance =0;
+    ekf.TestValues.push_back({768.848,-625.26});
+    ekf.TestValues.push_back({765.078,893.023});
+    simRun(ekf,false);
 
+    ekf.w=0;
+    ekf.distance =102.10176124166827;
+    ekf.TestValues.clear();
+    ekf.TestValues.push_back({754.029,691.722});
+    ekf.TestValues.push_back({811.1,-597.757});
+    simRun(ekf,false);
+
+    ekf.w=0;
+    ekf.distance =91.89158511750145;
+    ekf.TestValues.clear();
+    ekf.TestValues.push_back({794.409,684.405});
+    ekf.TestValues.push_back({836.933,-594.593});
+    simRun(ekf,false);
+
+    ekf.w=0;
+    ekf.distance =102.10176124166827;
+    ekf.TestValues.clear();
+    ekf.TestValues.push_back({857.585,-599.617});
+    ekf.TestValues.push_back({-1181.81,-635.516});
+    simRun(ekf,false);
+
+    ekf.w=0;
+    ekf.distance =102.10176124166827;
+    ekf.TestValues.clear();
+    ekf.TestValues.push_back({878.672,-569.8});
+    ekf.TestValues.push_back({-1216.67,-650.351});
+    simRun(ekf,false);
+
+    cout<<"-----------------------------------------"<<endl;
+
+    ekf.TestValues.clear();
+    ekf.TestValues.push_back({857.36,-602.621});
+    ekf.TestValues.push_back({-1234.59,-614.237});
+    simRun(ekf,true);
+
+    ekf.TestValues.clear();
+    ekf.TestValues.push_back({843.613,-622.543});
+    ekf.TestValues.push_back({-1261.33,-586.234});
+    simRun(ekf,true);
+
+    ekf.TestValues.clear();
+    ekf.TestValues.push_back({825.285,-648.551});
+    ekf.TestValues.push_back({-1218.59,-556.074});
+    simRun(ekf,true);
+
+    cout<<"SORCERY"<<endl;
+    return;
+}
 
 void simRun(){
     ExtendedKalmanFilter ekf;
@@ -380,9 +441,9 @@ int main() {
     //testMotor();
     //testLidar();
 
-    testRun();
+    //testRun();
     
-    //simRun();
+    simRun2();
   
     return 0;
 }
