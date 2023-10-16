@@ -516,6 +516,7 @@ void simRun5(){
     vector<float> state;
     float x = -50;
     float w = 10*(PI/180);
+    float y = -1*(x/(cos(w)))*sin(w);
 
     vector<float> groundtruth{ x, -1*(x/(cos(w)))*sin(w), w };
     
