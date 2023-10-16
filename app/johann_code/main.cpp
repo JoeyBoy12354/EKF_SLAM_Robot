@@ -289,8 +289,6 @@ void simRun(){
     cout<<"sigma_odo_y = "<<ekf.sigma_odo_y<<endl;
     cout<<"sigma_odo_theta = "<<ekf.sigma_odo_theta<<endl;
     
-    
-
     ekf.w=0;
     ekf.distance =0;
     ekf.TestValues.push_back({793.426,806.399});
