@@ -47,7 +47,7 @@ def evaluate_model(X,y,theta,inlier_threshold):
     return num_inliers
 
 #X,y,max_iters=200,samples_to_fit=2,inlier_threshold=5,min_inliers=35
-def ransac(X,y,max_iters=500,samples_to_fit=2,inlier_threshold=0.15,min_inliers=8):
+def ransac(X,y,max_iters,inlier_threshold,min_inliers,samples_to_fit=2):
 
     best_model=None
     best_model_performance=0
@@ -67,9 +67,8 @@ def ransac(X,y,max_iters=500,samples_to_fit=2,inlier_threshold=0.15,min_inliers=
 
     return best_model
 
-def manager(x_coords,y_coords):
+def manager(x_coords,y_coords,sample_size,max_iters,inlier_thresh,min_inliers):
     #sample_size = 500 #worked well before lowerd lidar points
-    sample_size = 100 #worked well for map1
     num_samples = int(len(x_coords)/sample_size)
     best_models = []
 
@@ -84,7 +83,7 @@ def manager(x_coords,y_coords):
         x = np.array(x)
         #print("x = ",x)
         y = np.array(y)
-        result = ransac(x,y)
+        result = ransac(x,y,max_iters=max_iters,inlier_threshold=inlier_thresh,min_inliers=min_inliers)
         best_models.append(result)
         
 
@@ -183,9 +182,10 @@ def filter_corners(corners,x1,y1,duplicateThresh = 100, closenessThresh = 40):
 
 
 
+
 x1,y1=fetchCoord()
 #print("CD: NoPoints = ",len(x1))
-best_models = manager(x1,y1)
+best_models = manager(x1,y1,sample_size=100,max_iters=200,inlier_thresh=0.15,min_inliers=4)
 #print("CD: NoLines = ",len(best_models))
 corners = find_corners(best_models)
 filtered_corners = filter_corners(corners,x1,y1)

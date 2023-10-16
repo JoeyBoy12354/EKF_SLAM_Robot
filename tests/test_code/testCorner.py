@@ -2,6 +2,7 @@ import csv
 import matplotlib.pyplot as plt
 import numpy as np
 import math
+import time
 
 def fetchCoord(filename):
     x_coord = []
@@ -47,7 +48,7 @@ def evaluate_model(X,y,theta,inlier_threshold):
 
 #1,50
 #in_th = 0.05
-def ransac(X,y,max_iters=500,samples_to_fit=2,inlier_threshold=0.06,min_inliers=7):
+def ransac(X,y,max_iters=500,samples_to_fit=2,inlier_threshold=0.15,min_inliers=8):
 #def ransac(X,y,max_iters=200,samples_to_fit=2,inlier_threshold=8,min_inliers=35):
 
     best_model=None
@@ -68,9 +69,9 @@ def ransac(X,y,max_iters=500,samples_to_fit=2,inlier_threshold=0.06,min_inliers=
 
     return best_model
 
-def manager(x_coords,y_coords,inlier_threshold=0.05,min_inliers=7):
+def manager(x_coords,y_coords,sample_size=100,max_iters=500,inlier_threshold=0.05,min_inliers=7):
     
-    sample_size = 100 # 500 worked well for map1
+    #sample_size = 100 # 500 worked well for map1
     num_samples = int(len(x_coords)/sample_size)
     best_models = []
 
@@ -85,18 +86,19 @@ def manager(x_coords,y_coords,inlier_threshold=0.05,min_inliers=7):
         x = np.array(x)
         #print("x = ",x)
         y = np.array(y)
-        result = ransac(x,y,inlier_threshold=inlier_threshold,min_inliers=min_inliers)
+        result = ransac(x,y,max_iters = max_iters,inlier_threshold=inlier_threshold,min_inliers=min_inliers)
         best_models.append(result)
         
-        
+        # if(len(result) == 0):
 
-        #Plotting
-        m = result[0][0]
-        b = result[1][0]
-        if(i%2==0):
-            plt.plot(x,m*x+b,'b',linewidth=4)
-        else:
-            plt.plot(x,m*x+b,'r',linewidth=4)
+
+        # #Plotting
+        # m = result[0][0]
+        # b = result[1][0]
+        # if(i%2==0):
+        #     plt.plot(x,m*x+b,'b',linewidth=4)
+        # else:
+        #     plt.plot(x,m*x+b,'r',linewidth=4)
 
     return best_models
 
@@ -142,7 +144,7 @@ def find_corners(best_models, angleThresh = 30*np.pi/180):
 
             if(interAngle < np.pi/2+angleThresh and interAngle > np.pi/2-angleThresh):
                 corners.append([x,y])
-                plt.plot(x, y, 'X', label='Points',markersize=20,color='g')
+                #plt.plot(x, y, 'X', label='Points',markersize=20,color='g')
             
             elif(i<len(best_models)-2):
                 #Angle between current and next next
@@ -158,7 +160,7 @@ def find_corners(best_models, angleThresh = 30*np.pi/180):
                 if(ang1 == True and ang2 == True):
                     x,y = calculate_intercept_point(best_models[i],best_models[i+2])
                     corners.append([x,y])
-                    plt.plot(x, y, 'X', label='Points',markersize=20,color='orange')
+                    #plt.plot(x, y, 'X', label='Points',markersize=20,color='orange')
 
     return corners
 
@@ -238,51 +240,112 @@ def perform_stats(corner_sets):
         print("Standard deviation of y-coordinate:", std_dev_y)
 
 
-def brute_force(inlier_thresh,min_inliers):
+def my_stats(corners_sets,corner):
+    
+    
+    distances = []
+
+    for j in range(0,len(corners_sets)):
+            dist_min =1000000
+            for z in range(0,len(corners_sets[j])):
+                corner2 = [corners_sets[j][z][0],corners_sets[j][z][1]]
+                dist = math.sqrt(pow(corner[0] - corner2[0] ,2) + pow(corner[1] - corner2[1] ,2))
+                if(dist<dist_min):
+                    dist_min = dist
+            distances.append(dist_min)
+
+    print(distances)
+    dist_avg = sum(distances)/len(distances)
+    print("AVERAGE DEVIATION = ",dist_avg)
+
+    return dist_avg
+
+                
+
+
+def brute_force(mapCSV,sample_size,max_iters,inlier_thresh,min_inliers):
+    print(mapCSV)
     corner_sets = []
-    for i in range(0,50):
-        x1,y1=fetchCoord('map4.csv')
-        best_models = manager(x1,y1,inlier_thresh,min_inliers)
+    times = []
+    for i in range(0,20):
+        time_start = time.time()
+        x1,y1=fetchCoord(mapCSV)
+        best_models = manager(x1,y1,sample_size,max_iters,inlier_thresh,min_inliers)
         corners = find_corners(best_models)
         filtered_corner = filter_corners(corners,x1,y1)
         corner_sets.append(filtered_corner)
+        times.append(time.time()-time_start)
+        print(i)
+        
+        
+    corner = [corner_sets[0][0][0],corner_sets[0][0][1]]
+    e1 = my_stats(corner_sets,corner)
 
-    perform_stats(corner_sets)
+    corner = [corner_sets[0][1][0],corner_sets[0][1][1]]
+    e2 = my_stats(corner_sets,corner)
 
-
-
-
-
-#brute_force(inlier_thresh=0.15,min_inliers=8)
-
-x1,y1=fetchCoord('map4.csv')
-best_models = manager(x1,y1,inlier_threshold=0.1,min_inliers=8)
-plt.plot(x1, y1, 'o', label='Points',markersize=0.5,color='grey')
-
-corners = find_corners(best_models)
-filtered_corner = filter_corners(corners,x1,y1)
+    e_avg = (e1+e2)/2
+    print("e_avg = ",e_avg)
+    print("time_avg = ",sum(times)/len(times))
 
 
 
-print(filtered_corner)
+#brute_force('map1.csv',sample_size=100,max_iters=200,inlier_thresh=0.15,min_inliers=4)
+brute_force('map2.csv',sample_size=100,max_iters=200,inlier_thresh=0.15,min_inliers=4)
+#brute_force('map3.csv',sample_size=100,max_iters=200,inlier_thresh=0.15,min_inliers=4)
+brute_force('map4.csv',sample_size=100,max_iters=200,inlier_thresh=0.15,min_inliers=4)
+brute_force('map5.csv',sample_size=100,max_iters=200,inlier_thresh=0.15,min_inliers=4)
+brute_force('map6.csv',sample_size=100,max_iters=200,inlier_thresh=0.15,min_inliers=4)
 
-for i in range(0,len(filtered_corner)):
-    plt.plot(filtered_corner[i][0], filtered_corner[i][1], 'X', label='Points',markersize=20,color='k')
+# x1,y1=fetchCoord('map1.csv')
+# best_models = manager(x1,y1,sample_size=100,max_iters=200,inlier_threshold=0.15,min_inliers=4)
+# plt.plot(x1, y1, 'o', label='Points',markersize=0.5,color='grey')
 
-
-# plt.ylim([-300,300])
-# plt.xlim([-300,300])
-plt.ylim([-2500,3000])
-plt.xlim([-5000,1500])
-plt.show()
-
-
-
-
+# corners = find_corners(best_models)
+# filtered_corner = filter_corners(corners,x1,y1)
 
 
 
+# print(filtered_corner)
 
+# for i in range(0,len(filtered_corner)):
+#     plt.plot(filtered_corner[i][0], filtered_corner[i][1], 'X', label='Points',markersize=20,color='k')
+
+
+# # plt.ylim([-300,300])
+# # plt.xlim([-300,300])
+# plt.ylim([-2500,3000])
+# plt.xlim([-5000,1500])
+# plt.show()
+
+
+
+
+
+#max_iters=500,samples_to_fit=2,inlier_threshold=0.15,min_inliers=8, 100 samples
+
+# [0.0, 1.6795418857670543, 1.6024588285219787, 1.7227192175520005, 1.5792777141710888, 1.735168732093464, 1.5400806965457638, 1.714095958040051, 1.886048262317713, 1.539348353613621]
+# AVERAGE DEVIATION =  1.4998739648622734
+# [0.0, 1.3711593239250213, 1.4165041909955283, 1.2686815544415655, 1.2175013046744794, 1.3833955196118533, 0.3963472833197897, 1.3494471652502809, 1.2375097328341806, 1.207178055131322]
+# AVERAGE DEVIATION =  1.0847724130184022
+# e_avg =  1.2923231889403377
+# time_avg =  9.041740822792054
+
+# sample_size=100,max_iters=200,inlier_thresh=0.15,min_inliers=4
+# [0.0, 0.6459454488178182, 0.07610942272824515, 0.2545409382061566, 0.29782761923989093, 0.13865517032738775, 0.021271862680991835, 1.0674948274723868, 0.655211695645616, 0.6482362319941747, 0.2953704379176504, 0.8697181432529707, 0.07247004426869422, 0.1432060654037948, 0.21170868519604297, 0.30692293685258676, 0.6376839545382601, 0.2469799452388555, 0.12857372801943043, 0.6236768967757662]       
+# AVERAGE DEVIATION =  0.36708020272883607
+# [0.0, 0.2850801753448996, 0.16749312054582402, 0.13710180762001747, 1.593684642866083, 1.4913196396321542, 0.3316370596515697, 0.32989369569346905, 1.8290689918403016, 0.962057521474797, 0.17301349019242684, 0.8804122716385442, 1.54282769673374, 0.35180766064713076, 0.8805050696039433, 0.3387959101508535, 0.32771786375983436, 2.0416209958750975, 0.4352370427529045, 0.3632409788065563]
+# AVERAGE DEVIATION =  0.7231257817415074
+# e_avg =  0.5451029922351718
+# time_avg =  3.6853674411773683
+
+# sample_size=50,max_iters=200,inlier_thresh=0.15,min_inliers=4
+# [0.0, 2.294403907496763, 0.6494437832100356, 1.6524816122364505, 0.02444893155445461, 0.037585910399321375, 0.1365174745940637, 0.20750159286545422, 3.4947792255708925, 0.6154582261568483, 0.8847516627717656, 0.45628811996924673, 0.5116233451687628, 0.44448649103389004, 0.537819984785843, 0.13621807576040398, 0.13651747459413702, 1.0862564852640157, 0.03817928374595871, 0.44450504779746813]       
+# AVERAGE DEVIATION =  0.6894633317487889
+# [0.0, 0.4043014487865095, 0.894219624791461, 1.8188596818694627, 0.8122826240958245, 1.8405514241800867, 0.8486385766654658, 0.8400828097302188, 0.8413453128824592, 0.19359576289094532, 0.8100817449485499, 0.8162551624031072, 0.8413453128843952, 0.40058665798235116, 0.9699988471898414, 0.08152501027426365, 0.8459041143231274, 0.12063036340736935, 0.8037540687163622, 0.8127181795685051]
+# AVERAGE DEVIATION =  0.7498338363795154
+# e_avg =  0.7196485840641522
+# time_avg =  7.151280677318573
 
 
 
