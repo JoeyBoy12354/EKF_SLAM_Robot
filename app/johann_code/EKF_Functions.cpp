@@ -110,6 +110,7 @@ void ExtendedKalmanFilter::updateMotion() {
     float dist2 = pointDistance(robot,C);
 
     //I believe this Jacobian's value can be estimated with v = distance/time
+    //In essecence I think this should be the rate of change but yeah they cakculated it originally as just the distance in x and y
     Motion_Jacobian(0,2) = -(distance+dist2)*sin(State(2));
     Motion_Jacobian(1,2) = (distance+dist2)*cos(State(2));
 
@@ -117,7 +118,7 @@ void ExtendedKalmanFilter::updateMotion() {
     //The d_x and d_y from the distance moved forward is then added 
     State(0) = C.x + Cd_x;
     State(1) = C.y + Cd_y;
-    State(2) = State(2) + w;
+    State(2) = State(2) + w;//This is added since we are calculating the new state which is the old + change to get the new.
 
     //cout<<"\nEKF: dist = "<<distance<<"\nEKF: w = "<<w<<"\nEKF: d_x = "<<d_x<<"\nEKF: d_y = "<<d_y<<"\nEKF: d_theta = "<<d_theta<<endl;
     
