@@ -543,7 +543,7 @@ void simRun5(){
 
     cout<<"-----------------------------------------"<<endl;
 
-    for(int i =0;i<3;i++):
+    for(int i =0;i<3;i++){
         ekf.TestValues.clear();
         ekf.TestValues.push_back({900,817.63269807});
         ekf.TestValues.push_back({850,-682.3673019});
@@ -555,6 +555,7 @@ void simRun5(){
         state.push_back(ekf.State(1));
         state.push_back(ekf.State(2));
         states.push_back(state);
+    }
 
 
     //Do stats
