@@ -154,7 +154,7 @@ void ExtendedKalmanFilter::isNewLandmark() {
     float deltaY = ObservedLandmark.y - State(1);
     float q = deltaX*deltaX + deltaY*deltaY;
     z(0) = sqrt(q);
-    z(1) = (PI/2 - atan2(deltaY, deltaX)) - State(2);
+    z(1) = (PI - atan2(deltaY, deltaX)) - State(2);
 
 
     vector<double> Distances;
