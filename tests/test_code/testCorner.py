@@ -47,7 +47,7 @@ def evaluate_model(X,y,theta,inlier_threshold):
 
 #1,50
 #in_th = 0.05
-def ransac(X,y,max_iters=500,samples_to_fit=2,inlier_threshold=0.06,min_inliers=7):
+def ransac(X,y,max_iters=500,samples_to_fit=2,inlier_threshold=0.07,min_inliers=5):
 #def ransac(X,y,max_iters=200,samples_to_fit=2,inlier_threshold=8,min_inliers=35):
 
     best_model=None
