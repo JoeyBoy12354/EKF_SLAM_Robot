@@ -523,6 +523,13 @@ void simRun5(){
     ekf.TestValues.push_back({-1000,-700});
     simRun(ekf,false);
 
+    ekf.w=0;
+    ekf.distance =0;
+    ekf.TestValues.push_back({800,800});
+    ekf.TestValues.push_back({750,-700});
+    ekf.TestValues.push_back({-1000,-700});
+    simRun(ekf,false);
+
     //Set distance = 110 and angle = 0
     //Set true landmark distance = 100 and angle = 10 degrees 
     //Thus landmarks must converge to (100,17.63269806) | 10
