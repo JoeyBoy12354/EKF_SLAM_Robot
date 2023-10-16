@@ -177,7 +177,7 @@ void simRun(ExtendedKalmanFilter& ekf, bool final){
     //Run EKF
     ekf.runEKF();
 
-    cout<<"MAIN: after_ekf State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+    cout<<"MAIN: after_ekf State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<" NO LM = "<<ekf.State.size()-3<<endl;
 
     // for(int i =3;i<dim;i=i+2){
     //     if(ekf.State[i] != 0 && ekf.State[i+1] != 0){
@@ -556,7 +556,7 @@ void simRun5(){
 
     cout<<"-----------------------------------------"<<endl;
 
-    for(int i =0;i<10;i++){
+    for(int i =0;i<30;i++){
         ekf.TestValues.clear();
         ekf.TestValues.push_back(LM1);
         ekf.TestValues.push_back(LM2);
