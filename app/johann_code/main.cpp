@@ -543,7 +543,7 @@ void simRun5(){
 
     cout<<"-----------------------------------------"<<endl;
 
-    for i in range(0,3):
+    for(int i =0;i<3;i++):
         ekf.TestValues.clear();
         ekf.TestValues.push_back({900,817.63269807});
         ekf.TestValues.push_back({850,-682.3673019});
@@ -562,13 +562,13 @@ void simRun5(){
     vector<float> avg(3,0);
 
     for(int i=0;i<states.size();i++){
-        avg[0]+=states[j][0];
-        avg[1]+=states[j][1];
-        avg[2]+=states[j][2];
+        avg[0]+=states[i][0];
+        avg[1]+=states[i][1];
+        avg[2]+=states[i][2];
 
-        stddev[0]+= abs(states[j][0] - groundtruth[0]);
-        stddev[1]+= abs(states[j][1] - groundtruth[1]);
-        stddev[2]+= abs(states[j][2] - groundtruth[2]);
+        stddev[0]+= abs(states[i][0] - groundtruth[0]);
+        stddev[1]+= abs(states[i][1] - groundtruth[1]);
+        stddev[2]+= abs(states[i][2] - groundtruth[2]);
     }
 
     cout<<"stddev x:"<<stddev[0]/states.size()<<" y:"<<stddev[1]/states.size()<<" theta:"<<stddev[2]/states.size()<<endl;
