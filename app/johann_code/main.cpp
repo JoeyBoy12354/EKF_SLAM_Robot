@@ -515,10 +515,10 @@ void simRun5(){
     vector<vector<float>> states;
     vector<float> state;
     float x = -50;
-    float w = 10*(PI/180);
-    float y = -1*(x/(cos(w)))*sin(w);
+    float w = -10*(PI/180);
+    float y = (x/(cos(w)))*sin(w);
 
-    vector<float> groundtruth{ x, -1*(x/(cos(w)))*sin(w), w };
+    vector<float> groundtruth{ x, y, w };
     
     ekf.w=0;
     ekf.distance =0;
@@ -556,7 +556,7 @@ void simRun5(){
 
     cout<<"-----------------------------------------"<<endl;
 
-    for(int i =0;i<1;i++){
+    for(int i =0;i<30;i++){
         ekf.TestValues.clear();
         ekf.TestValues.push_back(LM1);
         ekf.TestValues.push_back(LM2);
