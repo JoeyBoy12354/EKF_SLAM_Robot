@@ -272,17 +272,17 @@ void ExtendedKalmanFilter::getGainMatrix() {
 
 // Update State Matrix with new landmark
 void ExtendedKalmanFilter::updateStateOfLandmark() {
-    // cout<<"\nGain = "<<endl;
-    // for(int i =0;i<dim;i++){
-    //     if(Gain(i,0) != 0 && Gain(i,0) != 0){
-    //         cout<<Gain(i,0)<<" | "<<Gain(i,0)<<endl;
-    //     }
-    // }
+    cout<<"\nGain = "<<endl;
+    for(int i =0;i<dim;i++){
+        if(Gain(i,0) != 0 && Gain(i,0) != 0){
+            cout<<Gain(i,0)<<" | "<<Gain(i,0)<<endl;
+        }
+    }
 
 
     // //cout<<"z-zcap = \n"<<z-z_cap<<endl;
 
-    // cout<<"(z-z_cap).r = "<<(z-z_cap)(0)<<"(z-z_cap).theta = "<<(z-z_cap)(1)*180/PI<<endl;
+    cout<<"(z-z_cap).r = "<<(z-z_cap)(0)<<"(z-z_cap).theta = "<<(z-z_cap)(1)*180/PI<<endl;
     
     //Matrix<float, dim, 1> Gain2 = Gain*(z-z_cap);
     // cout<<"gain* (z-zcap) = \n"<<endl;
@@ -302,13 +302,13 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
 
     State = State + Gain*(z-z_cap);
     
-    // cout<<"\n EKF: State2: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
-    // for(int i =3;i<dim;i=i+2){
-    //     if(State[i] != 0 && State[i+1] != 0){
-    //         cout<<"("<<State[i]<<","<<State[i+1]<<") | ";
-    //     }
-    // }
-    // cout<<endl;
+    cout<<"\n EKF: State2: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
+    for(int i =3;i<dim;i=i+2){
+        if(State[i] != 0 && State[i+1] != 0){
+            cout<<"("<<State[i]<<","<<State[i+1]<<") | ";
+        }
+    }
+    cout<<endl;
 
     angleInBounds(State(2));
     }
