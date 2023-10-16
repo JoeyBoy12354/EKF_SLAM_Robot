@@ -272,19 +272,19 @@ void ExtendedKalmanFilter::getGainMatrix() {
 
 // Update State Matrix with new landmark
 void ExtendedKalmanFilter::updateStateOfLandmark() {
-    cout<<"\nGain = "<<endl;
-    for(int i =0;i<dim;i++){
-        if(Gain(i,0) != 0 && Gain(i,0) != 0){
-            cout<<Gain(i,0)<<" | "<<Gain(i,0)<<endl;
-        }
-    }
+    // cout<<"\nGain = "<<endl;
+    // for(int i =0;i<dim;i++){
+    //     if(Gain(i,0) != 0 && Gain(i,0) != 0){
+    //         cout<<Gain(i,0)<<" | "<<Gain(i,0)<<endl;
+    //     }
+    // }
 
 
-    //cout<<"z-zcap = \n"<<z-z_cap<<endl;
+    // //cout<<"z-zcap = \n"<<z-z_cap<<endl;
 
-    cout<<"(z-z_cap).r = "<<(z-z_cap)(0)<<"(z-z_cap).theta = "<<(z-z_cap)(1)*180/PI<<endl;
+    // cout<<"(z-z_cap).r = "<<(z-z_cap)(0)<<"(z-z_cap).theta = "<<(z-z_cap)(1)*180/PI<<endl;
     
-    Matrix<float, dim, 1> Gain2 = Gain*(z-z_cap);
+    //Matrix<float, dim, 1> Gain2 = Gain*(z-z_cap);
     // cout<<"gain* (z-zcap) = \n"<<endl;
     // for(int i =0;i<dim;i++){
     //     if(Gain2[i] != 0){
@@ -302,13 +302,13 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
 
     State = State + Gain*(z-z_cap);
     
-    cout<<"\n EKF: State2: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
-    for(int i =3;i<dim;i=i+2){
-        if(State[i] != 0 && State[i+1] != 0){
-            cout<<"("<<State[i]<<","<<State[i+1]<<") | ";
-        }
-    }
-    cout<<endl;
+    // cout<<"\n EKF: State2: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
+    // for(int i =3;i<dim;i=i+2){
+    //     if(State[i] != 0 && State[i+1] != 0){
+    //         cout<<"("<<State[i]<<","<<State[i+1]<<") | ";
+    //     }
+    // }
+    // cout<<endl;
 
     angleInBounds(State(2));
     }
@@ -361,12 +361,12 @@ void ExtendedKalmanFilter::runEKF() {
         z_cap(0) = sqrt(q);
         z_cap(1) = (PI - atan2(deltaY, deltaX)) - State(2);
 
-        cout<<"\n i = "<<i<<endl;
-        cout<<"ObsLM.x = "<<ObservedLandmark.x<<"ObsLM.y = "<<ObservedLandmark.y<<endl;
-        cout<<"EstLM.x = "<<EstimatedLandmark.x<<"EstLM.y = "<<EstimatedLandmark.y<<endl;
-        // cout<<"deltaX = "<<deltaX<<" deltaY = "<<deltaY<<" q = "<<q<<endl;
-        cout<<"z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
-        cout<<"z_cap.r = "<<z_cap(0)<<"z_cap.theta = "<<z_cap(1)*180/PI<<endl;
+        // cout<<"\n i = "<<i<<endl;
+        // cout<<"ObsLM.x = "<<ObservedLandmark.x<<"ObsLM.y = "<<ObservedLandmark.y<<endl;
+        // cout<<"EstLM.x = "<<EstimatedLandmark.x<<"EstLM.y = "<<EstimatedLandmark.y<<endl;
+        // // cout<<"deltaX = "<<deltaX<<" deltaY = "<<deltaY<<" q = "<<q<<endl;
+        // cout<<"z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
+        // cout<<"z_cap.r = "<<z_cap(0)<<"z_cap.theta = "<<z_cap(1)*180/PI<<endl;
 
         //getEstimatedObservation(deltaX, deltaY, q);
 
