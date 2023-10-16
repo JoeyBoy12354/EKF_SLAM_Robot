@@ -519,9 +519,9 @@ int main() {
     //testMotor();
     //testLidar();
 
-    //testRun();
+    testRun();
     
-    simRun3();
+    //simRun3();
   
     return 0;
 }
