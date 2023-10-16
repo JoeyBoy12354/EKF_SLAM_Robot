@@ -40,7 +40,7 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     //Covariance.setIdentity();
 
     //Use initialLandmarkCovariance_AtSi;
-    float test = 100;
+    float test = 1000;
     Covariance.setZero();
     for (int n = 3; n < dim; n++) {
         Covariance(n, n) = test;
