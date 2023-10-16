@@ -334,8 +334,10 @@ void ExtendedKalmanFilter::runEKF() {
     // Correction step
     //vector<CarPoint> landmarks = observeEnvironment();
     vector<CarPoint> landmarks = TestValues;
-    // cout<<"size = "<<landmarks.size()<<endl;
-    // cout<<"landmarks = "<<landmarks[0]<<landmarks[1]<<endl;
+    cout<<"size = "<<landmarks.size()<<endl;
+    for(int i =0;i<landmarks.size();i++)
+        cout<<"landmarks = "<<landmarks[i];
+    cout<<endl;
     // landmarks = Simulation_Functions::landmarkNoise(landmarks);
 
     //cout<<"LANDMARKS = "<<fixed<<setprecision(10)<<landmarks[0]<<landmarks[1]<<landmarks[2]<<landmarks[3]<<endl;
