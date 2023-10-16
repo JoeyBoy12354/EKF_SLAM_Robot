@@ -8,3 +8,6 @@ float sigma_odo_theta = 0.017;
 sample_size=100,max_iters=200,inlier_thresh=0.4,min_inliers=5
 
 Run was basically perfect odomotrey wise, the robot seemed to be exactly where it should physically.
+
+README
+EKF landmarks were changed to be 180-atan2(deltaY,deltaX)
