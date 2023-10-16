@@ -525,6 +525,7 @@ void simRun5(){
 
     ekf.w=0;
     ekf.distance =0;
+    ekf.TestValues.clear();
     ekf.TestValues.push_back({800,800});
     ekf.TestValues.push_back({750,-700});
     ekf.TestValues.push_back({-1000,-700});
@@ -550,7 +551,7 @@ void simRun5(){
 
     cout<<"-----------------------------------------"<<endl;
 
-    for(int i =0;i<3;i++){
+    for(int i =0;i<1;i++){
         ekf.TestValues.clear();
         ekf.TestValues.push_back({900,817.63269807});
         ekf.TestValues.push_back({850,-682.3673019});
