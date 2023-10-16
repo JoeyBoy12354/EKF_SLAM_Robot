@@ -11,3 +11,6 @@ Run was basically perfect odomotrey wise, the robot seemed to be exactly where i
 
 README
 EKF landmarks were changed to be 180-atan2(deltaY,deltaX)
+
+README 26
+Covariance initialization from 1 ->10

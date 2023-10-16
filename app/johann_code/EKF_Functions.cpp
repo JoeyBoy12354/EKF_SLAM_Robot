@@ -26,10 +26,14 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     // Motion_Noise(2,2) = 0.0001;
 
     //Covariance.setIdentity();
+
+    //Use initialLandmarkCovariance_AtSi;
+    float test = 10;
     Covariance.setZero();
     for (int n = 3; n < dim; n++) {
-        Covariance(n, n) = initialLandmarkCovariance_AtSi;
+        Covariance(n, n) = test;
     }
+    cout<<"initialLandmarkCovariance = "<<test<<endl;
 
 
     Coordinate_Uncertainty << sigma_r*sigma_r, 0,
