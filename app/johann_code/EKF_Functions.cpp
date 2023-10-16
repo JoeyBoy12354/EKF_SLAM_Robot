@@ -364,12 +364,12 @@ void ExtendedKalmanFilter::runEKF() {
         z_cap(0) = sqrt(q);
         z_cap(1) = (PI - atan2(deltaY, deltaX)) - State(2);
 
-        // cout<<"\n i = "<<i<<endl;
-        // cout<<"ObsLM.x = "<<ObservedLandmark.x<<"ObsLM.y = "<<ObservedLandmark.y<<endl;
-        // cout<<"EstLM.x = "<<EstimatedLandmark.x<<"EstLM.y = "<<EstimatedLandmark.y<<endl;
-        // // cout<<"deltaX = "<<deltaX<<" deltaY = "<<deltaY<<" q = "<<q<<endl;
-        // cout<<"z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
-        // cout<<"z_cap.r = "<<z_cap(0)<<"z_cap.theta = "<<z_cap(1)*180/PI<<endl;
+        cout<<"\n i = "<<i<<endl;
+        cout<<"ObsLM.x = "<<ObservedLandmark.x<<"ObsLM.y = "<<ObservedLandmark.y<<endl;
+        cout<<"EstLM.x = "<<EstimatedLandmark.x<<"EstLM.y = "<<EstimatedLandmark.y<<endl;
+        // cout<<"deltaX = "<<deltaX<<" deltaY = "<<deltaY<<" q = "<<q<<endl;
+        cout<<"z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
+        cout<<"z_cap.r = "<<z_cap(0)<<"z_cap.theta = "<<z_cap(1)*180/PI<<endl;
 
         //getEstimatedObservation(deltaX, deltaY, q);
 
