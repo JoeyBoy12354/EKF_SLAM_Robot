@@ -153,7 +153,7 @@ void ExtendedKalmanFilter::isNewLandmark() {
     float deltaY = ObservedLandmark.y - State(1);
     float q = deltaX*deltaX + deltaY*deltaY;
     z(0) = sqrt(q);
-    z(1) = atan2(deltaY,deltaX) - State(2);
+    z(1) = (PI/2 - atan2(deltaY, deltaX)) - State(2);
 
 
     vector<double> Distances;
@@ -211,7 +211,7 @@ void ExtendedKalmanFilter::getEstimatedObservation(float deltaX, float deltaY, f
     // float deltaY = EstimatedLandmark.y - State(1);
     // float q = deltaX * deltaX + deltaY * deltaY;
     z_cap(0) = sqrt(q);
-    z_cap(1) = atan2(deltaY,deltaX) - State[2];
+    z_cap(1) = (PI/2 - atan2(deltaY, deltaX)) - State[2];
 }
 
 void ExtendedKalmanFilter::getEstimatedObservationJacobian(float deltaX, float deltaY, float q) {
@@ -342,7 +342,7 @@ void ExtendedKalmanFilter::runEKF() {
         float deltaY = EstimatedLandmark.y - State(1);
         float q = deltaX * deltaX + deltaY * deltaY;
         z_cap(0) = sqrt(q);
-        z_cap(1) = atan2(deltaY, deltaX) - State(2);
+        z_cap(1) = (PI/2 - atan2(deltaY, deltaX)) - State(2);
 
         cout<<"\n i = "<<i<<endl;
         cout<<"ObsLM.x = "<<ObservedLandmark.x<<"ObsLM.y = "<<ObservedLandmark.y<<endl;
@@ -351,7 +351,7 @@ void ExtendedKalmanFilter::runEKF() {
         cout<<"z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
         cout<<"z_cap.r = "<<z_cap(0)<<"z_cap.theta = "<<z_cap(1)*180/PI<<endl;
 
-        getEstimatedObservation(deltaX, deltaY, q);
+        //getEstimatedObservation(deltaX, deltaY, q);
 
         getEstimatedObservationJacobian(deltaX, deltaY, q);
         //cout << "\nLINE 4\nz_cap =\n" << z_cap << "\nH =\n" << Observation_Jacobian << "\nH_T =\n" << Observation_Jacobian.transpose() << "\n";
