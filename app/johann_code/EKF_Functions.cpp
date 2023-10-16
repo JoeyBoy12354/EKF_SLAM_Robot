@@ -10,16 +10,28 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     State.setZero();
     Motion_Jacobian.setIdentity();
 
-    cout<<"INIT_sigma_r = "<<sigma_r<<endl;
-    cout<<"INIT_sigma_theta = "<<sigma_theta<<endl;
-    cout<<"INIT_sigma_odo_x = "<<sigma_odo_x<<endl;
-    cout<<"INIT_sigma_odo_y = "<<sigma_odo_y<<endl;
-    cout<<"INIT_sigma_odo_theta = "<<sigma_odo_theta<<endl;
+    float test_sigma_r = 7;//*
+    float test_sigma_theta = 0.07;//* 
+    float test_sigma_odo_x = 0.01;
+    float test_sigma_odo_y = 0.01;
+    float test_sigma_odo_theta = 0.017;
+
+    cout<<"INIT_sigma_r = "<<test_sigma_r<<endl;
+    cout<<"INIT_sigma_theta = "<<test_sigma_theta<<endl;
+    cout<<"INIT_sigma_odo_x = "<<test_sigma_odo_x<<endl;
+    cout<<"INIT_sigma_odo_y = "<<test_sigma_odo_y<<endl;
+    cout<<"INIT_sigma_odo_theta = "<<test_sigma_odo_theta<<endl;
+
+
 
     Motion_Noise.setZero();
-    Motion_Noise(0,0) = sigma_odo_x*sigma_odo_x;
-    Motion_Noise(1,1) = sigma_odo_y*sigma_odo_y;
-    Motion_Noise(2,2) = sigma_theta*sigma_odo_theta;
+    Motion_Noise(0,0) = test_sigma_odo_x*test_sigma_odo_x;
+    Motion_Noise(1,1) = test_sigma_odo_y*test_sigma_odo_y;
+    Motion_Noise(2,2) = test_sigma_theta*test_sigma_odo_theta;
+
+    // Motion_Noise(0,0) = sigma_odo_x*sigma_odo_x;
+    // Motion_Noise(1,1) = sigma_odo_y*sigma_odo_y;
+    // Motion_Noise(2,2) = sigma_theta*sigma_odo_theta;
 
     // Motion_Noise(0,0) = 0.0001;
     // Motion_Noise(1,1) = 0.0001;

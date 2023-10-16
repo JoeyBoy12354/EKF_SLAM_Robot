@@ -468,6 +468,47 @@ void simRun3(){
     return;
 }
 
+void simRun4(){
+    ExtendedKalmanFilter ekf;
+    
+    ekf.w=0;
+    ekf.distance =0;
+    ekf.TestValues.push_back({763.226,821.155});
+    ekf.TestValues.push_back({-1027.73,1024.49});
+    ekf.TestValues.push_back({768.733,-702.785});
+    simRun(ekf,false);
+
+    ekf.w=0;
+    ekf.distance = 20;
+    ekf.TestValues.clear();
+    ekf.TestValues.push_back({763.226,821.155});
+    ekf.TestValues.push_back({-1027.73,1024.49});
+    ekf.TestValues.push_back({768.733,-702.785});
+    simRun(ekf,false);
+
+    cout<<"-----------------------------------------"<<endl;
+
+    ekf.TestValues.clear();
+    ekf.TestValues.push_back({763.226,821.155});
+    ekf.TestValues.push_back({-1027.73,1024.49});
+    ekf.TestValues.push_back({768.733,-702.785});
+    simRun(ekf,true);
+
+    ekf.TestValues.clear();
+    ekf.TestValues.push_back({763.226,821.155});
+    ekf.TestValues.push_back({-1027.73,1024.49});
+    ekf.TestValues.push_back({768.733,-702.785});
+    simRun(ekf,true);
+
+    ekf.TestValues.clear();
+    ekf.TestValues.push_back({763.226,821.155});
+    ekf.TestValues.push_back({-1027.73,1024.49});
+    ekf.TestValues.push_back({768.733,-702.785});
+    simRun(ekf,true);
+
+    cout<<"SORCERY"<<endl;
+    return;
+}
 
 
 
@@ -519,9 +560,9 @@ int main() {
     //testMotor();
     //testLidar();
 
-    testRun();
+    //testRun();
     
-    //simRun3();
+    simRun4();
   
     return 0;
 }
