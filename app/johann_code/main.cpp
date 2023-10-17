@@ -236,7 +236,7 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalRu
         if(error == false){
             //Predict Position
             if(finalRun <= 1){
-                ekf.updateMotion();
+                //ekf.updateMotion();
             }
 
             cout<<"\n MAIN: after_motion State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
@@ -278,7 +278,7 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalRu
             //motorDataProcessing(ekf.w,ekf.distance);//Send odometry to ekf
             if(finalRun == 0){
                 mapped = updateMovementGrid(ekf.State,gridNew,ekf.lidar_x,ekf.lidar_y);// Move the robot to the location
-                //motorDataProcessing(ekf.w,ekf.distance);
+                motorDataProcessing(ekf.w,ekf.distance);
             }
             
             //motorControlGrid(ekf.w,ekf.distance);//Send odometry to ekf
