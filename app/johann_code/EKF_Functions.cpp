@@ -57,8 +57,8 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     cout<<"initialLandmarkCovariance = "<<test<<endl;
 
 
-    Coordinate_Uncertainty << sigma_r*sigma_r, 0,
-                                0,               sigma_theta*sigma_theta;
+    Coordinate_Uncertainty << test_sigma_r*test_sigma_r, 0,
+                                0,               test_sigma_theta*test_sigma_theta;
 
     F.setZero();
     F(0,0) = 1;
