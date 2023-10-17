@@ -305,7 +305,7 @@ void ExtendedKalmanFilter::calculateNoise(){
         Matrix<float, dim, 1> Gain2 = Gain*delta_z;
 
 
-        if( (min_error_x > abs(Gain2(0) +State(0)))) && (min_error_y > abs(Gain2(1) +State(1))) && (min_error_theta > abs(Gain2(2) +State(2))){
+        if( (min_error_x > abs(Gain2(0) +State(0))) && (min_error_y > abs(Gain2(1) +State(1))) && (min_error_theta > abs(Gain2(2) +State(2))){
             min_error_x = abs(Gain2(0) +State(0));
             min_error_y = abs(Gain2(1) +State(1));
             min_error_theta = abs(Gain2(2) +State(2));
