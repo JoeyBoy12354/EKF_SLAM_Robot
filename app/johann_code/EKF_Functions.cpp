@@ -287,7 +287,7 @@ void ExtendedKalmanFilter::calculateNoise(){
     float best_r1=1.23456;
     float best_r2=1.23456;
 
-    
+    Matrix<float, 2, 1> delta_z = z-z_cap;
     for(int i =0;i<10;i++){
         // Generate random float values between 0 and 10 with up to 2 decimal places
         srand(static_cast<unsigned>(time(nullptr)));
@@ -298,7 +298,8 @@ void ExtendedKalmanFilter::calculateNoise(){
         Coordinate_Uncertainty << random1*random1, 0,
                                     0, random2*random2;
 
-        Matrix<float, 2, 1> delta_z = z-z_cap;
+        
+
         Matrix<float,2,2> Gainx = Observation_Jacobian*Covariance*(Observation_Jacobian.transpose()) + Coordinate_Uncertainty;  
         Gain = Covariance*Observation_Jacobian.transpose() * Gainx.inverse();
         Matrix<float, dim, 1> Gain2 = Gain*delta_z;
