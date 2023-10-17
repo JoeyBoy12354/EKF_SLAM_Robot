@@ -323,6 +323,17 @@ void ExtendedKalmanFilter::calculateNoise(){
     cout<<"error_x = "<<min_error_x<<endl;
     cout<<"error_y = "<<min_error_y<<endl;
     cout<<"error_theta = "<<min_error_theta<<endl;
+
+    Coordinate_Uncertainty << best_r1*best_r1, 0,
+                                0, best_r2*best_r2;
+
+    Matrix<float,2,2> Gainx = Observation_Jacobian*Covariance*(Observation_Jacobian.transpose()) + Coordinate_Uncertainty;  
+    Gain = Covariance*Observation_Jacobian.transpose() * Gainx.inverse();
+    Matrix<float, dim, 1> Gain2 = Gain*delta_z;
+
+    cout<<"poss x = "<<State(0)+Gain2(0)<<endl;
+    cout<<"poss y = "<<State(1)+Gain2(1)<<endl;
+    cout<<"poss theta = "<<State(2)+Gain2(2)<<endl;
     
 }
 
