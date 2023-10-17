@@ -18,11 +18,11 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     // float test_sigma_odo_x = 0.01;
     // float test_sigma_odo_y = 0.01;
     // float test_sigma_odo_theta = 0.017;
-    float test_sigma_r = 100
-    float test_sigma_theta = 0.1
-    float test_sigma_odo_x = 0.01
-    float test_sigma_odo_y = 0.01
-    float test_sigma_odo_theta = 0.017
+    float test_sigma_r = 100;
+    float test_sigma_theta = 0.1;
+    float test_sigma_odo_x = 0.01;
+    float test_sigma_odo_y = 0.01;
+    float test_sigma_odo_theta = 0.017;
 
 
     cout<<"INIT_sigma_r = "<<test_sigma_r<<endl;
@@ -361,12 +361,12 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     Matrix<float, dim, 1> Gain2 = Gain*(z-z_cap);
     
     //delta_z(1) = delta_z(1)*-1;
-    // cout<<"gain* (z-zcap) = \n"<<endl;
-    // for(int i =0;i<dim;i++){
-    //     if(Gain2[i] != 0){
-    //         cout<<Gain2[i]<<endl;
-    //     }
-    // }
+    cout<<"gain* (z-zcap) = \n"<<endl;
+    for(int i =0;i<dim;i++){
+        if(Gain2[i] != 0){
+            cout<<Gain2[i]<<endl;
+        }
+    }
     // if(z(1)-z_cap(1)!=0){
     //     cout<<"testing values"<<endl;
     //     calculateNoise();
