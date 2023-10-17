@@ -580,7 +580,7 @@ void simRun5(){
 
     cout<<"-----------------------------------------"<<endl;
 
-    for(int i =0;i<1000;i++){
+    for(int i =0;i<1;i++){
         ekf.TestValues.clear();
         ekf.TestValues.push_back(LM1);
         ekf.TestValues.push_back(LM2);
