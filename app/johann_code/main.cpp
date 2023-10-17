@@ -638,9 +638,9 @@ void testRun(){
     ExtendedKalmanFilter ekf;
     bool mapped = false;
     bool firstRun = true;
-    int finalRun = 0;
+    int finalRun = 1; // re,e,ber to change back to 0
 
-    calibrateMotors();
+    //calibrateMotors();
     
     for(int i =0;i<3;i++){
         cout<<"\n i = "<<i<<endl;
@@ -685,9 +685,9 @@ int main() {
     //testMotor();
     //testLidar();
 
-    //testRun();
+    testRun();
     
-    testLidarLandmark();
+    //testLidarLandmark();
     //simRun5();
   
     return 0;
