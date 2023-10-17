@@ -395,7 +395,7 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     
     Gain2(1) = -Gain(1);
     if(delta_z(1)*Gain2[2]<0 ){
-        //Gain2(2) = -Gain(2);
+        Gain2(2) = -Gain(2);
         cout<<"angle update opposite"<<endl;
     }
     if((ObservedLandmark.x-EstimatedLandmark.x)*Gain2[0] < 0){
