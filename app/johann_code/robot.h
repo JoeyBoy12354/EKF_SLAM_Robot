@@ -14,6 +14,8 @@
 #include <numeric>
 #include <algorithm>
 
+#include <unistd.h >
+
 
 //Lidar Functions Includes
 #include <stdio.h>
