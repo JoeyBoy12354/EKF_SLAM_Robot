@@ -566,7 +566,7 @@ void simRun5(){
     
 
     ekf.w=0;
-    ekf.distance =60;
+    ekf.distance =0;
     ekf.TestValues.clear();
     ekf.TestValues.push_back(LM1);
     ekf.TestValues.push_back(LM2);
