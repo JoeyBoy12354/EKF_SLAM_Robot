@@ -354,8 +354,9 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
 
     cout<<"(z-z_cap).r = "<<(z-z_cap)(0)<<"(z-z_cap).theta = "<<(z-z_cap)(1)*180/PI<<endl;
     
-    Matrix<float, dim, 1> Gain2 = Gain*(z-z_cap);
     Matrix<float, 2, 1> delta_z = z-z_cap;
+    Matrix<float, dim, 1> Gain2 = Gain*(z-z_cap);
+    
     //delta_z(1) = delta_z(1)*-1;
     // cout<<"gain* (z-zcap) = \n"<<endl;
     // for(int i =0;i<dim;i++){
@@ -377,26 +378,27 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     // cout<<endl;
 
     if(abs(Gain2(0))>abs(delta_z(0)*cos(delta_z(1))) ){
-        cout<<"ForceChange Gain to 1 x_value"<<endl;
+        cout<<"ForceChange Gain to 1 x_value: "<<delta_z(0)*sin(delta_z(1))<<endl;
         Gain2(0) = -delta_z(0)*cos(delta_z(1));
 
 
     } 
     if( abs(Gain2(1))>abs(delta_z(0)*sin(delta_z(1))) ){
-        cout<<"ForceChange Gain to 1 y_value"<<endl;
+        cout<<"ForceChange Gain to 1 y_value: "<<delta_z(0)*sin(delta_z(1))<<endl;
         Gain2(1) = delta_z(0)*sin(delta_z(1));
     } 
     if(abs(Gain2(2))>delta_z(1)){
-        cout<<"ForceChange Gain to 1 theta_value"<<endl;
+        cout<<"ForceChange Gain to 1 theta_value: "<<delta_z(1)<<endl;
         
         Gain2(2) = delta_z(1);
     }
 
-    State = State + Gain*(z-z_cap);
+    //State = State + Gain*(z-z_cap);
+    State = State + Gain2;
     //State = State + Gain*(delta_z);
     //State = State + Gain*(z-z_cap);
     
-    // cout<<"\n EKF: State2: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
+    cout<<"\n EKF: State2: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
     // for(int i =3;i<dim;i=i+2){
     //     if(State[i] != 0 && State[i+1] != 0){
     //         cout<<"("<<State[i]<<","<<State[i+1]<<") | ";
