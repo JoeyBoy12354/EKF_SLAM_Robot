@@ -632,7 +632,7 @@ void testRun(){
     }
 
     finalRun = 1;
-    for(int i =0;i<4;i++){
+    for(int i =0;i<5;i++){
         cout<<"\n i = "<<"FINALRUN "<<i<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
         fullRun(ekf,mapped,firstRun,finalRun);
@@ -661,9 +661,9 @@ int main() {
     //testMotor();
     //testLidar();
 
-    //testRun();
+    testRun();
     
-    simRun5();
+    //simRun5();
   
     return 0;
 }

@@ -293,7 +293,7 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     
     Matrix<float, dim, 1> Gain2 = Gain*(z-z_cap);
     Matrix<float, 2, 1> delta_z = z-z_cap;
-    delta_z(1) = delta_z(1)*-1;
+    //delta_z(1) = delta_z(1)*-1;
     // cout<<"gain* (z-zcap) = \n"<<endl;
     // for(int i =0;i<dim;i++){
     //     if(Gain2[i] != 0){
@@ -348,8 +348,8 @@ void ExtendedKalmanFilter::runEKF() {
     //cout << "\nLINE 3\nGt =\n" << Motion_Jacobian << "\nmotion_Noise =\n" << Motion_Noise << "\nSigma =\n" << Covariance << "\n";
 
     // Correction step
-    //vector<CarPoint> landmarks = observeEnvironment();
-    vector<CarPoint> landmarks = TestValues;
+    vector<CarPoint> landmarks = observeEnvironment();
+    //vector<CarPoint> landmarks = TestValues;
     // cout<<"size = "<<landmarks.size()<<endl;
     // cout<<"landmarks = "<<endl;
     // for(int i =0;i<landmarks.size();i++)
