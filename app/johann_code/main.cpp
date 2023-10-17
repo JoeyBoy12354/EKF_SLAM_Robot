@@ -132,6 +132,9 @@ void testLidarLandmark(){
 
             //cout<<"\n MAIN: after_motion State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
             //cout << "\nEKF 6\nState =\n" << ekf.State << "\n";
+            ExtendedKalmanFilter ekf;
+
+
 
             //Process Data
             vector<CarPoint> carPoints;
