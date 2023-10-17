@@ -157,6 +157,9 @@ namespace CSV_Functions{
     //Triangle
     void saveTriangleToCSV(vector<CarPoint> triangle);
 
+    //Stats
+    void saveStatsToCSV(vector<vector<float>> states);
+
 
 }
 

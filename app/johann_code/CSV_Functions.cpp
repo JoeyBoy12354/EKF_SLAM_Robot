@@ -12,6 +12,7 @@ string gridCSV = "gridCSV.csv";
 string sectionCSV = "sectionCSV.csv";
 string triangleCSV = "triangleCSV.csv";
 string motorStateCSV = "motorStateCSV.csv";
+string statsCSV = "statsCSV.csv";
 
 
 namespace CSV_Functions{
@@ -429,6 +430,24 @@ namespace CSV_Functions{
 
         outputFile.close();
 
+    }
+
+    //Stats
+    void saveStatsToCSV(vector<vector<float>> states){
+        ofstream outputFile(statsCSV, ios::trunc);  // Open the file in truncation mode to clear its contents
+        if (!outputFile.is_open()) {
+            cerr << "Error opening the file: " << gridCSV << endl;
+            return;
+        }
+
+        // Write the data to the CSV file
+        for (int i=0;i<states.size();i++) {
+            outputFile << "\n";
+            outputFile << states[i][0] << "," << states[i][1] << "," << states[i][2] <<"\n";
+        }
+
+        outputFile.close();
+        return;
     }
 
 }
