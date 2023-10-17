@@ -618,7 +618,7 @@ void simRun5(){
     cout<<"gt x:"<<groundtruth[0]<<"  gt y:"<<groundtruth[1]<<"  gt theta:"<<groundtruth[2]*180/PI<<endl;
 
     int ret;
-    ret = system("python3 stats.py ok go");
+    ret = system("python stats.py ok go");
 
     cout << "ret/cpp = " << ret << endl;
 
