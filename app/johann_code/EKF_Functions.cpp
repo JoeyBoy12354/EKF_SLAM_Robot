@@ -15,12 +15,12 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
 
     float test_sigma_r = 8;//*
     float test_sigma_theta = 8;//* 
-    float test_sigma_odo_x = 0.01;
-    float test_sigma_odo_y = 0.01;
-    float test_sigma_odo_theta = 0.017;
-    //  float test_sigma_odo_x = 0.01;
+    // float test_sigma_odo_x = 0.01;
     // float test_sigma_odo_y = 0.01;
     // float test_sigma_odo_theta = 0.017;
+     float test_sigma_odo_x = 8;
+    float test_sigma_odo_y =  8;
+    float test_sigma_odo_theta = 8;
 
     cout<<"INIT_sigma_r = "<<test_sigma_r<<endl;
     cout<<"INIT_sigma_theta = "<<test_sigma_theta<<endl;
