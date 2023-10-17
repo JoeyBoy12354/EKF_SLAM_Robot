@@ -47,7 +47,7 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     //Covariance.setIdentity();
 
     //Use initialLandmarkCovariance_AtSi;
-    float test = 1000;
+    float test = 1;
     Covariance.setZero();
     for (int n = 3; n < dim; n++) {
         Covariance(n, n) = test;
@@ -318,7 +318,7 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     // cout<<endl;
     angleInBounds(State(2));
 
-    vector<float> stat{State(0),State(1),State(2),(z-z_cap)(0),(z-z_cap)(1),Gain2(0),Gain2(1)};
+    vector<float> stat{State(0),State(1),State(2),(z-z_cap)(0),(z-z_cap)(1)*180/PI,Gain2(0),Gain2(1)*180/PI};
     stats.push_back(stat);
 
     }
