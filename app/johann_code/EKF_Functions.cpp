@@ -288,7 +288,7 @@ void ExtendedKalmanFilter::calculateNoise(){
     float best_r2=1.23456;
 
     Matrix<float, 2, 1> delta_z = z-z_cap;
-    for(int i =0;i<500000;i++){
+    for(int i =0;i<1000000;i++){
         // Generate random float values between 0 and 10 with up to 2 decimal places
         srand(static_cast<unsigned>(time(nullptr)));
         random1 = static_cast<float>(rand() % 1001) / 100.0;
@@ -319,6 +319,7 @@ void ExtendedKalmanFilter::calculateNoise(){
 
     cout<<"\nx = "<<State(0)<<endl;
     cout<<"y = "<<State(1)<<endl;
+    cout<<"theta = "<<State(2)*180/PI<<endl;
     cout<<"best_r1 = "<<best_r1<<"  best_r2 = "<<best_r2<<endl;
     cout<<"error_x = "<<min_error_x<<endl;
     cout<<"error_y = "<<min_error_y<<endl;
@@ -333,7 +334,7 @@ void ExtendedKalmanFilter::calculateNoise(){
 
     cout<<"poss x = "<<State(0)+Gain2(0)<<endl;
     cout<<"poss y = "<<State(1)+Gain2(1)<<endl;
-    cout<<"poss theta = "<<State(2)+Gain2(2)<<endl;
+    cout<<"poss theta = "<<(State(2)+Gain2(2))*180/PI<<endl;
     
 }
 
