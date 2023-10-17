@@ -403,7 +403,7 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
         cout<<"x update opposite"<<endl;
     }
     if((ObservedLandmark.y-EstimatedLandmark.y)*Gain2[1] < 0){
-        Gain2(1) = -Gain(1);
+        //Gain2(1) = -Gain(1);
         cout<<"y update opposite"<<endl;
     }
 
