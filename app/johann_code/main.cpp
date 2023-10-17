@@ -278,7 +278,7 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalRu
             //motorDataProcessing(ekf.w,ekf.distance);//Send odometry to ekf
             if(finalRun == 0){
                 mapped = updateMovementGrid(ekf.State,gridNew,ekf.lidar_x,ekf.lidar_y);// Move the robot to the location
-                motorDataProcessing(ekf.w,ekf.distance);
+                //motorDataProcessing(ekf.w,ekf.distance);
             }
             
             //motorControlGrid(ekf.w,ekf.distance);//Send odometry to ekf
@@ -639,11 +639,11 @@ void testRun(){
     ExtendedKalmanFilter ekf;
     bool mapped = false;
     bool firstRun = true;
-    int finalRun = 1; // re,e,ber to change back to 0
+    int finalRun = 0; // re,e,ber to change back to 0
 
     //calibrateMotors();
     
-    for(int i =0;i<3;i++){
+    for(int i =0;i<1;i++){
         cout<<"\n i = "<<i<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
         // cout<<"IN RUN LOOP: "<<i<<endl;

@@ -296,7 +296,7 @@ namespace Navigation_Functions{
         angle = PI-angle;
 
         //angle = PI/2;
-        angle = 0;
+        angle = 10;
 
         // cout<<"NAVI,GRID: deltaX = "<<deltaX<<" = "<<-1*closestPoint.x<<" - "<<robotPoint.x<<endl;
         // cout<<"NAVI,GRID: deltaY = "<<deltaY<<" = "<<-1*closestPoint.y<<" - "<<robotPoint.y<<endl;
@@ -362,7 +362,7 @@ namespace Navigation_Functions{
         //cout<<"NAVI,GRID: dist1 = "<<distance<<" = "<<deltaX*deltaX<<" - "<<deltaY*deltaY<<endl;
         distance = sqrt(distance);
         //distance = 100;
-        distance = 100;
+        distance = 0;
 
         //distance =0;
 
