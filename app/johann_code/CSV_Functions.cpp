@@ -442,7 +442,6 @@ namespace CSV_Functions{
 
         // Write the data to the CSV file
         for (int i=0;i<states.size();i++) {
-            outputFile << "\n";
             outputFile << states[i][0] << "," << states[i][1] << "," << states[i][2] <<"\n";
         }
 
