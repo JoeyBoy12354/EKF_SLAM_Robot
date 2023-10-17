@@ -317,9 +317,9 @@ void ExtendedKalmanFilter::calculateNoise(){
         
     }
 
-    cout<<"x = "<<delta_z(0)*cos(delta_z(1));
-    cout<<"y = "<<delta_z(0)*sin(delta_z(1));
-    cout<<"best_r1 = "<<best_r1<<" best_r2 = "<<best_r2<<endl;
+    cout<<"x = "<<State(0)<<endl;
+    cout<<"y = "<<State(1)<<endl;
+    cout<<"best_r1 = "<<best_r1<<"  best_r2 = "<<best_r2<<endl;
     cout<<"error_x = "<<min_error_x<<endl;
     cout<<"error_y = "<<min_error_y<<endl;
     cout<<"error_theta = "<<min_error_theta<<endl;
