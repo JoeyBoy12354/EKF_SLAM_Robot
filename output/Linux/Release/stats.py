@@ -30,12 +30,12 @@ fig, axs = plt.subplots(4, 2, figsize=(12, 12))
 
 # Plot x_coord on the first subplot
 axs[0, 0].plot(x_coord)
-axs[0, 0].axhline(y=-10, color='r')
+axs[0, 0].axhline(y=-0, color='r')
 axs[0, 0].set_title("X Coordinate")
 
 # Plot y_coord on the second subplot
 axs[0, 1].plot(y_coord)
-axs[0, 1].axhline(y=10, color='r')
+axs[0, 1].axhline(y=0, color='r')
 axs[0, 1].set_title("Y Coordinate")
 
 # Plot theta_coord on the third subplot
