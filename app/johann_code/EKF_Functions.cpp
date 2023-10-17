@@ -415,6 +415,11 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
         }
     }
 
+    for(int i =3;i<dim;i=i+2){
+        Gain2[i+1] = -1*Gain2[i+1];
+    }
+
+
 
 
     //State = State + Gain*(z-z_cap);
