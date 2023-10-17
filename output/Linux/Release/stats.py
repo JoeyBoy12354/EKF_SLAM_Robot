@@ -23,44 +23,41 @@ def fetchState():
     return x_coord, y_coord, theta_coord, z_z_q,z_z_theta,gz_z_q,gz_z_theta
 
 # Fetch the data
-x_coord, y_coord, theta_coord,z_z_q,z_z_theta,gz_z_q,gz_z_theta = fetchState()
+x_coord, y_coord, theta_coord, z_z_q, z_z_theta, gz_z_q, gz_z_theta = fetchState()
 
-# Create subplots
-fig, (ax1, ax2, ax3,ax4, ax5,ax6,ax7,ax8) = plt.subplots(8, 1, figsize=(8, 6))
+# Create subplots with 4 rows and 2 columns
+fig, axs = plt.subplots(4, 2, figsize=(12, 12))
 
 # Plot x_coord on the first subplot
-ax1.plot(x_coord)
-ax1.axhline(y=-10, color='r')
-ax1.set_title("X Coordinate")
+axs[0, 0].plot(x_coord)
+axs[0, 0].axhline(y=-10, color='r')
+axs[0, 0].set_title("X Coordinate")
 
 # Plot y_coord on the second subplot
-ax2.plot(y_coord)
-ax2.axhline(y=10, color='r')
-ax2.set_title("Y Coordinate")
+axs[0, 1].plot(y_coord)
+axs[0, 1].axhline(y=10, color='r')
+axs[0, 1].set_title("Y Coordinate")
 
 # Plot theta_coord on the third subplot
-ax3.plot(theta_coord)
-ax3.axhline(y=0, color='r')
-ax3.set_title("Theta Coordinate")
+axs[1, 0].plot(theta_coord)
+axs[1, 0].axhline(y=0, color='r')
+axs[1, 0].set_title("Theta Coordinate")
 
-ax4.plot(theta_coord)
-ax4.axhline(y=0, color='r')
-ax4.set_title("Theta CoordinateDuplicate")
+axs[1, 1].plot(theta_coord)
+axs[1, 1].axhline(y=0, color='r')
+axs[1, 1].set_title("Theta Coordinate Duplicate")
 
+axs[2, 0].plot(z_z_q)
+axs[2, 0].set_title("Z-Z_cap q")
 
-ax5.plot(z_z_q)
-ax5.set_title("Z-Z_cap q")
+axs[2, 1].plot(z_z_theta)
+axs[2, 1].set_title("Z-Z_cap theta")
 
-ax6.plot(z_z_theta)
-ax6.set_title("Z-Z_cap theta")
+axs[3, 0].plot(gz_z_q)
+axs[3, 0].set_title("G*Z-Z_cap q")
 
-ax7.plot(gz_z_q)
-ax7.set_title("G*Z-Z_cap q")
-
-ax8.plot(gz_z_theta)
-ax8.set_title("G*Z-Z_cap theta")
-
-
+axs[3, 1].plot(gz_z_theta)
+axs[3, 1].set_title("G*Z-Z_cap theta")
 
 # Adjust layout
 plt.tight_layout()
