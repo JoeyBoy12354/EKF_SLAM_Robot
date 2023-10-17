@@ -573,11 +573,6 @@ void simRun5(){
     ekf.TestValues.push_back(LM3);
     simRun(ekf,false);
 
-    state.push_back(ekf.State(0));
-    state.push_back(ekf.State(1));
-    state.push_back(ekf.State(2));
-    states.push_back(state);
-
     cout<<"-----------------------------------------"<<endl;
     int runs = 30000;
 
@@ -587,15 +582,9 @@ void simRun5(){
         ekf.TestValues.push_back(LM2);
         ekf.TestValues.push_back(LM3);
         simRun(ekf,true);
-
-        state.clear();
-        state.push_back(ekf.State(0));
-        state.push_back(ekf.State(1));
-        state.push_back(ekf.State(2));
-        states.push_back(state);
     }
 
-    saveStatsToCSV(states);
+    saveStatsToCSV(ekf.stats);
 
 
     //Do stats

@@ -1,0 +1,10 @@
+R1
+float test_sigma_r = 0;//*
+    float test_sigma_theta = 0;//* 
+    float test_sigma_odo_x = 0.01;
+    float test_sigma_odo_y = 0.01;
+    float test_sigma_odo_theta = 0.01;
+cov= 1
+
+R2
+cov= 1000

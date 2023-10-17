@@ -291,7 +291,7 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
 
     cout<<"(z-z_cap).r = "<<(z-z_cap)(0)<<"(z-z_cap).theta = "<<(z-z_cap)(1)*180/PI<<endl;
     
-    //Matrix<float, dim, 1> Gain2 = Gain*(z-z_cap);
+    Matrix<float, dim, 1> Gain2 = Gain*(z-z_cap);
     // cout<<"gain* (z-zcap) = \n"<<endl;
     // for(int i =0;i<dim;i++){
     //     if(Gain2[i] != 0){
@@ -316,8 +316,11 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     //     }
     // }
     // cout<<endl;
-
     angleInBounds(State(2));
+
+    vector<float> stat{State(0),State(1),State(2),(z-z_cap)(0),(z-z_cap)(1),Gain2(0),Gain2(1)};
+    stats.push_back(stat);
+
     }
 
 // Update Covariance Matrix with new landmark

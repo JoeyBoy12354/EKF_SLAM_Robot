@@ -265,6 +265,13 @@ public:
     
     
     float initialLandmarkCovariance_AtSi = 1;
+
+    Matrix<float, 2, 1> z;
+    Matrix<float, 2, 1> z_cap;
+
+    //Purely stats
+    Matrix<float, 2, 1> delat_gz;
+    vector<vector<float>> stats;
     
 
     ExtendedKalmanFilter();
@@ -285,8 +292,8 @@ private:
     Matrix<float, dim, dim> Motion_Noise;
     Matrix<float, 2, 2> Coordinate_Uncertainty;
     Matrix<float, 5, dim> F;
-    Matrix<float, 2, 1> z;
-    Matrix<float, 2, 1> z_cap;
+    // Matrix<float, 2, 1> z;
+    // Matrix<float, 2, 1> z_cap;
     Matrix<float, 2, dim> Observation_Jacobian;
     Matrix<float, dim, 2> Gain;
 
