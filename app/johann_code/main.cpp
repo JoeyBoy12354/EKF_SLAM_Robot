@@ -691,7 +691,7 @@ int main() {
 
     //testRun();
     
-    sim3();
+    simRun3();
 
     //testLidarLandmark();
     //simRun5();
