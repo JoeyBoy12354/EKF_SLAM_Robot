@@ -13,8 +13,8 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     // float test_sigma_r = 0.001;//*
     // float test_sigma_theta = 0.001;//* 
 
-    float test_sigma_r = 8;//*
-    float test_sigma_theta = 8;//* 
+    float test_sigma_r = 1;//*
+    float test_sigma_theta = 1;//* 
     // float test_sigma_odo_x = 0.01;
     // float test_sigma_odo_y = 0.01;
     // float test_sigma_odo_theta = 0.017;
