@@ -392,15 +392,18 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     //     Gain2(2) = delta_z(1);
     // }
 
-    Gain2(2) = -Gain(2);
-    Gain2(1) = -Gain(1);
+    
+    
     if(delta_z(1)*Gain2[2]<0 ){
+        Gain2(2) = -Gain(2);
         cout<<"angle update opposite"<<endl;
     }
     if((ObservedLandmark.x-EstimatedLandmark.x)*Gain2[0] < 0){
+        Gain2(0) = -Gain(0);
         cout<<"x update opposite"<<endl;
     }
     if((ObservedLandmark.y-EstimatedLandmark.y)*Gain2[1] < 0){
+        Gain2(1) = -Gain(1);
         cout<<"y update opposite"<<endl;
     }
 
@@ -418,6 +421,8 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     State = State + Gain2;
     //State = State + Gain*(delta_z);
     //State = State + Gain*(z-z_cap);
+
+    cout<<"LANDMARK ERROR: "<<pointDistance(EstimatedLandmark,ObservedLandmark)<<endl;
     
     cout<<"\n EKF: State2: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
     for(int i =3;i<dim;i=i+2){
@@ -487,7 +492,7 @@ void ExtendedKalmanFilter::runEKF() {
         cout<<"\n i = "<<i<<endl;
         cout<<"ObsLM.x = "<<ObservedLandmark.x<<"ObsLM.y = "<<ObservedLandmark.y<<endl;
         cout<<"EstLM.x = "<<EstimatedLandmark.x<<"EstLM.y = "<<EstimatedLandmark.y<<endl;
-        cout<<"deltaX = "<<deltaX<<" deltaY = "<<deltaY<<" q = "<<q<<endl;
+        // cout<<"deltaX = "<<deltaX<<" deltaY = "<<deltaY<<" q = "<<q<<endl;
         cout<<"z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
         cout<<"z_cap.r = "<<z_cap(0)<<"z_cap.theta = "<<z_cap(1)*180/PI<<endl;
 
