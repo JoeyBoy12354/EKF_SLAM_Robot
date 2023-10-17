@@ -11,10 +11,14 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     Motion_Jacobian.setIdentity();
 
     float test_sigma_r = 0.001;//*
-    float test_sigma_theta = 0.07;//* 
+    float test_sigma_theta = 0.001;//* 
     float test_sigma_odo_x = 0.01;
     float test_sigma_odo_y = 0.01;
-    float test_sigma_odo_theta = 0.017;
+    float test_sigma_odo_theta = 0.01;
+
+    //  float test_sigma_odo_x = 0.01;
+    // float test_sigma_odo_y = 0.01;
+    // float test_sigma_odo_theta = 0.017;
 
     cout<<"INIT_sigma_r = "<<test_sigma_r<<endl;
     cout<<"INIT_sigma_theta = "<<test_sigma_theta<<endl;
