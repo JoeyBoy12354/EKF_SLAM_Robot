@@ -135,7 +135,9 @@ void testLidarLandmark(){
             ExtendedKalmanFilter ekf;
 
 
-
+            ekf.State(0) = 0;
+            ekf.State(0) = 0;
+            ekf.State(0) = PI/2;
             //Process Data
             vector<CarPoint> carPoints;
             lidarDataProcessing(lidarDataPoints,carPoints,ekf.State[0],ekf.State[1],ekf.State[2]);
