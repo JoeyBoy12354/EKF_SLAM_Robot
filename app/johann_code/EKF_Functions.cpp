@@ -285,10 +285,10 @@ void ExtendedKalmanFilter::calculateNoise(){
     float min_error_theta = 10000;
 
     float best_r1=1.23456;
-    float best r2=1.23456;
+    float best_r2=1.23456;
 
     
-    for i in range(0,2000){
+    for(int i =0;i<10;i++){
         // Generate random float values between 0 and 10 with up to 2 decimal places
         srand(static_cast<unsigned>(time(nullptr)));
         random1 = static_cast<float>(rand() % 1001) / 100.0;
@@ -301,6 +301,7 @@ void ExtendedKalmanFilter::calculateNoise(){
         Matrix<float, 2, 1> delta_z = z-z_cap;
         Matrix<float,2,2> Gainx = Observation_Jacobian*Covariance*(Observation_Jacobian.transpose()) + Coordinate_Uncertainty;  
         Gain = Covariance*Observation_Jacobian.transpose() * Gainx.inverse();
+        Matrix<float, dim, 1> Gain2 = Gain*delta_z;
 
 
         if(min_error_x > abs(Gain2(0) - delta_z(0)*cos(delta_z(1))) && min_error_y > abs(Gain2(1) - delta_z(0)*sin(delta_z(1))) && min_error_theta > abs(Gain2(2) - delta_z(1))){
@@ -315,6 +316,8 @@ void ExtendedKalmanFilter::calculateNoise(){
         
     }
 
+    cout<<"x = "<<delta_z(0)*cos(delta_z(1));
+    cout<<"y = "<<delta_z(0)*sin(delta_z(1));
     cout<<"best_r1 = "<<best_r1<<" best_r2 = "<<best_r2<<endl;
     cout<<"error_x = "<<min_error_x<<endl;
     cout<<"error_y = "<<min_error_y<<endl;
