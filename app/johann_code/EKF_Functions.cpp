@@ -400,8 +400,8 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
 
     //Gain2(2) = -Gain(2);
 
-    //State = State + Gain*(z-z_cap);
-    State = State + Gain2;
+    State = State + Gain*(z-z_cap);
+    //State = State + Gain2;
     //State = State + Gain*(delta_z);
     //State = State + Gain*(z-z_cap);
     
@@ -414,8 +414,8 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     cout<<endl;
     angleInBounds(State(2));
 
-    vector<float> stat{State(0),State(1),State(2)*180/PI,(z-z_cap)(0),(z-z_cap)(1)*180/PI,Gain2(0),Gain2(1)*180/PI};
-    stats.push_back(stat);
+    // vector<float> stat{State(0),State(1),State(2)*180/PI,(z-z_cap)(0),(z-z_cap)(1)*180/PI,Gain2(0),Gain2(1)*180/PI};
+    // stats.push_back(stat);
 
     }
 
