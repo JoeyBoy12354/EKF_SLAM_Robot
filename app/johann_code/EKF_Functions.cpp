@@ -13,14 +13,14 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     // float test_sigma_r = 0.001;//*
     // float test_sigma_theta = 0.001;//* 
 
-    float test_sigma_r = 1;//*
-    float test_sigma_theta = 1;//* 
+    float test_sigma_r = 8;//*
+    float test_sigma_theta = 0.017;//* 
     // float test_sigma_odo_x = 0.01;
     // float test_sigma_odo_y = 0.01;
     // float test_sigma_odo_theta = 0.017;
-     float test_sigma_odo_x = 8;
-    float test_sigma_odo_y =  8;
-    float test_sigma_odo_theta = 8;
+     float test_sigma_odo_x = 0.01;
+    float test_sigma_odo_y = 0.01;
+    float test_sigma_odo_theta = 0.017;
 
     cout<<"INIT_sigma_r = "<<test_sigma_r<<endl;
     cout<<"INIT_sigma_theta = "<<test_sigma_theta<<endl;
@@ -286,6 +286,9 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     // }
 
 
+    Matrix<float,2,2> Gainx = Observation_Jacobian*Covariance*(Observation_Jacobian.transpose()) + Coordinate_Uncertainty;  
+    Gain = Covariance*Observation_Jacobian.transpose() * Gainx.inverse();
+
     // //cout<<"z-zcap = \n"<<z-z_cap<<endl;
 
     cout<<"(z-z_cap).r = "<<(z-z_cap)(0)<<"(z-z_cap).theta = "<<(z-z_cap)(1)*180/PI<<endl;
@@ -308,7 +311,11 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     // }
     // cout<<endl;
 
-
+    // if(abs(Gain2(0))>abs(delta_z(0)*cos(delta_z(1)) || abs(Gain2(1))>abs(delta_z(0)*sin(delta_z(1)) || abs(Gain2(2))>delta_z(1) ){
+    //     Gain2(0) = delta_z(0)*cos(delta_z(1));
+    //     Gain2(1) = delta_z(0)*sin(delta_z(1));
+    //     Gain2()
+    // }
 
     State = State + Gain*(z-z_cap);
     //State = State + Gain*(delta_z);

@@ -9,6 +9,7 @@
 #include <random>
 #include <vector>
 #include <cmath>
+#include<cstdlib>
 
 #include <sstream>
 #include <numeric>
