@@ -362,11 +362,13 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     
     //delta_z(1) = delta_z(1)*-1;
     cout<<"gain* (z-zcap) = \n"<<endl;
+    cout<<Gain2[0];
     for(int i =0;i<dim;i++){
         if(Gain2[i] != 0){
             cout<<Gain2[i]<<endl;
         }
     }
+
     // if(z(1)-z_cap(1)!=0){
     //     cout<<"testing values"<<endl;
     //     calculateNoise();
@@ -404,12 +406,12 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     //State = State + Gain*(z-z_cap);
     
     cout<<"\n EKF: State2: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
-    // for(int i =3;i<dim;i=i+2){
-    //     if(State[i] != 0 && State[i+1] != 0){
-    //         cout<<"("<<State[i]<<","<<State[i+1]<<") | ";
-    //     }
-    // }
-    // cout<<endl;
+    for(int i =3;i<dim;i=i+2){
+        if(State[i] != 0 && State[i+1] != 0){
+            cout<<"("<<State[i]<<","<<State[i+1]<<") | ";
+        }
+    }
+    cout<<endl;
     angleInBounds(State(2));
 
     vector<float> stat{State(0),State(1),State(2)*180/PI,(z-z_cap)(0),(z-z_cap)(1)*180/PI,Gain2(0),Gain2(1)*180/PI};
