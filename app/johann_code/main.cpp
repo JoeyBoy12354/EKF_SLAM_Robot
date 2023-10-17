@@ -519,7 +519,7 @@ void simRun5(){
     float y = (x/(cos(w)))*sin(w);
 
     w=0;
-    y=10
+    y=10;
 
     vector<float> groundtruth{ x, y, w };
     
