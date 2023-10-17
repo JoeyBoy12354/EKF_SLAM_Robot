@@ -480,7 +480,7 @@ void simRun3(){
     ekf.TestValues.push_back({925.612,678.594});
     simRun(ekf,true);
 
-    for i in range(0,100)
+    for(int i =0;i<100;i++){
         ekf.TestValues.clear();
         ekf.TestValues.push_back({915.606,424.298});
         ekf.TestValues.push_back({-821.015,1146.44});
@@ -488,6 +488,7 @@ void simRun3(){
         ekf.TestValues.push_back({948.087,644.084});
         ekf.TestValues.push_back({-1041.74,-459.041});
         simRun(ekf,true);
+    }
 
     cout<<"SORCERY"<<endl;
     return;
