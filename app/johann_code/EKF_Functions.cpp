@@ -282,7 +282,7 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
 
     // //cout<<"z-zcap = \n"<<z-z_cap<<endl;
 
-    //cout<<"(z-z_cap).r = "<<(z-z_cap)(0)<<"(z-z_cap).theta = "<<(z-z_cap)(1)*180/PI<<endl;
+    cout<<"(z-z_cap).r = "<<(z-z_cap)(0)<<"(z-z_cap).theta = "<<(z-z_cap)(1)*180/PI<<endl;
     
     //Matrix<float, dim, 1> Gain2 = Gain*(z-z_cap);
     // cout<<"gain* (z-zcap) = \n"<<endl;
