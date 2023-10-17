@@ -13,8 +13,8 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     // float test_sigma_r = 0.001;//*
     // float test_sigma_theta = 0.001;//* 
 
-    float test_sigma_r = 8;//*
-    float test_sigma_theta = 0.017;//* 
+    float test_sigma_r = 0.35;//*
+    float test_sigma_theta = 4.37;//* 
     // float test_sigma_odo_x = 0.01;
     // float test_sigma_odo_y = 0.01;
     // float test_sigma_odo_theta = 0.017;
@@ -363,10 +363,10 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     //         cout<<Gain2[i]<<endl;
     //     }
     // }
-    if(z(1)-z_cap(1)!=0){
-        cout<<"testing values"<<endl;
-        calculateNoise();
-    }
+    // if(z(1)-z_cap(1)!=0){
+    //     cout<<"testing values"<<endl;
+    //     calculateNoise();
+    // }
 
     // cout<<"\n EKF: State1: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
     // for(int i =3;i<dim;i=i+2){
