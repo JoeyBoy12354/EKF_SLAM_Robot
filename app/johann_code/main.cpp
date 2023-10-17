@@ -542,6 +542,27 @@ void simRun5(){
     cout<<"LM2 = "<<LM2<<endl;
     cout<<"LM3 = "<<LM3<<endl;
 
+    float deltaX = LM1.x - groundtruth[0];
+    float deltaY = LM1.y - groundtruth[1];
+    float q = deltaX * deltaX + deltaY * deltaY;
+    float e_q = sqrt(q);
+    float e_theta = (PI - atan2(deltaY, deltaX)) - groundtruth[2];
+    cout<<"GM_LM1 :"<<e_q<<e_theta<<endl;
+
+    deltaX = LM2.x - groundtruth[0];
+    deltaY = LM2.y - groundtruth[1];
+    q = deltaX * deltaX + deltaY * deltaY;
+    e_q = sqrt(q);
+    e_theta = (PI - atan2(deltaY, deltaX)) - groundtruth[2];
+    cout<<"GM_LM2 :"<<e_q<<e_theta<<endl;
+
+    deltaX = LM3.x - groundtruth[0];
+    deltaY = LM3.y - groundtruth[1];
+    q = deltaX * deltaX + deltaY * deltaY;
+    e_q = sqrt(q);
+    e_theta = (PI - atan2(deltaY, deltaX)) - groundtruth[2];
+    cout<<"GM_LM3 :"<<e_q<<e_theta<<endl;
+
     
 
     ekf.w=0;
@@ -559,7 +580,7 @@ void simRun5(){
 
     cout<<"-----------------------------------------"<<endl;
 
-    for(int i =0;i<5000;i++){
+    for(int i =0;i<1;i++){
         ekf.TestValues.clear();
         ekf.TestValues.push_back(LM1);
         ekf.TestValues.push_back(LM2);
