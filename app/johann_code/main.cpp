@@ -579,7 +579,7 @@ void simRun5(){
     states.push_back(state);
 
     cout<<"-----------------------------------------"<<endl;
-    int runs = 10000;
+    int runs = 30000;
 
     for(int i =0;i<runs;i++){
         ekf.TestValues.clear();
