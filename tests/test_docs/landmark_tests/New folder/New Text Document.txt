@@ -19,4 +19,9 @@ cov= 1
 
 R5
 Changed theta to be in degrees for state
+float sigma_r = 0.07;//*
+    float sigma_theta = 7;//* 
+    float sigma_odo_x = 0.01;
+    float sigma_odo_y = 0.01;
+    float sigma_odo_theta = 0.017;
 
