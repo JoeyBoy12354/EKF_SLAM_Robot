@@ -579,8 +579,9 @@ void simRun5(){
     states.push_back(state);
 
     cout<<"-----------------------------------------"<<endl;
+    int runs = 10000;
 
-    for(int i =0;i<10000;i++){
+    for(int i =0;i<runs;i++){
         ekf.TestValues.clear();
         ekf.TestValues.push_back(LM1);
         ekf.TestValues.push_back(LM2);
@@ -609,6 +610,7 @@ void simRun5(){
         stddev[2]+= abs(states[i][2] - groundtruth[2]);
     }
 
+    cout<<"runs = "<<10000;
     cout<<"stddev x:"<<stddev[0]/states.size()<<" y:"<<stddev[1]/states.size()<<" theta:"<<(stddev[2]/states.size())*180/PI<<endl;
     cout<<"avg x:"<<avg[0]/states.size()<<" y:"<<avg[1]/states.size()<<" theta:"<<(avg[2]/states.size())*180/PI<<endl;
     cout<<"gt x:"<<groundtruth[0]<<"  gt y:"<<groundtruth[1]<<"  gt theta:"<<groundtruth[2]*180/PI<<endl;
