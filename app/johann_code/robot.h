@@ -248,6 +248,7 @@ class ExtendedKalmanFilter {
 public:
     //Testing
     vector<CarPoint> TestValues;
+    vector<CarPoint> landmarks;
 
     //Motion
     // float v = 1.3094206;

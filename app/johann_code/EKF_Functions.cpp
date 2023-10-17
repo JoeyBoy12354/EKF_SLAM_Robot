@@ -13,14 +13,17 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     // float test_sigma_r = 0.001;//*
     // float test_sigma_theta = 0.001;//* 
 
-    float test_sigma_r = 0.35;//*
-    float test_sigma_theta = 4.37;//* 
+    // float test_sigma_r = 0.35;//*
+    // float test_sigma_theta = 4.37;//* 
     // float test_sigma_odo_x = 0.01;
     // float test_sigma_odo_y = 0.01;
     // float test_sigma_odo_theta = 0.017;
-    float test_sigma_odo_x = 0.01;
-    float test_sigma_odo_y = 0.01;
-    float test_sigma_odo_theta = 0.017;
+    float sigma_r = 100
+    float sigma_theta = 0.1
+    float sigma_odo_x = 0.01
+    float sigma_odo_y = 0.01
+    float sigma_odo_theta = 0.017
+
 
     cout<<"INIT_sigma_r = "<<test_sigma_r<<endl;
     cout<<"INIT_sigma_theta = "<<test_sigma_theta<<endl;
@@ -377,21 +380,23 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     // }
     // cout<<endl;
 
-    if(abs(Gain2(0))>abs(delta_z(0)*cos(delta_z(1))) ){
-        cout<<"ForceChange Gain to 1 x_value: "<<delta_z(0)*sin(delta_z(1))<<endl;
-        Gain2(0) = -delta_z(0)*cos(delta_z(1));
+    // if(abs(Gain2(0))>abs(delta_z(0)*cos(delta_z(1))) ){
+    //     cout<<"ForceChange Gain to 1 x_value: "<<delta_z(0)*sin(delta_z(1))/landmarks.size()<<endl;
+    //     Gain2(0) = (-delta_z(0)*cos(delta_z(1)));
 
 
-    } 
-    if( abs(Gain2(1))>abs(delta_z(0)*sin(delta_z(1))) ){
-        cout<<"ForceChange Gain to 1 y_value: "<<delta_z(0)*sin(delta_z(1))<<endl;
-        Gain2(1) = delta_z(0)*sin(delta_z(1));
-    } 
-    if(abs(Gain2(2))>delta_z(1)){
-        cout<<"ForceChange Gain to 1 theta_value: "<<delta_z(1)<<endl;
+    // } 
+    // if( abs(Gain2(1))>abs(delta_z(0)*sin(delta_z(1))) ){
+    //     cout<<"ForceChange Gain to 1 y_value: "<<delta_z(0)*sin(delta_z(1))/landmarks.size()<<endl;
+    //     Gain2(1) = delta_z(0)*sin(delta_z(1));
+    // } 
+    // if(abs(Gain2(2))>delta_z(1)){
+    //     cout<<"ForceChange Gain to 1 theta_value: "<<delta_z(1)/landmarks.size()<<endl;
         
-        Gain2(2) = delta_z(1);
-    }
+    //     Gain2(2) = delta_z(1);
+    // }
+
+    //Gain2(2) = -Gain(2);
 
     //State = State + Gain*(z-z_cap);
     State = State + Gain2;
@@ -431,8 +436,8 @@ void ExtendedKalmanFilter::runEKF() {
     //cout << "\nLINE 3\nGt =\n" << Motion_Jacobian << "\nmotion_Noise =\n" << Motion_Noise << "\nSigma =\n" << Covariance << "\n";
 
     // Correction step
-    vector<CarPoint> landmarks = observeEnvironment();
-    //vector<CarPoint> landmarks = TestValues;
+    //landmarks = observeEnvironment();
+    vector<CarPoint> landmarks = TestValues;
     // cout<<"size = "<<landmarks.size()<<endl;
     // cout<<"landmarks = "<<endl;
     // for(int i =0;i<landmarks.size();i++)

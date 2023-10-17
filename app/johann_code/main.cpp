@@ -689,8 +689,10 @@ int main() {
     //testMotor();
     //testLidar();
 
-    testRun();
+    //testRun();
     
+    sim3();
+
     //testLidarLandmark();
     //simRun5();
   
