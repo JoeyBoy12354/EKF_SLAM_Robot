@@ -514,7 +514,7 @@ void simRun5(){
     ExtendedKalmanFilter ekf;
     vector<vector<float>> states;
     vector<float> state;
-    float x = -50;
+    float x = -10;
     float w = -10*(PI/180);
     float y = (x/(cos(w)))*sin(w);
 
@@ -566,7 +566,7 @@ void simRun5(){
     
 
     ekf.w=0;
-    ekf.distance =50;
+    ekf.distance =0;
     ekf.TestValues.clear();
     ekf.TestValues.push_back(LM1);
     ekf.TestValues.push_back(LM2);
