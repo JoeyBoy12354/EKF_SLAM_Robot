@@ -361,13 +361,7 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     Matrix<float, dim, 1> Gain2 = Gain*(z-z_cap);
     
     //delta_z(1) = delta_z(1)*-1;
-    cout<<"gain* (z-zcap) = \n"<<endl;
-    cout<<Gain2[0];
-    for(int i =0;i<dim;i++){
-        if(Gain2[i] != 0){
-            cout<<Gain2[i]<<endl;
-        }
-    }
+    
 
     // if(z(1)-z_cap(1)!=0){
     //     cout<<"testing values"<<endl;
@@ -399,6 +393,7 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     // }
 
     Gain2(2) = -Gain(2);
+    Gain2(1) = -Gain(1);
     if(delta_z(1)*Gain2[2]<0 ){
         cout<<"angle update opposite"<<endl;
     }
@@ -409,6 +404,13 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
         cout<<"y update opposite"<<endl;
     }
 
+    cout<<"gain* (z-zcap) = \n"<<endl;
+    cout<<Gain2[0];
+    for(int i =0;i<dim;i++){
+        if(Gain2[i] != 0){
+            cout<<Gain2[i]<<endl;
+        }
+    }
 
 
 
