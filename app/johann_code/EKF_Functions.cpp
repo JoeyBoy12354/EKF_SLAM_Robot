@@ -318,7 +318,7 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     // cout<<endl;
     angleInBounds(State(2));
 
-    vector<float> stat{State(0),State(1),State(2),(z-z_cap)(0),(z-z_cap)(1)*180/PI,Gain2(0),Gain2(1)*180/PI};
+    vector<float> stat{State(0),State(1),State(2)*180/PI,(z-z_cap)(0),(z-z_cap)(1)*180/PI,Gain2(0),Gain2(1)*180/PI};
     stats.push_back(stat);
 
     }
