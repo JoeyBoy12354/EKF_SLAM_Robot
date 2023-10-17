@@ -18,7 +18,7 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     // float test_sigma_odo_x = 0.01;
     // float test_sigma_odo_y = 0.01;
     // float test_sigma_odo_theta = 0.017;
-     float test_sigma_odo_x = 0.01;
+    float test_sigma_odo_x = 0.01;
     float test_sigma_odo_y = 0.01;
     float test_sigma_odo_theta = 0.017;
 
@@ -288,7 +288,7 @@ void ExtendedKalmanFilter::calculateNoise(){
     float best_r2=1.23456;
 
     Matrix<float, 2, 1> delta_z = z-z_cap;
-    for(int i =0;i<1000000;i++){
+    for(int i =0;i<10000000;i++){
         // Generate random float values between 0 and 10 with up to 2 decimal places
         srand(static_cast<unsigned>(time(nullptr)));
         random1 = static_cast<float>(rand() % 1001) / 100.0;
