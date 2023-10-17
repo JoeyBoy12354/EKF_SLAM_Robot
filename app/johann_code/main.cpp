@@ -118,11 +118,27 @@ void testLandmarkIdentification(bool& firstRun){
 
 void testLidarLandmark(){
     vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
-    bool error = true;
-    runLidar(lidarDataPoints,error);
-    int ret;
-    ret = system("python3 CSV_Files/motorControl.py ok go");
-    cout << "ret/cpp = " << ret << endl;
+        bool error = true;
+        int count = 0;
+        while(error == true && count<5){
+            cout<<"\nAttempt "<<count<<endl;
+            runLidar(lidarDataPoints, error);
+            count +=1;
+        }
+        cout<<"count = "<<count<<endl;
+
+     if(error == false){
+            //Predict Position
+
+            cout<<"\n MAIN: after_motion State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+            //cout << "\nEKF 6\nState =\n" << ekf.State << "\n";
+
+            //Process Data
+            vector<CarPoint> carPoints;
+            lidarDataProcessing(lidarDataPoints,carPoints,ekf.State[0],ekf.State[1],ekf.State[2]);
+            saveCarToFullMapCSV(carpoints);
+            saveCarToCSV(carpoints);
+     }
 }
 
 void testPython(){
@@ -632,7 +648,7 @@ void testRun(){
     }
 
     finalRun = 1;
-    for(int i =0;i<5;i++){
+    for(int i =0;i<4;i++){
         cout<<"\n i = "<<"FINALRUN "<<i<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
         fullRun(ekf,mapped,firstRun,finalRun);
@@ -640,6 +656,9 @@ void testRun(){
         ekf.w = 0;
         finalRun = 2;
     }
+
+    saveStatsToCSV(ekf.stats);
+
     
     
 }
@@ -661,8 +680,9 @@ int main() {
     //testMotor();
     //testLidar();
 
-    testRun();
+    //testRun();
     
+    testLidarLandmark();
     //simRun5();
   
     return 0;
