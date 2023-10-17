@@ -130,14 +130,14 @@ void testLidarLandmark(){
      if(error == false){
             //Predict Position
 
-            cout<<"\n MAIN: after_motion State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+            //cout<<"\n MAIN: after_motion State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
             //cout << "\nEKF 6\nState =\n" << ekf.State << "\n";
 
             //Process Data
             vector<CarPoint> carPoints;
             lidarDataProcessing(lidarDataPoints,carPoints,ekf.State[0],ekf.State[1],ekf.State[2]);
-            saveCarToFullMapCSV(carpoints);
-            saveCarToCSV(carpoints);
+            saveCarToFullMapCSV(carPoints);
+            saveCarToCSV(carPoints);
      }
 }
 
