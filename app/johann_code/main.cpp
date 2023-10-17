@@ -279,6 +279,8 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalRu
             if(finalRun == 0){
                 mapped = updateMovementGrid(ekf.State,gridNew,ekf.lidar_x,ekf.lidar_y);// Move the robot to the location
                 motorDataProcessing(ekf.w,ekf.distance);
+                ekf.w=30*PI/180;
+                ekf.distance = 0;
             }
             
             //motorControlGrid(ekf.w,ekf.distance);//Send odometry to ekf
@@ -652,7 +654,7 @@ void testRun(){
         
         firstRun = false;
     }
-    ekf.w=30*PI/180;
+    
 
     finalRun = 1;
     for(int i =0;i<100;i++){
