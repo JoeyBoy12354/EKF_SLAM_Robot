@@ -577,11 +577,13 @@ void simRun5(){
     int runs = 30000;
 
     for(int i =0;i<runs;i++){
+        ekf.w=0;
+        ekf.distance =0;
         ekf.TestValues.clear();
         ekf.TestValues.push_back(LM1);
         ekf.TestValues.push_back(LM2);
         ekf.TestValues.push_back(LM3);
-        simRun(ekf,true);
+        simRun(ekf,false);
     }
 
     saveStatsToCSV(ekf.stats);
