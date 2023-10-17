@@ -26,7 +26,7 @@ def fetchState():
 x_coord, y_coord, theta_coord,z_z_q,z_z_theta,gz_z_q,gz_z_theta = fetchState()
 
 # Create subplots
-fig, (ax1, ax2, ax3,ax4,ax5,ax6,ax7,ax8) = plt.subplots(4, 2, figsize=(8, 6))
+fig, (ax1, ax2, ax3,ax4, ax5,ax6,ax7,ax8) = plt.subplots(8, 1, figsize=(8, 6))
 
 # Plot x_coord on the first subplot
 ax1.plot(x_coord)
