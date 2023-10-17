@@ -276,6 +276,52 @@ void ExtendedKalmanFilter::getGainMatrix() {
     //cout<<"\n Gain = \n"<<Gain<<endl;
 }
 
+void ExtendedKalmanFilter::calculateNoise(){
+    float random1;
+    float random2;
+
+    float min_error_x = 10000;
+    float min_error_y = 10000;
+    float min_error_theta = 10000;
+
+    float best_r1=1.23456;
+    float best r2=1.23456;
+
+    
+    for i in range(0,2000){
+        // Generate random float values between 0 and 10 with up to 2 decimal places
+        srand(static_cast<unsigned>(time(nullptr)));
+        random1 = static_cast<float>(rand() % 1001) / 100.0;
+        srand(static_cast<unsigned>(time(nullptr)));
+        random2 = static_cast<float>(rand() % 1001) / 100.0;
+
+        Coordinate_Uncertainty << random1*random1, 0,
+                                    0, random2*random2;
+
+        Matrix<float, 2, 1> delta_z = z-z_cap;
+        Matrix<float,2,2> Gainx = Observation_Jacobian*Covariance*(Observation_Jacobian.transpose()) + Coordinate_Uncertainty;  
+        Gain = Covariance*Observation_Jacobian.transpose() * Gainx.inverse();
+
+
+        if(min_error_x > abs(Gain2(0) - delta_z(0)*cos(delta_z(1))) && min_error_y > abs(Gain2(1) - delta_z(0)*sin(delta_z(1))) && min_error_theta > abs(Gain2(2) - delta_z(1))){
+            min_error_x = abs(Gain2(0) - delta_z(0)*cos(delta_z(1)));
+            min_error_y = abs(Gain2(1) - delta_z(0)*sin(delta_z(1)));
+            min_error_theta = abs(Gain2(2) - delta_z(1));
+
+            best_r1 = random1;
+            best_r2 = random2;
+
+        }
+        
+    }
+
+    cout<<"best_r1 = "<<best_r1<<" best_r2 = "<<best_r2<<endl;
+    cout<<"error_x = "<<min_error_x<<endl;
+    cout<<"error_y = "<<min_error_y<<endl;
+    cout<<"error_theta = "<<min_error_theta<<endl;
+    
+}
+
 // Update State Matrix with new landmark
 void ExtendedKalmanFilter::updateStateOfLandmark() {
     // cout<<"\nGain = "<<endl;
@@ -286,8 +332,7 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     // }
 
 
-    Matrix<float,2,2> Gainx = Observation_Jacobian*Covariance*(Observation_Jacobian.transpose()) + Coordinate_Uncertainty;  
-    Gain = Covariance*Observation_Jacobian.transpose() * Gainx.inverse();
+    
 
     // //cout<<"z-zcap = \n"<<z-z_cap<<endl;
 
@@ -302,6 +347,10 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     //         cout<<Gain2[i]<<endl;
     //     }
     // }
+    if(z(1)-z_cap(1)!=0){
+        cout<<"testing values"<<endl;
+        calculateNoise();
+    }
 
     // cout<<"\n EKF: State1: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
     // for(int i =3;i<dim;i=i+2){
