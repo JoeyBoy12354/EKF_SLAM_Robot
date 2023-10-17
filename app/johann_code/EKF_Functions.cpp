@@ -288,11 +288,11 @@ void ExtendedKalmanFilter::calculateNoise(){
     float best_r2=1.23456;
 
     Matrix<float, 2, 1> delta_z = z-z_cap;
-    for(int i =0;i<10;i++){
+    for(int i =0;i<100;i++){
         // Generate random float values between 0 and 10 with up to 2 decimal places
         srand(static_cast<unsigned>(time(nullptr)));
         random1 = static_cast<float>(rand() % 1001) / 100.0;
-        srand(static_cast<unsigned>(time(nullptr)));
+        srand(static_cast<unsigned>(time(nullptr)+PI));
         random2 = static_cast<float>(rand() % 1001) / 100.0;
 
         Coordinate_Uncertainty << random1*random1, 0,
@@ -305,10 +305,10 @@ void ExtendedKalmanFilter::calculateNoise(){
         Matrix<float, dim, 1> Gain2 = Gain*delta_z;
 
 
-        if(min_error_x > abs(Gain2(0) - delta_z(0)*cos(delta_z(1))) && min_error_y > abs(Gain2(1) - delta_z(0)*sin(delta_z(1))) && min_error_theta > abs(Gain2(2) - delta_z(1))){
-            min_error_x = abs(Gain2(0) - delta_z(0)*cos(delta_z(1)));
-            min_error_y = abs(Gain2(1) - delta_z(0)*sin(delta_z(1)));
-            min_error_theta = abs(Gain2(2) - delta_z(1));
+        if(min_error_x > abs(Gain2(0) +State(0))) && min_error_y > abs(Gain2(1) +State(1)) && min_error_theta > abs(Gain2(2) +State(2)){
+            min_error_x = abs(Gain2(0) +State(0));
+            min_error_y = abs(Gain2(1) +State(1));
+            min_error_theta = abs(Gain2(2) +State(2));
 
             best_r1 = random1;
             best_r2 = random2;
