@@ -13,13 +13,13 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     // float test_sigma_r = 0.001;//*
     // float test_sigma_theta = 0.001;//* 
 
-    // float test_sigma_r = 0.35;//*
-    // float test_sigma_theta = 4.37;//* 
+    float test_sigma_r = 0.35;//*
+    float test_sigma_theta = 4.37;//* 
     // float test_sigma_odo_x = 0.01;
     // float test_sigma_odo_y = 0.01;
     // float test_sigma_odo_theta = 0.017;
-    float test_sigma_r = 100;
-    float test_sigma_theta = 0.1;
+    // float test_sigma_r = 100;
+    // float test_sigma_theta = 0.1;
     float test_sigma_odo_x = 0.01;
     float test_sigma_odo_y = 0.01;
     float test_sigma_odo_theta = 0.017;
@@ -399,6 +399,18 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     // }
 
     //Gain2(2) = -Gain(2);
+    if(delta_z(1)*Gain2[2]<0 ){
+        cout<<"angle update opposite"<<endl;
+    }
+    if((ObservedLandmark.x-EstimatedLandmark.x)*Gain2[0] < 0){
+        cout<<"x update opposite"<<endl;
+    }
+    if((ObservedLandmark.y-EstimatedLandmark.y)*Gain2[1] < 0){
+        cout<<"y update opposite"<<endl;
+    }
+
+
+
 
     State = State + Gain*(z-z_cap);
     //State = State + Gain2;
