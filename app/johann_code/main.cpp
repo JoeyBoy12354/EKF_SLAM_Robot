@@ -518,6 +518,9 @@ void simRun5(){
     float w = -10*(PI/180);
     float y = (x/(cos(w)))*sin(w);
 
+    w=0;
+    y=10
+
     vector<float> groundtruth{ x, y, w };
     
     ekf.w=0;
