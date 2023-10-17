@@ -139,7 +139,7 @@ void testLidarLandmark(){
             //Process Data
             vector<CarPoint> carPoints;
             lidarDataProcessing(lidarDataPoints,carPoints,ekf.State[0],ekf.State[1],ekf.State[2]);
-            saveCarToFullMapCSV(carPoints);
+            //saveCarToFullMapCSV(carPoints);
             saveCarToCSV(carPoints);
      }
 }
