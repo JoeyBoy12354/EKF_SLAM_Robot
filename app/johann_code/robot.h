@@ -288,6 +288,7 @@ public:
     void updateCovarianceOfLandmark();
     void runEKF();
     vector<CarPoint> observeEnvironment();
+    void ExtendedKalmanFilter::calculateNoise();
 
 private:
     Matrix<float, dim, dim> Covariance;
