@@ -617,6 +617,13 @@ void simRun5(){
     cout<<"avg x:"<<avg[0]/states.size()<<" y:"<<avg[1]/states.size()<<" theta:"<<(avg[2]/states.size())*180/PI<<endl;
     cout<<"gt x:"<<groundtruth[0]<<"  gt y:"<<groundtruth[1]<<"  gt theta:"<<groundtruth[2]*180/PI<<endl;
 
+    int ret;
+    ret = system("python3 stats.py ok go");
+
+    cout << "ret/cpp = " << ret << endl;
+
+    return;
+
     return;
 }
 

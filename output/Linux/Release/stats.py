@@ -10,7 +10,7 @@ def fetchState():
         for row in csv_reader:
             x_coord.append(float(row[0]))
             y_coord.append(float(row[1]))
-            theta_coord.append(float(row[2))
+            theta_coord.append(float(row[2]))
     return x_coord, y_coord, theta_coord
 
 # Fetch the data
