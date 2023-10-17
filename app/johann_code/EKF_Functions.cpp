@@ -10,7 +10,7 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     State.setZero();
     Motion_Jacobian.setIdentity();
 
-    float test_sigma_r = 7;//*
+    float test_sigma_r = 0.01;//*
     float test_sigma_theta = 0.07;//* 
     float test_sigma_odo_x = 0.01;
     float test_sigma_odo_y = 0.01;
