@@ -595,7 +595,7 @@ void simRun5(){
         states.push_back(state);
     }
 
-    void saveStatsToCSV(vector<vector<float>> states);
+    saveStatsToCSV( states);
 
 
     //Do stats
