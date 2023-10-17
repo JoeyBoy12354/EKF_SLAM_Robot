@@ -376,11 +376,12 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     // }
     // cout<<endl;
 
-    // if(abs(Gain2(0))>abs(delta_z(0)*cos(delta_z(1)) || abs(Gain2(1))>abs(delta_z(0)*sin(delta_z(1)) || abs(Gain2(2))>delta_z(1) ){
-    //     Gain2(0) = delta_z(0)*cos(delta_z(1));
-    //     Gain2(1) = delta_z(0)*sin(delta_z(1));
-    //     Gain2()
-    // }
+    if(abs(Gain2(0))>abs(delta_z(0)*cos(delta_z(1))) || abs(Gain2(1))>abs(delta_z(0)*sin(delta_z(1))) || abs(Gain2(2))>delta_z(1)){
+        cout<<"ForceChange Gain to 1"<<endl;
+        Gain2(0) = -delta_z(0)*cos(delta_z(1));
+        Gain2(1) = delta_z(0)*sin(delta_z(1));
+        Gain2(2) = delta_z(1)
+    }
 
     State = State + Gain*(z-z_cap);
     //State = State + Gain*(delta_z);
