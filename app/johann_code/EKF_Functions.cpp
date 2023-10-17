@@ -13,7 +13,7 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     // float test_sigma_r = 0.001;//*
     // float test_sigma_theta = 0.001;//* 
 
-    float test_sigma_r = 7;//*
+    float test_sigma_r = 0.01;//*
     float test_sigma_theta = 0.01;//* 
     float test_sigma_odo_x = 0.01;
     float test_sigma_odo_y = 0.01;
@@ -47,7 +47,7 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     //Covariance.setIdentity();
 
     //Use initialLandmarkCovariance_AtSi;
-    float test = 10;
+    float test = 1;
     Covariance.setZero();
     for (int n = 3; n < dim; n++) {
         Covariance(n, n) = test;
