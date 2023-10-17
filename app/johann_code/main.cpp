@@ -547,21 +547,21 @@ void simRun5(){
     float q = deltaX * deltaX + deltaY * deltaY;
     float e_q = sqrt(q);
     float e_theta = (PI - atan2(deltaY, deltaX)) - groundtruth[2];
-    cout<<"GM_LM1 :"<<e_q<<e_theta<<endl;
+    cout<<"GM_LM1: e_q = "<<e_q<<" e_theta = "<<e_theta<<endl;
 
     deltaX = LM2.x - groundtruth[0];
     deltaY = LM2.y - groundtruth[1];
     q = deltaX * deltaX + deltaY * deltaY;
     e_q = sqrt(q);
     e_theta = (PI - atan2(deltaY, deltaX)) - groundtruth[2];
-    cout<<"GM_LM2 :"<<e_q<<e_theta<<endl;
+    cout<<"GM_LM2: e_q = "<<e_q<<" e_theta = "<<e_theta<<endl;
 
     deltaX = LM3.x - groundtruth[0];
     deltaY = LM3.y - groundtruth[1];
     q = deltaX * deltaX + deltaY * deltaY;
     e_q = sqrt(q);
     e_theta = (PI - atan2(deltaY, deltaX)) - groundtruth[2];
-    cout<<"GM_LM3 :"<<e_q<<e_theta<<endl;
+    cout<<"GM_LM3: e_q = "<<e_q<<" e_theta = "<<e_theta<<endl;
 
     
 
