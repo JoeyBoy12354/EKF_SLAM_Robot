@@ -434,7 +434,7 @@ namespace CSV_Functions{
 
     //Stats
     void saveStatsToCSV(vector<vector<float>> states){
-        ofstream outputFile(statsCSV, ios::trunc);  // Open the file in truncation mode to clear its contents
+        ofstream outputFile(statsCSV);  // Open the file in truncation mode to clear its contents
         if (!outputFile.is_open()) {
             cerr << "Error opening the file: " << gridCSV << endl;
             return;
