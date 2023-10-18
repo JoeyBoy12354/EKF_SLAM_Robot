@@ -163,6 +163,12 @@ namespace CSV_Functions{
     //Stats
     void saveStatsToCSV(vector<vector<float>> states);
 
+    //Atsis
+    void atsi_u_read(vector<vector<float>>& input);
+    void atsi_lm_read(vector<vector<float>>& lm);
+     void atsi_u_write(vector<vector<float>>& input);
+     void atsi_lm_write(vector<vector<float>>& lm);
+
 
 }
 

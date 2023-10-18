@@ -22,9 +22,6 @@ def writeCoord(corners,filename = 'cornersCSV.csv'):
         # Write the data to the CSV file
         writer.writerows(corners)
     
-
-    
-
     return
 
 def fit_with_least_squares(X,y):

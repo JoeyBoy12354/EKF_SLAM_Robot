@@ -4,6 +4,8 @@ Extended Kalman Filter SLAM example
 author: Atsushi Sakai (@Atsushi_twi)
 """
 
+import csv
+
 import math
 
 import matplotlib.pyplot as plt
@@ -18,7 +20,8 @@ R_sim = np.diag([1.0, np.deg2rad(10.0)]) ** 2
 
 
 
-DT = 0.1  # time tick [s]
+#DT = 0.1  # time tick [s]
+DT = 1  # time tick [s]
 SIM_TIME = 50.0  # simulation time [s]
 MAX_RANGE = 30000.0  # maximum observation range
 M_DIST_TH = 100.0  # Threshold of Mahalanobis distance for data association.
@@ -196,6 +199,66 @@ def jacob_h(q, delta, x, i):
 def pi_2_pi(angle):
     return (angle + math.pi) % (2 * math.pi) - math.pi
 
+def write_lm_csv(lm,filename = 'atsi_lmCSV.csv'):
+    print("atsi_lm")
+    landmarks = []
+    for i in range(0,len(lm)):
+        for j in range(0,len(lm[i])):
+            d_x = lm[i][j][0]*np.cos(lm[i][j][1])
+            d_y = lm[i][j][0]*np.sin(lm[i][j][1])
+            landmarks.append([d_x,d_y])
+
+    with open(filename, mode='w', newline='') as file:
+        
+        writer = csv.writer(file)
+        for i in range(0,len(lm)):
+            # Write the data to the CSV file
+            writer.writerows(landmarks)
+    return
+
+def write_u_csv(u,filename = 'atsi_uCSV.csv'):
+    print("atsi_u")
+    with open(filename, mode='w', newline='') as file:
+        writer = csv.writer(file)
+        for i in range(0,len(u)):
+        
+            # Write the data to the CSV file
+            writer.writerows(u[i])
+    
+    return
+
+
+def fetchState():
+    x_coord = []
+    y_coord = []
+    theta_coord = []
+    with open('ekf_uCSV.csv', 'r') as file:
+        csv_reader = csv.reader(file)
+        for row in csv_reader:
+            x_coord.append(float(row[0]))
+            y_coord.append(float(row[1]))
+            theta_coord.append(float(row[2]))
+
+    return x_coord, y_coord, theta_coord
+
+def fetchLandmarks():
+    landmarks = []
+    current_group = []  # Initialize an empty list to store the current group of 3 landmarks
+    with open('ekf_lmCSV.csv', 'r') as file:
+        csv_reader = csv.reader(file)
+        for row in csv_reader:
+            # Split the row by the comma and convert the values to floats
+            x, y = map(float, row[0].split(','))
+            current_group.append((x, y))  # Store the x and y as a tuple
+
+            # Check if we have collected 3 landmarks in the current group
+            if len(current_group) == 3:
+                landmarks.append(current_group)
+                current_group = []  # Reset the current group for the next 3 landmarks
+
+    return landmarks
+
+
 
 def main():
     print(__file__ + " start!!")
@@ -224,11 +287,20 @@ def main():
     hxTrue = xTrue
     hxDR = xTrue
 
+    all_u = []
+    all_lm = []
+
     while SIM_TIME >= time:
         time += DT
         u = calc_input()
 
         xTrue, z, xDR, ud = observation(xTrue, xDR, u, RFID)
+        all_u.append(ud)
+        all_lm.append(z)
+        # print("ud = ",ud)
+        # write_u_csv(ud)
+        # print("z = ",z)
+        # write_lm_csv(z)
 
         xEst, PEst = ekf_slam(xEst, PEst, ud, z)
 
@@ -263,6 +335,13 @@ def main():
             plt.axis("equal")
             plt.grid(True)
             plt.pause(0.001)
+
+    all_lm = np.array(all_lm)
+    all_u = np.array(all_u)
+    print(all_lm)
+    print(all_u)
+    write_u_csv(all_u)
+    write_lm_csv(all_lm)
 
 
 if __name__ == '__main__':

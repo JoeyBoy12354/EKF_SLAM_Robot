@@ -89,78 +89,73 @@ void ExtendedKalmanFilter::updateMotion() {
     // if(w2 == 0){
     //     w2 = 1;
     // }
-    // float theta = State(2);
-    // float d_x = -1*(v/w2)*sin(theta) + (v/w2)*sin(theta + w*t);
-    // float d_y = (v/w2)*cos(theta) - (v/w2)*cos(theta + w*t);
-    // float d_theta = w*t; this might be angular velocity
+    float theta = State(2);
+    float d_x = -1*(v/w2)*sin(theta) + (v/w2)*sin(theta + w*t);
+    float d_y = (v/w2)*cos(theta) - (v/w2)*cos(theta + w*t);
+    float d_theta = w*t; //this might be angular velocity
 
-    // Motion_Jacobian(0,2) = -t*v*sin(State(2));
-    // Motion_Jacobian(1,2) = t*v*cos(State(2));
+    Motion_Jacobian(0,2) = -t*v*sin(State(2));
+    Motion_Jacobian(1,2) = t*v*cos(State(2));
 
-    // float d_x = distance*cos(w);
-    // float d_y = distance*sin(w);
+    State(0) = State(0) + d_x;
+    State(1) = State(1) + d_y;
+    State(2) = State(2) + d_theta;
 
-    //flip d_x and d_y
-    //The distance is set to negative due to forward motions being in the negative x-direction
-    //It is assumed that lidar_x is already calculated with this in mind
-    
-    
-    // float d_x = -distance*cos(w) + lidar_x;
-    // float d_y = distance*sin(w)+ lidar_y;
-    // float d_theta = w;
 
-    CarPoint C = triangularRepositioning(State, w);// Get lidar point with odomotorey angle reading.
+    //Atsi:
+    // def motion_model(x, u):
+        // F = np.array([[1.0, 0, 0],
+        //               [0, 1.0, 0],
+        //               [0, 0, 1.0]])
 
-    float CAngle = State(2) + w;//Get angle from positive x to line between (0,0) and (C.x,C.y)
-    float Cd_x = -distance*cos(CAngle); //DeltaX change from forward movement
-    float Cd_y = distance*sin(CAngle); //DeltaY change from forward movement
+        // B = np.array([[DT * math.cos(x[2, 0]), 0],
+        //               [DT * math.sin(x[2, 0]), 0],
+        //               [0.0, DT]])
 
-    // cout<<"EKF: ++C = "<<C<<endl;
-    // cout<<"EKF: ++Cangle = "<<CAngle<<endl;
-    // cout<<"EKF: ++Cd_x = "<<Cd_x<<endl;
-    // cout<<"EKF: ++Cd_y = "<<Cd_y<<endl;
-    // cout<<"EKF: ++X = "<<C.x + Cd_x<<endl;
-    // cout<<"EKF: ++Y = "<<C.y + Cd_y<<endl<<endl;
+        // x = (F @ x) + (B @ u)
+    // return x
 
-    
+    // def jacob_motion(x, u):
+        // Fx = np.hstack((np.eye(STATE_SIZE), np.zeros(
+        //     (STATE_SIZE, LM_SIZE * calc_n_lm(x)))))
 
-    // cout<<"EKF: distance = "<<distance<<"mm   |  Angle"<<w*180/PI<<endl;
-    // cout<<"EKF: d_x: "<<Cd_x<<endl;
-    // cout<<"EKF: d_y: "<<Cd_y<<endl;
-    // cout<<"EKF: d_theta: "<<w*180/PI<<endl;
-    
+        // jF = np.array([[0.0, 0.0, -DT * u[0, 0] * math.sin(x[2, 0])],
+        //                [0.0, 0.0, DT * u[0, 0] * math.cos(x[2, 0])],
+        //                [0.0, 0.0, 0.0]], dtype=float)
 
-    // cout<<"EKF: distance = "<<distance<<"mm   |  Angle"<<w*180/PI<<endl;
-    // cout<<"EKF: d_x: "<<-distance*cos(w)<<" + "<<lidar_x<<" = "<<d_x<<endl;
-    // cout<<"EKF: d_y: "<<distance*sin(w)<<" + "<<lidar_y<<" = "<<d_x<<endl;
-    // cout<<"EKF: d_theta: "<<d_theta<<endl;
+        // G = np.eye(STATE_SIZE) + Fx.T @ jF @ Fx
 
-    // Motion_Jacobian(0,2) = -distance*sin(State(2));
-    // Motion_Jacobian(1,2) = distance*cos(State(2));
-    CarPoint robot;
-    robot.x = State(0);
-    robot.y = State(1);
+    // return G, Fx,
 
-    float dist2 = pointDistance(robot,C);
 
-    //I believe this Jacobian's value can be estimated with v = distance/time
-    //In essecence I think this should be the rate of change but yeah they cakculated it originally as just the distance in x and y
-    Motion_Jacobian(0,2) = -(distance+dist2)*sin(State(2));
-    Motion_Jacobian(1,2) = (distance+dist2)*cos(State(2));
 
-    //State is now updated with C(x,y) calculated from State when performing triangular repositioning.
-    //The d_x and d_y from the distance moved forward is then added 
-    State(0) = C.x + Cd_x;
-    State(1) = C.y + Cd_y;
-    State(2) = State(2) + w;//This is added since we are calculating the new state which is the old + change to get the new.
 
-    //cout<<"\nEKF: dist = "<<distance<<"\nEKF: w = "<<w<<"\nEKF: d_x = "<<d_x<<"\nEKF: d_y = "<<d_y<<"\nEKF: d_theta = "<<d_theta<<endl;
-    
-    // State(0) = State(0) + d_x;
-    // State(1) = State(1) + d_y;
-    // State(2) = State(2) + d_theta;
 
-    angleInBounds(State(2));
+
+    //Johann Old code before Atsi sims
+    // CarPoint C = triangularRepositioning(State, w);// Get lidar point with odomotorey angle reading.
+
+    // float CAngle = State(2) + w;//Get angle from positive x to line between (0,0) and (C.x,C.y)
+    // float Cd_x = -distance*cos(CAngle); //DeltaX change from forward movement
+    // float Cd_y = distance*sin(CAngle); //DeltaY change from forward movement
+
+    // CarPoint robot;
+    // robot.x = State(0);
+    // robot.y = State(1);
+    // float dist2 = pointDistance(robot,C);
+
+    // //I believe this Jacobian's value can be estimated with v = distance/time
+    // //In essecence I think this should be the rate of change but yeah they cakculated it originally as just the distance in x and y
+    // Motion_Jacobian(0,2) = -(distance+dist2)*sin(State(2));
+    // Motion_Jacobian(1,2) = (distance+dist2)*cos(State(2));
+
+    // //State is now updated with C(x,y) calculated from State when performing triangular repositioning.
+    // //The d_x and d_y from the distance moved forward is then added 
+    // State(0) = C.x + Cd_x;
+    // State(1) = C.y + Cd_y;
+    // State(2) = State(2) + w;//This is added since we are calculating the new state which is the old + change to get the new.
+
+    // angleInBounds(State(2));
 
 }
 

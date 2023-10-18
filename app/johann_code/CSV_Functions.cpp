@@ -14,6 +14,12 @@ string triangleCSV = "triangleCSV.csv";
 string motorStateCSV = "motorStateCSV.csv";
 string statsCSV = "statsCSV.csv";
 
+string atsi_u_CSV = "atsi_uCSV.csv";
+string atsi_lm_CSV = "atsi_lmCSV.csv";
+
+string ekf_atsi_u_CSV = "ekf_uCSV.csv";
+string ekf_atsi_lm_CSV = "ekf_lmCSV.csv";
+
 
 namespace CSV_Functions{
 
@@ -447,6 +453,104 @@ namespace CSV_Functions{
             }
             outputFile << states[i][states[0].size()-1] << "\n";
             
+        }
+
+        outputFile.close();
+        return;
+    }
+
+    void atsi_u_read(vector<vector<float>>& input) {
+        ifstream file(atsi_u_CSV);
+
+        if (!file.is_open()) {
+            cerr << "Error opening file: " << atsi_u_CSV << endl;
+            return;
+        }
+
+        string line;
+        float value;
+        vector<float> pair;
+
+        while (getline(file, line)) {
+            istringstream iss(line);
+
+            while (iss >> value) {
+                pair.push_back(value);
+
+                // When we have collected two values, add them to the input vector and clear the pair vector.
+                if (pair.size() == 2) {
+                    input.push_back(pair);
+                    pair.clear();
+                }
+            }
+        }
+
+        file.close();
+    }
+
+    void atsi_lm_read(vector<vector<float>>& lm){
+        cout<<"CSV: atsi_lm_read will only store 3 landmarks at a time"<<endl;
+        ifstream file(atsi_lm_CSV);
+
+        if (!file.is_open()) {
+            cerr << "Error opening file: " << atsi_lm_CSV << endl;
+            return;
+        }
+
+        string line;
+        float value;
+        vector<float> pair;
+
+        while (getline(file, line)) {
+            istringstream iss(line);
+
+            while (iss >> value) {
+                pair.push_back(value);
+
+                // When we have collected two values, add them to the input vector and clear the pair vector.
+                if (pair.size() == 3) {
+                    input.push_back(pair);
+                    pair.clear();
+                }
+            }
+        }
+
+        file.close();
+
+    }
+
+    void atsi_u_write(vector<vector<float>>& input) {
+        ofstream outputFile(ekf_atsi_u_CSV);  // Open the file in truncation mode to clear its contents
+        if (!outputFile.is_open()) {
+            cerr << "Error opening the file: " << ekf_atsi_u_CSV<< endl;
+            return;
+        }
+
+        // Write the data to the CSV file
+        for (int i=0;i<input.size();i++) {
+            for(int j=0;j<input[0].size()-1;j++){
+                outputFile << input[i][j] << ",";
+            }
+            outputFile << input[i][input[0].size()-1] << "\n";
+        }
+
+        outputFile.close();
+        return;
+    }
+
+    void atsi_lm_write(vector<vector<float>>& lm) {
+        ofstream outputFile(ekf_atsi_lm_CSV);  // Open the file in truncation mode to clear its contents
+        if (!outputFile.is_open()) {
+            cerr << "Error opening the file: " << ekf_atsi_lm_CSV<< endl;
+            return;
+        }
+
+        // Write the data to the CSV file
+        for (int i=0;i<lm.size();i++) {
+            for(int j=0;j<lm[0].size()-1;j++){
+                outputFile << lm[i][j] << ",";
+            }
+            outputFile << lm[i][lm[0].size()-1] << "\n";   
         }
 
         outputFile.close();

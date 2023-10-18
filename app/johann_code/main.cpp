@@ -640,6 +640,63 @@ void simRun5(){
 
 
 
+
+void atSim(){
+    //I want to be able to feed it landmark locations
+    //I want to be able to feed it distance locations
+    ExtendedKalmanFilter ekf;
+
+    vector<vector<float>> u;
+    vector<vector<float>> lm;
+
+    atsi_u_read(u);
+    atsi_lm_read(lm);
+    cout<<"check sizes = "<<lm<<" "<<u.size()<<endl;
+
+    vector<vector<float>> states;
+    vector<float> curr_state;
+    vector<vector<float>> landmarks;
+    vector<float> curr_lm;
+
+
+    for(int i=0;i<atsi_u_read.size();i++){
+        ekf.w = u[i][1];
+        ekf.d = u[i][0];
+        ekf.TestValues.clear();
+        for(int j=0;j<lm.size();j++){
+            ekf.TestValues.push_back(lm[i][j]);
+        }
+
+        simRun(ekf,false);
+
+        curr_state.push_back(ekf.State(0));
+        curr_state.push_back(ekf.State(1));
+        curr_state.push_back(ekf.State(2));
+        states.push_back(curr_state);
+
+        for(int i=3;i<dim;i=i+2){
+            curr_lm.push_back(ekf.State[i]);
+            curr_lm.push_back(ekf.State[i+1]);
+        }
+        landmarks.push_back(curr_lm);
+    }
+
+
+    atsi_lm_write(landmarks);
+    atsi_u_write(states);        
+        
+
+        
+
+    
+
+    
+}
+
+
+
+
+
 void testRun(){
     ExtendedKalmanFilter ekf;
     bool mapped = false;
