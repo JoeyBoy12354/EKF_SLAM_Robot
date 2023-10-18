@@ -27,11 +27,11 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     // float test_sigma_odo_y = 0.01;
     // float test_sigma_odo_theta = 0.017;
 
-    float test_sigma_r = 0;
-    float test_sigma_theta = 0;
-    float test_sigma_odo_x = 0;
-    float test_sigma_odo_y = 0;
-    float test_sigma_odo_theta = 0;
+    float test_sigma_r = 0.2;
+    float test_sigma_theta = 0.2;
+    float test_sigma_odo_x = 1;
+    float test_sigma_odo_y = 1;
+    float test_sigma_odo_theta = 1;
 
 
     cout<<"INIT_sigma_r = "<<test_sigma_r<<endl;
@@ -58,7 +58,7 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     //Covariance.setIdentity();
 
     //Use initialLandmarkCovariance_AtSi;
-    float test = 1;
+    float test = 0.5;
     Covariance.setZero();
     for (int n = 3; n < dim; n++) {
         Covariance(n, n) = test;
