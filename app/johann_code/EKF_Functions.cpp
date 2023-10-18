@@ -374,6 +374,14 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     cout<<"Gain(2,0)"<<Gain(2,0)<<endl;
     cout<<"Gain(2,1)"<<Gain(2,1)<<endl;
 
+    cout<<"\nGain = "<<endl;
+    for(int i =0;i<dim;i++){
+        if(Gain(i,0) != 0 && Gain(i,0) != 0){
+            cout<<Gain(i,0)<<" | "<<Gain(i,1)<<endl;
+        }
+    }
+
+
 
     
 
