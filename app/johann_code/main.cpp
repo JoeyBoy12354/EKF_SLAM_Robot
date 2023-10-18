@@ -542,7 +542,7 @@ void simRun5(){
     vector<vector<float>> states;
     vector<float> state;
     float x = -10;
-    float w = -10*(PI/180);
+    float w = -1*(PI/180);
     float y = (x/(cos(w)))*sin(w);
 
     w=0;
