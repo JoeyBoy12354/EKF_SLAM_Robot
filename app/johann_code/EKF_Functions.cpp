@@ -181,7 +181,7 @@ vector<CarPoint> ExtendedKalmanFilter::observeEnvironment() {
 
 // Check if a new landmark is observed
 void ExtendedKalmanFilter::isNewLandmark() {
-    float distThresh = 200; //editing this effects the localization heavily (10)
+    float distThresh = 100; //editing this effects the localization heavily (10)
 
     //z is the Range-Bearing of the actual landmark we have just found from Sensors (Observed)
     float deltaX = ObservedLandmark.x - State(0);
