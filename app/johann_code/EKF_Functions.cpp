@@ -28,10 +28,10 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     // float test_sigma_odo_theta = 0.017;
 
     float test_sigma_r = 0.2;
-    float test_sigma_theta = 0.2;
+    float test_sigma_theta = 1*PI/180;
     float test_sigma_odo_x = 1;
     float test_sigma_odo_y = 1;
-    float test_sigma_odo_theta = 1;
+    float test_sigma_odo_theta = 10*PI/180;
 
 
     cout<<"INIT_sigma_r = "<<test_sigma_r<<endl;

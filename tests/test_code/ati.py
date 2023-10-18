@@ -16,6 +16,8 @@ Cx = np.diag([0.5, 0.5, np.deg2rad(30.0)]) ** 2
 Q_sim = np.diag([0.2, np.deg2rad(1.0)]) ** 2
 R_sim = np.diag([1.0, np.deg2rad(10.0)]) ** 2
 
+
+
 DT = 0.1  # time tick [s]
 SIM_TIME = 50.0  # simulation time [s]
 MAX_RANGE = 20.0  # maximum observation range
