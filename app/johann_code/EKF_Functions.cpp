@@ -372,14 +372,14 @@ void ExtendedKalmanFilter::calculateNoise(){
 
 // Update State Matrix with new landmark
 void ExtendedKalmanFilter::updateStateOfLandmark() {
-    cout<<"\nGain = "<<endl;
-    for(int i =0;i<dim;i++){
-        if(Gain(i,0) != 0 && Gain(i,0) != 0){
-            cout<<Gain(i,0)<<" | "<<Gain(i,1)<<endl;
-        }
-    }
+    // cout<<"\nGain = "<<endl;
+    // for(int i =0;i<dim;i++){
+    //     if(Gain(i,0) != 0 && Gain(i,0) != 0){
+    //         cout<<Gain(i,0)<<" | "<<Gain(i,1)<<endl;
+    //     }
+    // }
 
-    Matrix<float, dim, 2> Gain_x = Gain;
+    // Matrix<float, dim, 2> Gain_x = Gain;
 
     // cout<<"Gain(2,0)"<<Gain(2,0)<<endl;
     // cout<<"Gain(2,1)"<<Gain(2,1)<<endl;
@@ -390,12 +390,12 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     // cout<<"Gain(2,0)"<<Gain(2,0)<<endl;
     // cout<<"Gain(2,1)"<<Gain(2,1)<<endl;
 
-    cout<<"\nGain = "<<endl;
-    for(int i =0;i<dim;i++){
-        if(Gain(i,0) != 0 && Gain(i,0) != 0){
-            cout<<Gain_x(i,0)<<" | "<<Gain_x(i,1)<<endl;
-        }
-    }
+    // cout<<"\nGain = "<<endl;
+    // for(int i =0;i<dim;i++){
+    //     if(Gain(i,0) != 0 && Gain(i,0) != 0){
+    //         cout<<Gain_x(i,0)<<" | "<<Gain_x(i,1)<<endl;
+    //     }
+    // }
 
 
 
@@ -406,7 +406,7 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     cout<<"(z-z_cap).r = "<<(z-z_cap)(0)<<"(z-z_cap).theta = "<<(z-z_cap)(1)*180/PI<<endl;
     
     Matrix<float, 2, 1> delta_z = z-z_cap;
-    Matrix<float, dim, 1> Gain2 = Gain_x*(z-z_cap);
+    Matrix<float, dim, 1> Gain2 = Gain*(z-z_cap);
     
     //delta_z(1) = delta_z(1)*-1;
     
