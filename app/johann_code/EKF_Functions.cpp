@@ -255,27 +255,11 @@ void ExtendedKalmanFilter::getEstimatedObservationJacobian(float deltaX, float d
         q = 1;
     }
 
-    //deltaX = -1*deltaX;
     //Get the lower Observation Matrix
     Matrix <float, 2,5> Observation_Jacobian_low;
     float sq = sqrt(q);
     Observation_Jacobian_low << -1*sq*deltaX, -1*sq*deltaY,    0, sq*deltaX,  sq*deltaY, 
                                 deltaY,       -1*deltaX,    -1*q, -1*deltaY,  deltaX;
-
-    // Observation_Jacobian_low << -1*sq*deltaX, -1*sq*deltaY,    0, sq*deltaX,  sq*deltaY, 
-    //                             deltaY,       -1*deltaX,    q, -1*deltaY,  deltaX;
-
-    //  float sq = sqrt(q);
-    // Observation_Jacobian_low << -1*sq*deltaX, -1*sq*deltaY,    0, sq*deltaX,  sq*deltaY, 
-    //                         deltaY,     -1*deltaX,    -1*q, -1*deltaY, deltaX;
-
-    // Observation_Jacobian_low << -1*sq*deltaX, -1*sq*deltaY,    0, sq*deltaX,  sq*deltaY, 
-    //                         -1*deltaY,     deltaX,    -1*q,  deltaY,  -1*deltaX;
-    
-    // Observation_Jacobian_low << -1*sq*deltaX, -1*sq*deltaY,    0, sq*deltaX,  sq*deltaY, 
-    //                             deltaY,       deltaX,    q, -1*deltaY,  -1*deltaX;
-
-    
 
     Observation_Jacobian_low = (1/q)*Observation_Jacobian_low;
 
@@ -375,116 +359,23 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     //     }
     // }
 
-    // Matrix<float, dim, 2> Gain_x = Gain;
 
-    // cout<<"Gain(2,0)"<<Gain(2,0)<<endl;
-    // cout<<"Gain(2,1)"<<Gain(2,1)<<endl;
-
-    // Gain_x(2,0) = -1*Gain_x(2,0);
-    // Gain_x(2,1) = -1*Gain_x(2,1);
-
-    // cout<<"Gain(2,0)"<<Gain(2,0)<<endl;
-    // cout<<"Gain(2,1)"<<Gain(2,1)<<endl;
-
-    // cout<<"\nGain = "<<endl;
-    // for(int i =0;i<dim;i++){
-    //     if(Gain(i,0) != 0 && Gain(i,0) != 0){
-    //         cout<<Gain_x(i,0)<<" | "<<Gain_x(i,1)<<endl;
-    //     }
-    // }
-
-
-
-    
-
-    // //cout<<"z-zcap = \n"<<z-z_cap<<endl;
 
     cout<<"(z-z_cap).r = "<<(z-z_cap)(0)<<"(z-z_cap).theta = "<<(z-z_cap)(1)*180/PI<<endl;
     
     Matrix<float, 2, 1> delta_z = z-z_cap;
     Matrix<float, dim, 1> Gain2 = Gain*(z-z_cap);
-    
-    //delta_z(1) = delta_z(1)*-1;
-    
-
-    // if(z(1)-z_cap(1)!=0){
-    //     cout<<"testing values"<<endl;
-    //     calculateNoise();
-    // }
-
-    // cout<<"\n EKF: State1: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
-    // for(int i =3;i<dim;i=i+2){
-    //     if(State[i] != 0 && State[i+1] != 0){
-    //         cout<<"("<<State[i]<<","<<State[i+1]<<") | ";
-    //     }
-    // }
-    // cout<<endl;
-
-    // if(abs(Gain2(0))>abs(delta_z(0)*cos(delta_z(1))) ){
-    //     cout<<"ForceChange Gain to 1 x_value: "<<delta_z(0)*sin(delta_z(1))/landmarks.size()<<endl;
-    //     Gain2(0) = (-delta_z(0)*cos(delta_z(1)));
-
-
-    // } 
-    // if( abs(Gain2(1))>abs(delta_z(0)*sin(delta_z(1))) ){
-    //     cout<<"ForceChange Gain to 1 y_value: "<<delta_z(0)*sin(delta_z(1))/landmarks.size()<<endl;
-    //     Gain2(1) = delta_z(0)*sin(delta_z(1));
-    // } 
-    // if(abs(Gain2(2))>delta_z(1)){
-    //     cout<<"ForceChange Gain to 1 theta_value: "<<delta_z(1)/landmarks.size()<<endl;
-        
-    //     Gain2(2) = delta_z(1);
-    // }
-
-
-    // Gain2(2) = -Gain(2);
-    // Gain2(0) = -Gain(0);    
-    //Gain2(1) = -Gain(1);
-
-    Gain2(1) = -1*Gain(1);
-    // if(delta_z(1)*Gain2(2)<0 ){
-    //     //Gain2(2) = -Gain(2);
-    //     cout<<"angle update opposite"<<" Gain2[2]= "<<Gain2(2)<<" delta_z[1]= "<<delta_z(1)<<endl;
-    //    // Gain2(2) = -1*Gain2(2);
-    //     Gain2(2) = -1*Gain(2);
-    //     cout<<" Gain2[2]= "<<Gain2(2)<<endl;
-        
-    // }
-    // if((ObservedLandmark.x-EstimatedLandmark.x)*Gain2(0) < 0){
-    //     //Gain2(1) = -Gain(1);
-    //     cout<<"x update opposite"<<" Gain2[0]= "<<Gain2(0)<<" O.x-E.x= "<<ObservedLandmark.x-EstimatedLandmark.x<<endl;
-    //     //Gain2(0) = -1*Gain2(0);
-    //     Gain2(0) = -1*Gain(0);
-    //     //cout<<"x update opposite"<<endl;
-    // }
-    // if((ObservedLandmark.y-EstimatedLandmark.y)*Gain2(1) < 0){
-    //     cout<<"y update opposite"<<" Gain2[1]= "<<Gain2(1)<<" O.y-E.y= "<<ObservedLandmark.y-EstimatedLandmark.y<<endl;
-    //     //Gain2(1) = -1*Gain2(1);
-        
-    //     //cout<<"y update opposite"<<endl;
-    // }
-
 
 
     cout<<"gain* (z-zcap) = \n"<<endl;
-    //cout<<Gain2[0];
     for(int i =0;i<dim;i++){
         if(Gain2(i) != 0){
             cout<<Gain2(i)<<endl;
         }
     }
 
-    // for(int i =3;i<dim;i=i+2){
-    //     //This seems to lower landmark error and keep everything together
-    //     Gain2[i+1] = -1*Gain2[i+1];
-    //     Gain2[i] = -1*Gain2[i];
-    // }
-
-
-
-
     //State = State + Gain*(z-z_cap);
-    State = State + Gain2;
+    State = State + Gain*(z-z_cap);
     //State = State + Gain*(delta_z);
     //State = State + Gain*(z-z_cap);
 
@@ -511,6 +402,7 @@ void ExtendedKalmanFilter::updateCovarianceOfLandmark() {
     Covariance = (I - Gain*Observation_Jacobian)*Covariance;
 }
 
+
 void ExtendedKalmanFilter::runEKF() {
 
     // Prediction step
@@ -525,23 +417,14 @@ void ExtendedKalmanFilter::runEKF() {
     // Correction step
     //landmarks = observeEnvironment();
     vector<CarPoint> landmarks = TestValues;
-    // cout<<"size = "<<landmarks.size()<<endl;
-    // cout<<"landmarks = "<<endl;
-    // for(int i =0;i<landmarks.size();i++)
-    //     cout<<landmarks[i];
-    // cout<<endl;
-    // landmarks = Simulation_Functions::landmarkNoise(landmarks);
 
-    //cout<<"LANDMARKS = "<<fixed<<setprecision(10)<<landmarks[0]<<landmarks[1]<<landmarks[2]<<landmarks[3]<<endl;
+
 
     for (int i = 0; i < landmarks.size(); i++) {
         //cout<<"\n\nXXXXX N E X T   P O I N T "<<i<<" XXXXX"<<endl;
 
         
-        //Round Landmark
-        //Round to 4 decimal
-        // landmarks[i].x = round(landmarks[i].x * 10000.0) / 10000.0;
-        // landmarks[i].y = round(landmarks[i].y * 10000.0) / 10000.0;
+
 
 
         ObservedLandmark = landmarks[i];
