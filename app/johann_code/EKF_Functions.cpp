@@ -425,18 +425,19 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     if(delta_z(1)*Gain2(2)<0 ){
         //Gain2(2) = -Gain(2);
         cout<<"angle update opposite"<<" Gain2[2]= "<<Gain2(2)<<" delta_z[1]= "<<delta_z(1)<<endl;
-        Gain2(2) = -Gain2(2);
+        Gain2(2) = -1*Gain2(2);
+        cout<<" Gain2[2]= "<<Gain2(2)<<endl;
         
     }
     if((ObservedLandmark.x-EstimatedLandmark.x)*Gain2(0) < 0){
         //Gain2(1) = -Gain(1);
         cout<<"x update opposite"<<" Gain2[0]= "<<Gain2(0)<<" O.x-E.x= "<<ObservedLandmark.x-EstimatedLandmark.x<<endl;
-        Gain2(1) = -Gain2(1);
+        Gain2(1) = -1*Gain2(1);
         //cout<<"x update opposite"<<endl;
     }
     if((ObservedLandmark.y-EstimatedLandmark.y)*Gain2(1) < 0){
         cout<<"y update opposite"<<" Gain2[1]= "<<Gain2(1)<<" O.y-E.y= "<<ObservedLandmark.y-EstimatedLandmark.y<<endl;
-        Gain2(2) = -Gain2(2);
+        Gain2(2) = -1*Gain2(2);
         //cout<<"y update opposite"<<endl;
     }
 
