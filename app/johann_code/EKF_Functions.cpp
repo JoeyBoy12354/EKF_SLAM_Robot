@@ -262,8 +262,8 @@ void ExtendedKalmanFilter::getEstimatedObservationJacobian(float deltaX, float d
     // Observation_Jacobian_low << -1*sq*deltaX, sq*deltaY,    0, sq*deltaX,  -1*sq*deltaY, 
     //                             -1*deltaY,       deltaX,    q, deltaY,  -1*deltaX;
 
-    Observation_Jacobian_low << -1*sq*deltaX, -1*sq*deltaY,    0, sq*deltaX,  -1*sq*deltaY, 
-                                deltaY,       -1*deltaX,    q, deltaY,  -1*deltaX;
+    // Observation_Jacobian_low << -1*sq*deltaX, -1*sq*deltaY,    0, sq*deltaX,  -1*sq*deltaY, 
+    //                             deltaY,       -1*deltaX,    q, deltaY,  -1*deltaX;
 
 
 
@@ -294,6 +294,7 @@ void ExtendedKalmanFilter::getGainMatrix() {
     // cout<<"\n Gainx_H*P*H.T = \n"<<Observation_Jacobian*Covariance*(Observation_Jacobian.transpose())<<endl;
     // cout<<"\n Gainx = \n"<<Gainx<<endl;
     Gain = Covariance*Observation_Jacobian.transpose() * Gainx.inverse();
+    Gain = Gain*-1;
     //cout<<"\n Gain = \n"<<Gain<<endl;
 }
 
