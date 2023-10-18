@@ -480,7 +480,7 @@ void simRun3(){
     ekf.TestValues.push_back({925.612,678.594});
     simRun(ekf,true);
 
-    for(int i =0;i<500;i++){
+    for(int i =0;i<10;i++){
         ekf.TestValues.clear();
         ekf.TestValues.push_back({915.606,424.298});
         ekf.TestValues.push_back({-821.015,1146.44});
@@ -601,7 +601,7 @@ void simRun5(){
     simRun(ekf,false);
 
     cout<<"-----------------------------------------"<<endl;
-    int runs = 30000;
+    int runs = 130;
 
     for(int i =0;i<runs;i++){
         ekf.w=0;
