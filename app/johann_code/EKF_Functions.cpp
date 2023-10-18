@@ -246,11 +246,12 @@ void ExtendedKalmanFilter::getEstimatedObservationJacobian(float deltaX, float d
         q = 1;
     }
 
+    deltaX = -1*deltaX;
     //Get the lower Observation Matrix
     Matrix <float, 2,5> Observation_Jacobian_low;
     float sq = sqrt(q);
-    // Observation_Jacobian_low << -1*sq*deltaX, -1*sq*deltaY,    0, sq*deltaX,  sq*deltaY, 
-    //                             deltaY,       -1*deltaX,    -1*q, -1*deltaY,  deltaX;
+    Observation_Jacobian_low << -1*sq*deltaX, -1*sq*deltaY,    0, sq*deltaX,  sq*deltaY, 
+                                deltaY,       -1*deltaX,    -1*q, -1*deltaY,  deltaX;
 
     //  float sq = sqrt(q);
     // Observation_Jacobian_low << -1*sq*deltaX, -1*sq*deltaY,    0, sq*deltaX,  sq*deltaY, 
@@ -259,8 +260,8 @@ void ExtendedKalmanFilter::getEstimatedObservationJacobian(float deltaX, float d
     // Observation_Jacobian_low << -1*sq*deltaX, -1*sq*deltaY,    0, sq*deltaX,  sq*deltaY, 
     //                         -1*deltaY,     deltaX,    -1*q,  deltaY,  -1*deltaX;
     
-    Observation_Jacobian_low << -1*sq*deltaX, -1*sq*deltaY,    0, sq*deltaX,  sq*deltaY, 
-                                deltaY,       deltaX,    q, -1*deltaY,  -1*deltaX;
+    // Observation_Jacobian_low << -1*sq*deltaX, -1*sq*deltaY,    0, sq*deltaX,  sq*deltaY, 
+    //                             deltaY,       deltaX,    q, -1*deltaY,  -1*deltaX;
 
     
 
