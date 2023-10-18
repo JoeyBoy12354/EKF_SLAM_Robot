@@ -62,7 +62,7 @@ def ekf_slam(xEst, PEst, u, z):
 
 
 def calc_input():
-    v = 1.0  # [m/s]
+    v = 100.0  # [m/s]
     yaw_rate = 0.1  # [rad/s]
     u = np.array([[v, yaw_rate]]).T
     return u
