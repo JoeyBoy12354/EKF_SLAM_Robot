@@ -480,7 +480,7 @@ void simRun3(){
     ekf.TestValues.push_back({925.612,678.594});
     simRun(ekf,true);
 
-    for(int i =0;i<1;i++){
+    for(int i =0;i<100;i++){
         ekf.TestValues.clear();
         ekf.TestValues.push_back({915.606,424.298});
         ekf.TestValues.push_back({-821.015,1146.44});
