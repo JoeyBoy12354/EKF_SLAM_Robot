@@ -263,7 +263,7 @@ void ExtendedKalmanFilter::getEstimatedObservationJacobian(float deltaX, float d
     //                             -1*deltaY,       deltaX,    q, deltaY,  -1*deltaX;
 
     Observation_Jacobian_low << -1*sq*deltaX, -1*sq*deltaY,    0, sq*deltaX,  -1*sq*deltaY, 
-                                deltaY,       -1*deltaX,    -1*q, -1*deltaY,  -1*deltaX;
+                                deltaY,       -1*deltaX,    q, deltaY,  -1*deltaX;
 
 
 
