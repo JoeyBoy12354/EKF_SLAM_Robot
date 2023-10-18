@@ -249,13 +249,15 @@ void ExtendedKalmanFilter::getEstimatedObservationJacobian(float deltaX, float d
     //Get the lower Observation Matrix
     Matrix <float, 2,5> Observation_Jacobian_low;
     float sq = sqrt(q);
+    // Observation_Jacobian_low << -1*sq*deltaX, -1*sq*deltaY,    0, sq*deltaX,  sq*deltaY, 
+    //                             deltaY,       -1*deltaX,    -1*q, -1*deltaY,  deltaX;
+
+    //  float sq = sqrt(q);
+    // Observation_Jacobian_low << -1*sq*deltaX, -1*sq*deltaY,    0, sq*deltaX,  sq*deltaY, 
+    //                         deltaY,     -1*deltaX,    -1*q, -1*deltaY, deltaX;
+
     Observation_Jacobian_low << -1*sq*deltaX, -1*sq*deltaY,    0, sq*deltaX,  sq*deltaY, 
-                                deltaY,       -1*deltaX,    -1*q, -1*deltaY,  deltaX;
-
-
-
-
-    
+                            -1*deltaY,     deltaX,    -1*q,  deltaY,  -1*deltaX;
 
     Observation_Jacobian_low = (1/q)*Observation_Jacobian_low;
 
@@ -422,24 +424,24 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     //Gain2(1) = -Gain(1);
 
 
-    if(delta_z(1)*Gain2(2)<0 ){
-        //Gain2(2) = -Gain(2);
-        cout<<"angle update opposite"<<" Gain2[2]= "<<Gain2(2)<<" delta_z[1]= "<<delta_z(1)<<endl;
-        Gain2(2) = -1*Gain2(2);
-        cout<<" Gain2[2]= "<<Gain2(2)<<endl;
+    // if(delta_z(1)*Gain2(2)<0 ){
+    //     //Gain2(2) = -Gain(2);
+    //     cout<<"angle update opposite"<<" Gain2[2]= "<<Gain2(2)<<" delta_z[1]= "<<delta_z(1)<<endl;
+    //     Gain2(2) = -1*Gain2(2);
+    //     cout<<" Gain2[2]= "<<Gain2(2)<<endl;
         
-    }
-    if((ObservedLandmark.x-EstimatedLandmark.x)*Gain2(0) < 0){
-        //Gain2(1) = -Gain(1);
-        cout<<"x update opposite"<<" Gain2[0]= "<<Gain2(0)<<" O.x-E.x= "<<ObservedLandmark.x-EstimatedLandmark.x<<endl;
-        Gain2(0) = -1*Gain2(0);
-        //cout<<"x update opposite"<<endl;
-    }
-    if((ObservedLandmark.y-EstimatedLandmark.y)*Gain2(1) < 0){
-        cout<<"y update opposite"<<" Gain2[1]= "<<Gain2(1)<<" O.y-E.y= "<<ObservedLandmark.y-EstimatedLandmark.y<<endl;
-        Gain2(1) = -1*Gain2(1);
-        //cout<<"y update opposite"<<endl;
-    }
+    // }
+    // if((ObservedLandmark.x-EstimatedLandmark.x)*Gain2(0) < 0){
+    //     //Gain2(1) = -Gain(1);
+    //     cout<<"x update opposite"<<" Gain2[0]= "<<Gain2(0)<<" O.x-E.x= "<<ObservedLandmark.x-EstimatedLandmark.x<<endl;
+    //     Gain2(0) = -1*Gain2(0);
+    //     //cout<<"x update opposite"<<endl;
+    // }
+    // if((ObservedLandmark.y-EstimatedLandmark.y)*Gain2(1) < 0){
+    //     cout<<"y update opposite"<<" Gain2[1]= "<<Gain2(1)<<" O.y-E.y= "<<ObservedLandmark.y-EstimatedLandmark.y<<endl;
+    //     Gain2(1) = -1*Gain2(1);
+    //     //cout<<"y update opposite"<<endl;
+    // }
 
 
 
