@@ -20,8 +20,8 @@ R_sim = np.diag([1.0, np.deg2rad(10.0)]) ** 2
 
 DT = 0.1  # time tick [s]
 SIM_TIME = 50.0  # simulation time [s]
-MAX_RANGE = 20.0  # maximum observation range
-M_DIST_TH = 2.0  # Threshold of Mahalanobis distance for data association.
+MAX_RANGE = 30000.0  # maximum observation range
+M_DIST_TH = 100.0  # Threshold of Mahalanobis distance for data association.
 STATE_SIZE = 3  # State size [x,y,yaw]
 LM_SIZE = 2  # LM state size [x,y]
 
@@ -207,6 +207,11 @@ def main():
                      [15.0, 10.0],
                      [3.0, 15.0],
                      [-5.0, 20.0]])
+    
+    # RFID = np.array([[800.0, 800.0],
+    #                  [750.0, -700.0],
+    #                  [-1000.0, -700.0],
+    #                  [-5.0, 20.0]])
 
     # State Vector [x y yaw v]'
     xEst = np.zeros((STATE_SIZE, 1))
