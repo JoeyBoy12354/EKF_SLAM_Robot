@@ -258,7 +258,10 @@ def fetchLandmarks():
 
     return landmarks
 
-
+def plotCustom(myLM,myX,atiX,atiLM,trueX,trueLM,time):
+    
+    
+    return "not implemented"
 
 def main():
     print(__file__ + " start!!")
@@ -289,6 +292,10 @@ def main():
 
     all_u = []
     all_lm = []
+    atsi_state = []
+    atsi_lm = []
+    all_time = []
+    true_state = []
 
     while SIM_TIME >= time:
         time += DT
@@ -305,6 +312,18 @@ def main():
         xEst, PEst = ekf_slam(xEst, PEst, ud, z)
 
         x_state = xEst[0:STATE_SIZE]
+
+        #Johann Storage Functions
+        for i in range(calc_n_lm(xEst)):
+            x = xEst[STATE_SIZE + i * 2]
+            y = xEst[STATE_SIZE + i * 2 + 1]
+            atsi_lm.append([x,y])
+        
+        x = xEst[0]
+        y = xEst[1]
+        atsi_state.append(x,y)
+            
+        
 
         # store data history
         hxEst = np.hstack((hxEst, x_state))

@@ -669,9 +669,9 @@ void atSim(){
 
         simRun(ekf,false);
 
+        //Only x and y needed   
         curr_state.push_back(ekf.State(0));
         curr_state.push_back(ekf.State(1));
-        curr_state.push_back(ekf.State(2));
         states.push_back(curr_state);
 
         for(int i=3;i<dim;i=i+2){
