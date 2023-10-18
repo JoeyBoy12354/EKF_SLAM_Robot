@@ -18,7 +18,7 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     // float test_sigma_odo_x = 0.01;
     // float test_sigma_odo_y = 0.01;
     // float test_sigma_odo_theta = 0.017;
-    float test_sigma_r = 100;
+    float test_sigma_r = 0.3;
     float test_sigma_theta = 0.1;
     float test_sigma_odo_x = 0.01;
     float test_sigma_odo_y = 0.01;
@@ -253,8 +253,8 @@ void ExtendedKalmanFilter::getEstimatedObservationJacobian(float deltaX, float d
     Observation_Jacobian_low << -1*sq*deltaX, -1*sq*deltaY,    0, sq*deltaX,  sq*deltaY, 
                                 deltaY,       -1*deltaX,    -1*q, -1*deltaY,  deltaX;
 
-    Observation_Jacobian_low << -1*sq*deltaX, -1*sq*deltaY,    0, sq*deltaX,  sq*deltaY, 
-                                deltaY,       -1*deltaX,    q, -1*deltaY,  deltaX;
+    // Observation_Jacobian_low << -1*sq*deltaX, -1*sq*deltaY,    0, sq*deltaX,  sq*deltaY, 
+    //                             deltaY,       -1*deltaX,    q, -1*deltaY,  deltaX;
 
     //  float sq = sqrt(q);
     // Observation_Jacobian_low << -1*sq*deltaX, -1*sq*deltaY,    0, sq*deltaX,  sq*deltaY, 
