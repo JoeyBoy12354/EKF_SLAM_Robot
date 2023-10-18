@@ -253,6 +253,9 @@ void ExtendedKalmanFilter::getEstimatedObservationJacobian(float deltaX, float d
                                 deltaY,       -1*deltaX,    -1*q, -1*deltaY,  deltaX;
 
 
+    Observation_Jacobian_low << -1*sq*deltaX, -1*sq*deltaY,    0, sq*deltaX,  sq*deltaY, 
+                                deltaY,       -1*deltaX,    -1*q, -1*deltaY,  -1*deltaX;
+
     // Observation_Jacobian_low << -1*sq*deltaX, sq*deltaY,    0, sq*deltaX,  -1*sq*deltaY, 
     //                             deltaY,       deltaX,    q, -1*deltaY,  -1*deltaX;
 
@@ -373,8 +376,8 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     // cout<<"Gain(2,0)"<<Gain(2,0)<<endl;
     // cout<<"Gain(2,1)"<<Gain(2,1)<<endl;
 
-    Gain_x(2,0) = -1*Gain_x(2,0);
-    Gain_x(2,1) = -1*Gain_x(2,1);
+    // Gain_x(2,0) = -1*Gain_x(2,0);
+    // Gain_x(2,1) = -1*Gain_x(2,1);
 
     // cout<<"Gain(2,0)"<<Gain(2,0)<<endl;
     // cout<<"Gain(2,1)"<<Gain(2,1)<<endl;
