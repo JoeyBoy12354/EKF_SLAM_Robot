@@ -371,11 +371,11 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     // cout<<"Gain(2,0)"<<Gain(2,0)<<endl;
     // cout<<"Gain(2,1)"<<Gain(2,1)<<endl;
 
-    // Gain(2,0) = -1*Gain(2,0);
-    // Gain(2,1) = -1*Gain(2,1);
+    Gain(2,0) = -1*Gain(2,0);
+    Gain(2,1) = -1*Gain(2,1);
 
-    cout<<"Gain(2,0)"<<Gain(2,0)<<endl;
-    cout<<"Gain(2,1)"<<Gain(2,1)<<endl;
+    // cout<<"Gain(2,0)"<<Gain(2,0)<<endl;
+    // cout<<"Gain(2,1)"<<Gain(2,1)<<endl;
 
     cout<<"\nGain = "<<endl;
     for(int i =0;i<dim;i++){
@@ -428,7 +428,7 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     // }
 
 
-    Gain2(2) = -Gain(2);
+    //Gain2(2) = -Gain(2);
     //Gain2(0) = -Gain(0);    
     // Gain2(1) = -Gain(1);
     // if(delta_z(1)*Gain2[2]<0 ){
