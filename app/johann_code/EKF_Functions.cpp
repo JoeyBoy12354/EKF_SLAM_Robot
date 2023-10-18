@@ -541,7 +541,8 @@ void ExtendedKalmanFilter::runEKF() {
         float deltaY = EstimatedLandmark.y - State(1);
         float q = deltaX * deltaX + deltaY * deltaY;
         z_cap(0) = sqrt(q);
-        z_cap(1) = (PI - atan2(deltaY, deltaX)) - State(2);
+        //z_cap(1) = (PI - atan2(deltaY, deltaX)) - State(2);
+        z_cap(1) = (atan2(deltaY, deltaX)) - State(2);
 
         cout<<"\n i = "<<i<<endl;
         cout<<"ObsLM.x = "<<ObservedLandmark.x<<"ObsLM.y = "<<ObservedLandmark.y<<endl;
