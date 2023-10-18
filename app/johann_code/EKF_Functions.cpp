@@ -420,29 +420,33 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     // Gain2(2) = -Gain(2);
     // Gain2(0) = -Gain(0);    
     //Gain2(1) = -Gain(1);
-    if(delta_z(1)*Gain2[2]<0 ){
+
+
+    if(delta_z(1)*Gain2(2)<0 ){
         //Gain2(2) = -Gain(2);
+        cout<<"angle update opposite"<<" Gain2[2]= "<<Gain2(1)<<" delta_z[1]= "<<delta_z(1)<<endl;
         Gain2(2) = -Gain2(2);
-        cout<<"angle update opposite"<<endl;
+        
     }
-    if((ObservedLandmark.x-EstimatedLandmark.x)*Gain2[0] < 0){
+    if((ObservedLandmark.x-EstimatedLandmark.x)*Gain2(0) < 0){
         //Gain2(1) = -Gain(1);
+        cout<<"x update opposite"<<" Gain2[0]= "<<Gain2(0)<<" O.x-E.x= "<<ObservedLandmark.x-EstimatedLandmark.x<<endl;
         Gain2(1) = -Gain2(1);
-        cout<<"x update opposite"<<endl;
+        //cout<<"x update opposite"<<endl;
     }
-    if((ObservedLandmark.y-EstimatedLandmark.y)*Gain2[1] < 0){
-        //
+    if((ObservedLandmark.y-EstimatedLandmark.y)*Gain2(1) < 0){
+        cout<<"y update opposite"<<" Gain2[1]= "<<Gain2(1)<<" O.y-E.y= "<<ObservedLandmark.y-EstimatedLandmark.y<<endl;
         Gain2(2) = -Gain2(2);
-        cout<<"y update opposite"<<endl;
+        //cout<<"y update opposite"<<endl;
     }
 
 
 
     cout<<"gain* (z-zcap) = \n"<<endl;
-    cout<<Gain2[0];
+    //cout<<Gain2[0];
     for(int i =0;i<dim;i++){
-        if(Gain2[i] != 0){
-            cout<<Gain2[i]<<endl;
+        if(Gain2(i) != 0){
+            cout<<Gain2(i)<<endl;
         }
     }
 
