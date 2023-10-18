@@ -489,6 +489,7 @@ void simRun3(){
         ekf.TestValues.push_back({-1041.74,-459.041});
         simRun(ekf,true);
     }
+    saveStatsToCSV(ekf.stats);
 
     cout<<"SORCERY"<<endl;
     return;
