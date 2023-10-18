@@ -430,27 +430,27 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     //Gain2(1) = -Gain(1);
 
     Gain2(1) = -1*Gain(1);
-    if(delta_z(1)*Gain2(2)<0 ){
-        //Gain2(2) = -Gain(2);
-        cout<<"angle update opposite"<<" Gain2[2]= "<<Gain2(2)<<" delta_z[1]= "<<delta_z(1)<<endl;
-       // Gain2(2) = -1*Gain2(2);
-        Gain2(2) = -1*Gain(2);
-        cout<<" Gain2[2]= "<<Gain2(2)<<endl;
+    // if(delta_z(1)*Gain2(2)<0 ){
+    //     //Gain2(2) = -Gain(2);
+    //     cout<<"angle update opposite"<<" Gain2[2]= "<<Gain2(2)<<" delta_z[1]= "<<delta_z(1)<<endl;
+    //    // Gain2(2) = -1*Gain2(2);
+    //     Gain2(2) = -1*Gain(2);
+    //     cout<<" Gain2[2]= "<<Gain2(2)<<endl;
         
-    }
-    if((ObservedLandmark.x-EstimatedLandmark.x)*Gain2(0) < 0){
-        //Gain2(1) = -Gain(1);
-        cout<<"x update opposite"<<" Gain2[0]= "<<Gain2(0)<<" O.x-E.x= "<<ObservedLandmark.x-EstimatedLandmark.x<<endl;
-        //Gain2(0) = -1*Gain2(0);
-        Gain2(0) = -1*Gain(0);
-        //cout<<"x update opposite"<<endl;
-    }
-    if((ObservedLandmark.y-EstimatedLandmark.y)*Gain2(1) < 0){
-        cout<<"y update opposite"<<" Gain2[1]= "<<Gain2(1)<<" O.y-E.y= "<<ObservedLandmark.y-EstimatedLandmark.y<<endl;
-        //Gain2(1) = -1*Gain2(1);
+    // }
+    // if((ObservedLandmark.x-EstimatedLandmark.x)*Gain2(0) < 0){
+    //     //Gain2(1) = -Gain(1);
+    //     cout<<"x update opposite"<<" Gain2[0]= "<<Gain2(0)<<" O.x-E.x= "<<ObservedLandmark.x-EstimatedLandmark.x<<endl;
+    //     //Gain2(0) = -1*Gain2(0);
+    //     Gain2(0) = -1*Gain(0);
+    //     //cout<<"x update opposite"<<endl;
+    // }
+    // if((ObservedLandmark.y-EstimatedLandmark.y)*Gain2(1) < 0){
+    //     cout<<"y update opposite"<<" Gain2[1]= "<<Gain2(1)<<" O.y-E.y= "<<ObservedLandmark.y-EstimatedLandmark.y<<endl;
+    //     //Gain2(1) = -1*Gain2(1);
         
-        //cout<<"y update opposite"<<endl;
-    }
+    //     //cout<<"y update opposite"<<endl;
+    // }
 
 
 
@@ -541,8 +541,8 @@ void ExtendedKalmanFilter::runEKF() {
         float deltaY = EstimatedLandmark.y - State(1);
         float q = deltaX * deltaX + deltaY * deltaY;
         z_cap(0) = sqrt(q);
-        //z_cap(1) = (PI - atan2(deltaY, deltaX)) - State(2);
-        z_cap(1) = (atan2(deltaY, deltaX)) - State(2);
+        z_cap(1) = (PI - atan2(deltaY, deltaX)) - State(2);
+        //z_cap(1) = (atan2(deltaY, deltaX)) - State(2);
 
         cout<<"\n i = "<<i<<endl;
         cout<<"ObsLM.x = "<<ObservedLandmark.x<<"ObsLM.y = "<<ObservedLandmark.y<<endl;
