@@ -335,6 +335,9 @@ def main():
     my_state = []
     my_lm = []
 
+    my_lm = fetchLandmarks()
+    my_state = fetchState()
+
     while SIM_TIME >= time:
         time += DT
         u = calc_input()
@@ -402,8 +405,7 @@ def main():
     # write_u_csv(all_u)
     # write_lm_csv(all_lm)
 
-    my_lm = fetchLandmarks()
-    my_state = fetchState()
+    
 
     plotCustom(my_lm,my_state,atsi_state,atsi_lm,true_state,true_lm,all_time)
 
