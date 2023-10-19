@@ -264,6 +264,12 @@ namespace Data_Functions{
             angle = angle + 2*PI;
         }
     }
+
+
+    double pi_2_pi(double angle) {
+        return fmod((angle + M_PI), (2 * M_PI)) - M_PI;
+    }
+
 }
 
 // void getCaliAngle(MatrixXf State1,MatrixXf State2, float distThresh, float& caliAngle){
