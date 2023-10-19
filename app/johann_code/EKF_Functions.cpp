@@ -198,7 +198,7 @@ vector<CarPoint> ExtendedKalmanFilter::observeEnvironment() {
 
 // Check if a new landmark is observed
 void ExtendedKalmanFilter::isNewLandmark() {
-    float distThresh = 100; //editing this effects the localization heavily (10)
+    float distThresh = 200; //editing this effects the localization heavily (10)
 
     //z is the Range-Bearing of the actual landmark we have just found from Sensors (Observed)
     float deltaX = ObservedLandmark.x - State(0);
@@ -208,8 +208,6 @@ void ExtendedKalmanFilter::isNewLandmark() {
     z(1) = (atan2(deltaY, deltaX)) - State(2);
 
     cout<<"Landmark Observer = "<<ObservedLandmark<<endl;
-    cout<<"Z as observed\n"<<z<<endl;
-
 
     vector<double> Distances;
     vector<int> Indexes;
@@ -224,7 +222,6 @@ void ExtendedKalmanFilter::isNewLandmark() {
 
     double smallestDistance = *min_element(Distances.begin(), Distances.end());
     int smallestDistanceIndex = Indexes[getIndex(Distances,smallestDistance)];
-    cout<<"smallestDistance"<<smallestDistance<<" @"<<smallestDistanceIndex<<endl;
     
 
     if(smallestDistance<=distThresh){
@@ -234,7 +231,6 @@ void ExtendedKalmanFilter::isNewLandmark() {
         EstimatedLandmark.y = State(smallestDistanceIndex+1);
         LandmarkIndex = smallestDistanceIndex;
 
-        cout<<"after find z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
         // cout<<"Re-Observed: ("<<ObservedLandmark.x<<","<<ObservedLandmark.y<<") "<<
         // " Stored:("<<EstimatedLandmark.x<<","<<EstimatedLandmark.y<<") "<<endl;
         //cout<<"I have seen this one Before! Estimated: ("<<EstimatedLandmark.x<<","<<EstimatedLandmark.y<<") "<<endl;
@@ -242,32 +238,25 @@ void ExtendedKalmanFilter::isNewLandmark() {
         //This is a new landmark
         //cout<<"NewLandmark : "<<ObservedLandmark<<" smallDist = "<<smallestDistance<<" to ("<<State(smallestDistanceIndex)<<","<<State(smallestDistanceIndex+1)<<")"<<endl;
         cout<<"New LM"<<endl;
-        cout<<"Landmark Observer = "<<ObservedLandmark<<endl;
-        cout<<"observed z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
         //Calculate landmark position (why do this?)
         // EstimatedLandmark.x = State(0) + z(0)*cos(z(1) + State(2));
         // EstimatedLandmark.y = State(1) + z(0)*sin(z(1) + State(2));
 
+        if(NoLandmarksFound => N){
+            cout<<"\n\n EKF:LANDMARK OVERFLOW !!!!!! \n\n"<<endl;
+            return;
+        }
+
         EstimatedLandmark.x = ObservedLandmark.x;
         EstimatedLandmark.y = ObservedLandmark.y;
-        cout<<"observed2.1 z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
-        cout<<"Landmark Observer = "<<ObservedLandmark<<endl;
-        cout<<"Landmark Estimator= "<<EstimatedLandmark<<endl;
 
         NoLandmarksFound += 1;
         LandmarkIndex = 1+NoLandmarksFound*2;
         LandmarkIsNew = true;
-
-        cout<<"observed2.2 z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
-        cout<<"State = \n = "<<State<<endl;
         
         //Update State with landmark position
         State(LandmarkIndex) = EstimatedLandmark.x;
         State(LandmarkIndex+1) = EstimatedLandmark.y;  
-        cout<<"Landmark Observer = "<<ObservedLandmark<<endl;
-        cout<<"Landmark Estimator= "<<EstimatedLandmark<<endl;
-        cout<<"State = \n = "<<State<<endl;
-        cout<<"observed2.3 z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
 
     }
 
