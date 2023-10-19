@@ -264,7 +264,7 @@ def plotCustom(myLM,myX,atiX,atiLM,trueX,trueLM,time):
 
     # Scatter plot for atiX
     atiX = list(zip(*atiX))  # Transpose atiX for plotting
-    plt.scatter(atiX[0], atiX[1], c='red', label='atiX')
+    plt.plot(atiX[0], atiX[1], c='red', label='atiX')
 
     # Scatter plot for atiLM
     for lm in atiLM:
@@ -272,8 +272,8 @@ def plotCustom(myLM,myX,atiX,atiLM,trueX,trueLM,time):
         plt.scatter(lm[0], lm[1],c='g' ,marker='x')
 
     # Scatter plot for myX
-    myX = list(zip(*myX))  # Transpose atiX for plotting
-    plt.scatter(myX[0], myX[1], c='orange', label='myX')
+    myX = list(zip(*myX))  # Transpose myX for plotting
+    plt.plot(myX[0], myX[1], c='orange', label='myX')
 
     # Scatter plot for atiLM
     for lm in myLM:
