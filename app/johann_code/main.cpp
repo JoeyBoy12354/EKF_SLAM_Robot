@@ -663,10 +663,10 @@ void atSim(){
 
 
     for(int i=0;i<u.size();i++){
-        cout<<"u[0][0]= "<<u[0][0]<<" u[0][1]= "<<u[0][1]<<endl;
-        cout<<"lm[0][0]= "<<lm[0][0]<<endl;
-        cout<<"lm[0][0]= "<<lm[0][1]<<endl;
-        cout<<"lm[0][0]= "<<lm[0][2]<<endl;
+        cout<<"u[0][0]= "<<u[i][0]<<" u[0][1]= "<<u[i][1]<<endl;
+        cout<<"lm[0][0]= "<<lm[i][0]<<endl;
+        cout<<"lm[0][0]= "<<lm[i][1]<<endl;
+        cout<<"lm[0][0]= "<<lm[i][2]<<endl;
         ekf.w = u[i][1];
         ekf.distance = u[i][0];
         ekf.TestValues.clear();
