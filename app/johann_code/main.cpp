@@ -198,7 +198,7 @@ void simRun(ExtendedKalmanFilter& ekf, bool final){
     //Run EKF
     ekf.runEKF();
 
-    cout<<"MAIN: after_ekf State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+    //cout<<"MAIN: after_ekf State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
 
     // for(int i =3;i<dim;i=i+2){
     //     if(ekf.State[i] != 0 && ekf.State[i+1] != 0){
@@ -683,6 +683,8 @@ void atSim(){
         }
         landmarks.push_back(curr_lm);
     }
+
+    cout<<"Completed RUN"<<endl;
 
 
     atsi_lm_write(landmarks);
