@@ -70,11 +70,13 @@ def ekf_slam(xEst, PEst, u, z):
         y, S, H = calc_innovation(lm, xEst, PEst, z[iz, 0:2], min_id)
 
         K = (PEst @ H.T) @ np.linalg.inv(S)
-        print("S^(-1) = \n",np.linalg.inv(S))
-        print("PEst @ H.T = \n",PEst @ H.T)
+        # print("S^(-1) = \n",np.linalg.inv(S))
+        # print("PEst @ H.T = \n",PEst @ H.T)
 
+        # print("K = \n",K)
+        
+        print("y = \n",y)
         print("K = \n",K)
-
         xEst = xEst + (K @ y)
         PEst = (np.eye(len(xEst)) - (K @ H)) @ PEst
 
@@ -199,14 +201,18 @@ def calc_innovation(lm, xEst, PEst, z, LMid):
     q = (delta.T @ delta)[0, 0]
     z_angle = math.atan2(delta[1, 0], delta[0, 0]) - xEst[2, 0]
     zp = np.array([[math.sqrt(q), pi_2_pi(z_angle)]])
+
+    print("z = \n",z)
+    print("zp = \n",zp)
     y = (z - zp).T
+    print("y(before pi2pi) = \n",y)
     y[1] = pi_2_pi(y[1])
     H = jacob_h(q, delta, xEst, LMid + 1)
     S = H @ PEst @ H.T + Cx[0:2, 0:2]
-    print("H_observation_jacob = \n",H)
-    print("PEst = \n",PEst)
-    print("Cx (noise) = \n",Cx[0:2, 0:2])
-    print("S = \n",S)
+    # print("H_observation_jacob = \n",H)
+    # print("PEst = \n",PEst)
+    # print("Cx (noise) = \n",Cx[0:2, 0:2])
+    # print("S = \n",S)
 
     return y, S, H
 
