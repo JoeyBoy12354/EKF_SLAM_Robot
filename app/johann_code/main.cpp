@@ -653,6 +653,9 @@ void atSim(){
     atsi_lm_read(lm);
     cout<<"check sizes = "<<lm<<" "<<u.size()<<endl;
 
+    cout<<"u[0][0]= "<<u[0][0]<<" u[0][1]= "<<u[0][1]<<endl;
+    cout<<"lm[0][0]= "<<lm[0][0]<<" lm[0][1]= "<<lm[0][1]<<endl;
+
     vector<vector<float>> states;
     vector<float> curr_state;
     vector<vector<float>> landmarks;
