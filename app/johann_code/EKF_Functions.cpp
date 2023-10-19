@@ -229,7 +229,7 @@ void ExtendedKalmanFilter::isNewLandmark() {
 
     if(smallestDistance<=distThresh){
         cout<<"b4 find z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
-        cout<<"This is a found landmark"
+        cout<<"This is a found landmark"<<endl;
         //This is a found landmark
         EstimatedLandmark.x = State(smallestDistanceIndex);
         EstimatedLandmark.y = State(smallestDistanceIndex+1);
