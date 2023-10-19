@@ -374,37 +374,37 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
 
 
 
-    cout<<"(z-z_cap).r = "<<(z-z_cap)(0)<<"(z-z_cap).theta = "<<(z-z_cap)(1)*180/PI<<endl;
+    //cout<<"(z-z_cap).r = "<<(z-z_cap)(0)<<"(z-z_cap).theta = "<<(z-z_cap)(1)*180/PI<<endl;
     
     Matrix<float, 2, 1> delta_z = z-z_cap;
     Matrix<float, dim, 1> Gain2 = Gain*(z-z_cap);
 
 
-    cout<<"gain* (z-zcap) = \n"<<endl;
-    for(int i =0;i<dim;i++){
-        if(Gain2(i) != 0){
-            cout<<Gain2(i)<<endl;
-        }
-    }
+    // cout<<"gain* (z-zcap) = \n"<<endl;
+    // for(int i =0;i<dim;i++){
+    //     if(Gain2(i) != 0){
+    //         cout<<Gain2(i)<<endl;
+    //     }
+    // }
 
     //State = State + Gain*(z-z_cap);
     State = State + Gain*(z-z_cap);
     //State = State + Gain*(delta_z);
     //State = State + Gain*(z-z_cap);
 
-    cout<<"LANDMARK ERROR: "<<pointDistance(EstimatedLandmark,ObservedLandmark)<<endl;
+    // cout<<"LANDMARK ERROR: "<<pointDistance(EstimatedLandmark,ObservedLandmark)<<endl;
     
-    cout<<"\n EKF: State2: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
-    for(int i =3;i<dim;i=i+2){
-        if(State[i] != 0 && State[i+1] != 0){
-            cout<<"("<<State[i]<<","<<State[i+1]<<") | ";
-        }
-    }
-    cout<<endl;
+    // cout<<"\n EKF: State2: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
+    // for(int i =3;i<dim;i=i+2){
+    //     if(State[i] != 0 && State[i+1] != 0){
+    //         cout<<"("<<State[i]<<","<<State[i+1]<<") | ";
+    //     }
+    // }
+    // cout<<endl;
     angleInBounds(State(2));
 
     vector<float> stat{State(0),State(1),State(2)*180/PI,(z-z_cap)(0),(z-z_cap)(1)*180/PI,Gain2(0),Gain2(1)*180/PI};
-    stats.push_back(stat);
+    //stats.push_back(stat);
 
     }
 
