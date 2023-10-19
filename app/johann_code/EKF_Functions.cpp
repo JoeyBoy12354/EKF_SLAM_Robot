@@ -451,8 +451,8 @@ void ExtendedKalmanFilter::runEKF() {
     //cout << "\nLINE 3\nGt =\n" << Motion_Jacobian << "\nmotion_Noise =\n" << Motion_Noise << "\nSigma =\n" << Covariance << "\n";
 
     // Correction step
-    //landmarks = observeEnvironment();
-    vector<CarPoint> landmarks = TestValues;
+    landmarks = observeEnvironment();
+    //vector<CarPoint> landmarks = TestValues;
 
 
 
