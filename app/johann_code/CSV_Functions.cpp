@@ -529,7 +529,7 @@ namespace CSV_Functions{
         // Write the data to the CSV file
         for (int i=0;i<input.size();i++) {
             for(int j=0;j<input[0].size()-1;j++){
-                cout<<"CSV: input["<<i<<"][0]= "<<input[i][0]<<" input["<<i<<"][1]= "<<input[i][1]<<endl;
+                //cout<<"CSV: input["<<i<<"][0]= "<<input[i][0]<<" input["<<i<<"][1]= "<<input[i][1]<<endl;
                 outputFile << input[i][j] << ",";
             }
             outputFile << input[i][input[0].size()-1] << "\n";

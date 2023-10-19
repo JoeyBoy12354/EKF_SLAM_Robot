@@ -672,6 +672,8 @@ void atSim(){
 
         simRun(ekf,false);
 
+        cout<<"yay: after_ekf State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+
         //Only x and y needed   
         curr_state.push_back(ekf.State(0));
         curr_state.push_back(ekf.State(1));
