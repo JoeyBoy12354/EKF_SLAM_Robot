@@ -259,9 +259,33 @@ def fetchLandmarks():
     return landmarks
 
 def plotCustom(myLM,myX,atiX,atiLM,trueX,trueLM,time):
-    
-    
-    return "not implemented"
+    print("atsi_state",atiX)
+    print("atsi_lm = ",atiLM)
+
+    # Scatter plot for atiX
+    atiX = list(zip(*atiX))  # Transpose atiX for plotting
+    plt.scatter(atiX[0], atiX[1], c='red', label='atiX')
+
+    # Scatter plot for atiLM
+    for lm in atiLM:
+        lm = list(zip(*lm))  # Transpose each set of landmarks
+        plt.scatter(lm[0], lm[1],c='g' ,marker='x')
+
+    # # Scatter plot for trueX
+    # trueX = list(zip(*trueX))  # Transpose trueX for plotting
+    # plt.scatter(trueX[0], trueX[1], c='blue', label='trueX')
+
+    # # Scatter plot for trueLM
+    # for lm in trueLM:
+    #     lm = list(zip(*lm))  # Transpose each set of landmarks
+    #     plt.scatter(lm[0], lm[1], marker='o', label='trueLM')
+
+    plt.legend()
+    plt.title(f"Custom Plot at time {time}")
+    plt.xlabel("X-coordinate")
+    plt.ylabel("Y-coordinate")
+    plt.grid(True)
+    plt.show()
 
 def main():
     print(__file__ + " start!!")
@@ -292,10 +316,14 @@ def main():
 
     all_u = []
     all_lm = []
+
     atsi_state = []
     atsi_lm = []
     all_time = []
     true_state = []
+    true_lm = []
+    my_state = []
+    my_lm = []
 
     while SIM_TIME >= time:
         time += DT
@@ -314,10 +342,12 @@ def main():
         x_state = xEst[0:STATE_SIZE]
 
         #Johann Storage Functions
+        atsi_lm_temp = []
         for i in range(calc_n_lm(xEst)):
             x = xEst[STATE_SIZE + i * 2]
             y = xEst[STATE_SIZE + i * 2 + 1]
-            atsi_lm.append([x,y])
+            atsi_lm_temp.append([x,y])
+        atsi_lm.append(atsi_lm_temp)
         
         x = xEst[0]
         y = xEst[1]
@@ -361,6 +391,8 @@ def main():
     print(all_u)
     write_u_csv(all_u)
     write_lm_csv(all_lm)
+
+    plotCustom(my_lm,my_state,atsi_state,atsi_lm,true_state,true_lm,all_time)
 
 
 if __name__ == '__main__':
