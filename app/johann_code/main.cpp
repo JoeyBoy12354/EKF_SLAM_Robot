@@ -654,9 +654,9 @@ void atSim(){
     cout<<"check sizes = "<<lm.size()<<" "<<u.size()<<endl;
 
     cout<<"u[0][0]= "<<u[0][0]<<" u[0][1]= "<<u[0][1]<<endl;
-    cout<<"lm[0][0]= "<<lm[0][0]<<" lm[0][1]= "<<lm[0][1]<<endl;
-    cout<<"lm[1][0]= "<<lm[1][0]<<" lm[1][1]= "<<lm[1][1]<<endl;
-    cout<<"lm[2][0]= "<<lm[2][0]<<" lm[2][1]= "<<lm[2][1]<<endl;
+    cout<<"lm[0][0]= "<<lm[0][0]<<endl;
+    cout<<"lm[0][0]= "<<lm[0][1]<<endl;
+    cout<<"lm[0][0]= "<<lm[0][2]<<endl;
 
     vector<vector<float>> states;
     vector<float> curr_state;

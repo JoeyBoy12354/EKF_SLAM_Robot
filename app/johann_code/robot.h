@@ -165,7 +165,7 @@ namespace CSV_Functions{
 
     //Atsis
     void atsi_u_read(vector<vector<float>>& input);
-    void atsi_lm_read(vector<vector<float>>& lm);
+    void atsi_lm_read(vector<vector<CarPoint>>& lm);
      void atsi_u_write(vector<vector<float>>& input);
      void atsi_lm_write(vector<vector<float>>& lm);
 
