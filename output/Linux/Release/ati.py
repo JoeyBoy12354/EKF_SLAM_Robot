@@ -42,7 +42,7 @@ def ekf_slam(xEst, PEst, u, z):
 
 
     PEst[0:S, 0:S] = G.T @ PEst[0:S, 0:S] @ G + Fx.T @ Cx @ Fx
-    print("PEst = \n" PEst)
+    print("PEst = \n", PEst)
 
 
     initP = np.eye(2)
