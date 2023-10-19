@@ -298,11 +298,12 @@ void ExtendedKalmanFilter::getGainMatrix() {
     cout<<"\n P = \n"<<Covariance<<endl;
     cout<<"\n C = \n"<<Coordinate_Uncertainty<<endl;
 
-    Matrix<float,2,2> Gainx = Observation_Jacobian*Covariance*(Observation_Jacobian.transpose()) + Coordinate_Uncertainty;  
+    Matrix<float,2,2> Gainx = Observation_Jacobian*Covariance*Observation_Jacobian.transpose() + Coordinate_Uncertainty;  
+    cout<<"Gainx (S) = \n"<<Gainx<<endl;
     // cout<<"\n Gainx_H*P*H.T = \n"<<Observation_Jacobian*Covariance*(Observation_Jacobian.transpose())<<endl;
     // cout<<"\n Gainx = \n"<<Gainx<<endl;
     Gain = Covariance*Observation_Jacobian.transpose() * Gainx.inverse();
-    //cout<<"\n Gain = \n"<<Gain<<endl;
+    cout<<"\n Gain = \n"<<Gain<<endl;
 }
 
 void ExtendedKalmanFilter::calculateNoise(){
