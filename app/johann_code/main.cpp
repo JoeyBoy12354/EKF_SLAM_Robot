@@ -682,6 +682,8 @@ void atSim(){
             curr_lm.push_back(ekf.State[i+1]);
         }
         landmarks.push_back(curr_lm);
+        cout<<"u["<<i<<"][0]= "<<u[i][0]<<" u["<<i<<"][1]= "<<u[i][1]<<endl;
+        cout<<"lm["<<i<<"][0]= "<<lm[i][0]<<" lm["<<i<<"][1]= "<<lm[i][1]<<endl;
     }
 
     cout<<"Completed RUN"<<endl;
