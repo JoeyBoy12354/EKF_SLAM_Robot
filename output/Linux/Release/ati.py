@@ -192,7 +192,7 @@ def calc_innovation(lm, xEst, PEst, z, LMid):
 
     print("H_observation_jacob = \n",H)
     print("PEst = \n",PEst)
-    print("Cx (noise) = \n",Cx)
+    print("Cx (noise) = \n",Cx[0:2, 0:2])
     print("S = \n",S)
 
     return y, S, H
