@@ -488,7 +488,7 @@ namespace CSV_Functions{
         file.close();
     }
 
-    void atsi_lm_read(vector<vector<float>>& lm){
+    void atsi_lm_read(vector<vector<CarPoint>>& lm){
         cout<<"CSV: atsi_lm_read will only store 3 landmarks at a time"<<endl;
         ifstream file(atsi_lm_CSV);
 
@@ -497,24 +497,26 @@ namespace CSV_Functions{
             return;
         }
 
+        vector<float> group;
         string line;
-        float value;
-        vector<float> pair;
-
         while (getline(file, line)) {
             istringstream iss(line);
+            string x_str, y_str;
 
-            while (iss >> value) {
-                cout<<"value = "<<value<<endl;
-                pair.push_back(value);
+            if (getline(iss, x_str, ',') && getline(iss, y_str)) {
+                CarPoint point;
+                point.x = stod(x_str);
+                point.y = stod(y_str);
 
-                // When we have collected two values, add them to the input vector and clear the pair vector.
-                if (pair.size() == 3) {
-                    cout<<"Found Pair = "<<pair[0]<<pair[1]<<pair[2]<<endl;
-                    lm.push_back(pair);
-                    pair.clear();
+                group.push_back(point);
+
+                if(group.size()==3){
+                    lm.push_back(group);
+                    group.clear();
                 }
             }
+
+
         }
 
         file.close();

@@ -647,7 +647,7 @@ void atSim(){
     ExtendedKalmanFilter ekf;
 
     vector<vector<float>> u;
-    vector<vector<float>> lm;
+    vector<vector<CarPoint>> lm;
 
     atsi_u_read(u);
     atsi_lm_read(lm);
