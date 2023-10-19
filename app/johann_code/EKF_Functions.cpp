@@ -303,6 +303,8 @@ void ExtendedKalmanFilter::getGainMatrix() {
     // cout<<"\n Gainx_H*P*H.T = \n"<<Observation_Jacobian*Covariance*(Observation_Jacobian.transpose())<<endl;
     // cout<<"\n Gainx = \n"<<Gainx<<endl;
     Gain = Covariance*Observation_Jacobian.transpose() * Gainx.inverse();
+    cout<<"Covariance*Obs_Jac.T = \n"<<Covariance*Observation_Jacobian.transpose()<<endl;
+    cout<<"Gainx.inverse() = \n"<<Gainx.inverse()<<endl;
     cout<<"\n Gain = \n"<<Gain<<endl;
 }
 
@@ -453,9 +455,9 @@ void ExtendedKalmanFilter::runEKF() {
         //z_cap(1) = (atan2(deltaY, deltaX)) - State(2);
 
         // cout<<"\n i = "<<i<<endl;
-        cout<<"ObsLM.x = "<<ObservedLandmark.x<<"ObsLM.y = "<<ObservedLandmark.y<<endl;
+        //cout<<"ObsLM.x = "<<ObservedLandmark.x<<"ObsLM.y = "<<ObservedLandmark.y<<endl;
         // cout<<"EstLM.x = "<<EstimatedLandmark.x<<"EstLM.y = "<<EstimatedLandmark.y<<endl;
-        // // cout<<"deltaX = "<<deltaX<<" deltaY = "<<deltaY<<" q = "<<q<<endl;
+        // cout<<"deltaX = "<<deltaX<<" deltaY = "<<deltaY<<" q = "<<q<<endl;
         // cout<<"z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
         // cout<<"z_cap.r = "<<z_cap(0)<<"z_cap.theta = "<<z_cap(1)*180/PI<<endl;
 

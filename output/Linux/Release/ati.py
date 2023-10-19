@@ -53,6 +53,7 @@ def ekf_slam(xEst, PEst, u, z):
 
     # Update
     for iz in range(len(z[:, 0])):  # for each observation
+        print("in lm = ",z[iz, 0:2])
         min_id = search_correspond_landmark_id(xEst, PEst, z[iz, 0:2])
 
         nLM = calc_n_lm(xEst)
@@ -69,6 +70,9 @@ def ekf_slam(xEst, PEst, u, z):
         y, S, H = calc_innovation(lm, xEst, PEst, z[iz, 0:2], min_id)
 
         K = (PEst @ H.T) @ np.linalg.inv(S)
+        print("S^(-1) = \n",np.linalg.inv(S))
+        print("PEst @ H.T = \n",PEst @ H.T)
+
         print("K = \n",K)
 
         xEst = xEst + (K @ y)
@@ -96,6 +100,8 @@ def observation(xTrue, xd, u, RFID):
 
         dx = RFID[i, 0] - xTrue[0, 0]
         dy = RFID[i, 1] - xTrue[1, 0]
+
+        print("obs dx,dy = ",[dx,dy])
         d = math.hypot(dx, dy)
         angle = pi_2_pi(math.atan2(dy, dx) - xTrue[2, 0])
         if d <= MAX_RANGE:
@@ -145,10 +151,14 @@ def jacob_motion(x, u):
 
 
 def calc_landmark_position(x, z):
+    # print("z = ",z)
+    # print("x = ",x)
     zp = np.zeros((2, 1))
 
     zp[0, 0] = x[0, 0] + z[0] * math.cos(x[2, 0] + z[1])
     zp[1, 0] = x[1, 0] + z[0] * math.sin(x[2, 0] + z[1])
+
+    //print("zp = ",zp)
 
     return zp
 
@@ -170,6 +180,7 @@ def search_correspond_landmark_id(xAug, PAug, zi):
 
     for i in range(nLM):
         lm = get_landmark_position_from_state(xAug, i)
+        print("search lm = ",lm)
         y, S, H = calc_innovation(lm, xAug, PAug, zi, i)
         min_dist.append(y.T @ np.linalg.inv(S) @ y)
 
@@ -182,7 +193,9 @@ def search_correspond_landmark_id(xAug, PAug, zi):
 
 def calc_innovation(lm, xEst, PEst, z, LMid):
     delta = lm - xEst[0:2]
-    print("delta = ",delta)
+    #print("xEst = ",xEst[0:2])
+    print("lm = ",lm)
+    #print("delta = ",delta)
     q = (delta.T @ delta)[0, 0]
     z_angle = math.atan2(delta[1, 0], delta[0, 0]) - xEst[2, 0]
     zp = np.array([[math.sqrt(q), pi_2_pi(z_angle)]])
@@ -190,11 +203,11 @@ def calc_innovation(lm, xEst, PEst, z, LMid):
     y[1] = pi_2_pi(y[1])
     H = jacob_h(q, delta, xEst, LMid + 1)
     S = H @ PEst @ H.T + Cx[0:2, 0:2]
-    # print("lm = ",lm)
-    # print("H_observation_jacob = \n",H)
-    # print("PEst = \n",PEst)
-    # print("Cx (noise) = \n",Cx[0:2, 0:2])
-    # print("S = \n",S)
+    print("lm = ",lm)
+    print("H_observation_jacob = \n",H)
+    print("PEst = \n",PEst)
+    print("Cx (noise) = \n",Cx[0:2, 0:2])
+    print("S = \n",S)
 
     return y, S, H
 
