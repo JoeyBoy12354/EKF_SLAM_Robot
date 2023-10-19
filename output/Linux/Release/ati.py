@@ -229,17 +229,16 @@ def write_u_csv(u,filename = 'atsi_uCSV.csv'):
 
 
 def fetchState():
-    x_coord = []
-    y_coord = []
-    theta_coord = []
+    
+    state = []
     with open('ekf_uCSV.csv', 'r') as file:
         csv_reader = csv.reader(file)
         for row in csv_reader:
-            x_coord.append(float(row[0]))
-            y_coord.append(float(row[1]))
-            theta_coord.append(float(row[2]))
+            x = float(row[0])
+            y = float(row[1])
+            state.append([x,y])
 
-    return x_coord, y_coord, theta_coord
+    return state
 
 def fetchLandmarks():
     landmarks = []
@@ -249,7 +248,7 @@ def fetchLandmarks():
         for row in csv_reader:
             # Split the row by the comma and convert the values to floats
             x, y = map(float, row[0].split(','))
-            current_group.append((x, y))  # Store the x and y as a tuple
+            current_group.append([x, y])  # Store the x and y as a tuple
 
             # Check if we have collected 3 landmarks in the current group
             if len(current_group) == 3:
@@ -259,8 +258,6 @@ def fetchLandmarks():
     return landmarks
 
 def plotCustom(myLM,myX,atiX,atiLM,trueX,trueLM,time):
-    print("atsi_state",atiX)
-    print("atsi_lm = ",atiLM)
 
     # Scatter plot for atiX
     atiX = list(zip(*atiX))  # Transpose atiX for plotting
@@ -389,8 +386,11 @@ def main():
     all_u = np.array(all_u)
     print(all_lm)
     print(all_u)
-    write_u_csv(all_u)
-    write_lm_csv(all_lm)
+    # write_u_csv(all_u)
+    # write_lm_csv(all_lm)
+
+    my_lm = fetchLandmarks()
+    my_state = fetchState()
 
     plotCustom(my_lm,my_state,atsi_state,atsi_lm,true_state,true_lm,all_time)
 
