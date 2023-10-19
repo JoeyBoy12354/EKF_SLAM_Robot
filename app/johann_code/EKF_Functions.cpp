@@ -257,11 +257,13 @@ void ExtendedKalmanFilter::isNewLandmark() {
         NoLandmarksFound += 1;
         LandmarkIndex = 1+NoLandmarksFound*2;
         LandmarkIsNew = true;
+
+        cout<<"observed2.2 z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
         
         //Update State with landmark position
         State(LandmarkIndex) = EstimatedLandmark.x;
         State(LandmarkIndex+1) = EstimatedLandmark.y;  
-        cout<<"observed2 z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
+        cout<<"observed2.3 z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
 
     }
 
