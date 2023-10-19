@@ -177,9 +177,9 @@ void ExtendedKalmanFilter::updateMotion() {
 
 // Update covariance of robot using Gt and Rt
 void ExtendedKalmanFilter::updateCovarianceOfRobot() {
-    cout<<"Covariance = \n"<<Covariance<<endl;
-    cout<<"Motion_Jacobian = \n"<<Motion_Jacobian<<endl;
-    cout<<"Motion_Noise = \n"<<Motion_Noise<<endl;
+    // cout<<"Covariance = \n"<<Covariance<<endl;
+    // cout<<"Motion_Jacobian = \n"<<Motion_Jacobian<<endl;
+    // cout<<"Motion_Noise = \n"<<Motion_Noise<<endl;
     //cout<<"Motion_Jacobian*Covariance*(Motion_Jacobian.transpose()) = \n"<<Motion_Jacobian<<endl;
 
     //Covariance = Motion_Jacobian*Covariance*(Motion_Jacobian.transpose()) + Motion_Noise; //Textbook
