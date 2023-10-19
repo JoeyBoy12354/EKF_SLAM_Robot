@@ -111,6 +111,15 @@ void ExtendedKalmanFilter::updateMotion() {
     State(2) = State(2) + d_theta;
 
 
+    //Atsi C++(notdone)
+    // float theta = State(2);
+    // float d_x = distance*cos(theta);
+    // float d_y = (distance/w)*cos(theta) - (distance/w)*cos(theta + w);
+    // float d_theta = w; //this might be angular velocity
+
+    // Motion_Jacobian(0,2) = -distance*sin(State(2));
+    // Motion_Jacobian(1,2) = distance*cos(State(2));
+
     //Atsi:
     // def motion_model(x, u):
         // F = np.array([[1.0, 0, 0],
