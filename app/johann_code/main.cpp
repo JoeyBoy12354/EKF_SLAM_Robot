@@ -661,7 +661,7 @@ void atSim(){
 
     for(int i=0;i<atsi_u_read.size();i++){
         ekf.w = u[i][1];
-        ekf.d = u[i][0];
+        ekf.distance = u[i][0];
         ekf.TestValues.clear();
         for(int j=0;j<lm.size();j++){
             ekf.TestValues.push_back(lm[i][j]);
