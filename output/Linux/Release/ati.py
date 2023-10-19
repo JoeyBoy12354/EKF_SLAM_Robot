@@ -36,7 +36,9 @@ def ekf_slam(xEst, PEst, u, z):
     S = STATE_SIZE
     G, Fx = jacob_motion(xEst[0:S], u)
     xEst[0:S] = motion_model(xEst[0:S], u)
+    print("PEST: ",PEst)
     PEst[0:S, 0:S] = G.T @ PEst[0:S, 0:S] @ G + Fx.T @ Cx @ Fx
+    print("PEST: ",PEst)
     initP = np.eye(2)
 
     # Update
@@ -316,6 +318,8 @@ def main():
     xEst = np.zeros((STATE_SIZE, 1))
     xTrue = np.zeros((STATE_SIZE, 1))
     PEst = np.eye(STATE_SIZE)
+    print("PEST")
+    print(PEst)
 
     xDR = np.zeros((STATE_SIZE, 1))  # Dead reckoning
 
@@ -335,8 +339,8 @@ def main():
     my_state = []
     my_lm = []
 
-    my_lm = fetchLandmarks()
-    my_state = fetchState()
+    # my_lm = fetchLandmarks()
+    # my_state = fetchState()
 
     while SIM_TIME >= time:
         time += DT
@@ -400,8 +404,6 @@ def main():
 
     all_lm = np.array(all_lm)
     all_u = np.array(all_u)
-    print(all_lm)
-    print(all_u)
     # write_u_csv(all_u)
     # write_lm_csv(all_lm)
 
