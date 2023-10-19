@@ -207,6 +207,7 @@ void ExtendedKalmanFilter::isNewLandmark() {
     z(0) = sqrt(q);
     z(1) = (atan2(deltaY, deltaX)) - State(2);
 
+    cout<<"Landmark Observer = "<<ObservedLandmark<<endl;
     cout<<"Z as observed\n"<<z<<endl;
     cout<<"check god    z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
 
@@ -243,6 +244,8 @@ void ExtendedKalmanFilter::isNewLandmark() {
         //This is a new landmark
         //cout<<"NewLandmark : "<<ObservedLandmark<<" smallDist = "<<smallestDistance<<" to ("<<State(smallestDistanceIndex)<<","<<State(smallestDistanceIndex+1)<<")"<<endl;
         cout<<"New LM"<<endl;
+        cout<<"Landmark Observer = "<<ObservedLandmark<<endl;
+        cout<<"observed z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
         //Calculate landmark position (why do this?)
         // EstimatedLandmark.x = State(0) + z(0)*cos(z(1) + State(2));
         // EstimatedLandmark.y = State(1) + z(0)*sin(z(1) + State(2));
