@@ -662,11 +662,11 @@ void atSim(){
     vector<float> curr_lm;
 
 
-    for(int i=0;i<2;i++){
+    for(int i=0;i<1;i++){
         ekf.w = u[i][1];
         ekf.distance = u[i][0];
         ekf.TestValues.clear();
-        for(int j=0;j<lm.size();j++){
+        for(int j=0;j<lm[i].size();j++){
             ekf.TestValues.push_back(lm[i][j]);
         }
 
