@@ -321,7 +321,7 @@ def main():
         
         x = xEst[0]
         y = xEst[1]
-        atsi_state.append(x,y)
+        atsi_state.append([x,y])
             
         
 
