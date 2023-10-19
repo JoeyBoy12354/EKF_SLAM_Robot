@@ -37,11 +37,14 @@ def ekf_slam(xEst, PEst, u, z):
     S = STATE_SIZE
     G, Fx = jacob_motion(xEst[0:S], u)
     xEst[0:S] = motion_model(xEst[0:S], u)
-    print("xEst = \n",xEst)
-    print("motion_model G = \n",G)
+    # print("xEst = \n",xEst)
+    # print("motion_model G = \n",G)
 
 
     PEst[0:S, 0:S] = G.T @ PEst[0:S, 0:S] @ G + Fx.T @ Cx @ Fx
+    print("PEst = \n" PEst)
+
+
     initP = np.eye(2)
 
     # Update

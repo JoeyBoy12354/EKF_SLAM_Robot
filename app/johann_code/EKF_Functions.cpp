@@ -115,8 +115,8 @@ void ExtendedKalmanFilter::updateMotion() {
 
 
 
-    cout << "EKF_state =\n" << State << "\n";
-    cout << "EKF_motion =\n" << Motion_Jacobian << "\n";
+    // cout << "EKF_state =\n" << State << "\n";
+    // cout << "EKF_motion =\n" << Motion_Jacobian << "\n";
 
     //Atsi:
     // def motion_model(x, u):
@@ -179,6 +179,7 @@ void ExtendedKalmanFilter::updateMotion() {
 void ExtendedKalmanFilter::updateCovarianceOfRobot() {
     Covariance = Motion_Jacobian*Covariance*(Motion_Jacobian.transpose()) + Motion_Noise; //Textbook
     //Covariance = Motion_Jacobian.transpose()*Covariance*Motion_Jacobian + Motion_Noise;//Example
+    cout<<"Covariance = \n"<<Covariance<<endl;
 }
 
 // Perform lidar observation and return landmarks (should be replace with function in Data_Functions)
