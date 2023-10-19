@@ -242,7 +242,7 @@ void ExtendedKalmanFilter::isNewLandmark() {
         // EstimatedLandmark.x = State(0) + z(0)*cos(z(1) + State(2));
         // EstimatedLandmark.y = State(1) + z(0)*sin(z(1) + State(2));
 
-        if(NoLandmarksFound => N){
+        if(NoLandmarksFound >= N){
             cout<<"\n\n EKF:LANDMARK OVERFLOW !!!!!! \n\n"<<endl;
             return;
         }
