@@ -244,7 +244,7 @@ def fetchLandmarks():
     landmarks = []
     current_group = []  # Initialize an empty list to store the current group of 3 landmarks
     with open('ekf_lmCSV.csv', 'r') as file:
-        csv_reader = csv.reader(file, delimiter='\t')  # Specify the delimiter as tab
+        csv_reader = csv.reader(file, delimiter=',')  # Specify the delimiter as a comma
         for row in csv_reader:
             # Convert the values to floats
             row = [float(value) for value in row]
