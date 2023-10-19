@@ -18,7 +18,7 @@ Cx = np.diag([0.5, 0.5, np.deg2rad(30.0)]) ** 2
 Q_sim = np.diag([0.2, np.deg2rad(1.0)]) ** 2
 R_sim = np.diag([1.0, np.deg2rad(10.0)]) ** 2
 
-
+all_lm_inter = []
 
 #DT = 0.1  # time tick [s]
 DT = 1  # time tick [s]
@@ -51,9 +51,11 @@ def ekf_slam(xEst, PEst, u, z):
 
     initP = np.eye(2)
 
+    lm_group = []
+
     # Update
     for iz in range(len(z[:, 0])):  # for each observation
-        print("in lm = ",z[iz, 0:2])
+        #print("in lm = ",z[iz, 0:2])
         min_id = search_correspond_landmark_id(xEst, PEst, z[iz, 0:2])
 
         nLM = calc_n_lm(xEst)
@@ -67,6 +69,7 @@ def ekf_slam(xEst, PEst, u, z):
             xEst = xAug
             PEst = PAug
         lm = get_landmark_position_from_state(xEst, min_id)
+        lm_group.append(lm)
         y, S, H = calc_innovation(lm, xEst, PEst, z[iz, 0:2], min_id)
 
         K = (PEst @ H.T) @ np.linalg.inv(S)
@@ -75,13 +78,15 @@ def ekf_slam(xEst, PEst, u, z):
 
         # print("K = \n",K)
         
-        print("y = \n",y)
-        print("K = \n",K)
+        #print("y = \n",y)
+        #print("K = \n",K)
         xEst = xEst + (K @ y)
-        print("xEst = ",xEst)
+        #print("xEst = ",xEst)
         PEst = (np.eye(len(xEst)) - (K @ H)) @ PEst
 
     xEst[2] = pi_2_pi(xEst[2])
+    all_lm_inter.append(lm_group)
+
 
     return xEst, PEst
 
@@ -104,7 +109,7 @@ def observation(xTrue, xd, u, RFID):
         dx = RFID[i, 0] - xTrue[0, 0]
         dy = RFID[i, 1] - xTrue[1, 0]
 
-        print("obs dx,dy = ",[dx,dy])
+        #print("obs dx,dy = ",[dx,dy])
         d = math.hypot(dx, dy)
         angle = pi_2_pi(math.atan2(dy, dx) - xTrue[2, 0])
         if d <= MAX_RANGE:
@@ -203,10 +208,10 @@ def calc_innovation(lm, xEst, PEst, z, LMid):
     z_angle = math.atan2(delta[1, 0], delta[0, 0]) - xEst[2, 0]
     zp = np.array([[math.sqrt(q), pi_2_pi(z_angle)]])
 
-    print("z = \n",z)
-    print("zp = \n",zp)
+    #print("z = \n",z)
+    #print("zp = \n",zp)
     y = (z - zp).T
-    print("y(before pi2pi) = \n",y)
+    #print("y(before pi2pi) = \n",y)
     y[1] = pi_2_pi(y[1])
     H = jacob_h(q, delta, xEst, LMid + 1)
     S = H @ PEst @ H.T + Cx[0:2, 0:2]
@@ -377,8 +382,8 @@ def main():
     my_state = []
     my_lm = []
 
-    my_lm = fetchLandmarks()
-    my_state = fetchState()
+    # my_lm = fetchLandmarks()
+    # my_state = fetchState()
 
     while SIM_TIME >= time:
         time += DT
@@ -386,17 +391,18 @@ def main():
 
         xTrue, z, xDR, ud = observation(xTrue, xDR, u, RFID)
 
-        lm_group = []
-        for i in range(len(RFID[:, 0])):
-            myLM_x = RFID[i, 0] + np.random.randn() * Q_sim[0, 0] * 25
-            myLM_y = RFID[i, 1] + np.random.randn() * Q_sim[0, 0] * 25
-            lm_group.append([myLM_x,myLM_y])
-            
         # lm_group = []
-        # for i in range(0,len(z)):
-        #     myLM_x = z[i][0]*np.cos(z[i][1]) + xTrue[0, 0]
-        #     myLM_y = z[i][0]*np.sin(z[i][1]) + xTrue[1, 0]
+        # for i in range(len(RFID[:, 0])):
+        #     myLM_x = RFID[i, 0] + np.random.randn() * Q_sim[0, 0] * 25
+        #     myLM_y = RFID[i, 1] + np.random.randn() * Q_sim[0, 0] * 25
         #     lm_group.append([myLM_x,myLM_y])
+            
+        lm_group = []
+        for i in range(0,len(z)):
+            print("xTrue, = ",xTrue[0, 0]," ",xTrue[1, 0])
+            myLM_x = z[i][0]*np.cos(z[i][1]) + xTrue[0, 0]
+            myLM_y = z[i][0]*np.sin(z[i][1]) + xTrue[1, 0]
+            lm_group.append([myLM_x,myLM_y])
 
         all_lm.append(lm_group)
         all_u.append(ud)
@@ -455,7 +461,7 @@ def main():
             plt.grid(True)
             plt.pause(0.001)
 
-    all_lm = np.array(all_lm)
+    all_lm = np.array(all_lm_inter)
     all_u = np.array(all_u)
     write_u_csv(all_u)
     write_lm_csv(all_lm)
