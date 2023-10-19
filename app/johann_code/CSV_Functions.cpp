@@ -509,7 +509,7 @@ namespace CSV_Functions{
 
                 // When we have collected two values, add them to the input vector and clear the pair vector.
                 if (pair.size() == 3) {
-                    input.push_back(pair);
+                    lm.push_back(pair);
                     pair.clear();
                 }
             }
