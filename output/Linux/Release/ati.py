@@ -36,9 +36,7 @@ def ekf_slam(xEst, PEst, u, z):
     S = STATE_SIZE
     G, Fx = jacob_motion(xEst[0:S], u)
     xEst[0:S] = motion_model(xEst[0:S], u)
-    print("PEST: ",PEst)
     PEst[0:S, 0:S] = G.T @ PEst[0:S, 0:S] @ G + Fx.T @ Cx @ Fx
-    print("PEST: ",PEst)
     initP = np.eye(2)
 
     # Update
@@ -49,6 +47,7 @@ def ekf_slam(xEst, PEst, u, z):
         if min_id == nLM:
             print("New LM")
             # Extend state and covariance matrix
+            
             xAug = np.vstack((xEst, calc_landmark_position(xEst, z[iz, :])))
             PAug = np.vstack((np.hstack((PEst, np.zeros((len(xEst), LM_SIZE)))),
                               np.hstack((np.zeros((LM_SIZE, len(xEst))), initP))))
@@ -126,7 +125,17 @@ def jacob_motion(x, u):
                    [0.0, 0.0, DT * u[0, 0] * math.cos(x[2, 0])],
                    [0.0, 0.0, 0.0]], dtype=float)
 
+    print()
+    print("sin = ",-DT * u[0, 0] * math.sin(x[2, 0]))
+    print("cos = ",-DT * u[0, 0] * math.cos(x[2, 0]))
+    print("Fx = \n",Fx)
+    print("jF = \n",jF)
+    print("eye = \n",np.eye(STATE_SIZE))
+    print("jF = \n",Fx.T @ jF @ Fx)
+    
     G = np.eye(STATE_SIZE) + Fx.T @ jF @ Fx
+    print("G = \n",G)
+    print()
 
     return G, Fx,
 

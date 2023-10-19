@@ -55,15 +55,15 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     // Motion_Noise(1,1) = 0.0001;
     // Motion_Noise(2,2) = 0.0001;
 
-    //Covariance.setIdentity();
+    Covariance.setIdentity();
 
     //Use initialLandmarkCovariance_AtSi;
-    float test = 0.5;
-    Covariance.setZero();
-    for (int n = 3; n < dim; n++) {
-        Covariance(n, n) = test;
-    }
-    cout<<"initialLandmarkCovariance = "<<test<<endl;
+    // float test = 1;
+    // Covariance.setZero();
+    // for (int n = 0; n < dim; n++) {
+    //     Covariance(n, n) = test;
+    // }
+    // cout<<"initialLandmarkCovariance = "<<test<<endl;
 
 
     Coordinate_Uncertainty << test_sigma_r*test_sigma_r, 0,
@@ -97,10 +97,13 @@ void ExtendedKalmanFilter::updateMotion() {
     // Motion_Jacobian(0,2) = -t*v*sin(State(2));
     // Motion_Jacobian(1,2) = t*v*cos(State(2));
 
+    
 
+
+    //Atsi C++(notdone)
     float theta = State(2);
-    float d_x = -1*(distance/w)*sin(theta) + (distance/w)*sin(theta + w);
-    float d_y = (distance/w)*cos(theta) - (distance/w)*cos(theta + w);
+    float d_x = distance*cos(theta);
+    float d_y = distance*sin(theta);
     float d_theta = w; //this might be angular velocity
 
     Motion_Jacobian(0,2) = -distance*sin(State(2));
@@ -109,16 +112,6 @@ void ExtendedKalmanFilter::updateMotion() {
     State(0) = State(0) + d_x;
     State(1) = State(1) + d_y;
     State(2) = State(2) + d_theta;
-
-
-    //Atsi C++(notdone)
-    // float theta = State(2);
-    // float d_x = distance*cos(theta);
-    // float d_y = (distance/w)*cos(theta) - (distance/w)*cos(theta + w);
-    // float d_theta = w; //this might be angular velocity
-
-    // Motion_Jacobian(0,2) = -distance*sin(State(2));
-    // Motion_Jacobian(1,2) = distance*cos(State(2));
 
     //Atsi:
     // def motion_model(x, u):
