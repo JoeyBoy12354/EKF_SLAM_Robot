@@ -678,7 +678,7 @@ void atSim(){
         curr_state.push_back(ekf.State[1]);
         states.push_back(curr_state);
 
-        curr_lm.clear()
+        curr_lm.clear();
         for(int i=3;i<dim;i=i+2){
             curr_lm.push_back(ekf.State[i]);
             curr_lm.push_back(ekf.State[i+1]);
