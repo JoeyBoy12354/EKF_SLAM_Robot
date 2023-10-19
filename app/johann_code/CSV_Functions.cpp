@@ -497,7 +497,7 @@ namespace CSV_Functions{
             return;
         }
 
-        vector<float> group;
+        vector<CarPoint> group;
         string line;
         while (getline(file, line)) {
             istringstream iss(line);
@@ -507,7 +507,6 @@ namespace CSV_Functions{
                 CarPoint point;
                 point.x = stod(x_str);
                 point.y = stod(y_str);
-
                 group.push_back(point);
 
                 if(group.size()==3){
