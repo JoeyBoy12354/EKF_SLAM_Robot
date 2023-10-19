@@ -672,13 +672,13 @@ void atSim(){
 
         simRun(ekf,false);
 
-        cout<<"yay: after_ekf State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
-
-        //Only x and y needed   
-        curr_state.push_back(ekf.State(0));
-        curr_state.push_back(ekf.State(1));
+        //Only x and y needed  
+        curr_state.clear();
+        curr_state.push_back(ekf.State[0]);
+        curr_state.push_back(ekf.State[1]);
         states.push_back(curr_state);
 
+        curr_lm.clear()
         for(int i=3;i<dim;i=i+2){
             curr_lm.push_back(ekf.State[i]);
             curr_lm.push_back(ekf.State[i+1]);
