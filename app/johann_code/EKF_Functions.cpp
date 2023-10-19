@@ -113,6 +113,11 @@ void ExtendedKalmanFilter::updateMotion() {
     State(1) = State(1) + d_y;
     State(2) = State(2) + d_theta;
 
+
+
+    cout << "EKF_state =\n" << State << "\n";
+    cout << "EKF_motion =\n" << Motion_Jacobian << "\n";
+
     //Atsi:
     // def motion_model(x, u):
         // F = np.array([[1.0, 0, 0],

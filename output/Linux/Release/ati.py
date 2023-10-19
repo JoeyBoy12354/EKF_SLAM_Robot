@@ -23,7 +23,7 @@ R_sim = np.diag([1.0, np.deg2rad(10.0)]) ** 2
 #DT = 0.1  # time tick [s]
 DT = 1  # time tick [s]
 #SIM_TIME = 50.0  # simulation time [s]
-SIM_TIME = 30  # simulation time [s]
+SIM_TIME = 1  # simulation time [s]
 MAX_RANGE = 30000.0  # maximum observation range
 M_DIST_TH = 100.0  # Threshold of Mahalanobis distance for data association.
 STATE_SIZE = 3  # State size [x,y,yaw]
@@ -37,6 +37,10 @@ def ekf_slam(xEst, PEst, u, z):
     S = STATE_SIZE
     G, Fx = jacob_motion(xEst[0:S], u)
     xEst[0:S] = motion_model(xEst[0:S], u)
+    print("xEst = \n",xEst)
+    print("motion_model G = \n",G)
+
+
     PEst[0:S, 0:S] = G.T @ PEst[0:S, 0:S] @ G + Fx.T @ Cx @ Fx
     initP = np.eye(2)
 

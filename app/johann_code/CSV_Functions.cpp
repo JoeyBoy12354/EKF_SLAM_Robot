@@ -476,7 +476,6 @@ namespace CSV_Functions{
 
             while (iss >> value) {
                 pair.push_back(value);
-                cout<<"read value = "<<value<<endl;
 
                 // When we have collected two values, add them to the input vector and clear the pair vector.
                 if (pair.size() == 2) {
