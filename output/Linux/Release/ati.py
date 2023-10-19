@@ -268,6 +268,16 @@ def plotCustom(myLM,myX,atiX,atiLM,trueX,trueLM,time):
         lm = list(zip(*lm))  # Transpose each set of landmarks
         plt.scatter(lm[0], lm[1],c='g' ,marker='x')
 
+    # Scatter plot for myX
+    myX = list(zip(*myX))  # Transpose atiX for plotting
+    plt.scatter(myX[0], myX[1], c='orange', label='myX')
+
+    # Scatter plot for atiLM
+    for lm in myLM:
+        lm = list(zip(*lm))  # Transpose each set of landmarks
+        plt.scatter(lm[0], lm[1],c='yellow' ,marker='x')
+
+
     # # Scatter plot for trueX
     # trueX = list(zip(*trueX))  # Transpose trueX for plotting
     # plt.scatter(trueX[0], trueX[1], c='blue', label='trueX')
