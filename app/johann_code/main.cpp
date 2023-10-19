@@ -662,7 +662,7 @@ void atSim(){
     vector<float> curr_lm;
 
 
-    for(int i=0;i<u.size();i++){
+    for(int i=0;i<2;i++){
         ekf.w = u[i][1];
         ekf.distance = u[i][0];
         ekf.TestValues.clear();
