@@ -687,6 +687,7 @@ void atSim(){
     cout<<"Completed RUN"<<endl;
 
     atsi_lm_write(landmarks);
+    cout<<"complete lm write"<<endl;
     atsi_u_write(states);        
         
 
