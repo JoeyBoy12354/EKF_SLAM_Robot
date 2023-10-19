@@ -124,18 +124,8 @@ def jacob_motion(x, u):
     jF = np.array([[0.0, 0.0, -DT * u[0, 0] * math.sin(x[2, 0])],
                    [0.0, 0.0, DT * u[0, 0] * math.cos(x[2, 0])],
                    [0.0, 0.0, 0.0]], dtype=float)
-
-    print()
-    print("sin = ",-DT * u[0, 0] * math.sin(x[2, 0]))
-    print("cos = ",-DT * u[0, 0] * math.cos(x[2, 0]))
-    print("Fx = \n",Fx)
-    print("jF = \n",jF)
-    print("eye = \n",np.eye(STATE_SIZE))
-    print("jF = \n",Fx.T @ jF @ Fx)
     
     G = np.eye(STATE_SIZE) + Fx.T @ jF @ Fx
-    print("G = \n",G)
-    print()
 
     return G, Fx,
 
