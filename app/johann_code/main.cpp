@@ -653,10 +653,8 @@ void atSim(){
     atsi_lm_read(lm);
     cout<<"check sizes = "<<lm.size()<<" "<<u.size()<<endl;
 
-    cout<<"u[0][0]= "<<u[0][0]<<" u[0][1]= "<<u[0][1]<<endl;
-    cout<<"lm[0][0]= "<<lm[0][0]<<endl;
-    cout<<"lm[0][0]= "<<lm[0][1]<<endl;
-    cout<<"lm[0][0]= "<<lm[0][2]<<endl;
+    
+    
 
     vector<vector<float>> states;
     vector<float> curr_state;
@@ -665,6 +663,10 @@ void atSim(){
 
 
     for(int i=0;i<u.size();i++){
+        cout<<"u[0][0]= "<<u[0][0]<<" u[0][1]= "<<u[0][1]<<endl;
+        cout<<"lm[0][0]= "<<lm[0][0]<<endl;
+        cout<<"lm[0][0]= "<<lm[0][1]<<endl;
+        cout<<"lm[0][0]= "<<lm[0][2]<<endl;
         ekf.w = u[i][1];
         ekf.distance = u[i][0];
         ekf.TestValues.clear();
