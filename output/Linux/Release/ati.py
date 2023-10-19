@@ -338,8 +338,8 @@ def main():
     my_state = []
     my_lm = []
 
-    # my_lm = fetchLandmarks()
-    # my_state = fetchState()
+    my_lm = fetchLandmarks()
+    my_state = fetchState()
 
     while SIM_TIME >= time:
         time += DT
@@ -403,8 +403,8 @@ def main():
 
     all_lm = np.array(all_lm)
     all_u = np.array(all_u)
-    # write_u_csv(all_u)
-    # write_lm_csv(all_lm)
+    write_u_csv(all_u)
+    write_lm_csv(all_lm)
 
     
 
