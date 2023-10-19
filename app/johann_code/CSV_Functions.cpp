@@ -505,10 +505,12 @@ namespace CSV_Functions{
             istringstream iss(line);
 
             while (iss >> value) {
+                cout<<"value = "<<value<<endl;
                 pair.push_back(value);
 
                 // When we have collected two values, add them to the input vector and clear the pair vector.
                 if (pair.size() == 3) {
+                    cout<<"Found Pair = "<<pair[0]<<pair[1]<<pair[2]<<endl;
                     lm.push_back(pair);
                     pair.clear();
                 }
