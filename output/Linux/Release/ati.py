@@ -369,7 +369,7 @@ def main():
         all_lm.append(z)
         # print("ud = ",ud)
         # write_u_csv(ud)
-        # print("z = ",z)
+        print("z = ",z)
         # write_lm_csv(z)
 
         xEst, PEst = ekf_slam(xEst, PEst, ud, z)
