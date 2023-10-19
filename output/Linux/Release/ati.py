@@ -182,6 +182,7 @@ def search_correspond_landmark_id(xAug, PAug, zi):
 
 def calc_innovation(lm, xEst, PEst, z, LMid):
     delta = lm - xEst[0:2]
+    print("delta = ",delta)
     q = (delta.T @ delta)[0, 0]
     z_angle = math.atan2(delta[1, 0], delta[0, 0]) - xEst[2, 0]
     zp = np.array([[math.sqrt(q), pi_2_pi(z_angle)]])
@@ -189,11 +190,11 @@ def calc_innovation(lm, xEst, PEst, z, LMid):
     y[1] = pi_2_pi(y[1])
     H = jacob_h(q, delta, xEst, LMid + 1)
     S = H @ PEst @ H.T + Cx[0:2, 0:2]
-    print("lm = ",lm)
-    print("H_observation_jacob = \n",H)
-    print("PEst = \n",PEst)
-    print("Cx (noise) = \n",Cx[0:2, 0:2])
-    print("S = \n",S)
+    # print("lm = ",lm)
+    # print("H_observation_jacob = \n",H)
+    # print("PEst = \n",PEst)
+    # print("Cx (noise) = \n",Cx[0:2, 0:2])
+    # print("S = \n",S)
 
     return y, S, H
 
@@ -226,6 +227,7 @@ def write_lm_csv(lm,filename = 'atsi_lmCSV.csv'):
         for j in range(0,len(lm[i])):
             d_x = lm[i][j][0]*np.cos(lm[i][j][1])
             d_y = lm[i][j][0]*np.sin(lm[i][j][1])
+            print("store delta = ",[d_x,d_y])
             landmarks.append([d_x,d_y])
 
     with open(filename, mode='w', newline='') as file:
@@ -357,8 +359,8 @@ def main():
     my_state = []
     my_lm = []
 
-    my_lm = fetchLandmarks()
-    my_state = fetchState()
+    # my_lm = fetchLandmarks()
+    # my_state = fetchState()
 
     while SIM_TIME >= time:
         time += DT
