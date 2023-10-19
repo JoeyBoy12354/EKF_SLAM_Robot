@@ -190,6 +190,10 @@ def calc_innovation(lm, xEst, PEst, z, LMid):
     H = jacob_h(q, delta, xEst, LMid + 1)
     S = H @ PEst @ H.T + Cx[0:2, 0:2]
 
+    print("H_observation_jacob = \n",H)
+    print("PEst = \n",PEst)
+    print("Cx (noise) = \n",Cx)
+
     return y, S, H
 
 
