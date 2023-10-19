@@ -694,7 +694,10 @@ void atSim(){
         cout<<"states["<<i<<"][0]= "<<states[i][0]<<" states["<<i<<"][1]= "<<states[i][1]<<endl;
         cout<<"landmarks["<<i<<"][0]= "<<landmarks[i][0]<<" landmarks["<<i<<"][1]= "<<landmarks[i][1]<<endl;
         cout<<"curr_lm = ("<<curr_lm[0]<<","<<curr_lm[1]<<"),("<<curr_lm[2]<<","<<curr_lm[3]<<"),("<<curr_lm[4]<<","<<curr_lm[5]<<")"<<endl;
+        cout<<endl;
     }
+
+
 
     cout<<"Completed RUN"<<endl;
 
