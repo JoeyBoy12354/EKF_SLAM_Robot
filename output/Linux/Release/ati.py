@@ -371,8 +371,8 @@ def main():
     my_state = []
     my_lm = []
 
-    # my_lm = fetchLandmarks()
-    # my_state = fetchState()
+    my_lm = fetchLandmarks()
+    my_state = fetchState()
 
     while SIM_TIME >= time:
         time += DT
