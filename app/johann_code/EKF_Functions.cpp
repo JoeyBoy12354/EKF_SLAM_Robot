@@ -208,6 +208,7 @@ void ExtendedKalmanFilter::isNewLandmark() {
     z(1) = (atan2(deltaY, deltaX)) - State(2);
 
     cout<<"Z as observed\n"<<z<<endl;
+    cout<<"check god    z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
 
 
     vector<double> Distances;
@@ -227,11 +228,14 @@ void ExtendedKalmanFilter::isNewLandmark() {
     
 
     if(smallestDistance<=distThresh){
+        cout<<"b4 find z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
+        cout<<"This is a found landmark"
         //This is a found landmark
         EstimatedLandmark.x = State(smallestDistanceIndex);
         EstimatedLandmark.y = State(smallestDistanceIndex+1);
         LandmarkIndex = smallestDistanceIndex;
 
+        cout<<"after find z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
         // cout<<"Re-Observed: ("<<ObservedLandmark.x<<","<<ObservedLandmark.y<<") "<<
         // " Stored:("<<EstimatedLandmark.x<<","<<EstimatedLandmark.y<<") "<<endl;
         //cout<<"I have seen this one Before! Estimated: ("<<EstimatedLandmark.x<<","<<EstimatedLandmark.y<<") "<<endl;
@@ -253,6 +257,7 @@ void ExtendedKalmanFilter::isNewLandmark() {
         //Update State with landmark position
         State(LandmarkIndex) = EstimatedLandmark.x;
         State(LandmarkIndex+1) = EstimatedLandmark.y;  
+
     }
 
 
@@ -456,6 +461,7 @@ void ExtendedKalmanFilter::runEKF() {
 
 
         isNewLandmark();
+        cout<<"z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
 
         float deltaX = EstimatedLandmark.x - State(0);
         float deltaY = EstimatedLandmark.y - State(1);
