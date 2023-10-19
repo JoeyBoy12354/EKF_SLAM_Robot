@@ -89,13 +89,22 @@ void ExtendedKalmanFilter::updateMotion() {
     // if(w2 == 0){
     //     w2 = 1;
     // }
-    float theta = State(2);
-    float d_x = -1*(v/w2)*sin(theta) + (v/w2)*sin(theta + w*t);
-    float d_y = (v/w2)*cos(theta) - (v/w2)*cos(theta + w*t);
-    float d_theta = w*t; //this might be angular velocity
+    // float theta = State(2);
+    // float d_x = -1*(v/w2)*sin(theta) + (v/w2)*sin(theta + w*t);
+    // float d_y = (v/w2)*cos(theta) - (v/w2)*cos(theta + w*t);
+    // float d_theta = w*t; //this might be angular velocity
 
-    Motion_Jacobian(0,2) = -t*v*sin(State(2));
-    Motion_Jacobian(1,2) = t*v*cos(State(2));
+    // Motion_Jacobian(0,2) = -t*v*sin(State(2));
+    // Motion_Jacobian(1,2) = t*v*cos(State(2));
+
+
+    float theta = State(2);
+    float d_x = -1*(distance/w)*sin(theta) + (distance/w)*sin(theta + w);
+    float d_y = (distance/w)*cos(theta) - (distance/w)*cos(theta + w);
+    float d_theta = w; //this might be angular velocity
+
+    Motion_Jacobian(0,2) = -distance*sin(State(2));
+    Motion_Jacobian(1,2) = distance*cos(State(2));
 
     State(0) = State(0) + d_x;
     State(1) = State(1) + d_y;
