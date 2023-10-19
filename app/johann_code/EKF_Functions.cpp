@@ -209,7 +209,6 @@ void ExtendedKalmanFilter::isNewLandmark() {
 
     cout<<"Landmark Observer = "<<ObservedLandmark<<endl;
     cout<<"Z as observed\n"<<z<<endl;
-    cout<<"check god    z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
 
 
     vector<double> Distances;
@@ -225,11 +224,10 @@ void ExtendedKalmanFilter::isNewLandmark() {
 
     double smallestDistance = *min_element(Distances.begin(), Distances.end());
     int smallestDistanceIndex = Indexes[getIndex(Distances,smallestDistance)];
-    //cout<<"smallestDistance"<<smallestDistance<<" @"<<smallestDistanceIndex<<endl;
+    cout<<"smallestDistance"<<smallestDistance<<" @"<<smallestDistanceIndex<<endl;
     
 
     if(smallestDistance<=distThresh){
-        cout<<"b4 find z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
         cout<<"This is a found landmark"<<endl;
         //This is a found landmark
         EstimatedLandmark.x = State(smallestDistanceIndex);
@@ -253,16 +251,22 @@ void ExtendedKalmanFilter::isNewLandmark() {
         EstimatedLandmark.x = ObservedLandmark.x;
         EstimatedLandmark.y = ObservedLandmark.y;
         cout<<"observed2.1 z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
+        cout<<"Landmark Observer = "<<ObservedLandmark<<endl;
+        cout<<"Landmark Estimator= "<<EstimatedLandmark<<endl;
 
         NoLandmarksFound += 1;
         LandmarkIndex = 1+NoLandmarksFound*2;
         LandmarkIsNew = true;
 
         cout<<"observed2.2 z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
+        cout<<"State = \n = "<<State<<endl;
         
         //Update State with landmark position
         State(LandmarkIndex) = EstimatedLandmark.x;
         State(LandmarkIndex+1) = EstimatedLandmark.y;  
+        cout<<"Landmark Observer = "<<ObservedLandmark<<endl;
+        cout<<"Landmark Estimator= "<<EstimatedLandmark<<endl;
+        cout<<"State = \n = "<<State<<endl;
         cout<<"observed2.3 z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
 
     }
