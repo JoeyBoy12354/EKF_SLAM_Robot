@@ -252,6 +252,7 @@ void ExtendedKalmanFilter::isNewLandmark() {
 
         EstimatedLandmark.x = ObservedLandmark.x;
         EstimatedLandmark.y = ObservedLandmark.y;
+        cout<<"observed2.1 z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
 
         NoLandmarksFound += 1;
         LandmarkIndex = 1+NoLandmarksFound*2;
@@ -260,6 +261,7 @@ void ExtendedKalmanFilter::isNewLandmark() {
         //Update State with landmark position
         State(LandmarkIndex) = EstimatedLandmark.x;
         State(LandmarkIndex+1) = EstimatedLandmark.y;  
+        cout<<"observed2 z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
 
     }
 
@@ -464,7 +466,7 @@ void ExtendedKalmanFilter::runEKF() {
 
 
         isNewLandmark();
-        cout<<"z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
+        cout<<"post is new LM z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
 
         float deltaX = EstimatedLandmark.x - State(0);
         float deltaY = EstimatedLandmark.y - State(1);
