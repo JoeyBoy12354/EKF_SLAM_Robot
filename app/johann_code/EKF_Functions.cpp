@@ -206,6 +206,7 @@ void ExtendedKalmanFilter::isNewLandmark() {
     float q = deltaX*deltaX + deltaY*deltaY;
     z(0) = sqrt(q);
     z(1) = (atan2(deltaY, deltaX)) - State(2);
+    z(1) = pi_2_pi(z(1));
 
     cout<<"Landmark Observer = "<<ObservedLandmark<<endl;
 
@@ -404,7 +405,7 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     cout<<"z = \n"<<z<<endl;
     cout<<"zcap = \n"<<z_cap<<endl;
     //cout<<"delta_z (before angle in bounds) = \n"<<delta_z<<endl;
-    //angleInBounds(delta_z(1));
+    delta_z(1) = pi_2_pi(delta_z(1));
     cout<<"delta_z = \n"<<delta_z<<endl;
     cout<<"K*delta_z = \n"<<Gain*delta_z<<endl;
 
@@ -467,6 +468,7 @@ void ExtendedKalmanFilter::runEKF() {
         float q = deltaX * deltaX + deltaY * deltaY;
         z_cap(0) = sqrt(q);
         z_cap(1) = (atan2(deltaY, deltaX)) - State(2);
+        z_cap(1) = pi_2_pi(z_cap(1));
         //z_cap(1) = (atan2(deltaY, deltaX)) - State(2);
 
         // cout<<"\n i = "<<i<<endl;
@@ -491,4 +493,6 @@ void ExtendedKalmanFilter::runEKF() {
         updateCovarianceOfLandmark();
         //cout << "\nLINE 7\nsigma =\n" << Covariance << "\n";
     }
+
+    State(2) = pi_2_pi(State(2));
 }
