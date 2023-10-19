@@ -69,7 +69,7 @@ def ekf_slam(xEst, PEst, u, z):
             xEst = xAug
             PEst = PAug
         lm = get_landmark_position_from_state(xEst, min_id)
-        lm_group.append(lm)
+        lm_group.append( [lm[0],lm[1]] )
         y, S, H = calc_innovation(lm, xEst, PEst, z[iz, 0:2], min_id)
 
         K = (PEst @ H.T) @ np.linalg.inv(S)
@@ -244,22 +244,34 @@ def jacob_h(q, delta, x, i):
 def pi_2_pi(angle):
     return (angle + math.pi) % (2 * math.pi) - math.pi
 
-def write_lm_csv(lm,filename = 'atsi_lmCSV.csv'):
-    print("atsi_lm")
-    landmarks = []
-    for i in range(0,len(lm)):
-        for j in range(0,len(lm[i])):
-            landmarks.append(lm[i][j])
+# def write_lm_csv(lm,filename = 'atsi_lmCSV.csv'):
+#     print("atsi_lm")
+
+#     print("lm = ",lm)
+#     landmarks = []
+#     for i in range(0,len(lm)):
+#         for j in range(0,len(lm[i])):
+#             landmarks.append(lm[i][j])
 
     
-
-    with open(filename, mode='w', newline='') as file:
+#     print(landmarks)
+#     with open(filename, mode='w', newline='') as file:
         
+#         writer = csv.writer(file)
+#         for i in range(0,len(lm)):
+#             # Write the data to the CSV file
+#             writer.writerows(landmarks)
+#     return
+
+def write_lm_csv(lm, filename='atsi_lmCSV.csv'):
+    with open(filename, mode='w', newline='') as file:
         writer = csv.writer(file)
-        for i in range(0,len(lm)):
-            # Write the data to the CSV file
-            writer.writerows(landmarks)
-    return
+        for group in lm:
+            for item in group:
+                flattened = [item[0][0], item[1][0]]
+                writer.writerow(flattened)
+
+
 
 def write_u_csv(u,filename = 'atsi_uCSV.csv'):
     print("atsi_u")
@@ -382,8 +394,8 @@ def main():
     my_state = []
     my_lm = []
 
-    # my_lm = fetchLandmarks()
-    # my_state = fetchState()
+    my_lm = fetchLandmarks()
+    my_state = fetchState()
 
     while SIM_TIME >= time:
         time += DT
