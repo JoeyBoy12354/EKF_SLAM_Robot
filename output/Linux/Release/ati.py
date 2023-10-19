@@ -158,7 +158,7 @@ def calc_landmark_position(x, z):
     zp[0, 0] = x[0, 0] + z[0] * math.cos(x[2, 0] + z[1])
     zp[1, 0] = x[1, 0] + z[0] * math.sin(x[2, 0] + z[1])
 
-    //print("zp = ",zp)
+    #print("zp = ",zp)
 
     return zp
 
@@ -203,7 +203,6 @@ def calc_innovation(lm, xEst, PEst, z, LMid):
     y[1] = pi_2_pi(y[1])
     H = jacob_h(q, delta, xEst, LMid + 1)
     S = H @ PEst @ H.T + Cx[0:2, 0:2]
-    print("lm = ",lm)
     print("H_observation_jacob = \n",H)
     print("PEst = \n",PEst)
     print("Cx (noise) = \n",Cx[0:2, 0:2])
