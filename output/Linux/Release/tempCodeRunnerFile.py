@@ -1,1 +1,2 @@
-print("z = ",z)
+    # my_lm = fetchLandmarks()
+    # my_state = fetchState()

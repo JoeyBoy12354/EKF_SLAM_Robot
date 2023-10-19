@@ -244,10 +244,9 @@ def write_lm_csv(lm,filename = 'atsi_lmCSV.csv'):
     landmarks = []
     for i in range(0,len(lm)):
         for j in range(0,len(lm[i])):
-            d_x = lm[i][j][0]*np.cos(lm[i][j][1])
-            d_y = lm[i][j][0]*np.sin(lm[i][j][1])
-            print("store delta = ",[d_x,d_y])
-            landmarks.append([d_x,d_y])
+            landmarks.append(lm[i][j])
+
+    
 
     with open(filename, mode='w', newline='') as file:
         
@@ -386,8 +385,22 @@ def main():
         u = calc_input()
 
         xTrue, z, xDR, ud = observation(xTrue, xDR, u, RFID)
+
+        lm_group = []
+        for i in range(len(RFID[:, 0])):
+            myLM_x = RFID[i, 0] + np.random.randn() * Q_sim[0, 0] * 25
+            myLM_y = RFID[i, 1] + np.random.randn() * Q_sim[0, 0] * 25
+            lm_group.append([myLM_x,myLM_y])
+            
+        # lm_group = []
+        # for i in range(0,len(z)):
+        #     myLM_x = z[i][0]*np.cos(z[i][1]) + xTrue[0, 0]
+        #     myLM_y = z[i][0]*np.sin(z[i][1]) + xTrue[1, 0]
+        #     lm_group.append([myLM_x,myLM_y])
+
+        all_lm.append(lm_group)
         all_u.append(ud)
-        all_lm.append(z)
+        
         # print("ud = ",ud)
         # write_u_csv(ud)
         #print("z = ",z)
