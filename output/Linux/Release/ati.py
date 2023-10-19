@@ -40,13 +40,13 @@ def ekf_slam(xEst, PEst, u, z):
     # print("xEst = \n",xEst)
     # print("motion_model G = \n",G)
 
-    print("PEst Initial = \n",PEst)
-    print("G(motion) = \n",G)
-    print("C(noise) = \n",Cx)
-    print("G.T @ PEst @ G = \n",G.T @ PEst[0:S, 0:S] @ G)
-    print("Fx.T @ Cx @ Fx = \n",Fx.T @ Cx @ Fx)
+    # print("PEst Initial = \n",PEst)
+    # print("G(motion) = \n",G)
+    # print("C(noise) = \n",Cx)
+    # print("G.T @ PEst @ G = \n",G.T @ PEst[0:S, 0:S] @ G)
+    # print("Fx.T @ Cx @ Fx = \n",Fx.T @ Cx @ Fx)
     PEst[0:S, 0:S] = G.T @ PEst[0:S, 0:S] @ G + Fx.T @ Cx @ Fx
-    print("PEst = \n", PEst)
+    #print("PEst = \n", PEst)
 
 
     initP = np.eye(2)
@@ -69,6 +69,8 @@ def ekf_slam(xEst, PEst, u, z):
         y, S, H = calc_innovation(lm, xEst, PEst, z[iz, 0:2], min_id)
 
         K = (PEst @ H.T) @ np.linalg.inv(S)
+        print("K = \n",K)
+
         xEst = xEst + (K @ y)
         PEst = (np.eye(len(xEst)) - (K @ H)) @ PEst
 

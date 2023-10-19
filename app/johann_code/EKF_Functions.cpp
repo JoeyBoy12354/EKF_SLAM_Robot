@@ -302,7 +302,7 @@ void ExtendedKalmanFilter::getGainMatrix() {
     // cout<<"\n Gainx_H*P*H.T = \n"<<Observation_Jacobian*Covariance*(Observation_Jacobian.transpose())<<endl;
     // cout<<"\n Gainx = \n"<<Gainx<<endl;
     Gain = Covariance*Observation_Jacobian.transpose() * Gainx.inverse();
-    //cout<<"\n Gain = \n"<<Gain<<endl;
+    cout<<"\n Gain = \n"<<Gain<<endl;
 }
 
 void ExtendedKalmanFilter::calculateNoise(){
