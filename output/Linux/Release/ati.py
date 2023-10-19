@@ -23,7 +23,7 @@ R_sim = np.diag([1.0, np.deg2rad(10.0)]) ** 2
 #DT = 0.1  # time tick [s]
 DT = 1  # time tick [s]
 #SIM_TIME = 50.0  # simulation time [s]
-SIM_TIME = 30  # simulation time [s]
+SIM_TIME = 12  # simulation time [s]
 MAX_RANGE = 30000.0  # maximum observation range
 M_DIST_TH = 100.0  # Threshold of Mahalanobis distance for data association.
 STATE_SIZE = 3  # State size [x,y,yaw]
@@ -78,6 +78,7 @@ def ekf_slam(xEst, PEst, u, z):
         print("y = \n",y)
         print("K = \n",K)
         xEst = xEst + (K @ y)
+        print("xEst = ",xEst)
         PEst = (np.eye(len(xEst)) - (K @ H)) @ PEst
 
     xEst[2] = pi_2_pi(xEst[2])
@@ -389,12 +390,13 @@ def main():
         all_lm.append(z)
         # print("ud = ",ud)
         # write_u_csv(ud)
-        print("z = ",z)
+        #print("z = ",z)
         # write_lm_csv(z)
 
         xEst, PEst = ekf_slam(xEst, PEst, ud, z)
 
         x_state = xEst[0:STATE_SIZE]
+        
 
         #Johann Storage Functions
         atsi_lm_temp = []
