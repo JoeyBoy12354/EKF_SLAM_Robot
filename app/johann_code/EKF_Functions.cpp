@@ -207,6 +207,8 @@ void ExtendedKalmanFilter::isNewLandmark() {
     z(0) = sqrt(q);
     z(1) = (atan2(deltaY, deltaX)) - State(2);
 
+    cout<<"Z as observed\n"<<z<<endl;
+
 
     vector<double> Distances;
     vector<int> Indexes;
@@ -382,6 +384,7 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
 
 
     //cout<<"(z-z_cap).r = "<<(z-z_cap)(0)<<"(z-z_cap).theta = "<<(z-z_cap)(1)*180/PI<<endl;
+    cout<<"b4_z = \n"<<z<<endl;
     
 
     Matrix<float, 2, 1> delta_z = z-z_cap;
@@ -465,8 +468,8 @@ void ExtendedKalmanFilter::runEKF() {
         //cout<<"ObsLM.x = "<<ObservedLandmark.x<<"ObsLM.y = "<<ObservedLandmark.y<<endl;
         // cout<<"EstLM.x = "<<EstimatedLandmark.x<<"EstLM.y = "<<EstimatedLandmark.y<<endl;
         // cout<<"deltaX = "<<deltaX<<" deltaY = "<<deltaY<<" q = "<<q<<endl;
-        // cout<<"z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
-        // cout<<"z_cap.r = "<<z_cap(0)<<"z_cap.theta = "<<z_cap(1)*180/PI<<endl;
+        cout<<"z.r = "<<z(0)<<"z.theta = "<<z(1)*180/PI<<endl;
+        cout<<"z_cap.r = "<<z_cap(0)<<"z_cap.theta = "<<z_cap(1)*180/PI<<endl;
 
         //getEstimatedObservation(deltaX, deltaY, q);
 
