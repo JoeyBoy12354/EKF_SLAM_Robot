@@ -200,11 +200,11 @@ void simRun(ExtendedKalmanFilter& ekf, bool final){
 
     cout<<"MAIN: after_ekf State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
 
-    // for(int i =3;i<dim;i=i+2){
-    //     if(ekf.State[i] != 0 && ekf.State[i+1] != 0){
-    //         cout<<"("<<ekf.State[i]<<","<<ekf.State[i+1]<<") | ";
-    //     }
-    // }
+    for(int i =3;i<dim;i=i+2){
+        if(ekf.State[i] != 0 && ekf.State[i+1] != 0){
+            cout<<"("<<ekf.State[i]<<","<<ekf.State[i+1]<<") | ";
+        }
+    }
     cout<<endl;
     
 
@@ -667,6 +667,7 @@ void atSim(){
         cout<<"lm[0][0]= "<<lm[i][0]<<endl;
         cout<<"lm[0][0]= "<<lm[i][1]<<endl;
         cout<<"lm[0][0]= "<<lm[i][2]<<endl;
+        cout<<"lm.size() = "<<lm.size()<<endl;
         ekf.w = u[i][1];
         ekf.distance = u[i][0];
         ekf.TestValues.clear();
@@ -686,10 +687,13 @@ void atSim(){
         for(int i=3;i<dim;i=i+2){
             curr_lm.push_back(ekf.State[i]);
             curr_lm.push_back(ekf.State[i+1]);
+            
         }
+        
         landmarks.push_back(curr_lm);
         cout<<"states["<<i<<"][0]= "<<states[i][0]<<" states["<<i<<"][1]= "<<states[i][1]<<endl;
         cout<<"landmarks["<<i<<"][0]= "<<landmarks[i][0]<<" landmarks["<<i<<"][1]= "<<landmarks[i][1]<<endl;
+        cout<<"curr_lm = ("<<curr_lm[0]<<","<<curr_lm[1]<<"),("<<curr_lm[2]<<","<<curr_lm[3]<<"),("<<curr_lm[4]<<","<<curr_lm[5]<<")"<<endl;
     }
 
     cout<<"Completed RUN"<<endl;
