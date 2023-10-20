@@ -219,7 +219,10 @@ def calc_innovation(lm, xEst, PEst, z, LMid):
     print("deltaX = ",delta[0]," deltaY = ",delta[1])
     #print("delta = ",delta)
     q = (delta.T @ delta)[0, 0]
+    print("q_matrix =\n",(delta.T @ delta)[0, 0])
+
     z_angle = math.atan2(delta[1, 0], delta[0, 0]) - xEst[2, 0]
+    print("z_angle = ",z_angle*180/np.pi," -> ",pi_2_pi(z_angle)*180/np.pi)
     zp = np.array([[math.sqrt(q), pi_2_pi(z_angle)]])
     print("z_cap = \n",zp)
 
