@@ -208,6 +208,10 @@ void ExtendedKalmanFilter::isNewLandmark() {
 
      cout<<"ObservedLandmark in NewLM = ("<<ObservedPolarLandmark.distance<<", "<<ObservedPolarLandmark.angle<<")"<<endl;
     cout<<"ObservedLandark in NewLM = "<<ObservedLandmark<<endl;
+
+    CarPoint shifted_observed;
+    shifted_observed.x = Observed.x - State(0);
+    shifted_observed.x = Observed.y - State(1);
     
     //float q = deltaX*deltaX + deltaY*deltaY;
     // z(0) = sqrt(q);
@@ -236,7 +240,8 @@ void ExtendedKalmanFilter::isNewLandmark() {
 
 
         //Distances.push_back(pointDistance(StoredLandmark,ObservedLandmark));
-        Distances.push_back(pointDistance(shifted_stored,ObservedLandmark));
+        //Distances.push_back(pointDistance(shifted_stored,ObservedLandmark));
+        Distances.push_back(pointDistance(StoredLandmark,shifted_observed));
         Indexes.push_back(i);
 
         //}
