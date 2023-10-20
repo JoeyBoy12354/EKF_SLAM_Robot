@@ -253,6 +253,7 @@ void ExtendedKalmanFilter::isNewLandmark2(){
     }
     cout<<"hello0"<<endl;
     minDistances.push_back(distThresh);
+    indexes.push_back(NoLandmarksFound);
     cout<<"minDistance[0] = "<<minDistances[0];
     cout<<"minDistance.size() = "<<minDistances.size()<<endl;
     cout<<"hello"<<endl;
@@ -264,9 +265,8 @@ void ExtendedKalmanFilter::isNewLandmark2(){
         }
     }
 
-    //double smallestDistance = *min_element(minDistances.begin(), minDistances.end());
-    cout<<"Smallest Distance = "<<smallestDistance<<endl;
-    cout<<"minDistance.size() = "<<minDistances.size()<<endl;
+
+
     int smallestDistanceIndex = indexes[getIndex(minDistances,smallestDistance)];
     cout<<"sas2"<<endl;
     
