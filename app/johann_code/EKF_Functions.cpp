@@ -203,6 +203,8 @@ void ExtendedKalmanFilter::isNewLandmark() {
     //z is the Range-Bearing of the actual landmark we have just found from Sensors (Observed)
     ObservedLandmark.x = ObservedPolarLandmark.distance*cos(ObservedPolarLandmark.angle);
     ObservedLandmark.y = ObservedPolarLandmark.distance*cos(ObservedPolarLandmark.angle);
+
+    cout<<"ObservedLandark in NewLM = "<<ObservedLandmark<<endl;
     
     //float q = deltaX*deltaX + deltaY*deltaY;
     // z(0) = sqrt(q);
@@ -229,6 +231,8 @@ void ExtendedKalmanFilter::isNewLandmark() {
         shifted_stored.x = StoredLandmark.x - State(0);//Get the difference between current x and stored x. This will be same as observed x.
         shifted_stored.y = StoredLandmark.y - State(1); 
 
+        cout<<"Shifted_Stored = "<<shifted_stored<<endl;
+
 
         //Distances.push_back(pointDistance(StoredLandmark,ObservedLandmark));
         Distances.push_back(pointDistance(shifted_stored,ObservedLandmark));
@@ -237,6 +241,7 @@ void ExtendedKalmanFilter::isNewLandmark() {
 
     double smallestDistance = *min_element(Distances.begin(), Distances.end());
     int smallestDistanceIndex = Indexes[getIndex(Distances,smallestDistance)];
+    cout<<"smallestDistance = "<<smallestDistance<<endl;
     
 
     if(smallestDistance<=distThresh){
