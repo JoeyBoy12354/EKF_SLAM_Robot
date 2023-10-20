@@ -303,6 +303,7 @@ public:
     vector<CarPoint> observeEnvironment();
     void calculateNoise();
     float Mahalanobis_distance(CarPoint StoredPoint,int LMindex);
+    void isNewLandmark2();
 
 private:
     Matrix<float, dim, dim> Covariance;

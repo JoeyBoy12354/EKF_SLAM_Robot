@@ -197,6 +197,7 @@ vector<CarPoint> ExtendedKalmanFilter::observeEnvironment() {
 }
 
 float ExtendedKalmanFilter::Mahalanobis_distance(CarPoint StoredPoint,int LMindex){
+    cout<<"In Maha Distance Point = "<<StoredPoint<<"Index = "<<LMindex
     Matrix<float, 2, 1> z_cap_m;
 
     float deltaX = EstimatedLandmark.x - State(0);
@@ -233,22 +234,76 @@ float ExtendedKalmanFilter::Mahalanobis_distance(CarPoint StoredPoint,int LMinde
     return maha_distance;
 }
 
+
+void ExtendedKalmanFilter::isNewLandmark2(){
+    float distThresh = 100;
+    cout<<"In NewLandmark2"<<endl;
+
+    vector<float> minDistances;
+    vector<int> indexes;
+    for(int i =3;i<NoLandmarksFound*2;i=i+2){
+        CarPoint StoredPoint;
+        StoredPoint.x = State(i);
+        StoredPoint.y = State(i+1);
+
+        minDistances.push_back(Mahalanobis_distance(StoredPoint,i));
+        indexes.push_back(i);
+    }
+
+    minDistances.push_back(distThresh);
+
+    double smallestDistance = *min_element(minDistances.begin(), minDistances.end());
+    int smallestDistanceIndex = indexes[getIndex(Distances,smallestDistance)];
+
+    if(smallestDistanceIndex == NoLandmarksFound){
+        //This is a new Landmark
+        cout<<"New LM"<<endl;
+        //Calculate landmark position (why do this? We do this cause z has not yet been shifted)
+        EstimatedLandmark.x = State(0) + z(0)*cos(z(1) + State(2));
+        EstimatedLandmark.y = State(1) + z(0)*sin(z(1) + State(2));
+
+        if(NoLandmarksFound >= N){
+            cout<<"\n EKF:LANDMARK OVERFLOW !!!!!! \n"<<endl;
+            return;
+        }
+
+        // EstimatedLandmark.x = ObservedLandmark.x;
+        // EstimatedLandmark.y = ObservedLandmark.y;
+
+        NoLandmarksFound += 1;
+        LandmarkIndex = NoLandmarksFound*2;
+        LandmarkIsNew = true;
+        
+        //Update State with landmark position
+        State(LandmarkIndex) = EstimatedLandmark.x;
+        State(LandmarkIndex+1) = EstimatedLandmark.y;  
+
+    }else{
+        //This is a found landmark
+        EstimatedLandmark.x = State(smallestDistanceIndex);
+        EstimatedLandmark.y = State(smallestDistanceIndex+1);
+        LandmarkIndex = smallestDistanceIndex;
+    }
+
+
+   
+
+}
+
 // Check if a new landmark is observed
 void ExtendedKalmanFilter::isNewLandmark() {
     float distThresh = 1000; //editing this effects the localization heavily (10)
-
-   
 
     //z is the Range-Bearing of the actual landmark we have just found from Sensors (Observed)
     ObservedLandmark.x = ObservedPolarLandmark.distance*cos(ObservedPolarLandmark.angle);
     ObservedLandmark.y = ObservedPolarLandmark.distance*sin(ObservedPolarLandmark.angle);
 
-    CarPoint Obs2;
-    Obs2.x = z(0)*cos(z(1));
-    Obs2.y = z(0)*sin(z(1));
+    // CarPoint Obs2;
+    // Obs2.x = z(0)*cos(z(1));
+    // Obs2.y = z(0)*sin(z(1));
 
-     cout<<"ObservedLandmark in NewLM = ("<<ObservedPolarLandmark.distance<<", "<<ObservedPolarLandmark.angle<<")"<<"Obs2 = "<<z(0)<<","<<z(1)<<endl;
-    cout<<"ObservedLandark in NewLM = "<<ObservedLandmark<<" Obs2 = "<<Obs2<<endl;
+    //  cout<<"ObservedLandmark in NewLM = ("<<ObservedPolarLandmark.distance<<", "<<ObservedPolarLandmark.angle<<")"<<"Obs2 = "<<z(0)<<","<<z(1)<<endl;
+    // cout<<"ObservedLandark in NewLM = "<<ObservedLandmark<<" Obs2 = "<<Obs2<<endl;
 
 
     CarPoint shifted_observed;
@@ -258,7 +313,7 @@ void ExtendedKalmanFilter::isNewLandmark() {
     CarPoint test;
     test.x = State(0) + z(0)*cos(z(1) + pi_2_pi(State(2)));
     test.y = State(1) + z(0)*sin(z(1) + pi_2_pi(State(2)));
-    cout<<"ObservedLandmark = "<<ObservedLandmark<<" -> Shifted_Stored = "<<shifted_observed<<" -> test = "<<test<<endl;
+    //cout<<"ObservedLandmark = "<<ObservedLandmark<<" -> Shifted_Stored = "<<shifted_observed<<" -> test = "<<test<<endl;
 
 
     float cosAngle = cos(State(2));
@@ -292,7 +347,7 @@ void ExtendedKalmanFilter::isNewLandmark() {
     vector<double> Distances;
     vector<int> Indexes;
     for(int i =3;i<dim;i=i+2){
-        cout<<i<<" No Landmarks = "<<NoLandmarksFound<<endl;
+        //cout<<i<<" No Landmarks = "<<NoLandmarksFound<<endl;
         CarPoint StoredLandmark;
         StoredLandmark.x = State(i);
         StoredLandmark.y = State(i+1);
@@ -329,7 +384,7 @@ void ExtendedKalmanFilter::isNewLandmark() {
 
     double smallestDistance = *min_element(Distances.begin(), Distances.end());
     int smallestDistanceIndex = Indexes[getIndex(Distances,smallestDistance)];
-    cout<<"smallestDistance = "<<smallestDistance<<endl;
+    //cout<<"smallestDistance = "<<smallestDistance<<endl;
 
     
 
@@ -573,7 +628,8 @@ void ExtendedKalmanFilter::runEKF() {
         z(1) = ObservedPolarLandmark.angle;
         z(1) = pi_2_pi(z(1));
 
-        isNewLandmark();
+        //isNewLandmark();
+        isNewLandmark2();
 
         float deltaX = EstimatedLandmark.x - State(0);
         float deltaY = EstimatedLandmark.y - State(1);
