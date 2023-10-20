@@ -201,8 +201,8 @@ float ExtendedKalmanFilter::Mahalanobis_distance(CarPoint StoredPoint,int LMinde
     cout<<"In Maha Distance Point = "<<StoredPoint<<"Index = "<<LMindex<<endl;
     Matrix<float, 2, 1> z_cap_m;
 
-    float deltaX = EstimatedLandmark.x - State(0);
-    float deltaY = EstimatedLandmark.y - State(1);
+    float deltaX = StoredPoint.x - State(0);
+    float deltaY = StoredPoint.y - State(1);
     float q = deltaX * deltaX + deltaY * deltaY;
     z_cap_m(0) = sqrt(q);
     z_cap_m(1) = (atan2(deltaY, deltaX)) - State(2);
