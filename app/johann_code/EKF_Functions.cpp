@@ -200,10 +200,13 @@ vector<CarPoint> ExtendedKalmanFilter::observeEnvironment() {
 void ExtendedKalmanFilter::isNewLandmark() {
     float distThresh = 200; //editing this effects the localization heavily (10)
 
+   
+
     //z is the Range-Bearing of the actual landmark we have just found from Sensors (Observed)
     ObservedLandmark.x = ObservedPolarLandmark.distance*cos(ObservedPolarLandmark.angle);
     ObservedLandmark.y = ObservedPolarLandmark.distance*cos(ObservedPolarLandmark.angle);
 
+     cout<<"ObservedLandmark in NewLM = ("<<ObservedPolarLandmark.distance<<", "<<ObservedPolarLandmark.angle<<")"<<endl;
     cout<<"ObservedLandark in NewLM = "<<ObservedLandmark<<endl;
     
     //float q = deltaX*deltaX + deltaY*deltaY;
@@ -217,8 +220,6 @@ void ExtendedKalmanFilter::isNewLandmark() {
     //Shift the observed why?
     //We are shifting it to compare it to the what?
 
-    cout<<"Landmark Observer = "<<ObservedLandmark<<endl;
-
     vector<double> Distances;
     vector<int> Indexes;
     for(int i =3;i<dim;i=i+2){
@@ -230,8 +231,7 @@ void ExtendedKalmanFilter::isNewLandmark() {
         CarPoint shifted_stored;
         shifted_stored.x = StoredLandmark.x - State(0);//Get the difference between current x and stored x. This will be same as observed x.
         shifted_stored.y = StoredLandmark.y - State(1); 
-
-        cout<<"Shifted_Stored = "<<shifted_stored<<endl;
+        cout<<"Stored = "<<StoredLandmark<<" -> Shifted_Stored = "<<shifted_stored<<endl;
 
 
         //Distances.push_back(pointDistance(StoredLandmark,ObservedLandmark));
