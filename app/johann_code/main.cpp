@@ -680,7 +680,7 @@ void atSim(){
 
         //Polar Landmark
         vector<PolPoint> lm_polar;
-        for(int i =0;i<3;i++){
+        for(int j =0;j<3;j++){
             PolPoint newPoint;
             newPoint.distance = landmarks[i+j][0];
             newPoint.angle = landmarks[i+j][1]; 
