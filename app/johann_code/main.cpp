@@ -679,7 +679,7 @@ void atSim(){
         // }
 
         //Polar Landmark
-        vector<PolarPoints> lm_polar;
+        vector<PolPoint> lm_polar;
         for(int i =0;i<3;i++){
             PolPoint newPoint;
             newPoint.distance = landmarks[i+j][0];
