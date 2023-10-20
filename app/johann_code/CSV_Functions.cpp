@@ -522,7 +522,7 @@ namespace CSV_Functions{
 
     }
 
-    void atsi_lm_read(vector<vector<PolPoint>>& lm){
+    void atsi_lm_read2(vector<vector<PolPoint>>& lm){
         cout<<"CSV: atsi_lm_read will only store 3 landmarks at a time"<<endl;
         ifstream file(atsi_lm_CSV);
 

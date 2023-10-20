@@ -168,6 +168,7 @@ namespace CSV_Functions{
     void atsi_lm_read(vector<vector<CarPoint>>& lm);
      void atsi_u_write(vector<vector<float>>& input);
      void atsi_lm_write(vector<vector<float>>& lm);
+     void atsi_lm_read2(vector<vector<PolPoint>>& lm);
 
 
 }
