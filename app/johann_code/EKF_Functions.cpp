@@ -197,6 +197,7 @@ vector<CarPoint> ExtendedKalmanFilter::observeEnvironment() {
 }
 
 float ExtendedKalmanFilter::Mahalanobis_distance(CarPoint StoredPoint,int LMindex){
+    cout<<"z = "<<z(0)<<",  "<<z(1)<<endl;
     cout<<"In Maha Distance Point = "<<StoredPoint<<"Index = "<<LMindex<<endl;
     Matrix<float, 2, 1> z_cap_m;
 
