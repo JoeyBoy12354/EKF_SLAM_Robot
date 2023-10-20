@@ -531,7 +531,7 @@ namespace CSV_Functions{
             return;
         }
 
-        vector<CarPoint> group;
+        vector<PolPoint> group;
         string line;
         while (getline(file, line)) {
             istringstream iss(line);
