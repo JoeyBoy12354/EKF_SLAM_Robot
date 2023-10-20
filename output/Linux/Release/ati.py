@@ -214,11 +214,14 @@ def search_correspond_landmark_id(xAug, PAug, zi):
 def calc_innovation(lm, xEst, PEst, z, LMid):
     delta = lm - xEst[0:2]
     #print("xEst = ",xEst[0:2])
-    print("lm = ",lm)
+    print("stored = ",lm)
+    print("x = ",xEst[0],", y = "xEst[1]," ang = ",xEst[2]*180/np.pi)
+    print("deltaX = ",delta[0]," deltaY = ",delta[1])
     #print("delta = ",delta)
     q = (delta.T @ delta)[0, 0]
     z_angle = math.atan2(delta[1, 0], delta[0, 0]) - xEst[2, 0]
     zp = np.array([[math.sqrt(q), pi_2_pi(z_angle)]])
+    print("z_cap = ",zp[0],", ",zp[1])
 
     #print("z = \n",z)
     #print("zp = \n",zp)
@@ -412,7 +415,7 @@ def main():
     my_state = fetchState()
 
     while SIM_TIME >= time:
-        print()
+        print("\ni = ",time)
         time += DT
         u = calc_input()
 
