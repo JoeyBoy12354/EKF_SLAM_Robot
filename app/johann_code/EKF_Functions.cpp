@@ -467,7 +467,7 @@ void ExtendedKalmanFilter::runEKF() {
     // Correction step
     //landmarks = observeEnvironment();
     //vector<CarPoint> landmarks = TestValues;
-    vector<PolPoint> landmarks = TestPolarValues;
+    vector<PolPoint> landmarks = TestPolValues;
 
 
 
