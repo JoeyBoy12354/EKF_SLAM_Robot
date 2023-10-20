@@ -279,11 +279,10 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalRu
             if(finalRun == 0){
                 mapped = updateMovementGrid(ekf.State,gridNew,ekf.lidar_x,ekf.lidar_y);// Move the robot to the location
                 motorDataProcessing(ekf.w,ekf.distance);
-                ekf.w=0;
-                ekf.distance = 0;
+                // ekf.w=0;
+                // ekf.distance = 0;
             }
-            
-            //motorControlGrid(ekf.w,ekf.distance);//Send odometry to ekf
+
 
 
             //cout<<"\nMain_end: ekf.w = "<<ekf.w<<" ekf.distance = "<<ekf.distance<<endl;
@@ -740,7 +739,7 @@ void testRun(){
     
 
     finalRun = 1;
-    for(int i =0;i<7;i++){
+    for(int i =0;i<3;i++){
         cout<<"\n i = "<<"FINALRUN "<<i<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
         fullRun(ekf,mapped,firstRun,finalRun);
