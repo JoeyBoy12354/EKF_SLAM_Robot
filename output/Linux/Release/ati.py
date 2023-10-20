@@ -191,7 +191,7 @@ def search_correspond_landmark_id(xAug, PAug, zi):
 
     min_dist = []
 
-    print("Observed Landmark polar = ",zi[0],", "zi[1])
+    print("Observed Landmark polar = ",zi[0],", ",zi[1])
     print("Observed Landmark carti = ",zi[0]*np.cos(zi[1]),", ",zi[0]*np.sin(zi[1]),")")
 
     for i in range(nLM):
