@@ -204,7 +204,7 @@ void ExtendedKalmanFilter::isNewLandmark() {
 
     //z is the Range-Bearing of the actual landmark we have just found from Sensors (Observed)
     ObservedLandmark.x = ObservedPolarLandmark.distance*cos(ObservedPolarLandmark.angle);
-    ObservedLandmark.y = ObservedPolarLandmark.distance*cos(ObservedPolarLandmark.angle);
+    ObservedLandmark.y = ObservedPolarLandmark.distance*sin(ObservedPolarLandmark.angle);
 
      cout<<"ObservedLandmark in NewLM = ("<<ObservedPolarLandmark.distance<<", "<<ObservedPolarLandmark.angle<<")"<<endl;
     cout<<"ObservedLandark in NewLM = "<<ObservedLandmark<<endl;

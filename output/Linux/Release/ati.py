@@ -408,6 +408,7 @@ def main():
     my_state = fetchState()
 
     while SIM_TIME >= time:
+        print()
         time += DT
         u = calc_input()
 
