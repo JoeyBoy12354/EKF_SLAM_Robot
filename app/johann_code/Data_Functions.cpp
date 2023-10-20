@@ -267,7 +267,7 @@ namespace Data_Functions{
         while (angle > M_PI) {
             angle -= 2.0 * M_PI;
         }
-        return angle
+        return angle;
     }
 
 }
