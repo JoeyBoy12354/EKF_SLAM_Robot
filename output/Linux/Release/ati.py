@@ -117,8 +117,10 @@ def observation(xTrue, xd, u, RFID):
         d = math.hypot(dx, dy)
         angle = pi_2_pi(math.atan2(dy, dx) - xTrue[2, 0])
         if d <= MAX_RANGE:
-            dn = d + np.random.randn() * Q_sim[0, 0] ** 0.5  # add noise
-            angle_n = angle + np.random.randn() * Q_sim[1, 1] ** 0.5  # add noise
+            dn = d + np.random.randn() * Q_sim[0, 0] ** 0.2  # add noise
+            angle_n = angle + np.random.randn() * Q_sim[1, 1] ** 0.2  # add noise
+            # dn = d + np.random.randn() * Q_sim[0, 0] ** 0.5  # add noise
+            # angle_n = angle + np.random.randn() * Q_sim[1, 1] ** 0.5  # add noise
             zi = np.array([dn, angle_n, i])
             z = np.vstack((z, zi))
 
