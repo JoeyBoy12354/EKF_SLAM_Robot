@@ -202,7 +202,7 @@ def search_correspond_landmark_id(xAug, PAug, zi):
         print("Stored Landmark lm = ",lm[0],", ",lm[1],"Index = ",i)
         print("z = \n",zi)
         y, S, H = calc_innovation(lm, xAug, PAug, zi, i)
-        print("y = \n",y)
+        #print("y = \n",y)
         print("min distance = ",y.T @ np.linalg.inv(S) @ y)
         min_dist.append(y.T @ np.linalg.inv(S) @ y)
 
@@ -232,7 +232,9 @@ def calc_innovation(lm, xEst, PEst, z, LMid):
     #print("zp = \n",zp)
     y = (z - zp).T
     #print("y(before pi2pi) = \n",y)
+    print("y = \n",y)
     y[1] = pi_2_pi(y[1])
+    print("after y = \n",y)
     H = jacob_h(q, delta, xEst, LMid + 1)
     S = H @ PEst @ H.T + Cx[0:2, 0:2]
     # print("H_observation_jacob = \n",H)

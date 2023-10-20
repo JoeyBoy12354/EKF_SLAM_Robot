@@ -600,7 +600,7 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     // cout<<"K*delta_z = \n"<<Gain*delta_z<<endl;
 
     //State = State + Gain*(z-z_cap);
-    State = State + Gain*(z-z_cap);
+    State = State + Gain*(delta_z);
     cout<<"State = \n"<<State<<endl;
     //State = State + Gain*(delta_z);
     //State = State + Gain*(z-z_cap);
