@@ -218,6 +218,21 @@ void ExtendedKalmanFilter::isNewLandmark() {
     test.y = State(1) + z(0)*sin(z(1) + pi_2_pi(State(2)));
     cout<<"ObservedLandmark = "<<ObservedLandmark<<" -> Shifted_Stored = "<<shifted_observed<<" -> test = "<<test<<endl;
 
+
+    float cosAngle = cos(State(2));
+    float sinAngle = sin(State(2));
+
+
+    // Apply rotation first
+    float rotatedX = ObservedLandmark.x * cosAngle - ObservedLandmark.y * sinAngle;
+    float rotatedY = ObservedLandmark.x * sinAngle + ObservedLandmark.y * cosAngle;
+
+    // Then apply translation
+    CarPoint test2;
+    test2.x = rotatedX + x;
+    test2.y = rotatedY + y;
+            
+
     
     
     
@@ -252,9 +267,12 @@ void ExtendedKalmanFilter::isNewLandmark() {
 
         //Distances.push_back(pointDistance(StoredLandmark,ObservedLandmark));
         //Distances.push_back(pointDistance(shifted_stored,ObservedLandmark));
-        cout<<StoredLandmark<<" <-> "<<test<<" = "<<pointDistance(StoredLandmark,test)<<endl;
+        //cout<<StoredLandmark<<" <-> "<<test<<" = "<<pointDistance(StoredLandmark,test)<<endl;
         //Distances.push_back(pointDistance(StoredLandmark,shifted_observed));
-        Distances.push_back(pointDistance(StoredLandmark,test));
+        //Distances.push_back(pointDistance(StoredLandmark,test));
+
+        cout<<StoredLandmark<<" <-> "<<test2<<" = "<<pointDistance(StoredLandmark,test2)<<endl;
+        Distances.push_back(pointDistance(StoredLandmark,test2));
         
         Indexes.push_back(i);
 
