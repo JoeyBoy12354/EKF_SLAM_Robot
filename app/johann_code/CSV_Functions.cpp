@@ -539,7 +539,7 @@ namespace CSV_Functions{
 
             if (getline(iss, x_str, ',') && getline(iss, y_str)) {
                 PolPoint point;
-                point.distnace = stod(x_str);
+                point.distance = stod(x_str);
                 point.angle = stod(y_str);
                 group.push_back(point);
 
