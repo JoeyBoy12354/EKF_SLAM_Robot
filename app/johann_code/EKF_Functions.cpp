@@ -229,7 +229,7 @@ void ExtendedKalmanFilter::isNewLandmark() {
     vector<double> Distances;
     vector<int> Indexes;
     for(int i =3;i<dim;i=i+2){
-        cout<<"No Landmarks = "<<NoLandmarksFound<<endl;
+        cout<<i<<" No Landmarks = "<<NoLandmarksFound<<endl;
         CarPoint StoredLandmark;
         StoredLandmark.x = State(i);
         StoredLandmark.y = State(i+1);
