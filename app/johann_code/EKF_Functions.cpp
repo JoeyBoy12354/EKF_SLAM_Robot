@@ -247,8 +247,10 @@ void ExtendedKalmanFilter::isNewLandmark2(){
         StoredPoint.x = State(i);
         StoredPoint.y = State(i+1);
 
-        cout<<"Mahalanobis_distance = "<<Mahalanobis_distance(StoredPoint,i)<<" StoredPoint = "<<StoredPoint<<" i = "<<i<<endl;
-        minDistances.push_back(Mahalanobis_distance(StoredPoint,i));
+        
+        float mahaDistance = Mahalanobis_distance(StoredPoint,i);
+        cout<<"Mahalanobis_distance = "<<mahaDistance<<" StoredPoint = "<<StoredPoint<<" i = "<<i<<endl;
+        minDistances.push_back(mahaDistance);
         indexes.push_back(i);
     }
     minDistances.push_back(distThresh);
