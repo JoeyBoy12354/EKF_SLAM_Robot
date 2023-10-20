@@ -227,19 +227,19 @@ void ExtendedKalmanFilter::isNewLandmark() {
         CarPoint StoredLandmark;
         StoredLandmark.x = State(i);
         StoredLandmark.y = State(i+1);
-        if(StoredLandmark.x != 0 && StoredLandmark.y != 0){
-            //Shift the stored landmark to calculate the distance between them
-            CarPoint shifted_stored;
-            shifted_stored.x = StoredLandmark.x - State(0);//Get the difference between current x and stored x. This will be same as observed x.
-            shifted_stored.y = StoredLandmark.y - State(1); 
-            cout<<"Stored = "<<StoredLandmark<<" -> Shifted_Stored = "<<shifted_stored<<endl;
+        //if(StoredLandmark.x != 0 && StoredLandmark.y != 0){
+        //Shift the stored landmark to calculate the distance between them
+        CarPoint shifted_stored;
+        shifted_stored.x = StoredLandmark.x - State(0);//Get the difference between current x and stored x. This will be same as observed x.
+        shifted_stored.y = StoredLandmark.y - State(1); 
+        cout<<"Stored = "<<StoredLandmark<<" -> Shifted_Stored = "<<shifted_stored<<endl;
 
 
-            //Distances.push_back(pointDistance(StoredLandmark,ObservedLandmark));
-            Distances.push_back(pointDistance(shifted_stored,ObservedLandmark));
-            Indexes.push_back(i);
+        //Distances.push_back(pointDistance(StoredLandmark,ObservedLandmark));
+        Distances.push_back(pointDistance(shifted_stored,ObservedLandmark));
+        Indexes.push_back(i);
 
-        }
+        //}
 
         
     }
