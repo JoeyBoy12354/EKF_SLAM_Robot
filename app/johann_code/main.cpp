@@ -684,11 +684,11 @@ void atSim(){
             PolPoint newPoint;
             newPoint.distance = landmarks[i+j][0];
             newPoint.angle = landmarks[i+j][1]; 
-            TestPolValues.push_back(newPoint);
+            lm_polar.push_back(newPoint);
         }
 
-
-        ekf.TestValues = lm_converted;
+        ekf.TestPolValues = lm_polar;
+        //ekf.TestValues = lm_converted;
         
         // for(int j=0;j<lm[i].size();j++){
         //     ekf.TestValues.push_back(lm_converted);
