@@ -191,12 +191,12 @@ def search_correspond_landmark_id(xAug, PAug, zi):
 
     min_dist = []
 
-    print("Observed Landmark polar = ",zi)
+    print("Observed Landmark polar = ",zi[0],", "zi[1])
     print("Observed Landmark carti = ",zi[0]*np.cos(zi[1]),", ",zi[0]*np.sin(zi[1]),")")
 
     for i in range(nLM):
         lm = get_landmark_position_from_state(xAug, i)
-        print("Stored Landmark lm = ",lm," Shifted LM = ", lm - xAug[0:2])
+        print("Stored Landmark lm = ",lm[0]", ",lm[1]," Shifted LM = ", (lm - xAug[0:2])[0],", ", (lm - xAug[0:2])[1])
         y, S, H = calc_innovation(lm, xAug, PAug, zi, i)
         min_dist.append(y.T @ np.linalg.inv(S) @ y)
 
