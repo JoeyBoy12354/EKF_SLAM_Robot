@@ -678,6 +678,11 @@ void atSim(){
         //     cout<<"lm_converted = "<<newPoint<<endl;
         // }
 
+        cout<<"Main:landmarks"<<endl;
+        cout<<landmarks[0][0]<<", "<<landmarks[0][1]<<endl;
+        cout<<landmarks[1][0]<<", "<<landmarks[1][1]<<endl;
+        cout<<landmarks[2][0]<<", "<<landmarks[2][1]<<endl;
+
         //Polar Landmark
         vector<PolPoint> lm_polar;
         for(int j =0;j<3;j++){
