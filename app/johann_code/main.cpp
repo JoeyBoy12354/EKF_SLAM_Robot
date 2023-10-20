@@ -790,13 +790,14 @@ int main() {
     //testMotor();
     //testLidar();
 
-    testRun();
+    //testRun();
     
     //simRun3();
 
     //testLidarLandmark();
     //simRun5();
-    //atSim();
+    
+    atSim();
   
     return 0;
 }
