@@ -219,7 +219,7 @@ float ExtendedKalmanFilter::Mahalanobis_distance(CarPoint StoredPoint,int LMinde
 
     //Use F matrix to map H to higher space
     F(3,LMindex) = 1;
-    F(4,LMIndex+1) = 1;
+    F(4,LMindex+1) = 1;
 
     Matrix<float, 2, dim> Observation_Jacobian_m;
     Observation_Jacobian_m = Observation_Jacobian_low*F;
