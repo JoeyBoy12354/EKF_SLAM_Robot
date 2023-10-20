@@ -198,7 +198,7 @@ vector<CarPoint> ExtendedKalmanFilter::observeEnvironment() {
 
 // Check if a new landmark is observed
 void ExtendedKalmanFilter::isNewLandmark() {
-    float distThresh = 200; //editing this effects the localization heavily (10)
+    float distThresh = 300; //editing this effects the localization heavily (10)
 
    
 
@@ -223,6 +223,7 @@ void ExtendedKalmanFilter::isNewLandmark() {
     vector<double> Distances;
     vector<int> Indexes;
     for(int i =3;i<dim;i=i+2){
+        cout<<"No Landmarks = "<<NoLandmarksFound<<endl;
         CarPoint StoredLandmark;
         StoredLandmark.x = State(i);
         StoredLandmark.y = State(i+1);
