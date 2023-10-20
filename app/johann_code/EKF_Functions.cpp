@@ -253,7 +253,7 @@ void ExtendedKalmanFilter::isNewLandmark2(){
 
     minDistances.push_back(distThresh);
 
-    double smallestDistance = *min_element(minDistances.begin(), minDistances.end());
+    float smallestDistance = *min_element(minDistances.begin(), minDistances.end());
     int smallestDistanceIndex = indexes[getIndex(minDistances,smallestDistance)];
     cout<<"Smallest Distance = "<<smallestDistance<<endl;
     cout<<"Smallest Distance Index = "<<smallestDistanceIndex<<endl;
