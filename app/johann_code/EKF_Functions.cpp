@@ -198,7 +198,7 @@ vector<CarPoint> ExtendedKalmanFilter::observeEnvironment() {
 
 float ExtendedKalmanFilter::Mahalanobis_distance(CarPoint StoredPoint,int LMindex){
     cout<<"z = "<<z(0)<<",  "<<z(1)<<endl;
-    cout<<"x = "<<State(0)<<",  y = "<<State(1)<<",  z = "<<State(2)<<endl;
+    cout<<"x = "<<State(0)<<",  y = "<<State(1)<<",  z = "<<State(2)*180/PI<<endl;
     cout<<"In Maha Distance Point = "<<StoredPoint<<"Index = "<<LMindex<<endl;
     Matrix<float, 2, 1> z_cap_m;
 
@@ -688,6 +688,7 @@ void ExtendedKalmanFilter::runEKF() {
         updateCovarianceOfLandmark();
         //cout << "\nLINE 7\nsigma =\n" << Covariance << "\n";
     }
-
+    cout<<"Prior "<<State(2)*180/PI<<endl;
     State(2) = pi_2_pi(State(2));
+    cout<<"Prior "<<State(2)*180/PI<<endl;
 }
