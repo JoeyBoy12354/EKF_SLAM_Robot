@@ -89,9 +89,9 @@ def ekf_slam(xEst, PEst, u, z):
         #print("xEst = ",xEst)
         PEst = (np.eye(len(xEst)) - (K @ H)) @ PEst
 
-    print("XEst prior = ",xEst[2]*180/PI)
+    print("XEst prior = ",xEst[2]*180/np.pi)
     xEst[2] = pi_2_pi(xEst[2])
-    print("XEst prior = ",xEst[2]*180/PI)
+    print("XEst prior = ",xEst[2]*180/np.pi)
     all_lm_inter.append(lm_group)
 
 
