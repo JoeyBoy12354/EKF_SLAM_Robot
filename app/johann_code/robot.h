@@ -302,6 +302,7 @@ public:
     void runEKF();
     vector<CarPoint> observeEnvironment();
     void calculateNoise();
+    float Mahalanobis_distance(CarPoint StoredPoint,int LMindex);
 
 private:
     Matrix<float, dim, dim> Covariance;

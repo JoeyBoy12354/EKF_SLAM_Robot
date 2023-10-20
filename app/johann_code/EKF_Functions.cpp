@@ -196,6 +196,43 @@ vector<CarPoint> ExtendedKalmanFilter::observeEnvironment() {
     return corners;
 }
 
+float ExtendedKalmanFilter::Mahalanobis_distance(CarPoint StoredPoint,int LMindex){
+    Matrix<float, 2, 1> z_cap_m;
+
+    float deltaX = EstimatedLandmark.x - State(0);
+    float deltaY = EstimatedLandmark.y - State(1);
+    float q = deltaX * deltaX + deltaY * deltaY;
+    z_cap_m(0) = sqrt(q);
+    z_cap_m(1) = (atan2(deltaY, deltaX)) - State(2);
+    z_cap_m(1) = pi_2_pi(z_cap(1));
+
+    Matrix<float, 2, 1> delta_z = z-z_cap_m;
+    delta_z(1) = pi_2_pi(delta_z(1));
+
+    //OBSERVATION JACOBIAN
+    //Get the lower Observation Matrix
+    Matrix <float, 2,5> Observation_Jacobian_low;
+    float sq = sqrt(q);
+    Observation_Jacobian_low << -1*sq*deltaX, -1*sq*deltaY,    0, sq*deltaX,  sq*deltaY, 
+                                deltaY,       -1*deltaX,    -1*q, -1*deltaY,  deltaX;
+    Observation_Jacobian_low = (1/q)*Observation_Jacobian_low;
+
+    //Use F matrix to map H to higher space
+    F(3,LMIndex) = 1;
+    F(4,LMIndex+1) = 1;
+
+    Matrix<float, 2, dim> Observation_Jacobian_m;
+    Observation_Jacobian_m = Observation_Jacobian_low*F;
+    F(3,LMIndex) = 0;
+    F(4,LMIndex+1) = 0;
+
+    Matrix<float,2,2> Gainx = Observation_Jacobian_m*Covariance*Observation_Jacobian_m.transpose() + Coordinate_Uncertainty; 
+
+    float maha_distance = delta_z.transpose()*Gainx.inverse()*delta_z;
+
+    return maha_distance;
+}
+
 // Check if a new landmark is observed
 void ExtendedKalmanFilter::isNewLandmark() {
     float distThresh = 1000; //editing this effects the localization heavily (10)
@@ -267,6 +304,9 @@ void ExtendedKalmanFilter::isNewLandmark() {
         shifted_stored.y = StoredLandmark.y - State(1); 
         //cout<<"Stored = "<<StoredLandmark<<" -> Shifted_Stored = "<<shifted_stored<<endl;
 
+        float maha_distance = Mahalanobis_distance(StoredLandmark,i);
+        cout<<"Maha_Distance = "<<maha_distance<<" for "<<StoredLandmark<<endl;
+
         
 
 
@@ -275,6 +315,8 @@ void ExtendedKalmanFilter::isNewLandmark() {
         //cout<<StoredLandmark<<" <-> "<<test<<" = "<<pointDistance(StoredLandmark,test)<<endl;
         //Distances.push_back(pointDistance(StoredLandmark,shifted_observed));
         //Distances.push_back(pointDistance(StoredLandmark,test));
+
+
 
         cout<<StoredLandmark<<" <-> "<<test2<<" = "<<pointDistance(StoredLandmark,test2)<<endl;
         Distances.push_back(pointDistance(StoredLandmark,test2));
