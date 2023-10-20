@@ -251,12 +251,8 @@ void ExtendedKalmanFilter::isNewLandmark2(){
         minDistances.push_back(Mahalanobis_distance(StoredPoint,i));
         indexes.push_back(i);
     }
-    cout<<"hello0"<<endl;
     minDistances.push_back(distThresh);
     indexes.push_back(NoLandmarksFound);
-    cout<<"minDistance[0] = "<<minDistances[0];
-    cout<<"minDistance.size() = "<<minDistances.size()<<endl;
-    cout<<"hello"<<endl;
 
     double smallestDistance = 1000000000;
     for(int i =0;i<minDistances.size();i++){
@@ -268,10 +264,8 @@ void ExtendedKalmanFilter::isNewLandmark2(){
 
 
     int smallestDistanceIndex = indexes[getIndex(minDistances,smallestDistance)];
-    cout<<"sas2"<<endl;
     
     cout<<"Smallest Distance = "<<smallestDistance<<endl;
-    cout<<"sas"<<endl;
     cout<<"Smallest Distance Index = "<<smallestDistanceIndex<<endl;
 
     if(smallestDistanceIndex == NoLandmarksFound){
