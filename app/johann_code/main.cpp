@@ -664,6 +664,7 @@ void atSim(){
 
 
     for(int i=0;i<u.size();i++){
+        cout<<"\n i ="<<i<<endl;
         cout<<"u[0][0]= "<<u[i][0]<<" u[0][1]= "<<u[i][1]<<endl;
         
         ekf.w = u[i][1];

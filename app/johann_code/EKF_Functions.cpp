@@ -258,7 +258,7 @@ void ExtendedKalmanFilter::isNewLandmark() {
         EstimatedLandmark.y = State(1) + z(0)*sin(z(1) + State(2));
 
         if(NoLandmarksFound >= N){
-            cout<<"\n\n EKF:LANDMARK OVERFLOW !!!!!! \n\n"<<endl;
+            cout<<"\n EKF:LANDMARK OVERFLOW !!!!!! \n"<<endl;
             return;
         }
 
@@ -327,7 +327,7 @@ void ExtendedKalmanFilter::getGainMatrix() {
     Gain = Covariance*Observation_Jacobian.transpose() * Gainx.inverse();
     // cout<<"Covariance*Obs_Jac.T = \n"<<Covariance*Observation_Jacobian.transpose()<<endl;
     // cout<<"Gainx.inverse() = \n"<<Gainx.inverse()<<endl;
-    cout<<"\n Gain = \n"<<Gain<<endl;
+    //cout<<"\n Gain = \n"<<Gain<<endl;
 }
 
 void ExtendedKalmanFilter::calculateNoise(){
