@@ -221,7 +221,7 @@ def calc_innovation(lm, xEst, PEst, z, LMid):
     q = (delta.T @ delta)[0, 0]
     z_angle = math.atan2(delta[1, 0], delta[0, 0]) - xEst[2, 0]
     zp = np.array([[math.sqrt(q), pi_2_pi(z_angle)]])
-    print("z_cap = ",zp[0],", ",zp[1])
+    print("z_cap = \n",zp)
 
     #print("z = \n",z)
     #print("zp = \n",zp)
