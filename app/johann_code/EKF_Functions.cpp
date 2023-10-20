@@ -208,6 +208,8 @@ float ExtendedKalmanFilter::Mahalanobis_distance(CarPoint StoredPoint,int LMinde
     z_cap_m(1) = (atan2(deltaY, deltaX)) - State(2);
     z_cap_m(1) = pi_2_pi(z_cap_m(1));
 
+    cout<<"DeltaX = "<<deltaX<<" deltaY = "<<deltaY<<endl;
+    cout<<"z_cap = "<<z_cap(0)<<", "<<z_cap(1);
     Matrix<float, 2, 1> delta_z = z-z_cap_m;
     delta_z(1) = pi_2_pi(delta_z(1));
     cout<<"Delta_z = \n"<<delta_z<<endl;
