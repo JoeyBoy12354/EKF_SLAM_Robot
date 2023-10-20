@@ -663,16 +663,36 @@ void atSim(){
 
     for(int i=0;i<u.size();i++){
         cout<<"u[0][0]= "<<u[i][0]<<" u[0][1]= "<<u[i][1]<<endl;
-        cout<<"lm[0][0]= "<<lm[i][0]<<endl;
-        cout<<"lm[0][0]= "<<lm[i][1]<<endl;
-        cout<<"lm[0][0]= "<<lm[i][2]<<endl;
-        cout<<"lm.size() = "<<lm.size()<<endl;
+        
         ekf.w = u[i][1];
         ekf.distance = u[i][0];
         ekf.TestValues.clear();
-        for(int j=0;j<lm[i].size();j++){
-            ekf.TestValues.push_back(lm[i][j]);
+
+        //We must now convert the landmarks to x and y
+        // vecotr<CarPoint> lm_converted;
+        // for(int j =0;j<3;j++){
+        //     Carpoint newPoint;
+        //     newPoint.x = landmarks[i+j][0]*cos(landmarks[i+j][1]);
+        //     newPoint.y = landmarks[i+j][0]*sin(landmarks[i+j][1]);
+        //     lm_converted.push_back(newPoint);
+        //     cout<<"lm_converted = "<<newPoint<<endl;
+        // }
+
+        //Polar Landmark
+        vector<PolarPoints> lm_polar;
+        for(int i =0;i<3;i++){
+            PolPoint newPoint;
+            newPoint.distance = landmarks[i+j][0];
+            newPoint.angle = landmarks[i+j][1]; 
+            TestPolValues.push_back(newPoint);
         }
+
+
+        ekf.TestValues = lm_converted;
+        
+        // for(int j=0;j<lm[i].size();j++){
+        //     ekf.TestValues.push_back(lm_converted);
+        // }
 
         simRun(ekf,false);
 
@@ -685,8 +705,7 @@ void atSim(){
         curr_lm.clear();
         for(int i=3;i<dim;i=i+2){
             curr_lm.push_back(ekf.State[i]);
-            curr_lm.push_back(ekf.State[i+1]);
-            
+            curr_lm.push_back(ekf.State[i+1]); 
         }
         
         landmarks.push_back(curr_lm);

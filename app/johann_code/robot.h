@@ -257,6 +257,7 @@ public:
     //Testing
     vector<CarPoint> TestValues;
     vector<CarPoint> landmarks;
+    vector<PolPoint> TestPolValues;
 
     //Motion
     // float v = 1.3094206;
@@ -315,6 +316,7 @@ private:
     vector<CarPoint> Landmarks;
     CarPoint EstimatedLandmark;
     CarPoint ObservedLandmark;
+    PolPoint ObservedPolarLandmark;
 
     //Every degree error = 1 (remember to conver to radians)
     //Every mm error = 0.1

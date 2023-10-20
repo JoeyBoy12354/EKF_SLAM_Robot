@@ -68,8 +68,10 @@ def ekf_slam(xEst, PEst, u, z):
                               np.hstack((np.zeros((LM_SIZE, len(xEst))), initP))))
             xEst = xAug
             PEst = PAug
+        
+        #this will fetch the x and y of the new landmark or of the assosciated stored landmark
         lm = get_landmark_position_from_state(xEst, min_id)
-        lm_group.append( [lm[0],lm[1]] )
+        lm_group.append( [lm[0],lm[1]] ) 
         y, S, H = calc_innovation(lm, xEst, PEst, z[iz, 0:2], min_id)
 
         K = (PEst @ H.T) @ np.linalg.inv(S)
@@ -244,24 +246,6 @@ def jacob_h(q, delta, x, i):
 def pi_2_pi(angle):
     return (angle + math.pi) % (2 * math.pi) - math.pi
 
-# def write_lm_csv(lm,filename = 'atsi_lmCSV.csv'):
-#     print("atsi_lm")
-
-#     print("lm = ",lm)
-#     landmarks = []
-#     for i in range(0,len(lm)):
-#         for j in range(0,len(lm[i])):
-#             landmarks.append(lm[i][j])
-
-    
-#     print(landmarks)
-#     with open(filename, mode='w', newline='') as file:
-        
-#         writer = csv.writer(file)
-#         for i in range(0,len(lm)):
-#             # Write the data to the CSV file
-#             writer.writerows(landmarks)
-#     return
 
 def write_lm_csv(lm, filename='atsi_lmCSV.csv'):
     with open(filename, mode='w', newline='') as file:
@@ -270,6 +254,26 @@ def write_lm_csv(lm, filename='atsi_lmCSV.csv'):
             for item in group:
                 flattened = [item[0][0], item[1][0]]
                 writer.writerow(flattened)
+
+
+def write_lm_csv2(lm,filename = 'atsi_lmCSV.csv'):
+    print("atsi_lm")
+
+    print("lm = ",lm)
+    landmarks = []
+    for i in range(0,len(lm)):
+        for j in range(0,len(lm[i])):
+            landmarks.append(lm[i][j])
+
+    
+    print(landmarks)
+    with open(filename, mode='w', newline='') as file:
+        
+        writer = csv.writer(file)
+        for i in range(0,len(lm)):
+            # Write the data to the CSV file
+            writer.writerows(landmarks)
+    return
 
 
 
@@ -394,8 +398,8 @@ def main():
     my_state = []
     my_lm = []
 
-    my_lm = fetchLandmarks()
-    my_state = fetchState()
+    # my_lm = fetchLandmarks()
+    # my_state = fetchState()
 
     while SIM_TIME >= time:
         time += DT
@@ -414,9 +418,11 @@ def main():
             print("xTrue, = ",xTrue[0, 0]," ",xTrue[1, 0])
             myLM_x = z[i][0]*np.cos(z[i][1]) + xTrue[0, 0]
             myLM_y = z[i][0]*np.sin(z[i][1]) + xTrue[1, 0]
+
+
             lm_group.append([myLM_x,myLM_y])
 
-        all_lm.append(lm_group)
+        all_lm.append(z)
         all_u.append(ud)
         
         # print("ud = ",ud)
@@ -473,10 +479,11 @@ def main():
             plt.grid(True)
             plt.pause(0.001)
 
-    all_lm = np.array(all_lm_inter)
+    # all_lm = np.array(all_lm_inter)
+    all_lm = np.array(all_lm)
     all_u = np.array(all_u)
     write_u_csv(all_u)
-    write_lm_csv(all_lm)
+    write_lm_csv2(all_lm)
 
     
 

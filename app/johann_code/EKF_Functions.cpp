@@ -201,12 +201,19 @@ void ExtendedKalmanFilter::isNewLandmark() {
     float distThresh = 200; //editing this effects the localization heavily (10)
 
     //z is the Range-Bearing of the actual landmark we have just found from Sensors (Observed)
-    float deltaX = ObservedLandmark.x - State(0);
-    float deltaY = ObservedLandmark.y - State(1);
-    float q = deltaX*deltaX + deltaY*deltaY;
-    z(0) = sqrt(q);
-    z(1) = (atan2(deltaY, deltaX)) - State(2);
-    z(1) = pi_2_pi(z(1));
+    ObservedLandmark.x = ObservedPolarLandmark.distance*cos(ObservedPolarLandmark.angle);
+    ObservedLandmark.y = ObservedPolarLandmark.distance*cos(ObservedPolarLandmark.angle);
+    
+    //float q = deltaX*deltaX + deltaY*deltaY;
+    // z(0) = sqrt(q);
+    // z(1) = (atan2(deltaY, deltaX)) - State(2);
+    // z(1) = pi_2_pi(z(1));
+
+    // z(0) = sqrt(ObservedLandmark.x*ObservedLandmark.x + ObservedLandmark.y*ObservedLandmark.y);
+    // z(1) = sqrt(ObservedLandmark.x*ObservedLandmark.x + ObservedLandmark.y*ObservedLandmark.y);
+
+    //Shift the observed why?
+    //We are shifting it to compare it to the what?
 
     cout<<"Landmark Observer = "<<ObservedLandmark<<endl;
 
@@ -217,7 +224,14 @@ void ExtendedKalmanFilter::isNewLandmark() {
         StoredLandmark.x = State(i);
         StoredLandmark.y = State(i+1);
 
-        Distances.push_back(pointDistance(StoredLandmark,ObservedLandmark));
+        //Shift the stored landmark to calculate the distance between them
+        CarPoint shifted_stored;
+        shifted_stored.x = StoredLandmark.x - State(0);//Get the difference between current x and stored x. This will be same as observed x.
+        shifted_stored.y = StoredLandmark.y - State(1); 
+
+
+        //Distances.push_back(pointDistance(StoredLandmark,ObservedLandmark));
+        Distances.push_back(pointDistance(shifted_stored,ObservedLandmark));
         Indexes.push_back(i);
     }
 
@@ -239,17 +253,17 @@ void ExtendedKalmanFilter::isNewLandmark() {
         //This is a new landmark
         //cout<<"NewLandmark : "<<ObservedLandmark<<" smallDist = "<<smallestDistance<<" to ("<<State(smallestDistanceIndex)<<","<<State(smallestDistanceIndex+1)<<")"<<endl;
         cout<<"New LM"<<endl;
-        //Calculate landmark position (why do this?)
-        // EstimatedLandmark.x = State(0) + z(0)*cos(z(1) + State(2));
-        // EstimatedLandmark.y = State(1) + z(0)*sin(z(1) + State(2));
+        //Calculate landmark position (why do this? We do this cause z has not yet been shifted)
+        EstimatedLandmark.x = State(0) + z(0)*cos(z(1) + State(2));
+        EstimatedLandmark.y = State(1) + z(0)*sin(z(1) + State(2));
 
         if(NoLandmarksFound >= N){
             cout<<"\n\n EKF:LANDMARK OVERFLOW !!!!!! \n\n"<<endl;
             return;
         }
 
-        EstimatedLandmark.x = ObservedLandmark.x;
-        EstimatedLandmark.y = ObservedLandmark.y;
+        // EstimatedLandmark.x = ObservedLandmark.x;
+        // EstimatedLandmark.y = ObservedLandmark.y;
 
         NoLandmarksFound += 1;
         LandmarkIndex = 1+NoLandmarksFound*2;
@@ -451,15 +465,19 @@ void ExtendedKalmanFilter::runEKF() {
     //cout << "\nLINE 3\nGt =\n" << Motion_Jacobian << "\nmotion_Noise =\n" << Motion_Noise << "\nSigma =\n" << Covariance << "\n";
 
     // Correction step
-    landmarks = observeEnvironment();
+    //landmarks = observeEnvironment();
     //vector<CarPoint> landmarks = TestValues;
+    vector<PolPoint> landmarks = TestPolarValues;
 
 
 
     for (int i = 0; i < landmarks.size(); i++) {
         //cout<<"\n\nXXXXX N E X T   P O I N T "<<i<<" XXXXX"<<endl;
-        ObservedLandmark = landmarks[i];
-
+        //ObservedLandmark = landmarks[i];
+        ObservedPolarLandmark = landmarks[i];
+        z(0) = ObservedPolarLandmark.distance;
+        z(1) = ObservedPolarLandmark.angle;
+        z(1) = pi_2_pi(z(1));
 
         isNewLandmark();
 
