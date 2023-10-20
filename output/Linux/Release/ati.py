@@ -198,7 +198,7 @@ def search_correspond_landmark_id(xAug, PAug, zi):
     for i in range(nLM):
         lm = get_landmark_position_from_state(xAug, i)
         print("Stored Landmark lm = ",lm[0],", ",lm[1],"Index = ",i)
-        print("z = ",zi(0),", ",zi(1))
+        print("z = \n",zi)
         y, S, H = calc_innovation(lm, xAug, PAug, zi, i)
         print("y = \n",y)
         print("min distance = ",y.T @ np.linalg.inv(S) @ y)
