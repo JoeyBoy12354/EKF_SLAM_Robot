@@ -215,7 +215,7 @@ def calc_innovation(lm, xEst, PEst, z, LMid):
     delta = lm - xEst[0:2]
     #print("xEst = ",xEst[0:2])
     print("stored = ",lm)
-    print("x = ",xEst[0],", y = "xEst[1]," ang = ",xEst[2]*180/np.pi)
+    print("x = ",xEst[0],", y = ",xEst[1]," ang = ",xEst[2]*180/np.pi)
     print("deltaX = ",delta[0]," deltaY = ",delta[1])
     #print("delta = ",delta)
     q = (delta.T @ delta)[0, 0]
