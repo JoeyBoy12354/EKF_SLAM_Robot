@@ -646,10 +646,12 @@ void atSim(){
     ExtendedKalmanFilter ekf;
 
     vector<vector<float>> u;
-    vector<vector<CarPoint>> lm;
+    //vector<vector<CarPoint>> lm;
+    vector<vector<PolPoint>> lm;
 
     atsi_u_read(u);
-    atsi_lm_read(lm);
+    //atsi_lm_read(lm);
+    atsi_lm_read2(lm);
     cout<<"check sizes = "<<lm.size()<<" "<<u.size()<<endl;
 
     
@@ -679,17 +681,12 @@ void atSim(){
         // }
 
         cout<<"Main:landmarks"<<endl;
-        cout<<landmarks[0][0]<<", "<<landmarks[0][1]<<endl;
-        cout<<landmarks[1][0]<<", "<<landmarks[1][1]<<endl;
-        cout<<landmarks[2][0]<<", "<<landmarks[2][1]<<endl;
 
         //Polar Landmark
         vector<PolPoint> lm_polar;
         for(int j =0;j<3;j++){
-            PolPoint newPoint;
-            newPoint.distance = landmarks[i+j][0];
-            newPoint.angle = landmarks[i+j][1]; 
-            lm_polar.push_back(newPoint);
+            lm_polar.push_back(lm[i][j]);
+            cout<<"Main: L0= "<<lm[i][j].distance<<", "<<lm[i][j].angle;<<endl;
         }
 
         ekf.TestPolValues = lm_polar;

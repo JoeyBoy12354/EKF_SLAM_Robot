@@ -522,6 +522,40 @@ namespace CSV_Functions{
 
     }
 
+    void atsi_lm_read(vector<vector<PolPoint>>& lm){
+        cout<<"CSV: atsi_lm_read will only store 3 landmarks at a time"<<endl;
+        ifstream file(atsi_lm_CSV);
+
+        if (!file.is_open()) {
+            cerr << "Error opening file: " << atsi_lm_CSV << endl;
+            return;
+        }
+
+        vector<CarPoint> group;
+        string line;
+        while (getline(file, line)) {
+            istringstream iss(line);
+            string x_str, y_str;
+
+            if (getline(iss, x_str, ',') && getline(iss, y_str)) {
+                PolPoint point;
+                point.distnace = stod(x_str);
+                point.angle = stod(y_str);
+                group.push_back(point);
+
+                if(group.size()==3){
+                    lm.push_back(group);
+                    group.clear();
+                }
+            }
+
+
+        }
+
+        file.close();
+
+    }
+
     void atsi_u_write(vector<vector<float>>& input) {
         ofstream outputFile(ekf_atsi_u_CSV);  // Open the file in truncation mode to clear its contents
         if (!outputFile.is_open()) {
