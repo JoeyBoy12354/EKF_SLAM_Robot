@@ -237,7 +237,7 @@ float ExtendedKalmanFilter::Mahalanobis_distance(CarPoint StoredPoint,int LMinde
 
 
 void ExtendedKalmanFilter::isNewLandmark2(){
-    float distThresh = 100;
+    double distThresh = 100;
     cout<<"In NewLandmark2"<<endl;
 
     vector<double> minDistances;
@@ -251,7 +251,7 @@ void ExtendedKalmanFilter::isNewLandmark2(){
         minDistances.push_back(Mahalanobis_distance(StoredPoint,i));
         indexes.push_back(i);
     }
-
+    cout<<"hello0"<<endl;
     minDistances.push_back(distThresh);
     cout<<"hello"<<endl;
 
