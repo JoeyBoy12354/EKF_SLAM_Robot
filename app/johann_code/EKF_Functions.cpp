@@ -197,7 +197,7 @@ vector<CarPoint> ExtendedKalmanFilter::observeEnvironment() {
 }
 
 float ExtendedKalmanFilter::Mahalanobis_distance(CarPoint StoredPoint,int LMindex){
-    cout<<"In Maha Distance Point = "<<StoredPoint<<"Index = "<<LMindex
+    cout<<"In Maha Distance Point = "<<StoredPoint<<"Index = "<<LMindex<<endl;
     Matrix<float, 2, 1> z_cap_m;
 
     float deltaX = EstimatedLandmark.x - State(0);
@@ -254,7 +254,7 @@ void ExtendedKalmanFilter::isNewLandmark2(){
     minDistances.push_back(distThresh);
 
     double smallestDistance = *min_element(minDistances.begin(), minDistances.end());
-    int smallestDistanceIndex = indexes[getIndex(Distances,smallestDistance)];
+    int smallestDistanceIndex = indexes[getIndex(minDistances,smallestDistance)];
     cout<<"Smallest Distance = "<<smallestDistance<<endl;
     cout<<"Smallest Distance Index = "<<smallestDistanceIndex<<endl;
 
