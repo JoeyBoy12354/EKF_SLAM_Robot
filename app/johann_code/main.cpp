@@ -686,7 +686,7 @@ void atSim(){
         vector<PolPoint> lm_polar;
         for(int j =0;j<3;j++){
             lm_polar.push_back(lm[i][j]);
-            cout<<"Main: L0= "<<lm[i][j].distance<<", "<<lm[i][j].anglef<<endl;
+            cout<<"Main: L0= "<<lm[i][j].distance<<", "<<lm[i][j].angle<<endl;
         }
 
         ekf.TestPolValues = lm_polar;
