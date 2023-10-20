@@ -229,8 +229,8 @@ void ExtendedKalmanFilter::isNewLandmark() {
 
     // Then apply translation
     CarPoint test2;
-    test2.x = rotatedX + x;
-    test2.y = rotatedY + y;
+    test2.x = rotatedX + State(0);
+    test2.y = rotatedY + State(1);
             
 
     
