@@ -37,7 +37,7 @@ def ekf_slam(xEst, PEst, u, z):
     S = STATE_SIZE
     G, Fx = jacob_motion(xEst[0:S], u)
     xEst[0:S] = motion_model(xEst[0:S], u)
-    # print("xEst = \n",xEst)
+    print("xExt after motion = \n",xEst)
     # print("motion_model G = \n",G)
 
     # print("PEst Initial = \n",PEst)
@@ -61,6 +61,7 @@ def ekf_slam(xEst, PEst, u, z):
         nLM = calc_n_lm(xEst)
         if min_id == nLM:
             print("New LM")
+            print("New LM at = ",calc_landmark_position(xEst, z[iz, :]))
             # Extend state and covariance matrix
             
             xAug = np.vstack((xEst, calc_landmark_position(xEst, z[iz, :])))
@@ -83,6 +84,7 @@ def ekf_slam(xEst, PEst, u, z):
         #print("y = \n",y)
         #print("K = \n",K)
         xEst = xEst + (K @ y)
+        print("xExt after correction = \n",xEst)
         #print("xEst = ",xEst)
         PEst = (np.eye(len(xEst)) - (K @ H)) @ PEst
 
@@ -183,14 +185,18 @@ def search_correspond_landmark_id(xAug, PAug, zi):
     """
     Landmark association with Mahalanobis distance
     """
-
+    
+    print("In landmark Association")
     nLM = calc_n_lm(xAug)
 
     min_dist = []
 
+    print("Observed Landmark polar = ",zi)
+    print("Observed Landmark carti = ",zi[0]*np.cos(zi[1]),", ",zi[0]*np.sin(zi[1]),")")
+
     for i in range(nLM):
         lm = get_landmark_position_from_state(xAug, i)
-        print("search lm = ",lm)
+        print("Stored Landmark lm = ",lm," Shifted LM = ",delta = lm - xAug[0:2])
         y, S, H = calc_innovation(lm, xAug, PAug, zi, i)
         min_dist.append(y.T @ np.linalg.inv(S) @ y)
 
