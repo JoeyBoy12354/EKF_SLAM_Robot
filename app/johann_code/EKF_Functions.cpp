@@ -286,12 +286,14 @@ void ExtendedKalmanFilter::isNewLandmark2(){
         // EstimatedLandmark.y = ObservedLandmark.y;
 
         NoLandmarksFound += 1;
-        LandmarkIndex = NoLandmarksFound*2;
+        LandmarkIndex = 1+NoLandmarksFound*2;
+        cout<<"Landmark Index = "<<LandmarkIndex<<endl;
         LandmarkIsNew = true;
         
         //Update State with landmark position
         State(LandmarkIndex) = EstimatedLandmark.x;
         State(LandmarkIndex+1) = EstimatedLandmark.y;  
+        
 
     }else{
         //This is a found landmark
