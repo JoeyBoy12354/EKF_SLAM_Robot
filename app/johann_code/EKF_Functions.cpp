@@ -246,7 +246,7 @@ void ExtendedKalmanFilter::isNewLandmark() {
 
         //Distances.push_back(pointDistance(StoredLandmark,ObservedLandmark));
         //Distances.push_back(pointDistance(shifted_stored,ObservedLandmark));
-        if(i<NoLandmarksFound){
+        if(i<NoLandmarksFound+3){
             cout<<StoredLandmark<<" <-> "<<shifted_observed<<" = "<<pointDistance(StoredLandmark,shifted_observed)<<endl;
             Distances.push_back(pointDistance(StoredLandmark,shifted_observed));
         }else{
