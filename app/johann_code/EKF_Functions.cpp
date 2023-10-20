@@ -265,13 +265,13 @@ void ExtendedKalmanFilter::isNewLandmark2(){
     }
 
 
-
-    int smallestDistanceIndex = indexes[getIndex(minDistances,smallestDistance)];
+    int minDistanceVectorIndex = getIndex(minDistances,smallestDistance);
+    int smallestDistanceIndex = indexes[minDistanceVectorIndex];
     
     cout<<"Smallest Distance = "<<smallestDistance<<endl;
     cout<<"Smallest Distance Index = "<<smallestDistanceIndex<<endl;
 
-    if(smallestDistanceIndex == NoLandmarksFound){
+    if(minDistanceVectorIndex == NoLandmarksFound){
         //This is a new Landmark
         cout<<"New LM"<<endl;
         //Calculate landmark position (why do this? We do this cause z has not yet been shifted)
