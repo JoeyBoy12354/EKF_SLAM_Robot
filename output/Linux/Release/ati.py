@@ -16,7 +16,7 @@ Cx = np.diag([0.5, 0.5, np.deg2rad(30.0)]) ** 2
 
 #  Simulation parameter
 #Q_sim = np.diag([0.2, np.deg2rad(1.0)]) ** 2
-Q_sim = np.diag([0.1, np.deg2rad(0.7)]) ** 2
+Q_sim = np.diag([0.05, np.deg2rad(0.5)]) ** 2
 R_sim = np.diag([1.0, np.deg2rad(10.0)]) ** 2
 
 all_lm_inter = []
