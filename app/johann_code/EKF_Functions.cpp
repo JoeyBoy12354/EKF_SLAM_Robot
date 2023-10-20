@@ -210,7 +210,7 @@ void ExtendedKalmanFilter::isNewLandmark() {
     Obs2.x = z(0)*cos(z(1));
     Obs2.y = z(0)*sin(z(1));
 
-     cout<<"ObservedLandmark in NewLM = ("<<ObservedPolarLandmark.distance<<", "<<ObservedPolarLandmark.angle<<")"<<"Obs2 = "<<z(0)<<z(1)<<endl;
+     cout<<"ObservedLandmark in NewLM = ("<<ObservedPolarLandmark.distance<<", "<<ObservedPolarLandmark.angle<<")"<<"Obs2 = "<<z(0)<<","<<z(1)<<endl;
     cout<<"ObservedLandark in NewLM = "<<ObservedLandmark<<" Obs2 = "<<Obs2<<endl;
 
 
