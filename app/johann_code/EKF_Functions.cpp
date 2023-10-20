@@ -239,7 +239,7 @@ void ExtendedKalmanFilter::isNewLandmark2(){
     float distThresh = 100;
     cout<<"In NewLandmark2"<<endl;
 
-    vector<float> minDistances;
+    vector<double> minDistances;
     vector<int> indexes;
     for(int i =3;i<NoLandmarksFound*2;i=i+2){
         CarPoint StoredPoint;
@@ -253,7 +253,7 @@ void ExtendedKalmanFilter::isNewLandmark2(){
 
     minDistances.push_back(distThresh);
 
-    float smallestDistance = *min_element(minDistances.begin(), minDistances.end());
+    double smallestDistance = *min_element(minDistances.begin(), minDistances.end());
     int smallestDistanceIndex = indexes[getIndex(minDistances,smallestDistance)];
     cout<<"Smallest Distance = "<<smallestDistance<<endl;
     cout<<"Smallest Distance Index = "<<smallestDistanceIndex<<endl;
