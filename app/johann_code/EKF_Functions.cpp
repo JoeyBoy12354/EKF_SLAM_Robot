@@ -201,11 +201,15 @@ float ExtendedKalmanFilter::Mahalanobis_distance(CarPoint StoredPoint,int LMinde
     cout<<"In Maha Distance Point = "<<StoredPoint<<"Index = "<<LMindex<<endl;
     Matrix<float, 2, 1> z_cap_m;
 
+    Matrix<float,1,2> delta;
     float deltaX = StoredPoint.x - State(0);
     float deltaY = StoredPoint.y - State(1);
-    float q = deltaX * deltaX + deltaY * deltaY;
+    //double q = deltaX * deltaX + deltaY * deltaY;
+    double q = pow(deltaX,2) + pow(deltaY,2);
+    cout<<"q = "<<q<<", sqrt(q) = "<<sqrt(q);
     z_cap_m(0) = sqrt(q);
     z_cap_m(1) = (atan2(deltaY, deltaX)) - State(2);
+    cout<<"z_angle = "<<z_cap_m(1)*180/PI<<" -> "<<pi_2_pi(z_cap_m(1))*180/PI<<endl;
     z_cap_m(1) = pi_2_pi(z_cap_m(1));
 
     cout<<"DeltaX = "<<deltaX<<" deltaY = "<<deltaY<<endl;
