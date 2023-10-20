@@ -209,6 +209,7 @@ float ExtendedKalmanFilter::Mahalanobis_distance(CarPoint StoredPoint,int LMinde
 
     Matrix<float, 2, 1> delta_z = z-z_cap_m;
     delta_z(1) = pi_2_pi(delta_z(1));
+    cout<<"Delta_z = \n"<<delta_z<<endl;
 
     //OBSERVATION JACOBIAN
     //Get the lower Observation Matrix
