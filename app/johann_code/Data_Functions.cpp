@@ -260,7 +260,7 @@ namespace Data_Functions{
     }
 
 
-    double pi_2_pi(double angle) {
+    float pi_2_pi(float angle) {
         return fmod((angle + M_PI), (2 * M_PI)) - M_PI;
     }
 
