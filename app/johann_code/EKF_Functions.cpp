@@ -421,7 +421,7 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     //cout<<"delta_z (before angle in bounds) = \n"<<delta_z<<endl;
     delta_z(1) = pi_2_pi(delta_z(1));
     cout<<"delta_z = \n"<<delta_z<<endl;
-    cout<<"K*delta_z = \n"<<Gain*delta_z<<endl;
+    // cout<<"K*delta_z = \n"<<Gain*delta_z<<endl;
 
     //State = State + Gain*(z-z_cap);
     State = State + Gain*(z-z_cap);
