@@ -261,7 +261,13 @@ namespace Data_Functions{
 
 
     float pi_2_pi(float angle) {
-        return fmod((angle + M_PI), (2 * M_PI)) - M_PI;
+        while (angle <= -M_PI) {
+        angle += 2.0 * M_PI;
+        }
+        while (angle > M_PI) {
+            angle -= 2.0 * M_PI;
+        }
+        return angle
     }
 
 }
