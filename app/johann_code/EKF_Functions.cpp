@@ -257,8 +257,10 @@ void ExtendedKalmanFilter::isNewLandmark2(){
 
     double smallestDistance = *min_element(minDistances.begin(), minDistances.end());
     cout<<"hello2"<<endl;
-    int smallestDistanceIndex = indexes[getIndex(minDistances,smallestDistance)];
     cout<<"minDistance.size() = "<<minDistances.size();
+    int smallestDistanceIndex = indexes[getIndex(minDistances,smallestDistance)];
+    cout<<"sas2"<<endl;
+    
     cout<<"Smallest Distance = "<<smallestDistance<<endl;
     cout<<"sas"<<endl;
     cout<<"Smallest Distance Index = "<<smallestDistanceIndex<<endl;
