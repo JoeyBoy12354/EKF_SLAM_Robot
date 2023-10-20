@@ -213,7 +213,13 @@ void ExtendedKalmanFilter::isNewLandmark() {
     shifted_observed.x = ObservedLandmark.x - State(0);
     shifted_observed.y = ObservedLandmark.y - State(1);
 
-    cout<<"ObservedLandmark = "<<ObservedLandmark<<" -> Shifted_Stored = "<<shifted_observed<<endl;
+    CarPoint test;
+    test.x = State(0) + z(0)*cos(z(1) + State(2));
+    test.y = State(1) + z(0)*sin(z(1) + State(2));
+    cout<<"ObservedLandmark = "<<ObservedLandmark<<" -> Shifted_Stored = "<<shifted_observed<<" -> test = "<<test<<endl;
+
+    
+    
     
     //float q = deltaX*deltaX + deltaY*deltaY;
     // z(0) = sqrt(q);
