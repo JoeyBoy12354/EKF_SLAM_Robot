@@ -15,7 +15,8 @@ import numpy as np
 Cx = np.diag([0.5, 0.5, np.deg2rad(30.0)]) ** 2
 
 #  Simulation parameter
-Q_sim = np.diag([0.2, np.deg2rad(1.0)]) ** 2
+#Q_sim = np.diag([0.2, np.deg2rad(1.0)]) ** 2
+Q_sim = np.diag([0.1, np.deg2rad(0.7)]) ** 2
 R_sim = np.diag([1.0, np.deg2rad(10.0)]) ** 2
 
 all_lm_inter = []
@@ -117,10 +118,8 @@ def observation(xTrue, xd, u, RFID):
         d = math.hypot(dx, dy)
         angle = pi_2_pi(math.atan2(dy, dx) - xTrue[2, 0])
         if d <= MAX_RANGE:
-            dn = d + np.random.randn() * Q_sim[0, 0] ** 0.2  # add noise
-            angle_n = angle + np.random.randn() * Q_sim[1, 1] ** 0.2  # add noise
-            # dn = d + np.random.randn() * Q_sim[0, 0] ** 0.5  # add noise
-            # angle_n = angle + np.random.randn() * Q_sim[1, 1] ** 0.5  # add noise
+            dn = d + np.random.randn() * Q_sim[0, 0] ** 0.5  # add noise
+            angle_n = angle + np.random.randn() * Q_sim[1, 1] ** 0.5  # add noise
             zi = np.array([dn, angle_n, i])
             z = np.vstack((z, zi))
 
