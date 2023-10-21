@@ -416,7 +416,7 @@ namespace Navigation_Functions{
         bool search = true;
         //Get the start node as the gridpoint nearest to myRobot
 
-        count = 0;
+        int count = 0;
         while(search && count>6){
             
             cout<<"\nCurrent = "<<current<<endl;
