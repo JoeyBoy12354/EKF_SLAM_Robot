@@ -431,37 +431,36 @@ namespace Navigation_Functions{
             }
             cout<<endl;
             
-            //Should I go up?
-            if(goal.y - neighbours[0].y >=0 && neighbours[0].x != defaultVal && neighbours[0].y != defaultVal){
-                path.push_back(neighbours[0]);
-
-            }
-            //Should I go down?
-            else if(goal.y - neighbours[1].y >=0 && neighbours[1].x != defaultVal && neighbours[1].y != defaultVal){
-                path.push_back(neighbours[1]);
-            }
-            //Should I go left?
-            else if(goal.y - neighbours[2].y >=0 && neighbours[2].x != defaultVal && neighbours[2].y != defaultVal){
-                path.push_back(neighbours[2]);
-            }
-            //Should I go right?
-            else if(goal.y - neighbours[3].y >=0 && neighbours[3].x != defaultVal && neighbours[3].y != defaultVal){
-                path.push_back(neighbours[3]);
-            }else{
-                cout<<"FAILURE TO ADD POINT PLEASE HELP"<<endl;
-            }
-
-            cout<<"Point added: "<<path[path.size() - 1].x<<", "<<path[path.size() - 1].y<<endl;
-
-            //delay(100);
-
-            //Check if point is goal
+             //Check if point is goal
             if(path[path.size()-1].x == goal.x && path[path.size()-1].y == goal.y){
                 search = false;
             }
-            
-            count=count+1;
-            current = path[path.size()-1];
+            else{
+                //Should I go up?
+                if(goal.y - neighbours[0].y >0 && neighbours[0].x != defaultVal && neighbours[0].y != defaultVal){
+                    path.push_back(neighbours[0]);
+
+                }
+                //Should I go down?
+                else if(goal.y - neighbours[1].y >0 && neighbours[1].x != defaultVal && neighbours[1].y != defaultVal){
+                    path.push_back(neighbours[1]);
+                }
+                //Should I go left?
+                else if(goal.y - neighbours[2].y >0 && neighbours[2].x != defaultVal && neighbours[2].y != defaultVal){
+                    path.push_back(neighbours[2]);
+                }
+                //Should I go right?
+                else if(goal.y - neighbours[3].y >0 && neighbours[3].x != defaultVal && neighbours[3].y != defaultVal){
+                    path.push_back(neighbours[3]);
+                }else{
+                    cout<<"FAILURE TO ADD POINT PLEASE HELP"<<endl;
+                }
+
+                cout<<"Point added: "<<path[path.size() - 1].x<<", "<<path[path.size() - 1].y<<endl;
+
+                count=count+1;
+                current = path[path.size()-1];
+            }
             
         }
 
