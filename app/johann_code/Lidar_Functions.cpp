@@ -181,27 +181,27 @@ namespace Lidar_Functions{
                     }
                 }
             }
-            else{
-                size_t baudRateArraySize = (sizeof(baudrateArray))/ (sizeof(baudrateArray[0]));
-                for(size_t i = 0; i < baudRateArraySize; ++i)
-                {
-                    _channel = (*createSerialPortChannel(opt_channel_param_first, baudrateArray[i]));
-                    if (SL_IS_OK((drv)->connect(_channel))) {
-                        op_result = drv->getDeviceInfo(devinfo,timeout);
+            // else{
+            //     size_t baudRateArraySize = (sizeof(baudrateArray))/ (sizeof(baudrateArray[0]));
+            //     for(size_t i = 0; i < baudRateArraySize; ++i)
+            //     {
+            //         _channel = (*createSerialPortChannel(opt_channel_param_first, baudrateArray[i]));
+            //         if (SL_IS_OK((drv)->connect(_channel))) {
+            //             op_result = drv->getDeviceInfo(devinfo,timeout);
 
-                        if (SL_IS_OK(op_result)) 
-                        {
-                            connectSuccess = true;
-                            break;
-                        }
-                        else{
-                            cout<<"Get Device Info Failed_2"<<endl;
-                            delete drv;
-                            drv = NULL;
-                        }
-                    }
-                }
-            }
+            //             if (SL_IS_OK(op_result)) 
+            //             {
+            //                 connectSuccess = true;
+            //                 break;
+            //             }
+            //             else{
+            //                 cout<<"Get Device Info Failed_2"<<endl;
+            //                 delete drv;
+            //                 drv = NULL;
+            //             }
+            //         }
+            //     }
+            // }
         }
         // else if(opt_channel_type == CHANNEL_TYPE_UDP){
         //     _channel = *createUdpChannel(opt_channel_param_first, opt_channel_param_second);

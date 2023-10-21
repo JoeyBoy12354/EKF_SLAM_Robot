@@ -553,12 +553,12 @@ namespace sl {
         {
             switch (_dataEvt.wait(timeout))
             {
-            //case rp::hal::Event::EVENT_TIMEOUT: //Johann Strydom
-            case (long unsigned int)rp::hal::Event::EVENT_TIMEOUT:
+            case rp::hal::Event::EVENT_TIMEOUT: //Johann Strydom
+            //case (long unsigned int)rp::hal::Event::EVENT_TIMEOUT:
                 count = 0;
                 return SL_RESULT_OPERATION_TIMEOUT;
-            //case rp::hal::Event::EVENT_OK: //Johann Strydom
-            case (long unsigned int)rp::hal::Event::EVENT_OK:
+            case rp::hal::Event::EVENT_OK: //Johann Strydom
+            //case (long unsigned int)rp::hal::Event::EVENT_OK:
             {
                 if (_cached_scan_node_hq_count == 0) return SL_RESULT_OPERATION_TIMEOUT; //consider as timeout
 
