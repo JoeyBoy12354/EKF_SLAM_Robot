@@ -106,17 +106,17 @@ void ExtendedKalmanFilter::updateMotion() {
 
 
     //Atsi C++(notdone)
-    float theta = State(2);
-    float d_x = distance*cos(theta);
-    float d_y = distance*sin(theta);
-    float d_theta = w; //this might be angular velocity
+    // float theta = State(2);
+    // float d_x = distance*cos(theta);
+    // float d_y = distance*sin(theta);
+    // float d_theta = w; //this might be angular velocity
 
-    Motion_Jacobian(0,2) = -distance*sin(State(2));
-    Motion_Jacobian(1,2) = distance*cos(State(2));
+    // Motion_Jacobian(0,2) = -distance*sin(State(2));
+    // Motion_Jacobian(1,2) = distance*cos(State(2));
 
-    State(0) = State(0) + d_x;
-    State(1) = State(1) + d_y;
-    State(2) = State(2) + d_theta;
+    // State(0) = State(0) + d_x;
+    // State(1) = State(1) + d_y;
+    // State(2) = State(2) + d_theta;
 
 
 
@@ -159,7 +159,7 @@ void ExtendedKalmanFilter::updateMotion() {
     cout<<"C = "<<C<<endl;
 
     //float CAngle = State(2) + w;//Get angle from positive x to line between (0,0) and (C.x,C.y)
-    float CAngle = w;//Get angle from positive x to line between (0,0) and (C.x,C.y)
+    float CAngle = w + State(2);//Get angle from positive x to line between (0,0) and (C.x,C.y)
     float Cd_x = distance*cos(CAngle); //DeltaX change from forward movement
     float Cd_y = distance*sin(CAngle); //DeltaY change from forward movement
 
