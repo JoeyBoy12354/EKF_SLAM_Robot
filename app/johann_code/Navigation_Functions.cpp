@@ -398,11 +398,11 @@ namespace Navigation_Functions{
 
             }
             //Should I go down?
-            else if(goal.y - neighbousr[1].y >0 && neighbours[1].x != defaultVal && neighbours[1].y != defaultVal){
+            else if(goal.y - neighbours[1].y >0 && neighbours[1].x != defaultVal && neighbours[1].y != defaultVal){
                 path.push_back(neighbours[1]);
             }
             //Should I go left?
-            else if(goal.y - neigbours[2].y >0 && neighbours[2].x != defaultVal && neighbours[2].y != defaultVal){
+            else if(goal.y - neighbours[2].y >0 && neighbours[2].x != defaultVal && neighbours[2].y != defaultVal){
                 path.push_back(neighbours[2]);
             }
             //Should I go right?
