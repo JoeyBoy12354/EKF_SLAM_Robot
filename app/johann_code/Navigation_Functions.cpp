@@ -364,7 +364,7 @@ namespace Navigation_Functions{
     vector<GridPoint> pathFinder(vector<vector<GridPoint>> gridMap, MatrixXf State,GridPoint goal){
         //Assume there is a grid point at (0,0)
 
-        GridPoint myRobot
+        GridPoint myRobot;
         myRobot.x=State(0);
         myRobot.y=State(1);
         myRobot.trav=false;
