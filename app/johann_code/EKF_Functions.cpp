@@ -237,7 +237,7 @@ float ExtendedKalmanFilter::Mahalanobis_distance(CarPoint StoredPoint,int LMinde
     delta_z(1) = pi_2_pi(delta_z(1));
 
     cout<<"Stored Point Shifted = \n"<<z_cap_m<<endl;
-    cout<<"Observed Point= \n"<<z_cap<<endl;
+    cout<<"Observed Point= \n"<<z<<endl;
     cout<<"O.x = "<<z(0)*cos(z(1))<<" O.y = "<<z(0)*sin(z(1))<<endl;
     cout<<"shifted S.x = "<<z_cap_m(0)*cos(z_cap_m(1))<<" S.y = "<<z_cap_m(0)*sin(z_cap_m(1))<<endl;
 
