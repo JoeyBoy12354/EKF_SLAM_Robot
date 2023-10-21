@@ -796,7 +796,6 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalR
             vector<vector<GridPoint>> gridNew;
             gridDataProcess(gridNew, ekf.State, firstRun);
                 
-
             //Complete Robot Movement
             if(finalRun == 0){
                 mapped = updateMovementGrid(ekf.State,gridNew,ekf.lidar_x,ekf.lidar_y);// Move the robot to the location
