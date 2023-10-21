@@ -806,6 +806,8 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalR
                 ekf.distance = 200;
             }
 
+            mapped = false;
+
 
 
             //cout<<"\nMain_end: ekf.w = "<<ekf.w<<" ekf.distance = "<<ekf.distance<<endl;
