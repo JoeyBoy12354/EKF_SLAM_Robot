@@ -247,16 +247,6 @@ namespace Data_Functions{
     }
     
 
-    void angleInBounds(float& angle){
-        while(angle>2*PI){
-            angle = angle - 2*PI;
-        }
-        while(angle<-2*PI){
-            angle = angle + 2*PI;
-        }
-    }
-
-
     float pi_2_pi(float angle) {
         while (angle <= -M_PI) {
         angle += 2.0 * M_PI;

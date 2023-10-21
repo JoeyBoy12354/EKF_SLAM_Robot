@@ -8,11 +8,14 @@ namespace Mapping_Functions{
 
     //Build Full map, place it in csv
     //Points have to be translated
-    void storeMapPoints(vector<CarPoint> lidardata){
+    void storeMapPoints(vector<CarPoint> lidardata,Matrix<float, dim, 1> State){
         float distance_threshold = 20;//If two points are greater than Xmm then keep this point.
 
         vector<CarPoint> oldmap;
         readCarFromFullMapCSV(oldmap);//Fetch all current points
+
+        //Fit new scan
+        fitCartesian(lidardata,State(0),State(1),State(2));
         
 
         //Compare with new points (only update if points are different)
@@ -32,6 +35,8 @@ namespace Mapping_Functions{
 
         //Update full map
         appendCarToFullMapCSV(lidardata);
+
+        storeStatePoints(State);
         
     }
 

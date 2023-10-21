@@ -278,11 +278,11 @@ namespace Navigation_Functions{
             }
         }
 
-        // closestPoint = {0,200};
-        // robotPoint = {0,0};
-        // State(0) = robotPoint.x;
-        // State(1) = robotPoint.y;
-        // State(2) = 0;
+        closestPoint = {200,200};
+        robotPoint = {0,0};
+        State(0) = robotPoint.x;
+        State(1) = robotPoint.y;
+        State(2) = 0;
 
         
 
@@ -293,10 +293,11 @@ namespace Navigation_Functions{
         float deltaX = closestPoint.x - robotPoint.x;
         float deltaY = closestPoint.y - robotPoint.y;
         float angle = atan2(deltaY,deltaX) - State(2);
-        angle = PI-angle;
+        angle = pi_2_pi(angle);
+        //angle = PI-angle;
 
         //angle = PI/2;
-        angle = 0;
+        //angle = 0;
 
         // cout<<"NAVI,GRID: deltaX = "<<deltaX<<" = "<<-1*closestPoint.x<<" - "<<robotPoint.x<<endl;
         // cout<<"NAVI,GRID: deltaY = "<<deltaY<<" = "<<-1*closestPoint.y<<" - "<<robotPoint.y<<endl;
@@ -304,26 +305,11 @@ namespace Navigation_Functions{
         // cout<<endl;
         
 
-    
 
-        // // Calculate the angle in radians
-        // float angle = atan2(deltaY, deltaX);
-
-        // // Convert the angle to degrees
-        // angle = angle * 180.0 / M_PI;
-
-        // // Invert the angle
-        // angle = 180.0 - angle;
-
-        // // Ensure the angle is within the range [0, 360)
-        // if (angle < 0) {
-        //     angle += 360.0;
-        // }
-        
 
         //BEGIN NewCode
         //Get triangle values corresponding to current position before we rotate
-        vector<CarPoint> triangle_init = {{0, 0}, {81, 71}, {81, -71}};
+        vector<CarPoint> triangle_init = {{0, 0}, {-81, 71}, {-81, -71}};
         vector<CarPoint> triangle_rot = rotateTriangle(triangle_init,State(2));
         vector<CarPoint> triangle_shift = translateTriangle(triangle_rot,{State(0),State(1)});
         saveTriangleToCSV(triangle_shift);
@@ -362,13 +348,13 @@ namespace Navigation_Functions{
         //cout<<"NAVI,GRID: dist1 = "<<distance<<" = "<<deltaX*deltaX<<" - "<<deltaY*deltaY<<endl;
         distance = sqrt(distance);
         //distance = 100;
-        distance = 100;
+        //distance = 100;
 
         //distance =0;
 
-        //cout<<"NAVI,GRID rotate angle = "<<angle*180/PI<<endl;
+        cout<<"NAVI,GRID rotate angle = "<<angle*180/PI<<endl;
         cout<<"NAVI,GRID around A = "<<A<<" from B = "<<B<<" resulting C "<<C<<" to visit: "<<closestPoint<<endl;
-        //cout<<"NAVI,GRID then distance = "<<distance<<endl;
+        cout<<"NAVI,GRID then distance = "<<distance<<endl;
         
         //cout<<"NAVI,GRID: movement: "<<distance<<"mm "<<angle*180/PI<<" deg"<<endl;
 
@@ -377,7 +363,7 @@ namespace Navigation_Functions{
             lidar_x = C.x;
             lidar_y = C.y;
             //cout<<"GRID: updateMoveent, force==noMovement"<<endl;
-            motorControlGrid(angle,distance);
+            //motorControlGrid(angle,distance);
         }
         
         return mapped;

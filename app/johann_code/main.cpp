@@ -789,8 +789,8 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalR
                 saveCarToFullMapCSV(carPoints);
                 firstRun = false;
             }else{
-                storeMapPoints(carPoints);
-                storeStatePoints(ekf.State);
+                storeMapPoints(carPoints,ekf.State);
+                
             }
 
             //Get Grid
@@ -843,7 +843,6 @@ void testRun(){
         // cout<<"IN RUN LOOP: "<<i<<endl;
         // cout<<"Mapped = "<<mapped<<endl;
         //fullRun(ekf,mapped,firstRun,finalRun);
-
         fullRun2(ekf,mapped,firstRun,finalRun);
         
         firstRun = false;

@@ -184,7 +184,6 @@ namespace Data_Functions{
     //The boys from Landmark.cpp
     double pointDistance(CarPoint pointA, CarPoint pointB);
     double perpendicularDistance(const CarPoint& point, Line& line);
-    void angleInBounds(float& angle);
 
     //landmark
     void lidarDataProcessing(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints, float x, float y, float angle);
@@ -222,7 +221,7 @@ namespace Lidar_Functions{
 }
 
 namespace Mapping_Functions{
-    void storeMapPoints(vector<CarPoint> lidardata);
+    void storeMapPoints(vector<CarPoint> lidardata,Matrix<float, dim, 1> State);
     void storeStatePoints(Matrix<float, dim, 1> State);
 
     void getMapBounds(vector<CarPoint> map, vector<float>& bounds);
