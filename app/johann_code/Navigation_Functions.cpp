@@ -370,7 +370,10 @@ namespace Navigation_Functions{
         vector<GridPoint> path = pathFinder(gridMap,State,Goal);
 
         for(int i =0;i<path.size();i++){
-            updateMovement(path[i],State);
+            CarPoint pathPoint;
+            pathPoint.x=path[i].x;
+            pathPoint.y=path[i].y;
+            updateMovement(pathPoint,State);
 
         }
 
