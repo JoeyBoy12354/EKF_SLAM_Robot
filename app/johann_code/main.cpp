@@ -273,10 +273,8 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalRu
                 
 
             //Complete Robot Movement
-            // mapped = updateMovement(ekf.State);// Move the robot to the location
-            //motorDataProcessing(ekf.w,ekf.distance);//Send odometry to ekf
             if(finalRun == 0){
-                mapped = updateMovementGrid(ekf.State,gridNew,ekf.lidar_x,ekf.lidar_y);// Move the robot to the location
+                mapped = preMapMovement(ekf.State,gridNew,ekf.lidar_x,ekf.lidar_y);// Move the robot to the location
                 motorDataProcessing(ekf.w,ekf.distance);
                 // ekf.w=0;
                 // ekf.distance = 0;
@@ -801,7 +799,7 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalR
                 
             //Complete Robot Movement
             if(finalRun == 0){
-                mapped = updateMovementGrid(ekf.State,gridNew,ekf.lidar_x,ekf.lidar_y);// Move the robot to the location
+                mapped = preMapMovement(ekf.State,gridNew,ekf.lidar_x,ekf.lidar_y);// Move the robot to the location
                 motorDataProcessing(ekf.w,ekf.distance);//Set Ekf variables to result from motor functions
                 // ekf.w=-95*PI/180;
                 // ekf.distance = 200;

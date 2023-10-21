@@ -14,142 +14,6 @@ float theta;
 float dist;
 
 namespace Navigation_Functions{
-    //Determine Direction and send control signals to motors
-    bool updateMovement(MatrixXf State){
-
-        CarPoint Robot;
-        Robot.x = State(0);
-        Robot.y = State(1);
-
-        updateExplorations(State,Robot);
-
-        if(noNavTrials<2){
-            for(int i = 0; i<LandmarksExplored.size();i++){
-                if(LandmarksExplored[i] != true){
-                    CarPoint LM;
-                    LM.x = State(i+3);
-                    LM.y = State(i*2+4);
-
-                    landmarkExplore(LM, State);
-                    motorControl();
-                    noNavTrials = 0;
-
-                    //SHOULD BE TRUE PLEASE CHANGE 
-                    return false;
-                }
-            }
-
-            noNavTrials++;
-            randomExplore();
-            motorControl();
-
-            //SHOULD BE TRUE PLEASE CHANGE 
-            return false;
-        }else{
-            cout<<"MAP EXPLORED SET DIST = 100, theta = 0"<<endl;
-            dist = 100;
-            theta = 0;
-            //mapped room
-            cout<<"\nNAVI: EXPLORED MAP \n"<<endl;
-            
-            return true;
-        }
-    }
-
-
-    void motorControl(){
-
-        cout<<"!!!!!!!!!!!!!! !!!!!!!!! TESTING CONST theta & DIST"<<endl;
-        
-
-        cout<<"Navi: Set angle = "<<theta*180/(PI)<<" deg Set Distance = "<<dist<<"mm"<<endl;
-        theta = 0;
-        dist = 0;
-
-
-        //Send to motors
-        writeMotorToCSV(theta,dist);
-        cout<<"Navi test: Set angle = "<<theta*180/(PI)<<" deg Set Distance = "<<dist<<"mm"<<endl;
-    
-        int ret;
-        ret = system("python3 motorControl.py ok go");
-        cout << "ret/cpp = " << ret << endl;
-
-        
-
-    }
-
-    //Set velocity and direction to a new landmark
-    void landmarkExplore(CarPoint LM, MatrixXf State){
-        cout<<"NAVI: Landmark Explore "<<LM.x<<", "<<LM.y<<endl;
-        cout<<"NAVI: State Position "<<State(0)<<", "<<State(1)<<State(2)*180/PI<<endl;
-        //Calculate required distance and rotation
-        float deltaX = LM.x - State(0);
-        float deltaY = LM.y - State(1);
-        dist = deltaX*deltaX + deltaY*deltaY;
-        dist = sqrt(dist) - closeness;
-        theta = atan2(deltaY,deltaX) - State(2);
-
-        //FIX
-        //theta = theta;
-
-        //Ensure distance > 0 
-        if(dist<0){
-            dist = 0;
-        }
-            
-        // Normalize theta to the range [0, 2π]
-        while (theta < -2 * PI ) {
-            theta += 2 * PI;  // Add 2π until theta becomes more than -2π
-        }
-        while (theta >= 2 * PI) {
-            theta -= 2 * PI;  // Subtract 2π until theta becomes less than 2π
-        }
-       
-        
-        return;
-    }
-
-    //Set velocity and direction randomly
-    void randomExplore(){
-        cout<<"NAVI: Random Explore "<<endl;
-        dist = rand() % 300;
-        theta = rand() % 2*PI;
-        
-        
-        return;
-
-    }
-
-    //Check if we have explored any new landmarks
-    void updateExplorations(MatrixXf State, CarPoint Robot){
-        int NoLandmarks = (State.rows() - 3)/2;
-
-        //Check if new landmarks have been found and add them if so
-        for(int i=LandmarksExplored.size(); i<NoLandmarks; i++){
-            LandmarksExplored.push_back(false);
-        }
-        
-
-        
-        CarPoint LM; 
-        
-        for(int i=0; i<NoLandmarks; i++){
-            LM.x = State(i+3);
-            LM.y = State(i*2+4);
-
-            //if distance between self and landmark < Xmm it is explored.
-            if(pointDistance(Robot, LM) < foundRadius){
-                LandmarksExplored[i] = true;
-            }
-        }
-
-        
-    }
-
-
-
-
 
     //Set motors and start them
     void motorControlGrid(float angle, float distance){
@@ -249,11 +113,8 @@ namespace Navigation_Functions{
     }
 
 
-
-
-    //Set distance and angle to go to nearest unexplored grid point
-    bool updateMovementGrid(MatrixXf State, vector<vector<GridPoint>> gridMap, float& lidar_x,float& lidar_y){
-        cout<<"IN update Movement Grid"<<endl;
+    bool preMapMovement(MatrixXf State, vector<vector<GridPoint>> gridMap){
+        cout<<"In pre-map movement"<<endl;
         //take grid map
         bool mapped = true;
         float smallDistance = 10000000;
@@ -280,13 +141,19 @@ namespace Navigation_Functions{
                 }  
             }
         }
+        
+        bool mapped = updateMovement(closestPoint,State);
 
-        //closestPoint = {-200,-200};
-        //robotPoint = {0,0};
-        // State(0) = robotPoint.x;
-        // State(1) = robotPoint.y;
-        // State(2) = 0;
-        cout<<"RobotPoint = "<<robotPoint<<endl;
+        return mapped
+
+
+    }
+
+
+
+
+    //Set distance and angle to go to nearest unexplored grid point
+    bool updateMovement(CarPoint closestPoint,MatrixXf State){
         cout<<"ClosestPoint = "<<closestPoint<<endl;
 
         //Set destination
@@ -408,8 +275,6 @@ namespace Navigation_Functions{
             }
         }
 
-        cout<<"Point changed = "<<myRobot.x<<", "<<myRobot.y<<endl;
-
 
         float defaultVal = 15;
 
@@ -436,7 +301,6 @@ namespace Navigation_Functions{
                 search = false;
             }
             else{
-                cout<<"Point is not goal"<<endl;
                 if(goal.y - current.y != 0 ){
                     //Should I go up?
                     if(goal.y - neighbours[0].y >=0 && neighbours[0].x != defaultVal && neighbours[0].y != defaultVal){
@@ -504,6 +368,13 @@ namespace Navigation_Functions{
         readGridFromCSV(gridMap);
 
         vector<GridPoint> path = pathFinder(gridMap,State,Goal);
+
+        for(int i =0;i<path.size();i++){
+            updateMovement(path[i],State);
+
+        }
+
+
 
 
 

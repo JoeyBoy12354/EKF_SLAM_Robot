@@ -241,14 +241,9 @@ namespace Mapping_Functions{
 }
 
 namespace Navigation_Functions{
-    bool updateMovement(MatrixXf State);
-    void landmarkExplore(CarPoint LM, MatrixXf State);
-    void randomExplore();
-    void updateExplorations(MatrixXf State, CarPoint Robot);
-    void motorControl();
-
     //Grid
-    bool updateMovementGrid(MatrixXf State, vector<vector<GridPoint>> gridMap, float& lidar_x,float& lidar_y);
+    bool preMapMovement(MatrixXf State, vector<vector<GridPoint>> gridMap);
+    bool updateMovement(CarPoint closestPoint,MatrixXf State);
     void motorControlGrid(float angle, float distance);
 
     //Triangle 
