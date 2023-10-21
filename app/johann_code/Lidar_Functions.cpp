@@ -81,7 +81,7 @@ namespace Lidar_Functions{
         int NoPoints = 8192;
         int NoPointsPerScan = 8192;
         sl_u16 stop = 0;
-        sl_u32 timeout = 60000;//Default is 2000
+        sl_u32 timeout = 3000;//Default is 2000 (does not seem to help)
 
         const char * opt_is_channel = NULL; 
         const char * opt_channel = NULL;
@@ -155,6 +155,15 @@ namespace Lidar_Functions{
         
         // create the driver instance
         ILidarDriver * drv = *createLidarDriver();
+
+        // ask the LIDAR to stop working first...
+        drv->stop();
+        _channel->flush();
+
+        // wait for a while
+        delay(10);
+        _channel->clearReadCache();
+        
 
         if (!drv) {
             fprintf(stderr, "insufficent memory, exit\n");
