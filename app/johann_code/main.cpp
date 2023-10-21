@@ -759,10 +759,10 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalR
 
         if(error == false){
             //Predict Position
-            // if(finalRun <= 1){
-                
-            // }
-            ekf.updateMotion();
+            if(finalRun <= 1){
+                ekf.updateMotion();
+            }
+            
 
             cout<<"\n MAIN: after_motion State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
             //cout << "\nEKF 6\nState =\n" << ekf.State << "\n";
