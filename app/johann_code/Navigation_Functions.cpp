@@ -421,7 +421,7 @@ namespace Navigation_Functions{
             
         }
 
-        cout<<"Path Found = "
+        cout<<"Path Found = ";
         for(int i =0;i<path.size();i++){
             cout<<path[i]<<"->";
         }
@@ -438,7 +438,7 @@ namespace Navigation_Functions{
         }
         shortenedPath.push_back(path[path.size() - 1]);
 
-        cout<<"Path Found = "
+        cout<<"ShortPath Found = ";
         for(int i =0;i<shortenedPath.size();i++){
             cout<<shortenedPath[i]<<"->";
         }
@@ -448,11 +448,11 @@ namespace Navigation_Functions{
     }
 
     void postMapMovement(MatrixXf State){
-        GridPoint Goal = {0,0,false};
+        GridPoint Goal{0,0,false};
         vector<vector<GridPoint>> gridMap;
-        eadGridFromCSV(gridMap);
+        readGridFromCSV(gridMap);
 
-        vector<GridPoint> path = pathFinder(vector<vector<GridPoint>> gridMap, MatrixXf State,Goal);
+        vector<GridPoint> path = pathFinder(gridMap,State,Goal);
 
 
 
