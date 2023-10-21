@@ -162,7 +162,8 @@ namespace Lidar_Functions{
         //drv->stop(timeStop);
         cout<<"Main: Attempt Stop"<<endl;
         cout<<"Main: Stopped"<<endl;
-        
+        delay(2000);
+
         _channel->flush();
         cout<<"Main: Flushed"<<endl;
 
