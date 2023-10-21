@@ -74,7 +74,7 @@ namespace sl {
         }
         void flush()
         {
-            fprintf(stderr, "flush\n");
+            //fprintf(stderr, "flush\n");
             _rxtxSerial->flush(0);
         }
 
