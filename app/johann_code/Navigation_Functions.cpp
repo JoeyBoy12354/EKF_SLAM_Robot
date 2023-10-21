@@ -419,7 +419,7 @@ namespace Navigation_Functions{
         count = 0;
         while(search && count>6){
             
-            cout<<"\nCurrent = "<<current<<end;
+            cout<<"\nCurrent = "<<current<<endl;
             vector<GridPoint> neighbours = findNeighbours(gridMap,current,defaultVal);
             //Work on minimizing delta first
             cout<<"neigh = ";
