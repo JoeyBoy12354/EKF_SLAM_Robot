@@ -219,7 +219,7 @@ namespace Lidar_Functions{
     void ctrlc(int);
     int runLidar(vector<PolPoint>& lidarDataPoints, bool& error);
 
-    int runLidarCustom();
+    //int runLidarCustom();
 }
 
 namespace Mapping_Functions{

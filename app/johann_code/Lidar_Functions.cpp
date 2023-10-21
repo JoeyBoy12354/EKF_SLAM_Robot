@@ -339,58 +339,58 @@ namespace Lidar_Functions{
 
 
 
-    int runLidarCustom(){
-        int argc = 5;
-        const char * argv[] = {
-            "./johann_code",
-            "--channel",
-            "--serial",
-            "/dev/ttyUSB0",
-            "115200"
-        };
+    // int runLidarCustom(){
+    //     int argc = 5;
+    //     const char * argv[] = {
+    //         "./johann_code",
+    //         "--channel",
+    //         "--serial",
+    //         "/dev/ttyUSB0",
+    //         "115200"
+    //     };
         
 
-        ///  Create a communication channel instance
-        IChannel* _channel;
-        Result<ISerialChannel*> channel = createSerialPortChannel("/dev/ttyUSB0", 115200);
-        ///  Create a LIDAR driver instance
-        ILidarDriver * lidar = *createLidarDriver();
-        auto res = (*lidar)->connect(*channel);
-        if(SL_IS_OK(res)){
-            sl_lidar_response_device_info_t deviceInfo;
-            res = (*lidar)->getDeviceInfo(deviceInfo);
-            if(SL_IS_OK(res)){
-                printf("Model: %d, Firmware Version: %d.%d, Hardware Version: %d\n",
-                deviceInfo.model,
-                deviceInfo.firmware_version >> 8, deviceInfo.firmware_version & 0xffu,
-                deviceInfo.hardware_version);
-            }else{
-                fprintf(stderr, "Failed to get device information from LIDAR %08x\r\n", res);
-            }
-        }else{
-            fprintf(stderr, "Failed to connect to LIDAR %08x\r\n", res);
-        }
-        // TODO
-        lidar->startMotor();
+    //     ///  Create a communication channel instance
+    //     IChannel* _channel;
+    //     Result<ISerialChannel*> channel = createSerialPortChannel("/dev/ttyUSB0", 115200);
+    //     ///  Create a LIDAR driver instance
+    //     ILidarDriver * lidar = *createLidarDriver();
+    //     auto res = (*lidar)->connect(*channel);
+    //     if(SL_IS_OK(res)){
+    //         sl_lidar_response_device_info_t deviceInfo;
+    //         res = (*lidar)->getDeviceInfo(deviceInfo);
+    //         if(SL_IS_OK(res)){
+    //             printf("Model: %d, Firmware Version: %d.%d, Hardware Version: %d\n",
+    //             deviceInfo.model,
+    //             deviceInfo.firmware_version >> 8, deviceInfo.firmware_version & 0xffu,
+    //             deviceInfo.hardware_version);
+    //         }else{
+    //             fprintf(stderr, "Failed to get device information from LIDAR %08x\r\n", res);
+    //         }
+    //     }else{
+    //         fprintf(stderr, "Failed to connect to LIDAR %08x\r\n", res);
+    //     }
+    //     // TODO
+    //     lidar->startMotor();
 
-        LidarScanMode scanMode;
-        lidar->startScan(false, true, 0, &scanMode);
+    //     LidarScanMode scanMode;
+    //     lidar->startScan(false, true, 0, &scanMode);
 
-        sl_lidar_response_measurement_node_hq_t nodes[8192];
-        size_t nodeCount = sizeof(nodes)/sizeof(sl_lidar_response_measurement_node_hq_t);
-        res = lidar->grabScanDataHq(nodes, nodeCount);
+    //     sl_lidar_response_measurement_node_hq_t nodes[8192];
+    //     size_t nodeCount = sizeof(nodes)/sizeof(sl_lidar_response_measurement_node_hq_t);
+    //     res = lidar->grabScanDataHq(nodes, nodeCount);
 
-        if (IS_FAIL(res))
-        {
-            // failed to get scan data
-        }
-
-        
+    //     if (IS_FAIL(res))
+    //     {
+    //         // failed to get scan data
+    //     }
 
         
-        /// Delete Lidar Driver and channel Instance
-        * delete *lidar;
-        * delete *channel;
-    }
+
+        
+    //     /// Delete Lidar Driver and channel Instance
+    //     * delete *lidar;
+    //     * delete *channel;
+    // }
 
 }
