@@ -296,7 +296,7 @@ namespace Navigation_Functions{
         angle = pi_2_pi(angle);
         //angle = PI-angle;
 
-        angle = PI/2;
+        //angle = PI/2;
         //angle = 0;
 
         // cout<<"NAVI,GRID: deltaX = "<<deltaX<<" = "<<-1*closestPoint.x<<" - "<<robotPoint.x<<endl;
@@ -366,7 +366,7 @@ namespace Navigation_Functions{
             lidar_x = C.x;
             lidar_y = C.y;
             //cout<<"GRID: updateMoveent, force==noMovement"<<endl;
-            //motorControlGrid(angle,distance);
+            motorControlGrid(angle,distance);
         }
         
         return mapped;

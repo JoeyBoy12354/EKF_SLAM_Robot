@@ -101,8 +101,8 @@ namespace Data_Functions{
     void lidarDataProcessing(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints, float x, float y, float angle){
         //cout<<"\n lidarDataProcessing"<<endl;
 
-        //carPoints = convertCartesian(dataPoints);
-        readCarFromCSV(carPoints);
+        carPoints = convertCartesian(dataPoints);
+        //readCarFromCSV(carPoints);
         fitCartesian(carPoints,x,y,angle);
 
         saveCarToCSV(carPoints);

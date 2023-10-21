@@ -746,13 +746,13 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalR
         vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
         bool error = true;
         int count = 0;
-        // while(error == true && count<5){
-        //     cout<<"\nAttempt "<<count<<endl;
-        //     //Sleep(1/2);
-        //     runLidar(lidarDataPoints, error);
-        //     count +=1;
-        // }
-        error = false;
+        while(error == true && count<5){
+            cout<<"\nAttempt "<<count<<endl;
+            //Sleep(1/2);
+            runLidar(lidarDataPoints, error);
+            count +=1;
+        }
+        //error = false;
         cout<<"count = "<<count<<endl;
         
         //cout<<"Main: Lidar Run complete"<<endl;
@@ -807,7 +807,7 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalR
                 ekf.State(2) = -90*PI/180;
             }
 
-            mapped = false;
+            //mapped = false;
 
 
 
