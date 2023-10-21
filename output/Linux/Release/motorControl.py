@@ -293,6 +293,7 @@ def getAngle(LNoRot,RNoRot):
     thetaL = (LNoRot*2*math.pi*r/R)
     thetaR = (RNoRot*2*math.pi*r/R)
 
+    print("ThetaL = ",thetaL*180/math.pi,"ThetaR = ",thetaR*180/math.pi)
     #Assumme the other wheel picking up roations is shaking
     if(thetaL>thetaR):
         return thetaL

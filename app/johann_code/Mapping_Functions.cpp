@@ -16,6 +16,9 @@ namespace Mapping_Functions{
 
         //Fit new scan
         fitCartesian(lidardata,State(0),State(1),State(2));
+        //Write new Scan
+        saveCarToCSV(lidardata);
+
         
 
         //Compare with new points (only update if points are different)
