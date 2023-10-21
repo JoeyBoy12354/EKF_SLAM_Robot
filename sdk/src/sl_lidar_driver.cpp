@@ -555,16 +555,18 @@ namespace sl {
             {
             //case rp::hal::Event::EVENT_TIMEOUT: //Johann Strydom
             case (long unsigned int)rp::hal::Event::EVENT_TIMEOUT:
-                fprintf(stderr, "Event Timout\n");
+                fprintf(stderr, "GrabScan: Event Timeout\n");
                 count = 0;
                 return SL_RESULT_OPERATION_TIMEOUT;
             //case rp::hal::Event::EVENT_OK: //Johann Strydom
             case (long unsigned int)rp::hal::Event::EVENT_OK:
             {
                 if (_cached_scan_node_hq_count == 0){
-                    fprintf(stderr, "cached scan count = 0\n");
+                    fprintf(stderr, "GrabScan: cached scan count = 0\n");
                     return SL_RESULT_OPERATION_TIMEOUT; //consider as timeout
                 } 
+
+                fprintf(stderr, "GrabScan: EVENT_OK\n");
 
                 rp::hal::AutoLocker l(_lock);
 
@@ -577,7 +579,7 @@ namespace sl {
             return SL_RESULT_OK;
 
             default:
-                fprintf(stderr, "default operation fail\n");
+                fprintf(stderr, "GrabScan: default operation fail\n");
                 count = 0;
                 return SL_RESULT_OPERATION_FAIL;
             }
