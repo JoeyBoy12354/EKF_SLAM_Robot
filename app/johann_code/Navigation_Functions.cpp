@@ -434,10 +434,10 @@ namespace Navigation_Functions{
             else if(goal.y - neighbours[3].y >0 && neighbours[3].x != defaultVal && neighbours[3].y != defaultVal){
                 path.push_back(neighbours[3]);
             }else{
-                cout<<"FAILURE TO ADD POINT PLEASE HELP"
+                cout<<"FAILURE TO ADD POINT PLEASE HELP"<<endl;
             }
 
-            cout<<"Point added"<<path[path.size - 1].x<<path[path.size - 1].y<<endl;
+            cout<<"Point added"<<path[path.size() - 1].x<<path[path.size() - 1].y<<endl;
 
             //Check if point is goal
             if(path[path.size()-1] == goal){
