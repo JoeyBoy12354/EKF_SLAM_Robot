@@ -830,6 +830,7 @@ void testRun(){
     bool mapped = false;
     bool firstRun = true;
     int finalRun = 0; // re,e,ber to change back to 0
+    cout<<"TEST RUN"<<endl;
 
     //calibrateMotors();
     
