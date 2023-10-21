@@ -175,6 +175,7 @@ namespace Lidar_Functions{
                         connectSuccess = true;
                     }
                     else{
+                        cout<<"Get Device Info Failed_1"<<endl;
                         delete drv;
                         drv = NULL;
                     }
@@ -194,6 +195,7 @@ namespace Lidar_Functions{
                             break;
                         }
                         else{
+                            cout<<"Get Device Info Failed_2"<<endl;
                             delete drv;
                             drv = NULL;
                         }
@@ -201,21 +203,21 @@ namespace Lidar_Functions{
                 }
             }
         }
-        else if(opt_channel_type == CHANNEL_TYPE_UDP){
-            _channel = *createUdpChannel(opt_channel_param_first, opt_channel_param_second);
-            if (SL_IS_OK((drv)->connect(_channel))) {
-                op_result = drv->getDeviceInfo(devinfo,timeout);
+        // else if(opt_channel_type == CHANNEL_TYPE_UDP){
+        //     _channel = *createUdpChannel(opt_channel_param_first, opt_channel_param_second);
+        //     if (SL_IS_OK((drv)->connect(_channel))) {
+        //         op_result = drv->getDeviceInfo(devinfo,timeout);
 
-                if (SL_IS_OK(op_result)) 
-                {
-                    connectSuccess = true;
-                }
-                else{
-                    delete drv;
-                    drv = NULL;
-                }
-            }
-        }
+        //         if (SL_IS_OK(op_result)) 
+        //         {
+        //             connectSuccess = true;
+        //         }
+        //         else{
+        //             delete drv;
+        //             drv = NULL;
+        //         }
+        //     }
+        // }
 
 
         if (!connectSuccess) {
