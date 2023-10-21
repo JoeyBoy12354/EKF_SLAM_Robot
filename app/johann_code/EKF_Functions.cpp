@@ -209,7 +209,7 @@ vector<CarPoint> ExtendedKalmanFilter::observeEnvironment() {
     return corners;
 }
 
-float ExtendedKalmanFilter::Mahalanobis_distance(CarPoint StoredPoint,int LMindex){
+float ExtendedKalmanFilter::mahalanobisDistance(CarPoint StoredPoint,int LMindex){
     // cout<<"z = "<<z(0)<<",  "<<z(1)<<endl;
     // cout<<"x = "<<State(0)<<",  y = "<<State(1)<<",  z = "<<State(2)*180/PI<<endl;
     // cout<<"In Maha Distance Point = "<<StoredPoint<<"Index = "<<LMindex<<endl;
@@ -268,6 +268,24 @@ float ExtendedKalmanFilter::Mahalanobis_distance(CarPoint StoredPoint,int LMinde
 }
 
 
+float ExtendedKalmanFilter::directDistance(CarPoint StoredPoint){
+    
+    float deltaX = StoredPoint.x - State(0);
+    float deltaY = StoredPoint.y - State(1);
+    double q = pow(deltaX,2) + pow(deltaY,2);
+
+    Matrix<float, 2, 1> z_cap_m;
+    z_cap_m(0) = sqrt(q);
+    z_cap_m(1) = (atan2(deltaY, deltaX)) - State(2);
+    z_cap_m(1) = pi_2_pi(z_cap_m(1));
+
+    CarPoint Stored = {z_cap_m(0)*cos(z_cap_m(1)),z_cap_m(0)*sin(z_cap_m(1))};
+    CarPoint Observed = {z(0)*cos(z(1)),z(0)*sin(z(1))};
+
+    return pointDistance(Stored,Observed);
+
+}
+
 void ExtendedKalmanFilter::isNewLandmark2(){
     double distThresh = 1000;
     //cout<<"In NewLandmark2"<<endl;
@@ -280,7 +298,8 @@ void ExtendedKalmanFilter::isNewLandmark2(){
         StoredPoint.y = State(i+1);
 
         
-        float mahaDistance = Mahalanobis_distance(StoredPoint,i);
+        float mahaDistance = mahalanobisDistance(StoredPoint,i);
+
         cout<<i<<"  Mahalanobis_distance calculated from above as = "<<mahaDistance<<endl;
         minDistances.push_back(mahaDistance);
         indexes.push_back(i);

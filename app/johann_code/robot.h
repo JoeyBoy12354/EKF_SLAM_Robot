@@ -304,7 +304,8 @@ public:
     void runEKF();
     vector<CarPoint> observeEnvironment();
     void calculateNoise();
-    float Mahalanobis_distance(CarPoint StoredPoint,int LMindex);
+    float mahalanobisDistance(CarPoint StoredPoint,int LMindex);
+    float directDistance(CarPoint StoredPoint,int LMindex);
     void isNewLandmark2();
 
 private:
