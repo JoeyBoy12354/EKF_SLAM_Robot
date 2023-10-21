@@ -282,16 +282,16 @@ namespace Navigation_Functions{
         }
 
         closestPoint = {-200,-200};
-        robotPoint = {0,0};
-        State(0) = robotPoint.x;
-        State(1) = robotPoint.y;
-        State(2) = 0;
+        //robotPoint = {0,0};
+        // State(0) = robotPoint.x;
+        // State(1) = robotPoint.y;
+        // State(2) = 0;
         cout<<"RobotPoint = "<<robotPoint<<endl;
         cout<<"ClosestPoint = "<<closestPoint<<endl;
 
         //Set destination
-        float deltaX = closestPoint.x - robotPoint.x;
-        float deltaY = closestPoint.y - robotPoint.y;
+        float deltaX = closestPoint.x - State(0);
+        float deltaY = closestPoint.y - State(1);
         float angle = atan2(deltaY,deltaX) - State(2);
         angle = pi_2_pi(angle);
         //angle = PI-angle;
