@@ -746,13 +746,12 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalR
         vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
         bool error = true;
         int count = 0;
-        // while(error == true && count<5){
-        //     cout<<"\nAttempt "<<count<<endl;
-        //     //Sleep(1/2);
-        //     runLidar(lidarDataPoints, error);
-        //     count +=1;
-        // }
-        error = false;
+        while(error == true && count<5){
+            cout<<"\nAttempt "<<count<<endl;
+            //Sleep(1/2);
+            runLidar(lidarDataPoints, error);
+            count +=1;
+        }
         cout<<"count = "<<count<<endl;
         
         //cout<<"Main: Lidar Run complete"<<endl;
@@ -767,11 +766,9 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalR
             //cout << "\nEKF 6\nState =\n" << ekf.State << "\n";
 
             //Process Data
-            // vector<CarPoint> carPoints;
-            // vector<PolPoint> polarCornerPoints;
-            // lidarDataProcessing2(lidarDataPoints,carPoints,polarCornerPoints);
+            vector<CarPoint> carPoints;
             vector<PolPoint> polarCornerPoints;
-            //polarCornerPoints.pushback
+            lidarDataProcessing2(lidarDataPoints,carPoints,polarCornerPoints);
 
             ekf.TestPolValues = polarCornerPoints;
             //Run EKF
@@ -787,17 +784,17 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalR
             cout<<endl;
 
             //Store Data for plotting
-            // if(firstRun == true){
-            //     saveCarToFullMapCSV(carPoints);
-            //     firstRun = false;
-            // }else{
-            //     storeMapPoints(carPoints,ekf.State);
+            if(firstRun == true){
+                saveCarToFullMapCSV(carPoints);
+                firstRun = false;
+            }else{
+                storeMapPoints(carPoints,ekf.State);
                 
-            // }
+            }
 
             //Get Grid
-            // vector<vector<GridPoint>> gridNew;
-            // gridDataProcess(gridNew, ekf.State, firstRun);
+            vector<vector<GridPoint>> gridNew;
+            gridDataProcess(gridNew, ekf.State, firstRun);
                 
             //Complete Robot Movement
             if(finalRun == 0){
