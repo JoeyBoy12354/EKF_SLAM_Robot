@@ -328,7 +328,7 @@ void ExtendedKalmanFilter::isNewLandmark2(){
         
 
     }else{
-        cout<<"Found Landmark"
+        cout<<"Found Landmark"<<endl;
         //This is a found landmark
         EstimatedLandmark.x = State(smallestDistanceIndex);
         EstimatedLandmark.y = State(smallestDistanceIndex+1);
