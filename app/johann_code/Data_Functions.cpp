@@ -97,39 +97,6 @@ namespace Data_Functions{
     }
     
 
- 
-    void lidarDataProcessingFull(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints, bool firstRun){
-        
-        //I AM NOT CURRENTLY USING THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-        cout<<"\n lidarDataProcessing Full"<<endl;
-
-        carPoints = convertCartesian(dataPoints);
-        saveCarToCSV(carPoints);
-        cout<<"\nNumber of CAR points"<<carPoints.size();
-
-        //Store Data for plotting
-        if(firstRun == true){
-            saveCarToFullMapCSV(carPoints);
-        }else{
-            storeMapPoints(carPoints);
-        }
-
-        //Reading The Full Map means we will identify all landmarks at all times (this could be problematic)
-        readCarFromFullMapCSV(carPoints);
-
-        // cout<<"\nRANSAC"<<endl;
-        // vector<Line> detected_lines = RANSAC(carPoints);
-        // writeLinesToCSV(detected_lines);
-        // writeConsensusToCSV(detected_lines);
-        
-
-        // vector<CarPoint> closestPoints = findNearestPoint(detected_lines);
-        // writeCornersToCSV(closestPoints);
-        // cout<<"\n Number of Closest Points Found:"<<closestPoints.size()<<endl;
-        
-     
-    }
 
     void lidarDataProcessing(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints, float x, float y, float angle){
         //cout<<"\n lidarDataProcessing"<<endl;
@@ -151,6 +118,36 @@ namespace Data_Functions{
         cout<<endl;
 
         return;
+     
+    }
+
+    void lidarDataProcessing2(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints,vector<PolPoint>& cornerPolarPoints){
+    //cout<<"\n lidarDataProcessing"<<endl;
+
+    carPoints = convertCartesian(dataPoints);
+
+    saveCarToCSV(carPoints);
+    cout<<"\nNumber of CAR points"<<carPoints.size(); 
+
+    //cout<<"\n RANSAC py RUN \n"<<endl;
+    vector<CarPoint> cornerPoints = getCorners();
+
+    //Convert cornerPoints to polar
+    for(int i =0;i<cornerPoints.size();i++){
+        PolPoint newPoint;
+        newPoint.distance = sqrt(pow(CornerPoint.x,2) + pow(CornerPoint.y,2));
+        newPoint.angle = atan2(CornerPoint.y,CornerPoint.x);
+        cornerPolarPoints.push_back(newPoint);
+    }
+
+
+    cout<<"DATA: NUMBER OF CORNERS POINTS = "<<cornerPoints.size()<<endl;
+    for(int i =0;i<cornerPoints.size();i++){
+        cout<<cornerPoints[i]<<" | ";
+    }
+    cout<<endl;
+
+    return;
      
     }
 

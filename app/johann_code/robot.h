@@ -187,8 +187,9 @@ namespace Data_Functions{
     void angleInBounds(float& angle);
 
     //landmark
-    void lidarDataProcessingFull(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints, bool firstRun);
     void lidarDataProcessing(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints, float x, float y, float angle);
+    void lidarDataProcessing2(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints, float x, float y, float angle);
+
     void LandmarkProcessing();
     void LandmarkProcessing2(vector<CarPoint> carPoints);
 
