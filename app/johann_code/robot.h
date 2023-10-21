@@ -305,7 +305,7 @@ public:
     vector<CarPoint> observeEnvironment();
     void calculateNoise();
     float mahalanobisDistance(CarPoint StoredPoint,int LMindex);
-    float directDistance(CarPoint StoredPoint,int LMindex);
+    float directDistance(CarPoint StoredPoint);
     void isNewLandmark2();
 
 private:

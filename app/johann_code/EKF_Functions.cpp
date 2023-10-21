@@ -299,9 +299,15 @@ void ExtendedKalmanFilter::isNewLandmark2(){
 
         
         float mahaDistance = mahalanobisDistance(StoredPoint,i);
+        
 
         cout<<i<<"  Mahalanobis_distance calculated from above as = "<<mahaDistance<<endl;
         minDistances.push_back(mahaDistance);
+
+        float directDistance = directDistance(StoredPoint);
+        cout<<i<<"  Direct_distance calculated from above as = "<<directDistance<<endl;
+        minDistances.push_back(directDistance);
+
         indexes.push_back(i);
     }
     minDistances.push_back(distThresh);
