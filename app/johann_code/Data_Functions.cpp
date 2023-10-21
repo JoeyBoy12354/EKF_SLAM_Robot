@@ -55,12 +55,12 @@ namespace Data_Functions{
         }else{
 
             // Calculate trigonometric values for the angle
-            // float cosAngle = cos(angle);
-            // float sinAngle = sin(angle);
+            float cosAngle = cos(angle);
+            float sinAngle = sin(angle);
 
             //map reversal
-            float cosAngle = cos(-angle);
-            float sinAngle = sin(-angle);
+            // float cosAngle = cos(-angle);
+            // float sinAngle = sin(-angle);
 
             for (int i = 0; i < carPoints.size(); i++) {
                 // Apply rotation first
