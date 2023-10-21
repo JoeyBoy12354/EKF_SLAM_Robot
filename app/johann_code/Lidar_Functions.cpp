@@ -158,12 +158,16 @@ namespace Lidar_Functions{
 
         // ask the LIDAR to stop working first...
         drv->stop();
+        cout<<"Stopped"<<endl;
         _channel->flush();
+        cout<<"Flusshed"<<endl;
 
         // wait for a while
         delay(10);
+        cout<<"delayed"<<endl;
         _channel->clearReadCache();
-        
+        cout<<"Cleared"<<endl;
+
 
         if (!drv) {
             fprintf(stderr, "insufficent memory, exit\n");
