@@ -416,6 +416,11 @@ namespace Navigation_Functions{
 
             vector<GridPoint> neighbours = findNeighbours(gridMap,current,defaultVal);
             //Work on minimizing delta first
+            cout<<"neigh = ";
+            for(int i =0;i<4;i++){
+                cout<<neighbours[i]<<", ";
+            }
+            cout<<endl;
             
             //Should I go up?
             if(goal.y - neighbours[0].y >0 && neighbours[0].x != defaultVal && neighbours[0].y != defaultVal){
