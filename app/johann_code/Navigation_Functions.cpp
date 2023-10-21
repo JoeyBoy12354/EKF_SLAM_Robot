@@ -365,16 +365,16 @@ namespace Navigation_Functions{
                 cout<<"x: "<<gridMap[i][j].x<<", "<<point.x<<" = "<<gridMap[i][j].x - point.x<<endl;
 
                 cout<<"y: "<<gridMap[i][j].y<<", "<<point.y<<" = "<<gridMap[i][j].y - point.y<<endl;
-                if(gridMap[i][j].x - point.x == 30 && gridMap[i][j].y - point.y == 0){
+                if(gridMap[i][j].x - point.x == grid_xstep && gridMap[i][j].y - point.y == 0){
                     neighbours[2] = gridMap[i][j];
                 }//right from point
-                else if(gridMap[i][j].x - point.x == -30 && gridMap[i][j].y - point.y == 0){
+                else if(gridMap[i][j].x - point.x == -grid_xstep && gridMap[i][j].y - point.y == 0){
                     neighbours[3] = gridMap[i][j];
                 }//up from point
-                else if(gridMap[i][j].x - point.x == 0 && gridMap[i][j].y - point.y == 30){
+                else if(gridMap[i][j].x - point.x == 0 && gridMap[i][j].y - point.y == grid_ystep){
                     neighbours[0] = gridMap[i][j];
                 }//down from point
-                else if(gridMap[i][j].x - point.x == 0 && gridMap[i][j].y - point.y == -30){
+                else if(gridMap[i][j].x - point.x == 0 && gridMap[i][j].y - point.y == -grid_ystep){
                     neighbours[1] = gridMap[i][j];
                 }
 
