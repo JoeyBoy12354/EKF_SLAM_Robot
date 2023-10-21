@@ -170,7 +170,7 @@ namespace Lidar_Functions{
         // wait for a while
         delay(10);
         cout<<"Main: delayed"<<endl;
-        _channel->clearReadCache();
+        //_channel->clearReadCache();
         cout<<"Main: Cleared"<<endl;
 
 
