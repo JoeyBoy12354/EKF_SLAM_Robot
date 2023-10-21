@@ -770,6 +770,8 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalR
             // vector<CarPoint> carPoints;
             // vector<PolPoint> polarCornerPoints;
             // lidarDataProcessing2(lidarDataPoints,carPoints,polarCornerPoints);
+            vector<PolPoint> polarCornerPoints;
+            //polarCornerPoints.pushback
 
             ekf.TestPolValues = polarCornerPoints;
             //Run EKF
@@ -785,17 +787,17 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalR
             cout<<endl;
 
             //Store Data for plotting
-            if(firstRun == true){
-                saveCarToFullMapCSV(carPoints);
-                firstRun = false;
-            }else{
-                storeMapPoints(carPoints,ekf.State);
+            // if(firstRun == true){
+            //     saveCarToFullMapCSV(carPoints);
+            //     firstRun = false;
+            // }else{
+            //     storeMapPoints(carPoints,ekf.State);
                 
-            }
+            // }
 
             //Get Grid
-            vector<vector<GridPoint>> gridNew;
-            gridDataProcess(gridNew, ekf.State, firstRun);
+            // vector<vector<GridPoint>> gridNew;
+            // gridDataProcess(gridNew, ekf.State, firstRun);
                 
             //Complete Robot Movement
             if(finalRun == 0){
