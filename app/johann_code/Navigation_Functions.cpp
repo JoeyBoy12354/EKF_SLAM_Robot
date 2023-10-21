@@ -381,10 +381,10 @@ namespace Navigation_Functions{
         }
 
 
-
-        
-        
-        GridPoint defaultPoint = {5,5,false};
+        GridPoint defaultPoint;
+        defaultPoint.x = 0;
+        defaultPoint.y = 0;
+        defaultPoint.trav = false;
         vector<GridPoint> path;
         bool search = true;
         //Get the start node as the gridpoint nearest to myRobot
@@ -430,7 +430,7 @@ namespace Navigation_Functions{
         //Maybe add some filtering like filtering duplicate points etc
         //Lowering Path Points given that their x-values or their y-valaues are the same
         vector<GridPoint> shortenedPath;
-        shortenedPath.push_back(path[i]);
+        shortenedPath.push_back(path[0]);
         for(int i =1;i<path.size()-1;i++){
             if(path[i].x != path[i+1].x && path[i].y == path[i+1].y){
                 shortenedPath.push_back(path[i]);
@@ -448,7 +448,10 @@ namespace Navigation_Functions{
     }
 
     void postMapMovement(MatrixXf State){
-        GridPoint Goal{0,0,false};
+        GridPoint Goal;
+        Goal.x = 0;
+        Goal.y = 0;
+        Goal.trav = false;
         vector<vector<GridPoint>> gridMap;
         readGridFromCSV(gridMap);
 
