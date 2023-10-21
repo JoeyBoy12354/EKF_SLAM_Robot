@@ -257,7 +257,7 @@ namespace Navigation_Functions{
 
     //PostMap
     vector<GridPoint> pathFinder(vector<vector<GridPoint>> gridMap, MatrixXf State,GridPoint goal);
-    vector<GridPoint> findNeighbours(vector<vector<GridPoint>> gridMap, GridPoint point );
+    vector<GridPoint> findNeighbours(vector<vector<GridPoint>> gridMap, GridPoint point, float defaultVal)f ;
     void postMapMovement(MatrixXf State);
 }
 
