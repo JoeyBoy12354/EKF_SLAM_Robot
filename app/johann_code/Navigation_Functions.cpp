@@ -383,6 +383,7 @@ namespace Navigation_Functions{
     // //Find array of gridPoints to traverse through
     vector<GridPoint> pathFinder(vector<vector<GridPoint>> gridMap, MatrixXf State,GridPoint goal){
         //Assume there is a grid point at (0,0)
+        cout<<"In PathFinder"<<endl;
 
         GridPoint myRobot;
         myRobot.x=State(0);
@@ -391,7 +392,6 @@ namespace Navigation_Functions{
 
         GridPoint current;
         float min_distance = 10000000;
-
 
         //Transform current position to a gridPoint
         for(int i =0;i<gridMap.size();i++){
@@ -402,6 +402,8 @@ namespace Navigation_Functions{
                 }
             }
         }
+
+        cout<<"Point changed = "<<myRobot.x<<", "<<myRobot.y<<endl;
 
 
         float defaultVal = 15;
@@ -431,7 +433,11 @@ namespace Navigation_Functions{
             //Should I go right?
             else if(goal.y - neighbours[3].y >0 && neighbours[3].x != defaultVal && neighbours[3].y != defaultVal){
                 path.push_back(neighbours[3]);
+            }else{
+                cout<<"FAILURE TO ADD POINT PLEASE HELP"
             }
+
+            cout<<"Point added"<<path[path.size - 1].x<<path[path.size - 1].y<<endl;
 
             //Check if point is goal
             if(path[path.size()-1] == goal){
