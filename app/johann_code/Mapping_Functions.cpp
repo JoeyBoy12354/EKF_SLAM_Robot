@@ -122,8 +122,8 @@ namespace Mapping_Functions{
     }    
 
     void gridDataAssosciationMove(vector<vector<GridPoint>>& gridNew, Matrix<float, dim, 1> State){
-        float thresh= 390;//If points are less than Xmm from travelled line bounds then allow point to be considered.
-        float dist_thresh= 450;//If points are less than Xmm from travelled line then set trav=true.
+        float thresh= grid_xstep;//If points are less than Xmm from travelled line bounds then allow point to be considered.
+        float dist_thresh= grid_xstep+50;//If points are less than Xmm from travelled line then set trav=true.
         
         //Update traversal from movement points,state
         float angle;
@@ -147,7 +147,7 @@ namespace Mapping_Functions{
         tLine.range_min = (y_new > y_old) ? y_new : y_old;
 
 
-
+        cout<<"GRID: Traversed -> "<<endl;
         for(int i = 0;i<gridNew.size();i++){
             for(int j =0;j<gridNew[i].size();j++){
                 CarPoint point;
@@ -160,12 +160,14 @@ namespace Mapping_Functions{
 
                     if(perpendicularDistance(point,tLine) <= dist_thresh){
                         gridNew[i][j].trav = true;
+                        cout<<gridNew[i][j]<<", "
                     }
                 }
                 
             }
             
         }
+        cout<<endl;
 
         return;
 
@@ -241,8 +243,8 @@ namespace Mapping_Functions{
 
         // float yStep = 450;//y-distance between points on same x-coordinate
         // float xStep = 450;//x-distance between points on same y-coordinate
-        float yStep = 300;//y-distance between points on same x-coordinate
-        float xStep = 300;//x-distance between points on same y-coordinate
+        float yStep = grid_ystep;//y-distance between points on same x-coordinate
+        float xStep = grid_ystep;//x-distance between points on same y-coordinate
         
         
         float boundThresh = 180;//If distance between gridPoint and lidarPoint <= Xmm then return false 

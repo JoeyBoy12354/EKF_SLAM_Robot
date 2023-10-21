@@ -34,6 +34,9 @@ using namespace sl;
 #define dim 2*N+3//Initial Dimension of Matrices in EKF
 #define PI 3.14159265358979323846 
 
+#define grid_ystep 300
+#define grid_xstep 300
+
 struct PolPoint {
     double angle;
     double distance;
@@ -184,6 +187,7 @@ namespace Data_Functions{
     //The boys from Landmark.cpp
     double pointDistance(CarPoint pointA, CarPoint pointB);
     double perpendicularDistance(const CarPoint& point, Line& line);
+    double gridPointDistance(GridPoint pointA, GridPoint pointB);
 
     //landmark
     void lidarDataProcessing(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints, float x, float y, float angle);
@@ -252,7 +256,9 @@ namespace Navigation_Functions{
     CarPoint triangularRepositioning(MatrixXf State, float angle);
 
     //PostMap
-    void pathFinder(vector<vector<GridPoint>> gridMap, MatrixXf State);
+    vector<GridPoint> pathFinder(vector<vector<GridPoint>> gridMap, MatrixXf State,GridPoint goal);
+    vector<GridPoint> findNeighbours(vector<vector<GridPoint>> gridMap, GridPoint point );
+    void postMapMovement(MatrixXf State);
 }
 
 class ExtendedKalmanFilter {

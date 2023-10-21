@@ -820,6 +820,7 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalR
         
     }else{
         cout<<"MAP COMPLETED !"<<endl;
+        pathFinder()
     }
     
 
@@ -851,7 +852,7 @@ void testRun(){
         firstRun = false;
     }
 
-    while
+    
     
 
     // finalRun = 1;
