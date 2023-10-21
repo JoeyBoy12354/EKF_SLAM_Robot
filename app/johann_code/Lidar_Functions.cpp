@@ -160,18 +160,18 @@ namespace Lidar_Functions{
         
         // ask the LIDAR to stop working first...
         //drv->stop(timeStop);
-        cout<<"Main: Attempt Stop"<<endl;
-        cout<<"Main: Stopped"<<endl;
-        delay(2000);
-        cout<<"Yas"<<endl;
-        //_channel->flush();
-        cout<<"Main: Flushed"<<endl;
+        // cout<<"Main: Attempt Stop"<<endl;
+        // cout<<"Main: Stopped"<<endl;
+        // delay(2000);
+        // cout<<"Yas"<<endl;
+        // //_channel->flush();
+        // cout<<"Main: Flushed"<<endl;
 
-        // wait for a while
-        delay(10);
-        cout<<"Main: delayed"<<endl;
-        //_channel->clearReadCache();
-        cout<<"Main: Cleared"<<endl;
+        // // wait for a while
+        // delay(10);
+        // cout<<"Main: delayed"<<endl;
+        // //_channel->clearReadCache();
+        // cout<<"Main: Cleared"<<endl;
 
 
         if (!drv) {

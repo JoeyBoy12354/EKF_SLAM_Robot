@@ -596,6 +596,7 @@ namespace sl {
         {
             fprintf(stderr, "GetDevice Info Entered\n");
             _channel->clearReadCache();
+            _channel->flush();
             Result<nullptr_t> ans = SL_RESULT_OK;
             _disableDataGrabbing();
 			delay(20);
