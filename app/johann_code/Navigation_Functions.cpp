@@ -361,10 +361,10 @@ namespace Navigation_Functions{
 
         for(int i =0;i<gridMap.size();i++){
             for(int j =0;j<gridMap[i].size();j++){
+                
+                // cout<<"x: "<<gridMap[i][j].x<<", "<<point.x<<" = "<<gridMap[i][j].x - point.x<<endl;
+                // cout<<"y: "<<gridMap[i][j].y<<", "<<point.y<<" = "<<gridMap[i][j].y - point.y<<endl;
                 //left from point
-                cout<<"x: "<<gridMap[i][j].x<<", "<<point.x<<" = "<<gridMap[i][j].x - point.x<<endl;
-
-                cout<<"y: "<<gridMap[i][j].y<<", "<<point.y<<" = "<<gridMap[i][j].y - point.y<<endl;
                 if(gridMap[i][j].x - point.x == grid_xstep && gridMap[i][j].y - point.y == 0){
                     neighbours[2] = gridMap[i][j];
                 }//right from point
@@ -417,7 +417,8 @@ namespace Navigation_Functions{
         //Get the start node as the gridpoint nearest to myRobot
 
         while(search){
-
+            
+            cout<<"Current = "<<current<<end;
             vector<GridPoint> neighbours = findNeighbours(gridMap,current,defaultVal);
             //Work on minimizing delta first
             cout<<"neigh = ";
@@ -447,6 +448,8 @@ namespace Navigation_Functions{
             }
 
             cout<<"Point added"<<path[path.size() - 1].x<<path[path.size() - 1].y<<endl;
+
+            delay(100);
 
             //Check if point is goal
             if(path[path.size()-1] == goal){
