@@ -533,22 +533,22 @@ namespace sl {
 
         sl_result stop(sl_u32 timeout = DEFAULT_TIMEOUT)
         {
-            fprintf(stderr, "Stop entered\n");
+            //fprintf(stderr, "Stop entered\n");
             Result<nullptr_t> ans = SL_RESULT_OK;
             _disableDataGrabbing();
-            fprintf(stderr, "A\n");
+            //fprintf(stderr, "A\n");
 
             {
-                fprintf(stderr, "B1\n");
+                //fprintf(stderr, "B1\n");
                 rp::hal::AutoLocker l(_lock);
-                fprintf(stderr, "B2\n");
+                //fprintf(stderr, "B2\n");
                 ans = _sendCommand(SL_LIDAR_CMD_STOP);
-                fprintf(stderr, "B3\n");
+                //fprintf(stderr, "B3\n");
                 if (!ans) return ans;
             }
             delay(100);
 
-            fprintf(stderr, "C\n");
+            //fprintf(stderr, "C\n");
             if(_isSupportingMotorCtrl == MotorCtrlSupportPwm)
                 setMotorSpeed(0);
   
@@ -568,11 +568,11 @@ namespace sl {
             case (long unsigned int)rp::hal::Event::EVENT_OK:
             {
                 if (_cached_scan_node_hq_count == 0){
-                    fprintf(stderr, "GrabScan: cached scan count = 0\n");
+                    //fprintf(stderr, "GrabScan: cached scan count = 0\n");
                     return SL_RESULT_OPERATION_TIMEOUT; //consider as timeout
                 } 
 
-                fprintf(stderr, "GrabScan: EVENT_OK\n");
+                //fprintf(stderr, "GrabScan: EVENT_OK\n");
 
                 rp::hal::AutoLocker l(_lock);
 
@@ -580,7 +580,7 @@ namespace sl {
                 memcpy(nodebuffer, _cached_scan_node_hq_buf, size_to_copy * sizeof(sl_lidar_response_measurement_node_hq_t));
 
                 count = size_to_copy;
-                fprintf(stderr, "GrabScan: count/size_to_copy \n");
+                //fprintf(stderr, "GrabScan: count/size_to_copy \n");
                 _cached_scan_node_hq_count = 0;
             }
             return SL_RESULT_OK;
