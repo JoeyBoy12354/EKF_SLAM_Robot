@@ -243,7 +243,7 @@ namespace Mapping_Functions{
 namespace Navigation_Functions{
     //Grid
     bool preMapMovement(MatrixXf State, vector<vector<GridPoint>> gridMap);
-    bool updateMovement(CarPoint closestPoint,MatrixXf State);
+    void updateMovement(CarPoint closestPoint,MatrixXf State);
     void motorControlGrid(float angle, float distance);
 
     //Triangle 

@@ -142,7 +142,10 @@ namespace Navigation_Functions{
             }
         }
         
-        bool mapped = updateMovement(closestPoint,State);
+        if(mapped == false){
+            updateMovement(closestPoint,State);
+        }
+        
 
         return mapped
 
@@ -153,7 +156,7 @@ namespace Navigation_Functions{
 
 
     //Set distance and angle to go to nearest unexplored grid point
-    bool updateMovement(CarPoint closestPoint,MatrixXf State){
+    void updateMovement(CarPoint closestPoint,MatrixXf State){
         cout<<"ClosestPoint = "<<closestPoint<<endl;
 
         //Set destination
@@ -192,14 +195,9 @@ namespace Navigation_Functions{
         //cout<<"NAVI,GRID: movement: "<<distance<<"mm "<<angle*180/PI<<" deg"<<endl;
 
         //Set motors
-        if(mapped == false){
-            lidar_x = C.x;
-            lidar_y = C.y;
-            //cout<<"GRID: updateMoveent, force==noMovement"<<endl;
-            motorControlGrid(angle,distance);
-        }
+        motorControlGrid(angle,distance);
         
-        return mapped;
+        return;
     }
 
 
