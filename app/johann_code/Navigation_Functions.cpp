@@ -417,7 +417,7 @@ namespace Navigation_Functions{
         //Get the start node as the gridpoint nearest to myRobot
 
         int count = 0;
-        while(search && count>6){
+        while(search && count<6){
             
             cout<<"\nCurrent = "<<current<<endl;
             vector<GridPoint> neighbours = findNeighbours(gridMap,current,defaultVal);
