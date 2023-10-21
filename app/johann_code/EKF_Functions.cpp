@@ -216,6 +216,9 @@ float ExtendedKalmanFilter::Mahalanobis_distance(CarPoint StoredPoint,int LMinde
     float deltaY = StoredPoint.y - State(1);
     //double q = deltaX * deltaX + deltaY * deltaY;
     double q = pow(deltaX,2) + pow(deltaY,2);
+
+    
+
     //cout<<"q = "<<q<<", sqrt(q) = "<<sqrt(q)<<"   ";
     z_cap_m(0) = sqrt(q);
    // cout<<"z_q = "<<z_cap_m<<endl;
@@ -228,6 +231,12 @@ float ExtendedKalmanFilter::Mahalanobis_distance(CarPoint StoredPoint,int LMinde
     // cout<<"z_cap = "<<z_cap_m(0)<<", "<<z_cap_m(1)<<endl;
     Matrix<float, 2, 1> delta_z = z-z_cap_m;
     delta_z(1) = pi_2_pi(delta_z(1));
+
+    cout<<"Stored Point Shifted = \n"<<z_cap_m<<endl;
+    cout<<"Observed Point= \n"<<z_cap<<endl;
+    cout<<"O.x = "<<z(0)*cos(z(1))<<" O.y = "<<z(0)*sin(z(1))<<endl;
+    cout<<"S.x = "<<z_cap_m(0)*cos(z(1))<<" S.y = "<<z_cap_m(0)*sin(z(1))<<endl;
+
     //cout<<"Delta_z = \n"<<delta_z<<endl;
 
     //OBSERVATION JACOBIAN
@@ -268,7 +277,7 @@ void ExtendedKalmanFilter::isNewLandmark2(){
 
         
         float mahaDistance = Mahalanobis_distance(StoredPoint,i);
-        //cout<<"Mahalanobis_distance = "<<mahaDistance<<" StoredPoint = "<<StoredPoint<<" i = "<<i<<endl;
+        cout<<"Mahalanobis_distance = "<<mahaDistance<<" StoredPoint = "<<StoredPoint<<" i = "<<i<<endl;
         minDistances.push_back(mahaDistance);
         indexes.push_back(i);
     }
