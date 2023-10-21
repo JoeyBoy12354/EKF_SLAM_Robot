@@ -296,7 +296,7 @@ namespace Navigation_Functions{
         angle = pi_2_pi(angle);
         //angle = PI-angle;
 
-        //angle = PI/2;
+        angle = PI/2;
         //angle = 0;
 
         // cout<<"NAVI,GRID: deltaX = "<<deltaX<<" = "<<-1*closestPoint.x<<" - "<<robotPoint.x<<endl;
