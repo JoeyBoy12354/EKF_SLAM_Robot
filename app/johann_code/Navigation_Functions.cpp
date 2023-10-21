@@ -449,12 +449,12 @@ namespace Navigation_Functions{
                 cout<<"FAILURE TO ADD POINT PLEASE HELP"<<endl;
             }
 
-            cout<<"Point added"<<path[path.size() - 1].x<<path[path.size() - 1].y<<endl;
+            cout<<"Point added: "<<path[path.size() - 1].x<<", "<<path[path.size() - 1].y<<endl;
 
             //delay(100);
 
             //Check if point is goal
-            if(path[path.size()-1] == goal){
+            if(path[path.size()-1].x == goal.x && path[path.size()-1].y == goal.y){
                 search = false;
             }
             
