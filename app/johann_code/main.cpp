@@ -840,7 +840,7 @@ void testRun(){
 
     calibrateMotors();
     
-    for(int i =0;i<4;i++){
+    for(int i =0;i<7;i++){
         cout<<"\n i = "<<i<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
         // cout<<"IN RUN LOOP: "<<i<<endl;
@@ -850,6 +850,8 @@ void testRun(){
         
         firstRun = false;
     }
+
+    while
     
 
     // finalRun = 1;
