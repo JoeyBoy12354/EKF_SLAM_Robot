@@ -107,7 +107,8 @@ namespace Mapping_Functions{
             vector<vector<GridPoint>> gridOld;
             readGridFromCSV(gridOld);
             gridDataAssosciationMap(gridOld,gridNew);
-            gridDataAssosciationMove(gridNew,State);
+            //gridDataAssosciationMove(gridNew,State);
+            gridDataAssosciationMoveSimple(gridNew,State);
         }
 
         saveGridToCSV(gridNew);
@@ -168,6 +169,23 @@ namespace Mapping_Functions{
             
         }
         cout<<endl;
+
+        return;
+
+    }
+
+    void gridDataAssosciationMoveSimple(vector<vector<GridPoint>>& gridNew, Matrix<float, dim, 1> State){
+        float dist_thresh= grid_xstep;//If points are less than Xmm from position  then set trav=true.
+        GridPoint Robot;
+        Robot.x = State(0);
+        Robot.y = State(1);
+        for(int i = 0;i<gridNew.size();i++){
+            for(int j =0;j<gridNew[i].size();j++){
+                if(gridPointDistance(gridNew[i][j],Robot)<=dist_thresh){
+                    gridNew[i][j].trave = true;
+                }
+            }
+        }
 
         return;
 
