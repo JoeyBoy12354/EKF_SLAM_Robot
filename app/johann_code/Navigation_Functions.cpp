@@ -436,10 +436,11 @@ namespace Navigation_Functions{
                 search = false;
             }
             else{
+                cout<<"Point is not goal"<<endl;
+                cout<<goal.y - neighbours[1].y<<endl;
                 //Should I go up?
                 if(goal.y - neighbours[0].y >0 && neighbours[0].x != defaultVal && neighbours[0].y != defaultVal){
                     path.push_back(neighbours[0]);
-
                 }
                 //Should I go down?
                 else if(goal.y - neighbours[1].y >0 && neighbours[1].x != defaultVal && neighbours[1].y != defaultVal){
