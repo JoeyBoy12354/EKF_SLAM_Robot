@@ -403,6 +403,7 @@ namespace Navigation_Functions{
                 float dist = gridPointDistance(gridMap[i][j],myRobot);
                 if(min_distance>dist){
                     current = gridMap[i][j];
+                    min_distance = dist;
                 }
             }
         }
