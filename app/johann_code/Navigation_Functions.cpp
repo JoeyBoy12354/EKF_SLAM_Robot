@@ -362,6 +362,8 @@ namespace Navigation_Functions{
         for(int i =0;i<gridMap.size();i++){
             for(int j =0;j<gridMap[i].size();j++)
                 //left from point
+                cout<<"x: "<<gridMap[i][j].x<<", "<<point.x<<" = "<<gridMap[i][j].x - point.x<<endl;
+                cout<<"y: "<<gridMap[i][j].y<<", "<<point.y<<" = "<<gridMap[i][j].y - point.y<<endl;
                 if(gridMap[i][j].x - point.x == 30 && gridMap[i][j].y - point.y == 0){
                     neighbours[2] = gridMap[i][j];
                 }//right from point

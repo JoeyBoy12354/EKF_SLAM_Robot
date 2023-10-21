@@ -838,7 +838,7 @@ void testRun(){
     int finalRun = 0; // re,e,ber to change back to 0
     cout<<"TEST RUN"<<endl;
 
-    calibrateMotors();
+    //calibrateMotors();
     
     // for(int i =0;i<7;i++){
     //     cout<<"\n i = "<<i<<endl;
