@@ -457,7 +457,7 @@ namespace Navigation_Functions{
                 search = false;
             }
             
-            cout++;
+            count=count+1;
             current = path[path.size()-1];
             
         }
