@@ -239,7 +239,7 @@ float ExtendedKalmanFilter::Mahalanobis_distance(CarPoint StoredPoint,int LMinde
     cout<<"Stored Point Shifted = \n"<<z_cap_m<<endl;
     cout<<"Observed Point= \n"<<z_cap<<endl;
     cout<<"O.x = "<<z(0)*cos(z(1))<<" O.y = "<<z(0)*sin(z(1))<<endl;
-    cout<<"S.x = "<<z_cap_m(0)*cos(z(1))<<" S.y = "<<z_cap_m(0)*sin(z(1))<<endl;
+    cout<<"shifted S.x = "<<z_cap_m(0)*cos(z_cap_m(1))<<" S.y = "<<z_cap_m(0)*sin(z_cap_m(1))<<endl;
 
     //cout<<"Delta_z = \n"<<delta_z<<endl;
 
@@ -281,7 +281,7 @@ void ExtendedKalmanFilter::isNewLandmark2(){
 
         
         float mahaDistance = Mahalanobis_distance(StoredPoint,i);
-        cout<<"Mahalanobis_distance = "<<mahaDistance<<" StoredPoint = "<<StoredPoint<<" i = "<<i<<endl;
+        cout<<"Mahalanobis_distance calculated as = "<<mahaDistance<<",   i = "<<i<<endl;
         minDistances.push_back(mahaDistance);
         indexes.push_back(i);
     }
@@ -623,6 +623,9 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
 
     //State = State + Gain*(z-z_cap);
     State = State + Gain*(delta_z);
+
+
+    cout<<"\n MAIN: after_ekf State: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
     //cout<<"State = \n"<<State<<endl;
     //State = State + Gain*(delta_z);
     //State = State + Gain*(z-z_cap);
@@ -710,7 +713,7 @@ void ExtendedKalmanFilter::runEKF() {
         updateCovarianceOfLandmark();
         //cout << "\nLINE 7\nsigma =\n" << Covariance << "\n";
     }
-    //cout<<"Prior "<<State(2)*180/PI<<endl;
+    cout<<"Prior "<<State(2)*180/PI<<endl;
     State(2) = pi_2_pi(State(2));
-    //cout<<"Prior "<<State(2)*180/PI<<endl;
+    cout<<"Prior "<<State(2)*180/PI<<endl;
 }
