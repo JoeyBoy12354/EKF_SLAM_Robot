@@ -416,9 +416,10 @@ namespace Navigation_Functions{
         bool search = true;
         //Get the start node as the gridpoint nearest to myRobot
 
-        while(search){
+        count = 0;
+        while(search && count>6){
             
-            cout<<"Current = "<<current<<end;
+            cout<<"\nCurrent = "<<current<<end;
             vector<GridPoint> neighbours = findNeighbours(gridMap,current,defaultVal);
             //Work on minimizing delta first
             cout<<"neigh = ";
@@ -449,13 +450,14 @@ namespace Navigation_Functions{
 
             cout<<"Point added"<<path[path.size() - 1].x<<path[path.size() - 1].y<<endl;
 
-            delay(100);
+            //delay(100);
 
             //Check if point is goal
             if(path[path.size()-1] == goal){
                 search = false;
             }
             
+            cout+=1;
             current = path[path.size()-1];
             
         }
