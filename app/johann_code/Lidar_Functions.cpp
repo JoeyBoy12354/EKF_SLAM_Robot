@@ -164,7 +164,7 @@ namespace Lidar_Functions{
         cout<<"Main: Stopped"<<endl;
         delay(2000);
         cout<<"Yas"<<endl;
-        _channel->flush();
+        //_channel->flush();
         cout<<"Main: Flushed"<<endl;
 
         // wait for a while
