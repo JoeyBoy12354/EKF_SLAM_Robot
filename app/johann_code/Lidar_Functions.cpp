@@ -156,6 +156,7 @@ namespace Lidar_Functions{
         // create the driver instance
         ILidarDriver * drv = *createLidarDriver();
 
+        cout<<"Attempt Stop"
         // ask the LIDAR to stop working first...
         drv->stop();
         cout<<"Stopped"<<endl;
