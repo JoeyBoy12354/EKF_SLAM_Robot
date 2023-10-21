@@ -595,8 +595,10 @@ namespace sl {
         sl_result getDeviceInfo(sl_lidar_response_device_info_t& info, sl_u32 timeout = DEFAULT_TIMEOUT)
         {
             fprintf(stderr, "GetDevice Info Entered\n");
-            _channel->clearReadCache();
+            
             _channel->flush();
+            delay(10);
+            _channel->clearReadCache();
             Result<nullptr_t> ans = SL_RESULT_OK;
             _disableDataGrabbing();
 			delay(20);
