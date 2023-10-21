@@ -214,7 +214,7 @@ namespace Navigation_Functions{
     CarPoint triangularRepositioning(MatrixXf State, float angle){
         //cout<<"IN triangFunction "<<endl;
 
-        vector<CarPoint> triangle_init = {{0, 0}, {81, 71}, {81, -71}};
+        vector<CarPoint> triangle_init = {{0, 0}, {-81, 71}, {-81, -71}};
         vector<CarPoint> triangle_rot = rotateTriangle(triangle_init,State(2));
         vector<CarPoint> triangle_shift = translateTriangle(triangle_rot,{State(0),State(1)});
         saveTriangleToCSV(triangle_shift);
