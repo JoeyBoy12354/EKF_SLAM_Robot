@@ -336,8 +336,8 @@ namespace Navigation_Functions{
     }
 
 
-    vector<GridPoint> findNeighbours(vector<vector<GridPoint>> gridMap, GridPoint point){
-        vector<GridPoint> neighbours {{5,5,false},{5,5,false},{5,5,false},{5,5,false}};//up,down,left,right
+    vector<GridPoint> findNeighbours(vector<vector<GridPoint>> gridMap, GridPoint point, float defaultVal){
+        vector<GridPoint> neighbours {{defaultVal,defaultVal,false},{defaultVal,defaultVal,false},{defaultVal,defaultVal,false},{defaultVal,defaultVal,false}};//up,down,left,right
 
         for(int i =0;i<gridMap.size();i++){
             for(int j =0;j<gridMap[i].size();j++)
@@ -381,10 +381,8 @@ namespace Navigation_Functions{
         }
 
 
-        GridPoint defaultPoint;
-        defaultPoint.x = 0;
-        defaultPoint.y = 0;
-        defaultPoint.trav = false;
+        float defaultVal = 15;
+
         vector<GridPoint> path;
         bool search = true;
         //Get the start node as the gridpoint nearest to myRobot
@@ -395,20 +393,20 @@ namespace Navigation_Functions{
             //Work on minimizing delta first
             
             //Should I go up?
-            if(goal.y - neigbours[0].y >0 && neighbours[0] != defaultPoint){
+            if(goal.y - neigbours[0].y >0 && neighbours[0].x != defaultVal && neighbours[0].y != defaultVal){
                 path.push_back(neighbours[0]);
 
             }
             //Should I go down?
-            else if(goal.y - neighbour[1].y >0 && neighbours[1] != defaultPoint){
+            else if(goal.y - neighbour[1].y >0 && neighbours[1].x != defaultVal && neighbours[1].y != defaultVal){
                 path.push_back(neighbours[1]);
             }
             //Should I go left?
-            if(goal.y - neigbours[2].y >0 && neighbours[2] != defaultPoint){
+            else if(goal.y - neigbours[2].y >0 && neighbours[2].x != defaultVal && neighbours[2].y != defaultVal){
                 path.push_back(neighbours[2]);
             }
             //Should I go right?
-            else if(goal.y - neighbour[3].y >0 && neighbours[3] != defaultPoint){
+            else if(goal.y - neighbour[3].y >0 && neighbours[3].x != defaultVal && neighbours[3].y != defaultVal){
                 path.push_back(neighbours[3]);
             }
 
