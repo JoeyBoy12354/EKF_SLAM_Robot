@@ -168,7 +168,7 @@ namespace Lidar_Functions{
             if(useArgcBaudrate){
                 _channel = (*createSerialPortChannel(opt_channel_param_first, opt_channel_param_second));
                 if (SL_IS_OK((drv)->connect(_channel))) {
-                    op_result = drv->getDeviceInfo(devinfo,timeout);
+                    op_result = drv->getDeviceInfo(devinfo);
 
                     if (SL_IS_OK(op_result)) 
                     {
@@ -186,7 +186,7 @@ namespace Lidar_Functions{
                 {
                     _channel = (*createSerialPortChannel(opt_channel_param_first, baudrateArray[i]));
                     if (SL_IS_OK((drv)->connect(_channel))) {
-                        op_result = drv->getDeviceInfo(devinfo,timeout);
+                        op_result = drv->getDeviceInfo(devinfo);
 
                         if (SL_IS_OK(op_result)) 
                         {
@@ -204,7 +204,7 @@ namespace Lidar_Functions{
         else if(opt_channel_type == CHANNEL_TYPE_UDP){
             _channel = *createUdpChannel(opt_channel_param_first, opt_channel_param_second);
             if (SL_IS_OK((drv)->connect(_channel))) {
-                op_result = drv->getDeviceInfo(devinfo,timeout);
+                op_result = drv->getDeviceInfo(devinfo);
 
                 if (SL_IS_OK(op_result)) 
                 {
@@ -273,7 +273,7 @@ namespace Lidar_Functions{
             //sl_lidar_response_measurement_node_hq_t nodes[NoPointsPerScan]; //number of points
             size_t   count = _countof(nodes);
 
-            op_result = drv->grabScanDataHq(nodes, count,timeout);
+            op_result = drv->grabScanDataHq(nodes, count);
 
             
             if (SL_IS_OK(op_result)) {

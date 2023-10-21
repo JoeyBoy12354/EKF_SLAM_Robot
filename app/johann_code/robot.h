@@ -218,6 +218,8 @@ namespace Lidar_Functions{
     bool checkSLAMTECLIDARHealth(ILidarDriver * drv);
     void ctrlc(int);
     int runLidar(vector<PolPoint>& lidarDataPoints, bool& error);
+
+    int runLidarCustom();
 }
 
 namespace Mapping_Functions{

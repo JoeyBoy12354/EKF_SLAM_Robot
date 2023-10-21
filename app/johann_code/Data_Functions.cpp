@@ -259,46 +259,6 @@ namespace Data_Functions{
 
 }
 
-// void getCaliAngle(MatrixXf State1,MatrixXf State2, float distThresh, float& caliAngle){
-//         //Get list 1
-//         vector<CarPoint> LMlist1;
-//         CarPoint LM; 
-//         for(int i=0; i<State1.rows(); i++){
-//             LM.x = State1(i+3);
-//             LM.y = State1(i*2+4);
-//             LMlist1.push_back(LM);
-//         }
-
-//         //Get list 2
-//         vector<CarPoint> LMlist2; 
-//         for(int i=0; i<State2.rows(); i++){
-//             LM.x = State2(i+3);
-//             LM.y = State2(i*2+4);
-//             LMlist2.push_back(LM);
-//         }
-
-//         vector<float> totalAngles;
-//         float sumAngles = 0;
-//         for(int i=0; i<LMlist1.size(); i++){
-//             for(int j=0; j<LMlist2.size(); j++){
-//                 //data assosciation
-//                 if(pointDistance(LMlist1[i],LMlist2[j]) <= distThresh){
-//                     //calculate angle;
-//                     float delta_x = LMlist1[i].x - LMlist2[j].x;
-//                     float delta_y = LMlist1[i].y - LMlist2[j].y;
-//                     float angle = atan2(delta_y,delta_x);
-
-//                     totalAngles.push_back(angle);
-//                     sumAngles+=angle;
-//                 }
-//             }
-//         }
-
-//         caliAngle = sumAngles/totalAngles.size();
-
-//         return;
-//     }
-
 
 
 

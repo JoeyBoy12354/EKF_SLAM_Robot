@@ -189,7 +189,7 @@ def speedControl(theta,distance,direction):
     elif(theta != 0 and distance == 0):
         NoRotations = (R*abs(theta))/(2*math.pi*r) # ROTATE
         
-        if(theta>0):
+        if(theta<0):
             if(direction == True):
                 thread = threading.Thread(target=left_thread, args=(timeOnL,timeOffL,))
             else:
@@ -305,8 +305,6 @@ def getAngleDifference(LNoRot,RNoRot):
     thetaR = (RNoRot*2*math.pi*r/R)
 
     return thetaL-thetaR
-
-
 
 def getDist(LNoRot,RNoRot):
     #Determine actual distance
@@ -468,7 +466,6 @@ def motorCorrection(distance,runs,left_sum,right_sum):
 
     return left_sum,right_sum
     
-
 def motorCalibrate():
     global timeOnL
     global timeOnR
