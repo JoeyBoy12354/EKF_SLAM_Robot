@@ -417,6 +417,8 @@ namespace Navigation_Functions{
         bool search = true;
         //Get the start node as the gridpoint nearest to myRobot
 
+        path.push_back(current);
+
         int count = 0;
         while(search && count<6){
             
