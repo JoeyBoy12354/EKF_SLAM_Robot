@@ -235,11 +235,13 @@ namespace Navigation_Functions{
         } 
 
         //Rotate around A
-        C.x=A.x+(B.x-A.x)*cos(-angle) - (B.y-A.y)*sin(-angle);
-        C.y=A.y+(B.x-A.x)*sin(-angle) + (B.y-A.y)*cos(-angle);
+        C.x=A.x+(B.x-A.x)*cos(angle) - (B.y-A.y)*sin(angle);
+        C.y=A.y+(B.x-A.x)*sin(angle) + (B.y-A.y)*cos(angle);
 
-        //cout<<"NAVI,GRID: tri_rot = "<<triangle_rot[0]<<","<<triangle_rot[1]<<","<<triangle_rot[2]<<endl;
-        //cout<<"NAVI,GRID: tri_shift = "<<triangle_shift[0]<<","<<triangle_shift[1]<<","<<triangle_shift[2]<<endl;
+        cout<<"NAVI,TRIANGLE: tri_rot = "<<triangle_rot[0]<<","<<triangle_rot[1]<<","<<triangle_rot[2]<<endl;
+        cout<<"NAVI,TRIANGLE: tri_shift = "<<triangle_shift[0]<<","<<triangle_shift[1]<<","<<triangle_shift[2]<<endl;
+
+         cout<<"NAVI,TRIANGLE around A = "<<A<<" from B = "<<B<<" resulting C "<<C<<endl;
 
         return C;
 
@@ -306,32 +308,35 @@ namespace Navigation_Functions{
 
         //BEGIN NewCode
         //Get triangle values corresponding to current position before we rotate
-        vector<CarPoint> triangle_init = {{0, 0}, {-81, 71}, {-81, -71}};
-        vector<CarPoint> triangle_rot = rotateTriangle(triangle_init,State(2));
-        vector<CarPoint> triangle_shift = translateTriangle(triangle_rot,{State(0),State(1)});
-        saveTriangleToCSV(triangle_shift);
+        // vector<CarPoint> triangle_init = {{0, 0}, {-81, 71}, {-81, -71}};
+        // vector<CarPoint> triangle_rot = rotateTriangle(triangle_init,State(2));
+        // vector<CarPoint> triangle_shift = translateTriangle(triangle_rot,{State(0),State(1)});
+        // saveTriangleToCSV(triangle_shift);
 
-        CarPoint C; //Will hold the value of the tip/front of triangle after rotation
-        CarPoint B = {triangle_shift[0].x,triangle_shift[0].y}; //Will hold the value of the tip/front of triangle
-        CarPoint A; //This point will hold the coordinate of the corner around which we will rotate
+        // CarPoint C; //Will hold the value of the tip/front of triangle after rotation
+        // CarPoint B = {triangle_shift[0].x,triangle_shift[0].y}; //Will hold the value of the tip/front of triangle
+        // CarPoint A; //This point will hold the coordinate of the corner around which we will rotate
 
-        CarPoint T1 = A = {triangle_shift[1].x,triangle_shift[1].y};
-        CarPoint T2 = A = {triangle_shift[2].x,triangle_shift[2].y};
-        //cout<<"NAVI,GRID: Wheels = "<<T1<<","<<T2<<endl;
-        if(angle>0){
-            //Rotate around right corner
-            A = {triangle_shift[1].x,triangle_shift[1].y};
-        }else{
-            //Rotate around left corner
-            A = {triangle_shift[2].x,triangle_shift[2].y};
-        }   
+        // CarPoint T1 = A = {triangle_shift[1].x,triangle_shift[1].y};
+        // CarPoint T2 = A = {triangle_shift[2].x,triangle_shift[2].y};
+        // //cout<<"NAVI,GRID: Wheels = "<<T1<<","<<T2<<endl;
+        // if(angle>0){
+        //     //Rotate around right corner
+        //     A = {triangle_shift[1].x,triangle_shift[1].y};
+        // }else{
+        //     //Rotate around left corner
+        //     A = {triangle_shift[2].x,triangle_shift[2].y};
+        // }   
 
-        //Rotate around A
-        C.x=A.x+(B.x-A.x)*cos(-angle) - (B.y-A.y)*sin(-angle);
-        C.y=A.y+(B.x-A.x)*sin(-angle) + (B.y-A.y)*cos(-angle);
+        // //Rotate around A
+        // C.x=A.x+(B.x-A.x)*cos(angle) - (B.y-A.y)*sin(angle);
+        // C.y=A.y+(B.x-A.x)*sin(angle) + (B.y-A.y)*cos(angle);
 
-        //cout<<"NAVI,GRID: tri_rot = "<<triangle_rot[0]<<","<<triangle_rot[1]<<","<<triangle_rot[2]<<endl;
-        cout<<"NAVI,GRID: tri_shift = "<<triangle_shift[0]<<","<<triangle_shift[1]<<","<<triangle_shift[2]<<endl;
+        CarPoint C = triangularRepositioning(State,angle);
+
+
+        // cout<<"NAVI,GRID: tri_rot = "<<triangle_rot[0]<<","<<triangle_rot[1]<<","<<triangle_rot[2]<<endl;
+        // cout<<"NAVI,GRID: tri_shift = "<<triangle_shift[0]<<","<<triangle_shift[1]<<","<<triangle_shift[2]<<endl;
 
         
 
@@ -350,8 +355,8 @@ namespace Navigation_Functions{
         //distance =0;
 
         cout<<"NAVI,GRID rotate angle = "<<angle*180/PI<<endl;
-        cout<<"NAVI,GRID around A = "<<A<<" from B = "<<B<<" resulting C "<<C<<" to visit: "<<closestPoint<<endl;
         cout<<"NAVI,GRID then distance = "<<distance<<endl;
+        cout<<"NAVI,GRID to visit: "<<closestPoint<<endl;
         
         //cout<<"NAVI,GRID: movement: "<<distance<<"mm "<<angle*180/PI<<" deg"<<endl;
 
