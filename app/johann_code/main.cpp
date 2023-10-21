@@ -840,16 +840,20 @@ void testRun(){
 
     calibrateMotors();
     
-    for(int i =0;i<7;i++){
-        cout<<"\n i = "<<i<<endl;
-        cout<<"------------------------------------------------------------------------------------------------------------\n\n";
-        // cout<<"IN RUN LOOP: "<<i<<endl;
-        // cout<<"Mapped = "<<mapped<<endl;
-        //fullRun(ekf,mapped,firstRun,finalRun);
-        fullRun2(ekf,mapped,firstRun,finalRun);
+    // for(int i =0;i<7;i++){
+    //     cout<<"\n i = "<<i<<endl;
+    //     cout<<"------------------------------------------------------------------------------------------------------------\n\n";
+    //     // cout<<"IN RUN LOOP: "<<i<<endl;
+    //     // cout<<"Mapped = "<<mapped<<endl;
+    //     //fullRun(ekf,mapped,firstRun,finalRun);
+    //     fullRun2(ekf,mapped,firstRun,finalRun);
         
-        firstRun = false;
-    }
+    //     firstRun = false;
+    // }
+
+    ekf.State(0) = 0;
+    ekf.State(1) = 0;
+    ekf.State(2) = 0;
 
     postMapMovement(ekf.State);
 
