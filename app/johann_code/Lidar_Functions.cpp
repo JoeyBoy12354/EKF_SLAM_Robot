@@ -81,7 +81,7 @@ namespace Lidar_Functions{
         int NoPoints = 8192;
         int NoPointsPerScan = 8192;
         sl_u16 stop = 0;
-        sl_u32 timeout = 6000;//Default is 2000
+        sl_u32 timeout = 60000;//Default is 2000
 
         const char * opt_is_channel = NULL; 
         const char * opt_channel = NULL;
