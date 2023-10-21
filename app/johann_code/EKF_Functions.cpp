@@ -156,6 +156,8 @@ void ExtendedKalmanFilter::updateMotion() {
     //Johann Old code before Atsi sims
     CarPoint C = triangularRepositioning(State, w);// Get lidar point with odomotorey angle reading.
 
+    cout<<"C = "<<C<<endl;
+
     //float CAngle = State(2) + w;//Get angle from positive x to line between (0,0) and (C.x,C.y)
     float CAngle = w;//Get angle from positive x to line between (0,0) and (C.x,C.y)
     float Cd_x = distance*cos(CAngle); //DeltaX change from forward movement

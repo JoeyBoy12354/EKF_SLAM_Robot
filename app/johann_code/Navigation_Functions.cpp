@@ -180,8 +180,8 @@ namespace Navigation_Functions{
         // double cosA = cos(angleRad);
         // double sinA = sin(angleRad);
 
-        double cosA = cos(-angleRad);
-        double sinA = sin(-angleRad);
+        double cosA = cos(angleRad);
+        double sinA = sin(angleRad);
 
         // Initialize the rotation matrix
         double rotationMatrix[2][2] = {
