@@ -159,7 +159,7 @@ namespace Lidar_Functions{
 
         cout<<"Attempt Stop"<<endl;
         // ask the LIDAR to stop working first...
-        drv->stop(timeStop);
+        //drv->stop(timeStop);
         cout<<"Stopped"<<endl;
         _channel->flush();
         cout<<"Flusshed"<<endl;
