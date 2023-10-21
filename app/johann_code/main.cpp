@@ -802,7 +802,7 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalR
             if(finalRun == 0){
                 mapped = updateMovementGrid(ekf.State,gridNew,ekf.lidar_x,ekf.lidar_y);// Move the robot to the location
                 motorDataProcessing(ekf.w,ekf.distance);//Set Ekf variables to result from motor functions
-                ekf.w=-PI/2;
+                ekf.w=-95;
                 ekf.distance = 200;
             }
 
