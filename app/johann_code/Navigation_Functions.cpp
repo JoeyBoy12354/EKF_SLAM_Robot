@@ -337,7 +337,27 @@ namespace Navigation_Functions{
 
 
     vector<GridPoint> findNeighbours(vector<vector<GridPoint>> gridMap, GridPoint point, float defaultVal){
-        vector<GridPoint> neighbours {{defaultVal,defaultVal,false},{defaultVal,defaultVal,false},{defaultVal,defaultVal,false},{defaultVal,defaultVal,false}};//up,down,left,right
+        GridPoint UP;
+        UP.x = defaultVal;
+        UP.y = defaultVal;
+        UP.trav = false;
+        GridPoint DOWN;
+        DOWN.x = defaultVal;
+        DOWN.y = defaultVal;
+        DOWN.trav = false;
+        GridPoint LEFT;
+        LEFT.x = defaultVal;
+        LEFT.y = defaultVal;
+        LEFT.trav = false;
+        GridPoint RIGHT;
+        RIGHT.x = defaultVal;
+        RIGHT.y = defaultVal;
+        RIGHT.trav = false;
+        vector<GridPoint> neighbours;
+        neighbours.push_back(UP);
+        neighbours.push_back(DOWN);
+        neighbours.push_back(LEFT);
+        neighbours.push_back(RIGHT);
 
         for(int i =0;i<gridMap.size();i++){
             for(int j =0;j<gridMap[i].size();j++)
