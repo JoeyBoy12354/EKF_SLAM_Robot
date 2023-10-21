@@ -281,6 +281,8 @@ float ExtendedKalmanFilter::directDistance(CarPoint StoredPoint){
 
     CarPoint Stored = {z_cap_m(0)*cos(z_cap_m(1)),z_cap_m(0)*sin(z_cap_m(1))};
     CarPoint Observed = {z(0)*cos(z(1)),z(0)*sin(z(1))};
+    cout<<"Stored = "<<Stored<<endl;
+    cout<<"Observed = "<<Observed<<endl;
 
     return pointDistance(Stored,Observed);
 
@@ -299,7 +301,7 @@ void ExtendedKalmanFilter::isNewLandmark2(){
         StoredPoint.y = State(i+1);
 
         
-        float mahaDistance = mahalanobisDistance(StoredPoint,i);
+        //float mahaDistance = mahalanobisDistance(StoredPoint,i);
         
 
         // cout<<i<<"  Mahalanobis_distance calculated from above as = "<<mahaDistance<<endl;
