@@ -364,7 +364,10 @@ namespace Navigation_Functions{
     vector<GridPoint> pathFinder(vector<vector<GridPoint>> gridMap, MatrixXf State,GridPoint goal){
         //Assume there is a grid point at (0,0)
 
-        GridPoint myRobot = {State(0),State(1),false};
+        GridPoint myRobot
+        myRobot.x=State(0);
+        myRobot.y=State(1);
+        myRobot.trav=false;
 
         GridPoint current;
         float min_distance = 10000000;
