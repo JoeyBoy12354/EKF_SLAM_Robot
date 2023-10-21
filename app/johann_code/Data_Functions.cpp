@@ -103,7 +103,7 @@ namespace Data_Functions{
 
         carPoints = convertCartesian(dataPoints);
         //readCarFromCSV(carPoints);
-        fitCartesian(carPoints,x,y,angle);
+        //fitCartesian(carPoints,x,y,angle);
 
         saveCarToCSV(carPoints);
         cout<<"\nNumber of CAR points"<<carPoints.size(); 
