@@ -157,18 +157,18 @@ namespace Lidar_Functions{
         // create the driver instance
         ILidarDriver * drv = *createLidarDriver();
 
-        cout<<"Attempt Stop"<<endl;
+        cout<<"Main: Attempt Stop"<<endl;
         // ask the LIDAR to stop working first...
         //drv->stop(timeStop);
-        cout<<"Stopped"<<endl;
+        cout<<"Main: Stopped"<<endl;
         _channel->flush();
-        cout<<"Flusshed"<<endl;
+        cout<<"Main: Flusshed"<<endl;
 
         // wait for a while
         delay(10);
-        cout<<"delayed"<<endl;
+        cout<<"Main: delayed"<<endl;
         _channel->clearReadCache();
-        cout<<"Cleared"<<endl;
+        cout<<"Main: Cleared"<<endl;
 
 
         if (!drv) {
