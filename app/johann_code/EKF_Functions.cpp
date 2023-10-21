@@ -287,7 +287,8 @@ float ExtendedKalmanFilter::directDistance(CarPoint StoredPoint){
 }
 
 void ExtendedKalmanFilter::isNewLandmark2(){
-    double distThresh = 1000;
+    //double distThresh = 1000;
+    double distThresh = 600;
     //cout<<"In NewLandmark2"<<endl;
 
     vector<double> minDistances;
@@ -301,8 +302,8 @@ void ExtendedKalmanFilter::isNewLandmark2(){
         float mahaDistance = mahalanobisDistance(StoredPoint,i);
         
 
-        cout<<i<<"  Mahalanobis_distance calculated from above as = "<<mahaDistance<<endl;
-        minDistances.push_back(mahaDistance);
+        // cout<<i<<"  Mahalanobis_distance calculated from above as = "<<mahaDistance<<endl;
+        // minDistances.push_back(mahaDistance);
 
         float directDistance = directDistance(StoredPoint);
         cout<<i<<"  Direct_distance calculated from above as = "<<directDistance<<endl;

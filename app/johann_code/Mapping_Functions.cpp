@@ -122,8 +122,8 @@ namespace Mapping_Functions{
     }    
 
     void gridDataAssosciationMove(vector<vector<GridPoint>>& gridNew, Matrix<float, dim, 1> State){
-        float thresh= 300;//If points are less than Xmm from travelled line bounds then allow point to be considered.
-        float dist_thresh= 390;//If points are less than Xmm from travelled line then set trav=true.
+        float thresh= 390;//If points are less than Xmm from travelled line bounds then allow point to be considered.
+        float dist_thresh= 450;//If points are less than Xmm from travelled line then set trav=true.
         
         //Update traversal from movement points,state
         float angle;
