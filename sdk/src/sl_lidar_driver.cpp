@@ -539,9 +539,11 @@ namespace sl {
             fprintf(stderr, "A\n");
 
             {
+                fprintf(stderr, "B1\n");
                 rp::hal::AutoLocker l(_lock);
+                fprintf(stderr, "B2\n");
                 ans = _sendCommand(SL_LIDAR_CMD_STOP);
-                fprintf(stderr, "B\n");
+                fprintf(stderr, "B3\n");
                 if (!ans) return ans;
             }
             delay(100);
