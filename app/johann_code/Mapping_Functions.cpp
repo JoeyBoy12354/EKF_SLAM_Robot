@@ -160,7 +160,7 @@ namespace Mapping_Functions{
 
                     if(perpendicularDistance(point,tLine) <= dist_thresh){
                         gridNew[i][j].trav = true;
-                        cout<<gridNew[i][j]<<", "
+                        cout<<gridNew[i][j]<<", ";
                     }
                 }
                 
