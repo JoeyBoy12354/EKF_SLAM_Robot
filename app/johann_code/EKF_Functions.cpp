@@ -99,6 +99,11 @@ void ExtendedKalmanFilter::updateMotion() {
 
     
 
+    // CarPoint C = triangularRepositioning(State, w);// Get lidar point with odomotorey angle reading.
+    // float CAngle = State(2) + w;//Get angle from positive x to line between (0,0) and (C.x,C.y)
+    // float Cd_x = distance*cos(CAngle); //DeltaX change from forward movement
+    // float Cd_y = distance*sin(CAngle); //DeltaY change from forward movement
+
 
     //Atsi C++(notdone)
     float theta = State(2);
@@ -149,27 +154,31 @@ void ExtendedKalmanFilter::updateMotion() {
 
 
     //Johann Old code before Atsi sims
-    // CarPoint C = triangularRepositioning(State, w);// Get lidar point with odomotorey angle reading.
+    CarPoint C = triangularRepositioning(State, w);// Get lidar point with odomotorey angle reading.
 
-    // float CAngle = State(2) + w;//Get angle from positive x to line between (0,0) and (C.x,C.y)
-    // float Cd_x = -distance*cos(CAngle); //DeltaX change from forward movement
-    // float Cd_y = distance*sin(CAngle); //DeltaY change from forward movement
+    float CAngle = State(2) + w;//Get angle from positive x to line between (0,0) and (C.x,C.y)
+    float Cd_x = distance*cos(CAngle); //DeltaX change from forward movement
+    float Cd_y = distance*sin(CAngle); //DeltaY change from forward movement
 
-    // CarPoint robot;
-    // robot.x = State(0);
-    // robot.y = State(1);
-    // float dist2 = pointDistance(robot,C);
+    cout<<"Cd_x = "<<Cd_x<<" Cd_y = "<<Cd_y<<" CAngle = "<<CAngle*180/PI<<endl;
 
-    // //I believe this Jacobian's value can be estimated with v = distance/time
-    // //In essecence I think this should be the rate of change but yeah they cakculated it originally as just the distance in x and y
-    // Motion_Jacobian(0,2) = -(distance+dist2)*sin(State(2));
-    // Motion_Jacobian(1,2) = (distance+dist2)*cos(State(2));
 
-    // //State is now updated with C(x,y) calculated from State when performing triangular repositioning.
-    // //The d_x and d_y from the distance moved forward is then added 
-    // State(0) = C.x + Cd_x;
-    // State(1) = C.y + Cd_y;
-    // State(2) = State(2) + w;//This is added since we are calculating the new state which is the old + change to get the new.
+    CarPoint robot;
+    robot.x = State(0);
+    robot.y = State(1);
+    float dist2 = pointDistance(robot,C);
+
+    //I believe this Jacobian's value can be estimated with v = distance/time
+    //In essecence I think this should be the rate of change but yeah they cakculated it originally as just the distance in x and y
+    Motion_Jacobian(0,2) = -(distance+dist2)*sin(State(2));
+    Motion_Jacobian(1,2) = (distance+dist2)*cos(State(2));
+
+    //State is now updated with C(x,y) calculated from State when performing triangular repositioning.
+    //The d_x and d_y from the distance moved forward is then added 
+    State(0) = C.x + Cd_x;
+    State(1) = C.y + Cd_y;
+    State(2) = State(2) + w;//This is added since we are calculating the new state which is the old + change to get the new.
+    State(2) = pi_2_pi(State(2));
 
     // angleInBounds(State(2));
 
