@@ -574,6 +574,7 @@ namespace sl {
                 memcpy(nodebuffer, _cached_scan_node_hq_buf, size_to_copy * sizeof(sl_lidar_response_measurement_node_hq_t));
 
                 count = size_to_copy;
+                fprintf(stderr, "GrabScan: count/size_to_copy \n");
                 _cached_scan_node_hq_count = 0;
             }
             return SL_RESULT_OK;
