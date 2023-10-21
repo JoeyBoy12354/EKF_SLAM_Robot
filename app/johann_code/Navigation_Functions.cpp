@@ -212,8 +212,8 @@ namespace Navigation_Functions{
 
     //Perform rotation and translation of triangle state
     CarPoint triangularRepositioning(MatrixXf State, float angle){
-        //cout<<"IN triangFunction "<<endl;
-
+        cout<<"IN triangFunction "<<endl;
+        cout<<"State x = "<<State(0)<<" State y = "<<State(1)<<"State theta = "<<State(2)<<endl;
         vector<CarPoint> triangle_init = {{0, 0}, {-81, 71}, {-81, -71}};
         vector<CarPoint> triangle_rot = rotateTriangle(triangle_init,State(2));
         vector<CarPoint> triangle_shift = translateTriangle(triangle_rot,{State(0),State(1)});
@@ -280,11 +280,11 @@ namespace Navigation_Functions{
             }
         }
 
-        // closestPoint = {-200,-200};
-        // robotPoint = {0,0};
-        // State(0) = robotPoint.x;
-        // State(1) = robotPoint.y;
-        // State(2) = 0;
+        closestPoint = {-200,-200};
+        robotPoint = {0,0};
+        State(0) = robotPoint.x;
+        State(1) = robotPoint.y;
+        State(2) = 0;
         cout<<"RobotPoint = "<<robotPoint<<endl;
         cout<<"ClosestPoint = "<<closestPoint<<endl;
 
@@ -365,7 +365,7 @@ namespace Navigation_Functions{
             lidar_x = C.x;
             lidar_y = C.y;
             //cout<<"GRID: updateMoveent, force==noMovement"<<endl;
-            motorControlGrid(angle,distance);
+            //motorControlGrid(angle,distance);
         }
         
         return mapped;
