@@ -284,11 +284,6 @@ namespace Navigation_Functions{
         State(1) = robotPoint.y;
         State(2) = 0;
 
-        
-
-        
-
-        
         //Set destination
         float deltaX = closestPoint.x - robotPoint.x;
         float deltaY = closestPoint.y - robotPoint.y;

@@ -110,7 +110,7 @@ void testLandmarkIdentification(bool& firstRun){
         saveCarToFullMapCSV(carPoints);
         firstRun = false;
     }else{
-        storeMapPoints(carPoints);
+        //storeMapPoints(carPoints,ekf.State);
     }
 
     LandmarkProcessing2(carPoints);
@@ -264,8 +264,7 @@ void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalRu
                 saveCarToFullMapCSV(carPoints);
                 firstRun = false;
             }else{
-                storeMapPoints(carPoints);
-                storeStatePoints(ekf.State);
+                storeMapPoints(carPoints,ekf.State);
             }
 
             //Get Grid
