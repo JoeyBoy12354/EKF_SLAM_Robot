@@ -269,7 +269,7 @@ float ExtendedKalmanFilter::Mahalanobis_distance(CarPoint StoredPoint,int LMinde
 
 
 void ExtendedKalmanFilter::isNewLandmark2(){
-    double distThresh = 100;
+    double distThresh = 300;
     //cout<<"In NewLandmark2"<<endl;
 
     vector<double> minDistances;
