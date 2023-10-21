@@ -283,6 +283,8 @@ namespace Navigation_Functions{
         State(0) = robotPoint.x;
         State(1) = robotPoint.y;
         State(2) = 0;
+        cout<<"RobotPoint = "<<robotPoint<<endl;
+        cout<<"ClosestPoint = "<<closestPoint<<endl;
 
         //Set destination
         float deltaX = closestPoint.x - robotPoint.x;
