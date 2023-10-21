@@ -749,7 +749,7 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 
 
 
-
+print("MC started")
 
 if(readState() == True):
     motorCalibrate()

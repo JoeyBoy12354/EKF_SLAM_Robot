@@ -601,7 +601,7 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
 
     //State = State + Gain*(z-z_cap);
     State = State + Gain*(delta_z);
-    cout<<"State = \n"<<State<<endl;
+    //cout<<"State = \n"<<State<<endl;
     //State = State + Gain*(delta_z);
     //State = State + Gain*(z-z_cap);
 
@@ -688,7 +688,7 @@ void ExtendedKalmanFilter::runEKF() {
         updateCovarianceOfLandmark();
         //cout << "\nLINE 7\nsigma =\n" << Covariance << "\n";
     }
-    cout<<"Prior "<<State(2)*180/PI<<endl;
+    //cout<<"Prior "<<State(2)*180/PI<<endl;
     State(2) = pi_2_pi(State(2));
-    cout<<"Prior "<<State(2)*180/PI<<endl;
+    //cout<<"Prior "<<State(2)*180/PI<<endl;
 }

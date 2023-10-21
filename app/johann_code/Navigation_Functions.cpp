@@ -164,7 +164,7 @@ namespace Navigation_Functions{
         //Send to motors
         writeMotorToCSV(angle,distance);
 
-        //cout<<"NAVI: Run python"<<endl;
+        cout<<"NAVI: Run python"<<endl;
     
         int ret;
         ret = system("python3 motorControl.py ok go");
