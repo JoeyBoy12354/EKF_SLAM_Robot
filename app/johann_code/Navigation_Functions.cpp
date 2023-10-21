@@ -412,7 +412,7 @@ namespace Navigation_Functions{
 
         while(search){
 
-            vector<GridPoint> neighbours = findNeighbours(gridMap,current);
+            vector<GridPoint> neighbours = findNeighbours(gridMap,current,defaultVal);
             //Work on minimizing delta first
             
             //Should I go up?
