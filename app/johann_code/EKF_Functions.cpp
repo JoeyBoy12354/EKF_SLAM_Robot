@@ -197,9 +197,9 @@ vector<CarPoint> ExtendedKalmanFilter::observeEnvironment() {
 }
 
 float ExtendedKalmanFilter::Mahalanobis_distance(CarPoint StoredPoint,int LMindex){
-    cout<<"z = "<<z(0)<<",  "<<z(1)<<endl;
-    cout<<"x = "<<State(0)<<",  y = "<<State(1)<<",  z = "<<State(2)*180/PI<<endl;
-    cout<<"In Maha Distance Point = "<<StoredPoint<<"Index = "<<LMindex<<endl;
+    // cout<<"z = "<<z(0)<<",  "<<z(1)<<endl;
+    // cout<<"x = "<<State(0)<<",  y = "<<State(1)<<",  z = "<<State(2)*180/PI<<endl;
+    // cout<<"In Maha Distance Point = "<<StoredPoint<<"Index = "<<LMindex<<endl;
     Matrix<float, 2, 1> z_cap_m;
 
     Matrix<double,1,2> delta;
@@ -207,19 +207,19 @@ float ExtendedKalmanFilter::Mahalanobis_distance(CarPoint StoredPoint,int LMinde
     float deltaY = StoredPoint.y - State(1);
     //double q = deltaX * deltaX + deltaY * deltaY;
     double q = pow(deltaX,2) + pow(deltaY,2);
-    cout<<"q = "<<q<<", sqrt(q) = "<<sqrt(q)<<"   ";
+    //cout<<"q = "<<q<<", sqrt(q) = "<<sqrt(q)<<"   ";
     z_cap_m(0) = sqrt(q);
-    cout<<"z_q = "<<z_cap_m<<endl;
+   // cout<<"z_q = "<<z_cap_m<<endl;
     z_cap_m(1) = (atan2(deltaY, deltaX)) - State(2);
     
-    cout<<"z_angle = "<<z_cap_m(1)*180/PI<<" -> "<<pi_2_pi(z_cap_m(1))*180/PI<<endl;
+    //cout<<"z_angle = "<<z_cap_m(1)*180/PI<<" -> "<<pi_2_pi(z_cap_m(1))*180/PI<<endl;
     z_cap_m(1) = pi_2_pi(z_cap_m(1));
 
-    cout<<"DeltaX = "<<deltaX<<" deltaY = "<<deltaY<<endl;
-    cout<<"z_cap = "<<z_cap_m(0)<<", "<<z_cap_m(1)<<endl;
+    // cout<<"DeltaX = "<<deltaX<<" deltaY = "<<deltaY<<endl;
+    // cout<<"z_cap = "<<z_cap_m(0)<<", "<<z_cap_m(1)<<endl;
     Matrix<float, 2, 1> delta_z = z-z_cap_m;
     delta_z(1) = pi_2_pi(delta_z(1));
-    cout<<"Delta_z = \n"<<delta_z<<endl;
+    //cout<<"Delta_z = \n"<<delta_z<<endl;
 
     //OBSERVATION JACOBIAN
     //Get the lower Observation Matrix
@@ -248,7 +248,7 @@ float ExtendedKalmanFilter::Mahalanobis_distance(CarPoint StoredPoint,int LMinde
 
 void ExtendedKalmanFilter::isNewLandmark2(){
     double distThresh = 100;
-    cout<<"In NewLandmark2"<<endl;
+    //cout<<"In NewLandmark2"<<endl;
 
     vector<double> minDistances;
     vector<int> indexes;
@@ -259,7 +259,7 @@ void ExtendedKalmanFilter::isNewLandmark2(){
 
         
         float mahaDistance = Mahalanobis_distance(StoredPoint,i);
-        cout<<"Mahalanobis_distance = "<<mahaDistance<<" StoredPoint = "<<StoredPoint<<" i = "<<i<<endl;
+        //cout<<"Mahalanobis_distance = "<<mahaDistance<<" StoredPoint = "<<StoredPoint<<" i = "<<i<<endl;
         minDistances.push_back(mahaDistance);
         indexes.push_back(i);
     }
@@ -277,8 +277,8 @@ void ExtendedKalmanFilter::isNewLandmark2(){
     int minDistanceVectorIndex = getIndex(minDistances,smallestDistance);
     int smallestDistanceIndex = indexes[minDistanceVectorIndex];
     
-    cout<<"Smallest Distance = "<<smallestDistance<<endl;
-    cout<<"Smallest Distance Index = "<<smallestDistanceIndex<<endl;
+    // cout<<"Smallest Distance = "<<smallestDistance<<endl;
+    // cout<<"Smallest Distance Index = "<<smallestDistanceIndex<<endl;
 
     if(minDistanceVectorIndex == NoLandmarksFound){
         //This is a new Landmark
@@ -387,7 +387,7 @@ void ExtendedKalmanFilter::isNewLandmark() {
         //cout<<"Stored = "<<StoredLandmark<<" -> Shifted_Stored = "<<shifted_stored<<endl;
 
         float maha_distance = Mahalanobis_distance(StoredLandmark,i);
-        cout<<"Maha_Distance = "<<maha_distance<<" for "<<StoredLandmark<<endl;
+        //cout<<"Maha_Distance = "<<maha_distance<<" for "<<StoredLandmark<<endl;
 
         
 
@@ -400,7 +400,7 @@ void ExtendedKalmanFilter::isNewLandmark() {
 
 
 
-        cout<<StoredLandmark<<" <-> "<<test2<<" = "<<pointDistance(StoredLandmark,test2)<<endl;
+        //cout<<StoredLandmark<<" <-> "<<test2<<" = "<<pointDistance(StoredLandmark,test2)<<endl;
         Distances.push_back(pointDistance(StoredLandmark,test2));
         
         Indexes.push_back(i);
@@ -596,7 +596,7 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     // cout<<"zcap = \n"<<z_cap<<endl;
     //cout<<"delta_z (before angle in bounds) = \n"<<delta_z<<endl;
     delta_z(1) = pi_2_pi(delta_z(1));
-    cout<<"delta_z = \n"<<delta_z<<endl;
+    //cout<<"delta_z = \n"<<delta_z<<endl;
     // cout<<"K*delta_z = \n"<<Gain*delta_z<<endl;
 
     //State = State + Gain*(z-z_cap);
