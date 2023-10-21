@@ -122,8 +122,8 @@ namespace Mapping_Functions{
     }    
 
     void gridDataAssosciationMove(vector<vector<GridPoint>>& gridNew, Matrix<float, dim, 1> State){
-        float thresh= 300;//If points are less than Xmm from travelled line bounds then allow point to be considered.
-        float dist_thresh= 390;//If points are less than Xmm from travelled line then set trav=true.
+        float thresh= 450;//If points are less than Xmm from travelled line bounds then allow point to be considered.
+        float dist_thresh= 490;//If points are less than Xmm from travelled line then set trav=true.
         
         //Update traversal from movement points,state
         float angle;
@@ -239,8 +239,8 @@ namespace Mapping_Functions{
         float vLimit = 10; //Max number of vertical points from x-axis in 1 direction
         float hLimit = 10; //Max Number of horistontal points from v-axis in 1 direction
 
-        float yStep = 300;//y-distance between points on same x-coordinate
-        float xStep = 300;//x-distance between points on same y-coordinate
+        float yStep = 450;//y-distance between points on same x-coordinate
+        float xStep = 450;//x-distance between points on same y-coordinate
         
         
         float boundThresh = 180;//If distance between gridPoint and lidarPoint <= Xmm then return false 
