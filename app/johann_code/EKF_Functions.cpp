@@ -437,7 +437,7 @@ void ExtendedKalmanFilter::isNewLandmark() {
         shifted_stored.y = StoredLandmark.y - State(1); 
         //cout<<"Stored = "<<StoredLandmark<<" -> Shifted_Stored = "<<shifted_stored<<endl;
 
-        float maha_distance = Mahalanobis_distance(StoredLandmark,i);
+        //float maha_distance = Mahalanobis_distance(StoredLandmark,i);
         //cout<<"Maha_Distance = "<<maha_distance<<" for "<<StoredLandmark<<endl;
 
         
