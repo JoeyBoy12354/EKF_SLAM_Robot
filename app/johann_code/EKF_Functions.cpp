@@ -161,6 +161,7 @@ void ExtendedKalmanFilter::updateMotion() {
     float Cd_y = distance*sin(CAngle); //DeltaY change from forward movement
 
     cout<<"Cd_x = "<<Cd_x<<" Cd_y = "<<Cd_y<<" CAngle = "<<CAngle*180/PI<<endl;
+    cout<<"Set2 "<<"Cd_x = "<<distance*cos(w)<<" Cd_y = "<<distance*sin(w)<<" CAngle = "<<w*180/PI<<endl;
 
 
     CarPoint robot;
