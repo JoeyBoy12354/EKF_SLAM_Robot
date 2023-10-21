@@ -135,8 +135,8 @@ namespace Data_Functions{
     //Convert cornerPoints to polar
     for(int i =0;i<cornerPoints.size();i++){
         PolPoint newPoint;
-        newPoint.distance = sqrt(pow(CornerPoint.x,2) + pow(CornerPoint.y,2));
-        newPoint.angle = atan2(CornerPoint.y,CornerPoint.x);
+        newPoint.distance = sqrt(pow(cornerPoints[i].x,2) + pow(cornerPoints[i].y,2));
+        newPoint.angle = atan2(cornerPoints[i].y,cornerPoints[i].x);
         cornerPolarPoints.push_back(newPoint);
     }
 
