@@ -851,8 +851,8 @@ void testRun(){
     //     firstRun = false;
     // }
 
-    ekf.State(0) = 0;
-    ekf.State(1) = 0;
+    ekf.State(0) = 400;
+    ekf.State(1) = 900;
     ekf.State(2) = 0;
 
     postMapMovement(ekf.State);
