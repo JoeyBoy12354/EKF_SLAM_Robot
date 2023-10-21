@@ -533,16 +533,20 @@ namespace sl {
 
         sl_result stop(sl_u32 timeout = DEFAULT_TIMEOUT)
         {
+            fprintf(stderr, "Stop entered\n");
             Result<nullptr_t> ans = SL_RESULT_OK;
             _disableDataGrabbing();
+            fprintf(stderr, "A\n");
 
             {
                 rp::hal::AutoLocker l(_lock);
                 ans = _sendCommand(SL_LIDAR_CMD_STOP);
+                fprintf(stderr, "B\n");
                 if (!ans) return ans;
             }
             delay(100);
 
+            fprintf(stderr, "C\n");
             if(_isSupportingMotorCtrl == MotorCtrlSupportPwm)
                 setMotorSpeed(0);
   
