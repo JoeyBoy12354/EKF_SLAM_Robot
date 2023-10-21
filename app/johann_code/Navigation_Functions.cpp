@@ -430,7 +430,7 @@ namespace Navigation_Functions{
             cout<<endl;
             
             //Should I go up?
-            if(goal.y - neighbours[0].y =>0 && neighbours[0].x != defaultVal && neighbours[0].y != defaultVal){
+            if(goal.y - neighbours[0].y >=0 && neighbours[0].x != defaultVal && neighbours[0].y != defaultVal){
                 path.push_back(neighbours[0]);
 
             }
