@@ -491,6 +491,10 @@ namespace Navigation_Functions{
             }
 
             cout<<"B4"<<endl;
+            cout<<current->x<<endl;
+            cout<<"B4aa"<<endl;
+            cout<<current->y<<endl;
+            cout<<"B4a"<<endl;
 
             if (visited[current->x][current->y]) {
                 continue; // Skip visited nodes
