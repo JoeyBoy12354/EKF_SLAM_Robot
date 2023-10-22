@@ -3,6 +3,7 @@
 using namespace Landmark_Functions;
 using namespace CSV_Functions;
 using namespace Data_Functions;
+using namespace Mapping_Functions;
 
 
 int noNavTrials = 0;
@@ -422,7 +423,7 @@ namespace Navigation_Functions{
 
         
 
-        vector<vector<GridNode>>& gridNew;
+        vector<vector<GridNode>> gridNew;
         mapConverter(gridMap, gridNew);
 
         findPathAStar(gridNew,start,goal);
