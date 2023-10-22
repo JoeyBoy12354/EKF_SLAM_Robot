@@ -743,7 +743,7 @@ void testRun(){
 
     calibrateMotors();
     int count = 0;
-    while(mapped == false && count<10){
+    while(mapped == false && count<20){
         cout<<"\n i = "<<count<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
         fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
@@ -762,20 +762,20 @@ void testRun(){
 
     cout<<"Fully Mapped Room"<<endl;
 
-    finalRun = false;
-    postMap = true;
-    count = 0;
-    path.clear();
-    while(home == false){
-        cout<<"\n i = "<<count<<endl;
-        cout<<"------------------------------------------------------------------------------------------------------------\n\n";
-        fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
-    }
+    // finalRun = false;
+    // postMap = true;
+    // count = 0;
+    // path.clear();
+    // while(home == false){
+    //     cout<<"\n i = "<<count<<endl;
+    //     cout<<"------------------------------------------------------------------------------------------------------------\n\n";
+    //     fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
+    // }
 
-    // ekf.distance = 0;
-    // ekf.w = 0;
-    finalRun = true;
-    fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
+    // // ekf.distance = 0;
+    // // ekf.w = 0;
+    // finalRun = true;
+    // fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
 
     // cout<<"I am Home"<<endl;
 
