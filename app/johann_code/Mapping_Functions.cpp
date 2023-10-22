@@ -44,7 +44,7 @@ namespace Mapping_Functions{
                 }
             }
             if(isNew == true){
-                oldmap.append(lidardata[i]);
+                oldmap.push_back(lidardata[i]);
             }
         }
 
@@ -53,7 +53,7 @@ namespace Mapping_Functions{
 
         //Update full map
         //appendCarToFullMapCSV(lidardata);
-        saveCarToFullMapCSV(const vector<CarPoint>& points);
+        saveCarToFullMapCSV(lidardata);
 
         storeStatePoints(State);
         
