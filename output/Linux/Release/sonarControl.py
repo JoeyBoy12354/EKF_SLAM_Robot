@@ -15,7 +15,7 @@ trigPin2 = 27
 
 #Right
 echoPin1 = 21
-trigPin1 = 11
+trigPin1 = 6
 
 #returns distance to obstacle in cm
 def runSonar(Left):
