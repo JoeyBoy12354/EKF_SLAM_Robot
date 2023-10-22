@@ -379,7 +379,6 @@ namespace Navigation_Functions{
         } else {
             cout << "Path: ";
             for (GridNode* point : path) {
-                updateMovement()
                 cout << "(" << point->x << ", " << point->y << ") ";
             }
             cout << endl;
