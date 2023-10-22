@@ -314,7 +314,7 @@ def brute_force(mapCSV,sample_size,max_iters,inlier_thresh,min_inliers):
 #brute_force('map7.csv',sample_size=80,max_iters=200,inlier_thresh=0.8,min_inliers=5)
 
 #Works fairly well for large rooms.(Did miss once during 3x20 Trial runs thus about a 44/45 Hit ratio)
-#brute_force('map7.csv',sample_size=80,max_iters=200,inlier_thresh=1.2,min_inliers=6)
+brute_force('map7.csv',sample_size=80,max_iters=200,inlier_thresh=1.3,min_inliers=6)
 
 
 # brute_force('map3.csv',sample_size=100,max_iters=200,inlier_thresh=0.15,min_inliers=4)
