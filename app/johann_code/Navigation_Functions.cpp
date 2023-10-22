@@ -397,7 +397,7 @@ namespace Navigation_Functions{
     
 
     // Define a function to find the neighbors of a grid point
-    std::vector<GridNode*> findNeighboursBFS(const GridNode& node, std::vector<std::vector<GridNode>>& gridMap) {
+    std::vector<GridNode*> findNeighboursBFS(GridNode& node, std::vector<std::vector<GridNode>>& gridMap) {
         // Define neighbor offsets (up, down, left, right)
         int dx[] = {0, 0, -1, 1};
         int dy[] = {-1, 1, 0, 0};
@@ -418,7 +418,7 @@ namespace Navigation_Functions{
     }
 
     // Breadth-first search
-    std::vector<GridNode*> bfs(const std::vector<std::vector<GridNode>>& gridMap, GridNode& start, GridNode& goal) {
+    std::vector<GridNode*> bfs(std::vector<std::vector<GridNode>>& gridMap, GridNode& start, GridNode& goal) {
         std::queue<GridNode*> toVisit;
         std::vector<GridNode*> path;
 
