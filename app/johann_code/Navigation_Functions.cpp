@@ -496,7 +496,7 @@ namespace Navigation_Functions{
             cout<<current->y<<endl;
             cout<<"B4a"<<endl;
             for(int i =0;i<visited.size();i++){
-                for(int j=0;j<visted.size();j++){
+                for(int j=0;j<visited.size();j++){
                     cout<<i<<" "<<j<<endl;
                 }
             }
