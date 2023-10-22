@@ -373,7 +373,6 @@ namespace CSV_Functions{
         for (int i=0;i<points.size();i++) {
             outputFile << " "<< "\n";
             for(int j=0;j<points[i].size();j++){
-                cout<<"CSV grid: point = "<<points[i][j]<<endl;
                 outputFile << points[i][j].x << "," << points[i][j].y << "," << points[i][j].trav <<"\n";
             }
             

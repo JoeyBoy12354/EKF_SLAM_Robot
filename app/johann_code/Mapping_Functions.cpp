@@ -108,6 +108,8 @@ namespace Mapping_Functions{
             readGridFromCSV(gridOld);
             gridDataAssosciationMap(gridOld,gridNew);
             gridDataAssosciationMoveSimple(gridNew,State);
+        }else{
+            gridDataAssosciationMoveSimple(gridNew,State);
         }
 
         cout<<"INITIAL MAP SHOW ONLY DOTS THAT HAVE BEEN TRAVERSED"<<endl;
