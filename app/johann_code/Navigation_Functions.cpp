@@ -394,6 +394,70 @@ namespace Navigation_Functions{
 
     
 
+    vector<GridNode*> findNeighboursBFS2(vector<vector<Node>>& gridMap, GridNode& point, float defaultVal,vector<CarPoint>& indexes){
+            //Initialize Neighbours
+            GridNode UP;
+            UP.x = defaultVal;
+            UP.y = defaultVal;
+            UP.trav = false;
+            RIGHT.traversable = false;
+            GridNode DOWN;
+            DOWN.x = defaultVal;
+            DOWN.y = defaultVal;
+            DOWN.trav = false;
+            RIGHT.traversable = false;
+            GridNode LEFT;
+            LEFT.x = defaultVal;
+            LEFT.y = defaultVal;
+            LEFT.trav = false;
+            RIGHT.traversable = false;
+            GridNode RIGHT;
+            RIGHT.x = defaultVal;
+            RIGHT.y = defaultVal;
+            RIGHT.trav = false;
+            RIGHT.traversable = false;
+            vector<GridNode> neighbours;
+            neighbours.push_back(UP);
+            neighbours.push_back(DOWN);
+            neighbours.push_back(LEFT);
+            neighbours.push_back(RIGHT);
+
+            //Initialize indexes
+            
+
+            for(int i =0;i<gridMap.size();i++){
+                for(int j =0;j<gridMap[i].size();j++){
+                    CarPoint index;
+                    index.x = i;
+                    index.y = j;
+                    
+                    // cout<<"x: "<<gridMap[i][j].x<<", "<<point.x<<" = "<<gridMap[i][j].x - point.x<<endl;
+                    // cout<<"y: "<<gridMap[i][j].y<<", "<<point.y<<" = "<<gridMap[i][j].y - point.y<<endl;
+                    //left from point
+                    if(gridMap[i][j].x - point.x == grid_xstep && gridMap[i][j].y - point.y == 0){
+                        neighbours[2] = gridMap[i][j];
+                        indexes[2] = index;
+                    }//right from point
+                    else if(gridMap[i][j].x - point.x == -grid_xstep && gridMap[i][j].y - point.y == 0){
+                        neighbours[3] = gridMap[i][j];
+                        indexes[3] = index;
+                    }//up from point
+                    else if(gridMap[i][j].x - point.x == 0 && gridMap[i][j].y - point.y == grid_ystep){
+                        neighbours[0] = gridMap[i][j];
+                        indexes[0] = index;
+                    }//down from point
+                    else if(gridMap[i][j].x - point.x == 0 && gridMap[i][j].y - point.y == -grid_ystep){
+                        neighbours[1] = gridMap[i][j];
+                        indexes[1] = index;
+                    }
+
+                }
+            }
+
+            return neighbours;
+        }
+
+
     
 
     // Define a function to find the neighbors of a grid point
@@ -445,11 +509,13 @@ namespace Navigation_Functions{
             current->traversable = false;
 
             // Find the neighbors of the current node
-            std::vector<GridNode*> neighbors = findNeighboursBFS(*current, gridMap);
+            std::vector<GridNode*> neighbors = findNeighboursBFS2(*current, gridMap);
+
+            cout<<"Neighbor size = "<<neighbors.size()<<endl;
 
             // Enqueue unvisited neighbors
             for (GridNode* neighbor : neighbors) {
-                cout<<"Current = "<<neighbor->x<<" and "<<neighbor->y<<endl;
+                cout<<"NeighBor = "<<neighbor->x<<" and "<<neighbor->y<<endl;
                 if (neighbor->traversable) {
                     neighbor->parent = current;
                     toVisit.push(neighbor);
