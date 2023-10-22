@@ -314,7 +314,7 @@ def brute_force(mapCSV,sample_size,max_iters,inlier_thresh,min_inliers):
 #brute_force('map7.csv',sample_size=80,max_iters=200,inlier_thresh=0.8,min_inliers=5)
 
 #Works fairly well for large rooms.(Did miss once during 3x20 Trial runs thus about a 44/45 Hit ratio)
-brute_force('map7.csv',sample_size=80,max_iters=200,inlier_thresh=1.2,min_inliers=6)
+#brute_force('map7.csv',sample_size=80,max_iters=200,inlier_thresh=1.2,min_inliers=6)
 
 
 # brute_force('map3.csv',sample_size=100,max_iters=200,inlier_thresh=0.15,min_inliers=4)
@@ -337,8 +337,8 @@ for i in range(0,len(filtered_corner)):
 
 # plt.ylim([-300,300])
 # plt.xlim([-300,300])
-# plt.ylim([-2500,3000])
-# plt.xlim([-5000,1500])
+plt.ylim([-2500,3000])
+plt.xlim([-3000,5000])
 plt.show()
 
 
