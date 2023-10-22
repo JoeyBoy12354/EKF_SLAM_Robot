@@ -427,13 +427,13 @@ namespace Navigation_Functions{
         mapConverter(gridMap, gridNew);
         cout<<gridNew.size()<<gridNew[0].size()<<endl;
 
-        vector<GridPoint*> path  = findPathAStar(gridNew,start,goal);
+        vector<GridNode*> path  = findPathAStar(gridNew,start,goal);
 
         if(path.empty()) {
             cout << "No path found." << endl;
         } else {
             cout << "Path: ";
-            for (GridPoint* point : path) {
+            for (GridNode* point : path) {
                 cout << "(" << point->x << ", " << point->y << ") ";
             }
             cout << endl;
