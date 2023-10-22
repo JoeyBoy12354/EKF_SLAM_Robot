@@ -97,13 +97,11 @@ struct GridPoint {
 struct GridNode {
     int x;
     int y;
-    bool traversed; // Indicates if the point has been traversed
-    int g; // Cost from the start node to this node
-    int h; // Heuristic (estimated) cost from this node to the goal
+    bool traversable; // Indicates if the point has been traversed
     GridNode* parent; // Pointer to the parent node
 
     // Constructor for initialization
-    GridNode(int x, int y) : x(x), y(y), traversed(false), g(0), h(0), parent(nullptr) {}
+    GridNode(int x, int y) : x(x), y(y), traversable(true), parent(nullptr) {}
 };
 
 // struct NodePoint {
@@ -276,9 +274,8 @@ namespace Navigation_Functions{
 
     //Navi2
     void postMapMovement2(MatrixXf State);
-    int heuristic(const GridNode& a, const GridNode& b);
-    vector<GridNode*> findNeighboursAStar(GridNode& current, const vector<vector<GridNode>>& gridMap);
-    vector<GridNode*> findPathAStar(vector<vector<GridNode>>& gridMap, GridNode& start, GridNode& goal);
+    vector<GridNode*> findNeighboursBFS(GridNode& current, const vector<vector<GridNode>>& gridMap);
+    vector<GridNode*> bfs(const std::vector<std::vector<GridNode>>& gridMap, const GridNode& start, const GridNode& goal);
 }
 
 class ExtendedKalmanFilter {

@@ -425,9 +425,9 @@ namespace Navigation_Functions{
 
         vector<vector<GridNode>> gridNew;
         mapConverter(gridMap, gridNew);
-        cout<<gridNew.size()<<gridNew[0].size()<<endl;
+        cout<<"Grid Size: "<<gridNew.size()<<"x"<<gridNew[0].size()<<endl;
 
-        vector<GridNode*> path  = findPathAStar(gridNew,start,goal);
+        vector<GridNode*> path  = bfs(gridNew,start,goal);
 
         if(path.empty()) {
             cout << "No path found." << endl;
@@ -443,24 +443,20 @@ namespace Navigation_Functions{
 
     }
 
-    // Define a function to compute the heuristic (Manhattan distance in this case)
-    int heuristic(const GridNode& a, const GridNode& b) {
-        return abs(a.x - b.x) + abs(a.y - b.y);
-    }
-
     // Define a function to find the neighbors of a grid point
-    vector<GridNode*> findNeighboursAStar(GridNode& current, vector<vector<GridNode>>& gridMap) {
-        vector<GridNode*> neighbors;
-
+    std::vector<GridNode*> findNeighboursBFS(const GridNode& node, const std::vector<std::vector<GridNode>>& gridMap) {
         // Define neighbor offsets (up, down, left, right)
         int dx[] = {0, 0, -1, 1};
         int dy[] = {-1, 1, 0, 0};
 
-        for (int i = 0; i < 4; ++i) {
-            int newX = current.x + dx[i];
-            int newY = current.y + dy[i];
+        std::vector<GridNode*> neighbors;
 
-            if (newX >= 0 && newY >= 0 && newX < gridMap.size() && newY < gridMap[0].size()) {
+        for (int i = 0; i < 4; ++i) {
+            int newX = node.x + dx[i];
+            int newY = node.y + dy[i];
+
+            // Check if the neighbor is within bounds and is traversable
+            if (newX >= 0 && newY >= 0 && newX < gridMap.size() && newY < gridMap[0].size() && gridMap[newX][newY].traversable) {
                 neighbors.push_back(&gridMap[newX][newY]);
             }
         }
@@ -468,23 +464,17 @@ namespace Navigation_Functions{
         return neighbors;
     }
 
-    vector<GridNode*> findPathAStar(vector<vector<GridNode>>& gridMap, GridNode& start, GridNode& goal) {
-        vector<GridNode*> path;
-        set<pair<int, int>> visited;
+    // Breadth-first search
+    std::vector<GridNode*> bfs(const std::vector<std::vector<GridNode>>& gridMap, const GridNode& start, const GridNode& goal) {
+        std::queue<GridNode*> toVisit;
+        std::vector<GridNode*> path;
 
-        cout<<"B1"<<endl;
-        // Priority queue for open set, ordered by f = g + h (cost + heuristic)
-        priority_queue<pair<int, GridNode*>> openSet;
+        // Start with the initial node
+        toVisit.push(&start);
 
-        // Initialize the start node
-        start.h = heuristic(start, goal);
-        openSet.push({start.g + start.h, &start});
-
-        cout<<"B2"<<endl;
-
-        while (!openSet.empty()) {
-            GridNode* current = openSet.top().second;
-            openSet.pop();
+        while (!toVisit.empty()) {
+            GridNode* current = toVisit.front();
+            toVisit.pop();
 
             // Check if the current node is the goal
             if (current->x == goal.x && current->y == goal.y) {
@@ -493,32 +483,22 @@ namespace Navigation_Functions{
                     path.push_back(current);
                     current = current->parent;
                 }
-                reverse(path.begin(), path.end());
-                return path; // Goal found, return the path
+                path.push_back(&start); // Add the start node to the path
+                std::reverse(path.begin(), path.end()); // Reverse to get the path from start to goal
+                return path;
             }
 
-            // Convert grid coordinates to a pair for tracking visited nodes
-            pair<int, int> nodeCoordinates(current->x, current->y);
+            // Mark the current node as visited
+            current->traversable = false;
 
-            if (visited.count(nodeCoordinates) > 0) {
-                continue; // Skip visited nodes
-            }
+            // Find the neighbors of the current node
+            std::vector<GridNode*> neighbors = findNeighbours(*current, gridMap);
 
-            visited.insert(nodeCoordinates);
-
-            cout<<"B5"<<endl;
-
-            vector<GridNode*> neighbors = findNeighboursAStar(*current, gridMap);
+            // Enqueue unvisited neighbors
             for (GridNode* neighbor : neighbors) {
-                if (!visited.count({neighbor->x, neighbor->y})) {
-                    int tentativeG = current->g + 1; // Assuming a cost of 1 to move to a neighbor
-
-                    if (tentativeG < neighbor->g || neighbor->parent == nullptr) {
-                        neighbor->parent = current;
-                        neighbor->g = tentativeG;
-                        neighbor->h = heuristic(*neighbor, goal);
-                        openSet.push({neighbor->g + neighbor->h, neighbor});
-                    }
+                if (neighbor->traversable) {
+                    neighbor->parent = current;
+                    toVisit.push(neighbor);
                 }
             }
         }
