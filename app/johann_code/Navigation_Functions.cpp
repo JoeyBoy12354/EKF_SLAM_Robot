@@ -460,7 +460,7 @@ namespace Navigation_Functions{
 
     vector<GridNode*> findPathAStar(vector<vector<GridNode>>& gridMap, GridNode& start, GridNode& goal) {
         vector<GridNode*> path;
-        std::set<std::pair<int, int>> visited;
+        set<pair<int, int>> visited;
 
         cout<<"B1"<<endl;
         // Priority queue for open set, ordered by f = g + h (cost + heuristic)
