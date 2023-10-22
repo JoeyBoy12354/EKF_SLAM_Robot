@@ -175,7 +175,7 @@ namespace Mapping_Functions{
     }
 
     void gridDataAssosciationMoveSimple(vector<vector<GridPoint>>& gridNew, Matrix<float, dim, 1> State){
-        float dist_thresh= grid_xstep;//If points are less than Xmm from position  then set trav=true.
+        float dist_thresh= grid_xstep/2;//If points are less than Xmm from position  then set trav=true.
         GridPoint Robot;
         Robot.x = State(0);
         Robot.y = State(1);
@@ -396,42 +396,18 @@ namespace Mapping_Functions{
         
     }
 
-
-    // void nodeMap(vector<vector<GridPoint>> gridMap,GridPoint root, float distanceThres){
-    //     //Go through each point and the nearest +-y,+-x should be added as possible directions
-    //     //We must also consider that a point does not have such a thing with distanceThres
-    //     for(int i=0;i<gridMap.size();i++){
-    //         for(int j =0;j<gridMap[i].size();j++)
-    //             NodePoint curr;
-    //             curr.x = gridMap[i][j].x;
-    //             curr.y = gridMap[i][j].y;
-
-    //             float min_pos_x = 10000;
-    //             float min_neg_x = 10000;
-    //             float min_pos_y = 10000;
-    //             float min_neg_y = 10000;
-
-    //             for(int k=0;k<gridMap.size();k++){
-    //                 for(int z=0;z<gridMap[i].size();k++){
-    //                     NodePoint next;
-    //                     next.x = gridMap[i][j].x;
-    //                     next.y = gridMap[i][j].y;
-                        
-    //                     float dist = pointDistanceNode(curr,next);
-    //                     if(dist<distanceThresh){
-    //                         //smallest x_change
-    //                         float dist_x_curr = curr.left.x - curr.x;
-    //                         float dist_x_next = next.x - curr.x;
-    //                         if(dist_x_curr > dist_x_next){
-    //                             curr.left = next;
-
-    //                         }
-    //                     }
-    //                 }
-    //             }
-
-    //     }
-    // }
-    
+    //This function will fill the map with non-traversable points
+    void mapConverter(vector<vector<GridPoint>> gridOld, vector<vector<GridNode>>& gridNew){
+        for(int i =0;i<gridOld.size();i++){
+            vector<GridNode> nodeVector;
+            for(int j =0;j<gridOld[i].size();j++){
+                GridNode node;
+                node.x = gridOld.x;
+                node.y = gridOld.y;
+                nodeVector.push_back(node);
+            }
+            gridNew.push_back(nodeVector);
+        }
+    }
 
 }

@@ -853,7 +853,7 @@ void testRun(){
     ekf.State(1) = 900;
     ekf.State(2) = 0;
 
-    postMapMovement(ekf.State);
+    postMapMovement2(ekf.State);
 
     
     

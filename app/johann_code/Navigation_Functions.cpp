@@ -196,7 +196,8 @@ namespace Navigation_Functions{
         return;
     }
 
-    vector<GridPoint> findNeighbours(vector<vector<GridPoint>> gridMap, GridPoint point, float defaultVal){
+    vector<GridPoint> findNeighbours(vector<vector<GridPoint>> gridMap, GridPoint point, float defaultVal,vector<CarPoint>& indexes){
+        //Initialize Neighbours
         GridPoint UP;
         UP.x = defaultVal;
         UP.y = defaultVal;
@@ -219,23 +220,33 @@ namespace Navigation_Functions{
         neighbours.push_back(LEFT);
         neighbours.push_back(RIGHT);
 
+        //Initialize indexes
+        
+
         for(int i =0;i<gridMap.size();i++){
             for(int j =0;j<gridMap[i].size();j++){
+                CarPoint index;
+                index.x = i;
+                index.y = j;
                 
                 // cout<<"x: "<<gridMap[i][j].x<<", "<<point.x<<" = "<<gridMap[i][j].x - point.x<<endl;
                 // cout<<"y: "<<gridMap[i][j].y<<", "<<point.y<<" = "<<gridMap[i][j].y - point.y<<endl;
                 //left from point
                 if(gridMap[i][j].x - point.x == grid_xstep && gridMap[i][j].y - point.y == 0){
                     neighbours[2] = gridMap[i][j];
+                    indexes[2] = index;
                 }//right from point
                 else if(gridMap[i][j].x - point.x == -grid_xstep && gridMap[i][j].y - point.y == 0){
                     neighbours[3] = gridMap[i][j];
+                    indexes[3] = index;
                 }//up from point
                 else if(gridMap[i][j].x - point.x == 0 && gridMap[i][j].y - point.y == grid_ystep){
                     neighbours[0] = gridMap[i][j];
+                    indexes[0] = index;
                 }//down from point
                 else if(gridMap[i][j].x - point.x == 0 && gridMap[i][j].y - point.y == -grid_ystep){
                     neighbours[1] = gridMap[i][j];
+                    indexes[1] = index;
                 }
 
             }
@@ -278,10 +289,11 @@ namespace Navigation_Functions{
         path.push_back(current);
 
         int count = 0;
-        while(search && count<6){
+        while(search){
             
             cout<<"\nCurrent = "<<current<<endl;
-            vector<GridPoint> neighbours = findNeighbours(gridMap,current,defaultVal);
+            vector<CarPoint> indexes{{0,0},{0,0},{0,0},{0,0}};
+            vector<GridPoint> neighbours = findNeighbours(gridMap,current,defaultVal,indexes);
             //Work on minimizing delta first
             cout<<"neigh = ";
             for(int i =0;i<4;i++){
@@ -298,20 +310,24 @@ namespace Navigation_Functions{
                     //Should I go up?
                     if(goal.y - neighbours[0].y >=0 && neighbours[0].x != defaultVal && neighbours[0].y != defaultVal){
                         path.push_back(neighbours[0]);
+                        gridMap[indexes[0].x][indexes[0].y].trav = true;
                     }
                     //Should I go down?
                     else if(goal.y - neighbours[1].y >=0 && neighbours[1].x != defaultVal && neighbours[1].y != defaultVal){
                         path.push_back(neighbours[1]);
+                        gridMap[indexes[1].x][indexes[1].y].trav = true;
                     }
                 }
                 else if(goal.x - current.x != 0 ){
                     //Should I go left?
                     if(goal.x - neighbours[2].x >=0 && neighbours[2].x != defaultVal && neighbours[2].y != defaultVal){
                         path.push_back(neighbours[2]);
+                        gridMap[indexes[2].x][indexes[2].y].trav = true;
                     }
                     //Should I go right?
                     else if(goal.x - neighbours[3].x >=0 && neighbours[3].x != defaultVal && neighbours[3].y != defaultVal){
                         path.push_back(neighbours[3]);
+                        gridMap[indexes[3].x][indexes[3].y].trav = true;
                     }
                 }
                 else{
@@ -319,8 +335,6 @@ namespace Navigation_Functions{
                 }
 
                 cout<<"Point added: "<<path[path.size() - 1].x<<", "<<path[path.size() - 1].y<<endl;
-
-                count=count+1;
                 current = path[path.size()-1];
             }
             
@@ -377,7 +391,120 @@ namespace Navigation_Functions{
 
     }
 
+    
+
+    void postMapMovement2(MatrixXf State){
+
+        GridPoint myRobot;
+        myRobot.x=State(0);
+        myRobot.y=State(1);
+        myRobot.trav=false;
+
+        GridPoint current;
+        float min_distance = 10000000;
+
+        //Transform current position to a gridPoint
+        for(int i =0;i<gridMap.size();i++){
+            for(int j =0;j<gridMap[i].size();j++){
+                float dist = gridPointDistance(gridMap[i][j],myRobot);
+                if(min_distance>dist){
+                    current = gridMap[i][j];
+                    min_distance = dist;
+                }
+            }
+        }
+
+        GridNode start(curret.x, current.y);
+        GridNode goal(4, 4);
+
+        vector<vector<GridPoint>> gridMap;
+        readGridFromCSV(gridMap);
+
+        vector<vector<GridNode>>& gridNew;
+        mapConverter(gridMap, gridNew);
+
+        findPathAStar(gridNew,start,goal);
 
 
+
+
+    }
+
+    // Define a function to compute the heuristic (Manhattan distance in this case)
+    int heuristic(const GridNode& a, const GridNode& b) {
+        return abs(a.x - b.x) + abs(a.y - b.y);
+    }
+
+    // Define a function to find the neighbors of a grid point
+    vector<GridNode*> findNeighborsAStar(GridNode& current, const vector<vector<GridNode>>& gridMap) {
+        vector<GridNode*> neighbors;
+
+        // Define neighbor offsets (up, down, left, right)
+        int dx[] = {0, 0, -1, 1};
+        int dy[] = {-1, 1, 0, 0};
+
+        for (int i = 0; i < 4; ++i) {
+            int newX = current.x + dx[i];
+            int newY = current.y + dy[i];
+
+            if (newX >= 0 && newY >= 0 && newX < gridMap.size() && newY < gridMap[0].size()) {
+                neighbors.push_back(&gridMap[newX][newY]);
+            }
+        }
+
+        return neighbors;
+    }
+
+    // Define a function to run the A* algorithm
+    vector<GridNode*> findPathAStar(vector<vector<GridNode>>& gridMap, GridNode& start, GridNode& goal) {
+        vector<GridNode*> path;
+        vector<vector<bool>> visited(gridMap.size(), vector<bool>(gridMap[0].size(), false));
+
+        // Priority queue for open set, ordered by f = g + h (cost + heuristic)
+        priority_queue<pair<int, GridNode*>> openSet;
+
+        // Initialize the start node
+        start.h = heuristic(start, goal);
+        openSet.push({start.g + start.h, &start});
+
+        while (!openSet.empty()) {
+            GridNode* current = openSet.top().second;
+            openSet.pop();
+
+            // Goal reached
+            if (current->x == goal.x && current->y == goal.y) {
+                // Reconstruct the path
+                while (current->parent != nullptr) {
+                    path.push_back(current);
+                    current = current->parent;
+                }
+                reverse(path.begin(), path.end()); // Reverse to get the path from start to goal
+                return path;
+            }
+
+            if (visited[current->x][current->y]) {
+                continue; // Skip visited nodes
+            }
+
+            visited[current->x][current->y] = true;
+
+            vector<GridNode*> neighbors = findNeighbors(*current, gridMap);
+            for (GridNode* neighbor : neighbors) {
+                if (!visited[neighbor->x][neighbor->y]) {
+                    int tentativeG = current->g + 1; // Assuming a cost of 1 to move to a neighbor
+
+                    if (tentativeG < neighbor->g || neighbor->parent == nullptr) {
+                        neighbor->parent = current;
+                        neighbor->g = tentativeG;
+                        neighbor->h = heuristic(*neighbor, goal);
+                        openSet.push({neighbor->g + neighbor->h, neighbor});
+                    }
+                }
+            }
+        }
+
+        // No path found
+        return path;
+    }
 
 }

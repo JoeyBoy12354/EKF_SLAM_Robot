@@ -15,6 +15,9 @@
 #include <numeric>
 #include <algorithm>
 
+
+#include <queue>
+
 //#include <unistd.h >
 
 
@@ -78,7 +81,7 @@ struct CornerPoint {
 struct GridPoint {
     double x;
     double y;
-    bool trav = false;
+    bool trav = false;//Has this point been traversed
 
     bool operator==(const GridPoint& other) const {
         return x == other.x && y == other.y && trav == other.trav;
@@ -88,6 +91,18 @@ struct GridPoint {
         os << "(" << point.x << "," << point.y << ") " << point.trav;
         return os;
     }
+};
+
+struct GridNode {
+    int x;
+    int y;
+    bool traversed; // Indicates if the point has been traversed
+    int g; // Cost from the start node to this node
+    int h; // Heuristic (estimated) cost from this node to the goal
+    GridNode* parent; // Pointer to the parent node
+
+    // Constructor for initialization
+    GridNode(int x, int y) : x(x), y(y), traversed(false), g(0), h(0), parent(nullptr) {}
 };
 
 // struct NodePoint {
@@ -238,6 +253,8 @@ namespace Mapping_Functions{
     void gridDataAssosciationMap(vector<vector<GridPoint>> gridOld, vector<vector<GridPoint>>& gridNew);
     bool gridDotBoundCheck(vector<CarPoint> searchMap, GridPoint point,float distThresh, vector<float> bounds);
     void gridMakeDots(vector<CarPoint> mapdata, vector<vector<GridPoint>>& points);
+
+    void mapConverter(vector<vector<GridPoint>> gridOld, vector<vector<GridNode>>& gridNew);
 }
 
 namespace Navigation_Functions{
@@ -255,6 +272,12 @@ namespace Navigation_Functions{
     vector<GridPoint> pathFinder(vector<vector<GridPoint>> gridMap, MatrixXf State,GridPoint goal);
     vector<GridPoint> findNeighbours(vector<vector<GridPoint>> gridMap, GridPoint point, float defaultVal);
     void postMapMovement(MatrixXf State);
+
+    //Navi2
+    void postMapMovement2(MatrixXf State);
+    int heuristic(const GridNode& a, const GridNode& b);
+    vector<GridNode*> findNeighborsAStar(GridNode& current, const vector<vector<GridNode>>& gridMap);
+    vector<GridNode*> findPathAStar(vector<vector<GridNode>>& gridMap, GridNode& start, GridNode& goal);
 }
 
 class ExtendedKalmanFilter {
