@@ -269,12 +269,12 @@ namespace Navigation_Functions{
 
     //PostMap
     vector<GridPoint> pathFinder(vector<vector<GridPoint>> gridMap, MatrixXf State,GridPoint goal);
-    vector<GridPoint> findNeighbours(vector<vector<GridPoint>> gridMap, GridPoint point, float defaultVal);
+    vector<GridPoint> findNeighbours(vector<vector<GridPoint>> gridMap, GridPoint point, float defaultVal,vector<CarPoint>& indexes);
     void postMapMovement(MatrixXf State);
 
     //Navi2
     void postMapMovement2(MatrixXf State);
-    vector<GridNode*> findNeighboursBFS(GridNode& current, const vector<vector<GridNode>>& gridMap);
+    vector<GridNode*> findNeighboursBFS(const GridNode& node, const std::vector<std::vector<GridNode>>& gridMap);
     vector<GridNode*> bfs(const std::vector<std::vector<GridNode>>& gridMap, const GridNode& start, const GridNode& goal);
 }
 
