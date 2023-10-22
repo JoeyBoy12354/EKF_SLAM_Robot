@@ -145,6 +145,8 @@ namespace Navigation_Functions{
                 }
             }
 
+            cout<<"ClosestPoint = "<<closestPoint<<endl;
+
             //Update Path to get There
             path = pathFinder(State,closestPoint);
             closestPoint = path[0];

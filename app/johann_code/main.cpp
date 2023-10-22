@@ -746,6 +746,7 @@ void testRun(){
         cout<<"\n i = "<<count<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
         fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
+        firstRun = false;
     }
     finalRun = true;
     fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
