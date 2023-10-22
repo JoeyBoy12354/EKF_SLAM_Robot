@@ -425,7 +425,7 @@ namespace Navigation_Functions{
 
         vector<vector<GridNode>> gridNew;
         mapConverter(gridMap, gridNew);
-        cout<<gridNew.size()<<endl;
+        cout<<gridNew.size()<<gridNew[0].size()<<endl;
 
         findPathAStar(gridNew,start,goal);
 
@@ -463,6 +463,7 @@ namespace Navigation_Functions{
         vector<GridNode*> path;
         vector<vector<bool>> visited(gridMap.size(), vector<bool>(gridMap[0].size(), false));
 
+        cout<<"B1"<<endl;
         // Priority queue for open set, ordered by f = g + h (cost + heuristic)
         priority_queue<pair<int, GridNode*>> openSet;
 
@@ -470,7 +471,11 @@ namespace Navigation_Functions{
         start.h = heuristic(start, goal);
         openSet.push({start.g + start.h, &start});
 
+        cout<<"B2"<<endl;
+
         while (!openSet.empty()) {
+
+            cout<<"B3"<<endl;
             GridNode* current = openSet.top().second;
             openSet.pop();
 
@@ -485,9 +490,13 @@ namespace Navigation_Functions{
                 return path;
             }
 
+            cout<<"B4"<<endl;
+
             if (visited[current->x][current->y]) {
                 continue; // Skip visited nodes
             }
+
+            cout<<"B5"<<endl;
 
             visited[current->x][current->y] = true;
 
