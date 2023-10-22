@@ -109,9 +109,11 @@ namespace Mapping_Functions{
             gridDataAssosciationMap(gridOld,gridNew);
             //gridDataAssosciationMove(gridNew,State);
             gridDataAssosciationMoveSimple(gridNew,State);
-        }else{
-            gridDataAssosciationMoveSimple(gridNew,State);
         }
+        
+        // else{
+        //     gridDataAssosciationMoveSimple(gridNew,State);
+        // }
 
         saveGridToCSV(gridNew);
         cout<<"GRID:SAVED TO CSV"<<endl;
