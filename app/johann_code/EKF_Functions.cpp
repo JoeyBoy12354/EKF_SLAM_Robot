@@ -150,7 +150,7 @@ void ExtendedKalmanFilter::updateMotion() {
 
 
 
-
+    cout<<"EKF UPDATE MOTION FOR "<<distance<<"mm and "<<w*180/PI<<endl;
 
 
     //Johann Old code before Atsi sims
