@@ -748,7 +748,7 @@ void testRun(){
         fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
     }
     finalRun = true;
-    fullRun2(ekf,mapped,home,firstRun,finalRun,path);
+    fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
         
 
     cout<<"Fully Mapped Room"<<endl;
@@ -761,7 +761,7 @@ void testRun(){
         fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
     }
     finalRun = true;
-    fullRun2(ekf,mapped,home,firstRun,finalRun,path);
+    fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
 
     cout<<"I am Home"<<endl;
 
