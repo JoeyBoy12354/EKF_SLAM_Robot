@@ -81,4 +81,6 @@ def writeOdometry(distance):
 
 wiringpi.pinMode(trigPin1, 1)       # Set pin to 1 ( OUTPUT )
 wiringpi.pinMode(echoPin1, 0)       # Set pin to 0 ( INPUT )
-runSonar()
+wiringpi.pinMode(trigPin2, 1)       # Set pin to 1 ( OUTPUT )
+wiringpi.pinMode(echoPin2, 0)       # Set pin to 0 ( INPUT )
+#runSonar()
