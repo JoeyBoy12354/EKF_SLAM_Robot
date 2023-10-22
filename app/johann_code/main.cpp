@@ -743,7 +743,7 @@ void testRun(){
 
     calibrateMotors();
     int count = 0;
-    while(mapped == false && count<5){
+    while(mapped == false){
         cout<<"\n i = "<<count<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
         fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
