@@ -404,7 +404,7 @@ namespace Navigation_Functions{
             cout << "No Shortened path found." << endl;
         } else {
             cout << "Shortened Path: ";
-            for (int i =0;i<pathCartesian;i++) {
+            for (int i =0;i<pathCartesian.size();i++) {
                 cout << pathCartesian[i];
             }
             cout << endl;
