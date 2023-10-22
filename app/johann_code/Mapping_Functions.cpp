@@ -197,7 +197,7 @@ namespace Mapping_Functions{
             for(int j =0;j<gridNew[i].size();j++){
                 if(gridPointDistance(gridNew[i][j],Robot)<=dist_thresh){
                     gridNew[i][j].trav = true;
-                    cout<<"Traversed = "<<gridNew[i][j]<<endl;
+                    cout<<" Traversed = "<<gridNew[i][j]<<endl;
                 }
             }
         }

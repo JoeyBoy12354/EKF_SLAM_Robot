@@ -749,8 +749,10 @@ void testRun(){
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
         fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
         firstRun = false;
+        count = count+1;
     }
-
+    
+    
     cout<<"POST LOOP RUN"<<endl;
     finalRun = true;
     fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);

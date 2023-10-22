@@ -115,7 +115,7 @@ namespace Navigation_Functions{
 
 
     bool mapMovement(MatrixXf State, vector<vector<GridPoint>> gridMap, vector<CarPoint>& path){
-        cout<<"In pre-map movement mapped = "<<endl;
+        cout<<"In pre-map movement"<<endl;
         //take grid map
         bool mapped = true;
         float smallDistance = 10000000;
@@ -146,7 +146,7 @@ namespace Navigation_Functions{
             }
 
             cout<<"ClosestPoint = "<<closestPoint<<endl;
-            cout<<"mapped = "<<mapped;
+            cout<<"mapped = "<<mapped<<endl;
 
             //Update Path to get There
             path = pathFinder(State,closestPoint);
@@ -158,6 +158,7 @@ namespace Navigation_Functions{
         //Path still exists
         else{
             closestPoint = path[0];
+            cout<<"Follow Path"<<closestPoint<<endl;
             //Remove this element from the path
             path.erase(path.begin());
         }
