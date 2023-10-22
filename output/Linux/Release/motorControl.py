@@ -112,7 +112,7 @@ def avoidanceForward(distance):
     leftSonarDist = sonarControl.runSonar(True)
     shortenedDist = distance
 
-    print("\n LEFT = ",leftSonarDist," RIGHT = ",rightSonarDist)
+    //print("LEFT = ",leftSonarDist," RIGHT = ",rightSonarDist)
 
     if((rightSonarDist - distance)<turnableDistance or (leftSonarDist - distance)<turnableDistance):
         print("left or right or both are too close to obstacle; LEFT = ",leftSonarDist," RIGHT = ",rightSonarDist)
@@ -190,7 +190,7 @@ def motorControl_wThread(theta,distance):
     RNoRot=0
 
     #Check for turn avoidance
-    reverseDistance = avoidanceTurn(angle)
+    reverseDistance = avoidanceTurn(theta)
 
     #Do turn
     print("MC:TURN: ",theta*180/math.pi," deg")
