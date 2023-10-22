@@ -47,7 +47,20 @@ timeOffR = 0.001
 
 
 
+def avoidance():
+    leftSonarDist = sonarControl.runSonar(True)
+    rightSonarDist = sonarControl.runSonar(False)
 
+    if(leftSonarDist<R/2 and rightSonarDist>R/2):
+        print("left Too Close")
+    elif(rightSonarDist<R/2 and leftSonarDist>R/2):
+        print("right Too Close")
+    elif(rightSonarDist<R/2 and leftSonarDist<R/2):
+        print("both Too Close")
+    else:
+        print("in The Clear")
+    
+    return
 
 
 #MOTOR THREADS
@@ -110,8 +123,9 @@ def motorControl_wThread(theta,distance):
     LNoRot=0
     RNoRot=0
 
-    #print("CHECK MOVEMENT SPACE")
-    # if(sonarControl.runSonar()<R/2):
+    # print("CHECK MOVEMENT SPACE")
+    # avoidance()
+    # if(sonarControl.runSonar(True)<R/2):
     #     #print("REVERSE!")
     #     speedControl(0,100,False)
     #     #update odometry accordinglty NB!!!!!
@@ -120,7 +134,6 @@ def motorControl_wThread(theta,distance):
 
     #Do turn
     print("MC:TURN: ",theta*180/math.pi," deg")
-    #theta = math.pi/2
     LNoRot,RNoRot  = speedControl(theta,0,True)
 
     # theta = -math.pi/2
@@ -314,145 +327,6 @@ def getDist(LNoRot,RNoRot):
     #print("DistCheck = left - right = ",distL," - ",distR," = ",distL-distR," (should be 0)")
 
     return distL
-
-
-
-#AVOIDANCE CODE
-#OLD AND NOT USED
-def Avoidance(avoidDistL,avoidDistR):
-    #print("\nOBSTACLE DETECTED Turn left!")
-    turnLeft(math.pi/2)
-
-    #Check left
-    obs_distance = sonarControl.runSonar()
-    if(obs_distance<avoidDistL):
-        #print("OBSTACLE DETECTED IN AVOID PATH Turn right!")
-        turnRight(math.pi/2)
-
-        #Check Right
-        obs_distance = sonarControl.runSonar()
-        if(obs_distance<avoidDistR):
-            print("MC: OBSTACLE DETECTED AVOID, I AM BOXED IN !")
-        
-        # GO FORWARD AND REPOSITION
-        else:
-            forward(avoidDistR)
-            turnLeft(math.pi/2)#Face Back (Turn Left)
-            avoidDistL = avoidDistL + avoidDistR
-
-    # GO FORWARD AND REPOSITION
-    else:
-        forward(avoidDistR)
-        turnRight(math.pi/2)#Face Back (Turn Right)
-        avoidDistR = avoidDistR + avoidDistL
-
-    return avoidDistL,avoidDistR
-
-def checkAvoidance_wThread(distance):
-    print("\n MC: in checkAvoidance")
-
-    sonarError = 20 #how much error the sonar may have [mm]
-
-
-    totalAngle = 0
-
-    while(totalAngle<clockAngleInit):
-        
-        #Turn Left
-        speedControl(clockAngleStep,0,True)
-
-        #print("checkA: turnLeft distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
-
-        totalAngle += clockAngleStep
-        if(sonarControl.runSonar() <abs((R/2)*math.cos(math.pi - totalAngle)) + sonarError):
-            print("MC: RETURN TRUE distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)))
-            return True
-    
-    
-    speedControl(totalAngle,0,False)
-    #print("checkA: revLeft distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
-    totalAngle = 0
-
-    while(totalAngle<clockAngleInit):
-        
-        #Turn Right
-        speedControl(-1*clockAngleStep,0,True)
-        totalAngle += clockAngleStep
-
-        #print("checkA: turnRight distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
-
-        if(sonarControl.runSonar() < abs((R/2)*math.cos(math.pi - totalAngle)) + sonarError):
-            print("MC:  RETURN TRUE distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)))
-            return True
-    
-    
-    speedControl(-1*totalAngle,0,False)
-
-    #print("checkA: revRight distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
-
-    totalAngle = 0
-    
-    return False
-
-def clockAvoidance_wThread(distance):
-    print("\nMC:  in clock avoidance")
-
-    
-
-    sonarError = 20 #how much error the sonar may have [mm]
-    totalAngle = 0
-
-    speedControl(0,R/2+sonarError,False)
-
-    #Turn Left
-    print("MC: CA: turnL distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
-    speedControl(clockAngleInit,0,True)
-    totalAngle = clockAngleInit
-
-    if(sonarControl.runSonar() < abs((R/2)*math.cos(math.pi - totalAngle)) + sonarError):
-        print("MC:  CA: revL,turnR distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
-        #Turn Right
-
-        speedControl(clockAngleInit,0,False)
-        speedControl(-1*clockAngleInit,0,True)
-        totalAngle = -clockAngleInit
-
-        if(sonarControl.runSonar() < abs((R/2)*math.cos(math.pi - abs(totalAngle))) + sonarError):
-            print("MC: CA: turnR distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
-
-            #Turn Right
-
-            speedControl(-1*clockAngleInit,0,True)
-            totalAngle = -clockAngleInit*2
-            
-            if(sonarControl.runSonar() < abs((R/2)*math.cos(math.pi - abs(totalAngle))) + sonarError):
-                print("MC: CA: revR*2,turnL*2 distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
-    
-                #Turn Left
-
-                speedControl(-2*clockAngleInit,0,False)
-                speedControl(clockAngleInit,0,True)
-
-                totalAngle = clockAngleInit*2
-
-                if(sonarControl.runSonar()<abs((R/2)*math.cos(math.pi - totalAngle)) + sonarError):
-                    #total failure to find alternative route
-                    print("\nMC:  FAILURE TO FIND ROUTE!\n distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
-                    distance = 0
-
-    
-    return totalAngle,distance
-
-def sonarScan(maxDist):
-    global sonarFlag
-    global sonarOn
-    while(sonarOn==True):
-        if(sonarControl.runSonar() < maxDist):
-            sonarFlag = True
-        else:
-            sonarFlag = False
-
-        print("MC: ",sonarControl.runSonar())
 
 
 #CALIBRATION CODE
@@ -733,7 +607,9 @@ def testSpeedControl(angle,distance):
     # print("Forward for ",distance)
     # speedControl(0,distance,True)
 
-
+def testSonar():
+    while(True):
+        avoidance()
     
     
 wiringpi.pinMode(LSS_Pin, 0)       # Set pin to 0 ( INPUT )
@@ -751,21 +627,171 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 
 
 print("MC started")
+testSonar()
 
-if(readState() == True):
-    motorCalibrate()
-else:
-    angle,distance = readInstructions()
-    timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
-    # print("MC: time Left = ",timeOnL,"s ",timeOffL,"s")
-    # print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
+# if(readState() == True):
+#     motorCalibrate()
+# else:
+#     angle,distance = readInstructions()
+#     timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
+#     # print("MC: time Left = ",timeOnL,"s ",timeOffL,"s")
+#     # print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
 
 
-    angle,distance = motorControl_wThread(angle,distance)
-    print("MC: Angle turned = ",angle*180/math.pi)
-    print("MC: distance moved = ",distance)
-    writeOdometry(angle,distance)
+#     angle,distance = motorControl_wThread(angle,distance)
+#     print("MC: Angle turned = ",angle*180/math.pi)
+#     print("MC: distance moved = ",distance)
+#     writeOdometry(angle,distance)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+#AVOIDANCE CODE
+#OLD AND NOT USED
+# def Avoidance(avoidDistL,avoidDistR):
+#     #print("\nOBSTACLE DETECTED Turn left!")
+#     turnLeft(math.pi/2)
+
+#     #Check left
+#     obs_distance = sonarControl.runSonar()
+#     if(obs_distance<avoidDistL):
+#         #print("OBSTACLE DETECTED IN AVOID PATH Turn right!")
+#         turnRight(math.pi/2)
+
+#         #Check Right
+#         obs_distance = sonarControl.runSonar()
+#         if(obs_distance<avoidDistR):
+#             print("MC: OBSTACLE DETECTED AVOID, I AM BOXED IN !")
+        
+#         # GO FORWARD AND REPOSITION
+#         else:
+#             forward(avoidDistR)
+#             turnLeft(math.pi/2)#Face Back (Turn Left)
+#             avoidDistL = avoidDistL + avoidDistR
+
+#     # GO FORWARD AND REPOSITION
+#     else:
+#         forward(avoidDistR)
+#         turnRight(math.pi/2)#Face Back (Turn Right)
+#         avoidDistR = avoidDistR + avoidDistL
+
+#     return avoidDistL,avoidDistR
+
+# def checkAvoidance_wThread(distance):
+#     print("\n MC: in checkAvoidance")
+
+#     sonarError = 20 #how much error the sonar may have [mm]
+
+
+#     totalAngle = 0
+
+#     while(totalAngle<clockAngleInit):
+        
+#         #Turn Left
+#         speedControl(clockAngleStep,0,True)
+
+#         #print("checkA: turnLeft distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
+
+#         totalAngle += clockAngleStep
+#         if(sonarControl.runSonar() <abs((R/2)*math.cos(math.pi - totalAngle)) + sonarError):
+#             print("MC: RETURN TRUE distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)))
+#             return True
+    
+    
+#     speedControl(totalAngle,0,False)
+#     #print("checkA: revLeft distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
+#     totalAngle = 0
+
+#     while(totalAngle<clockAngleInit):
+        
+#         #Turn Right
+#         speedControl(-1*clockAngleStep,0,True)
+#         totalAngle += clockAngleStep
+
+#         #print("checkA: turnRight distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
+
+#         if(sonarControl.runSonar() < abs((R/2)*math.cos(math.pi - totalAngle)) + sonarError):
+#             print("MC:  RETURN TRUE distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)))
+#             return True
+    
+    
+#     speedControl(-1*totalAngle,0,False)
+
+#     #print("checkA: revRight distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
+
+#     totalAngle = 0
+    
+#     return False
+
+# def clockAvoidance_wThread(distance):
+#     print("\nMC:  in clock avoidance")
+
+    
+
+#     sonarError = 20 #how much error the sonar may have [mm]
+#     totalAngle = 0
+
+#     speedControl(0,R/2+sonarError,False)
+
+#     #Turn Left
+#     print("MC: CA: turnL distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
+#     speedControl(clockAngleInit,0,True)
+#     totalAngle = clockAngleInit
+
+#     if(sonarControl.runSonar() < abs((R/2)*math.cos(math.pi - totalAngle)) + sonarError):
+#         print("MC:  CA: revL,turnR distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
+#         #Turn Right
+
+#         speedControl(clockAngleInit,0,False)
+#         speedControl(-1*clockAngleInit,0,True)
+#         totalAngle = -clockAngleInit
+
+#         if(sonarControl.runSonar() < abs((R/2)*math.cos(math.pi - abs(totalAngle))) + sonarError):
+#             print("MC: CA: turnR distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
+
+#             #Turn Right
+
+#             speedControl(-1*clockAngleInit,0,True)
+#             totalAngle = -clockAngleInit*2
+            
+#             if(sonarControl.runSonar() < abs((R/2)*math.cos(math.pi - abs(totalAngle))) + sonarError):
+#                 print("MC: CA: revR*2,turnL*2 distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
+    
+#                 #Turn Left
+
+#                 speedControl(-2*clockAngleInit,0,False)
+#                 speedControl(clockAngleInit,0,True)
+
+#                 totalAngle = clockAngleInit*2
+
+#                 if(sonarControl.runSonar()<abs((R/2)*math.cos(math.pi - totalAngle)) + sonarError):
+#                     #total failure to find alternative route
+#                     print("\nMC:  FAILURE TO FIND ROUTE!\n distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
+#                     distance = 0
+
+    
+#     return totalAngle,distance
+
+# def sonarScan(maxDist):
+#     global sonarFlag
+#     global sonarOn
+#     while(sonarOn==True):
+#         if(sonarControl.runSonar() < maxDist):
+#             sonarFlag = True
+#         else:
+#             sonarFlag = False
+
+#         print("MC: ",sonarControl.runSonar())
 
 
 

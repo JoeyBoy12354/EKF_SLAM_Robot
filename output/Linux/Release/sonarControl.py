@@ -9,11 +9,21 @@ wiringpi.wiringPiSetup()      # For sequential pin numbering
 # OR
 #wiringpi.wiringPiSetupGpio()  # For GPIO pin numbering
 
-echoPin = 23
-trigPin = 27
+#Left
+echoPin2 = 23
+trigPin2 = 27
+
+#Right
+echoPin1 = 21
+trigPin1 = 11
 
 #returns distance to obstacle in cm
-def runSonar():
+def runSonar(Left):
+    echoPin = echoPin2
+    trigPin = trigPin2
+    if(Left == True):
+        echoPin = echoPin1
+        trigPin = trigPin1
 
     #print("Ultrasonic Measurement")
 
@@ -46,11 +56,6 @@ def runSonar():
     # Distance pulse travelled in that time is time
     # multiplied by the speed of sound (cm/s) divided by 2. Then convert to mm
     distance = (elapsed * 17150) * 10
-
-    # That was the distance there and back so halve the value
-    #distance = distance / 2
-
-
     
     #Rounding
     distance = round(distance,2)
@@ -65,8 +70,6 @@ def runSonar():
     return distance
 
 def writeOdometry(distance):
-    
-
     with open('sonarCSV.csv','w') as file:
         csv_writer = csv.writer(file)
         csv_writer.writerow(str(distance))
@@ -76,6 +79,6 @@ def writeOdometry(distance):
  
 
 
-wiringpi.pinMode(trigPin, 1)       # Set pin to 1 ( OUTPUT )
-wiringpi.pinMode(echoPin, 0)       # Set pin to 0 ( INPUT )
+wiringpi.pinMode(trigPin1, 1)       # Set pin to 1 ( OUTPUT )
+wiringpi.pinMode(echoPin1, 0)       # Set pin to 0 ( INPUT )
 runSonar()

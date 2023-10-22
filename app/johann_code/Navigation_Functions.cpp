@@ -112,7 +112,6 @@ namespace Navigation_Functions{
 
     }
 
-
     bool preMapMovement(MatrixXf State, vector<vector<GridPoint>> gridMap){
         cout<<"In pre-map movement"<<endl;
         //take grid map
@@ -151,9 +150,6 @@ namespace Navigation_Functions{
 
 
     }
-
-
-
 
     //Set distance and angle to go to nearest unexplored grid point
     void updateMovement(CarPoint closestPoint,MatrixXf State){
@@ -199,7 +195,6 @@ namespace Navigation_Functions{
         
         return;
     }
-
 
     vector<GridPoint> findNeighbours(vector<vector<GridPoint>> gridMap, GridPoint point, float defaultVal){
         GridPoint UP;
@@ -382,11 +377,7 @@ namespace Navigation_Functions{
 
     }
 
-    //Note that start and goal must be gridpoints in gridmap
-    // vector<GridPoint> pathFinder(vector<vector<GridPoint>>& gridMap, const GridPoint& start, const GridPoint& goal) {
-        
-    
-    // }
+
 
 
 }
