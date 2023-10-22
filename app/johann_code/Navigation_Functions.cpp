@@ -394,31 +394,31 @@ namespace Navigation_Functions{
 
 
         //Convert Path to Cartesian Coordinates (Start at 1 cause 0 is our starting coordinate)
+        int init = 0;
         if(path.size()>1){
-            vector<CarPoint> pathCartesian;
-            for(int i =1;i<path.size();i++){
-                CarPoint newPoint(path[i]->x,path[i]->y);
-                pathCartesian.push_back(newPoint);
-            }
-
-            if(pathCartesian.empty()) {
-                cout << "No Shortened path found." << endl;
-            } else {
-                cout << "Shortened Path: ";
-                for (int i =0;i<pathCartesian.size();i++) {
-                    cout << pathCartesian[i];
-                }
-                cout << endl;
-            }
-            return pathCartesian;
-
-        }else{
-            return path;
+            init = 1;
+            
         }
+        vector<CarPoint> pathCartesian;
+        for(int i =init;i<path.size();i++){
+            CarPoint newPoint(path[i]->x,path[i]->y);
+            pathCartesian.push_back(newPoint);
+        }
+
+        if(pathCartesian.empty()) {
+            cout << "No Shortened path found." << endl;
+        } else {
+            cout << "Shortened Path: ";
+            for (int i =0;i<pathCartesian.size();i++) {
+                cout << pathCartesian[i];
+            }
+            cout << endl;
+        }
+
         
 
 
-        
+        return pathCartesian;
     }
 
 }
