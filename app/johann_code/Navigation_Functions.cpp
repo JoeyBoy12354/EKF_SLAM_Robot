@@ -495,6 +495,11 @@ namespace Navigation_Functions{
             cout<<"B4aa"<<endl;
             cout<<current->y<<endl;
             cout<<"B4a"<<endl;
+            for(int i =0;i<visited.size();i++){
+                for(int j=0;j<vistied.size();j++){
+                    cout<<i<<" "<<j<<endl;
+                }
+            }
 
             if (visited[current->x][current->y]) {
                 continue; // Skip visited nodes
