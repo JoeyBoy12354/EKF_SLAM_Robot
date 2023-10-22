@@ -394,54 +394,7 @@ namespace Navigation_Functions{
 
     
 
-    void postMapMovement2(MatrixXf State){
-
-        cout<<"A1"<<endl;
-        GridPoint myRobot;
-        myRobot.x=State(0);
-        myRobot.y=State(1);
-        myRobot.trav=false;
-
-        GridPoint current;
-        float min_distance = 10000000;
-
-        vector<vector<GridPoint>> gridMap;
-        readGridFromCSV(gridMap);
-
-        //Transform current position to a gridPoint
-        for(int i =0;i<gridMap.size();i++){
-            for(int j =0;j<gridMap[i].size();j++){
-                float dist = gridPointDistance(gridMap[i][j],myRobot);
-                if(min_distance>dist){
-                    current = gridMap[i][j];
-                    min_distance = dist;
-                }
-            }
-        }
-
-        GridNode start(current.x, current.y);
-        GridNode goal(0, 0);
-        
-
-        vector<vector<GridNode>> gridNew;
-        mapConverter(gridMap, gridNew);
-        cout<<"Grid Size: "<<gridNew.size()<<"x"<<gridNew[0].size()<<endl;
-
-        vector<GridNode*> path  = bfs(gridNew,start,goal);
-
-        if(path.empty()) {
-            cout << "No path found." << endl;
-        } else {
-            cout << "Path: ";
-            for (GridNode* point : path) {
-                cout << "(" << point->x << ", " << point->y << ") ";
-            }
-            cout << endl;
-        }
-
-
-
-    }
+    
 
     // Define a function to find the neighbors of a grid point
     std::vector<GridNode*> findNeighboursBFS(const GridNode& node, std::vector<std::vector<GridNode>>& gridMap) {
@@ -505,6 +458,55 @@ namespace Navigation_Functions{
 
         // No path found
         return path;
+    }
+
+    void postMapMovement2(MatrixXf State){
+
+        cout<<"A1"<<endl;
+        GridPoint myRobot;
+        myRobot.x=State(0);
+        myRobot.y=State(1);
+        myRobot.trav=false;
+
+        GridPoint current;
+        float min_distance = 10000000;
+
+        vector<vector<GridPoint>> gridMap;
+        readGridFromCSV(gridMap);
+
+        //Transform current position to a gridPoint
+        for(int i =0;i<gridMap.size();i++){
+            for(int j =0;j<gridMap[i].size();j++){
+                float dist = gridPointDistance(gridMap[i][j],myRobot);
+                if(min_distance>dist){
+                    current = gridMap[i][j];
+                    min_distance = dist;
+                }
+            }
+        }
+
+        GridNode start(current.x, current.y);
+        GridNode goal(0, 0);
+        
+
+        vector<vector<GridNode>> gridNew;
+        mapConverter(gridMap, gridNew);
+        cout<<"Grid Size: "<<gridNew.size()<<"x"<<gridNew[0].size()<<endl;
+
+        vector<GridNode*> path  = bfs(gridNew,start,goal);
+
+        if(path.empty()) {
+            cout << "No path found." << endl;
+        } else {
+            cout << "Path: ";
+            for (GridNode* point : path) {
+                cout << "(" << point->x << ", " << point->y << ") ";
+            }
+            cout << endl;
+        }
+
+
+
     }
 
 }
