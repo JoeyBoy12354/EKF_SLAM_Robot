@@ -416,7 +416,7 @@ namespace Navigation_Functions{
             RIGHT.y = defaultVal;
             RIGHT.trav = false;
             RIGHT.traversable = false;
-            vector<GridNode> neighbours;
+            vector<GridNode*> neighbours;
             neighbours.push_back(UP);
             neighbours.push_back(DOWN);
             neighbours.push_back(LEFT);
