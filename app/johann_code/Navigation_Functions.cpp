@@ -377,8 +377,8 @@ namespace Navigation_Functions{
         mapConverter(gridMap, gridNew);
         cout<<"Grid Size: "<<gridNew.size()<<"x"<<gridNew[0].size()<<endl;
 
-        vector<GridNode*> path;
-        //vector<GridNode*> path  = bfs(gridNew,start,goal);
+        //vector<GridNode*> path;
+        vector<GridNode*> path  = bfs(gridNew,start,goal);
 
         if(path.empty()) {
             cout << "No path found." << endl;
