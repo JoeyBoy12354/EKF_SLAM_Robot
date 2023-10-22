@@ -26,7 +26,7 @@ def runSonar(Left):
         echoPin = echoPin1
         trigPin = trigPin1
     
-    print("Things Set for ",Left," echo = ",echoPin," trig = ",trigPin)
+    print("Things Set for left =",Left," echo = ",echoPin," trig = ",trigPin)
 
     #print("Ultrasonic Measurement")
 
