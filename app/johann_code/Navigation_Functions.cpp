@@ -394,6 +394,18 @@ namespace Navigation_Functions{
             pathCartesian.push_back(newPoint);
         }
 
+        if(path.empty()) {
+            cout << "No Shortened path found." << endl;
+        } else {
+            cout << "Shortened Path: ";
+            for (GridNode* point : path) {
+                cout << "(" << point->x << ", " << point->y << ") ";
+            }
+            cout << endl;
+        }
+
+        
+
 
         return pathCartesian;
     }
