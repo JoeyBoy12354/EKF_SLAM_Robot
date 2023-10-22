@@ -19,11 +19,14 @@ trigPin1 = 11
 
 #returns distance to obstacle in cm
 def runSonar(Left):
+    print("RunSonar")
     echoPin = echoPin2
     trigPin = trigPin2
     if(Left == True):
         echoPin = echoPin1
         trigPin = trigPin1
+    
+    print("Things Set")
 
     #print("Ultrasonic Measurement")
 
@@ -43,7 +46,7 @@ def runSonar(Left):
     wiringpi.digitalWrite(trigPin, 1)#Set Low
     start = time.time()
 
-
+    print("While Start")
     while wiringpi.digitalRead(echoPin) == 0:
         start = time.time()
 
@@ -56,6 +59,8 @@ def runSonar(Left):
     # Distance pulse travelled in that time is time
     # multiplied by the speed of sound (cm/s) divided by 2. Then convert to mm
     distance = (elapsed * 17150) * 10
+
+    print("Distace = ",distance)
     
     #Rounding
     distance = round(distance,2)
