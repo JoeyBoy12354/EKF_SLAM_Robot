@@ -394,7 +394,7 @@ namespace Navigation_Functions{
 
     
 
-    vector<GridNode*> findNeighboursBFS2(vector<vector<Node>>& gridMap, GridNode& point, float defaultVal,vector<CarPoint>& indexes){
+    vector<GridNode*> findNeighboursBFS2(vector<vector<Node>>& gridMap, GridNode& point, float defaultVal){
             //Initialize Neighbours
             GridNode UP;
             UP.x = defaultVal;
@@ -427,28 +427,21 @@ namespace Navigation_Functions{
 
             for(int i =0;i<gridMap.size();i++){
                 for(int j =0;j<gridMap[i].size();j++){
-                    CarPoint index;
-                    index.x = i;
-                    index.y = j;
                     
                     // cout<<"x: "<<gridMap[i][j].x<<", "<<point.x<<" = "<<gridMap[i][j].x - point.x<<endl;
                     // cout<<"y: "<<gridMap[i][j].y<<", "<<point.y<<" = "<<gridMap[i][j].y - point.y<<endl;
                     //left from point
                     if(gridMap[i][j].x - point.x == grid_xstep && gridMap[i][j].y - point.y == 0){
                         neighbours[2] = gridMap[i][j];
-                        indexes[2] = index;
                     }//right from point
                     else if(gridMap[i][j].x - point.x == -grid_xstep && gridMap[i][j].y - point.y == 0){
                         neighbours[3] = gridMap[i][j];
-                        indexes[3] = index;
                     }//up from point
                     else if(gridMap[i][j].x - point.x == 0 && gridMap[i][j].y - point.y == grid_ystep){
                         neighbours[0] = gridMap[i][j];
-                        indexes[0] = index;
                     }//down from point
                     else if(gridMap[i][j].x - point.x == 0 && gridMap[i][j].y - point.y == -grid_ystep){
                         neighbours[1] = gridMap[i][j];
-                        indexes[1] = index;
                     }
 
                 }
