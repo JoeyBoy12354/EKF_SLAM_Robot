@@ -56,6 +56,7 @@ def avoidanceTurn(angle):
     leftSonarDist = sonarControl.runSonar(True)
 
     reverseTotal = 0
+    dist=0
     
 
     
