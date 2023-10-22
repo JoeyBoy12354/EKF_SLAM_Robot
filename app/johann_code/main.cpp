@@ -765,14 +765,15 @@ void testRun(){
     finalRun = false;
     postMap = true;
     count = 0;
+    path.clear();
     while(home == false){
         cout<<"\n i = "<<count<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
         fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
     }
 
-    ekf.distance = 0;
-    ekf.w = 0;
+    // ekf.distance = 0;
+    // ekf.w = 0;
     finalRun = true;
     fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
 
