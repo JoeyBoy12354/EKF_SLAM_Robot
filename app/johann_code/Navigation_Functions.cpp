@@ -77,9 +77,9 @@ namespace Navigation_Functions{
 
     //Perform rotation and translation of triangle state
     CarPoint triangularRepositioning(MatrixXf State, float angle){
-        cout<<"IN triangFunction "<<endl;
-        cout<<"State x = "<<State(0)<<" State y = "<<State(1)<<"State theta = "<<State(2)*180/PI<<endl;
-        cout<<"Angle = "<<angle*180/PI<<endl;
+        // cout<<"IN triangFunction "<<endl;
+        // cout<<"State x = "<<State(0)<<" State y = "<<State(1)<<"State theta = "<<State(2)*180/PI<<endl;
+        // cout<<"Angle = "<<angle*180/PI<<endl;
         vector<CarPoint> triangle_init = {{0, 0}, {-81, 71}, {-81, -71}};
         vector<CarPoint> triangle_rot = rotateTriangle(triangle_init,State(2));
         vector<CarPoint> triangle_shift = translateTriangle(triangle_rot,{State(0),State(1)});
@@ -104,10 +104,9 @@ namespace Navigation_Functions{
         C.x=A.x+(B.x-A.x)*cos(angle) - (B.y-A.y)*sin(angle);
         C.y=A.y+(B.x-A.x)*sin(angle) + (B.y-A.y)*cos(angle);
 
-        cout<<"NAVI,TRIANGLE: tri_rot = "<<triangle_rot[0]<<","<<triangle_rot[1]<<","<<triangle_rot[2]<<endl;
-        cout<<"NAVI,TRIANGLE: tri_shift = "<<triangle_shift[0]<<","<<triangle_shift[1]<<","<<triangle_shift[2]<<endl;
-
-         cout<<"NAVI,TRIANGLE around A = "<<A<<" from B = "<<B<<" resulting C "<<C<<endl;
+        // cout<<"NAVI,TRIANGLE: tri_rot = "<<triangle_rot[0]<<","<<triangle_rot[1]<<","<<triangle_rot[2]<<endl;
+        // cout<<"NAVI,TRIANGLE: tri_shift = "<<triangle_shift[0]<<","<<triangle_shift[1]<<","<<triangle_shift[2]<<endl;
+        // cout<<"NAVI,TRIANGLE around A = "<<A<<" from B = "<<B<<" resulting C "<<C<<endl;
 
         return C;
 
@@ -301,7 +300,7 @@ namespace Navigation_Functions{
 
 
     // Breadth-first search
-    std::vector<GridNode*> bfs(std::vector<std::vector<GridNode>>& gridMap, GridNode& start, GridNode& goal) {
+    vector<GridNode*> bfs(std::vector<std::vector<GridNode>>& gridMap, GridNode& start, GridNode& goal) {
         std::queue<GridNode*> toVisit;
         std::vector<GridNode*> path;
 
@@ -373,7 +372,6 @@ namespace Navigation_Functions{
     }
 
     vector<CarPoint> pathFinder(MatrixXf State,CarPoint Goal){
-
         cout<<"In PathFinder"<<endl;
         GridPoint myRobot;
         myRobot.x=State(0);
@@ -403,12 +401,8 @@ namespace Navigation_Functions{
         cout<<"Start = "<<current.x<<", "<<current.y<<endl;
         cout<<"Goal = "<<goal.x<<", "<<goal.y<<endl;
         
-
         vector<vector<GridNode>> gridNew;
         mapConverter(gridMap, gridNew);
-        cout<<"Grid Size: "<<gridNew.size()<<"x"<<gridNew[0].size()<<endl;
-
-        //vector<GridNode*> path;
         vector<GridNode*> path  = bfs(gridNew,start,goal);
 
         if(path.empty()) {

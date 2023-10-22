@@ -321,8 +321,6 @@ public:
     ExtendedKalmanFilter();
     void updateMotion();
     void updateCovarianceOfRobot();
-    void isNewLandmark();
-    void getEstimatedObservation(float deltaX, float deltaY, float q);
     void getEstimatedObservationJacobian(float deltaX, float deltaY, float q);
     void getGainMatrix();
     void updateStateOfLandmark();
