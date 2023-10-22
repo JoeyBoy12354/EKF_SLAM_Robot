@@ -750,6 +750,9 @@ void testRun(){
         firstRun = false; //DO NOT CHANGE THIS KEEP IT HERE DO NOT MOVE IT INSIDE FULLRUN OR GOD HELP ME
         count = count+1;
     }
+
+    ekf.distance = 0;
+    ekf.w = 0;
     
 
     cout<<"POST LOOP RUN"<<endl;
@@ -767,6 +770,9 @@ void testRun(){
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
         fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
     }
+
+    ekf.distance = 0;
+    ekf.w = 0;
     finalRun = true;
     fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
 

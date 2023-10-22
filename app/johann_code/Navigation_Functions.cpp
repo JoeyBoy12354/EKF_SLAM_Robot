@@ -346,15 +346,27 @@ namespace Navigation_Functions{
         return path;
     }
 
-    //This will remove long sections and also the inital value in a long path
+    //This will remove straight long sections and also the inital value in a long path
     vector<CarPoint> pathShortening(vector<CarPoint> path){
         vector<CarPoint> shortenedPath;
-        for(int i =1;i<path.size()-1;i++){
-            if(path[i].x != path[i+1].x && path[i].y == path[i+1].y){
-                shortenedPath.push_back(path[i]);
+
+        shortenedPath.push_back(path[0]); // Add the first point.
+
+        for (int i = 1; i < path.size() - 1; ++i) {
+            int dx1 = path[i].x - path[i - 1].x;
+            int dy1 = path[i].y - path[i - 1].y;
+            int dx2 = path[i + 1].x - path[i].x;
+            int dy2 = path[i + 1].y - path[i].y;
+
+            if (dx1 != dx2 || dy1 != dy2) {
+                shortenedPath.push_back(path[i]); // Add the point when there's a change in direction.
             }
         }
-        shortenedPath.push_back(path[path.size() - 1]);
+
+        shortenedPath.push_back(path.back()); // Add the last point.
+
+        //Remove the starting point because it is our current position
+        shortenedPath.erase(shortenedPath.begin());
 
         return shortenedPath;
 
