@@ -420,7 +420,7 @@ namespace Navigation_Functions{
         }
 
         GridNode start(current.x, current.y);
-        GridNode goal(4, 4);
+        GridNode goal(0, 0);
         
 
         vector<vector<GridNode>> gridNew;
@@ -498,7 +498,7 @@ namespace Navigation_Functions{
             }
 
             // Convert grid coordinates to a pair for tracking visited nodes
-            std::pair<int, int> nodeCoordinates(current->x, current->y);
+            pair<int, int> nodeCoordinates(current->x, current->y);
 
             if (visited.count(nodeCoordinates) > 0) {
                 continue; // Skip visited nodes
