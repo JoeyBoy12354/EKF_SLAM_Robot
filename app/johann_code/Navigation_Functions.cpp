@@ -356,7 +356,7 @@ namespace Navigation_Functions{
         }
         shortenedPath.push_back(path[path.size() - 1]);
 
-        return pathShortening;
+        return shortenedPath;
 
     }
 
