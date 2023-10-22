@@ -286,7 +286,7 @@ namespace Mapping_Functions{
 
 
         vector<GridPoint> yPoints;
-        GridPoint newPoint;
+        
 
 
         //Select
@@ -305,6 +305,7 @@ namespace Mapping_Functions{
             dotCheck = true;
             yPoints.clear();
             yPos = 0;
+            GridPoint newPoint;
             newPoint.x = xPos;
             newPoint.y = yPos;
             while(yPoints.size()<=vLimit && dotCheck == true){
@@ -329,6 +330,7 @@ namespace Mapping_Functions{
             yPoints.clear();
             yStep = -1*yStep;
             yPos = yStep;
+            GridPoint newPoint;
             newPoint.x = xPos;
             newPoint.y = yPos;
             while(yPoints.size()<=vLimit && dotCheck == true){
@@ -359,6 +361,7 @@ namespace Mapping_Functions{
             dotCheck = true;
             yPoints.clear();
             yPos = 0;
+            GridPoint newPoint;
             newPoint.x = xPos;
             newPoint.y = yPos;
             while(yPoints.size()<=vLimit && dotCheck == true){
@@ -379,6 +382,7 @@ namespace Mapping_Functions{
             yPoints.clear();
             yStep = -1*yStep;
             yPos = yStep;
+            GridPoint newPoint;
             newPoint.x = xPos;
             newPoint.y = yPos;
             while(yPoints.size()<=vLimit && dotCheck == true){
