@@ -64,7 +64,8 @@ def avoidanceTurn(angle):
     #Determine if we want to turn in the direction of smaller distance
 
     if(rightSonarDist<turnableDistance or leftSonarDist<turnableDistance):
-        print("left or right or both are too close to obstacle; LEFT = ",leftSonarDist," RIGHT = ",rightSonarDist)
+        print("AVOIDANCE TURN: left or right or both are too close to obstacle; LEFT = ",leftSonarDist," RIGHT = ",rightSonarDist)
+        time.sleep(60)
 
         #Right Side is closer than left
         if(rightSonarDist<leftSonarDist):
@@ -113,10 +114,11 @@ def avoidanceForward(distance):
     leftSonarDist = sonarControl.runSonar(True)
     shortenedDist = distance
 
-    #print("LEFT = ",leftSonarDist," RIGHT = ",rightSonarDist)
+    
 
     if((rightSonarDist - distance)<turnableDistance or (leftSonarDist - distance)<turnableDistance):
-        print("left or right or both are too close to obstacle; LEFT = ",leftSonarDist," RIGHT = ",rightSonarDist)
+        print("AVOIDANCE FORWARD left or right or both are too close to obstacle; LEFT = ",leftSonarDist," RIGHT = ",rightSonarDist)
+        time.sleep(60)
         if(rightSonarDist>leftSonarDist):
             shortenedDist = distance - turnableDistance + (leftSonarDist - distance)
         
