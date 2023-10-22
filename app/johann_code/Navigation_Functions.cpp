@@ -394,13 +394,7 @@ namespace Navigation_Functions{
         }
 
 
-        return pathCartesian
-
-
-
-
-
-
+        return pathCartesian;
     }
 
 }

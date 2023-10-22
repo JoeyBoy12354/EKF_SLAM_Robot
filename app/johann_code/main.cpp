@@ -766,25 +766,6 @@ void testRun(){
 
     cout<<"I am Home"<<endl;
 
-
-
-    
-    
-
-    // finalRun = 1;
-    // for(int i =0;i<2;i++){
-    //     cout<<"\n i = "<<"FINALRUN "<<i<<endl;
-    //     cout<<"------------------------------------------------------------------------------------------------------------\n\n";
-    //     //fullRun(ekf,mapped,firstRun,finalRun);
-    //     fullRun2(ekf,mapped,firstRun,finalRun);
-    //     ekf.distance = 0;
-    //     ekf.w = 0;
-    //     finalRun = 2;
-    // }
-
-    //saveStatsToCSV(ekf.stats);
-
-    
     
 }
 
