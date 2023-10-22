@@ -50,6 +50,8 @@ timeOffR = 0.001
 def avoidance():
     leftSonarDist = sonarControl.runSonar(True)
     rightSonarDist = sonarControl.runSonar(False)
+    print("leftSonarDist = ",leftSonarDist)
+    print("rightSonarDist = ",rightSonarDist)
 
     if(leftSonarDist<R/2 and rightSonarDist>R/2):
         print("left Too Close")
@@ -608,6 +610,7 @@ def testSpeedControl(angle,distance):
     # speedControl(0,distance,True)
 
 def testSonar():
+    print("MC In Sonar Test")
     while(True):
         avoidance()
     
