@@ -193,7 +193,7 @@ def motorControl_wThread(theta,distance):
     RNoRot=0
 
     #Check for turn avoidance
-    reverseDistance = avoidanceTurn(theta)
+    #reverseDistance = avoidanceTurn(theta)
 
     #Do turn
     print("MC:TURN: ",theta*180/math.pi," deg")
@@ -207,7 +207,7 @@ def motorControl_wThread(theta,distance):
     time.sleep(0.6)
 
 
-    distance = avoidanceForward(distance)
+    #distance = avoidanceForward(distance)
     print("MC GO FORWARD FOR: ",distance)
     left,right = speedControl(0,distance,True)
     dist = getDist(left,right)
