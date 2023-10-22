@@ -45,26 +45,87 @@ timeOnR = 0.009
 timeOffL = 0.001
 timeOffR = 0.001
 
+#Avoidance
+turnableDistance = 57 #Total distance from object required to make a turn
+sensorDistace = 95 #Distance between sensors
 
 
-def avoidance():
+
+def avoidanceTurn(angle):
     rightSonarDist = sonarControl.runSonar(False)
     leftSonarDist = sonarControl.runSonar(True)
-    
-    print("leftSonarDist = ",leftSonarDist)
-    print("rightSonarDist = ",rightSonarDist)
 
-    if(leftSonarDist<R/2 and rightSonarDist>R/2):
-        print("left Too Close")
-    elif(rightSonarDist<R/2 and leftSonarDist>R/2):
-        print("right Too Close")
-    elif(rightSonarDist<R/2 and leftSonarDist<R/2):
-        print("both Too Close")
-    else:
-        print("in The Clear")
+    reverseTotal = 0
     
-    return
 
+    
+
+    #Determine if we want to turn in the direction of smaller distance
+
+    if(rightSonarDist<turnableDistance or leftSonarDist<turnableDistance):
+        print("left or right or both are too close to obstacle; LEFT = ",leftSonarDist," RIGHT = ",rightSonarDist)
+
+        #Right Side is closer than left
+        if(rightSonarDist<leftSonarDist):
+            reverseTotal = turnableDistance - rightSonarDist
+
+            #if we want to turn in the right direction (determine if left will make the turn)
+            if(angle>0):
+                leftSonarDist = leftSonarDist+reverseTotal
+                rightSonarDist = rightSonarDist+reverseTotal
+
+                theta = math.atan(sensorDistace/(leftSonarDist-rightSonarDist))
+
+                #will post reverse left be enough
+                r = leftSonarDist*math.sin(theta)
+
+                if(r<turnableDistance):
+                    reverseTotal += turnableDistance - r
+
+        #Left Side is closer than right
+        elif(leftSonarDist<rightSonarDist):
+            reverseTotal = turnableDistance - leftSonarDist
+
+            #if we want to turn in the left direction (determine if right will make the turn)
+            if(angle<0):
+                leftSonarDist = leftSonarDist+reverseTotal
+                rightSonarDist = rightSonarDist+reverseTotal
+                theta = math.atan(sensorDistace/(rightSonarDist-leftSonarDist))
+                
+                #will post reverse right be enough
+                r = rightSonarDist*math.sin(theta)
+
+                if(r<turnableDistance):
+                    reverseTotal += turnableDistance - r
+        #Left Side and Right side are equally close
+        else:
+            reverseTotal = turnableDistance-leftSonarDist
+
+        left,right = speedControl(0,reverseTotal,False)
+        dist = getDist(left,right)
+        print("Avoidance reverse for: ",reverseTotal,"mm True value = ",dist,"mm")
+
+    return dist
+
+def avoidanceForward(distance):
+    rightSonarDist = sonarControl.runSonar(False)
+    leftSonarDist = sonarControl.runSonar(True)
+    shortenedDist = distance
+
+    if((rightSonarDist - distance)<turnableDistance or (leftSonarDist - distance)<turnableDistance):
+        print("left or right or both are too close to obstacle; LEFT = ",leftSonarDist," RIGHT = ",rightSonarDist)
+        if(rightSonarDist>leftSonarDist):
+            shortenedDist = distance - turnableDistance + (leftSonarDist - distance)
+        
+        elif(leftSonarDist>rightSonarDist):
+            shortenedDist = distance - turnableDistance + (rightSonarDist - distance)
+        
+        else:
+            shortenedDist = distance - turnableDistance + (rightSonarDist - distance)
+
+        print("Avoidance forward changed from ",distance," to ",shortenedDist)
+
+    return shortenedDist
 
 #MOTOR THREADS
 def left_thread(timeOn,timeOff):
@@ -126,14 +187,8 @@ def motorControl_wThread(theta,distance):
     LNoRot=0
     RNoRot=0
 
-    # print("CHECK MOVEMENT SPACE")
-    # avoidance()
-    # if(sonarControl.runSonar(True)<R/2):
-    #     #print("REVERSE!")
-    #     speedControl(0,100,False)
-    #     #update odometry accordinglty NB!!!!!
-
-
+    #Check for turn avoidance
+    reverseDistance = avoidanceTurn(angle)
 
     #Do turn
     print("MC:TURN: ",theta*180/math.pi," deg")
@@ -147,25 +202,8 @@ def motorControl_wThread(theta,distance):
     time.sleep(0.6)
 
 
-    #Check for obstacles ahead
-    #print("Gonna check Avoidance")
-    #Check distance to obstacle
-    # if(checkAvoidance_wThread(distance)):
-    #     print("\n CLOCK AVOIDANCE!!!!! \n")
-    #     distance = distance/2
-    #     avoidedAngle,distance = clockAvoidance_wThread(distance)
-    #     angle = avoidedAngle + angle
-    
-    # if(sonarControl.runSonar()<distance+R/2+30):
-    #     #I will hit a wall, last chance to check!
-    #     #print("\nFORWARD CHECK FOUND I WILL HIT WALL")
-    #     distance = distance - R/2 - 50
-    #     #print("NEWDISTANCE = ",distance)
-    #     if(distance<0):
-    #         #print("negative DISTACE ERRRORRRR!!!")
-    #         speedControl(0,100,False)
-
-    print("MC GO FORWARD FOR: ",distance) 
+    distance = avoidanceForward(distance)
+    print("MC GO FORWARD FOR: ",distance)
     left,right = speedControl(0,distance,True)
     dist = getDist(left,right)
     angle_diff = getAngleDifference(left,right)
@@ -613,7 +651,7 @@ def testSpeedControl(angle,distance):
 def testSonar():
     print("MC In Sonar Test")
     while(True):
-        avoidance()
+        avoidanceTurn()
     
     
 wiringpi.pinMode(LSS_Pin, 0)       # Set pin to 0 ( INPUT )
