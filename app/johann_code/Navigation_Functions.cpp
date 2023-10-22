@@ -419,10 +419,10 @@ namespace Navigation_Functions{
             RIGHT.trav = false;
             RIGHT.traversable = false;
             vector<GridNode*> neighbours;
-            neighbours.push_back(UP);
-            neighbours.push_back(DOWN);
-            neighbours.push_back(LEFT);
-            neighbours.push_back(RIGHT);
+            neighbours.push_back(&UP);
+            neighbours.push_back(&DOWN);
+            neighbours.push_back(&LEFT);
+            neighbours.push_back(&RIGHT);
 
             //Initialize indexes
             
@@ -434,16 +434,16 @@ namespace Navigation_Functions{
                     // cout<<"y: "<<gridMap[i][j].y<<", "<<point.y<<" = "<<gridMap[i][j].y - point.y<<endl;
                     //left from point
                     if(gridMap[i][j].x - point.x == grid_xstep && gridMap[i][j].y - point.y == 0){
-                        neighbours[2] = gridMap[i][j];
+                        neighbours[2] = &gridMap[i][j];
                     }//right from point
                     else if(gridMap[i][j].x - point.x == -grid_xstep && gridMap[i][j].y - point.y == 0){
-                        neighbours[3] = gridMap[i][j];
+                        neighbours[3] = &gridMap[i][j];
                     }//up from point
                     else if(gridMap[i][j].x - point.x == 0 && gridMap[i][j].y - point.y == grid_ystep){
-                        neighbours[0] = gridMap[i][j];
+                        neighbours[0] = &gridMap[i][j];
                     }//down from point
                     else if(gridMap[i][j].x - point.x == 0 && gridMap[i][j].y - point.y == -grid_ystep){
-                        neighbours[1] = gridMap[i][j];
+                        neighbours[1] = &gridMap[i][j];
                     }
 
                 }
