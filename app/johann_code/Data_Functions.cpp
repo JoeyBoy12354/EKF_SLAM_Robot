@@ -48,6 +48,9 @@ namespace Data_Functions{
 
     void fitCartesian(vector<CarPoint>& carPoints, float x, float y, float angle){
 
+        vector<CarPoint> corners;
+        readCornersFromCSV(corners);
+
         cout<<"Fit Cartesian for: ("<<x<<","<<y<<") | "<<angle*180/PI<<endl;
         // cout<<"Could be: "<<(PI-angle)*180/PI<<endl;
         if(x==0 and y==0 and angle==0){
@@ -71,6 +74,20 @@ namespace Data_Functions{
                 carPoints[i].x = rotatedX + x;
                 carPoints[i].y = rotatedY + y;
             }
+
+            for (int i = 0; i < corners.size(); i++) {
+                // Apply rotation first
+                float rotatedX = corners[i].x * cosAngle - corners[i].y * sinAngle;
+                float rotatedY = corners[i].x * sinAngle + corners[i].y * cosAngle;
+
+                // Then apply translation
+                corners[i].x = rotatedX + x;
+                corners[i].y = rotatedY + y;
+            }
+
+            writeCornersToCSV(corners);
+
+            
         }
 
     }
