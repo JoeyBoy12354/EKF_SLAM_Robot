@@ -399,11 +399,11 @@ namespace Navigation_Functions{
             
             //Initialize Neighbours
             GridNode UP(defaultVal,defaultVal);
-            RIGHT.traversable = false;
+            UP.traversable = false;
             GridNode DOWN(defaultVal,defaultVal);
-            RIGHT.traversable = false;
+            DOWN.traversable = false;
             GridNode LEFT(defaultVal,defaultVal);
-            RIGHT.traversable = false;
+            LEFT.traversable = false;
             GridNode RIGHT(defaultVal,defaultVal);
             RIGHT.traversable = false;
             vector<GridNode*> neighbours;
