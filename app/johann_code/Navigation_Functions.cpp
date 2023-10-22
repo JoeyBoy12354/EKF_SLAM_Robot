@@ -398,25 +398,13 @@ namespace Navigation_Functions{
             float defaultVal = 15;
             
             //Initialize Neighbours
-            GridNode UP;
-            UP.x = defaultVal;
-            UP.y = defaultVal;
-            UP.trav = false;
+            GridNode UP(defaultVal,defaultVal);
             RIGHT.traversable = false;
-            GridNode DOWN;
-            DOWN.x = defaultVal;
-            DOWN.y = defaultVal;
-            DOWN.trav = false;
+            GridNode DOWN(defaultVal,defaultVal);
             RIGHT.traversable = false;
-            GridNode LEFT;
-            LEFT.x = defaultVal;
-            LEFT.y = defaultVal;
-            LEFT.trav = false;
+            GridNode LEFT(defaultVal,defaultVal);
             RIGHT.traversable = false;
-            GridNode RIGHT;
-            RIGHT.x = defaultVal;
-            RIGHT.y = defaultVal;
-            RIGHT.trav = false;
+            GridNode RIGHT(defaultVal,defaultVal);
             RIGHT.traversable = false;
             vector<GridNode*> neighbours;
             neighbours.push_back(&UP);
