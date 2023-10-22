@@ -428,7 +428,7 @@ namespace Navigation_Functions{
         while (!toVisit.empty()) {
             GridNode* current = toVisit.front();
             toVisit.pop();
-            cout<<"Current = "<<current.x<<" and "<<current.y<<endl;
+            cout<<"Current = "<<current->x<<" and "<<current->y<<endl;
             // Check if the current node is the goal
             if (current->x == goal.x && current->y == goal.y) {
                 // Reconstruct the path
