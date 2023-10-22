@@ -277,6 +277,7 @@ namespace Navigation_Functions{
     vector<CarPoint> pathFinder(MatrixXf State,CarPoint Goal);
     vector<GridNode*> bfs(std::vector<std::vector<GridNode>>& gridMap, GridNode& start, GridNode& goal);
     vector<GridNode*> findNeighboursBFS2(GridNode& point,vector<vector<GridNode>>& gridMap);
+    vector<CarPoint> pathShortening(vector<CarPoint> path);
     
 }
 

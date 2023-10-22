@@ -757,18 +757,18 @@ void testRun(){
     fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
         
 
-    // cout<<"Fully Mapped Room"<<endl;
+    cout<<"Fully Mapped Room"<<endl;
 
-    // finalRun = false;
-    // postMap = true;
-    // count = 0;
-    // while(home == false){
-    //     cout<<"\n i = "<<count<<endl;
-    //     cout<<"------------------------------------------------------------------------------------------------------------\n\n";
-    //     fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
-    // }
-    // finalRun = true;
-    // fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
+    finalRun = false;
+    postMap = true;
+    count = 0;
+    while(home == false){
+        cout<<"\n i = "<<count<<endl;
+        cout<<"------------------------------------------------------------------------------------------------------------\n\n";
+        fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
+    }
+    finalRun = true;
+    fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
 
     // cout<<"I am Home"<<endl;
 

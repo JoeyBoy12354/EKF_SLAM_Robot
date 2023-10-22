@@ -346,6 +346,20 @@ namespace Navigation_Functions{
         return path;
     }
 
+    //This will remove long sections and also the inital value in a long path
+    vector<CarPoint> pathShortening(vector<CarPoint> path){
+        vector<CarPoint> shortenedPath;
+        for(int i =1;i<path.size()-1;i++){
+            if(path[i].x != path[i+1].x && path[i].y == path[i+1].y){
+                shortenedPath.push_back(path[i]);
+            }
+        }
+        shortenedPath.push_back(path[path.size() - 1]);
+
+        return pathShortening;
+
+    }
+
     vector<CarPoint> pathFinder(MatrixXf State,CarPoint Goal){
 
         cout<<"In PathFinder"<<endl;
@@ -396,17 +410,25 @@ namespace Navigation_Functions{
         }
 
 
-        //Convert Path to Cartesian Coordinates (Start at 1 cause 0 is our starting coordinate)
-        int init = 0;
-        if(path.size()>1){
-            init = 1;
-            
-        }
+        //Convert Path to Cartesian Coordinates
         vector<CarPoint> pathCartesian;
-        for(int i =init;i<path.size();i++){
+        for(int i =0;i<path.size();i++){
             CarPoint newPoint(path[i]->x,path[i]->y);
             pathCartesian.push_back(newPoint);
         }
+
+
+        
+        if(path.size()>1){
+            pathCartesian = pathShortening(pathCartesian);
+            
+        }
+        
+
+
+
+
+
 
         if(pathCartesian.empty()) {
             cout << "No Shortened path found." << endl;
