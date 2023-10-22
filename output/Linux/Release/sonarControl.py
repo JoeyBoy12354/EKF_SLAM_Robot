@@ -58,9 +58,11 @@ def runSonar(Left):
 
     #print("Sonar Distance : %.1f" % distance," mm")
 
+    #The HC-SR04 Ultrasonics have a max range of 4000mm (4m) if something is further than that they will bug out
+    #And provide a distance greater than 12000 the same will occur for the minimum range of 20mm
     if(distance> 12000):
-        distance = 0
-        #print("12m =< DISTANCE ! ")
+        distance = 4000
+        print("12m <= DISTANCE ! set to 400")
 
     writeOdometry(distance)
     return distance

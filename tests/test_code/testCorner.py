@@ -93,12 +93,12 @@ def manager(x_coords,y_coords,sample_size=100,max_iters=500,inlier_threshold=0.0
 
 
         # #Plotting
-        # m = result[0][0]
-        # b = result[1][0]
-        # if(i%2==0):
-        #     plt.plot(x,m*x+b,'b',linewidth=4)
-        # else:
-        #     plt.plot(x,m*x+b,'r',linewidth=4)
+        m = result[0][0]
+        b = result[1][0]
+        if(i%2==0):
+            plt.plot(x,m*x+b,'b',linewidth=4)
+        else:
+            plt.plot(x,m*x+b,'r',linewidth=4)
 
     return best_models
 
@@ -242,7 +242,7 @@ def perform_stats(corner_sets):
 
 def my_stats(corners_sets,corner):
     
-    
+    #I believe this testing site assumes that all corners are found all the time
     distances = []
 
     for j in range(0,len(corners_sets)):
@@ -254,9 +254,11 @@ def my_stats(corners_sets,corner):
                     dist_min = dist
             distances.append(dist_min)
 
-    print(distances)
+    #print(distances)
     dist_avg = sum(distances)/len(distances)
-    print("AVERAGE DEVIATION = ",dist_avg)
+    print("Average Distance Deviation = ",dist_avg)
+    print("Max Distance Deviation = ",max(distances))
+    print("Min Distance Deviation = ",min(distances))
 
     return dist_avg
 
@@ -275,7 +277,7 @@ def brute_force(mapCSV,sample_size,max_iters,inlier_thresh,min_inliers):
         filtered_corner = filter_corners(corners,x1,y1)
         corner_sets.append(filtered_corner)
         times.append(time.time()-time_start)
-        print(i)
+        print(i," Corners Found = ",len(filtered_corner))
         
         
     corner = [corner_sets[0][0][0],corner_sets[0][0][1]]
@@ -292,37 +294,52 @@ def brute_force(mapCSV,sample_size,max_iters,inlier_thresh,min_inliers):
 
 #brute_force('map2.csv',sample_size=100,max_iters=200,inlier_thresh=0.3,min_inliers=5)
 
-brute_force('map3.csv',sample_size=100,max_iters=200,inlier_thresh=0.3,min_inliers=5)
-brute_force('map1.csv',sample_size=100,max_iters=200,inlier_thresh=0.3,min_inliers=5)
-brute_force('map2.csv',sample_size=100,max_iters=200,inlier_thresh=0.3,min_inliers=5)
+# brute_force('map3.csv',sample_size=100,max_iters=200,inlier_thresh=0.5,min_inliers=5)
+# brute_force('map1.csv',sample_size=100,max_iters=200,inlier_thresh=0.5,min_inliers=5)
+# #brute_force('map2.csv',sample_size=100,max_iters=200,inlier_thresh=0.4,min_inliers=5)
 
-brute_force('map4.csv',sample_size=100,max_iters=200,inlier_thresh=0.3,min_inliers=5)
-brute_force('map5.csv',sample_size=100,max_iters=200,inlier_thresh=0.3,min_inliers=5)
-brute_force('map6.csv',sample_size=100,max_iters=200,inlier_thresh=0.3,min_inliers=5)
+# brute_force('map4.csv',sample_size=100,max_iters=200,inlier_thresh=0.5,min_inliers=5)
+# brute_force('map5.csv',sample_size=100,max_iters=200,inlier_thresh=0.5,min_inliers=5)
+# brute_force('map6.csv',sample_size=100,max_iters=200,inlier_thresh=0.5,min_inliers=5)
+
+
+
+# brute_force('map3.csv',sample_size=80,max_iters=200,inlier_thresh=1.2,min_inliers=6)
+# brute_force('map1.csv',sample_size=80,max_iters=200,inlier_thresh=1.2,min_inliers=6)
+
+# brute_force('map4.csv',sample_size=80,max_iters=200,inlier_thresh=1.2,min_inliers=6)
+# brute_force('map5.csv',sample_size=80,max_iters=200,inlier_thresh=1.2,min_inliers=6)
+# brute_force('map6.csv',sample_size=80,max_iters=200,inlier_thresh=1.2,min_inliers=6)
+
+#brute_force('map7.csv',sample_size=80,max_iters=200,inlier_thresh=0.8,min_inliers=5)
+
+#Works fairly well for large rooms.(Did miss once during 3x20 Trial runs thus about a 44/45 Hit ratio)
+brute_force('map7.csv',sample_size=80,max_iters=200,inlier_thresh=1.2,min_inliers=6)
 
 
 # brute_force('map3.csv',sample_size=100,max_iters=200,inlier_thresh=0.15,min_inliers=4)
 
-#x1,y1=fetchCoord('map2.csv')
-# best_models = manager(x1,y1,sample_size=100,max_iters=200,inlier_threshold=0.15,min_inliers=4)
-# plt.plot(x1, y1, 'o', label='Points',markersize=0.5,color='grey')
+x1,y1=fetchCoord('map7.csv')
+best_models = manager(x1,y1,sample_size=80,max_iters=200,inlier_threshold=1.2,min_inliers=6)
+#best_models = manager(x1,y1,sample_size=100,max_iters=200,inlier_threshold=0.4,min_inliers=5)
+plt.plot(x1, y1, 'o', label='Points',markersize=0.5,color='grey')
 
-# corners = find_corners(best_models)
-# filtered_corner = filter_corners(corners,x1,y1)
-
-
-
-# print(filtered_corner)
-
-# for i in range(0,len(filtered_corner)):
-#     plt.plot(filtered_corner[i][0], filtered_corner[i][1], 'X', label='Points',markersize=20,color='k')
+corners = find_corners(best_models)
+filtered_corner = filter_corners(corners,x1,y1)
 
 
-# # plt.ylim([-300,300])
-# # plt.xlim([-300,300])
+
+print(filtered_corner)
+
+for i in range(0,len(filtered_corner)):
+    plt.plot(filtered_corner[i][0], filtered_corner[i][1], 'X', label='Points',markersize=20,color='k')
+
+
+# plt.ylim([-300,300])
+# plt.xlim([-300,300])
 # plt.ylim([-2500,3000])
 # plt.xlim([-5000,1500])
-# plt.show()
+plt.show()
 
 
 

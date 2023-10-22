@@ -290,7 +290,8 @@ float ExtendedKalmanFilter::directDistance(CarPoint StoredPoint){
 
 void ExtendedKalmanFilter::isNewLandmark2(){
     //double distThresh = 1000;
-    double distThresh = 270;//Was 600
+    //double distThresh = 270;//Was 600
+    double distThresh = 390;//Was 600
     //cout<<"In NewLandmark2"<<endl;
 
     vector<double> minDistances;
