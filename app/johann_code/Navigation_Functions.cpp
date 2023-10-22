@@ -437,7 +437,7 @@ namespace Navigation_Functions{
 
     // Define a function to find the neighbors of a grid point
     vector<GridNode*> findNeighboursAStar(GridNode& current, const vector<vector<GridNode>>& gridMap) {
-        vector<GridNode*> neighbors;
+        vector<const GridNode*> neighbors;
 
         // Define neighbor offsets (up, down, left, right)
         int dx[] = {0, 0, -1, 1};
