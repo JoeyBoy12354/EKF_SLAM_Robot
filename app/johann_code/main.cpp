@@ -213,89 +213,7 @@ void simRun(ExtendedKalmanFilter& ekf, bool final){
 
 
 
-//This process will only use the latest scan to update the EKF and RANSAC
-void fullRun(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalRun){
-    
-    
-    if(mapped==false){
 
-        //Run Lidar
-        vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
-        bool error = true;
-        int count = 0;
-        while(error == true && count<5){
-            cout<<"\nAttempt "<<count<<endl;
-            //Sleep(1/2);
-            runLidar(lidarDataPoints, error);
-            count +=1;
-        }
-        cout<<"count = "<<count<<endl;
-        
-        //cout<<"Main: Lidar Run complete"<<endl;
-
-        if(error == false){
-            //Predict Position
-            if(finalRun <= 1){
-                ekf.updateMotion();
-            }
-
-            cout<<"\n MAIN: after_motion State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
-            //cout << "\nEKF 6\nState =\n" << ekf.State << "\n";
-
-            //Process Data
-            vector<CarPoint> carPoints;
-            lidarDataProcessing(lidarDataPoints,carPoints,ekf.State[0],ekf.State[1],ekf.State[2]);
-
-            
-            //Run EKF
-            ekf.runEKF();
-
-            cout<<"\n MAIN: after_ekf State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
-
-            for(int i =3;i<dim;i=i+2){
-                if(ekf.State[i] != 0 && ekf.State[i+1] != 0){
-                    cout<<"("<<ekf.State[i]<<","<<ekf.State[i+1]<<") | ";
-                }
-            }
-            cout<<endl;
-
-            //Store Data for plotting
-            if(firstRun == true){
-                saveCarToFullMapCSV(carPoints);
-                firstRun = false;
-            }else{
-                storeMapPoints(carPoints,ekf.State);
-            }
-
-            //Get Grid
-            vector<vector<GridPoint>> gridNew;
-            gridDataProcess(gridNew, ekf.State, firstRun);
-                
-
-            //Complete Robot Movement
-            if(finalRun == 0){
-                mapped = preMapMovement(ekf.State,gridNew);// Move the robot to the location
-                motorDataProcessing(ekf.w,ekf.distance);
-                // ekf.w=0;
-                // ekf.distance = 0;
-            }
-
-
-
-            //cout<<"\nMain_end: ekf.w = "<<ekf.w<<" ekf.distance = "<<ekf.distance<<endl;
-    
-        }else{
-            cout<<" NO PROCESSING DUE TO LIDAR ERROR"<<endl;
-        }
-        
-    }else{
-        cout<<"MAP COMPLETED !"<<endl;
-    }
-    
-
-    cout<<"LEAVNG RUN"<<endl;
-    
-}
 
 
 
@@ -735,90 +653,71 @@ void atSim(){
 }
 
 
-void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalRun){
+void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun, bool finalRun,bool postMap,vector<CarPoint>& path){
     
-    
-    if(mapped==false){
 
-        //Run Lidar
-        vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
-        bool error = true;
-        int count = 0;
-        while(error == true && count<5){
-            cout<<"\nAttempt "<<count<<endl;
-            //Sleep(1/2);
-            runLidar(lidarDataPoints, error);
-            count +=1;
-        }
-        //error = false;
-        cout<<"count = "<<count<<endl;
-        
-        //cout<<"Main: Lidar Run complete"<<endl;
-
-        if(error == false){
-            //Predict Position
-            if(finalRun <= 1){
-                ekf.updateMotion();
-            }
-            
-
-            cout<<"\n MAIN: after_motion State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
-            //cout << "\nEKF 6\nState =\n" << ekf.State << "\n";
-
-            //Process Data
-            
-            vector<CarPoint> carPoints;
-            vector<PolPoint> polarCornerPoints;
-            lidarDataProcessing2(lidarDataPoints,carPoints,polarCornerPoints);
-
-            ekf.TestPolValues = polarCornerPoints;
-            //Run EKF
-            ekf.runEKF();
-
-            cout<<"\n MAIN: after_ekf State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
-
-            for(int i =3;i<dim;i=i+2){
-                if(ekf.State[i] != 0 && ekf.State[i+1] != 0){
-                    cout<<"("<<ekf.State[i]<<","<<ekf.State[i+1]<<") | ";
-                }
-            }
-            cout<<endl;
-
-            //Store Data for plotting
-            if(firstRun == true){
-                saveCarToFullMapCSV(carPoints);
-                firstRun = false;
-            }else{
-                storeMapPoints(carPoints,ekf.State);
-                
-            }
-
-            //Get Grid
-            vector<vector<GridPoint>> gridNew;
-            gridDataProcess(gridNew, ekf.State, firstRun);
-                
-            //Complete Robot Movement
-            if(finalRun == 0){
-                mapped = preMapMovement(ekf.State,gridNew);// Move the robot to the location
-                motorDataProcessing(ekf.w,ekf.distance);//Set Ekf variables to result from motor functions
-                // ekf.w=-95*PI/180;
-                // ekf.distance = 200;
-                // ekf.State(2) = -90*PI/180;
-            }
-
-            //mapped = false;
-
-
-
-            //cout<<"\nMain_end: ekf.w = "<<ekf.w<<" ekf.distance = "<<ekf.distance<<endl;
-    
-        }else{
-            cout<<" NO PROCESSING DUE TO LIDAR ERROR"<<endl;
-        }
-        
-    }else{
-        cout<<"MAP COMPLETED !"<<endl;
+    //Run Lidar
+    vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
+    bool error = true;
+    int count = 0;
+    while(error == true && count<5){
+        cout<<"\nAttempt "<<count<<endl;
+        runLidar(lidarDataPoints, error);
+        count +=1;
     }
+    cout<<"count = "<<count<<endl;
+
+    if(error == false){
+        //Predict Position
+        ekf.updateMotion();
+        
+
+        cout<<"\n MAIN: after_motion State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+
+        //Process Data
+        
+        vector<CarPoint> carPoints;
+        vector<PolPoint> polarCornerPoints;
+        lidarDataProcessing2(lidarDataPoints,carPoints,polarCornerPoints);
+
+        ekf.TestPolValues = polarCornerPoints;
+        //Run EKF
+        ekf.runEKF();
+
+        cout<<"\n MAIN: after_ekf State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+
+        for(int i =3;i<dim;i=i+2){
+            if(ekf.State[i] != 0 && ekf.State[i+1] != 0){
+                cout<<"("<<ekf.State[i]<<","<<ekf.State[i+1]<<") | ";
+            }
+        }
+        cout<<endl;
+
+        //Store Data for plotting
+        if(firstRun == true){
+            saveCarToFullMapCSV(carPoints);
+            firstRun = false;
+        }else{
+            storeMapPoints(carPoints,ekf.State);
+        }
+
+        //Get Grid
+        vector<vector<GridPoint>> gridNew;
+        gridDataProcess(gridNew, ekf.State, firstRun);
+            
+        //Complete Robot Movement
+        if(finalRun == false && postMap == false){
+            mapped = mapMovement(ekf.State,gridNew,path);// Move the robot to the location
+            motorDataProcessing(ekf.w,ekf.distance);//Set Ekf variables to result from motor functions
+        }else if(finalRun == false && postMap == true){
+            home = postMapMovement(ekf.State,gridNew,path);// Move the robot to the location
+            motorDataProcessing(ekf.w,ekf.distance);//Set Ekf variables to result from motor functions
+        }
+
+    }else{
+        cout<<" NO PROCESSING DUE TO LIDAR ERROR"<<endl;
+    }
+        
     
 
     cout<<"LEAVNG RUN"<<endl;
@@ -832,28 +731,41 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& firstRun, int finalR
 void testRun(){
     ExtendedKalmanFilter ekf;
     bool mapped = false;
+    bool home = false;
     bool firstRun = true;
-    int finalRun = 0; // re,e,ber to change back to 0
+    bool finalRun = false;
+    bool postMap = false;
+
+
+    vector<CarPoint> path;
     cout<<"TEST RUN"<<endl;
 
     //calibrateMotors();
     
-    // for(int i =0;i<7;i++){
-    //     cout<<"\n i = "<<i<<endl;
-    //     cout<<"------------------------------------------------------------------------------------------------------------\n\n";
-    //     // cout<<"IN RUN LOOP: "<<i<<endl;
-    //     // cout<<"Mapped = "<<mapped<<endl;
-    //     //fullRun(ekf,mapped,firstRun,finalRun);
-    //     fullRun2(ekf,mapped,firstRun,finalRun);
+    while(mapped == false){
+        cout<<"\n i = "<<i<<endl;
+        cout<<"------------------------------------------------------------------------------------------------------------\n\n";
+        fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
+    }
+    finalRun = true;
+    fullRun2(ekf,mapped,home,firstRun,finalRun,path);
         
-    //     firstRun = false;
-    // }
 
-    ekf.State(0) = 400;
-    ekf.State(1) = 900;
-    ekf.State(2) = 0;
+    cout<<"Fully Mapped Room"<<endl;
 
-    postMapMovement2(ekf.State);
+    finalRun = false;
+    postMap = true;
+    while(home == false){
+        cout<<"\n i = "<<i<<endl;
+        cout<<"------------------------------------------------------------------------------------------------------------\n\n";
+        fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
+    }
+    finalRun = true;
+    fullRun2(ekf,mapped,home,firstRun,finalRun,path);
+
+    cout<<"I am Home"<<endl;
+
+
 
     
     

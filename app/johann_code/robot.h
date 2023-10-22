@@ -258,7 +258,8 @@ namespace Mapping_Functions{
 
 namespace Navigation_Functions{
     //Grid
-    bool preMapMovement(MatrixXf State, vector<vector<GridPoint>> gridMap);
+    bool postMapMovement(MatrixXf State, vector<CarPoint>& path, bool home);
+    bool mapMovement(MatrixXf State, vector<vector<GridPoint>> gridMap, vector<CarPoint>& path);
     void updateMovement(CarPoint closestPoint,MatrixXf State);
     void motorControlGrid(float angle, float distance);
 
@@ -268,14 +269,15 @@ namespace Navigation_Functions{
     CarPoint triangularRepositioning(MatrixXf State, float angle);
 
     //PostMap
-    vector<GridPoint> pathFinder(vector<vector<GridPoint>> gridMap, MatrixXf State,GridPoint goal);
-    vector<GridPoint> findNeighbours(vector<vector<GridPoint>> gridMap, GridPoint point, float defaultVal,vector<CarPoint>& indexes);
-    void postMapMovement(MatrixXf State);
+    // vector<GridPoint> pathFinder(vector<vector<GridPoint>> gridMap, MatrixXf State,GridPoint goal);
+    // vector<GridPoint> findNeighbours(vector<vector<GridPoint>> gridMap, GridPoint point, float defaultVal,vector<CarPoint>& indexes);
+    // void postMapMovement(MatrixXf State);
 
     //Navi2
-    void postMapMovement2(MatrixXf State);
+    vector<CarPoint> pathFinder(MatrixXf State,CarPoint Goal);
     vector<GridNode*> bfs(std::vector<std::vector<GridNode>>& gridMap, GridNode& start, GridNode& goal);
     vector<GridNode*> findNeighboursBFS2(GridNode& point,vector<vector<GridNode>>& gridMap);
+    
 }
 
 class ExtendedKalmanFilter {
