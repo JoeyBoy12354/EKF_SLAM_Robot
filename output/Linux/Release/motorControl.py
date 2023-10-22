@@ -651,7 +651,7 @@ def testSpeedControl(angle,distance):
 def testSonar():
     print("MC In Sonar Test")
     while(True):
-        avoidanceTurn()
+        avoidanceForward()
     
     
 wiringpi.pinMode(LSS_Pin, 0)       # Set pin to 0 ( INPUT )
