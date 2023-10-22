@@ -274,8 +274,8 @@ namespace Navigation_Functions{
 
     //Navi2
     void postMapMovement2(MatrixXf State);
-    vector<GridNode*> findNeighboursBFS(const GridNode& node, const std::vector<std::vector<GridNode>>& gridMap);
-    vector<GridNode*> bfs(const std::vector<std::vector<GridNode>>& gridMap, const GridNode& start, const GridNode& goal);
+    vector<GridNode*> findNeighboursBFS(const GridNode& node, std::vector<std::vector<GridNode>>& gridMap);
+    vector<GridNode*> bfs(const std::vector<std::vector<GridNode>>& gridMap, GridNode& start, GridNode& goal);
 }
 
 class ExtendedKalmanFilter {
