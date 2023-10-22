@@ -269,7 +269,7 @@ def brute_force(mapCSV,sample_size,max_iters,inlier_thresh,min_inliers):
     print(mapCSV)
     corner_sets = []
     times = []
-    for i in range(0,20):
+    for i in range(0,45):
         time_start = time.time()
         x1,y1=fetchCoord(mapCSV)
         best_models = manager(x1,y1,sample_size,max_iters,inlier_thresh,min_inliers)
