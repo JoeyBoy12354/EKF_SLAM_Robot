@@ -458,10 +458,9 @@ namespace Navigation_Functions{
         return neighbors;
     }
 
-    // Define a function to run the A* algorithm
     vector<GridNode*> findPathAStar(vector<vector<GridNode>>& gridMap, GridNode& start, GridNode& goal) {
         vector<GridNode*> path;
-        vector<vector<bool>> visited(gridMap.size(), vector<bool>(gridMap[0].size(), false));
+        std::set<std::pair<int, int>> visited;
 
         cout<<"B1"<<endl;
         // Priority queue for open set, ordered by f = g + h (cost + heuristic)
@@ -474,44 +473,34 @@ namespace Navigation_Functions{
         cout<<"B2"<<endl;
 
         while (!openSet.empty()) {
-
-            cout<<"B3"<<endl;
             GridNode* current = openSet.top().second;
             openSet.pop();
 
-            // Goal reached
+            // Check if the current node is the goal
             if (current->x == goal.x && current->y == goal.y) {
                 // Reconstruct the path
                 while (current->parent != nullptr) {
                     path.push_back(current);
                     current = current->parent;
                 }
-                reverse(path.begin(), path.end()); // Reverse to get the path from start to goal
-                return path;
+                reverse(path.begin(), path.end());
+                return path; // Goal found, return the path
             }
 
-            cout<<"B4"<<endl;
-            cout<<current->x<<endl;
-            cout<<"B4aa"<<endl;
-            cout<<current->y<<endl;
-            cout<<"B4a"<<endl;
-            for(int i =0;i<visited.size();i++){
-                for(int j=0;j<visited.size();j++){
-                    cout<<i<<" "<<j<<endl;
-                }
-            }
+            // Convert grid coordinates to a pair for tracking visited nodes
+            std::pair<int, int> nodeCoordinates(current->x, current->y);
 
-            if (visited[current->x][current->y]) {
+            if (visited.count(nodeCoordinates) > 0) {
                 continue; // Skip visited nodes
             }
 
-            cout<<"B5"<<endl;
+            visited.insert(nodeCoordinates);
 
-            visited[current->x][current->y] = true;
+            cout<<"B5"<<endl;
 
             vector<GridNode*> neighbors = findNeighboursAStar(*current, gridMap);
             for (GridNode* neighbor : neighbors) {
-                if (!visited[neighbor->x][neighbor->y]) {
+                if (!visited.count({neighbor->x, neighbor->y})) {
                     int tentativeG = current->g + 1; // Assuming a cost of 1 to move to a neighbor
 
                     if (tentativeG < neighbor->g || neighbor->parent == nullptr) {
