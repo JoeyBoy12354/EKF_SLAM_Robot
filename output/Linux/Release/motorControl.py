@@ -48,8 +48,9 @@ timeOffR = 0.001
 
 
 def avoidance():
-    leftSonarDist = sonarControl.runSonar(True)
     rightSonarDist = sonarControl.runSonar(False)
+    leftSonarDist = sonarControl.runSonar(True)
+    
     print("leftSonarDist = ",leftSonarDist)
     print("rightSonarDist = ",rightSonarDist)
 
