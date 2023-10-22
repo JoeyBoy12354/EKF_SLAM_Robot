@@ -396,6 +396,7 @@ namespace Navigation_Functions{
 
     void postMapMovement2(MatrixXf State){
 
+        cout<<"A1"<<endl;
         GridPoint myRobot;
         myRobot.x=State(0);
         myRobot.y=State(1);
@@ -406,6 +407,8 @@ namespace Navigation_Functions{
 
         vector<vector<GridPoint>> gridMap;
         readGridFromCSV(gridMap);
+
+        cout<<"A2"<<endl;
 
         //Transform current position to a gridPoint
         for(int i =0;i<gridMap.size();i++){
@@ -421,12 +424,16 @@ namespace Navigation_Functions{
         GridNode start(current.x, current.y);
         GridNode goal(4, 4);
 
+        cout<<"A3"<<endl;
         
 
         vector<vector<GridNode>> gridNew;
         mapConverter(gridMap, gridNew);
+        cout<<"A4"<<endl;
 
         findPathAStar(gridNew,start,goal);
+
+        cout<<"A5"<<endl;
 
 
 
