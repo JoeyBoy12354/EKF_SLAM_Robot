@@ -34,7 +34,7 @@ using namespace std;
 using namespace Eigen;
 using namespace sl;
 
-#define N 10 //Number of landmarks
+#define N 30 //Number of landmarks
 #define dim 2*N+3//Initial Dimension of Matrices in EKF
 #define PI 3.14159265358979323846 
 
