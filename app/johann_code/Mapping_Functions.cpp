@@ -23,13 +23,28 @@ namespace Mapping_Functions{
 
         //Compare with new points (only update if points are different)
         //If a point is less than Xmm away from oldmap point then remove it from circulation
-        for(int i=0; i<oldmap.size();i++){
-            for(int j=0; j<lidardata.size();j++){
-                    vector<CarPoint> temp;
-                    if(pointDistance(lidardata[j],oldmap[i]) > distance_threshold){
-                        temp.push_back(lidardata[j]);
-                    }
-                    lidardata = temp;
+        // for(int i=0; i<oldmap.size();i++){
+        //     for(int j=0; j<lidardata.size();j++){
+        //             vector<CarPoint> temp;
+        //             if(pointDistance(lidardata[j],oldmap[i]) > distance_threshold){
+        //                 temp.push_back(lidardata[j]);
+        //             }
+        //             lidardata = temp;
+        //     }
+        // }
+
+        //Append new points to current oldmap
+        //This is okay because we do not use fullmap data for anything
+        bool isNew = true;
+        for(int i =0;i<lidardata.size();i++){
+            isNew = true;
+            for(int j=0;j<oldmap.size();j++){
+                if(pointDistance(lidardata[i],oldmap[j]) < distance_threshold){
+                    isNew = false;
+                }
+            }
+            if(isNew == true){
+                oldmap.append(lidardata[i]);
             }
         }
 
@@ -37,7 +52,8 @@ namespace Mapping_Functions{
     
 
         //Update full map
-        appendCarToFullMapCSV(lidardata);
+        //appendCarToFullMapCSV(lidardata);
+        saveCarToFullMapCSV(const vector<CarPoint>& points);
 
         storeStatePoints(State);
         
@@ -112,17 +128,17 @@ namespace Mapping_Functions{
             gridDataAssosciationMoveSimple(gridNew,State);
         }
 
-        cout<<"INITIAL MAP SHOW ONLY DOTS THAT HAVE BEEN TRAVERSED"<<endl;
-            for(int i =0;i<gridNew.size();i++){
-                for(int j=0;j<gridNew[i].size();j++){
-                    if(gridNew[i][j].trav == true){
-                        cout<<gridNew[i][j]<<"++,";
-                    }else{
-                        cout<<gridNew[i][j]<<"--,";
-                    }
-                }
-            }
-            cout<<endl;
+        // cout<<"INITIAL MAP SHOW ONLY DOTS THAT HAVE BEEN TRAVERSED"<<endl;
+        //     for(int i =0;i<gridNew.size();i++){
+        //         for(int j=0;j<gridNew[i].size();j++){
+        //             if(gridNew[i][j].trav == true){
+        //                 cout<<gridNew[i][j]<<"++,";
+        //             }else{
+        //                 cout<<gridNew[i][j]<<"--,";
+        //             }
+        //         }
+        //     }
+        //     cout<<endl;
 
 
         saveGridToCSV(gridNew);
