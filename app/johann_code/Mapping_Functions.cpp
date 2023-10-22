@@ -108,21 +108,20 @@ namespace Mapping_Functions{
             readGridFromCSV(gridOld);
             gridDataAssosciationMap(gridOld,gridNew);
             gridDataAssosciationMoveSimple(gridNew,State);
-        }else{
-            cout<<"INITIAL MAP"<<endl;
+        }
+
+        cout<<"INITIAL MAP SHOW ONLY DOTS THAT HAVE BEEN TRAVERSED"<<endl;
             for(int i =0;i<gridNew.size();i++){
                 for(int j=0;j<gridNew[i].size();j++){
                     if(gridNew[i][j].trav == true){
-                        cout<<gridNew[i][j]<<",";
+                        cout<<gridNew[i][j]<<"++,";
+                    }else{
+                        cout<<gridNew[i][j]<<"--,";
                     }
                 }
             }
             cout<<endl;
-        }
-        
-        // else{
-        //     gridDataAssosciationMoveSimple(gridNew,State);
-        // }
+
 
         saveGridToCSV(gridNew);
         cout<<"GRID:SAVED TO CSV"<<endl;

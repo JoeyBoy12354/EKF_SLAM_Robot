@@ -695,7 +695,6 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
         //Store Data for plotting
         if(firstRun == true){
             saveCarToFullMapCSV(carPoints);
-            firstRun = false;
         }else{
             storeMapPoints(carPoints,ekf.State);
         }
@@ -748,11 +747,11 @@ void testRun(){
         cout<<"\n i = "<<count<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
         fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
-        firstRun = false;
+        firstRun = false; //DO NOT CHANGE THIS KEEP IT HERE DO NOT MOVE IT INSIDE FULLRUN OR GOD HELP ME
         count = count+1;
     }
     
-    
+
     cout<<"POST LOOP RUN"<<endl;
     finalRun = true;
     fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
