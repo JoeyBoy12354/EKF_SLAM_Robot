@@ -449,6 +449,7 @@ namespace Navigation_Functions{
 
             // Enqueue unvisited neighbors
             for (GridNode* neighbor : neighbors) {
+                cout<<"Current = "<<neighbor->x<<" and "<<neighbor->y<<endl;
                 if (neighbor->traversable) {
                     neighbor->parent = current;
                     toVisit.push(neighbor);
