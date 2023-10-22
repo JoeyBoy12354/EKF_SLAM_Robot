@@ -344,6 +344,7 @@ namespace Navigation_Functions{
     vector<CarPoint> pathFinder(MatrixXf State,CarPoint Goal){
 
         cout<<"A1"<<endl;
+        cout<<"Input Goal = "<<Goal<<endl
         GridPoint myRobot;
         myRobot.x=State(0);
         myRobot.y=State(1);
@@ -367,7 +368,7 @@ namespace Navigation_Functions{
         }
 
         GridNode start(current.x, current.y);
-        GridNode goal(goal.x, goal.y);
+        GridNode goal(Goal.x, Goal.y);
 
         cout<<"Start = "<<current.x<<", "<<current.y<<endl;
         cout<<"Goal = "<<goal.x<<", "<<goal.y<<endl;

@@ -740,7 +740,7 @@ void testRun(){
     cout<<"TEST RUN"<<endl;
 
 
-    calibrateMotors();
+    //calibrateMotors();
     int count = 0;
     while(mapped == false){
         cout<<"\n i = "<<count<<endl;
