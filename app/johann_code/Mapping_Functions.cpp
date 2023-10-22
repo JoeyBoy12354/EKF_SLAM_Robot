@@ -107,7 +107,6 @@ namespace Mapping_Functions{
             vector<vector<GridPoint>> gridOld;
             readGridFromCSV(gridOld);
             gridDataAssosciationMap(gridOld,gridNew);
-            //gridDataAssosciationMove(gridNew,State);
             gridDataAssosciationMoveSimple(gridNew,State);
         }
         

@@ -368,13 +368,16 @@ namespace Navigation_Functions{
 
         GridNode start(current.x, current.y);
         GridNode goal(goal.x, goal.y);
+
+        cout<<"Start = "<<current.x<<", "<<current.y<<endl;
+        cout<<"Goal = "<<goal.x<<", "<<goal.y<<endl;
         
 
         vector<vector<GridNode>> gridNew;
         mapConverter(gridMap, gridNew);
         cout<<"Grid Size: "<<gridNew.size()<<"x"<<gridNew[0].size()<<endl;
 
-        vector<GridNode*> path  = bfs(gridNew,start,goal);
+        //vector<GridNode*> path  = bfs(gridNew,start,goal);
 
         if(path.empty()) {
             cout << "No path found." << endl;
