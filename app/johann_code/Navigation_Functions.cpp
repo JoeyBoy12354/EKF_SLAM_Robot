@@ -162,8 +162,9 @@ namespace Navigation_Functions{
         }
         
         if(mapped == false){
-            
-        }
+            cout<<"Go to -> "<<closestPoint<<endl;
+            updateMovement(closestPoint,State);
+        }   
         
 
         return mapped;
@@ -398,11 +399,11 @@ namespace Navigation_Functions{
             pathCartesian.push_back(newPoint);
         }
 
-        if(path.empty()) {
+        if(pathCartesian.empty()) {
             cout << "No Shortened path found." << endl;
         } else {
             cout << "Shortened Path: ";
-            for (GridNode* point : path) {
+            for (GridNode* point : pathCartesian) {
                 cout << "(" << point->x << ", " << point->y << ") ";
             }
             cout << endl;
