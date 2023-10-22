@@ -394,7 +394,9 @@ namespace Navigation_Functions{
 
     
 
-    vector<GridNode*> findNeighboursBFS2(vector<vector<Node>>& gridMap, GridNode& point, float defaultVal){
+    vector<GridNode*> findNeighboursBFS2(GridNode& point,vector<vector<GridNode>>& gridMap){
+            float defaultVal = 15;
+            
             //Initialize Neighbours
             GridNode UP;
             UP.x = defaultVal;
