@@ -9,22 +9,22 @@ wiringpi.wiringPiSetup()      # For sequential pin numbering
 # OR
 #wiringpi.wiringPiSetupGpio()  # For GPIO pin numbering
 
-#Right
+#Left
 echoPin2 = 23
 trigPin2 = 27
 
-#Left
+#Right
 echoPin1 = 6
 trigPin1 = 5
 
 #returns distance to obstacle in cm
 def runSonar(Left):
     print("\nRunSonar")
-    echoPin = echoPin2
-    trigPin = trigPin2
+    echoPin = echoPin1
+    trigPin = trigPin1
     if(Left == True):
-        echoPin = echoPin1
-        trigPin = trigPin1
+        echoPin = echoPin2
+        trigPin = trigPin2
     
     print("Things Set for left =",Left," echo = ",echoPin," trig = ",trigPin)
 
