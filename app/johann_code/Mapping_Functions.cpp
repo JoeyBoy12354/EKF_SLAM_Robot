@@ -401,9 +401,7 @@ namespace Mapping_Functions{
         for(int i =0;i<gridOld.size();i++){
             vector<GridNode> nodeVector;
             for(int j =0;j<gridOld[i].size();j++){
-                GridNode node;
-                node.x = gridOld[i][j].x;
-                node.y = gridOld[i][j].y;
+                GridNode node(gridOld[i][j].x, gridOld[i][j].y);
                 nodeVector.push_back(node);
             }
             gridNew.push_back(nodeVector);
