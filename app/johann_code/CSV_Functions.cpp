@@ -362,7 +362,8 @@ namespace CSV_Functions{
 
     //Grid Map Functions
     void saveGridToCSV(vector<vector<GridPoint>> points){
-        ofstream outputFile(gridCSV, ios::trunc);  // Open the file in truncation mode to clear its contents
+        //ofstream outputFile(gridCSV, ios::trunc);
+        ofstream outputFile(gridCSV);  // Open the file in truncation mode to clear its contents
         if (!outputFile.is_open()) {
             cerr << "Error opening the file: " << gridCSV << endl;
             return;
