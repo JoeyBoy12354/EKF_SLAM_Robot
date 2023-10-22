@@ -436,7 +436,7 @@ namespace Navigation_Functions{
     }
 
     // Define a function to find the neighbors of a grid point
-    vector<GridNode*> findNeighborsAStar(GridNode& current, const vector<vector<GridNode>>& gridMap) {
+    vector<GridNode*> findNeighboursAStar(GridNode& current, const vector<vector<GridNode>>& gridMap) {
         vector<GridNode*> neighbors;
 
         // Define neighbor offsets (up, down, left, right)
@@ -488,7 +488,7 @@ namespace Navigation_Functions{
 
             visited[current->x][current->y] = true;
 
-            vector<GridNode*> neighbors = findNeighbors(*current, gridMap);
+            vector<GridNode*> neighbors = findNeighboursAStar(*current, gridMap);
             for (GridNode* neighbor : neighbors) {
                 if (!visited[neighbor->x][neighbor->y]) {
                     int tentativeG = current->g + 1; // Assuming a cost of 1 to move to a neighbor

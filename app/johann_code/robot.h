@@ -276,7 +276,7 @@ namespace Navigation_Functions{
     //Navi2
     void postMapMovement2(MatrixXf State);
     int heuristic(const GridNode& a, const GridNode& b);
-    vector<GridNode*> findNeighborsAStar(GridNode& current, const vector<vector<GridNode>>& gridMap);
+    vector<GridNode*> findNeighboursAStar(GridNode& current, const vector<vector<GridNode>>& gridMap);
     vector<GridNode*> findPathAStar(vector<vector<GridNode>>& gridMap, GridNode& start, GridNode& goal);
 }
 
