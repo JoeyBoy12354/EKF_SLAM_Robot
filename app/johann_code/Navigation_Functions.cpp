@@ -343,7 +343,7 @@ namespace Navigation_Functions{
 
     vector<CarPoint> pathFinder(MatrixXf State,CarPoint Goal){
 
-        cout<<"A1"<<endl;
+        cout<<"In PathFinder"<<endl;
         GridPoint myRobot;
         myRobot.x=State(0);
         myRobot.y=State(1);
