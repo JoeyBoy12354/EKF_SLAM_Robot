@@ -403,6 +403,9 @@ namespace Navigation_Functions{
         GridPoint current;
         float min_distance = 10000000;
 
+        vector<vector<GridPoint>> gridMap;
+        readGridFromCSV(gridMap);
+
         //Transform current position to a gridPoint
         for(int i =0;i<gridMap.size();i++){
             for(int j =0;j<gridMap[i].size();j++){
@@ -414,11 +417,10 @@ namespace Navigation_Functions{
             }
         }
 
-        GridNode start(curret.x, current.y);
+        GridNode start(current.x, current.y);
         GridNode goal(4, 4);
 
-        vector<vector<GridPoint>> gridMap;
-        readGridFromCSV(gridMap);
+        
 
         vector<vector<GridNode>>& gridNew;
         mapConverter(gridMap, gridNew);
@@ -436,8 +438,8 @@ namespace Navigation_Functions{
     }
 
     // Define a function to find the neighbors of a grid point
-    vector<GridNode*> findNeighboursAStar(GridNode& current, const vector<vector<GridNode>>& gridMap) {
-        vector<const GridNode*> neighbors;
+    vector<GridNode*> findNeighboursAStar(GridNode& current, vector<vector<GridNode>>& gridMap) {
+        vector<GridNode*> neighbors;
 
         // Define neighbor offsets (up, down, left, right)
         int dx[] = {0, 0, -1, 1};
