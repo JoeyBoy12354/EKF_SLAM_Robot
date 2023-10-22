@@ -112,7 +112,7 @@ def avoidanceForward(distance):
     leftSonarDist = sonarControl.runSonar(True)
     shortenedDist = distance
 
-    //print("LEFT = ",leftSonarDist," RIGHT = ",rightSonarDist)
+    #print("LEFT = ",leftSonarDist," RIGHT = ",rightSonarDist)
 
     if((rightSonarDist - distance)<turnableDistance or (leftSonarDist - distance)<turnableDistance):
         print("left or right or both are too close to obstacle; LEFT = ",leftSonarDist," RIGHT = ",rightSonarDist)
