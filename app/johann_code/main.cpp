@@ -685,7 +685,6 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
         ekf.runEKF();
 
         cout<<"\n MAIN: after_ekf State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
-
         for(int i =3;i<dim;i=i+2){
             if(ekf.State[i] != 0 && ekf.State[i+1] != 0){
                 cout<<"("<<ekf.State[i]<<","<<ekf.State[i+1]<<") | ";
@@ -740,10 +739,11 @@ void testRun(){
     vector<CarPoint> path;
     cout<<"TEST RUN"<<endl;
 
-    //calibrateMotors();
-    
+
+    calibrateMotors();
+    int count = 0
     while(mapped == false){
-        cout<<"\n i = "<<i<<endl;
+        cout<<"\n i = "<<count<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
         fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
     }
@@ -755,8 +755,9 @@ void testRun(){
 
     finalRun = false;
     postMap = true;
+    count = 0;
     while(home == false){
-        cout<<"\n i = "<<i<<endl;
+        cout<<"\n i = "<<count<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
         fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
     }

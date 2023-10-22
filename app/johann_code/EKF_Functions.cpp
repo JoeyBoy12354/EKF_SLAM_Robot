@@ -156,15 +156,15 @@ void ExtendedKalmanFilter::updateMotion() {
     //Johann Old code before Atsi sims
     CarPoint C = triangularRepositioning(State, w);// Get lidar point with odomotorey angle reading.
 
-    cout<<"C = "<<C<<endl;
+    //cout<<"C = "<<C<<endl;
 
     //float CAngle = State(2) + w;//Get angle from positive x to line between (0,0) and (C.x,C.y)
     float CAngle = w + State(2);//Get angle from positive x to line between (0,0) and (C.x,C.y)
     float Cd_x = distance*cos(CAngle); //DeltaX change from forward movement
     float Cd_y = distance*sin(CAngle); //DeltaY change from forward movement
 
-    cout<<"Cd_x = "<<Cd_x<<" Cd_y = "<<Cd_y<<" CAngle = "<<CAngle*180/PI<<endl;
-    cout<<"Set2 "<<"Cd_x = "<<distance*cos(w)<<" Cd_y = "<<distance*sin(w)<<" CAngle = "<<w*180/PI<<endl;
+    // cout<<"Cd_x = "<<Cd_x<<" Cd_y = "<<Cd_y<<" CAngle = "<<CAngle*180/PI<<endl;
+    // cout<<"Set2 "<<"Cd_x = "<<distance*cos(w)<<" Cd_y = "<<distance*sin(w)<<" CAngle = "<<w*180/PI<<endl;
 
 
     CarPoint robot;
@@ -236,10 +236,10 @@ float ExtendedKalmanFilter::mahalanobisDistance(CarPoint StoredPoint,int LMindex
     Matrix<float, 2, 1> delta_z = z-z_cap_m;
     delta_z(1) = pi_2_pi(delta_z(1));
 
-    cout<<"Stored Point Shifted = \n"<<z_cap_m<<endl;
-    cout<<"Observed Point= \n"<<z<<endl;
-    cout<<"O.x = "<<z(0)*cos(z(1))<<" O.y = "<<z(0)*sin(z(1))<<endl;
-    cout<<"shifted S.x = "<<z_cap_m(0)*cos(z_cap_m(1))<<" S.y = "<<z_cap_m(0)*sin(z_cap_m(1))<<endl;
+    // cout<<"Stored Point Shifted = \n"<<z_cap_m<<endl;
+    // cout<<"Observed Point= \n"<<z<<endl;
+    // cout<<"O.x = "<<z(0)*cos(z(1))<<" O.y = "<<z(0)*sin(z(1))<<endl;
+    // cout<<"shifted S.x = "<<z_cap_m(0)*cos(z_cap_m(1))<<" S.y = "<<z_cap_m(0)*sin(z_cap_m(1))<<endl;
 
     //cout<<"Delta_z = \n"<<delta_z<<endl;
 
@@ -281,8 +281,8 @@ float ExtendedKalmanFilter::directDistance(CarPoint StoredPoint){
 
     CarPoint Stored = {z_cap_m(0)*cos(z_cap_m(1)),z_cap_m(0)*sin(z_cap_m(1))};
     CarPoint Observed = {z(0)*cos(z(1)),z(0)*sin(z(1))};
-    cout<<"Stored = "<<Stored<<endl;
-    cout<<"Observed = "<<Observed<<endl;
+    // cout<<"Stored = "<<Stored<<endl;
+    // cout<<"Observed = "<<Observed<<endl;
 
     return pointDistance(Stored,Observed);
 
@@ -308,7 +308,7 @@ void ExtendedKalmanFilter::isNewLandmark2(){
         // minDistances.push_back(mahaDistance);
 
         float dirDistance = directDistance(StoredPoint);
-        cout<<i<<"  Direct_distance calculated from above as = "<<dirDistance<<endl;
+        //cout<<i<<"  Direct_distance calculated from above as = "<<dirDistance<<endl;
         minDistances.push_back(dirDistance);
 
         indexes.push_back(i);
@@ -347,7 +347,7 @@ void ExtendedKalmanFilter::isNewLandmark2(){
 
         NoLandmarksFound += 1;
         LandmarkIndex = 1+NoLandmarksFound*2;
-        cout<<"Landmark Index = "<<LandmarkIndex<<endl;
+        //cout<<"Landmark Index = "<<LandmarkIndex<<endl;
         LandmarkIsNew = true;
         
         //Update State with landmark position
@@ -356,7 +356,7 @@ void ExtendedKalmanFilter::isNewLandmark2(){
         
 
     }else{
-        cout<<"Found Landmark"<<endl;
+        //cout<<"Found Landmark"<<endl;
         //This is a found landmark
         EstimatedLandmark.x = State(smallestDistanceIndex);
         EstimatedLandmark.y = State(smallestDistanceIndex+1);
@@ -654,7 +654,7 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     State = State + Gain*(delta_z);
 
 
-    cout<<"\n MAIN: after_ekf State: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
+    cout<<"\n EKF: after_ekf State: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
     //cout<<"State = \n"<<State<<endl;
     //State = State + Gain*(delta_z);
     //State = State + Gain*(z-z_cap);
@@ -742,7 +742,7 @@ void ExtendedKalmanFilter::runEKF() {
         updateCovarianceOfLandmark();
         //cout << "\nLINE 7\nsigma =\n" << Covariance << "\n";
     }
-    cout<<"Prior "<<State(2)*180/PI<<endl;
+    //cout<<"Prior "<<State(2)*180/PI<<endl;
     State(2) = pi_2_pi(State(2));
-    cout<<"Prior "<<State(2)*180/PI<<endl;
+    //cout<<"Prior "<<State(2)*180/PI<<endl;
 }
