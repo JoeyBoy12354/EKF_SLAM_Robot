@@ -711,6 +711,8 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
         }else if(finalRun == false && postMap == true){
             home = postMapMovement(ekf.State,path,home);// Move the robot to the location
             motorDataProcessing(ekf.w,ekf.distance);//Set Ekf variables to result from motor functions
+        }else{
+            cout<<"I DID NOT FUCKING MOVE"<<endl;
         }
 
     }else{
