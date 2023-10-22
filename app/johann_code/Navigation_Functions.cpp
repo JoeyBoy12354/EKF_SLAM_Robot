@@ -492,7 +492,7 @@ namespace Navigation_Functions{
             current->traversable = false;
 
             // Find the neighbors of the current node
-            std::vector<GridNode*> neighbors = findNeighbours(*current, gridMap);
+            std::vector<GridNode*> neighbors = findNeighboursBFS(*current, gridMap);
 
             // Enqueue unvisited neighbors
             for (GridNode* neighbor : neighbors) {
