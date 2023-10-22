@@ -109,7 +109,7 @@ namespace CSV_Functions{
     }
 
     //Full Map Functions
-    void saveCarToFullMapCSV(const vector<CarPoint>& points) {
+    void saveCarToFullMapCSV(vector<CarPoint>& points) {
         cout<<"\n CSV: Saving Full Map (overwriting old)"<<endl;
         
         ofstream outputFile(fullMapCSV);
@@ -126,7 +126,7 @@ namespace CSV_Functions{
         outputFile.close();
     }
 
-    void appendCarToFullMapCSV(const vector<CarPoint>& points) {
+    void appendCarToFullMapCSV(vector<CarPoint>& points) {
         ofstream outputFile(fullMapCSV, ios::app);
         if (!outputFile.is_open()) {
             cerr << "Error opening the file: " << fullMapCSV << endl;
