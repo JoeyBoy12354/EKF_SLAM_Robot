@@ -115,7 +115,7 @@ namespace Navigation_Functions{
 
 
     bool mapMovement(MatrixXf State, vector<vector<GridPoint>> gridMap, vector<CarPoint>& path){
-        cout<<"In pre-map movement"<<endl;
+        cout<<"In pre-map movement mapped = "<<endl;
         //take grid map
         bool mapped = true;
         float smallDistance = 10000000;
@@ -146,6 +146,7 @@ namespace Navigation_Functions{
             }
 
             cout<<"ClosestPoint = "<<closestPoint<<endl;
+            cout<<"mapped = "<<mapped;
 
             //Update Path to get There
             path = pathFinder(State,closestPoint);
@@ -307,7 +308,7 @@ namespace Navigation_Functions{
         while (!toVisit.empty()) {
             GridNode* current = toVisit.front();
             toVisit.pop();
-            cout<<"Current = "<<current->x<<" and "<<current->y<<endl;
+            //cout<<"Current = "<<current->x<<" and "<<current->y<<endl;
             // Check if the current node is the goal
             if (current->x == goal.x && current->y == goal.y) {
                 // Reconstruct the path
@@ -326,11 +327,11 @@ namespace Navigation_Functions{
             // Find the neighbors of the current node
             std::vector<GridNode*> neighbors = findNeighboursBFS2(*current, gridMap);
 
-            cout<<"Neighbor size = "<<neighbors.size()<<endl;
+            //cout<<"Neighbor size = "<<neighbors.size()<<endl;
 
             // Enqueue unvisited neighbors
             for (GridNode* neighbor : neighbors) {
-                cout<<"NeighBor = "<<neighbor->x<<" and "<<neighbor->y<<endl;
+                //cout<<"NeighBor = "<<neighbor->x<<" and "<<neighbor->y<<endl;
                 if (neighbor->traversable) {
                     neighbor->parent = current;
                     toVisit.push(neighbor);
@@ -403,8 +404,8 @@ namespace Navigation_Functions{
             cout << "No Shortened path found." << endl;
         } else {
             cout << "Shortened Path: ";
-            for (GridNode* point : pathCartesian) {
-                cout << "(" << point->x << ", " << point->y << ") ";
+            for (int i =0;i<pathCartesian;i++) {
+                cout << pathCartesian[i];
             }
             cout << endl;
         }
