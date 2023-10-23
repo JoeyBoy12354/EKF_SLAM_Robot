@@ -438,6 +438,7 @@ namespace Lidar_Functions{
         drv->startScan(0,1);
 
         //Usually scan will happen here
+        fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
 
 
         printf("I have reached max NoPoints in Lidar_function");
