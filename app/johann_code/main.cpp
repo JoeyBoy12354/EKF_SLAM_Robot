@@ -228,8 +228,43 @@ void testThread() {
     cout << "t1 joined" << endl;
 }
 
+
+
+
 void testLidarThread(){
-    return;
+    vector<int> vect;
+    int NoPoints = 8192;
+    vector<PolPoint> lidarDataPoints;
+    bool error = false;
+    thread t1(initializeLidar, ref(lidarDataPoints), ref(error), noPoints);
+
+    int timer = 0;
+    while (timer < 500) {
+        {
+            unique_lock<mutex> lock(mtx);
+            cv.wait(lock, [&lidarDataPoints, size] { return lidarDataPoints.size() == size; });
+
+            // Do something with the filled vector
+            // For example, copy its contents to another data structure
+
+            // Reset the vector
+            lidarDataPoints.clear();
+        }
+
+        // Continue your processing after vector is filled
+
+        timer = timer + 1;
+        cout << "\nMAIN: vector is full in time = " << timer << endl;
+    }
+
+    cout << "Signal threadSlave to stop" << endl;
+    stopFlag.store(true); // Set the stop flag to signal threadSlave to stop
+
+    // Wait for the t1 thread to join
+    t1.join();
+    cout << "t1 joined" << endl;
+
+    return
 }
 
 

@@ -21,6 +21,12 @@ static inline void delay(sl_word_size_t ms){
 
 using namespace Data_Functions;
 
+//Reference the following variables that are in main
+extern mutex mtx; // Mutex for synchronization
+extern condition_variable cv; // Condition variable for signalin
+extern atomic<bool> stopFlag(false); // Atomic flag to control threadSlave loop
+
+
 namespace Lidar_Functions{
     void print_usage(int argc, const char * argv[])
     { 
@@ -286,7 +292,7 @@ namespace Lidar_Functions{
 
 
 
-    int initializeLidar(vector<PolPoint>& lidarDataPoints, bool& error){
+    int initializeLidar(vector<PolPoint>& lidarDataPoints, bool& error, int NoPoints){
         int argc = 5;
         const char * argv[] = {
             "./johann_code",
@@ -296,10 +302,7 @@ namespace Lidar_Functions{
             "115200"
         };
         bool newScan = true;
-        // int NoPoints = 10000;
-        // int NoPointsPerScan = 100000;
-        int NoPoints = 8192;
-        int NoPointsPerScan = 8192;
+
         sl_u16 stop = 0;
         sl_u32 timeout = 3000;//Default is 2000 (does not seem to help)
         sl_u32 timeStop = 2000;
@@ -437,8 +440,37 @@ namespace Lidar_Functions{
         // start scan...
         drv->startScan(0,1);
 
+
+
+
+
+
+
+
+
+
+
+        //////////////////////////////////////////////////////////////////////////
+
+
+        while (!stopFlag && error == false) { // Check the stop flag to determine whether to continue
+            cout << "SLAVE liadr: This is noPoints = " << NoPoints << endl;
+            cout << "SLAVE lidar: This is error = " << error << endl;
+
+            lidarDataPoints.clear();
+            fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
+
+
+            // Notify the main thread that the vector is filled
+            {
+                lock_guard<mutex> lock(mtx);
+                cv.notify_all();
+            }
+        }
+
         //Usually scan will happen here
-        fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
+
+        //////////////////////////////////////////////////////////
 
 
         printf("I have reached max NoPoints in Lidar_function");
