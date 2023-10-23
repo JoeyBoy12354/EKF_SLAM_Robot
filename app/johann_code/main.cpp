@@ -176,7 +176,7 @@ void threadSlave(int n, string a, vector<int>& vect){
     cout<<"SLAVE: This is n = "<<n<<endl;
     cout<<"SLAVE: This is a = "<<a<<endl;
 
-    vector.clear();
+    vect.clear();
     for(int i =0;i<10000;i++){
         vect.push_back(i);
     }
