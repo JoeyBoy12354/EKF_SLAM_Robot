@@ -189,7 +189,7 @@ void testThread(){
 
     t1.join();
     if(vect.size() == 10000){
-        cout<<"vector is full";
+        cout<<"\nMAIN: vector is full";<<endl;
     }
     return;
 }
