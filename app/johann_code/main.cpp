@@ -178,7 +178,7 @@ void threadSlave(int n, string a, vector<int> vect){
 
     vector.clear()
     for i in range(0,10000){
-        vect.pushbac(i);
+        vect.pushback(i);
     }
     return;
 }
@@ -187,13 +187,15 @@ void testThread(){
     vector<int> vect
     thread t1(threadSlave, 10, "StringFromMain",vect);
 
+    t1.join();
     if(vect.size() == 10000){
         cout<<"vector is full"
+         
     }
 
 
 
-    t1.join();
+   
 }
 
 
