@@ -21,7 +21,7 @@ static inline void delay(sl_word_size_t ms){
 
 using namespace Data_Functions;
 
-namespace Lidar_Functions{
+namespace LidarOLD_Functions{
     void print_usage(int argc, const char * argv[])
     { 
         printf("Simple LIDAR data grabber for SLAMTEC LIDAR.\n"

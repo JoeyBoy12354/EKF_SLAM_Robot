@@ -184,7 +184,7 @@ void threadSlave(int n, string a, vector<int>& vect){
 
         // Notify the main thread that the vector is filled
         {
-            std::lock_guard<std::mutex> lock(mtx);
+            lock_guard<mutex> lock(mtx);
             cv.notify_all();
         }
     }
@@ -198,7 +198,7 @@ void testThread() {
     int timer = 0;
     while (timer < 500) {
         {
-            std::unique_lock<std::mutex> lock(mtx);
+            unique_lock<mutex> lock(mtx);
             cv.wait(lock, [&vect, size] { return vect.size() == size; });
 
             // Do something with the filled vector

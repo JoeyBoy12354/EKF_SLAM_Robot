@@ -23,9 +23,6 @@
 #include <queue>
 #include <set>
 
-//#include <unistd.h >
-
-
 //Lidar Functions Includes
 #include <stdio.h>
 #include <stdlib.h>
@@ -113,27 +110,7 @@ struct GridNode {
     GridNode(int x, int y) : x(x), y(y), traversable(true), parent(nullptr) {}
 };
 
-// struct NodePoint {
-//     double x;
-//     double y;
-//     bool trav = false;//has been traversed
-//     NodePoint down; //nearest negative y
-//     NodePoint up; //nearest positive y
-//     NodePoint left; //nearest negative x
-//     NodePoint right; //nearest positive x
-    
-//     bool operator==(const NodePoint& other) const {
-//         return x == other.x && y == other.y && trav == other.trav &&
-//          down == other.down && up == other.up && left == left.y && right == other.right;
-//     }
 
-//     friend ostream& operator<<(ostream& os, const NodePoint& point) {
-//         os << "(" << point.x << "," << point.y << ") " << point.trav;
-//         return os;
-//     }
-
-
-// }
 
 struct Line {
     double gradient;
