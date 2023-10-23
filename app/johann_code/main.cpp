@@ -891,7 +891,7 @@ int main() {
     //testLM();
     //testMotor();
     
-    testLidar();
+    //testLidar();
 
     //testRun();
     
@@ -906,7 +906,7 @@ int main() {
 
     //testThread();
 
-    //testLidarThread();
+    testLidarThread();
 
   
     return 0;
