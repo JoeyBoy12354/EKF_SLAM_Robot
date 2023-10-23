@@ -18,9 +18,9 @@ using namespace Navigation_Functions;
 using namespace Mapping_Functions;
 
 //Thread Stuff
-// mutex mtx; // Mutex for synchronization
-// condition_variable cv; // Condition variable for signalin
-// atomic<bool> stopFlag(false); // Atomic flag to control threadSlave loop
+mutex mtx; // Mutex for synchronization
+condition_variable cv; // Condition variable for signalin
+atomic<bool> stopFlag(false); // Atomic flag to control threadSlave loop
 
 
 
