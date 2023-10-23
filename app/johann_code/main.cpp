@@ -242,7 +242,7 @@ void testLidarThread(){
     while (timer < 5) {
         {
             unique_lock<mutex> lock(mtx);
-            cv.wait(lock, [&lidarDataPoints, size] { return lidarDataPoints.size() == size; });
+            cv.wait(lock, [&lidarDataPoints, size] { return lidarDataPoints.size() == NoPoints; });
 
             // Do something with the filled vector
             // For example, copy its contents to another data structure
@@ -264,7 +264,7 @@ void testLidarThread(){
     t1.join();
     cout << "t1 joined" << endl;
 
-    return
+    return;
 }
 
 
