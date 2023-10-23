@@ -196,7 +196,7 @@ void testThread() {
     thread t1(threadSlave, size, "StringFromMain", ref(vect));
 
     int timer = 0;
-    while (true) {
+    while (timer<1000) {
         {
             std::unique_lock<std::mutex> lock(mtx);
             cv.wait(lock, [&vect, size] { return vect.size() == size; });
