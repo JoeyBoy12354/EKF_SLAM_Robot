@@ -185,16 +185,13 @@ void threadSlave(int n, string a, vector<int>& vect){
 
 void testThread(){
     vector<int> vect;
-    thread t1(threadSlave, 10, "StringFromMain",vect);
+    thread t1(threadSlave, 10, "StringFromMain",ref(vect));
 
     t1.join();
     if(vect.size() == 10000){
         cout<<"vector is full";
     }
     return;
-
-
-   
 }
 
 
