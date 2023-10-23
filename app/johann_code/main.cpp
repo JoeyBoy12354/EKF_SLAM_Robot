@@ -81,7 +81,8 @@ void testEKF(){
 void testLidar(){
     vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
     bool error = true;
-    runLidar(lidarDataPoints,error);
+    initializeLidar(lidarDataPoints,error);
+    //runLidar(lidarDataPoints,error);
 }
 
 void testLandmarkIdentification(bool& firstRun){
@@ -228,7 +229,7 @@ void testThread() {
 }
 
 void testLidarThread(){
-
+    return;
 }
 
 
@@ -855,7 +856,7 @@ int main() {
     //testLM();
     //testMotor();
     
-    //testLidar();
+    testLidar();
 
     //testRun();
     
@@ -870,7 +871,8 @@ int main() {
 
     //testThread();
 
-    testLidarThread();
+    //testLidarThread();
+
   
     return 0;
 }
