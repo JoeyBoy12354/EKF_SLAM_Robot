@@ -177,7 +177,7 @@ void threadSlave(int n, string a, vector<int>& vect){
     cout<<"SLAVE: This is a = "<<a<<endl;
 
     vect.clear();
-    for(int i =0;i<10000;i++){
+    for(int i =0;i<n;i++){
         vect.push_back(i);
     }
     return;
@@ -185,12 +185,23 @@ void threadSlave(int n, string a, vector<int>& vect){
 
 void testThread(){
     vector<int> vect;
-    thread t1(threadSlave, 10, "StringFromMain",ref(vect));
+    int size = 10000
+    thread t1(threadSlave, size, "StringFromMain",ref(vect));
 
-    t1.join();
-    if(vect.size() == 10000){
+    
+    
+
+    while(vect.size() != size){
+        continue;
+    }
+
+    if(vect.size() == size){
         cout<<"\nMAIN: vector is full";<<endl;
     }
+
+    t1.join();
+
+
     return;
 }
 
