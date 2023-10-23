@@ -179,7 +179,7 @@ void threadSlave(int n, string a){
 }
 
 void testThread(){
-    thread t1(print, 10, "StringFromMain");
+    thread t1(threadSlave, 10, "StringFromMain");
     t1.join();
 }
 
