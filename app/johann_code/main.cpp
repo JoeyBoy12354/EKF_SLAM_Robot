@@ -196,7 +196,7 @@ void testThread() {
     thread t1(threadSlave, size, "StringFromMain", ref(vect));
 
     int timer = 0;
-    while (timer<1000) {
+    while (timer<500) {
         {
             std::unique_lock<std::mutex> lock(mtx);
             cv.wait(lock, [&vect, size] { return vect.size() == size; });
@@ -214,8 +214,13 @@ void testThread() {
         cout << "\nMAIN: vector is full in time = " << timer << endl;
     }
 
+    cout<<"Wait for t1 to join"<<endl;
+
     // After the loop, join the thread (this will never be reached in this code)
     t1.join();
+
+    cout<<"t1 joined"<<endl;
+    return;
 }
 
 
