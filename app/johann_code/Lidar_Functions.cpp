@@ -290,8 +290,6 @@ namespace Lidar_Functions{
         return 0;
     }
 
-
-
     int initializeLidar(vector<PolPoint>& lidarDataPoints, bool& error, int NoPoints){
         int argc = 5;
         const char * argv[] = {
@@ -492,7 +490,6 @@ namespace Lidar_Functions{
 
 
     }
-
 
     void fetchScan(ILidarDriver * drv, sl_result op_result, vector<PolPoint>& lidarDataPoints,
                   int NoPoints, bool& error,sl_u32 timeout){
