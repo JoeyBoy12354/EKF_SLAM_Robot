@@ -178,7 +178,7 @@ void threadSlave(int n, string a, vector<int>& vect){
 
     vector.clear();
     for(int i =0;i<10000;i++){
-        vect.pushback(i);
+        vect.push_back(i);
     }
     return;
 }
