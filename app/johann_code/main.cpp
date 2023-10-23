@@ -227,6 +227,10 @@ void testThread() {
     cout << "t1 joined" << endl;
 }
 
+void testLidarThread(){
+
+}
+
 
 
 void calibrateMotors(){
@@ -850,7 +854,8 @@ int main() {
     //testPython();
     //testLM();
     //testMotor();
-    testLidar();
+    
+    //testLidar();
 
     //testRun();
     
@@ -864,6 +869,8 @@ int main() {
     //testRun();
 
     //testThread();
+
+    testLidarThread();
   
     return 0;
 }
