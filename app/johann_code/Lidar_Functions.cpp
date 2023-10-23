@@ -270,8 +270,6 @@ namespace Lidar_Functions{
         printf("I have reached max NoPoints in Lidar_function");
         error = false;
         drv->setMotorSpeed(stop);
-        
-
         drv->stop();
         delay(200);
         if(opt_channel_type == CHANNEL_TYPE_SERIALPORT)
@@ -315,22 +313,18 @@ namespace Lidar_Functions{
             }else{
                 cout<<"SL is not ok"<<endl;
                 error = true;
-                return
+                return;
             }
 
             if (ctrl_c_pressed){ 
                 printf("I am in break statement Lidar_function");
                 error = true;
-                return
+                return;
             }
         }
 
         error = false;
         return;
-
-
-
-
 
     }
 
