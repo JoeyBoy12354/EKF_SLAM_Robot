@@ -37,8 +37,8 @@ using namespace std;
 using namespace Eigen;
 using namespace sl;
 
-std::mutex mtx; // Mutex for synchronization
-std::condition_variable cv; // Condition variable for signalin
+mutex mtx; // Mutex for synchronization
+condition_variable cv; // Condition variable for signalin
 
 #define N 30 //Number of landmarks
 #define dim 2*N+3//Initial Dimension of Matrices in EKF
