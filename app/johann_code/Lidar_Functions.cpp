@@ -285,7 +285,7 @@ namespace Lidar_Functions{
     }
 
 
-    void fetchScan(ILidarDriver * drv, sl_result op_result, vector<PolPoint>& lidarDataPoints, int NoPoints, bool& error){
+    void fetchScan(ILidarDriver * drv, sl_result op_result, vector<PolPoint>& lidarDataPoints, int NoPoints, bool& error,sl_u32 timeout){
         //This is the while loop that we wanna be working in
         // fetech result and print it out...
         cout<<"Entering scan loop"<<endl;
