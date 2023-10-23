@@ -13,6 +13,7 @@
 #include <thread>
 #include <mutex>
 #include <condition_variable>
+#include <atomic> // for atomic flag
 
 #include <sstream>
 #include <numeric>
@@ -37,8 +38,10 @@ using namespace std;
 using namespace Eigen;
 using namespace sl;
 
+//Thread Stuff
 mutex mtx; // Mutex for synchronization
 condition_variable cv; // Condition variable for signalin
+atomic<bool> stopFlag(false); // Atomic flag to control threadSlave loop
 
 #define N 30 //Number of landmarks
 #define dim 2*N+3//Initial Dimension of Matrices in EKF

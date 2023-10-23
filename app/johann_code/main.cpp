@@ -173,7 +173,7 @@ void testMotor(){
 
 
 void threadSlave(int n, string a, vector<int>& vect){
-    while (true) {
+    while (!stopFlag) { // Check the stop flag to determine whether to continue
         cout << "SLAVE: This is n = " << n << endl;
         cout << "SLAVE: This is a = " << a << endl;
 
@@ -196,7 +196,7 @@ void testThread() {
     thread t1(threadSlave, size, "StringFromMain", ref(vect));
 
     int timer = 0;
-    while (timer<500) {
+    while (timer < 500) {
         {
             std::unique_lock<std::mutex> lock(mtx);
             cv.wait(lock, [&vect, size] { return vect.size() == size; });
@@ -214,14 +214,14 @@ void testThread() {
         cout << "\nMAIN: vector is full in time = " << timer << endl;
     }
 
-    cout<<"Wait for t1 to join"<<endl;
+    cout << "Signal threadSlave to stop" << endl;
+    stopFlag.store(true); // Set the stop flag to signal threadSlave to stop
 
-    // After the loop, join the thread (this will never be reached in this code)
+    // Wait for the t1 thread to join
     t1.join();
-
-    cout<<"t1 joined"<<endl;
-    return;
+    cout << "t1 joined" << endl;
 }
+
 
 
 void calibrateMotors(){
