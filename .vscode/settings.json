@@ -61,6 +61,10 @@
         "ranges": "cpp",
         "span": "cpp",
         "thread": "cpp",
-        "mutex": "cpp"
+        "mutex": "cpp",
+        "condition_variable": "cpp",
+        "ratio": "cpp",
+        "set": "cpp",
+        "stop_token": "cpp"
     }
 }
