@@ -207,7 +207,6 @@ namespace Landmark_Functions{
     vector<CarPoint> getCorners();
 }
 
-
 namespace Simulation_Functions{
     vector<PolPoint> generateLidarData();
     double generateGaussian(double mean, double stddev);

@@ -177,55 +177,55 @@ void testMotor(){
 }
 
 
-// void threadSlave(int n, string a, vector<int>& vect){
-//     while (!stopFlag) { // Check the stop flag to determine whether to continue
-//         cout << "SLAVE: This is n = " << n << endl;
-//         cout << "SLAVE: This is a = " << a << endl;
+void threadSlave(int n, string a, vector<int>& vect){
+    while (!stopFlag) { // Check the stop flag to determine whether to continue
+        cout << "SLAVE: This is n = " << n << endl;
+        cout << "SLAVE: This is a = " << a << endl;
 
-//         vect.clear();
-//         for (int i = 0; i < n; i++) {
-//             vect.push_back(i);
-//         }
+        vect.clear();
+        for (int i = 0; i < n; i++) {
+            vect.push_back(i);
+        }
 
-//         // Notify the main thread that the vector is filled
-//         {
-//             lock_guard<mutex> lock(mtx);
-//             cv.notify_all();
-//         }
-//     }
-// }
+        // Notify the main thread that the vector is filled
+        {
+            lock_guard<mutex> lock(mtx);
+            cv.notify_all();
+        }
+    }
+}
 
-// void testThread() {
-//     vector<int> vect;
-//     int size = 1000000;
-//     thread t1(threadSlave, size, "StringFromMain", ref(vect));
+void testThread() {
+    vector<int> vect;
+    int size = 1000000;
+    thread t1(threadSlave, size, "StringFromMain", ref(vect));
 
-//     int timer = 0;
-//     while (timer < 500) {
-//         {
-//             unique_lock<mutex> lock(mtx);
-//             cv.wait(lock, [&vect, size] { return vect.size() == size; });
+    int timer = 0;
+    while (timer < 500) {
+        {
+            unique_lock<mutex> lock(mtx);
+            cv.wait(lock, [&vect, size] { return vect.size() == size; });
 
-//             // Do something with the filled vector
-//             // For example, copy its contents to another data structure
+            // Do something with the filled vector
+            // For example, copy its contents to another data structure
 
-//             // Reset the vector
-//             vect.clear();
-//         }
+            // Reset the vector
+            vect.clear();
+        }
 
-//         // Continue your processing after vector is filled
+        // Continue your processing after vector is filled
 
-//         timer = timer + 1;
-//         cout << "\nMAIN: vector is full in time = " << timer << endl;
-//     }
+        timer = timer + 1;
+        cout << "\nMAIN: vector is full in time = " << timer << endl;
+    }
 
-//     cout << "Signal threadSlave to stop" << endl;
-//     stopFlag.store(true); // Set the stop flag to signal threadSlave to stop
+    cout << "Signal threadSlave to stop" << endl;
+    stopFlag.store(true); // Set the stop flag to signal threadSlave to stop
 
-//     // Wait for the t1 thread to join
-//     t1.join();
-//     cout << "t1 joined" << endl;
-// }
+    // Wait for the t1 thread to join
+    t1.join();
+    cout << "t1 joined" << endl;
+}
 
 
 

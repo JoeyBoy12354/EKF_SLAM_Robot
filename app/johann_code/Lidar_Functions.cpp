@@ -285,49 +285,49 @@ namespace Lidar_Functions{
     }
 
 
-    // void fetchScan(ILidarDriver * drv, sl_result op_result, vector<PolPoint>& lidarDataPoints,
-    //               int NoPoints, bool& error,sl_u32 timeout){
-    //     //This is the while loop that we wanna be working in
-    //     // fetech result and print it out...
-    //     cout<<"Entering scan loop"<<endl;
-    //     while (lidarDataPoints.size()<NoPoints) {
-    //         sl_lidar_response_measurement_node_hq_t nodes[8192]; //number of points
-    //         //sl_lidar_response_measurement_node_hq_t nodes[NoPointsPerScan]; //number of points
-    //         size_t   count = _countof(nodes);
+    void fetchScan(ILidarDriver * drv, sl_result op_result, vector<PolPoint>& lidarDataPoints,
+                  int NoPoints, bool& error,sl_u32 timeout){
+        //This is the while loop that we wanna be working in
+        // fetech result and print it out...
+        cout<<"Entering scan loop"<<endl;
+        while (lidarDataPoints.size()<NoPoints) {
+            sl_lidar_response_measurement_node_hq_t nodes[8192]; //number of points
+            //sl_lidar_response_measurement_node_hq_t nodes[NoPointsPerScan]; //number of points
+            size_t   count = _countof(nodes);
 
-    //         op_result = drv->grabScanDataHq(nodes, count,timeout);
+            op_result = drv->grabScanDataHq(nodes, count,timeout);
 
             
-    //         if (SL_IS_OK(op_result)) {
-    //             drv->ascendScanData(nodes, count);
-    //             for (int pos = 0; pos < (int)count ; ++pos) {
+            if (SL_IS_OK(op_result)) {
+                drv->ascendScanData(nodes, count);
+                for (int pos = 0; pos < (int)count ; ++pos) {
 
-    //                 if(nodes[pos].quality>40){
-    //                     PolPoint newPoint;
-    //                     newPoint.angle = (nodes[pos].angle_z_q14 * 90.f) / 16384.f;
-    //                     newPoint.distance = nodes[pos].dist_mm_q2/4.0f;
-    //                     lidarDataPoints.push_back(newPoint);
-    //                 }
-    //             }
+                    if(nodes[pos].quality>40){
+                        PolPoint newPoint;
+                        newPoint.angle = (nodes[pos].angle_z_q14 * 90.f) / 16384.f;
+                        newPoint.distance = nodes[pos].dist_mm_q2/4.0f;
+                        lidarDataPoints.push_back(newPoint);
+                    }
+                }
                 
 
-    //         }else{
-    //             cout<<"SL is not ok"<<endl;
-    //             error = true;
-    //             return;
-    //         }
+            }else{
+                cout<<"SL is not ok"<<endl;
+                error = true;
+                return;
+            }
 
-    //         if (ctrl_c_pressed){ 
-    //             printf("I am in break statement Lidar_function");
-    //             error = true;
-    //             return;
-    //         }
-    //     }
+            if (ctrl_c_pressed){ 
+                printf("I am in break statement Lidar_function");
+                error = true;
+                return;
+            }
+        }
 
-    //     error = false;
-    //     return;
+        error = false;
+        return;
 
-    // }
+    }
 
 
 
