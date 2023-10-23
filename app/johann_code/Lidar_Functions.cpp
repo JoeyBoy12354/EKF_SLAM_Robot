@@ -326,7 +326,7 @@ namespace Lidar_Functions{
         }
 
         error = false;
-        return
+        return;
 
 
 
