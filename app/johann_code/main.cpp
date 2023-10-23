@@ -172,6 +172,18 @@ void testMotor(){
 }
 
 
+void threadSlave(int n, string a){
+    cout<<"SLAVE: This is n = "<<n<<endl;
+    cout<<"SLAVE: This is a = "<<a<<endl;
+    return;
+}
+
+void testThread(){
+    thread t1(print, 10, "StringFromMain");
+    t1.join();
+}
+
+
 void calibrateMotors(){
     writeMotorStateToCSV(true);
 
@@ -210,9 +222,6 @@ void simRun(ExtendedKalmanFilter& ekf, bool final){
 
     
 }
-
-
-
 
 
 
@@ -808,7 +817,9 @@ int main() {
     
     //atSim();
 
-    testRun();
+    //testRun();
+
+    testThread();
   
     return 0;
 }

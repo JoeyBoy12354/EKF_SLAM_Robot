@@ -86,7 +86,7 @@ namespace Navigation_Functions{
         saveTriangleToCSV(triangle_shift);
 
         CarPoint C; //Will hold the value of the tip/front of triangle after rotation
-        CarPoint B = {triangle_shift[0].x,triangle_shift[0].y}; //Will hold the value of the tip/front of triangle
+        CarPoint B = {triangle_shift[0].x,triangle_shift[0].y}; //Will hold the value of the current tip/front of triangle
         CarPoint A; //This point will hold the coordinate of the corner around which we will rotate
 
         CarPoint T1 = A = {triangle_shift[1].x,triangle_shift[1].y};
