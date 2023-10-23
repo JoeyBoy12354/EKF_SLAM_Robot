@@ -191,9 +191,7 @@ void testThread(){
     
     
 
-    while(vect.size() != size){
-        continue;
-    }
+    while(vect.size() != size);
 
     if(vect.size() == size){
         cout<<"\nMAIN: vector is full";<<endl;
