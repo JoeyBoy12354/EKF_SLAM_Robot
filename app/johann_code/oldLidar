@@ -81,7 +81,8 @@ namespace Lidar_Functions{
         int NoPoints = 8192;
         int NoPointsPerScan = 8192;
         sl_u16 stop = 0;
-        sl_u32 timeout = 6000;//Default is 2000
+        sl_u32 timeout = 3000;//Default is 2000 (does not seem to help)
+        sl_u32 timeStop = 2000;
 
         const char * opt_is_channel = NULL; 
         const char * opt_channel = NULL;
@@ -156,6 +157,23 @@ namespace Lidar_Functions{
         // create the driver instance
         ILidarDriver * drv = *createLidarDriver();
 
+        
+        // ask the LIDAR to stop working first...
+        //drv->stop(timeStop);
+        // cout<<"Main: Attempt Stop"<<endl;
+        // cout<<"Main: Stopped"<<endl;
+        // delay(2000);
+        // cout<<"Yas"<<endl;
+        // //_channel->flush();
+        // cout<<"Main: Flushed"<<endl;
+
+        // // wait for a while
+        // delay(10);
+        // cout<<"Main: delayed"<<endl;
+        // //_channel->clearReadCache();
+        // cout<<"Main: Cleared"<<endl;
+
+
         if (!drv) {
             fprintf(stderr, "insufficent memory, exit\n");
             exit(-2);
@@ -168,54 +186,56 @@ namespace Lidar_Functions{
             if(useArgcBaudrate){
                 _channel = (*createSerialPortChannel(opt_channel_param_first, opt_channel_param_second));
                 if (SL_IS_OK((drv)->connect(_channel))) {
-                    op_result = drv->getDeviceInfo(devinfo);
+                    op_result = drv->getDeviceInfo(devinfo,timeout);
 
                     if (SL_IS_OK(op_result)) 
                     {
                         connectSuccess = true;
                     }
                     else{
+                        cout<<"Get Device Info Failed_1"<<endl;
                         delete drv;
                         drv = NULL;
                     }
                 }
             }
-            else{
-                size_t baudRateArraySize = (sizeof(baudrateArray))/ (sizeof(baudrateArray[0]));
-                for(size_t i = 0; i < baudRateArraySize; ++i)
-                {
-                    _channel = (*createSerialPortChannel(opt_channel_param_first, baudrateArray[i]));
-                    if (SL_IS_OK((drv)->connect(_channel))) {
-                        op_result = drv->getDeviceInfo(devinfo);
+            // else{
+            //     size_t baudRateArraySize = (sizeof(baudrateArray))/ (sizeof(baudrateArray[0]));
+            //     for(size_t i = 0; i < baudRateArraySize; ++i)
+            //     {
+            //         _channel = (*createSerialPortChannel(opt_channel_param_first, baudrateArray[i]));
+            //         if (SL_IS_OK((drv)->connect(_channel))) {
+            //             op_result = drv->getDeviceInfo(devinfo,timeout);
 
-                        if (SL_IS_OK(op_result)) 
-                        {
-                            connectSuccess = true;
-                            break;
-                        }
-                        else{
-                            delete drv;
-                            drv = NULL;
-                        }
-                    }
-                }
-            }
+            //             if (SL_IS_OK(op_result)) 
+            //             {
+            //                 connectSuccess = true;
+            //                 break;
+            //             }
+            //             else{
+            //                 cout<<"Get Device Info Failed_2"<<endl;
+            //                 delete drv;
+            //                 drv = NULL;
+            //             }
+            //         }
+            //     }
+            // }
         }
-        else if(opt_channel_type == CHANNEL_TYPE_UDP){
-            _channel = *createUdpChannel(opt_channel_param_first, opt_channel_param_second);
-            if (SL_IS_OK((drv)->connect(_channel))) {
-                op_result = drv->getDeviceInfo(devinfo);
+        // else if(opt_channel_type == CHANNEL_TYPE_UDP){
+        //     _channel = *createUdpChannel(opt_channel_param_first, opt_channel_param_second);
+        //     if (SL_IS_OK((drv)->connect(_channel))) {
+        //         op_result = drv->getDeviceInfo(devinfo,timeout);
 
-                if (SL_IS_OK(op_result)) 
-                {
-                    connectSuccess = true;
-                }
-                else{
-                    delete drv;
-                    drv = NULL;
-                }
-            }
-        }
+        //         if (SL_IS_OK(op_result)) 
+        //         {
+        //             connectSuccess = true;
+        //         }
+        //         else{
+        //             delete drv;
+        //             drv = NULL;
+        //         }
+        //     }
+        // }
 
 
         if (!connectSuccess) {
@@ -273,7 +293,7 @@ namespace Lidar_Functions{
             //sl_lidar_response_measurement_node_hq_t nodes[NoPointsPerScan]; //number of points
             size_t   count = _countof(nodes);
 
-            op_result = drv->grabScanDataHq(nodes, count);
+            op_result = drv->grabScanDataHq(nodes, count,timeout);
 
             
             if (SL_IS_OK(op_result)) {
@@ -339,58 +359,58 @@ namespace Lidar_Functions{
 
 
 
-    int runLidarCustom(){
-        int argc = 5;
-        const char * argv[] = {
-            "./johann_code",
-            "--channel",
-            "--serial",
-            "/dev/ttyUSB0",
-            "115200"
-        };
+    // int runLidarCustom(){
+    //     int argc = 5;
+    //     const char * argv[] = {
+    //         "./johann_code",
+    //         "--channel",
+    //         "--serial",
+    //         "/dev/ttyUSB0",
+    //         "115200"
+    //     };
         
 
-        ///  Create a communication channel instance
-        IChannel* _channel;
-        Result<ISerialChannel*> channel = createSerialPortChannel("/dev/ttyUSB0", 115200);
-        ///  Create a LIDAR driver instance
-        ILidarDriver * lidar = *createLidarDriver();
-        auto res = (*lidar)->connect(*channel);
-        if(SL_IS_OK(res)){
-            sl_lidar_response_device_info_t deviceInfo;
-            res = (*lidar)->getDeviceInfo(deviceInfo);
-            if(SL_IS_OK(res)){
-                printf("Model: %d, Firmware Version: %d.%d, Hardware Version: %d\n",
-                deviceInfo.model,
-                deviceInfo.firmware_version >> 8, deviceInfo.firmware_version & 0xffu,
-                deviceInfo.hardware_version);
-            }else{
-                fprintf(stderr, "Failed to get device information from LIDAR %08x\r\n", res);
-            }
-        }else{
-            fprintf(stderr, "Failed to connect to LIDAR %08x\r\n", res);
-        }
-        // TODO
-        lidar->startMotor();
+    //     ///  Create a communication channel instance
+    //     IChannel* _channel;
+    //     Result<ISerialChannel*> channel = createSerialPortChannel("/dev/ttyUSB0", 115200);
+    //     ///  Create a LIDAR driver instance
+    //     ILidarDriver * lidar = *createLidarDriver();
+    //     auto res = (*lidar)->connect(*channel);
+    //     if(SL_IS_OK(res)){
+    //         sl_lidar_response_device_info_t deviceInfo;
+    //         res = (*lidar)->getDeviceInfo(deviceInfo);
+    //         if(SL_IS_OK(res)){
+    //             printf("Model: %d, Firmware Version: %d.%d, Hardware Version: %d\n",
+    //             deviceInfo.model,
+    //             deviceInfo.firmware_version >> 8, deviceInfo.firmware_version & 0xffu,
+    //             deviceInfo.hardware_version);
+    //         }else{
+    //             fprintf(stderr, "Failed to get device information from LIDAR %08x\r\n", res);
+    //         }
+    //     }else{
+    //         fprintf(stderr, "Failed to connect to LIDAR %08x\r\n", res);
+    //     }
+    //     // TODO
+    //     lidar->startMotor();
 
-        LidarScanMode scanMode;
-        lidar->startScan(false, true, 0, &scanMode);
+    //     LidarScanMode scanMode;
+    //     lidar->startScan(false, true, 0, &scanMode);
 
-        sl_lidar_response_measurement_node_hq_t nodes[8192];
-        size_t nodeCount = sizeof(nodes)/sizeof(sl_lidar_response_measurement_node_hq_t);
-        res = lidar->grabScanDataHq(nodes, nodeCount);
+    //     sl_lidar_response_measurement_node_hq_t nodes[8192];
+    //     size_t nodeCount = sizeof(nodes)/sizeof(sl_lidar_response_measurement_node_hq_t);
+    //     res = lidar->grabScanDataHq(nodes, nodeCount);
 
-        if (IS_FAIL(res))
-        {
-            // failed to get scan data
-        }
-
-        
+    //     if (IS_FAIL(res))
+    //     {
+    //         // failed to get scan data
+    //     }
 
         
-        /// Delete Lidar Driver and channel Instance
-        * delete *lidar;
-        * delete *channel;
-    }
+
+        
+    //     /// Delete Lidar Driver and channel Instance
+    //     * delete *lidar;
+    //     * delete *channel;
+    // }
 
 }
