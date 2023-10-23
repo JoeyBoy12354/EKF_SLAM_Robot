@@ -846,7 +846,7 @@ int main() {
     //testPython();
     //testLM();
     //testMotor();
-    //testLidar();
+    testLidar();
 
     //testRun();
     
@@ -859,7 +859,7 @@ int main() {
 
     //testRun();
 
-    testThread();
+    //testThread();
   
     return 0;
 }
