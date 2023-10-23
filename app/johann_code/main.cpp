@@ -660,7 +660,6 @@ void atSim(){
         }
 
         ekf.TestPolValues = lm_polar;
-        //ekf.TestValues = lm_converted;
         
         // for(int j=0;j<lm[i].size();j++){
         //     ekf.TestValues.push_back(lm_converted);
