@@ -172,7 +172,7 @@ void testMotor(){
 }
 
 
-void threadSlave(int n, string a, vector<int> vect){
+void threadSlave(int n, string a, vector<int>& vect){
     cout<<"SLAVE: This is n = "<<n<<endl;
     cout<<"SLAVE: This is a = "<<a<<endl;
 
