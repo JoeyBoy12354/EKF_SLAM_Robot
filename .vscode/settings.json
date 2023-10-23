@@ -60,6 +60,7 @@
         "queue": "cpp",
         "ranges": "cpp",
         "span": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "mutex": "cpp"
     }
 }

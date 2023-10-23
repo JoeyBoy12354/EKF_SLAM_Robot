@@ -173,36 +173,49 @@ void testMotor(){
 
 
 void threadSlave(int n, string a, vector<int>& vect){
-    cout<<"SLAVE: This is n = "<<n<<endl;
-    cout<<"SLAVE: This is a = "<<a<<endl;
+    while (true) {
+        cout << "SLAVE: This is n = " << n << endl;
+        cout << "SLAVE: This is a = " << a << endl;
 
-    vect.clear();
-    for(int i =0;i<n;i++){
-        vect.push_back(i);
+        vect.clear();
+        for (int i = 0; i < n; i++) {
+            vect.push_back(i);
+        }
+
+        // Notify the main thread that the vector is filled
+        {
+            std::lock_guard<std::mutex> lock(mtx);
+            cv.notify_all();
+        }
     }
-    return;
 }
 
-void testThread(){
+void testThread() {
     vector<int> vect;
     int size = 1000000;
-    thread t1(threadSlave, size, "StringFromMain",ref(vect));
+    thread t1(threadSlave, size, "StringFromMain", ref(vect));
 
-    
-    
     int timer = 0;
-    while(vect.size() != size){
-        timer= timer+1;
+    while (true) {
+        {
+            std::unique_lock<std::mutex> lock(mtx);
+            cv.wait(lock, [&vect, size] { return vect.size() == size; });
+
+            // Do something with the filled vector
+            // For example, copy its contents to another data structure
+
+            // Reset the vector
+            vect.clear();
+        }
+
+        // Continue your processing after vector is filled
+
+        timer = timer + 1;
+        cout << "\nMAIN: vector is full in time = " << timer << endl;
     }
 
-    if(vect.size() == size){
-        cout<<"\nMAIN: vector is full in time = "<<time<<endl;
-    }
-
+    // After the loop, join the thread (this will never be reached in this code)
     t1.join();
-
-
-    return;
 }
 
 

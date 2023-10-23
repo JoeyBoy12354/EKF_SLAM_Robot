@@ -11,6 +11,8 @@
 #include <cmath>
 #include <cstdlib>
 #include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include <sstream>
 #include <numeric>
@@ -34,6 +36,9 @@
 using namespace std;
 using namespace Eigen;
 using namespace sl;
+
+std::mutex mtx; // Mutex for synchronization
+std::condition_variable cv; // Condition variable for signalin
 
 #define N 30 //Number of landmarks
 #define dim 2*N+3//Initial Dimension of Matrices in EKF
