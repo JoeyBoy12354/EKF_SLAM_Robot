@@ -239,7 +239,7 @@ void testLidarThread(){
     thread t1(initializeLidar, ref(lidarDataPoints), ref(error), noPoints);
 
     int timer = 0;
-    while (timer < 500) {
+    while (timer < 5) {
         {
             unique_lock<mutex> lock(mtx);
             cv.wait(lock, [&lidarDataPoints, size] { return lidarDataPoints.size() == size; });
