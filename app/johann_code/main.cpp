@@ -172,14 +172,27 @@ void testMotor(){
 }
 
 
-void threadSlave(int n, string a){
+void threadSlave(int n, string a, vector<int> vect){
     cout<<"SLAVE: This is n = "<<n<<endl;
     cout<<"SLAVE: This is a = "<<a<<endl;
+
+    vector.clear()
+    for i in range(0,10000){
+        vect.pushbac(i);
+    }
     return;
 }
 
 void testThread(){
-    thread t1(threadSlave, 10, "StringFromMain");
+    vector<int> vect
+    thread t1(threadSlave, 10, "StringFromMain",vect);
+
+    if(vect.size() == 10000){
+        cout<<"vector is full"
+    }
+
+
+
     t1.join();
 }
 
