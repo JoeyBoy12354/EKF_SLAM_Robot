@@ -477,6 +477,9 @@ namespace Lidar_Functions{
         driver = drv;
 
 
+        //fetchScan( drv, op_result,lidarDataPoints, NoPoints, error, timeout);
+
+
 
 
 

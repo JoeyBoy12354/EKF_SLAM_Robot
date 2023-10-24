@@ -833,7 +833,7 @@ void testRun(){
     //ILidarDriver* lidarDriver = drv; // Initialize a pointer to the ILidarDriver object
     sl_result op_result;
     vector<PolPoint> lidarDataPoints;
-    int NoPoints;
+    int NoPoints = 8192;
     bool error;
     sl_u32 timeout = 3000;
 
