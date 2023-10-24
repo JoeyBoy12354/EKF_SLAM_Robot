@@ -21,7 +21,7 @@ namespace Landmark_Functions{
     }
 
 
-    VectorXd fitWithLeastSquares(const MatrixXd& X, const VectorXd& y) {
+    VectorXd fitWithLeastSquares(MatrixXd& X, VectorXd& y) {
         int numRows = X.rows();
         int numCols = X.cols();
 
@@ -43,7 +43,7 @@ namespace Landmark_Functions{
         return theta;
     }   
   
-    int evaluateModel(const MatrixXd& X, const VectorXd& y, const VectorXd& theta, float inlierThreshold) {
+    int evaluateModel(MatrixXd& X, VectorXd& y, VectorXd& theta, float inlierThreshold) {
         int numInliers = 0;
         VectorXd b = VectorXd::Ones(X.rows());
         VectorXd yReshaped = y;
@@ -64,7 +64,7 @@ namespace Landmark_Functions{
         return numInliers;
     }
 
-    VectorXd ransac(const MatrixXd& X, const VectorXd& y, int maxIters, float inlierThreshold, int minInliers, int samplesToFit) {
+    VectorXd ransac(MatrixXd& X, VectorXd& y, int maxIters, float inlierThreshold, int minInliers, int samplesToFit) {
         VectorXd bestModel;
         int bestModelPerformance = 0;
         
@@ -106,7 +106,7 @@ namespace Landmark_Functions{
         return bestModel;
     }
 
-    vector<VectorXd> manager(const vector<float>& xCoords, const vector<float>& yCoords, int sampleSize, int maxIters, float inlierThreshold, int minInliers) {
+    vector<VectorXd> manager(vector<float>& xCoords, vector<float>& yCoords, int sampleSize, int maxIters, float inlierThreshold, int minInliers) {
         int numSamples = xCoords.size() / sampleSize;
         vector<VectorXd> bestModels;
         
@@ -129,7 +129,7 @@ namespace Landmark_Functions{
     }
 
 
-    float calculateInterceptAngle(const VectorXd& line1, const VectorXd& line2) {
+    float calculateInterceptAngle(VectorXd& line1, VectorXd& line2) {
         float interAngle = PI / 2;
         float m1 = line1(0);
         float m2 = line2(0);
@@ -144,7 +144,7 @@ namespace Landmark_Functions{
         }
     }
 
-    VectorXd calculateInterceptPoint(const VectorXd& line1, const VectorXd& line2) {
+    VectorXd calculateInterceptPoint(VectorXd& line1, VectorXd& line2) {
         float m1 = line1(0);
         float m2 = line2(0);
         float b1 = line1(1);
@@ -156,7 +156,7 @@ namespace Landmark_Functions{
         return VectorXd(2) << x, y;
     }
 
-    vector<VectorXd> findCorners(const vector<VectorXd>& bestModels, float angleThreshold) {
+    vector<VectorXd> findCorners(vector<VectorXd>& bestModels, float angleThreshold) {
         vector<VectorXd> corners;
 
         for (size_t i = 0; i < bestModels.size(); ++i) {
@@ -185,7 +185,7 @@ namespace Landmark_Functions{
         return corners;
     }
 
-    vector<VectorXd> filterCorners(const vector<VectorXd>& corners, const vector<float>& xCoords, const vector<float>& yCoords, float duplicateThreshold, float closenessThreshold) {
+    vector<VectorXd> filterCorners(vector<VectorXd>& corners, vector<float>& xCoords, vector<float>& yCoords, float duplicateThreshold, float closenessThreshold) {
         vector<VectorXd> cleanCorners;
 
         for (size_t i = 0; i < corners.size(); ++i) {
