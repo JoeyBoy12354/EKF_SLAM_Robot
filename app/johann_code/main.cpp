@@ -829,50 +829,24 @@ void testRun(){
     vector<CarPoint> path;
     cout<<"TEST RUN"<<endl;
 
+    ILidarDriver * drv;
+    sl_result op_result;
+    vector<PolPoint>& lidarDataPoints;
+    int NoPoints;
+    bool& error;
+    sl_u32 timeout;
 
     //calibrateMotors();
 
-
-    vector<int> vect;
-    int NoPoints = 8192;
-    vector<PolPoint> lidarDataPoints;
-    vector<PolPoint> truePoints;
-    bool error = false;
-    thread t1(initializeLidar, ref(lidarDataPoints), ref(error), NoPoints);
-
-    finalRun = true;//REMOVE TIS L:ATER
-
+    initializeLidar(drv, op_result, error, timeout);
 
     int count = 0;
-    int timer = 0;
     while(mapped == false && count<20){
-        timer = 0;
-        while (timer < 2) {
-            cout<<"lock"<<endl;
-            {
-                unique_lock<mutex> lock(mtx);
-                cv.wait(lock, [&lidarDataPoints, NoPoints] { return lidarDataPoints.size() >= NoPoints; });
-                //cout << "Signal threadSlave to stop" << endl;
-                startFlag.store(true); // Set the start flag to signal threadSlave to stop
-                //cout<<"Gegt true"<<endl;
-                truePoints = lidarDataPoints;
-                lidarDataPoints.clear();
-                startFlag.store(false); // Set the start flag to signal threadSlave to go again
-            }
-
-            timer = timer + 1;
-            cout << "\nMAIN: vector is full in time = " << timer << " testPoints size = "<<truePoints.size()<<endl;
-        }
-
-
-
-
-
-
-
+        
+        fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
         cout<<"\n i = "<<count<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
-        fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
+        //fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
         firstRun = false; //DO NOT CHANGE THIS KEEP IT HERE DO NOT MOVE IT INSIDE FULLRUN OR GOD HELP ME
         count = count+1;
     }
@@ -883,7 +857,7 @@ void testRun(){
 
     cout<<"POST LOOP RUN"<<endl;
     finalRun = true;
-    fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
+    //fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
         
 
     cout<<"Fully Mapped Room"<<endl;
