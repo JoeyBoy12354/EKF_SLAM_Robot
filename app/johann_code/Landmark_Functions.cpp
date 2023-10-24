@@ -21,157 +21,121 @@ namespace Landmark_Functions{
     }
 
 
-    VectorXf fitWithLeastSquares(MatrixXf& x, VectorXf& y) {
+    //Assume there will only ever be 2 samples
+    VectorXf fitWithLeastSquares(const VectorXf& x, const VectorXf& y) {
+        float m = (y(0)-y(1))/(x(0)-x(1));
+        float c = Y(0) - x(0)*m;
 
-        float m = (y(1) - y(0))
+        VectorXf theta;
+        theta(0) = m;
+        theta(1) = c;
 
-        int numRows = X.rows();
-        int numCols = X.cols();
-
-        // Augment the feature matrix X with a column of ones for the bias term
-        MatrixXf A(numRows, numCols + 1);
-        A << X, MatrixXf::Ones(numRows, 1);
-
-        // Compute the transpose of A
-        MatrixXf A_transpose = A.transpose();
-
-        // Compute A_transpose * A and A_transpose * y
-        MatrixXf A_transpose_A = A_transpose * A;
-        VectorXf A_transpose_y = A_transpose * y;
-
-        // Solve the linear system using matrix multiplication
-        VectorXf theta(numCols + 1);
-        theta = A_transpose_A.inverse() * A_transpose_y;
-
-        return theta;
-    }   
-  
-    int evaluateModel(MatrixXf& X, VectorXf& y, VectorXf& theta, float inlierThreshold) {
-        int numInliers = 0;
-        VectorXf b = VectorXf::Ones(X.rows());
-        VectorXf yReshaped = y;
-        MatrixXf A(X.rows(), X.cols() + 2);
-        
-        A << yReshaped, X, b;
-        VectorXf thetaExtended(theta.size() + 1);
-        thetaExtended << -1.0, theta;
-        
-        VectorXf distances = (A * thetaExtended).array().abs() / thetaExtended.segment(1, thetaExtended.size() - 1).norm();
-        
-        for (int i = 0; i < distances.size(); ++i) {
-            if (distances(i) <= inlierThreshold) {
-                numInliers++;
-            }
-        }
-        
-        return numInliers;
+        return theta
     }
 
-    VectorXf ransac(MatrixXf& X, VectorXf& y, int maxIters, float inlierThreshold, int minInliers, int samplesToFit) {
-        VectorXf bestModel;
+    int getSampleIndex(int numSamples, int samplesToFit){
+        random_device rd; // obtain a random number from hardware
+        mt19937 gen(rd()); // seed the generator
+        uniform_int_distribution<> distr(0, numSamples); // define the range
+        return distr(gen);
+    }
+  
+    int evaluateModel(const VectorXf& x, const VectorXf& y, const VectorXf& theta, float inlierThreshold) {
+    int numInliers = 0;  // Initialize the inlier count to 0
+
+    // Create a vector 'b' filled with 1s, used to represent the bias term in the model
+    VectorXf b = VectorXf::Ones(X.rows());
+
+    // Duplicate 'y' as 'yReshaped' (may not be necessary but for consistency)
+    VectorXf yReshaped = y;
+
+    // Create a matrix 'A' that augments 'yReshaped' and 'X' for model evaluation
+    MatrixXf A(X.rows(), 3);
+    A.col(0) = yReshaped;  // First column is 'yReshaped'
+    A.rightCols(2) = x;    // Last two columns are 'X'
+
+    // Create a 'thetaExtended' vector with an extra element
+    // and set the first element to 0, while copying the rest from 'theta'
+    VectorXf thetaExtended = VectorXf::Zero(theta.size() + 1);
+    thetaExtended.segment(1, theta.size()) = theta;
+
+    // Calculate distances by multiplying 'A' with 'thetaExtended'
+    // and scale them by the norm of the model parameters (excluding bias term)
+    VectorXf distances = (A * thetaExtended).array().abs() / thetaExtended.segment(1, thetaExtended.size() - 1).norm();
+
+    // Iterate through the distances
+    for (int i = 0; i < distances.size(); ++i) {
+        // If the distance is less than or equal to the specified threshold, increment inlier count
+        if (distances(i) <= inlierThreshold) {
+            numInliers++;
+        }
+    }
+
+    return numInliers;  // Return the total count of inliers
+}
+
+    VectorXf ransac(const VectorXf& X, const VectorXf& y, int maxIters, float inlierThreshold, int minInliers, int samplesToFit) {
+        VectorXf bestModel = VectorXf::Zero(3);
         int bestModelPerformance = 0;
-        
+
         int numSamples = X.rows();
-        int numFeatures = X.cols();
-        
-        random_device rd;
-        mt19937 gen(rd());
-        uniform_int_distribution<int> distribution(0, numSamples - 1);
-        
+
         for (int i = 0; i < maxIters; ++i) {
             vector<int> sampleIndices;
+
+            //Fetch random samples indexes
             for (int j = 0; j < samplesToFit; ++j) {
-                int index = distribution(gen);
-                sampleIndices.push_back(index);
+                sampleIndices.push_back(getSampleIndex(numSamples));
             }
-            
-            MatrixXf sampledX(samplesToFit, numFeatures);
+
+            //Create sample vectors
+            VectorXf sampledX(samplesToFit);
             VectorXf sampledy(samplesToFit);
-            
+
+            //Assign samples to vectors
             for (int j = 0; j < samplesToFit; ++j) {
-                sampledX.row(j) = X.row(sampleIndices[j]);
+                sampledX(j) = X(sampleIndices[j]);
                 sampledy(j) = y(sampleIndices[j]);
             }
-            
+
             VectorXf modelParams = fitWithLeastSquares(sampledX, sampledy);
             int modelPerformance = evaluateModel(X, y, modelParams, inlierThreshold);
-            
+
             if (modelPerformance < minInliers) {
                 continue;
             }
-            
+
             if (modelPerformance > bestModelPerformance) {
                 bestModel = modelParams;
                 bestModelPerformance = modelPerformance;
             }
         }
-        
+
         return bestModel;
     }
 
-    // def ransac(X,y,max_iters,inlier_threshold,min_inliers,samples_to_fit=2):
-
-        // best_model=None
-        // best_model_performance=0
-
-        // num_samples = X.shape[0]
-
-        // for i in range(max_iters):
-        //     sample = np.random.choice(num_samples,size=samples_to_fit,replace=False)
-        //     model_params = fit_with_least_squares(X[sample],y[sample])
-        //     model_performace = evaluate_model(X,y,model_params,inlier_threshold)
-
-        //     if( model_performace < min_inliers):
-        //         continue
-        //     if model_performace > best_model_performance:
-        //         best_model = model_params
-        //         best_model_performance = model_performace
-
-        // return best_model
-
-    vector<VectorXf> manager(vector<float>& xCoords, vector<float>& yCoords, int sampleSize, int maxIters, float inlierThreshold, int minInliers) {
+    vector<VectorXf> manager(const vector<float>& xCoords, const vector<float>& yCoords, int sampleSize, int maxIters, float inlierThreshold, int minInliers) {
         int numSamples = xCoords.size() / sampleSize;
         vector<VectorXf> bestModels;
-        
-        for (int i = 0; i < numSamples; i++) {
-            vector<float> x, y;
-            
-            for (int j = 0; j < sampleSize; j++) {
+
+        for (int i = 0; i < numSamples; ++i) {
+            vector<float> x;
+            vector<float> y;
+
+            for (int j = 0; j < sampleSize; ++j) {
                 x.push_back(xCoords[i * sampleSize + j]);
                 y.push_back(yCoords[i * sampleSize + j]);
             }
-            
-            MatrixXf xMatrix = Map<MatrixXf>(x.data(), sampleSize, 1);
+
+            VectorXf xVector = Map<VectorXf>(x.data(), x.size());
             VectorXf yVector = Map<VectorXf>(y.data(), y.size());
-            
-            VectorXf result = ransac(xMatrix, yVector, maxIters, inlierThreshold, minInliers);
+
+            VectorXf result = ransac(xVector, yVector, maxIters, inlierThreshold, minInliers);
             bestModels.push_back(result);
         }
-        
+
         return bestModels;
     }
-
-    // def manager(x_coords,y_coords,sample_size,max_iters,inlier_thresh,min_inliers):
-    // #sample_size = 500 #worked well before lowerd lidar points
-    // num_samples = int(len(x_coords)/sample_size)
-    // best_models = []
-
-    // for i in range(0,num_samples):
-    //     x = []
-    //     y = []
-    //     for j in range(0,sample_size):
-    //         x.append([x_coords[i*sample_size + j]])
-    //         y.append([y_coords[i*sample_size + j]])
-
-    //     #print("x = ",x)
-    //     x = np.array(x)
-    //     #print("x = ",x)
-    //     y = np.array(y)
-    //     result = ransac(x,y,max_iters=max_iters,inlier_threshold=inlier_thresh,min_inliers=min_inliers)
-    //     best_models.append(result)
-        
-
-    // return best_models
 
 
     float calculateInterceptAngle(VectorXf& line1, VectorXf& line2) {

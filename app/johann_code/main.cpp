@@ -909,12 +909,22 @@ void testRANSAC(){
     
     vector<VectorXf> bestModels = manager(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
 
+    cout<<"Models = "<<endl;
+    for (size_t i = 0; i < models.size(); ++i) {
+        cout << "Model " << i + 1 << " parameters: ";
+        for (int j = 0; j < models[i].size(); ++j) {
+            cout << models[i](j) << " ";
+        }
+        cout << endl;
+    }
+    cout<<endl;
+
     
     vector<VectorXf> corners = findCorners(bestModels, angleThreshold);
     vector<VectorXf> filteredCorners = filterCorners(corners, x, y, distanceThreshold, closenessThreshold);
 
     vector<CarPoint> CarCorners;
-    for (const VectorXf& corner : filteredCorners) {
+    for (const VectorXf& corner : corners) {
         // Access the values inside the VectorXf
         CarPoint lm;
         lm.x = corner(0);
@@ -922,9 +932,26 @@ void testRANSAC(){
         CarCorners.push_back(lm);
     }
 
+    vector<CarPoint> FiltCarCorners;
+    for (const VectorXf& corner : filteredCorners) {
+        // Access the values inside the VectorXf
+        CarPoint lm;
+        lm.x = corner(0);
+        lm.y = corner(1);
+        FiltCarCorners.push_back(lm);
+    }
+
+    cout<<" Corners = "<<endl;
     for(int i =0;i<CarCorners.size();i++){
         cout<<CarCorners[i]<<endl;
     }
+    cout<<endl;
+
+    cout<<"Filtered Corners = "<<endl;
+    for(int i =0;i<FiltCarCorners.size();i++){
+        cout<<FiltCarCorners[i]<<endl;
+    }
+    cout<<endl;
 }
 
 
@@ -948,9 +975,9 @@ int main() {
 
     //testRun();
 
-    //testRANSAC();
+    testRANSAC();
     
-    
+
     //simRun3();
 
     //testLidarLandmark();
