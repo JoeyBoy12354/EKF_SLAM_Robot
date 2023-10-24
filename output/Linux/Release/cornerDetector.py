@@ -14,7 +14,6 @@ def fetchCoord(filename = 'mapCSV.csv'):
             y_coord.append(float((row[1])))
     return x_coord,y_coord
 
-
 def writeCoord(corners,filename = 'cornersCSV.csv'):
     with open(filename, mode='w', newline='') as file:
         writer = csv.writer(file)
@@ -23,6 +22,8 @@ def writeCoord(corners,filename = 'cornersCSV.csv'):
         writer.writerows(corners)
     
     return
+
+
 
 def fit_with_least_squares(X,y):
     b = np.ones((X.shape[0],1))
@@ -85,6 +86,7 @@ def manager(x_coords,y_coords,sample_size,max_iters,inlier_thresh,min_inliers):
         
 
     return best_models
+
 
 def calculate_intercept_angle(line1,line2):
     interAngle = np.pi/2

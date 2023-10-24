@@ -830,7 +830,6 @@ void testRun(){
     cout<<"TEST RUN"<<endl;
 
     ILidarDriver * drv = nullptr;
-    //ILidarDriver* lidarDriver = drv; // Initialize a pointer to the ILidarDriver object
     sl_result op_result;
     vector<PolPoint> lidarDataPoints;
     int NoPoints = 8192;
@@ -882,12 +881,8 @@ void testRun(){
 
     // cout<<"I am Home"<<endl;
 
-    // cout << "Signal threadSlave to stop" << endl;
-    // stopFlag.store(true); // Set the stop flag to signal threadSlave to stop
-
-    // // Wait for the t1 thread to join
-    // t1.join();
-    // cout << "t1 joined" << endl;
+    delete drv;
+    drv = NULL;
 
     
 }

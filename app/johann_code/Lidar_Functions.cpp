@@ -477,64 +477,6 @@ namespace Lidar_Functions{
         driver = drv;
 
 
-        //fetchScan( drv, op_result,lidarDataPoints, NoPoints, error, timeout);
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //////////////////////////////////////////////////////////////////////////
-
-
-        // while (!stopFlag && error == false) { // Check the stop flag to determine whether to continue
-        //     cout<<startFlag;
-        //     if(startFlag == false){
-        //         lidarDataPoints.clear();
-        //         //cout<<"CLEARED"<<endl;
-        //         fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
-
-
-        //         // Notify the main thread that the vector is filled
-        //         {
-        //             lock_guard<mutex> lock(mtx);
-        //             cv.notify_all();
-        //         }
-
-        //     }
-        //     //cout << "SLAVE lidar: This is datasize = " << NoPoints << endl;
-
-
-            
-        // }
-
-        //Usually scan will happen here
-
-        //////////////////////////////////////////////////////////
-
-
-    //     printf("I have reached max NoPoints in Lidar_function");
-    //     error = false;
-    //     drv->setMotorSpeed(stop);
-    //     drv->stop();
-    //     delay(200);
-    //     if(opt_channel_type == CHANNEL_TYPE_SERIALPORT)
-    //         drv->setMotorSpeed(0);
-    //     // done!
-    // on_finished:
-        
-    //     if(drv) {
-    //         delete drv;
-    //         drv = NULL;
-    //     }
-    //     return 0;
 
         return 0;
 
