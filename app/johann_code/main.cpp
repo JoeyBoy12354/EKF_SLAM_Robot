@@ -904,7 +904,7 @@ void testRun(){
     stopFlag.store(true); // Set the stop flag to signal threadSlave to stop
 
     // Wait for the t1 thread to join
-    t1.join();
+    t_lidar.join();
     cout << "t1 joined" << endl;
 
     
