@@ -829,7 +829,7 @@ void testRun(){
     cout<<"TEST RUN"<<endl;
 
 
-    calibrateMotors();
+    //calibrateMotors();
 
 
     vector<int> vect;
