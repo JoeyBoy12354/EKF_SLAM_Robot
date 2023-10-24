@@ -115,7 +115,7 @@ namespace Landmark_Functions{
     }
 
     vector<VectorXf> manager(const vector<float>& xCoords, const vector<float>& yCoords, int sampleSize, int maxIters, float inlierThreshold, int minInliers) {
-        int numSamples = xCoords.size() / sampleSize;
+        int numSamples = (int)(xCoords.size() / sampleSize);
         vector<VectorXf> bestModels;
 
         cout<<"X numSamples = "<<xCoords.size()<<endl;
