@@ -25,7 +25,7 @@ using namespace Data_Functions;
 extern mutex mtx; // Mutex for synchronization
 extern condition_variable cv; // Condition variable for signalin
 extern atomic<bool> stopFlag; // Atomic flag to control threadSlave loop
-extern atomic<bool> runFlag; // Atomic flag to control threadSlave loop
+extern atomic<bool> startFlag; // Atomic flag to control threadSlave loop
 
 
 namespace Lidar_Functions{
