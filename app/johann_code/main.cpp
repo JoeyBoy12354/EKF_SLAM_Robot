@@ -782,12 +782,12 @@ void fullRun2(ExtendedKalmanFilter& ekf, bool& mapped, bool& home, bool firstRun
     //Run Lidar
     vector<PolPoint> lidarDataPoints = lidarThread(threadNoPoints,threadDataPoints);
     cout<<"fullRun I got my lidar Points size = "<<lidarDataPoints.size()<<endl;
+    
+
+
+
+
     bool error = false;
-
-
-
-
-
     if(error == false){
         //Predict Position
         ekf.updateMotion();
@@ -867,7 +867,7 @@ void testRun(){
     thread t_lidar(initializeLidar, ref(lidarDataPoints), ref(error), NoPoints);
 
     int count = 0;
-    while(mapped == false && count<20){
+    while(mapped == false && count<200){
         cout<<"\n i = "<<count<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
         fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path,lidarDataPoints,NoPoints);
@@ -879,9 +879,9 @@ void testRun(){
     ekf.w = 0;
     
 
-    cout<<"POST LOOP RUN"<<endl;
-    finalRun = true;
-    fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path,lidarDataPoints,NoPoints);
+    // cout<<"POST LOOP RUN"<<endl;
+    // finalRun = true;
+    // fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path,lidarDataPoints,NoPoints);
         
 
     cout<<"Fully Mapped Room"<<endl;
