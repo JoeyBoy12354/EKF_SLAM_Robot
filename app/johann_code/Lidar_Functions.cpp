@@ -378,26 +378,29 @@ namespace Lidar_Functions{
         
         // create the driver instance
         Result<ILidarDriver*> result = createLidarDriver();
-
-        // Check if the result is successful
-        if (result.status == sl::SUCCESS) {
-            // Extract the pointer and assign it to drv
-            drv = result.data;
+        drv = result.data;
             
-            // Set motor speed
-            drv->setMotorSpeed();
+        
 
-            // Start scan
-            drv->startScan(0, 1);
+        // // Check if the result is successful
+        // if (result.status == sl::SUCCESS) {
+        //     // Extract the pointer and assign it to drv
+        //     drv = result.data;
+            
+        //     // Set motor speed
+        //     drv->setMotorSpeed();
 
-            // More initialization code...
+        //     // Start scan
+        //     drv->startScan(0, 1);
 
-            //return 0;
-        } else {
-            // Handle the error here
-            error = true;
-            return -1;
-        }
+        //     // More initialization code...
+
+        //     //return 0;
+        // } else {
+        //     // Handle the error here
+        //     error = true;
+        //     return -1;
+        // }
 
 
         // if (!drv) {
@@ -435,7 +438,10 @@ namespace Lidar_Functions{
                     , opt_channel_param_first));
             
             error = true;
-            goto on_finished;
+            delete drv;
+            drv = NULL;
+            return 0;
+            //goto on_finished;
         }
 
         // print out the device serial number, firmware and hardware version number..
@@ -449,7 +455,10 @@ namespace Lidar_Functions{
         if (!checkSLAMTECLIDARHealth(drv)) {
             error = true;
             cout<<"Bad health"<<endl;
-            goto on_finished;
+            delete drv;
+            drv = NULL;
+            return 0;
+            //goto on_finished;
         }
 
         signal(SIGINT, ctrlc);
@@ -457,6 +466,12 @@ namespace Lidar_Functions{
         // drv->setMotorSpeed();
         // // start scan...
         // drv->startScan(0,1);
+
+        // Set motor speed
+        drv->setMotorSpeed();
+
+        // Start scan
+        drv->startScan(0, 1);
 
 
 
