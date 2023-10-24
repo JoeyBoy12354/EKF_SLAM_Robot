@@ -236,6 +236,7 @@ void testLidarThread(){
     vector<int> vect;
     int NoPoints = 8192;
     vector<PolPoint> lidarDataPoints;
+    vector<PolPoint> testPoints;
     bool error = false;
     thread t1(initializeLidar, ref(lidarDataPoints), ref(error), NoPoints);
 
@@ -248,6 +249,7 @@ void testLidarThread(){
             // Do something with the filled vector
             // For example, copy its contents to another data structure
 
+            testPoints = lidarDataPoints;
             // Reset the vector
             lidarDataPoints.clear();
         }
@@ -255,7 +257,7 @@ void testLidarThread(){
         // Continue your processing after vector is filled
 
         timer = timer + 1;
-        cout << "\nMAIN: vector is full in time = " << timer << endl;
+        cout << "\nMAIN: vector is full in time = " << timer << " testPoints size = "<<testPoints.size()<<endl;
     }
 
     cout << "Signal threadSlave to stop" << endl;

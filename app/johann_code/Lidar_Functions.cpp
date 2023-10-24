@@ -452,7 +452,7 @@ namespace Lidar_Functions{
 
 
         while (!stopFlag && error == false) { // Check the stop flag to determine whether to continue
-            cout << "SLAVE liadr: This is noPoints = " << NoPoints << endl;
+            //cout << "SLAVE lidar: This is datasize = " << NoPoints << endl;
             cout << "SLAVE lidar: This is error = " << error << endl;
 
             lidarDataPoints.clear();
