@@ -891,8 +891,8 @@ void testRun(){
 void testRANSAC(){
 
 
-    vector<double>& y;
-    vector<double>& x;
+    vector<double> y;
+    vector<double> x;
     int sample_size = 80;
     int max_iters= 200;
     float inlier_thresh=1.3;
@@ -904,7 +904,7 @@ void testRANSAC(){
     
     vector<Vector2d> bestModels; // Assuming you have populated this with models
     
-    vector<VectorXd> manager(x, y, sampleSize, maxIters, inlierThreshold, minInliers);
+    vector<VectorXd> manager(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
 
     
     vector<Vector2d> corners = findCorners(bestModels, angleThreshold);
