@@ -119,7 +119,7 @@ namespace Landmark_Functions{
             }
             
             MatrixXd xMatrix = Map<MatrixXd>(x.data(), sampleSize, 1);
-            VectorXd yVector = Map<VectorXd>(y.data(), sampleSize);
+            VectorXd yVector = Map<VectorXd>(y.data(), y.size());
             
             VectorXd result = ransac(xMatrix, yVector, maxIters, inlierThreshold, minInliers);
             bestModels.push_back(result);
@@ -169,8 +169,8 @@ namespace Landmark_Functions{
                 if (interAngle < PI / 2 + angleThreshold && interAngle > PI / 2 - angleThreshold) {
                     corners.push_back(interceptPoint);
                 } else if (i < bestModels.size() - 2) {
-                    float interAngle1 = calculateInterceptAngle(bestModels[i], bestModels[i + 2);
-                    float interAngle2 = calculateInterceptAngle(bestModels[i + 1], bestModels[i + 2);
+                    float interAngle1 = calculateInterceptAngle(bestModels[i], bestModels[i + 2]);
+                    float interAngle2 = calculateInterceptAngle(bestModels[i + 1], bestModels[i + 2]);
                     bool ang1 = false;
                     bool ang2 = true;
 
