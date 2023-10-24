@@ -257,7 +257,7 @@ namespace Navigation_Functions{
     // vector<GridPoint> findNeighbours(vector<vector<GridPoint>> gridMap, GridPoint point, float defaultVal,vector<CarPoint>& indexes);
     // void postMapMovement(MatrixXf State);
 
-    CarPoint stateToGridDot(MatrixXf State, vector<vector<GridPoint>> gridMap);
+    GridPoint stateToGridDot(MatrixXf State, vector<vector<GridPoint>> gridMap);
 
     //Navi2
     vector<CarPoint> pathFinder(MatrixXf State,CarPoint Goal);

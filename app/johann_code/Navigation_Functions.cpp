@@ -113,7 +113,7 @@ namespace Navigation_Functions{
     }
 
 
-    CarPoint stateToGridDot(MatrixXf State, vector<vector<GridPoint>> gridMap){
+    GridPoint stateToGridDot(MatrixXf State, vector<vector<GridPoint>> gridMap){
         GridPoint myRobot;
         myRobot.x=State(0);
         myRobot.y=State(1);
@@ -164,7 +164,7 @@ namespace Navigation_Functions{
         return closestPoint;
     }
 
-    CarPoint findNextPointRadius(MatriXf State, vector<vector<GridPoint>> gridMap, bool& mapped){
+    CarPoint findNextPointRadius(MatrixXf State, vector<vector<GridPoint>> gridMap, bool& mapped){
         int scalar = 4;
         
         CarPoint nextPoint;
