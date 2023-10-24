@@ -20,6 +20,8 @@ string atsi_lm_CSV = "atsi_lmCSV.csv";
 string ekf_atsi_u_CSV = "ekf_uCSV.csv";
 string ekf_atsi_lm_CSV = "ekf_lmCSV.csv";
 
+string TmapCSV = "map4.csv";
+
 
 namespace CSV_Functions{
 
@@ -107,6 +109,32 @@ namespace CSV_Functions{
 
         file.close();
     }
+
+
+    void readCarFromCSVTest(vector<CarPoint>& points){
+        ifstream file(TmapCSV);
+
+        if (!file.is_open()) {
+            cerr << "Error opening file: " << TmapCSV << endl;
+            return;
+        }
+
+        string line;
+        while (getline(file, line)) {
+            istringstream iss(line);
+            string x_str, y_str;
+
+            if (getline(iss, x_str, ',') && getline(iss, y_str)) {
+                CarPoint point;
+                point.x = stod(x_str);
+                point.y = stod(y_str);
+                points.push_back(point);
+            }
+        }
+
+        file.close();
+    }
+
 
     //Full Map Functions
     void saveCarToFullMapCSV(vector<CarPoint>& points) {

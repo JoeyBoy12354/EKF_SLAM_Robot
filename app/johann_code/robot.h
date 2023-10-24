@@ -130,6 +130,8 @@ namespace CSV_Functions{
     void readCarFromCSV(vector<CarPoint>& points);
     void appendCarToCSV(const vector<CarPoint>& points);
 
+    void readCarFromCSVTest(vector<CarPoint>& points);
+
     //Full Map
     void saveCarToFullMapCSV(vector<CarPoint>& points);
     void appendCarToFullMapCSV(vector<CarPoint>& points);

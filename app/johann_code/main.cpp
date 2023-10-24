@@ -889,10 +889,16 @@ void testRun(){
 
 
 void testRANSAC(){
-
+    vector<CarPoint> dataPoints;
+    readCarFromCSVTest(dataPoints);
 
     vector<float> y;
     vector<float> x;
+
+    for(int i =0;i<dataPoints.size();i++){
+        x.push_back(dataPoints[i].x);
+        y.push_back(dataPoints[i].y);
+    }
     int sample_size = 80;
     int max_iters= 200;
     float inlier_thresh=1.3;
