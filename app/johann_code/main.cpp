@@ -777,6 +777,7 @@ vector<PolPoint> lidarThread(int NoPoints, vector<PolPoint> lidarDataPoints){
 void fullRun2(ExtendedKalmanFilter& ekf, bool& mapped, bool& home, bool firstRun, bool finalRun, bool postMap,
                 vector<CarPoint>& path, vector<PolPoint> threadDataPoints, int threadNoPoints ){
     
+    cout<<"ENTERED FULL RUN"<<endl;
 
     //Run Lidar
     vector<PolPoint> lidarDataPoints = lidarThread(threadNoPoints,threadDataPoints);
@@ -864,8 +865,6 @@ void testRun(){
     bool error = false;
     vector<PolPoint> lidarDataPoints;
     thread t_lidar(initializeLidar, ref(lidarDataPoints), ref(error), NoPoints);
-
-
 
     int count = 0;
     while(mapped == false && count<20){
