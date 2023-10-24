@@ -182,7 +182,7 @@ def filter_corners(corners,x1,y1,duplicateThresh = 100, closenessThresh = 40):
 
 
 
-x1,y1=fetchCoord()
+#x1,y1=fetchCoord()
 #print("CD: NoPoints = ",len(x1))
 
 best_models = manager(x1,y1,sample_size=80,max_iters=200,inlier_thresh=1.3,min_inliers=6)
