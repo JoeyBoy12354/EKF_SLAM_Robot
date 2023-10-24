@@ -875,11 +875,14 @@ void testRun(){
                 unique_lock<mutex> lock(mtx);
                 cv.wait(lock, [&lidarDataPoints, NoPoints] { return lidarDataPoints.size() >= NoPoints; });
                 finalPoint = lidarDataPoints;
+                cout<<"finalPoints 1 = "<<finalPoints.size();
                 lidarDataPoints.clear();
             }
             lidar_counter = lidar_counter + 1;
+            cout<<"Counter = "<<lidar_counter<<endl;
         }
 
+        cout<<"finalPoints 2 = "<<finalPoints.size();
 
 
         cout<<"\n i = "<<count<<endl;
@@ -945,7 +948,7 @@ int main() {
     
     //testLidar();
 
-    //testRun();
+    testRun();
     
     //simRun3();
 
@@ -958,7 +961,7 @@ int main() {
 
     //testThread();
 
-    testLidarThread();
+    //testLidarThread();
 
   
     return 0;
