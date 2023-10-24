@@ -856,7 +856,7 @@ void testRun(){
     cout<<"TEST RUN"<<endl;
 
     //Do calibration
-    calibrateMotors();
+    //calibrateMotors();
 
     //Setup Lidar Thread
     int NoPoints = 8192;
