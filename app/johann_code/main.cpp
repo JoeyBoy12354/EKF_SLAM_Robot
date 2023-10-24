@@ -780,6 +780,7 @@ void fullRun2(ExtendedKalmanFilter& ekf, bool& mapped, bool& home, bool firstRun
 
     //Run Lidar
     vector<PolPoint> lidarDataPoints = lidarThread(threadNoPoints,threadDataPoints);
+    cout<<"fullRun I got my lidar Points size = "<<lidarDataPoints.size()<<endl;
     bool error = false;
 
 
