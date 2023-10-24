@@ -158,7 +158,7 @@ namespace Mapping_Functions{
         for(int i = 0;i<gridOld.size();i++){
             for(int j =0;j<gridOld[i].size();j++){
                 for(int k=0;k<dumpedPath.size();k++){
-                    if(gridOld[i][j] == dumpedPath[k]){
+                    if(gridOld[i][j].x == dumpedPath[k].x && gridOld[i][j].y == dumpedPath[k].y){
                         gridOld[i][j].trav = true;
                         cout<<gridOld[i][j];
                     }
