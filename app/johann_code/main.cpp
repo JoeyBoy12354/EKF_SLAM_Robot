@@ -21,7 +21,7 @@ using namespace Mapping_Functions;
 mutex mtx; // Mutex for synchronization
 condition_variable cv; // Condition variable for signalin
 atomic<bool> stopFlag(false); // Atomic flag to control threadSlave loop
-atomic<bool> runFlag(false); // Atomic flag to control threadSlave loop
+atomic<bool> startFlag(false); // Atomic flag to control threadSlave loop
 
 
 
