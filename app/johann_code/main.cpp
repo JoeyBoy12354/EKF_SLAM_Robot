@@ -779,7 +779,7 @@ void fullRun2(ExtendedKalmanFilter& ekf, bool& mapped, bool& home, bool firstRun
     
 
     //Run Lidar
-    vector<PolPoint> lidarDataPoints; = lidarThread(threadNoPoints,threadDataPoints);
+    vector<PolPoint> lidarDataPoints = lidarThread(threadNoPoints,threadDataPoints);
     bool error = false;
 
 
