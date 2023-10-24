@@ -175,9 +175,6 @@ namespace Navigation_Functions{
 
         //The goal of this algorithm is to eliminate doing SLAM on intermdiary dots
 
-
-        
-
         for(int k =0;k<scalar;k++){
             //This will mean that as we do not find traversable grid points we decrease our search space
             float radius = grid_xstep*(scalar-k);

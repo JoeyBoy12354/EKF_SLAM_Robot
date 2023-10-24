@@ -230,7 +230,7 @@ namespace Mapping_Functions{
     void getMapBounds(vector<CarPoint> map, vector<float>& bounds);
 
     void gridDataProcess(vector<vector<GridPoint>>& gridNew,Matrix<float, dim, 1> State, bool firstRun);
-    void gridDataAssosciationPath(vector<vector<GridPoint>>& gridOld, vector<CarPoint> dumpedPath)
+    void gridDataAssosciationPath(vector<vector<GridPoint>>& gridOld, vector<CarPoint> dumpedPath);
     void gridDataAssosciationMoveSimple(vector<vector<GridPoint>>& gridNew, Matrix<float, dim, 1> State);
     void gridDataAssosciationMap(vector<vector<GridPoint>> gridOld, vector<vector<GridPoint>>& gridNew);
 
@@ -264,7 +264,7 @@ namespace Navigation_Functions{
     vector<GridNode*> bfs(std::vector<std::vector<GridNode>>& gridMap, GridNode& start, GridNode& goal);
     vector<GridNode*> findNeighboursBFS2(GridNode& point,vector<vector<GridNode>>& gridMap);
     vector<CarPoint> pathShortening(vector<CarPoint> path);
-    CarPoint findNextPoint(MatrixXf State,vector<vector<GridPoint>> gridMap, bool& mapped);
+    CarPoint findNextPoint(MatrixXf State, vector<vector<GridPoint>> gridMap, bool& mapped);
     CarPoint findNextPointRadius(MatriXf State, vector<vector<GridPoint>> gridMap, bool& mapped);
     
 }
