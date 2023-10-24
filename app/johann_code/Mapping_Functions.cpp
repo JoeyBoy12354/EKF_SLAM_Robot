@@ -166,7 +166,7 @@ namespace Mapping_Functions{
             }
         }
         cout<<endl;
-        retun;
+        return;
     } 
 
     void gridDataAssosciationMoveSimple(vector<vector<GridPoint>>& gridNew, Matrix<float, dim, 1> State){
