@@ -42,9 +42,8 @@ namespace Landmark_Functions{
 
         return theta;
     }   
-
-    
-    int evaluateModel(const MatrixXd& X, const VectorXd& y, const VectorXd& theta, double inlierThreshold) {
+  
+    int evaluateModel(const MatrixXd& X, const VectorXd& y, const VectorXd& theta, float inlierThreshold) {
         int numInliers = 0;
         VectorXd b = VectorXd::Ones(X.rows());
         VectorXd yReshaped = y;
@@ -65,7 +64,7 @@ namespace Landmark_Functions{
         return numInliers;
     }
 
-    VectorXd ransac(const MatrixXd& X, const VectorXd& y, int maxIters, double inlierThreshold, int minInliers, int samplesToFit) {
+    VectorXd ransac(const MatrixXd& X, const VectorXd& y, int maxIters, float inlierThreshold, int minInliers, int samplesToFit) {
         VectorXd bestModel;
         int bestModelPerformance = 0;
         
@@ -107,12 +106,12 @@ namespace Landmark_Functions{
         return bestModel;
     }
 
-    vector<VectorXd> manager(const vector<double>& xCoords, const vector<double>& yCoords, int sampleSize, int maxIters, double inlierThreshold, int minInliers) {
+    vector<VectorXd> manager(const vector<float>& xCoords, const vector<float>& yCoords, int sampleSize, int maxIters, float inlierThreshold, int minInliers) {
         int numSamples = xCoords.size() / sampleSize;
         vector<VectorXd> bestModels;
         
         for (int i = 0; i < numSamples; ++i) {
-            vector<double> x, y;
+            vector<float> x, y;
             
             for (int j = 0; j < sampleSize; ++j) {
                 x.push_back(xCoords[i * sampleSize + j]);
@@ -131,12 +130,12 @@ namespace Landmark_Functions{
 
 
 
-    double calculateInterceptAngle(const Vector2d& line1, const Vector2d& line2) {
-        double interAngle = PI / 2;
-        double m1 = line1(0);
-        double m2 = line2(0);
-        double b1 = line1(1);
-        double b2 = line2(1);
+    float calculateInterceptAngle(const Vector2d& line1, const Vector2d& line2) {
+        float interAngle = PI / 2;
+        float m1 = line1(0);
+        float m2 = line2(0);
+        float b1 = line1(1);
+        float b2 = line2(1);
 
         if (m1 * m2 == -1) {
             return interAngle;
@@ -147,30 +146,30 @@ namespace Landmark_Functions{
     }
 
     Vector2d calculateInterceptPoint(const Vector2d& line1, const Vector2d& line2) {
-        double m1 = line1(0);
-        double m2 = line2(0);
-        double b1 = line1(1);
-        double b2 = line2(1);
+        float m1 = line1(0);
+        float m2 = line2(0);
+        float b1 = line1(1);
+        float b2 = line2(1);
 
-        double x = (b2 - b1) / (m1 - m2);
-        double y = x * m1 + b1;
+        float x = (b2 - b1) / (m1 - m2);
+        float y = x * m1 + b1;
 
         return Vector2d(x, y);
     }
 
-    vector<Vector2d> findCorners(const vector<Vector2d>& bestModels, double angleThreshold) {
+    vector<Vector2d> findCorners(const vector<Vector2d>& bestModels, float angleThreshold) {
         vector<Vector2d> corners;
 
         for (size_t i = 0; i < bestModels.size(); ++i) {
             if (i < bestModels.size() - 1) {
-                double interAngle = calculateInterceptAngle(bestModels[i], bestModels[i + 1]);
+                float interAngle = calculateInterceptAngle(bestModels[i], bestModels[i + 1]);
                 Vector2d interceptPoint = calculateInterceptPoint(bestModels[i], bestModels[i + 1]);
 
                 if (interAngle < PI / 2 + angleThreshold && interAngle > PI / 2 - angleThreshold) {
                     corners.push_back(interceptPoint);
                 } else if (i < bestModels.size() - 2) {
-                    double interAngle1 = calculateInterceptAngle(bestModels[i], bestModels[i + 2]);
-                    double interAngle2 = calculateInterceptAngle(bestModels[i + 1], bestModels[i + 2]);
+                    float interAngle1 = calculateInterceptAngle(bestModels[i], bestModels[i + 2]);
+                    float interAngle2 = calculateInterceptAngle(bestModels[i + 1], bestModels[i + 2]);
                     bool ang1 = false;
                     bool ang2 = true;
 
@@ -184,18 +183,17 @@ namespace Landmark_Functions{
                 }
             }
         }
-
         return corners;
     }
 
-    vector<Vector2d> filterCorners(const vector<Vector2d>& corners, const vector<double>& xCoords, const vector<double>& yCoords, double duplicateThreshold, double closenessThreshold) {
+    vector<Vector2d> filterCorners(const vector<Vector2d>& corners, const vector<float>& xCoords, const vector<float>& yCoords, float duplicateThreshold, float closenessThreshold) {
         vector<Vector2d> cleanCorners;
 
         for (size_t i = 0; i < corners.size(); ++i) {
             bool duplicate = false;
 
             for (size_t j = 0; j < cleanCorners.size(); ++j) {
-                double dist = sqrt(pow(corners[i](0) - cleanCorners[j](0), 2) + pow(corners[i](1) - cleanCorners[j](1), 2));
+                float dist = sqrt(pow(corners[i](0) - cleanCorners[j](0), 2) + pow(corners[i](1) - cleanCorners[j](1), 2));
 
                 if (dist < duplicateThreshold) {
                     duplicate = true;
@@ -211,10 +209,10 @@ namespace Landmark_Functions{
         vector<Vector2d> closeCorners;
 
         for (size_t i = 0; i < cleanCorners.size(); ++i) {
-            double distMin = 10000000;
+            float distMin = 10000000;
 
             for (size_t j = 0; j < xCoords.size(); ++j) {
-                double distTemp = sqrt(pow(xCoords[j] - cleanCorners[i](0), 2) + pow(yCoords[j] - cleanCorners[i](1), 2));
+                float distTemp = sqrt(pow(xCoords[j] - cleanCorners[i](0), 2) + pow(yCoords[j] - cleanCorners[i](1), 2));
 
                 if (distMin > distTemp) {
                     distMin = distTemp;
@@ -228,12 +226,6 @@ namespace Landmark_Functions{
 
         return closeCorners;
     }
-
-
-
-
-
-
 
 
 }

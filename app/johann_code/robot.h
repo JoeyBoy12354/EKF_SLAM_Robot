@@ -206,14 +206,14 @@ namespace Data_Functions{
 namespace Landmark_Functions{
     vector<CarPoint> getCorners();
     VectorXd fitWithLeastSquares(const MatrixXd& X, const VectorXd& y);
-    int evaluateModel(const MatrixXd& X, const VectorXd& y, const VectorXd& theta, double inlierThreshold);
-    VectorXd ransac(const MatrixXd& X, const VectorXd& y, int maxIters, double inlierThreshold, int minInliers, int samplesToFit = 2);
-    vector<VectorXd> manager(const vector<double>& xCoords, const vector<double>& yCoords, int sampleSize, int maxIters, double inlierThreshold, int minInliers);
+    int evaluateModel(const MatrixXd& X, const VectorXd& y, const VectorXd& theta, float inlierThreshold);
+    VectorXd ransac(const MatrixXd& X, const VectorXd& y, int maxIters, flat inlierThreshold, int minInliers, int samplesToFit = 2);
+    vector<VectorXd> manager(const vector<float>& xCoords, const vector<float>& yCoords, int sampleSize, int maxIters, float inlierThreshold, int minInliers);
 
     double calculateInterceptAngle(const Vector2d& line1, const Vector2d& line2);
     Vector2d calculateInterceptPoint(const Vector2d& line1, const Vector2d& line2);
-    vector<Vector2d> findCorners(const vector<Vector2d>& bestModels, double angleThreshold);
-    vector<Vector2d> filterCorners(const vector<Vector2d>& corners, const vector<double>& xCoords, const vector<double>& yCoords, double duplicateThreshold, double closenessThreshold);
+    vector<Vector2d> findCorners(const vector<Vector2d>& bestModels, float angleThreshold);
+    vector<Vector2d> filterCorners(const vector<Vector2d>& corners, const vector<float>& xCoords, const vector<float>& yCoords, float duplicateThreshold, float closenessThreshold);
 
 
 }

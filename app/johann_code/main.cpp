@@ -888,6 +888,30 @@ void testRun(){
 }
 
 
+void testRANSAC(){
+
+
+    vector<double>& y;
+    vector<double>& x;
+    int sample_size = 80;
+    int max_iters= 200;
+    float inlier_thresh=1.3;
+    int min_inlier = 6;
+    float angleThreshold = 30.0 * M_PI / 180.0;
+    float distanceThreshold = 100;
+    float closenessThreshold = 40;
+
+    
+    vector<Vector2d> bestModels; // Assuming you have populated this with models
+    
+    vector<VectorXd> manager(x, y, int sampleSize, int maxIters, double inlierThreshold, int minInliers);
+
+    
+    vector<Vector2d> corners = findCorners(bestModels, angleThreshold);
+    vector<Vector2d> filteredCorners = filterCorners(corners, x, y, distanceThreshold, closenessThreshold);
+}
+
+
 void testLM(){
     bool firstRun = true;
     int noRuns = 8;
