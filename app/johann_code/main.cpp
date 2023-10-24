@@ -902,7 +902,7 @@ void testRANSAC(){
         y.push_back(dataPoints[i].y);
     }
 
-    cout<<"B"<<endl;
+    cout<<"B x size = "<<x.size()<<endl;
     int sample_size = 80;
     int max_iters= 200;
     float inlier_thresh=1.2;

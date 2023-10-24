@@ -121,6 +121,7 @@ namespace Landmark_Functions{
         cout<<"FUck man numSamples = "<<numSamples<<endl;
 
         for (int i = 0; i < numSamples; ++i) {
+            cout<<"WHAT????";
             vector<float> x;
             vector<float> y;
             cout<<"Whats";
