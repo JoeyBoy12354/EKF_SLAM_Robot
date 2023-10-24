@@ -25,6 +25,7 @@ using namespace Data_Functions;
 extern mutex mtx; // Mutex for synchronization
 extern condition_variable cv; // Condition variable for signalin
 extern atomic<bool> stopFlag; // Atomic flag to control threadSlave loop
+extern atomic<bool> runFlag; // Atomic flag to control threadSlave loop
 
 
 namespace Lidar_Functions{
@@ -452,19 +453,24 @@ namespace Lidar_Functions{
 
 
         while (!stopFlag && error == false) { // Check the stop flag to determine whether to continue
-            //cout << "SLAVE lidar: This is datasize = " << NoPoints << endl;
-            cout << "SLAVE lidar: This is error = " << error << endl;
 
-            lidarDataPoints.clear();
-            cout<<"CLEARED"<<endl;
-            fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
+            if(startFlag == false){
+                lidarDataPoints.clear();
+                cout<<"CLEARED"<<endl;
+                fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
 
 
-            // Notify the main thread that the vector is filled
-            {
-                lock_guard<mutex> lock(mtx);
-                cv.notify_all();
+                // Notify the main thread that the vector is filled
+                {
+                    lock_guard<mutex> lock(mtx);
+                    cv.notify_all();
+                }
+
             }
+            //cout << "SLAVE lidar: This is datasize = " << NoPoints << endl;
+
+
+            
         }
 
         //Usually scan will happen here

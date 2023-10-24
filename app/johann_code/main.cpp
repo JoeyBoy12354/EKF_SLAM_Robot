@@ -21,6 +21,7 @@ using namespace Mapping_Functions;
 mutex mtx; // Mutex for synchronization
 condition_variable cv; // Condition variable for signalin
 atomic<bool> stopFlag(false); // Atomic flag to control threadSlave loop
+atomic<bool> runFlag(false); // Atomic flag to control threadSlave loop
 
 
 
@@ -849,9 +850,12 @@ void testRun(){
             {
                 unique_lock<mutex> lock(mtx);
                 cv.wait(lock, [&lidarDataPoints, NoPoints] { return lidarDataPoints.size() >= NoPoints; });
+                //cout << "Signal threadSlave to stop" << endl;
+                startFlag.store(true); // Set the start flag to signal threadSlave to stop
                 //cout<<"Gegt true"<<endl;
                 truePoints = lidarDataPoints;
                 lidarDataPoints.clear();
+                startFlag.store(false); // Set the start flag to signal threadSlave to go again
             }
 
             timer = timer + 1;
