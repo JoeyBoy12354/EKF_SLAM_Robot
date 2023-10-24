@@ -948,7 +948,7 @@ int main() {
     
     //testLidar();
 
-    testRun();
+    //testRun();
     
     //simRun3();
 
@@ -961,7 +961,7 @@ int main() {
 
     //testThread();
 
-    //testLidarThread();
+    testLidarThread();
 
   
     return 0;
