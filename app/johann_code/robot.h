@@ -256,11 +256,15 @@ namespace Navigation_Functions{
     // vector<GridPoint> findNeighbours(vector<vector<GridPoint>> gridMap, GridPoint point, float defaultVal,vector<CarPoint>& indexes);
     // void postMapMovement(MatrixXf State);
 
+    CarPoint stateToGridDot(MatrixXf State, vector<vector<GridPoint>> gridMap);
+
     //Navi2
     vector<CarPoint> pathFinder(MatrixXf State,CarPoint Goal);
     vector<GridNode*> bfs(std::vector<std::vector<GridNode>>& gridMap, GridNode& start, GridNode& goal);
     vector<GridNode*> findNeighboursBFS2(GridNode& point,vector<vector<GridNode>>& gridMap);
     vector<CarPoint> pathShortening(vector<CarPoint> path);
+    CarPoint findNextPoint(MatrixXf State,vector<vector<GridPoint>> gridMap, bool& mapped);
+    CarPoint findNextPointRadius(MatriXf State, vector<vector<GridPoint>> gridMap, bool& mapped);
     
 }
 

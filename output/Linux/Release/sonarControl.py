@@ -30,8 +30,8 @@ def runSonar(Left):
 
     # Allow module to settle
     #print("Wait for module to settle")
-    #time.sleep(1)
-    time.sleep(1.8)
+    time.sleep(1)#This can possibly be made to be 2us or 5us as commonly found on websites
+    #time.sleep(1.8)
 
     # Send 10us pulse to trigger
     #print("Send Pulse")
@@ -62,7 +62,7 @@ def runSonar(Left):
     #And provide a distance greater than 12000 the same will occur for the minimum range of 20mm
     if(distance> 12000):
         distance = 4000
-        print("12m <= DISTANCE ! set to 400")
+        print("12m <= DISTANCE ! set to 4000mm")
 
     writeOdometry(distance)
     return distance

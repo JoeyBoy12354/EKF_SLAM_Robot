@@ -113,36 +113,116 @@ namespace Navigation_Functions{
     }
 
 
-    bool mapMovement(MatrixXf State, vector<vector<GridPoint>> gridMap, vector<CarPoint>& path){
-        cout<<"In pre-map movement"<<endl;
-        //take grid map
-        bool mapped = true;
+    CarPoint stateToGridDot(MatrixXf State, vector<vector<GridPoint>> gridMap){
+        GridPoint myRobot;
+        myRobot.x=State(0);
+        myRobot.y=State(1);
+        myRobot.trav=false;
+        float min_distance = 10000000;
+        GridPoint current;
+
+        //Transform current position to a gridPoint
+        for(int i =0;i<gridMap.size();i++){
+            for(int j =0;j<gridMap[i].size();j++){
+                float dist = gridPointDistance(gridMap[i][j],myRobot);
+                if(min_distance>dist){
+                    current = gridMap[i][j];
+                    min_distance = dist;
+                }
+            }
+        }
+
+        return current;
+    }
+
+
+    CarPoint findNextPoint(MatrixXf State,vector<vector<GridPoint>> gridMap, bool& mapped){
         float smallDistance = 10000000;
         CarPoint closestPoint;
         CarPoint robotPoint;
         robotPoint.x = State(0);
         robotPoint.y = State(1);
 
+        for(int i =0;i<gridMap.size();i++){
+            for(int j=0;j<gridMap[i].size();j++){
+                CarPoint tempPoint;
+                tempPoint.x = gridMap[i][j].x;
+                tempPoint.y = gridMap[i][j].y;
 
-        if(path.size() == 0){
-            //find closest non-traversed point
+                //Only check points that have not been traversed
+                if(gridMap[i][j].trav == false){
+                    mapped = false;
+                    float temp_dist = pointDistance(tempPoint,robotPoint);
+                    if(temp_dist<smallDistance){
+                        smallDistance = temp_dist;
+                        closestPoint = tempPoint;
+                    }
+                }  
+            }
+        }
+
+        return closestPoint;
+    }
+
+    CarPoint findNextPointRadius(MatriXf State, vector<vector<GridPoint>> gridMap, bool& mapped){
+        int scalar = 4;
+        
+        CarPoint nextPoint;
+        CarPoint current = stateToGridDot(State,gridMap);
+        float case1;
+        float case2;
+        float case3;
+
+        //The goal of this algorithm is to eliminate doing SLAM on intermdiary dots
+
+
+        
+
+        for(int k =0;k<scalar;k++){
+            //This will mean that as we do not find traversable grid points we decrease our search space
+            float radius = grid_xstep*(scalar-k);
+
+            //if point's x-value, y-value or both differ by radius then we should select it
             for(int i =0;i<gridMap.size();i++){
                 for(int j=0;j<gridMap[i].size();j++){
-                    CarPoint tempPoint;
-                    tempPoint.x = gridMap[i][j].x;
-                    tempPoint.y = gridMap[i][j].y;
-
                     //Only check points that have not been traversed
                     if(gridMap[i][j].trav == false){
                         mapped = false;
-                        float temp_dist = pointDistance(tempPoint,robotPoint);
-                        if(temp_dist<smallDistance){
-                            smallDistance = temp_dist;
-                            closestPoint = tempPoint;
+                        
+                        //Calculate the 3 cases
+                        case1 = abs(gridMap[i][j].x-current.x);
+                        case2 = abs(gridMap[i][j].y-current.y);
+                        case3 = abs(gridMap[i][j].x-current.x) + abs(gridMap[i][j].y-current.y);
+
+
+                        //This does allow for diagonal movements
+                        if( case1  == radius || case2  == radius || case3  == 2*radius ){
+                            nextPoint.x = gridMap[i][j].x;
+                            nextPoint.y = gridMap[i][j].y;
+                            return nextPoint;
                         }
-                    }  
+                    }
+
                 }
             }
+        }
+
+        //If we made it here the grid dot is further away than our search space or all dots have been traversed
+        nextPoint = findNextPoint(State,gridMap,mapped);
+
+        return nextPoint
+    }
+
+    bool mapMovement(MatrixXf State, vector<vector<GridPoint>> gridMap, vector<CarPoint>& path){
+        cout<<"In pre-map movement"<<endl;
+        //take grid map
+        bool mapped = true;
+        CarPoint closestPoint;
+
+
+        if(path.size() == 0){
+            //find closest non-traversed point
+            closestPoint = findNextPoint(State,gridMap,mapped);
 
             cout<<"ClosestPoint = "<<closestPoint<<endl;
 
@@ -203,7 +283,8 @@ namespace Navigation_Functions{
         return home;
     }
 
-    //Set distance and angle to go to nearest unexplored grid point
+
+    //Set distance and angle to go to given grid point
     void updateMovement(CarPoint closestPoint,MatrixXf State){
         cout<<"ClosestPoint = "<<closestPoint<<endl;
 
@@ -247,9 +328,6 @@ namespace Navigation_Functions{
         
         return;
     }
-
-
-    
 
 
     vector<GridNode*> findNeighboursBFS2(GridNode& point,vector<vector<GridNode>>& gridMap){
@@ -297,7 +375,6 @@ namespace Navigation_Functions{
 
             return neighbours;
         }
-
 
     // Breadth-first search
     vector<GridNode*> bfs(std::vector<std::vector<GridNode>>& gridMap, GridNode& start, GridNode& goal) {
@@ -371,29 +448,13 @@ namespace Navigation_Functions{
 
     }
 
+
     vector<CarPoint> pathFinder(MatrixXf State,CarPoint Goal){
         cout<<"In PathFinder"<<endl;
-        GridPoint myRobot;
-        myRobot.x=State(0);
-        myRobot.y=State(1);
-        myRobot.trav=false;
-
-        GridPoint current;
-        float min_distance = 10000000;
-
         vector<vector<GridPoint>> gridMap;
         readGridFromCSV(gridMap);
 
-        //Transform current position to a gridPoint
-        for(int i =0;i<gridMap.size();i++){
-            for(int j =0;j<gridMap[i].size();j++){
-                float dist = gridPointDistance(gridMap[i][j],myRobot);
-                if(min_distance>dist){
-                    current = gridMap[i][j];
-                    min_distance = dist;
-                }
-            }
-        }
+        GridPoint current = stateToGridDot(State, gridMap);
 
         GridNode start(current.x, current.y);
         GridNode goal(Goal.x, Goal.y);
@@ -431,11 +492,6 @@ namespace Navigation_Functions{
         }
         
 
-
-
-
-
-
         if(pathCartesian.empty()) {
             cout << "No Shortened path found." << endl;
         } else {
@@ -454,200 +510,5 @@ namespace Navigation_Functions{
 
 }
 
-
-    // vector<GridPoint> findNeighbours(vector<vector<GridPoint>> gridMap, GridPoint point, float defaultVal,vector<CarPoint>& indexes){
-    //     //Initialize Neighbours
-    //     GridPoint UP;
-    //     UP.x = defaultVal;
-    //     UP.y = defaultVal;
-    //     UP.trav = false;
-    //     GridPoint DOWN;
-    //     DOWN.x = defaultVal;
-    //     DOWN.y = defaultVal;
-    //     DOWN.trav = false;
-    //     GridPoint LEFT;
-    //     LEFT.x = defaultVal;
-    //     LEFT.y = defaultVal;
-    //     LEFT.trav = false;
-    //     GridPoint RIGHT;
-    //     RIGHT.x = defaultVal;
-    //     RIGHT.y = defaultVal;
-    //     RIGHT.trav = false;
-    //     vector<GridPoint> neighbours;
-    //     neighbours.push_back(UP);
-    //     neighbours.push_back(DOWN);
-    //     neighbours.push_back(LEFT);
-    //     neighbours.push_back(RIGHT);
-
-    //     //Initialize indexes
-        
-
-    //     for(int i =0;i<gridMap.size();i++){
-    //         for(int j =0;j<gridMap[i].size();j++){
-    //             CarPoint index;
-    //             index.x = i;
-    //             index.y = j;
-                
-    //             // cout<<"x: "<<gridMap[i][j].x<<", "<<point.x<<" = "<<gridMap[i][j].x - point.x<<endl;
-    //             // cout<<"y: "<<gridMap[i][j].y<<", "<<point.y<<" = "<<gridMap[i][j].y - point.y<<endl;
-    //             //left from point
-    //             if(gridMap[i][j].x - point.x == grid_xstep && gridMap[i][j].y - point.y == 0){
-    //                 neighbours[2] = gridMap[i][j];
-    //                 indexes[2] = index;
-    //             }//right from point
-    //             else if(gridMap[i][j].x - point.x == -grid_xstep && gridMap[i][j].y - point.y == 0){
-    //                 neighbours[3] = gridMap[i][j];
-    //                 indexes[3] = index;
-    //             }//up from point
-    //             else if(gridMap[i][j].x - point.x == 0 && gridMap[i][j].y - point.y == grid_ystep){
-    //                 neighbours[0] = gridMap[i][j];
-    //                 indexes[0] = index;
-    //             }//down from point
-    //             else if(gridMap[i][j].x - point.x == 0 && gridMap[i][j].y - point.y == -grid_ystep){
-    //                 neighbours[1] = gridMap[i][j];
-    //                 indexes[1] = index;
-    //             }
-
-    //         }
-    //     }
-
-    //     return neighbours;
-    // }
-
-    // // //Find array of gridPoints to traverse through
-    // vector<GridPoint> pathFinder(vector<vector<GridPoint>> gridMap, MatrixXf State,GridPoint goal){
-    //     //Assume there is a grid point at (0,0)
-    //     cout<<"In PathFinder"<<endl;
-
-    //     GridPoint myRobot;
-    //     myRobot.x=State(0);
-    //     myRobot.y=State(1);
-    //     myRobot.trav=false;
-
-    //     GridPoint current;
-    //     float min_distance = 10000000;
-
-    //     //Transform current position to a gridPoint
-    //     for(int i =0;i<gridMap.size();i++){
-    //         for(int j =0;j<gridMap[i].size();j++){
-    //             float dist = gridPointDistance(gridMap[i][j],myRobot);
-    //             if(min_distance>dist){
-    //                 current = gridMap[i][j];
-    //                 min_distance = dist;
-    //             }
-    //         }
-    //     }
-
-
-    //     float defaultVal = 15;
-
-    //     vector<GridPoint> path;
-    //     bool search = true;
-    //     //Get the start node as the gridpoint nearest to myRobot
-
-    //     path.push_back(current);
-
-    //     int count = 0;
-    //     while(search){
-            
-    //         cout<<"\nCurrent = "<<current<<endl;
-    //         vector<CarPoint> indexes{{0,0},{0,0},{0,0},{0,0}};
-    //         vector<GridPoint> neighbours = findNeighbours(gridMap,current,defaultVal,indexes);
-    //         //Work on minimizing delta first
-    //         cout<<"neigh = ";
-    //         for(int i =0;i<4;i++){
-    //             cout<<neighbours[i]<<", ";
-    //         }
-    //         cout<<endl;
-            
-    //          //Check if point is goal
-    //         if(path[path.size()-1].x == goal.x && path[path.size()-1].y == goal.y){
-    //             search = false;
-    //         }
-    //         else{
-    //             if(goal.y - current.y != 0 ){
-    //                 //Should I go up?
-    //                 if(goal.y - neighbours[0].y >=0 && neighbours[0].x != defaultVal && neighbours[0].y != defaultVal){
-    //                     path.push_back(neighbours[0]);
-    //                     gridMap[indexes[0].x][indexes[0].y].trav = true;
-    //                 }
-    //                 //Should I go down?
-    //                 else if(goal.y - neighbours[1].y >=0 && neighbours[1].x != defaultVal && neighbours[1].y != defaultVal){
-    //                     path.push_back(neighbours[1]);
-    //                     gridMap[indexes[1].x][indexes[1].y].trav = true;
-    //                 }
-    //             }
-    //             else if(goal.x - current.x != 0 ){
-    //                 //Should I go left?
-    //                 if(goal.x - neighbours[2].x >=0 && neighbours[2].x != defaultVal && neighbours[2].y != defaultVal){
-    //                     path.push_back(neighbours[2]);
-    //                     gridMap[indexes[2].x][indexes[2].y].trav = true;
-    //                 }
-    //                 //Should I go right?
-    //                 else if(goal.x - neighbours[3].x >=0 && neighbours[3].x != defaultVal && neighbours[3].y != defaultVal){
-    //                     path.push_back(neighbours[3]);
-    //                     gridMap[indexes[3].x][indexes[3].y].trav = true;
-    //                 }
-    //             }
-    //             else{
-    //                 cout<<"FAILURE TO ADD POINT PLEASE HELP"<<endl;
-    //             }
-
-    //             cout<<"Point added: "<<path[path.size() - 1].x<<", "<<path[path.size() - 1].y<<endl;
-    //             current = path[path.size()-1];
-    //         }
-            
-    //     }
-
-    //     cout<<"Path Found = ";
-    //     for(int i =0;i<path.size();i++){
-    //         cout<<path[i]<<"->";
-    //     }
-    //     cout<<endl;
-
-    //     //Maybe add some filtering like filtering duplicate points etc
-    //     //Lowering Path Points given that their x-values or their y-valaues are the same
-    //     vector<GridPoint> shortenedPath;
-    //     shortenedPath.push_back(path[0]);
-    //     for(int i =1;i<path.size()-1;i++){
-    //         if(path[i].x != path[i+1].x && path[i].y == path[i+1].y){
-    //             shortenedPath.push_back(path[i]);
-    //         }
-    //     }
-    //     shortenedPath.push_back(path[path.size() - 1]);
-
-    //     cout<<"ShortPath Found = ";
-    //     for(int i =0;i<shortenedPath.size();i++){
-    //         cout<<shortenedPath[i]<<"->";
-    //     }
-    //     cout<<endl;
-
-    //     return shortenedPath;
-    // }
-
-    // void postMapMovement(MatrixXf State){
-    //     GridPoint Goal;
-    //     Goal.x = 0;
-    //     Goal.y = 0;
-    //     Goal.trav = false;
-    //     vector<vector<GridPoint>> gridMap;
-    //     readGridFromCSV(gridMap);
-
-    //     vector<GridPoint> path = pathFinder(gridMap,State,Goal);
-
-    //     for(int i =0;i<path.size();i++){
-    //         CarPoint pathPoint;
-    //         pathPoint.x=path[i].x;
-    //         pathPoint.y=path[i].y;
-    //         updateMovement(pathPoint,State);
-
-    //     }
-
-
-
-
-
-
-    // }
 
     
