@@ -123,7 +123,7 @@ namespace Landmark_Functions{
         for (int i = 0; i < numSamples; ++i) {
             vector<float> x;
             vector<float> y;
-            cout<<"Whats"
+            cout<<"Whats";
 
             for (int j = 0; j < sampleSize; ++j) {
                 cout<<"ares";
