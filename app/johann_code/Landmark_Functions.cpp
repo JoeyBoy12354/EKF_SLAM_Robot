@@ -118,11 +118,12 @@ namespace Landmark_Functions{
         int numSamples = xCoords.size() / sampleSize;
         vector<VectorXf> bestModels;
 
-        cout<<"FUck man"<<endl;
+        cout<<"FUck man numSamples = "<<numSamples<<endl;
 
         for (int i = 0; i < numSamples; ++i) {
             vector<float> x;
             vector<float> y;
+            cout<<"Whats"
 
             for (int j = 0; j < sampleSize; ++j) {
                 cout<<"ares";
