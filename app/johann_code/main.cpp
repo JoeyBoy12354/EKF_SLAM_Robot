@@ -757,7 +757,7 @@ vector<PolPoint> lidarThread(int NoPoints, vector<PolPoint> lidarDataPoints){
         cout<<"Lock enabled"<<endl;
         {
             unique_lock<mutex> lock(mtx);
-            cv.wait(lock, [&lidarDataPoints, NoPoints] { return lidarDataPoints.size() >= NoPoints; });
+            cv.wait(lock, [&lidarDataPoints, NoPoints] { cout<<"in wait size = "<<lidarDataPoints.size()<<endl; return lidarDataPoints.size() >= NoPoints; });
 
             finalLidarDataPoints = lidarDataPoints;
             cout<<"Final points1 = "<<finalLidarDataPoints.size()<<endl;

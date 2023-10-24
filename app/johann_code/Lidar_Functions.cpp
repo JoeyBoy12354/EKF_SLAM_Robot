@@ -454,6 +454,7 @@ namespace Lidar_Functions{
 
             // Notify the main thread that the vector is filled
             {
+                cout<<"Notify main thread lidar size is = " << lidarDataPoints.size() << endl;
                 lock_guard<mutex> lock(mtx);
                 cv.notify_all();
             }
