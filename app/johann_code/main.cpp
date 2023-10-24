@@ -900,11 +900,8 @@ void testRANSAC(){
     float angleThreshold = 30.0 * M_PI / 180.0;
     float distanceThreshold = 100;
     float closenessThreshold = 40;
-
     
-    vector<Vector2d> bestModels; // Assuming you have populated this with models
-    
-    vector<VectorXd> manager(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
+    vector<Vector2d> bestModels = manager(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
 
     
     vector<Vector2d> corners = findCorners(bestModels, angleThreshold);
