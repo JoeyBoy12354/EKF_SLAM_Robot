@@ -118,6 +118,8 @@ namespace Landmark_Functions{
         int numSamples = xCoords.size() / sampleSize;
         vector<VectorXf> bestModels;
 
+        cout<<"FUck man"<<endl;
+
         for (int i = 0; i < numSamples; ++i) {
             vector<float> x;
             vector<float> y;
@@ -126,6 +128,8 @@ namespace Landmark_Functions{
                 x.push_back(xCoords[i * sampleSize + j]);
                 y.push_back(yCoords[i * sampleSize + j]);
             }
+
+            cout<<"YAYA"
 
             VectorXf xVector = Map<VectorXf>(x.data(), x.size());
             VectorXf yVector = Map<VectorXf>(y.data(), y.size());
