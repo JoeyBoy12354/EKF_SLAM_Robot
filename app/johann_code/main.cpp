@@ -863,7 +863,7 @@ void testRun(){
     int NoPoints = 8192;
     bool error = false;
     vector<PolPoint> lidarDataPoints;
-    vector<PolPoint> finalPoint;
+    vector<PolPoint> finalPoints;
     thread t_lidar(initializeLidar, ref(lidarDataPoints), ref(error), NoPoints);
 
     int count = 0;
@@ -874,7 +874,7 @@ void testRun(){
             {
                 unique_lock<mutex> lock(mtx);
                 cv.wait(lock, [&lidarDataPoints, NoPoints] { return lidarDataPoints.size() >= NoPoints; });
-                finalPoint = lidarDataPoints;
+                finalPoints = lidarDataPoints;
                 cout<<"finalPoints 1 = "<<finalPoints.size();
                 lidarDataPoints.clear();
             }
@@ -887,7 +887,7 @@ void testRun(){
 
         cout<<"\n i = "<<count<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
-        fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path,finalPoint);
+        fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path,finalPoints);
         firstRun = false; //DO NOT CHANGE THIS KEEP IT HERE DO NOT MOVE IT INSIDE FULLRUN OR GOD HELP ME
         count = count+1;
     }
