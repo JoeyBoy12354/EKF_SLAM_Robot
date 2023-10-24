@@ -759,6 +759,7 @@ vector<PolPoint> lidarThread(int NoPoints, vector<PolPoint> lidarDataPoints){
             cv.wait(lock, [&lidarDataPoints, NoPoints] { return lidarDataPoints.size() >= NoPoints; });
 
             finalLidarDataPoints = lidarDataPoints;
+            cout<<"Final points1 = "<<finalLidarDataPoints.size()<<endl;
 
             // Reset the vector
             lidarDataPoints.clear();
@@ -768,6 +769,7 @@ vector<PolPoint> lidarThread(int NoPoints, vector<PolPoint> lidarDataPoints){
 
         timer = timer + 1;
         cout << "\nMAIN: vector is full in time = " << timer << endl;
+        cout<<"Final points12 = "<<finalLidarDataPoints.size()<<endl;
     }
 
     return finalLidarDataPoints;
