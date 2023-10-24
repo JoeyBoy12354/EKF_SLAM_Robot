@@ -919,7 +919,7 @@ void testRANSAC(){
         CarPoint lm;
         lm.x = corner(0);
         lm.y = corner(1);
-        CarCorners.push_back(lm)
+        CarCorners.push_back(lm);
     }
 
     for(int i =0;i<CarCorners.size();i++){
