@@ -30,10 +30,10 @@ namespace Landmark_Functions{
         theta(0) = m;
         theta(1) = c;
 
-        return theta
+        return theta;
     }
 
-    int getSampleIndex(int numSamples, int samplesToFit){
+    int getSampleIndex(int numSamples){
         random_device rd; // obtain a random number from hardware
         mt19937 gen(rd()); // seed the generator
         uniform_int_distribution<> distr(0, numSamples); // define the range
@@ -44,7 +44,7 @@ namespace Landmark_Functions{
     int numInliers = 0;  // Initialize the inlier count to 0
 
     // Create a vector 'b' filled with 1s, used to represent the bias term in the model
-    VectorXf b = VectorXf::Ones(X.rows());
+    VectorXf b = VectorXf::Ones(x.rows());
 
     // Duplicate 'y' as 'yReshaped' (may not be necessary but for consistency)
     VectorXf yReshaped = y;
