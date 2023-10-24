@@ -119,6 +119,7 @@ namespace Landmark_Functions{
         vector<VectorXf> bestModels;
 
         cout<<"X numSamples = "<<xCoords.size()<<endl;
+        cout<<"sampleSize = "<<sampleSize<<endl;
         cout<<"FUck man numSamples = "<<numSamples<<endl;
 
         for (int i = 0; i < numSamples; i++) {
