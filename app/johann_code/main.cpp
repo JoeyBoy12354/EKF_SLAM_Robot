@@ -881,7 +881,7 @@ void testRun(){
 
     cout<<"POST LOOP RUN"<<endl;
     finalRun = true;
-    fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
+    fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path,lidarDataPoints,NoPoints);
         
 
     cout<<"Fully Mapped Room"<<endl;
@@ -893,13 +893,13 @@ void testRun(){
     // while(home == false){
     //     cout<<"\n i = "<<count<<endl;
     //     cout<<"------------------------------------------------------------------------------------------------------------\n\n";
-    //     fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
+    //     fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path,lidarDataPoints,NoPoints);
     // }
 
     // // ekf.distance = 0;
     // // ekf.w = 0;
     // finalRun = true;
-    // fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
+    // fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path,lidarDataPoints,NoPoints);
 
     // cout<<"I am Home"<<endl;
 
