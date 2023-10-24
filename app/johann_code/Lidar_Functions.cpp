@@ -452,11 +452,13 @@ namespace Lidar_Functions{
 
 
         while (!stopFlag && error == false) { // Check the stop flag to determine whether to continue
-            cout << "SLAVE liadr: This is noPoints = " << NoPoints << endl;
+            cout << "SLAVE lidar: This is noPoints = " << NoPoints << endl;
+            
             cout << "SLAVE lidar: This is error = " << error << endl;
 
             lidarDataPoints.clear();
             fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
+            cout << "SLAVE lidar: This is size = " << lidarDataPoints.size() << endl;
 
 
             // Notify the main thread that the vector is filled
