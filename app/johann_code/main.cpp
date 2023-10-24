@@ -840,6 +840,8 @@ void testRun(){
     bool error = false;
     thread t1(initializeLidar, ref(lidarDataPoints), ref(error), NoPoints);
 
+    finalRun = true;//REMOVE TIS L:ATER
+
 
     int count = 0;
     int timer = 0;
