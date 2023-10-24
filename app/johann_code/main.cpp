@@ -891,8 +891,8 @@ void testRun(){
 void testRANSAC(){
 
 
-    vector<double> y;
-    vector<double> x;
+    vector<float> y;
+    vector<float> x;
     int sample_size = 80;
     int max_iters= 200;
     float inlier_thresh=1.3;
