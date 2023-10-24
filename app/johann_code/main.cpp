@@ -892,6 +892,8 @@ void testRANSAC(){
     vector<CarPoint> dataPoints;
     readCarFromCSVTest(dataPoints);
 
+    cout<<"A"<<endl;
+
     vector<float> y;
     vector<float> x;
 
@@ -899,6 +901,8 @@ void testRANSAC(){
         x.push_back(dataPoints[i].x);
         y.push_back(dataPoints[i].y);
     }
+
+    cout<<"B"<<endl;
     int sample_size = 80;
     int max_iters= 200;
     float inlier_thresh=1.2;
@@ -908,6 +912,8 @@ void testRANSAC(){
     float closenessThreshold = 40;
     
     vector<VectorXf> bestModels = manager(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
+
+    cout<<"C"<<endl;
 
     cout<<"Models = "<<endl;
     for (size_t i = 0; i < bestModels.size(); ++i) {
