@@ -439,22 +439,28 @@ namespace Lidar_Functions{
         drv->startScan(0,1);
 
 
+
+
+
+
+
+
+
+
+
         //////////////////////////////////////////////////////////////////////////
 
 
         while (!stopFlag && error == false) { // Check the stop flag to determine whether to continue
-            //cout << "SLAVE lidar: This is noPoints = " << NoPoints << endl;
-            
-            //cout << "SLAVE lidar: This is error = " << error << endl;
+            cout << "SLAVE liadr: This is noPoints = " << NoPoints << endl;
+            cout << "SLAVE lidar: This is error = " << error << endl;
 
             lidarDataPoints.clear();
             fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
-            cout << "SLAVE lidar: This is size = " << lidarDataPoints.size() << endl;
 
 
             // Notify the main thread that the vector is filled
             {
-                cout<<"Notify main thread lidar size is = " << lidarDataPoints.size() << endl;
                 lock_guard<mutex> lock(mtx);
                 cv.notify_all();
             }
@@ -465,7 +471,7 @@ namespace Lidar_Functions{
         //////////////////////////////////////////////////////////
 
 
-        printf("I have reached end of lidar thread");
+        printf("I have reached max NoPoints in Lidar_function");
         error = false;
         drv->setMotorSpeed(stop);
         drv->stop();
