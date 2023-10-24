@@ -129,7 +129,7 @@ namespace Landmark_Functions{
                 y.push_back(yCoords[i * sampleSize + j]);
             }
 
-            cout<<"YAYA"
+            cout<<"YAYA";
 
             VectorXf xVector = Map<VectorXf>(x.data(), x.size());
             VectorXf yVector = Map<VectorXf>(y.data(), y.size());
