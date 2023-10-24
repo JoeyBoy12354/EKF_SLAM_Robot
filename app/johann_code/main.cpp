@@ -747,49 +747,20 @@ void atSim(){
 }
 
 
-vector<PolPoint> lidarThread(int NoPoints, vector<PolPoint> lidarDataPoints){
-    cout<<"ENTER LidarThread"<<endl;
-    vector<PolPoint> finalLidarDataPoints;
-
-    //This will run twice and return the second lidar scan
-    int timer = 0;
-    while (timer < 2) {
-        cout<<"Lock enabled"<<endl;
-        {
-            unique_lock<mutex> lock(mtx);
-            cv.wait(lock, [&lidarDataPoints, NoPoints] { cout<<"in wait size = "<<lidarDataPoints.size()<<endl; return lidarDataPoints.size() >= NoPoints; });
-
-            finalLidarDataPoints = lidarDataPoints;
-            cout<<"Final points1 = "<<finalLidarDataPoints.size()<<endl;
-
-            // Reset the vector
-            lidarDataPoints.clear();
-        }
-
-        // Continue your processing after vector is filled
-
-        timer = timer + 1;
-        cout << "\nMAIN: vector is full in time = " << timer << endl;
-        cout<<"Final points12 = "<<finalLidarDataPoints.size()<<endl;
-    }
-
-    return finalLidarDataPoints;
-
-}
-
-void fullRun2(ExtendedKalmanFilter& ekf, bool& mapped, bool& home, bool firstRun, bool finalRun, bool postMap,
-                vector<CarPoint>& path, vector<PolPoint> lidarDataPoints){
+void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun, bool finalRun,bool postMap,vector<CarPoint>& path){
     
-    cout<<"ENTERED FULL RUN"<<endl;
 
     //Run Lidar
-    cout<<"fullRun I got my lidar Points size = "<<lidarDataPoints.size()<<endl;
-    
+    vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
+    bool error = true;
+    int count = 0;
+    while(error == true && count<5){
+        cout<<"\nAttempt "<<count<<endl;
+        runLidar(lidarDataPoints, error);
+        count +=1;
+    }
+    cout<<"count = "<<count<<endl;
 
-
-
-
-    bool error = false;
     if(error == false){
         //Predict Position
         ekf.updateMotion();
@@ -837,7 +808,10 @@ void fullRun2(ExtendedKalmanFilter& ekf, bool& mapped, bool& home, bool firstRun
             cout<<"MAIN: I DID NOT FUCKING MOVE"<<endl;
         }
 
-    }  
+    }else{
+        cout<<" NO PROCESSING DUE TO LIDAR ERROR"<<endl;
+    }
+        
     
 
     cout<<"LEAVNG RUN"<<endl;
@@ -853,41 +827,18 @@ void testRun(){
     bool firstRun = true;
     bool finalRun = false;
     bool postMap = false;
+
+
     vector<CarPoint> path;
     cout<<"TEST RUN"<<endl;
 
-    //Do calibration
-    //calibrateMotors();
 
-    //Setup Lidar Thread
-    int NoPoints = 8192;
-    bool error = false;
-    vector<PolPoint> lidarDataPoints;
-    vector<PolPoint> finalPoints;
-    thread t_lidar(initializeLidar, ref(lidarDataPoints), ref(error), NoPoints);
-
+    calibrateMotors();
     int count = 0;
-    int lidar_counter = 0;
-    while(mapped == false && count<200){
-        lidar_counter = 0;
-        while (lidar_counter < 2) {
-            {
-                unique_lock<mutex> lock(mtx);
-                cv.wait(lock, [&lidarDataPoints, NoPoints] { return lidarDataPoints.size() >= NoPoints; });
-                finalPoints = lidarDataPoints;
-                cout<<"finalPoints 1 = "<<finalPoints.size();
-                lidarDataPoints.clear();
-            }
-            lidar_counter = lidar_counter + 1;
-            cout<<"Counter = "<<lidar_counter<<endl;
-        }
-
-        cout<<"finalPoints 2 = "<<finalPoints.size();
-
-
+    while(mapped == false && count<20){
         cout<<"\n i = "<<count<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
-        fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path,finalPoints);
+        fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
         firstRun = false; //DO NOT CHANGE THIS KEEP IT HERE DO NOT MOVE IT INSIDE FULLRUN OR GOD HELP ME
         count = count+1;
     }
@@ -896,9 +847,9 @@ void testRun(){
     ekf.w = 0;
     
 
-    // cout<<"POST LOOP RUN"<<endl;
-    // finalRun = true;
-    // fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path,lidarDataPoints,NoPoints);
+    cout<<"POST LOOP RUN"<<endl;
+    finalRun = true;
+    fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
         
 
     cout<<"Fully Mapped Room"<<endl;
@@ -910,22 +861,15 @@ void testRun(){
     // while(home == false){
     //     cout<<"\n i = "<<count<<endl;
     //     cout<<"------------------------------------------------------------------------------------------------------------\n\n";
-    //     fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path,lidarDataPoints,NoPoints);
+    //     fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
     // }
 
     // // ekf.distance = 0;
     // // ekf.w = 0;
     // finalRun = true;
-    // fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path,lidarDataPoints,NoPoints);
+    // fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
 
     // cout<<"I am Home"<<endl;
-
-    cout << "Signal threadSlave to stop" << endl;
-    stopFlag.store(true); // Set the stop flag to signal threadSlave to stop
-
-    // Wait for the t1 thread to join
-    t_lidar.join();
-    cout << "t1 joined" << endl;
 
     
 }
