@@ -129,8 +129,7 @@ namespace Landmark_Functions{
     }
 
 
-
-    float calculateInterceptAngle(const Vector2d& line1, const Vector2d& line2) {
+    float calculateInterceptAngle(const VectorXd& line1, const VectorXd& line2) {
         float interAngle = PI / 2;
         float m1 = line1(0);
         float m2 = line2(0);
@@ -145,7 +144,7 @@ namespace Landmark_Functions{
         }
     }
 
-    Vector2d calculateInterceptPoint(const Vector2d& line1, const Vector2d& line2) {
+    VectorXd calculateInterceptPoint(const VectorXd& line1, const VectorXd& line2) {
         float m1 = line1(0);
         float m2 = line2(0);
         float b1 = line1(1);
@@ -154,22 +153,22 @@ namespace Landmark_Functions{
         float x = (b2 - b1) / (m1 - m2);
         float y = x * m1 + b1;
 
-        return Vector2d(x, y);
+        return VectorXd(2) << x, y;
     }
 
-    vector<Vector2d> findCorners(const vector<Vector2d>& bestModels, float angleThreshold) {
-        vector<Vector2d> corners;
+    vector<VectorXd> findCorners(const vector<VectorXd>& bestModels, float angleThreshold) {
+        vector<VectorXd> corners;
 
         for (size_t i = 0; i < bestModels.size(); ++i) {
             if (i < bestModels.size() - 1) {
                 float interAngle = calculateInterceptAngle(bestModels[i], bestModels[i + 1]);
-                Vector2d interceptPoint = calculateInterceptPoint(bestModels[i], bestModels[i + 1]);
+                VectorXd interceptPoint = calculateInterceptPoint(bestModels[i], bestModels[i + 1]);
 
                 if (interAngle < PI / 2 + angleThreshold && interAngle > PI / 2 - angleThreshold) {
                     corners.push_back(interceptPoint);
                 } else if (i < bestModels.size() - 2) {
-                    float interAngle1 = calculateInterceptAngle(bestModels[i], bestModels[i + 2]);
-                    float interAngle2 = calculateInterceptAngle(bestModels[i + 1], bestModels[i + 2]);
+                    float interAngle1 = calculateInterceptAngle(bestModels[i], bestModels[i + 2);
+                    float interAngle2 = calculateInterceptAngle(bestModels[i + 1], bestModels[i + 2);
                     bool ang1 = false;
                     bool ang2 = true;
 
@@ -177,7 +176,7 @@ namespace Landmark_Functions{
                     if (interAngle2 < PI / 2 + angleThreshold && interAngle2 > PI / 2 - angleThreshold) ang2 = false;
 
                     if (ang1 && ang2) {
-                        Vector2d interceptPoint = calculateInterceptPoint(bestModels[i], bestModels[i + 2]);
+                        VectorXd interceptPoint = calculateInterceptPoint(bestModels[i], bestModels[i + 2]);
                         corners.push_back(interceptPoint);
                     }
                 }
@@ -186,8 +185,8 @@ namespace Landmark_Functions{
         return corners;
     }
 
-    vector<Vector2d> filterCorners(const vector<Vector2d>& corners, const vector<float>& xCoords, const vector<float>& yCoords, float duplicateThreshold, float closenessThreshold) {
-        vector<Vector2d> cleanCorners;
+    vector<VectorXd> filterCorners(const vector<VectorXd>& corners, const vector<float>& xCoords, const vector<float>& yCoords, float duplicateThreshold, float closenessThreshold) {
+        vector<VectorXd> cleanCorners;
 
         for (size_t i = 0; i < corners.size(); ++i) {
             bool duplicate = false;
@@ -206,7 +205,7 @@ namespace Landmark_Functions{
             }
         }
 
-        vector<Vector2d> closeCorners;
+        vector<VectorXd> closeCorners;
 
         for (size_t i = 0; i < cleanCorners.size(); ++i) {
             float distMin = 10000000;
@@ -226,6 +225,4 @@ namespace Landmark_Functions{
 
         return closeCorners;
     }
-
-
 }
