@@ -910,10 +910,10 @@ void testRANSAC(){
     vector<VectorXf> bestModels = manager(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
 
     cout<<"Models = "<<endl;
-    for (size_t i = 0; i < models.size(); ++i) {
+    for (size_t i = 0; i < bestModels.size(); ++i) {
         cout << "Model " << i + 1 << " parameters: ";
-        for (int j = 0; j < models[i].size(); ++j) {
-            cout << models[i](j) << " ";
+        for (int j = 0; j < bestModels[i].size(); ++j) {
+            cout << bestModels[i](j) << " ";
         }
         cout << endl;
     }
