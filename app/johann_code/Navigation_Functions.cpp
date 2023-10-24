@@ -422,9 +422,11 @@ namespace Navigation_Functions{
         return path;
     }
 
+
     //This will remove straight long sections and also the inital value in a long path
     vector<CarPoint> pathShortening(vector<CarPoint> path){
         vector<CarPoint> shortenedPath;
+        vector<CarPoint> dumpedPoints;
 
         shortenedPath.push_back(path[0]); // Add the first point.
 
@@ -436,6 +438,8 @@ namespace Navigation_Functions{
 
             if (dx1 != dx2 || dy1 != dy2) {
                 shortenedPath.push_back(path[i]); // Add the point when there's a change in direction.
+            }else{
+                dumpedPoints.push_back(path[i]);
             }
         }
 
@@ -443,6 +447,13 @@ namespace Navigation_Functions{
 
         //Remove the starting point because it is our current position
         shortenedPath.erase(shortenedPath.begin());
+
+
+        //Set dumped points to traversed
+        vector<vector<GridPoint>> gridOld;
+        readGridFromCSV(gridOld);
+        gridDataAssosciationPath(gridOld,dumpedPoints);
+        saveGridToCSV(gridOld);
 
         return shortenedPath;
 
@@ -483,8 +494,6 @@ namespace Navigation_Functions{
             CarPoint newPoint(path[i]->x,path[i]->y);
             pathCartesian.push_back(newPoint);
         }
-
-
         
         if(path.size()>1){
             pathCartesian = pathShortening(pathCartesian);

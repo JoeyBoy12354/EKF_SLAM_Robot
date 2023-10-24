@@ -150,59 +150,24 @@ namespace Mapping_Functions{
         return;
         
 
-    }    
+    }   
 
-    void gridDataAssosciationMove(vector<vector<GridPoint>>& gridNew, Matrix<float, dim, 1> State){
-        float thresh= grid_xstep;//If points are less than Xmm from travelled line bounds then allow point to be considered.
-        float dist_thresh= grid_xstep+50;//If points are less than Xmm from travelled line then set trav=true.
-        
-        //Update traversal from movement points,state
-        float angle;
-        float distance;
-        readMotorFromCSV(angle, distance);
-        float x_new = distance*cos(angle);
-        float y_new = distance*sin(angle);
+    void gridDataAssosciationPath(vector<vector<GridPoint>>& gridOld, vector<CarPoint> dumpedPath){
 
-        float x_old = State[0];
-        float y_old = State[1];
-
-        float x_max = (x_new > x_old) ? x_new : x_old;
-        float y_max = (y_new > y_old) ? y_new : y_old;
-
-        Line tLine;
-        tLine.gradient = (y_new-y_old)/(x_new-x_old);
-        tLine.intercept = y_old-(tLine.gradient*x_old);
-        tLine.domain_max = (x_new > x_old) ? x_new : x_old;
-        tLine.domain_min = (x_new < x_old) ? x_new : x_old;
-        tLine.range_max = (y_new > y_old) ? y_new : y_old;
-        tLine.range_min = (y_new > y_old) ? y_new : y_old;
-
-
-        cout<<"GRID: Traversed -> "<<endl;
-        for(int i = 0;i<gridNew.size();i++){
-            for(int j =0;j<gridNew[i].size();j++){
-                CarPoint point;
-                point.x = gridNew[i][j].x;
-                point.y = gridNew[i][j].y;
-
-                //Ensure point is within bounds of where line should exist
-                if(point.x > tLine.domain_min-thresh && point.x < tLine.domain_max+thresh &&
-                   point.y > tLine.range_min-thresh  && point.y < tLine.range_max+thresh){
-
-                    if(perpendicularDistance(point,tLine) <= dist_thresh){
-                        gridNew[i][j].trav = true;
-                        cout<<gridNew[i][j]<<", ";
+        cout<<"Dumped Traversed = ";
+        for(int i = 0;i<gridOld.size();i++){
+            for(int j =0;j<gridOld[i].size();j++){
+                for(int k=0;k<dumpedPath.size();k++){
+                    if(gridPointDistance(gridOld[i][j]) == dumpedPath[k]){
+                        gridOld[i][j].trav = true;
+                        cout<<gridOld[i][j];
                     }
                 }
-                
             }
-            
         }
         cout<<endl;
-
-        return;
-
-    }
+        retun;
+    } 
 
     void gridDataAssosciationMoveSimple(vector<vector<GridPoint>>& gridNew, Matrix<float, dim, 1> State){
         //int count = 0;
