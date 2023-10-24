@@ -207,7 +207,7 @@ namespace Landmark_Functions{
     vector<CarPoint> getCorners();
     VectorXd fitWithLeastSquares(const MatrixXd& X, const VectorXd& y);
     int evaluateModel(const MatrixXd& X, const VectorXd& y, const VectorXd& theta, float inlierThreshold);
-    VectorXd ransac(const MatrixXd& X, const VectorXd& y, int maxIters, flat inlierThreshold, int minInliers, int samplesToFit = 2);
+    VectorXd ransac(const MatrixXd& X, const VectorXd& y, int maxIters, float inlierThreshold, int minInliers, int samplesToFit = 2);
     vector<VectorXd> manager(const vector<float>& xCoords, const vector<float>& yCoords, int sampleSize, int maxIters, float inlierThreshold, int minInliers);
 
     double calculateInterceptAngle(const Vector2d& line1, const Vector2d& line2);

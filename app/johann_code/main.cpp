@@ -904,7 +904,7 @@ void testRANSAC(){
     
     vector<Vector2d> bestModels; // Assuming you have populated this with models
     
-    vector<VectorXd> manager(x, y, int sampleSize, int maxIters, double inlierThreshold, int minInliers);
+    vector<VectorXd> manager(x, y, sampleSize, maxIters, inlierThreshold, minInliers);
 
     
     vector<Vector2d> corners = findCorners(bestModels, angleThreshold);
