@@ -168,7 +168,7 @@ namespace Navigation_Functions{
         int scalar = 4;
         
         CarPoint nextPoint;
-        CarPoint current = stateToGridDot(State,gridMap);
+        GridPoint current = stateToGridDot(State,gridMap);
         float case1;
         float case2;
         float case3;
@@ -199,7 +199,6 @@ namespace Navigation_Functions{
                             return nextPoint;
                         }
                     }
-
                 }
             }
         }
@@ -207,7 +206,7 @@ namespace Navigation_Functions{
         //If we made it here the grid dot is further away than our search space or all dots have been traversed
         nextPoint = findNextPoint(State,gridMap,mapped);
 
-        return nextPoint
+        return nextPoint;
     }
 
     bool mapMovement(MatrixXf State, vector<vector<GridPoint>> gridMap, vector<CarPoint>& path){
