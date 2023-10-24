@@ -830,7 +830,7 @@ void testRun(){
     cout<<"TEST RUN"<<endl;
 
     ILidarDriver * drv = nullptr;
-    ILidarDriver* lidarDriver = drv; // Initialize a pointer to the ILidarDriver object
+    //ILidarDriver* lidarDriver = drv; // Initialize a pointer to the ILidarDriver object
     sl_result op_result;
     vector<PolPoint> lidarDataPoints;
     int NoPoints;
