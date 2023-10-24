@@ -839,7 +839,7 @@ void testRun(){
 
     //calibrateMotors();
 
-    initializeLidar(drv, op_result, error, timeout);
+    initializeLidar(drv,error);
 
     int count = 0;
     while(mapped == false && count<20){

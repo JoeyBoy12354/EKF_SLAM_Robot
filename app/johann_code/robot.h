@@ -220,7 +220,7 @@ namespace Lidar_Functions{
     int runLidar(vector<PolPoint>& lidarDataPoints, bool& error);
 
     //int initializeLidar(vector<PolPoint>& lidarDataPoints, bool& error, int NoPoints);
-    int initializeLidar(ILidarDriver*& drv, sl_result& op_result, bool& error, sl_u32 timeout);
+    int initializeLidar(ILidarDriver*& drv, bool& error);
     void fetchScan(ILidarDriver * drv, sl_result op_result, vector<PolPoint>& lidarDataPoints, int NoPoints, bool& error,sl_u32 timeout);
 }
 

@@ -291,7 +291,7 @@ namespace Lidar_Functions{
         return 0;
     }
 
-    int initializeLidar(ILidarDriver*& drv, sl_result& op_result, bool& error, sl_u32 timeout){
+    int initializeLidar(ILidarDriver*& drv, bool& error){
         int argc = 5;
         const char * argv[] = {
             "./johann_code",
@@ -377,14 +377,33 @@ namespace Lidar_Functions{
 
         
         // create the driver instance
-        drv = createLidarDriver();
+        Result<ILidarDriver*> result = createLidarDriver();
 
+        // Check if the result is successful
+        if (result.status == sl::SUCCESS) {
+            // Extract the pointer and assign it to drv
+            drv = result.data;
+            
+            // Set motor speed
+            drv->setMotorSpeed();
 
+            // Start scan
+            drv->startScan(0, 1);
 
-        if (!drv) {
-            fprintf(stderr, "insufficent memory, exit\n");
-            exit(-2);
+            // More initialization code...
+
+            //return 0;
+        } else {
+            // Handle the error here
+            error = true;
+            return -1;
         }
+
+
+        // if (!drv) {
+        //     fprintf(stderr, "insufficent memory, exit\n");
+        //     exit(-2);
+        // }
 
         sl_lidar_response_device_info_t devinfo;
         bool connectSuccess = false;
@@ -435,9 +454,9 @@ namespace Lidar_Functions{
 
         signal(SIGINT, ctrlc);
         
-        drv->setMotorSpeed();
-        // start scan...
-        drv->startScan(0,1);
+        // drv->setMotorSpeed();
+        // // start scan...
+        // drv->startScan(0,1);
 
 
 
