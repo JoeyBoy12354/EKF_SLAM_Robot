@@ -748,7 +748,7 @@ void atSim(){
 
 
 vector<PolPoint> lidarThread(int NoPoints, vector<PolPoint> lidarDataPoints){
-    cout<<"ENTER testLidarThread"<<endl;
+    cout<<"ENTER LidarThread"<<endl;
     vector<PolPoint> finalLidarDataPoints;
 
     //This will run twice and return the second lidar scan
@@ -777,7 +777,7 @@ vector<PolPoint> lidarThread(int NoPoints, vector<PolPoint> lidarDataPoints){
 }
 
 void fullRun2(ExtendedKalmanFilter& ekf, bool& mapped, bool& home, bool firstRun, bool finalRun, bool postMap,
-                vector<CarPoint>& path, vector<PolPoint>& threadDataPoints, int& threadNoPoints ){
+                vector<CarPoint>& path, vector<PolPoint> threadDataPoints, int threadNoPoints ){
     
     cout<<"ENTERED FULL RUN"<<endl;
 
