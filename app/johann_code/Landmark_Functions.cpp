@@ -106,14 +106,34 @@ namespace Landmark_Functions{
         return bestModel;
     }
 
+    // def ransac(X,y,max_iters,inlier_threshold,min_inliers,samples_to_fit=2):
+
+        // best_model=None
+        // best_model_performance=0
+
+        // num_samples = X.shape[0]
+
+        // for i in range(max_iters):
+        //     sample = np.random.choice(num_samples,size=samples_to_fit,replace=False)
+        //     model_params = fit_with_least_squares(X[sample],y[sample])
+        //     model_performace = evaluate_model(X,y,model_params,inlier_threshold)
+
+        //     if( model_performace < min_inliers):
+        //         continue
+        //     if model_performace > best_model_performance:
+        //         best_model = model_params
+        //         best_model_performance = model_performace
+
+        // return best_model
+
     vector<VectorXf> manager(vector<float>& xCoords, vector<float>& yCoords, int sampleSize, int maxIters, float inlierThreshold, int minInliers) {
         int numSamples = xCoords.size() / sampleSize;
         vector<VectorXf> bestModels;
         
-        for (int i = 0; i < numSamples; ++i) {
+        for (int i = 0; i < numSamples; i++) {
             vector<float> x, y;
             
-            for (int j = 0; j < sampleSize; ++j) {
+            for (int j = 0; j < sampleSize; j++) {
                 x.push_back(xCoords[i * sampleSize + j]);
                 y.push_back(yCoords[i * sampleSize + j]);
             }
@@ -127,6 +147,28 @@ namespace Landmark_Functions{
         
         return bestModels;
     }
+
+    // def manager(x_coords,y_coords,sample_size,max_iters,inlier_thresh,min_inliers):
+    // #sample_size = 500 #worked well before lowerd lidar points
+    // num_samples = int(len(x_coords)/sample_size)
+    // best_models = []
+
+    // for i in range(0,num_samples):
+    //     x = []
+    //     y = []
+    //     for j in range(0,sample_size):
+    //         x.append([x_coords[i*sample_size + j]])
+    //         y.append([y_coords[i*sample_size + j]])
+
+    //     #print("x = ",x)
+    //     x = np.array(x)
+    //     #print("x = ",x)
+    //     y = np.array(y)
+    //     result = ransac(x,y,max_iters=max_iters,inlier_threshold=inlier_thresh,min_inliers=min_inliers)
+    //     best_models.append(result)
+        
+
+    // return best_models
 
 
     float calculateInterceptAngle(VectorXf& line1, VectorXf& line2) {
