@@ -205,6 +205,11 @@ namespace Data_Functions{
 
 namespace Landmark_Functions{
     vector<CarPoint> getCorners();
+    VectorXd fitWithLeastSquares(const MatrixXd& X, const VectorXd& y);
+    int evaluateModel(const MatrixXd& X, const VectorXd& y, const VectorXd& theta, double inlierThreshold);
+    VectorXd ransac(const MatrixXd& X, const VectorXd& y, int maxIters, double inlierThreshold, int minInliers, int samplesToFit);
+    vector<VectorXd> manager(const vector<double>& xCoords, const vector<double>& yCoords, int sampleSize, int maxIters, double inlierThreshold, int minInliers);
+
 }
 
 namespace Simulation_Functions{
