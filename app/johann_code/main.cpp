@@ -819,8 +819,6 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
 
 
 
-
-
 void testRun(){
     ExtendedKalmanFilter ekf;
     bool mapped = false;
