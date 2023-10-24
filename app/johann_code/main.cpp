@@ -754,14 +754,8 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
 
     //Run Lidar
     vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
-    bool error = true;
-    int count = 0;
-    while(error == true && count<5){
-        cout<<"\nAttempt "<<count<<endl;
-        runLidar(lidarDataPoints, error);
-        count +=1;
-    }
-    cout<<"count = "<<count<<endl;
+    bool error = false;
+
 
     if(error == false){
         //Predict Position
@@ -836,8 +830,38 @@ void testRun(){
 
 
     calibrateMotors();
+
+
+    vector<int> vect;
+    int NoPoints = 8192;
+    vector<PolPoint> lidarDataPoints;
+    vector<PolPoint> truePoints;
+    bool error = false;
+    thread t1(initializeLidar, ref(lidarDataPoints), ref(error), NoPoints);
+
+
     int count = 0;
+    int timer = 0;
     while(mapped == false && count<20){
+        timer = 0;
+        while (timer < 2) {
+            {
+                unique_lock<mutex> lock(mtx);
+                cv.wait(lock, [&lidarDataPoints, NoPoints] { return lidarDataPoints.size() >= NoPoints; });
+                truePoints = lidarDataPoints;
+                lidarDataPoints.clear();
+            }
+
+            timer = timer + 1;
+            cout << "\nMAIN: vector is full in time = " << timer << " testPoints size = "<<truePoints.size()<<endl;
+        }
+
+
+
+
+
+
+
         cout<<"\n i = "<<count<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
         fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
@@ -872,6 +896,13 @@ void testRun(){
     // fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
 
     // cout<<"I am Home"<<endl;
+
+    cout << "Signal threadSlave to stop" << endl;
+    stopFlag.store(true); // Set the stop flag to signal threadSlave to stop
+
+    // Wait for the t1 thread to join
+    t1.join();
+    cout << "t1 joined" << endl;
 
     
 }
