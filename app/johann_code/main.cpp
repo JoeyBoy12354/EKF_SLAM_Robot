@@ -232,44 +232,44 @@ void testThread() {
 
 
 
-void testLidarThread(){
-    cout<<"ENTER testLidarThread"<<endl;
-    vector<int> vect;
-    int NoPoints = 8192;
-    vector<PolPoint> lidarDataPoints;
-    vector<PolPoint> testPoints;
-    bool error = false;
-    thread t1(initializeLidar, ref(lidarDataPoints), ref(error), NoPoints);
+// void testLidarThread(){
+//     cout<<"ENTER testLidarThread"<<endl;
+//     vector<int> vect;
+//     int NoPoints = 8192;
+//     vector<PolPoint> lidarDataPoints;
+//     vector<PolPoint> testPoints;
+//     bool error = false;
+//     thread t1(initializeLidar, ref(lidarDataPoints), ref(error), NoPoints);
 
-    int timer = 0;
-    while (timer < 5) {
-        {
-            unique_lock<mutex> lock(mtx);
-            cv.wait(lock, [&lidarDataPoints, NoPoints] { return lidarDataPoints.size() >= NoPoints; });
+//     int timer = 0;
+//     while (timer < 5) {
+//         {
+//             unique_lock<mutex> lock(mtx);
+//             cv.wait(lock, [&lidarDataPoints, NoPoints] { return lidarDataPoints.size() >= NoPoints; });
 
-            // Do something with the filled vector
-            // For example, copy its contents to another data structure
+//             // Do something with the filled vector
+//             // For example, copy its contents to another data structure
 
-            testPoints = lidarDataPoints;
-            // Reset the vector
-            lidarDataPoints.clear();
-        }
+//             testPoints = lidarDataPoints;
+//             // Reset the vector
+//             lidarDataPoints.clear();
+//         }
 
-        // Continue your processing after vector is filled
+//         // Continue your processing after vector is filled
 
-        timer = timer + 1;
-        cout << "\nMAIN: vector is full in time = " << timer << " testPoints size = "<<testPoints.size()<<endl;
-    }
+//         timer = timer + 1;
+//         cout << "\nMAIN: vector is full in time = " << timer << " testPoints size = "<<testPoints.size()<<endl;
+//     }
 
-    cout << "Signal threadSlave to stop" << endl;
-    stopFlag.store(true); // Set the stop flag to signal threadSlave to stop
+//     cout << "Signal threadSlave to stop" << endl;
+//     stopFlag.store(true); // Set the stop flag to signal threadSlave to stop
 
-    // Wait for the t1 thread to join
-    t1.join();
-    cout << "t1 joined" << endl;
+//     // Wait for the t1 thread to join
+//     t1.join();
+//     cout << "t1 joined" << endl;
 
-    return;
-}
+//     return;
+// }
 
 
 
@@ -829,12 +829,13 @@ void testRun(){
     vector<CarPoint> path;
     cout<<"TEST RUN"<<endl;
 
-    ILidarDriver * drv;
+    ILidarDriver * drv = nullptr;
+    ILidarDriver* lidarDriver = drv; // Initialize a pointer to the ILidarDriver object
     sl_result op_result;
     vector<PolPoint> lidarDataPoints;
     int NoPoints;
     bool error;
-    sl_u32 timeout;
+    sl_u32 timeout = 3000;
 
     //calibrateMotors();
 

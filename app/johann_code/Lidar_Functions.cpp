@@ -291,7 +291,7 @@ namespace Lidar_Functions{
         return 0;
     }
 
-    int initializeLidar(ILidarDriver& drv, sl_result& op_result,bool& error,sl_u32 timeout){
+    int initializeLidar(ILidarDriver*& drv, sl_result& op_result, bool& error, sl_u32 timeout){
         int argc = 5;
         const char * argv[] = {
             "./johann_code",
@@ -377,7 +377,7 @@ namespace Lidar_Functions{
 
         
         // create the driver instance
-        drv = *createLidarDriver();
+        drv = createLidarDriver();
 
 
 
@@ -494,7 +494,7 @@ namespace Lidar_Functions{
     //     }
     //     return 0;
 
-
+        return 0;
 
     }
 
