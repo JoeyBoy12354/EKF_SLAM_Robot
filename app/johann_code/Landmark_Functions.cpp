@@ -65,7 +65,7 @@ namespace Landmark_Functions{
         return numInliers;
     }
 
-    VectorXd ransac(const MatrixXd& X, const VectorXd& y, int maxIters, double inlierThreshold, int minInliers, int samplesToFit = 2) {
+    VectorXd ransac(const MatrixXd& X, const VectorXd& y, int maxIters, double inlierThreshold, int minInliers, int samplesToFit) {
         VectorXd bestModel;
         int bestModelPerformance = 0;
         
