@@ -913,11 +913,16 @@ void testRANSAC(){
     vector<VectorXf> corners = findCorners(bestModels, angleThreshold);
     vector<VectorXf> filteredCorners = filterCorners(corners, x, y, distanceThreshold, closenessThreshold);
 
+    vector<CarPoint> corners;
     for (const VectorXf& corner : filteredCorners) {
         // Access the values inside the VectorXf
-        for (int i = 0; i < corner.size(); ++i) {
-            cout << "Value " << i << ": " << corner(i) << endl;
-        }
+        CarPoint lm;
+        lm.x = corner(0);
+        lm.y = corner(1);
+    }
+
+    for(int i =0;i<corners.size();i++){
+        cout<<corners[i];
     }
 }
 
