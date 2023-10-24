@@ -901,11 +901,11 @@ void testRANSAC(){
     float distanceThreshold = 100;
     float closenessThreshold = 40;
     
-    vector<VectorXd> bestModels = manager(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
+    vector<VectorXf> bestModels = manager(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
 
     
-    vector<VectorXd> corners = findCorners(bestModels, angleThreshold);
-    vector<VectorXd> filteredCorners = filterCorners(corners, x, y, distanceThreshold, closenessThreshold);
+    vector<VectorXf> corners = findCorners(bestModels, angleThreshold);
+    vector<VectorXf> filteredCorners = filterCorners(corners, x, y, distanceThreshold, closenessThreshold);
 }
 
 

@@ -21,39 +21,39 @@ namespace Landmark_Functions{
     }
 
 
-    VectorXd fitWithLeastSquares(MatrixXd& X, VectorXd& y) {
+    VectorXf fitWithLeastSquares(MatrixXf& X, VectorXf& y) {
         int numRows = X.rows();
         int numCols = X.cols();
 
         // Augment the feature matrix X with a column of ones for the bias term
-        MatrixXd A(numRows, numCols + 1);
-        A << X, MatrixXd::Ones(numRows, 1);
+        MatrixXf A(numRows, numCols + 1);
+        A << X, MatrixXf::Ones(numRows, 1);
 
         // Compute the transpose of A
-        MatrixXd A_transpose = A.transpose();
+        MatrixXf A_transpose = A.transpose();
 
         // Compute A_transpose * A and A_transpose * y
-        MatrixXd A_transpose_A = A_transpose * A;
-        VectorXd A_transpose_y = A_transpose * y;
+        MatrixXf A_transpose_A = A_transpose * A;
+        VectorXf A_transpose_y = A_transpose * y;
 
         // Solve the linear system using matrix multiplication
-        VectorXd theta(numCols + 1);
+        VectorXf theta(numCols + 1);
         theta = A_transpose_A.inverse() * A_transpose_y;
 
         return theta;
     }   
   
-    int evaluateModel(MatrixXd& X, VectorXd& y, VectorXd& theta, float inlierThreshold) {
+    int evaluateModel(MatrixXf& X, VectorXf& y, VectorXf& theta, float inlierThreshold) {
         int numInliers = 0;
-        VectorXd b = VectorXd::Ones(X.rows());
-        VectorXd yReshaped = y;
-        MatrixXd A(X.rows(), X.cols() + 2);
+        VectorXf b = VectorXf::Ones(X.rows());
+        VectorXf yReshaped = y;
+        MatrixXf A(X.rows(), X.cols() + 2);
         
         A << yReshaped, X, b;
-        VectorXd thetaExtended(theta.size() + 1);
+        VectorXf thetaExtended(theta.size() + 1);
         thetaExtended << -1.0, theta;
         
-        VectorXd distances = (A * thetaExtended).array().abs() / thetaExtended.segment(1, thetaExtended.size() - 1).norm();
+        VectorXf distances = (A * thetaExtended).array().abs() / thetaExtended.segment(1, thetaExtended.size() - 1).norm();
         
         for (int i = 0; i < distances.size(); ++i) {
             if (distances(i) <= inlierThreshold) {
@@ -64,8 +64,8 @@ namespace Landmark_Functions{
         return numInliers;
     }
 
-    VectorXd ransac(MatrixXd& X, VectorXd& y, int maxIters, float inlierThreshold, int minInliers, int samplesToFit) {
-        VectorXd bestModel;
+    VectorXf ransac(MatrixXf& X, VectorXf& y, int maxIters, float inlierThreshold, int minInliers, int samplesToFit) {
+        VectorXf bestModel;
         int bestModelPerformance = 0;
         
         int numSamples = X.rows();
@@ -82,15 +82,15 @@ namespace Landmark_Functions{
                 sampleIndices.push_back(index);
             }
             
-            MatrixXd sampledX(samplesToFit, numFeatures);
-            VectorXd sampledy(samplesToFit);
+            MatrixXf sampledX(samplesToFit, numFeatures);
+            VectorXf sampledy(samplesToFit);
             
             for (int j = 0; j < samplesToFit; ++j) {
                 sampledX.row(j) = X.row(sampleIndices[j]);
                 sampledy(j) = y(sampleIndices[j]);
             }
             
-            VectorXd modelParams = fitWithLeastSquares(sampledX, sampledy);
+            VectorXf modelParams = fitWithLeastSquares(sampledX, sampledy);
             int modelPerformance = evaluateModel(X, y, modelParams, inlierThreshold);
             
             if (modelPerformance < minInliers) {
@@ -106,9 +106,9 @@ namespace Landmark_Functions{
         return bestModel;
     }
 
-    vector<VectorXd> manager(vector<float>& xCoords, vector<float>& yCoords, int sampleSize, int maxIters, float inlierThreshold, int minInliers) {
+    vector<VectorXf> manager(vector<float>& xCoords, vector<float>& yCoords, int sampleSize, int maxIters, float inlierThreshold, int minInliers) {
         int numSamples = xCoords.size() / sampleSize;
-        vector<VectorXd> bestModels;
+        vector<VectorXf> bestModels;
         
         for (int i = 0; i < numSamples; ++i) {
             vector<float> x, y;
@@ -118,10 +118,10 @@ namespace Landmark_Functions{
                 y.push_back(yCoords[i * sampleSize + j]);
             }
             
-            MatrixXd xMatrix = Map<MatrixXd>(x.data(), sampleSize, 1);
-            VectorXd yVector = Map<VectorXd>(y.data(), y.size());
+            MatrixXf xMatrix = Map<MatrixXf>(x.data(), sampleSize, 1);
+            VectorXf yVector = Map<VectorXf>(y.data(), y.size());
             
-            VectorXd result = ransac(xMatrix, yVector, maxIters, inlierThreshold, minInliers);
+            VectorXf result = ransac(xMatrix, yVector, maxIters, inlierThreshold, minInliers);
             bestModels.push_back(result);
         }
         
@@ -129,7 +129,7 @@ namespace Landmark_Functions{
     }
 
 
-    float calculateInterceptAngle(VectorXd& line1, VectorXd& line2) {
+    float calculateInterceptAngle(VectorXf& line1, VectorXf& line2) {
         float interAngle = PI / 2;
         float m1 = line1(0);
         float m2 = line2(0);
@@ -144,7 +144,7 @@ namespace Landmark_Functions{
         }
     }
 
-    VectorXd calculateInterceptPoint(VectorXd& line1, VectorXd& line2) {
+    VectorXf calculateInterceptPoint(VectorXf& line1, VectorXf& line2) {
         double m1 = line1(0);
         double m2 = line2(0);
         double b1 = line1(1);
@@ -153,18 +153,18 @@ namespace Landmark_Functions{
         double x = (b2 - b1) / (m1 - m2);
         double y = x * m1 + b1;
 
-        VectorXd result(2);
+        VectorXf result(2);
         result << x, y;
         return result;
     }
 
-    vector<VectorXd> findCorners(vector<VectorXd>& bestModels, float angleThreshold) {
-        vector<VectorXd> corners;
+    vector<VectorXf> findCorners(vector<VectorXf>& bestModels, float angleThreshold) {
+        vector<VectorXf> corners;
 
         for (size_t i = 0; i < bestModels.size(); ++i) {
             if (i < bestModels.size() - 1) {
                 float interAngle = calculateInterceptAngle(bestModels[i], bestModels[i + 1]);
-                VectorXd interceptPoint = calculateInterceptPoint(bestModels[i], bestModels[i + 1]);
+                VectorXf interceptPoint = calculateInterceptPoint(bestModels[i], bestModels[i + 1]);
 
                 if (interAngle < PI / 2 + angleThreshold && interAngle > PI / 2 - angleThreshold) {
                     corners.push_back(interceptPoint);
@@ -178,7 +178,7 @@ namespace Landmark_Functions{
                     if (interAngle2 < PI / 2 + angleThreshold && interAngle2 > PI / 2 - angleThreshold) ang2 = false;
 
                     if (ang1 && ang2) {
-                        VectorXd interceptPoint = calculateInterceptPoint(bestModels[i], bestModels[i + 2]);
+                        VectorXf interceptPoint = calculateInterceptPoint(bestModels[i], bestModels[i + 2]);
                         corners.push_back(interceptPoint);
                     }
                 }
@@ -187,8 +187,8 @@ namespace Landmark_Functions{
         return corners;
     }
 
-    vector<VectorXd> filterCorners(vector<VectorXd>& corners, vector<float>& xCoords, vector<float>& yCoords, float duplicateThreshold, float closenessThreshold) {
-        vector<VectorXd> cleanCorners;
+    vector<VectorXf> filterCorners(vector<VectorXf>& corners, vector<float>& xCoords, vector<float>& yCoords, float duplicateThreshold, float closenessThreshold) {
+        vector<VectorXf> cleanCorners;
 
         for (size_t i = 0; i < corners.size(); ++i) {
             bool duplicate = false;
@@ -207,7 +207,7 @@ namespace Landmark_Functions{
             }
         }
 
-        vector<VectorXd> closeCorners;
+        vector<VectorXf> closeCorners;
 
         for (size_t i = 0; i < cleanCorners.size(); ++i) {
             float distMin = 10000000;
