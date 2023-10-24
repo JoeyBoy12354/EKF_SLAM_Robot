@@ -778,12 +778,11 @@ vector<PolPoint> lidarThread(int NoPoints, vector<PolPoint> lidarDataPoints){
 }
 
 void fullRun2(ExtendedKalmanFilter& ekf, bool& mapped, bool& home, bool firstRun, bool finalRun, bool postMap,
-                vector<CarPoint>& path, vector<PolPoint> threadDataPoints, int threadNoPoints ){
+                vector<CarPoint>& path, vector<PolPoint> lidarDataPoints){
     
     cout<<"ENTERED FULL RUN"<<endl;
 
     //Run Lidar
-    vector<PolPoint> lidarDataPoints = lidarThread(threadNoPoints,threadDataPoints);
     cout<<"fullRun I got my lidar Points size = "<<lidarDataPoints.size()<<endl;
     
 
@@ -864,16 +863,28 @@ void testRun(){
     int NoPoints = 8192;
     bool error = false;
     vector<PolPoint> lidarDataPoints;
+    vector<PolPoint> finalPoint;
     thread t_lidar(initializeLidar, ref(lidarDataPoints), ref(error), NoPoints);
 
     int count = 0;
+    int lidar_counter = 0;
     while(mapped == false && count<200){
-        lidarThread(NoPoints,lidarDataPoints);
+        lidar_counter = 0;
+        while (lidar_counter < 2) {
+            {
+                unique_lock<mutex> lock(mtx);
+                cv.wait(lock, [&lidarDataPoints, NoPoints] { return lidarDataPoints.size() >= NoPoints; });
+                finalPoint = lidarDataPoints;
+                lidarDataPoints.clear();
+            }
+            lidar_counter = lidar_counter + 1;
+        }
+
 
 
         cout<<"\n i = "<<count<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
-        fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path,lidarDataPoints,NoPoints);
+        fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path,finalPoint);
         firstRun = false; //DO NOT CHANGE THIS KEEP IT HERE DO NOT MOVE IT INSIDE FULLRUN OR GOD HELP ME
         count = count+1;
     }
