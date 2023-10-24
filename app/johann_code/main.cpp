@@ -892,7 +892,7 @@ void testRANSAC(){
     vector<CarPoint> dataPoints;
     readCarFromCSVTest(dataPoints);
 
-    cout<<"A"<<endl;
+    cout<<"A dataLen = "<<dataPoints.size()<<endl;
 
     vector<float> y;
     vector<float> x;
