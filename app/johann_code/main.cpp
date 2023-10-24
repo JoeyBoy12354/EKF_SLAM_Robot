@@ -932,7 +932,9 @@ int main() {
     
     //testLidar();
 
-    testRun();
+    //testRun();
+
+    testRANSAC();
     
     //simRun3();
 
