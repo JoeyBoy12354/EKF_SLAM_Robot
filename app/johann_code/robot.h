@@ -210,7 +210,7 @@ namespace Landmark_Functions{
     VectorXf fitWithLeastSquares(const VectorXf& x, const VectorXf& y);
     getSampleIndex(int numSamples);
     int evaluateModel(const VectorXf& x, const VectorXf& y, const VectorXf& theta, float inlierThreshold);
-    VectorXf ransac(const VectorXf& X, const VectorXf& y, int maxIters, float inlierThreshold, int minInliers, int samplesToFit);
+    VectorXf ransac(const VectorXf& X, const VectorXf& y, int maxIters, float inlierThreshold, int minInliers, int samplesToFit=2);
     vector<VectorXf> manager(const vector<float>& xCoords, const vector<float>& yCoords, int sampleSize, int maxIters, float inlierThreshold, int minInliers);
 
     float calculateInterceptAngle(VectorXf& line1, VectorXf& line2);

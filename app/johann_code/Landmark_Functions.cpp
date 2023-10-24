@@ -24,7 +24,7 @@ namespace Landmark_Functions{
     //Assume there will only ever be 2 samples
     VectorXf fitWithLeastSquares(const VectorXf& x, const VectorXf& y) {
         float m = (y(0)-y(1))/(x(0)-x(1));
-        float c = Y(0) - x(0)*m;
+        float c = y(0) - x(0)*m;
 
         VectorXf theta;
         theta(0) = m;
@@ -41,35 +41,35 @@ namespace Landmark_Functions{
     }
   
     int evaluateModel(const VectorXf& x, const VectorXf& y, const VectorXf& theta, float inlierThreshold) {
-    int numInliers = 0;  // Initialize the inlier count to 0
+        int numInliers = 0;  // Initialize the inlier count to 0
 
-    // Create a vector 'b' filled with 1s, used to represent the bias term in the model
-    VectorXf b = VectorXf::Ones(x.rows());
+        // Create a vector 'b' filled with 1s, used to represent the bias term in the model
+        VectorXf b = VectorXf::Ones(x.rows());
 
-    // Duplicate 'y' as 'yReshaped' (may not be necessary but for consistency)
-    VectorXf yReshaped = y;
+        // Duplicate 'y' as 'yReshaped' (may not be necessary but for consistency)
+        VectorXf yReshaped = y;
 
-    // Create a matrix 'A' that augments 'yReshaped' and 'X' for model evaluation
-    MatrixXf A(X.rows(), 3);
-    A.col(0) = yReshaped;  // First column is 'yReshaped'
-    A.rightCols(2) = x;    // Last two columns are 'X'
+        // Create a matrix 'A' that augments 'yReshaped' and 'X' for model evaluation
+        MatrixXf A(x.rows(), 3);
+        A.col(0) = yReshaped;  // First column is 'yReshaped'
+        A.rightCols(2) = x;    // Last two columns are 'X'
 
-    // Create a 'thetaExtended' vector with an extra element
-    // and set the first element to 0, while copying the rest from 'theta'
-    VectorXf thetaExtended = VectorXf::Zero(theta.size() + 1);
-    thetaExtended.segment(1, theta.size()) = theta;
+        // Create a 'thetaExtended' vector with an extra element
+        // and set the first element to 0, while copying the rest from 'theta'
+        VectorXf thetaExtended = VectorXf::Zero(theta.size() + 1);
+        thetaExtended.segment(1, theta.size()) = theta;
 
-    // Calculate distances by multiplying 'A' with 'thetaExtended'
-    // and scale them by the norm of the model parameters (excluding bias term)
-    VectorXf distances = (A * thetaExtended).array().abs() / thetaExtended.segment(1, thetaExtended.size() - 1).norm();
+        // Calculate distances by multiplying 'A' with 'thetaExtended'
+        // and scale them by the norm of the model parameters (excluding bias term)
+        VectorXf distances = (A * thetaExtended).array().abs() / thetaExtended.segment(1, thetaExtended.size() - 1).norm();
 
-    // Iterate through the distances
-    for (int i = 0; i < distances.size(); ++i) {
-        // If the distance is less than or equal to the specified threshold, increment inlier count
-        if (distances(i) <= inlierThreshold) {
-            numInliers++;
+        // Iterate through the distances
+        for (int i = 0; i < distances.size(); ++i) {
+            // If the distance is less than or equal to the specified threshold, increment inlier count
+            if (distances(i) <= inlierThreshold) {
+                numInliers++;
+            }
         }
-    }
 
     return numInliers;  // Return the total count of inliers
 }
