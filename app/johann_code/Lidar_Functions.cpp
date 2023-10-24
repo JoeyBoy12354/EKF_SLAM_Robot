@@ -453,7 +453,7 @@ namespace Lidar_Functions{
 
 
         while (!stopFlag && error == false) { // Check the stop flag to determine whether to continue
-
+            cout<<"startFlag = "<<startFlag<<endl;
             if(startFlag == false){
                 lidarDataPoints.clear();
                 cout<<"CLEARED"<<endl;
