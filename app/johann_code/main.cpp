@@ -747,8 +747,8 @@ void atSim(){
 }
 
 
-vector<PolPoint> lidarThread(int& NoPoints, vector<PolPoint>& lidarDataPoints){
-    //cout<<"ENTER testLidarThread"<<endl;
+vector<PolPoint> lidarThread(int NoPoints, vector<PolPoint> lidarDataPoints){
+    cout<<"ENTER testLidarThread"<<endl;
     vector<PolPoint> finalLidarDataPoints;
 
     //This will run twice and return the second lidar scan
