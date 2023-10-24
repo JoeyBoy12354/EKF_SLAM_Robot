@@ -912,6 +912,8 @@ void testRANSAC(){
     
     vector<VectorXf> corners = findCorners(bestModels, angleThreshold);
     vector<VectorXf> filteredCorners = filterCorners(corners, x, y, distanceThreshold, closenessThreshold);
+
+    cout<<"FilteredCorners size = "<<filterCorners.size();
 }
 
 
