@@ -80,7 +80,7 @@ namespace Landmark_Functions{
 
         int numSamples = X.rows();
 
-        for (int i = 0; i < maxIters; ++i) {
+        for (int i = 0; i < maxIters; i++) {
             vector<int> sampleIndices;
 
             //Fetch random samples indexes
@@ -93,7 +93,7 @@ namespace Landmark_Functions{
             VectorXf sampledy(samplesToFit);
 
             //Assign samples to vectors
-            for (int j = 0; j < samplesToFit; ++j) {
+            for (int j = 0; j < samplesToFit; j++) {
                 sampledX(j) = X(sampleIndices[j]);
                 sampledy(j) = y(sampleIndices[j]);
             }
@@ -118,15 +118,16 @@ namespace Landmark_Functions{
         int numSamples = xCoords.size() / sampleSize;
         vector<VectorXf> bestModels;
 
+        cout<<"X numSamples = "<<xCoords.size()<<endl;
         cout<<"FUck man numSamples = "<<numSamples<<endl;
 
-        for (int i = 0; i < numSamples; ++i) {
+        for (int i = 0; i < numSamples; i++) {
             cout<<"WHAT????";
             vector<float> x;
             vector<float> y;
             cout<<"Whats";
 
-            for (int j = 0; j < sampleSize; ++j) {
+            for (int j = 0; j < sampleSize; j++) {
                 cout<<"ares";
                 x.push_back(xCoords[i * sampleSize + j]);
                 y.push_back(yCoords[i * sampleSize + j]);
