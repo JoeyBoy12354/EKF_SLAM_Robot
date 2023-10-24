@@ -831,9 +831,9 @@ void testRun(){
 
     ILidarDriver * drv;
     sl_result op_result;
-    vector<PolPoint>& lidarDataPoints;
+    vector<PolPoint> lidarDataPoints;
     int NoPoints;
-    bool& error;
+    bool error;
     sl_u32 timeout;
 
     //calibrateMotors();
@@ -879,12 +879,12 @@ void testRun(){
 
     // cout<<"I am Home"<<endl;
 
-    cout << "Signal threadSlave to stop" << endl;
-    stopFlag.store(true); // Set the stop flag to signal threadSlave to stop
+    // cout << "Signal threadSlave to stop" << endl;
+    // stopFlag.store(true); // Set the stop flag to signal threadSlave to stop
 
-    // Wait for the t1 thread to join
-    t1.join();
-    cout << "t1 joined" << endl;
+    // // Wait for the t1 thread to join
+    // t1.join();
+    // cout << "t1 joined" << endl;
 
     
 }
