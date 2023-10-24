@@ -456,6 +456,7 @@ namespace Lidar_Functions{
             cout << "SLAVE lidar: This is error = " << error << endl;
 
             lidarDataPoints.clear();
+            cout<<"CLEARED"<<endl;
             fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
 
 
