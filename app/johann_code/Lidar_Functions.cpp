@@ -291,7 +291,7 @@ namespace Lidar_Functions{
         return 0;
     }
 
-    int initializeLidar(ILidarDriver*& drv, bool& error){
+    int initializeLidar(ILidarDriver*& driver, bool& error){
         int argc = 5;
         const char * argv[] = {
             "./johann_code",
@@ -377,9 +377,10 @@ namespace Lidar_Functions{
 
         
         // create the driver instance
-        Result<ILidarDriver*> result = createLidarDriver();
-        drv = result.data;
+        //Result<ILidarDriver*> result = createLidarDriver();
+        ILidarDriver * drv = *createLidarDriver();
             
+
         
 
         // // Check if the result is successful
@@ -472,6 +473,10 @@ namespace Lidar_Functions{
 
         // Start scan
         drv->startScan(0, 1);
+
+        driver = drv;
+
+
 
 
 
