@@ -457,7 +457,7 @@ namespace Lidar_Functions{
             //cout<<"";
             if(startFlag == false){
                 lidarDataPoints.clear();
-                cout<<"CLEARED"<<endl;
+                //cout<<"CLEARED"<<endl;
                 fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
 
 
