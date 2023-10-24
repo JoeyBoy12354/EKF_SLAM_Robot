@@ -21,7 +21,10 @@ namespace Landmark_Functions{
     }
 
 
-    VectorXf fitWithLeastSquares(MatrixXf& X, VectorXf& y) {
+    VectorXf fitWithLeastSquares(MatrixXf& x, VectorXf& y) {
+
+        float m = (y(1) - y(0))
+
         int numRows = X.rows();
         int numCols = X.cols();
 
