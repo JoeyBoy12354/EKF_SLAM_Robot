@@ -845,6 +845,8 @@ void testRun(){
     while(mapped == false && count<20){
         
         fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
+        cout<<"FetchedScan = "<<lidarDataPoints.size()<<endl;
+        lidarDataPoints.clear();
         cout<<"\n i = "<<count<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
         //fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
