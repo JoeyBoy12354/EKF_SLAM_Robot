@@ -845,9 +845,11 @@ void testRun(){
     while(mapped == false && count<20){
         timer = 0;
         while (timer < 2) {
+            cout<<"lock"
             {
                 unique_lock<mutex> lock(mtx);
                 cv.wait(lock, [&lidarDataPoints, NoPoints] { return lidarDataPoints.size() >= NoPoints; });
+                cout<<"Gegt true"<<endl;
                 truePoints = lidarDataPoints;
                 lidarDataPoints.clear();
             }
