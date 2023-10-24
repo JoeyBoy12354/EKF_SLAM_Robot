@@ -754,7 +754,7 @@ vector<PolPoint> lidarThread(int NoPoints, vector<PolPoint> lidarDataPoints){
     //This will run twice and return the second lidar scan
     int timer = 0;
     while (timer < 2) {
-        cout<<"Lock enabled"
+        cout<<"Lock enabled"<<endl;
         {
             unique_lock<mutex> lock(mtx);
             cv.wait(lock, [&lidarDataPoints, NoPoints] { return lidarDataPoints.size() >= NoPoints; });
