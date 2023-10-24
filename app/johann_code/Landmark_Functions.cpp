@@ -145,15 +145,17 @@ namespace Landmark_Functions{
     }
 
     VectorXd calculateInterceptPoint(VectorXd& line1, VectorXd& line2) {
-        float m1 = line1(0);
-        float m2 = line2(0);
-        float b1 = line1(1);
-        float b2 = line2(1);
+        double m1 = line1(0);
+        double m2 = line2(0);
+        double b1 = line1(1);
+        double b2 = line2(1);
 
-        float x = (b2 - b1) / (m1 - m2);
-        float y = x * m1 + b1;
+        double x = (b2 - b1) / (m1 - m2);
+        double y = x * m1 + b1;
 
-        return VectorXd(2) << x, y;
+        VectorXd result(2);
+        result << x, y;
+        return result;
     }
 
     vector<VectorXd> findCorners(vector<VectorXd>& bestModels, float angleThreshold) {
