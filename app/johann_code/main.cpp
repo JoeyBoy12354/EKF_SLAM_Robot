@@ -789,8 +789,8 @@ void fullRun2(ExtendedKalmanFilter& ekf, bool& mapped, bool& home, bool firstRun
 
 
 
-    bool error2 = false;
-    if(error2 == false){
+    bool error = false;
+    if(error == false){
         //Predict Position
         ekf.updateMotion();
         
