@@ -748,7 +748,7 @@ void atSim(){
 
 
 vector<PolPoint> lidarThread(int& NoPoints, vector<PolPoint>& lidarDataPoints){
-    cout<<"ENTER testLidarThread"<<endl;
+    //cout<<"ENTER testLidarThread"<<endl;
     vector<PolPoint> finalLidarDataPoints;
 
     //This will run twice and return the second lidar scan
@@ -787,8 +787,8 @@ void fullRun2(ExtendedKalmanFilter& ekf, bool& mapped, bool& home, bool firstRun
 
 
 
-    bool error = false;
-    if(error == false){
+    bool error2 = false;
+    if(error2 == false){
         //Predict Position
         ekf.updateMotion();
         
@@ -835,10 +835,7 @@ void fullRun2(ExtendedKalmanFilter& ekf, bool& mapped, bool& home, bool firstRun
             cout<<"MAIN: I DID NOT FUCKING MOVE"<<endl;
         }
 
-    }else{
-        cout<<" NO PROCESSING DUE TO LIDAR ERROR"<<endl;
-    }
-        
+    }  
     
 
     cout<<"LEAVNG RUN"<<endl;
@@ -902,6 +899,13 @@ void testRun(){
     // fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path,lidarDataPoints,NoPoints);
 
     // cout<<"I am Home"<<endl;
+
+    cout << "Signal threadSlave to stop" << endl;
+    stopFlag.store(true); // Set the stop flag to signal threadSlave to stop
+
+    // Wait for the t1 thread to join
+    t1.join();
+    cout << "t1 joined" << endl;
 
     
 }
