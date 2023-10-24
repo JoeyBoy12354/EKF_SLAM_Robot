@@ -232,6 +232,7 @@ void testThread() {
 
 
 void testLidarThread(){
+    cout<<"ENTER testLidarThread"<<endl;
     vector<int> vect;
     int NoPoints = 8192;
     vector<PolPoint> lidarDataPoints;
