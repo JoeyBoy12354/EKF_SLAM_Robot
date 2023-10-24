@@ -158,7 +158,7 @@ namespace Mapping_Functions{
         for(int i = 0;i<gridOld.size();i++){
             for(int j =0;j<gridOld[i].size();j++){
                 for(int k=0;k<dumpedPath.size();k++){
-                    if(gridPointDistance(gridOld[i][j]) == dumpedPath[k]){
+                    if(gridOld[i][j] == dumpedPath[k]){
                         gridOld[i][j].trav = true;
                         cout<<gridOld[i][j];
                     }
