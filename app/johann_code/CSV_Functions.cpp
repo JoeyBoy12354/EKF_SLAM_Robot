@@ -20,7 +20,7 @@ string atsi_lm_CSV = "atsi_lmCSV.csv";
 string ekf_atsi_u_CSV = "ekf_uCSV.csv";
 string ekf_atsi_lm_CSV = "ekf_lmCSV.csv";
 
-string TmapCSV = "map3.csv";
+string TmapCSV = "map6.csv";
 
 
 namespace CSV_Functions{
