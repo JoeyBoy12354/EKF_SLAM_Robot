@@ -120,6 +120,9 @@ namespace Landmark_Functions{
 
         cout<<"X numSamples = "<<xCoords.size()<<endl;
         cout<<"sampleSize = "<<sampleSize<<endl;
+        cout<<"maxIters = "<<maxIters<<endl;
+        cout<<"InlierThresh = "<<inlierThreshold<<endl;
+        cout<<"MinInliers = "<<minInliers<<endl;
         cout<<"tsts2"<<endl;
         cout<<"FUccck man numSamples = "<<numSamples<<endl;
         cout<<"time?"<<endl;
@@ -132,7 +135,6 @@ namespace Landmark_Functions{
                 x.push_back(xCoords[i * sampleSize + j]);
                 y.push_back(yCoords[i * sampleSize + j]);
             }
-            cout<<"YAYA";
 
             VectorXf xVector = Map<VectorXf>(x.data(), x.size());
             VectorXf yVector = Map<VectorXf>(y.data(), y.size());
@@ -141,28 +143,6 @@ namespace Landmark_Functions{
             bestModels.push_back(result);
         }
         cout<<"yas"<<endl;
-        
-
-        for (int i =0; i < numSamples; i++) {
-            cout<<"WHAT????";
-            vector<float> x;
-            vector<float> y;
-            cout<<"Whats";
-
-            for (int j = 0; j < sampleSize; j++) {
-                cout<<"ares";
-                x.push_back(xCoords[i * sampleSize + j]);
-                y.push_back(yCoords[i * sampleSize + j]);
-            }
-
-            cout<<"YAYA";
-
-            VectorXf xVector = Map<VectorXf>(x.data(), x.size());
-            VectorXf yVector = Map<VectorXf>(y.data(), y.size());
-
-            VectorXf result = ransac(xVector, yVector, maxIters, inlierThreshold, minInliers);
-            bestModels.push_back(result);
-        }
 
         cout<<"Leaving"<<endl;
 
