@@ -328,104 +328,104 @@ namespace Landmark_Functions{
 
 
 
-    float calculateInterceptAngle2(VectorXd& line1, VectorXd& line2) {
-    float interAngle = PI / 2;
-    float m1 = line1(0);
-    float m2 = line2(0);
-    float b1 = line1(1);
-    float b2 = line2(1);
+//     float calculateInterceptAngle2(VectorXd& line1, VectorXd& line2) {
+//     float interAngle = PI / 2;
+//     float m1 = line1(0);
+//     float m2 = line2(0);
+//     float b1 = line1(1);
+//     float b2 = line2(1);
 
-    if (m1 * m2 == -1) {
-        return interAngle;
-    } else {
-        interAngle = abs(atan((m2 - m1) / (1 + m1 * m2)));
-        return interAngle;
-    }
-}
+//     if (m1 * m2 == -1) {
+//         return interAngle;
+//     } else {
+//         interAngle = abs(atan((m2 - m1) / (1 + m1 * m2)));
+//         return interAngle;
+//     }
+// }
 
-    VectorXf calculateInterceptPoint2(VectorXd& line1, VectorXd& line2) {
-        double m1 = line1(0);
-        double m2 = line2(0);
-        double b1 = line1(1);
-        double b2 = line2(1);
+//     VectorXf calculateInterceptPoint2(VectorXd& line1, VectorXd& line2) {
+//         double m1 = line1(0);
+//         double m2 = line2(0);
+//         double b1 = line1(1);
+//         double b2 = line2(1);
 
-        double x = (b2 - b1) / (m1 - m2);
-        double y = x * m1 + b1;
+//         double x = (b2 - b1) / (m1 - m2);
+//         double y = x * m1 + b1;
 
-        VectorXf result(2);
-        result << x, y;
-        return result;
-    }
+//         VectorXf result(2);
+//         result << x, y;
+//         return result;
+//     }
 
-    vector<VectorXf> findCorners2(vector<VectorXd>& bestModels, float angleThreshold) {
-        vector<VectorXf> corners;
+//     vector<VectorXf> findCorners2(vector<VectorXd>& bestModels, float angleThreshold) {
+//         vector<VectorXf> corners;
 
-        for (size_t i = 0; i < bestModels.size(); ++i) {
-            if (i < bestModels.size() - 1) {
-                float interAngle = calculateInterceptAngle(bestModels[i], bestModels[i + 1]);
-                VectorXf interceptPoint = calculateInterceptPoint(bestModels[i], bestModels[i + 1]);
+//         for (size_t i = 0; i < bestModels.size(); ++i) {
+//             if (i < bestModels.size() - 1) {
+//                 float interAngle = calculateInterceptAngle(bestModels[i], bestModels[i + 1]);
+//                 VectorXf interceptPoint = calculateInterceptPoint(bestModels[i], bestModels[i + 1]);
 
-                if (interAngle < PI / 2 + angleThreshold && interAngle > PI / 2 - angleThreshold) {
-                    corners.push_back(interceptPoint);
-                } else if (i < bestModels.size() - 2) {
-                    float interAngle1 = calculateInterceptAngle(bestModels[i], bestModels[i + 2]);
-                    float interAngle2 = calculateInterceptAngle(bestModels[i + 1], bestModels[i + 2]);
-                    bool ang1 = false;
-                    bool ang2 = true;
+//                 if (interAngle < PI / 2 + angleThreshold && interAngle > PI / 2 - angleThreshold) {
+//                     corners.push_back(interceptPoint);
+//                 } else if (i < bestModels.size() - 2) {
+//                     float interAngle1 = calculateInterceptAngle(bestModels[i], bestModels[i + 2]);
+//                     float interAngle2 = calculateInterceptAngle(bestModels[i + 1], bestModels[i + 2]);
+//                     bool ang1 = false;
+//                     bool ang2 = true;
 
-                    if (interAngle1 < PI / 2 + angleThreshold && interAngle1 > PI / 2 - angleThreshold) ang1 = true;
-                    if (interAngle2 < PI / 2 + angleThreshold && interAngle2 > PI / 2 - angleThreshold) ang2 = false;
+//                     if (interAngle1 < PI / 2 + angleThreshold && interAngle1 > PI / 2 - angleThreshold) ang1 = true;
+//                     if (interAngle2 < PI / 2 + angleThreshold && interAngle2 > PI / 2 - angleThreshold) ang2 = false;
 
-                    if (ang1 && ang2) {
-                        VectorXf interceptPoint = calculateInterceptPoint(bestModels[i], bestModels[i + 2]);
-                        corners.push_back(interceptPoint);
-                    }
-                }
-            }
-        }
-        return corners;
-    }
+//                     if (ang1 && ang2) {
+//                         VectorXf interceptPoint = calculateInterceptPoint(bestModels[i], bestModels[i + 2]);
+//                         corners.push_back(interceptPoint);
+//                     }
+//                 }
+//             }
+//         }
+//         return corners;
+//     }
 
-    vector<VectorXf> filterCorners2(vector<VectorXf>& corners, vector<float>& xCoords, vector<float>& yCoords, float duplicateThreshold, float closenessThreshold) {
-        vector<VectorXf> cleanCorners;
+//     vector<VectorXf> filterCorners2(vector<VectorXf>& corners, vector<float>& xCoords, vector<float>& yCoords, float duplicateThreshold, float closenessThreshold) {
+//         vector<VectorXf> cleanCorners;
 
-        for (size_t i = 0; i < corners.size(); ++i) {
-            bool duplicate = false;
+//         for (size_t i = 0; i < corners.size(); ++i) {
+//             bool duplicate = false;
 
-            for (size_t j = 0; j < cleanCorners.size(); ++j) {
-                float dist = sqrt(pow(corners[i](0) - cleanCorners[j](0), 2) + pow(corners[i](1) - cleanCorners[j](1), 2));
+//             for (size_t j = 0; j < cleanCorners.size(); ++j) {
+//                 float dist = sqrt(pow(corners[i](0) - cleanCorners[j](0), 2) + pow(corners[i](1) - cleanCorners[j](1), 2));
 
-                if (dist < duplicateThreshold) {
-                    duplicate = true;
-                    break;
-                }
-            }
+//                 if (dist < duplicateThreshold) {
+//                     duplicate = true;
+//                     break;
+//                 }
+//             }
 
-            if (!duplicate) {
-                cleanCorners.push_back(corners[i]);
-            }
-        }
+//             if (!duplicate) {
+//                 cleanCorners.push_back(corners[i]);
+//             }
+//         }
 
-        vector<VectorXf> closeCorners;
+//         vector<VectorXf> closeCorners;
 
-        for (size_t i = 0; i < cleanCorners.size(); ++i) {
-            float distMin = 10000000;
+//         for (size_t i = 0; i < cleanCorners.size(); ++i) {
+//             float distMin = 10000000;
 
-            for (size_t j = 0; j < xCoords.size(); ++j) {
-                float distTemp = sqrt(pow(xCoords[j] - cleanCorners[i](0), 2) + pow(yCoords[j] - cleanCorners[i](1), 2));
+//             for (size_t j = 0; j < xCoords.size(); ++j) {
+//                 float distTemp = sqrt(pow(xCoords[j] - cleanCorners[i](0), 2) + pow(yCoords[j] - cleanCorners[i](1), 2));
 
-                if (distMin > distTemp) {
-                    distMin = distTemp;
-                }
-            }
+//                 if (distMin > distTemp) {
+//                     distMin = distTemp;
+//                 }
+//             }
 
-            if (distMin < closenessThreshold) {
-                closeCorners.push_back(cleanCorners[i]);
-            }
-        }
+//             if (distMin < closenessThreshold) {
+//                 closeCorners.push_back(cleanCorners[i]);
+//             }
+//         }
 
-        return closeCorners;
-    }
+//         return closeCorners;
+//     }
 
 
 
