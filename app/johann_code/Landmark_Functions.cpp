@@ -121,7 +121,7 @@ namespace Landmark_Functions{
         cout<<"X numSamples = "<<xCoords.size()<<endl;
         cout<<"sampleSize = "<<sampleSize<<endl;
         cout<<"tsts2"<<endl;
-        cout<<"FUck man numSamples = "<<numSamples<<endl;
+        cout<<"FUccck man numSamples = "<<numSamples<<endl;
         cout<<"time?"<<endl;
         int i =0;
         cout<<"i = "<<i<<endl;
