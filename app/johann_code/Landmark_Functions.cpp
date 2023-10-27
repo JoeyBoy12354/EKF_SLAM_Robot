@@ -139,7 +139,7 @@ namespace Landmark_Functions{
             VectorXf yVector = Map<VectorXf>(y.data(), y.size());
             cout<<"\n";
             for (int k =0;k<xVector.rows();i++) {
-                cout<<"("<<xVector(i)<<","<<yVector(i)<<"),"
+                cout<<"("<<xVector(i)<<","<<yVector(i)<<"),";
             }
             cout<<endl;
 
