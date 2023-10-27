@@ -100,7 +100,7 @@ namespace Landmark_Functions{
             VectorXf modelParams = fitWithLeastSquares(sampledX, sampledy);
             cout << "Model parameters: ";
             for (size_t i = 0; i < modelParams.size(); ++i) {
-                cout << modelParams(i);
+                cout << modelParams(i)<<", ";
             }
             cout<<endl;
 
