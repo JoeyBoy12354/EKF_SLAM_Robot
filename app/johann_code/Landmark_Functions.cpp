@@ -23,13 +23,32 @@ namespace Landmark_Functions{
 
     //Assume there will only ever be 2 samples
     VectorXf fitWithLeastSquares(VectorXf& x, VectorXf& y) {
-        float m = (y(0)-y(1))/(x(0)-x(1));
-        float c = y(0) - x(0)*m;
+        // float m = (y(0)-y(1))/(x(0)-x(1));
+        // float c = y(0) - x(0)*m;
 
+        // VectorXf theta(2);
+        // theta<< m,c;
+
+        // return theta;
+
+
+        // Calculate the means of x and y
+        float mean_x = (x[0] + x[1]) / 2.0;
+        float mean_y = (y[0] + y[1]) / 2.0;
+
+        // Calculate the slope (m)
+        float numerator = (x[0] - mean_x) * (y[0] - mean_y) + (x[1] - mean_x) * (y[1] - mean_y);
+        float denominator = (x[0] - mean_x) * (x[0] - mean_x) + (x[1] - mean_x) * (x[1] - mean_x);
+        float m = numerator / denominator;
+
+        // Calculate the intercept (c)
+        float c = mean_y - m * mean_x;
+
+        //LinearRegressionResult result;
         VectorXf theta(2);
         theta<< m,c;
 
-        return theta;
+        return result;
     }
 
     int getSampleIndex(int numSamples){
