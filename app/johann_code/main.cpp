@@ -939,7 +939,7 @@ void testRANSAC(){
     // vector<VectorXf> filteredCorners = filterCorners(corners, x, y, distanceThreshold, closenessThreshold);
 
     vector<CarPoint> CarCorners;
-    for (VectorXf& corner : corners) {
+    for (VectorXd& corner : corners) {
         // Access the values inside the VectorXf
         CarPoint lm;
         lm.x = corner(0);
@@ -948,7 +948,7 @@ void testRANSAC(){
     }
 
     vector<CarPoint> FiltCarCorners;
-    for (VectorXf& corner : filteredCorners) {
+    for (VectorXd& corner : filteredCorners) {
         // Access the values inside the VectorXf
         CarPoint lm;
         lm.x = corner(0);
