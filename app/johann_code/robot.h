@@ -223,10 +223,10 @@ namespace Landmark_Functions{
     VectorXd ransac2(const MatrixXd& X, const VectorXd& y, int maxIters, double inlierThreshold, int minInliers, int samplesToFit);
     vector<VectorXd> manager2(const vector<float>& xCoords, const vector<float>& yCoords, int sampleSize, int maxIters, double inlierThreshold, int minInliers);
 
-    float calculateInterceptAngle2(VectorXd& line1, VectorXd& line2);
-    VectorXd calculateInterceptPoint2(VectorXd& line1, VectorXd& line2);
-    vector<VectorXd> findCorners2(vector<VectorXd>& bestModels, float angleThreshold);
-    vector<VectorXd> filterCorners2(vector<VectorXd>& corners, vector<float>& xCoords, vector<float>& yCoords, float duplicateThreshold, float closenessThreshold);
+    double calculateInterceptAngle2(const Vector2d& line1, const Vector2d& line2);
+    Vector2d calculateInterceptPoint2(const Vector2d& line1, const Vector2d& line2);
+    vector<Vector2d> findCorners2(const vector<Vector2d>& bestModels, double angleThreshold);
+    vector<Vector2d> filterCorners2(const vector<Vector2d>& corners, const vector<double>& xCoords, const vector<double>& yCoords, double duplicateThreshold, double closenessThreshold);
 }
 
 namespace Simulation_Functions{
