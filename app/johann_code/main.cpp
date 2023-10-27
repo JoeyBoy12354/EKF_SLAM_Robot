@@ -975,7 +975,7 @@ void testRANSAC(){
         cout<<FiltCarCorners[i]<<endl;
     }
     cout<<endl;
-    cout<<"No Corners = "<<len(FiltCarCorners)<<endl;
+    cout<<"No Corners = "<<FiltCarCorners.size()<<endl;
 }
 
 
