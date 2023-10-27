@@ -123,7 +123,7 @@ namespace Landmark_Functions{
         cout<<"tsts2"<<endl;
         cout<<"FUccck man numSamples = "<<numSamples<<endl;
         cout<<"time?"<<endl;
-        for (int i = 0; i < 5; i++){
+        for (int i = 0; i < numSamples; i++){
             cout<<"i = "<<i<<endl;
         }
         cout<<"yas"<<endl;
