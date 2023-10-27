@@ -130,9 +130,17 @@ namespace Landmark_Functions{
         for (int i = 0; i < numSamples; i++){
             vector<float> x;
             vector<float> y;
+
+            VectorXf xVector(sampleSize);
+            VectorXf yVector(sampleSize);
+
             for (int j = 0; j < sampleSize; j++) {
                 x.push_back(xCoords[i * sampleSize + j]);
                 y.push_back(yCoords[i * sampleSize + j]);
+                xVector<<xCoords[i * sampleSize + j];
+                yVector<<yCoords[i * sampleSize + j];
+
+
             }
 
 
@@ -143,8 +151,8 @@ namespace Landmark_Functions{
             cout<<endl;
 
 
-            VectorXf xVector = Map<VectorXf>(x.data(), x.size());
-            VectorXf yVector = Map<VectorXf>(y.data(), y.size());
+            // VectorXf xVector = Map<VectorXf>(x.data(), x.size());
+            // VectorXf yVector = Map<VectorXf>(y.data(), y.size());
             cout<<"vecy i = "<<i<<endl;
             for (int k =0;k<xVector.rows();k=k+3) {
                 cout<<"("<<xVector(i)<<","<<yVector(i)<<"),";
