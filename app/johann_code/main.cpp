@@ -928,13 +928,15 @@ void testRANSAC(){
 
 
 
+    vector<VectorXf> corners = findCorners2(bestModels, angleThreshold);
+    vector<VectorXf> filteredCorners = filterCorners2(corners, x, y, distanceThreshold, closenessThreshold);
 
 
 
 
     
-    vector<VectorXf> corners = findCorners(bestModels, angleThreshold);
-    vector<VectorXf> filteredCorners = filterCorners(corners, x, y, distanceThreshold, closenessThreshold);
+    // vector<VectorXf> corners = findCorners(bestModels, angleThreshold);
+    // vector<VectorXf> filteredCorners = filterCorners(corners, x, y, distanceThreshold, closenessThreshold);
 
     vector<CarPoint> CarCorners;
     for (VectorXf& corner : corners) {
