@@ -129,7 +129,7 @@ namespace Landmark_Functions{
         cout<<"yas"<<endl;
         
 
-        for (int i =0;; i < numSamples; i++) {
+        for (int i =0; i < numSamples; i++) {
             cout<<"WHAT????";
             vector<float> x;
             vector<float> y;
