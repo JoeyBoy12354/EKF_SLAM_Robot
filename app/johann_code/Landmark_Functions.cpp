@@ -124,6 +124,8 @@ namespace Landmark_Functions{
         cout<<"FUccck man numSamples = "<<numSamples<<endl;
         cout<<"time?"<<endl;
         for (int i = 0; i < numSamples; i++){
+            vector<float> x;
+            vector<float> y;
             cout<<"i = "<<i<<endl;
         }
         cout<<"yas"<<endl;
