@@ -23,11 +23,8 @@ namespace Landmark_Functions{
 
     //Assume there will only ever be 2 samples
     VectorXf fitWithLeastSquares(VectorXf& x, VectorXf& y) {
-        cout<<"FIT LEAST IN"<<endl;
         float m = (y(0)-y(1))/(x(0)-x(1));
         float c = y(0) - x(0)*m;
-
-        cout<<"FIT LEAST IN"<<endl;
 
         VectorXf theta(2);
         theta<< m,c;
@@ -43,7 +40,6 @@ namespace Landmark_Functions{
     }
   
     int evaluateModel(VectorXf& x, VectorXf& y, VectorXf& theta, float inlierThreshold) {
-        cout<<"EVAL IN"<<endl;
         int numInliers = 0;  // Initialize the inlier count to 0
 
         // Create a vector 'b' filled with 1s, used to represent the bias term in the model
@@ -78,19 +74,16 @@ namespace Landmark_Functions{
 }
 
     VectorXf ransac(VectorXf& X, VectorXf& y, int maxIters, float inlierThreshold, int minInliers, int samplesToFit) {
-        cout<<"IN RANSAC"<<endl;
         VectorXf bestModel = VectorXf::Zero(3);
         int bestModelPerformance = 0;
 
         int numSamples = X.rows();
 
-        cout<<"RANSAC A"<<endl;
         for (int i = 0; i < maxIters; i++) {
             vector<int> sampleIndices;
 
             //Fetch random samples indexes
             for (int j = 0; j < samplesToFit; ++j) {
-                cout<<"RANSAC B"<<endl;
                 sampleIndices.push_back(getSampleIndex(numSamples));
             }
 
@@ -133,7 +126,7 @@ namespace Landmark_Functions{
 
 
         cout<<"\nnumSamples = "<<numSamples<<endl;
-        cout<<"time?"<<endl;
+
         for (int i = 0; i < numSamples; i++){
             vector<float> x;
             vector<float> y;
@@ -148,9 +141,6 @@ namespace Landmark_Functions{
             VectorXf result = ransac(xVector, yVector, maxIters, inlierThreshold, minInliers,2);
             bestModels.push_back(result);
         }
-        cout<<"yas loop done"<<endl;
-
-        cout<<"Leaving"<<endl;
 
         return bestModels;
     }
