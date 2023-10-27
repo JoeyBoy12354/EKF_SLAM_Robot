@@ -362,7 +362,7 @@ namespace Landmark_Functions{
         return Vector2d(x, y);
     }
 
-    vector<Vector2d> findCorners2(const vector<Vector2d>& bestModels, double angleThreshold) {
+    vector<Vector2d> findCorners2(const vector<VectorXd>& bestModels, double angleThreshold) {
         vector<Vector2d> corners;
 
         for (size_t i = 0; i < bestModels.size(); ++i) {
