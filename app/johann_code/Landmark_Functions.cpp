@@ -22,31 +22,51 @@ namespace Landmark_Functions{
 
 
     //Assume there will only ever be 2 samples
-    VectorXf fitWithLeastSquares(VectorXf& x, VectorXf& y) {
-        // float m = (y(0)-y(1))/(x(0)-x(1));
-        // float c = y(0) - x(0)*m;
+    // VectorXf fitWithLeastSquares(VectorXf& x, VectorXf& y) {
+    //     // float m = (y(0)-y(1))/(x(0)-x(1));
+    //     // float c = y(0) - x(0)*m;
 
-        // VectorXf theta(2);
-        // theta<< m,c;
+    //     // VectorXf theta(2);
+    //     // theta<< m,c;
 
-        // return theta;
+    //     // return theta;
 
 
-        // Calculate the means of x and y
-        float mean_x = (x[0] + x[1]) / 2.0;
-        float mean_y = (y[0] + y[1]) / 2.0;
+    //     // Calculate the means of x and y
+    //     float mean_x = (x[0] + x[1]) / 2.0;
+    //     float mean_y = (y[0] + y[1]) / 2.0;
 
-        // Calculate the slope (m)
-        float numerator = (x[0] - mean_x) * (y[0] - mean_y) + (x[1] - mean_x) * (y[1] - mean_y);
-        float denominator = (x[0] - mean_x) * (x[0] - mean_x) + (x[1] - mean_x) * (x[1] - mean_x);
-        float m = numerator / denominator;
+    //     // Calculate the slope (m)
+    //     float numerator = (x[0] - mean_x) * (y[0] - mean_y) + (x[1] - mean_x) * (y[1] - mean_y);
+    //     float denominator = (x[0] - mean_x) * (x[0] - mean_x) + (x[1] - mean_x) * (x[1] - mean_x);
+    //     float m = numerator / denominator;
 
-        // Calculate the intercept (c)
-        float c = mean_y - m * mean_x;
+    //     // Calculate the intercept (c)
+    //     float c = mean_y - m * mean_x;
 
-        //LinearRegressionResult result;
-        VectorXf theta(2);
-        theta<< m,c;
+    //     //LinearRegressionResult result;
+    //     VectorXf theta(2);
+    //     theta<< m,c;
+
+    //     return theta;
+    // }
+
+    VectorXf fitWithLeastSquares(VectorXf& X, VectorXf& y) {
+        int numRows = X.rows();
+
+        // Augment the feature matrix X with a column of ones for the bias term
+        MatrixXf A = MatrixXf::Ones(numRows, 2);
+        A.col(0) = X;
+
+        // Compute the transpose of A
+        MatrixXf A_transpose = A.transpose();
+
+        // Compute A_transpose * A and A_transpose * y
+        MatrixXf A_transpose_A = A_transpose * A;
+        VectorXf A_transpose_y = A_transpose * y;
+
+        // Solve the linear system using matrix multiplication
+        VectorXf theta = A_transpose_A.inverse() * A_transpose_y;
 
         return theta;
     }
