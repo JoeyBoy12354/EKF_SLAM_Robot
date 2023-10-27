@@ -23,6 +23,7 @@ namespace Landmark_Functions{
 
     //Assume there will only ever be 2 samples
     VectorXf fitWithLeastSquares(VectorXf& x, VectorXf& y) {
+        cout<<"FIT LEAST IN"<<endl;
         float m = (y(0)-y(1))/(x(0)-x(1));
         float c = y(0) - x(0)*m;
 
@@ -41,6 +42,7 @@ namespace Landmark_Functions{
     }
   
     int evaluateModel(VectorXf& x, VectorXf& y, VectorXf& theta, float inlierThreshold) {
+        cout<<"EVAL IN"<<endl;
         int numInliers = 0;  // Initialize the inlier count to 0
 
         // Create a vector 'b' filled with 1s, used to represent the bias term in the model
