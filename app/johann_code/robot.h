@@ -217,6 +217,11 @@ namespace Landmark_Functions{
     VectorXf calculateInterceptPoint(VectorXf& line1, VectorXf& line2);
     vector<VectorXf> findCorners(vector<VectorXf>& bestModels, float angleThreshold);
     vector<VectorXf> filterCorners(vector<VectorXf>& corners, vector<float>& xCoords, vector<float>& yCoords, float duplicateThreshold, float closenessThreshold);
+
+    VectorXd fitWithLeastSquares2(const MatrixXd& X, const VectorXd& y);
+    int evaluateModel2(const MatrixXd& X, const VectorXd& y, const VectorXd& theta, double inlierThreshold);
+    VectorXd ransac2(const MatrixXd& X, const VectorXd& y, int maxIters, double inlierThreshold, int minInliers, int samplesToFit);
+    vector<VectorXd> manager2(const vector<double>& xCoords, const vector<double>& yCoords, int sampleSize, int maxIters, double inlierThreshold, int minInliers);
 }
 
 namespace Simulation_Functions{
