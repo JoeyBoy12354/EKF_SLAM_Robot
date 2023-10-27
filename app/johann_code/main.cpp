@@ -932,48 +932,48 @@ void testRANSAC(){
     vector<Vector2d> filteredCorners = filterCorners2(corners, x, y, distanceThreshold, closenessThreshold);
 
 
-    for (int i =0;i<corners.size();i++) {
-        // Access the values inside the VectorXf
-        for(int j =0;j<corners[i].size();j++){
-            cout<<corners[i][j]<<",";
-        }
-        cout<<endl;
+    // for (int i =0;i<corners.size();i++) {
+    //     // Access the values inside the VectorXf
+    //     for(int j =0;j<corners[i].size();j++){
+    //         cout<<corners[i][j]<<",";
+    //     }
+    //     cout<<endl;
         
-    }
+    // }
 
     
     // vector<VectorXf> corners = findCorners(bestModels, angleThreshold);
     // vector<VectorXf> filteredCorners = filterCorners(corners, x, y, distanceThreshold, closenessThreshold);
 
-    // vector<CarPoint> CarCorners;
-    // for (int i =0;i<corners.size();i=i+2) {
-    //     // Access the values inside the VectorXf
-    //     CarPoint lm;
-    //     lm.x = corners(i);
-    //     lm.y = corners(i+1);
-    //     CarCorners.push_back(lm);
-    // }
+    vector<CarPoint> CarCorners;
+    for (int i =0;i<corners.size();i=i+2) {
+        // Access the values inside the VectorXf
+        CarPoint lm;
+        lm.x = corners[i][0];
+        lm.y = corners[i][1];
+        CarCorners.push_back(lm);
+    }
 
-    // vector<CarPoint> FiltCarCorners;
-    // for (int i =0;i<filteredCorners.size();i=i+2) {
-    //     // Access the values inside the VectorXf
-    //     CarPoint lm;
-    //     lm.x = filteredCorners(i);
-    //     lm.y = filteredCorners(i+1);
-    //     FiltCarCorners.push_back(lm);
-    // }
+    vector<CarPoint> FiltCarCorners;
+    for (int i =0;i<filteredCorners.size();i=i+2) {
+        // Access the values inside the VectorXf
+        CarPoint lm;
+        lm.x = filteredCorners[i][0];
+        lm.y = filteredCorners[i][1];
+        FiltCarCorners.push_back(lm);
+    }
 
-    // cout<<" Corners = "<<endl;
-    // for(int i =0;i<CarCorners.size();i++){
-    //     cout<<CarCorners[i]<<endl;
-    // }
-    // cout<<endl;
+    cout<<" Corners = "<<endl;
+    for(int i =0;i<CarCorners.size();i++){
+        cout<<CarCorners[i]<<endl;
+    }
+    cout<<endl;
 
-    // cout<<"Filtered Corners = "<<endl;
-    // for(int i =0;i<FiltCarCorners.size();i++){
-    //     cout<<FiltCarCorners[i]<<endl;
-    // }
-    // cout<<endl;
+    cout<<"Filtered Corners = "<<endl;
+    for(int i =0;i<FiltCarCorners.size();i++){
+        cout<<FiltCarCorners[i]<<endl;
+    }
+    cout<<endl;
 }
 
 
