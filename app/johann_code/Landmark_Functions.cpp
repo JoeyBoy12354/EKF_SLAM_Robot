@@ -382,7 +382,7 @@ namespace Landmark_Functions{
                     if (interAngle2 < M_PI / 2 + angleThreshold && interAngle2 > M_PI / 2 - angleThreshold) ang2 = false;
 
                     if (ang1 && ang2) {
-                        Vector2d interceptPoint = calculateInterceptPoint(bestModels[i], bestModels[i + 2]);
+                        Vector2d interceptPoint = calculateInterceptPoint2(bestModels[i], bestModels[i + 2]);
                         corners.push_back(interceptPoint);
                     }
                 }
