@@ -916,15 +916,15 @@ void testRANSAC(){
 
     cout<<"C"<<endl;
 
-    cout<<"Models = "<<endl;
-    for (size_t i = 0; i < bestModels.size(); ++i) {
-        cout << "Model " << i + 1 << " parameters: ";
-        for (int j = 0; j < bestModels[i].size(); ++j) {
-            cout << bestModels[i](j) << " ";
-        }
-        cout << endl;
-    }
-    cout<<endl;
+    // cout<<"Models = "<<endl;
+    // for (size_t i = 0; i < bestModels.size(); ++i) {
+    //     cout << "Model " << i + 1 << " parameters: ";
+    //     for (int j = 0; j < bestModels[i].size(); ++j) {
+    //         cout << bestModels[i](j) << " ";
+    //     }
+    //     cout << endl;
+    // }
+    // cout<<endl;
 
 
 
