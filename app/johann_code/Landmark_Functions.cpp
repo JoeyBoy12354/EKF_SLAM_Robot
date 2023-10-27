@@ -48,7 +48,7 @@ namespace Landmark_Functions{
         VectorXf theta(2);
         theta<< m,c;
 
-        return result;
+        return theta;
     }
 
     int getSampleIndex(int numSamples){
