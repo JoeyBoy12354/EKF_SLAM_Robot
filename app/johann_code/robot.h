@@ -226,7 +226,7 @@ namespace Landmark_Functions{
     double calculateInterceptAngle2(const Vector2d& line1, const Vector2d& line2);
     Vector2d calculateInterceptPoint2(const Vector2d& line1, const Vector2d& line2);
     vector<Vector2d> findCorners2(const vector<VectorXd>& bestModels, double angleThreshold);
-    vector<Vector2d> filterCorners2(const vector<Vector2d>& corners, vector<double>& xCoords, vector<double>& yCoords, double duplicateThreshold, double closenessThreshold);
+    vector<Vector2d> filterCorners2(const vector<Vector2d>& corners, vector<float>& xCoords, vector<float>& yCoords, double duplicateThreshold, double closenessThreshold);
 }
 
 namespace Simulation_Functions{
