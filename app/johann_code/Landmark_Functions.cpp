@@ -129,9 +129,7 @@ namespace Landmark_Functions{
         for (int i = 0; i < numSamples; i++){
             vector<float> x;
             vector<float> y;
-            cout<<"i = "<<i<<endl;
             for (int j = 0; j < sampleSize; j++) {
-                cout<<"ares";
                 x.push_back(xCoords[i * sampleSize + j]);
                 y.push_back(yCoords[i * sampleSize + j]);
             }
@@ -142,7 +140,7 @@ namespace Landmark_Functions{
             //VectorXf result = ransac(xVector, yVector, maxIters, inlierThreshold, minInliers);
             bestModels.push_back(result);
         }
-        cout<<"yas"<<endl;
+        cout<<"yas loop done"<<endl;
 
         cout<<"Leaving"<<endl;
 
