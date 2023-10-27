@@ -329,7 +329,9 @@ filtered_corner = filter_corners(corners,x1,y1)
 
 
 
-print(filtered_corner)
+
+for i in range(0,len(filtered_corner)):
+    print(filtered_corner[i])
 
 for i in range(0,len(filtered_corner)):
     plt.plot(filtered_corner[i][0], filtered_corner[i][1], 'X', label='Points',markersize=20,color='k')
@@ -338,7 +340,7 @@ for i in range(0,len(filtered_corner)):
 # plt.ylim([-300,300])
 # plt.xlim([-300,300])
 plt.ylim([-5000,3000])
-plt.xlim([-3000,5000])
+plt.xlim([-8000,5000])
 plt.show()
 
 
