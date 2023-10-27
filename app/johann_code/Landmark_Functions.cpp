@@ -303,7 +303,7 @@ namespace Landmark_Functions{
         return bestModel;
     }
 
-    vector<VectorXd> manager2(const vector<double>& xCoords, const vector<double>& yCoords, int sampleSize, int maxIters, double inlierThreshold, int minInliers) {
+    vector<VectorXd> manager2(const vector<float>& xCoords, const vector<float>& yCoords, int sampleSize, int maxIters, double inlierThreshold, int minInliers) {
         int numSamples = xCoords.size() / sampleSize;
         vector<VectorXd> bestModels;
         

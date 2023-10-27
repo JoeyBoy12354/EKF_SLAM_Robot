@@ -221,7 +221,7 @@ namespace Landmark_Functions{
     VectorXd fitWithLeastSquares2(const MatrixXd& X, const VectorXd& y);
     int evaluateModel2(const MatrixXd& X, const VectorXd& y, const VectorXd& theta, double inlierThreshold);
     VectorXd ransac2(const MatrixXd& X, const VectorXd& y, int maxIters, double inlierThreshold, int minInliers, int samplesToFit);
-    vector<VectorXd> manager2(const vector<double>& xCoords, const vector<double>& yCoords, int sampleSize, int maxIters, double inlierThreshold, int minInliers);
+    vector<VectorXd> manager2(const vector<float>& xCoords, const vector<float>& yCoords, int sampleSize, int maxIters, double inlierThreshold, int minInliers);
 
     float calculateInterceptAngle2(VectorXd& line1, VectorXd& line2);
     VectorXf calculateInterceptPoint2(VectorXd& line1, VectorXd& line2);
