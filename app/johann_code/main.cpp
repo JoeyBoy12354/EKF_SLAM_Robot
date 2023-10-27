@@ -934,8 +934,8 @@ void testRANSAC(){
 
     for (int i =0;i<corners.size();i++) {
         // Access the values inside the VectorXf
-        for(int j =0;j<corners(i).size();j++){
-            cout<<corners[i](i)<<endl;
+        for(int j =0;j<corners[i].size();j++){
+            cout<<corners[i][j]<<endl;
         }
         
     }
