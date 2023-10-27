@@ -122,7 +122,7 @@ namespace Landmark_Functions{
         cout<<"sampleSize = "<<sampleSize<<endl;
         cout<<"FUck man numSamples = "<<numSamples<<endl;
         int i =0;
-        print("I = ",i)
+        cout<<"i = "<<i<<endl;
 
         for (i = 0; i < numSamples; i++) {
             cout<<"WHAT????";
