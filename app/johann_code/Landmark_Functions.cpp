@@ -81,11 +81,13 @@ namespace Landmark_Functions{
 
         int numSamples = X.rows();
 
+        cout<<"RANSAC A"<<endl;
         for (int i = 0; i < maxIters; i++) {
             vector<int> sampleIndices;
 
             //Fetch random samples indexes
             for (int j = 0; j < samplesToFit; ++j) {
+                cout<<"RANSAC B"<<endl;
                 sampleIndices.push_back(getSampleIndex(numSamples));
             }
 
