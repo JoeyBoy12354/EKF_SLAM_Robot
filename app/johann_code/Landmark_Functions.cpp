@@ -71,13 +71,13 @@ namespace Landmark_Functions{
     //     return theta;
     // }
     
-    VectorXd fitWithLeastSquares(VectorXd& X, VectorXd& y) {
-        int numRows = X.rows();
-        int numCols = X.cols();
+    VectorXd fitWithLeastSquares(VectorXd& x, VectorXd& y) {
+        int numRows = x.rows();
+        int numCols = x.cols();
 
         // Augment the feature matrix X with a column of ones for the bias term
         MatrixXd A(numRows, numCols + 1);
-        A << X, MatrixXd::Ones(numRows, 1);
+        A << x, MatrixXd::Ones(numRows, 1);
 
         // Compute the transpose of A
         MatrixXd A_transpose = A.transpose();
