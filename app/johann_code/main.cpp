@@ -907,7 +907,7 @@ void testRANSAC(){
     int max_iters= 200;
     float inlier_thresh=0.05;
     int min_inlier = 10;
-    float angleThreshold = 30.0 * M_PI / 180.0;
+    float angleThreshold = 20.0 * M_PI / 180.0;
     float distanceThreshold = 100;
     float closenessThreshold = 40;
     
