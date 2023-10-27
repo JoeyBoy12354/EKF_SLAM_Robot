@@ -104,7 +104,7 @@ namespace Landmark_Functions{
             }
 
             int modelPerformance = evaluateModel(X, y, modelParams, inlierThreshold);
-            cout<<" No Inliers = "<<inliers<<endl;
+            cout<<" No Inliers = "<<modelPerformance <<endl;
 
             if (modelPerformance < minInliers) {
                 continue;
