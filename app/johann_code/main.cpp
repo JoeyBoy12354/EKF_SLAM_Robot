@@ -905,7 +905,7 @@ void testRANSAC(){
     cout<<"B x size = "<<x.size()<<endl;
     int sample_size = 80;
     int max_iters= 200;
-    float inlier_thresh=0.01;
+    float inlier_thresh=0.03;
     int min_inlier = 6;
     float angleThreshold = 30.0 * M_PI / 180.0;
     float distanceThreshold = 100;
