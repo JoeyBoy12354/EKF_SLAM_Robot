@@ -121,8 +121,10 @@ namespace Landmark_Functions{
         cout<<"X numSamples = "<<xCoords.size()<<endl;
         cout<<"sampleSize = "<<sampleSize<<endl;
         cout<<"FUck man numSamples = "<<numSamples<<endl;
+        int i =0;
+        print("I = ",i)
 
-        for (int i = 0; i < numSamples; i++) {
+        for (i = 0; i < numSamples; i++) {
             cout<<"WHAT????";
             vector<float> x;
             vector<float> y;
