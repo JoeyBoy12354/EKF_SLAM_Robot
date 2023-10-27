@@ -71,23 +71,23 @@ namespace Landmark_Functions{
     //     return theta;
     // }
     
-    VectorXd fitWithLeastSquares(VectorXd& x, VectorXd& y) {
+    VectorXf fitWithLeastSquares(VectorXf& x, VectorXf& y) {
         int numRows = x.rows();
         int numCols = x.cols();
 
         // Augment the feature matrix X with a column of ones for the bias term
-        MatrixXd A(numRows, numCols + 1);
-        A << x, MatrixXd::Ones(numRows, 1);
+        MatrixXf A(numRows, numCols + 1);
+        A << x, MatrixXf::Ones(numRows, 1);
 
         // Compute the transpose of A
-        MatrixXd A_transpose = A.transpose();
+        MatrixXf A_transpose = A.transpose();
 
         // Compute A_transpose * A and A_transpose * y
-        MatrixXd A_transpose_A = A_transpose * A;
-        VectorXd A_transpose_y = A_transpose * y;
+        MatrixXf A_transpose_A = A_transpose * A;
+        VectorXf A_transpose_y = A_transpose * y;
 
         // Initialize a vector for the solution theta
-        VectorXd theta(numCols + 1);
+        VectorXf theta(numCols + 1);
 
         // Solve the linear system using Gauss elimination
         // Your Gauss elimination implementation here
