@@ -905,11 +905,12 @@ void testRANSAC(){
     cout<<"B x size = "<<x.size()<<endl;
     int sample_size = 50;
     int max_iters= 200;
-    float inlier_thresh=0.05;
+    float inlier_thresh=0.04;
     int min_inlier = 10;
     float angleThreshold = 20.0 * M_PI / 180.0;
     float distanceThreshold = 100;
     float closenessThreshold = 40;
+    
     
     //vector<VectorXf> bestModels = manager(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
     vector<VectorXd> bestModels = manager2(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
@@ -974,6 +975,7 @@ void testRANSAC(){
         cout<<FiltCarCorners[i]<<endl;
     }
     cout<<endl;
+    cout<<"No Corners = "<<len(FiltCarCorners)<<endl;
 }
 
 
