@@ -318,7 +318,7 @@ namespace Landmark_Functions{
             MatrixXd xMatrix = Map<MatrixXd>(x.data(), sampleSize, 1);
             VectorXd yVector = Map<VectorXd>(y.data(), sampleSize);
             
-            VectorXd result = ransac2(xMatrix, yVector, maxIters, inlierThreshold, minInliers2);
+            VectorXd result = ransac2(xMatrix, yVector, maxIters, inlierThreshold, minInliers,2);
             bestModels.push_back(result);
         }
         
