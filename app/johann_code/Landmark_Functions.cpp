@@ -71,7 +71,7 @@ namespace Landmark_Functions{
     //     return theta;
     // }
     
-    VectorXd fitWithLeastSquares(const VectorXd& X, const VectorXd& y) {
+    VectorXd fitWithLeastSquares(VectorXd& X, VectorXd& y) {
         int numRows = X.rows();
         int numCols = X.cols();
 
