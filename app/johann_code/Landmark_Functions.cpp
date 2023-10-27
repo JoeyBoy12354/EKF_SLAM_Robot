@@ -392,7 +392,7 @@ namespace Landmark_Functions{
         return corners;
     }
 
-    vector<Vector2d> filterCorners2(const vector<Vector2d>& corners, vector<double>& xCoords, vector<double>& yCoords, double duplicateThreshold, double closenessThreshold) {
+    vector<Vector2d> filterCorners2(const vector<Vector2d>& corners, vector<float>& xCoords, vector<float>& yCoords, double duplicateThreshold, double closenessThreshold) {
         vector<Vector2d> cleanCorners;
 
         for (size_t i = 0; i < corners.size(); ++i) {
