@@ -27,9 +27,10 @@ namespace Landmark_Functions{
         float m = (y(0)-y(1))/(x(0)-x(1));
         float c = y(0) - x(0)*m;
 
-        VectorXf theta;
-        theta(0) = m;
-        theta(1) = c;
+        cout<<"FIT LEAST IN"<<endl;
+
+        VectorXf theta(2);
+        theta<< m,c;
 
         return theta;
     }
