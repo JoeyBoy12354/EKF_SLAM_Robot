@@ -136,6 +136,7 @@ namespace Landmark_Functions{
 
             VectorXf xVector = Map<VectorXf>(x.data(), x.size());
             VectorXf yVector = Map<VectorXf>(y.data(), y.size());
+            VectorXf result = ransac(xVector, yVector, maxIters, inlierThreshold, minInliers);
         }
         cout<<"yas"<<endl;
         
