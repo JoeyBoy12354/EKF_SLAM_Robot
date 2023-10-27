@@ -207,11 +207,11 @@ namespace Data_Functions{
 
 namespace Landmark_Functions{
     vector<CarPoint> getCorners();
-    VectorXf fitWithLeastSquares(const VectorXf& x, const VectorXf& y);
+    VectorXf fitWithLeastSquares(VectorXf& x, VectorXf& y);
     int getSampleIndex(int numSamples);
-    int evaluateModel(const VectorXf& x, const VectorXf& y, const VectorXf& theta, float inlierThreshold);
-    VectorXf ransac(const VectorXf& X, const VectorXf& y, int maxIters, float inlierThreshold, int minInliers, int samplesToFit=2);
-    vector<VectorXf> manager(const vector<float>& xCoords, const vector<float>& yCoords, int sampleSize, int maxIters, float inlierThreshold, int minInliers);
+    int evaluateModel(VectorXf& x, VectorXf& y, VectorXf& theta, float inlierThreshold);
+    VectorXf ransac(VectorXf& X, VectorXf& y, int maxIters, float inlierThreshold, int minInliers, int samplesToFit=2);
+    vector<VectorXf> manager(vector<float>& xCoords, vector<float>& yCoords, int sampleSize, int maxIters, float inlierThreshold, int minInliers);
 
     float calculateInterceptAngle(VectorXf& line1, VectorXf& line2);
     VectorXf calculateInterceptPoint(VectorXf& line1, VectorXf& line2);
