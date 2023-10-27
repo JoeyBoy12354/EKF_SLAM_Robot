@@ -155,7 +155,7 @@ namespace Landmark_Functions{
             // VectorXf yVector = Map<VectorXf>(y.data(), y.size());
             cout<<"vecy i = "<<i<<endl;
             for (int k =0;k<xVector.rows();k=k+3) {
-                cout<<"("<<xVector(i)<<","<<yVector(i)<<"),";
+                cout<<"("<<xVector(k)<<","<<yVector(k)<<"),";
             }
             cout<<endl;
 
