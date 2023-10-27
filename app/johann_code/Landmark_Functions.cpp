@@ -123,10 +123,13 @@ namespace Landmark_Functions{
         cout<<"tsts2"<<endl;
         cout<<"FUccck man numSamples = "<<numSamples<<endl;
         cout<<"time?"<<endl;
-        int i =0;
-        cout<<"i = "<<i<<endl;
+        for (int i = 0; i < 5; i++){
+            cout<<"i = "<<i<<endl;
+        }
+        cout<<"yas"<<endl;
+        
 
-        for (i = 0; i < numSamples; i++) {
+        for (int i =0;; i < numSamples; i++) {
             cout<<"WHAT????";
             vector<float> x;
             vector<float> y;
