@@ -102,9 +102,9 @@ namespace Landmark_Functions{
             for (size_t i = 0; i < modelParams.size(); ++i) {
                 cout << modelParams(i)<<", ";
             }
-            cout<<endl;
 
             int modelPerformance = evaluateModel(X, y, modelParams, inlierThreshold);
+            cout<<" No Inliers = "<<inliers<<endl;
 
             if (modelPerformance < minInliers) {
                 continue;
