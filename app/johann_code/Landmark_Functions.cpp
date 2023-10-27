@@ -367,14 +367,14 @@ namespace Landmark_Functions{
 
         for (size_t i = 0; i < bestModels.size(); ++i) {
             if (i < bestModels.size() - 1) {
-                double interAngle = calculateInterceptAngle(bestModels[i], bestModels[i + 1]);
-                Vector2d interceptPoint = calculateInterceptPoint(bestModels[i], bestModels[i + 1]);
+                double interAngle = calculateInterceptAngle2(bestModels[i], bestModels[i + 1]);
+                Vector2d interceptPoint = calculateInterceptPoint2(bestModels[i], bestModels[i + 1]);
 
                 if (interAngle < M_PI / 2 + angleThreshold && interAngle > M_PI / 2 - angleThreshold) {
                     corners.push_back(interceptPoint);
                 } else if (i < bestModels.size() - 2) {
-                    double interAngle1 = calculateInterceptAngle(bestModels[i], bestModels[i + 2]);
-                    double interAngle2 = calculateInterceptAngle(bestModels[i + 1], bestModels[i + 2]);
+                    double interAngle1 = calculateInterceptAngle2(bestModels[i], bestModels[i + 2]);
+                    double interAngle2 = calculateInterceptAngle2(bestModels[i + 1], bestModels[i + 2]);
                     bool ang1 = false;
                     bool ang2 = true;
 
