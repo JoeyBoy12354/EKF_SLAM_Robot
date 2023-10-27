@@ -127,6 +127,11 @@ namespace Landmark_Functions{
             vector<float> x;
             vector<float> y;
             cout<<"i = "<<i<<endl;
+            for (int j = 0; j < sampleSize; j++) {
+                cout<<"ares";
+                x.push_back(xCoords[i * sampleSize + j]);
+                y.push_back(yCoords[i * sampleSize + j]);
+            }
         }
         cout<<"yas"<<endl;
         
