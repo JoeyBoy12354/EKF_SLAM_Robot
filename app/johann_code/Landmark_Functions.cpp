@@ -132,6 +132,10 @@ namespace Landmark_Functions{
                 x.push_back(xCoords[i * sampleSize + j]);
                 y.push_back(yCoords[i * sampleSize + j]);
             }
+            cout<<"YAYA";
+
+            VectorXf xVector = Map<VectorXf>(x.data(), x.size());
+            VectorXf yVector = Map<VectorXf>(y.data(), y.size());
         }
         cout<<"yas"<<endl;
         
