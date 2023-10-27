@@ -51,22 +51,50 @@ namespace Landmark_Functions{
     //     return theta;
     // }
 
-    VectorXf fitWithLeastSquares(VectorXf& X, VectorXf& y) {
+    // VectorXf fitWithLeastSquares(VectorXf& X, VectorXf& y) {
+    //     int numRows = X.rows();
+
+    //     // Augment the feature matrix X with a column of ones for the bias term
+    //     MatrixXf A = MatrixXf::Ones(numRows, 2);
+    //     A.col(0) = X;
+
+    //     // Compute the transpose of A
+    //     MatrixXf A_transpose = A.transpose();
+
+    //     // Compute A_transpose * A and A_transpose * y
+    //     MatrixXf A_transpose_A = A_transpose * A;
+    //     VectorXf A_transpose_y = A_transpose * y;
+
+    //     // Solve the linear system using matrix multiplication
+    //     VectorXf theta = A_transpose_A.inverse() * A_transpose_y;
+
+    //     return theta;
+    // }
+    
+    VectorXd fitWithLeastSquares(const VectorXd& X, const VectorXd& y) {
         int numRows = X.rows();
+        int numCols = X.cols();
 
         // Augment the feature matrix X with a column of ones for the bias term
-        MatrixXf A = MatrixXf::Ones(numRows, 2);
-        A.col(0) = X;
+        MatrixXd A(numRows, numCols + 1);
+        A << X, MatrixXd::Ones(numRows, 1);
 
         // Compute the transpose of A
-        MatrixXf A_transpose = A.transpose();
+        MatrixXd A_transpose = A.transpose();
 
         // Compute A_transpose * A and A_transpose * y
-        MatrixXf A_transpose_A = A_transpose * A;
-        VectorXf A_transpose_y = A_transpose * y;
+        MatrixXd A_transpose_A = A_transpose * A;
+        VectorXd A_transpose_y = A_transpose * y;
 
-        // Solve the linear system using matrix multiplication
-        VectorXf theta = A_transpose_A.inverse() * A_transpose_y;
+        // Initialize a vector for the solution theta
+        VectorXd theta(numCols + 1);
+
+        // Solve the linear system using Gauss elimination
+        // Your Gauss elimination implementation here
+
+        // For demonstration purposes, we'll use Eigen's built-in solver
+        // Replace this part with your own Gauss elimination method
+        theta = A_transpose_A.fullPivLu().solve(A_transpose_y);
 
         return theta;
     }
