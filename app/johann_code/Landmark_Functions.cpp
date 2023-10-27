@@ -143,6 +143,8 @@ namespace Landmark_Functions{
             bestModels.push_back(result);
         }
 
+        cout<<"Leaving"<<endl;
+
         return bestModels;
     }
 
