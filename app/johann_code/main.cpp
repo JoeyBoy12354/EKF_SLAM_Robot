@@ -911,7 +911,8 @@ void testRANSAC(){
     float distanceThreshold = 100;
     float closenessThreshold = 40;
     
-    vector<VectorXf> bestModels = manager(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
+    //vector<VectorXf> bestModels = manager(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
+    vector<VectorXd> bestModels = manager2(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
 
     cout<<"C"<<endl;
 
@@ -924,6 +925,12 @@ void testRANSAC(){
         cout << endl;
     }
     cout<<endl;
+
+
+
+
+
+
 
     
     vector<VectorXf> corners = findCorners(bestModels, angleThreshold);
