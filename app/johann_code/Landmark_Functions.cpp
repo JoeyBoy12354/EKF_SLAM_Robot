@@ -143,21 +143,8 @@ namespace Landmark_Functions{
 
             }
 
-
-            cout<<"init i = "<<i<<endl;
-            for (int j = 0; j < sampleSize; j++) {
-                cout<<"("<<x[j]<<","<<y[j]<<"),";
-            }
-            cout<<endl;
-
-
             // VectorXf xVector = Map<VectorXf>(x.data(), x.size());
             // VectorXf yVector = Map<VectorXf>(y.data(), y.size());
-            cout<<"vecy i = "<<i<<endl;
-            for (int k =0;k<xVector.rows();k=k+3) {
-                cout<<"("<<xVector(k)<<","<<yVector(k)<<"),";
-            }
-            cout<<endl;
 
             //VectorXf result;
             VectorXf result = ransac(xVector, yVector, maxIters, inlierThreshold, minInliers,2);
