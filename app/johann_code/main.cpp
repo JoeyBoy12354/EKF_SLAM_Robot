@@ -929,7 +929,7 @@ void testRANSAC(){
 
 
     vector<Vector2d> corners = findCorners2(bestModels, angleThreshold);
-    vector<VectorXd> filteredCorners = filterCorners2(corners, x, y, distanceThreshold, closenessThreshold);
+    vector<Vector2d> filteredCorners = filterCorners2(corners, x, y, distanceThreshold, closenessThreshold);
 
 
     for (int i =0;i<corners.size();i++) {
