@@ -288,14 +288,14 @@ namespace Landmark_Functions{
             }
             
             VectorXd modelParams = fitWithLeastSquares2(sampledX, sampledy);
-            cout <<sampleIndices[0]<<" & "<<sampleIndices[1] <<"Model parameters: ";
-            for (size_t i = 0; i < modelParams.size(); ++i) {
-                cout << modelParams(i)<<", ";
-            }
+            // cout <<sampleIndices[0]<<" & "<<sampleIndices[1] <<"Model parameters: ";
+            // for (size_t i = 0; i < modelParams.size(); ++i) {
+            //     cout << modelParams(i)<<", ";
+            // }
 
             int modelPerformance = evaluateModel2(X, y, modelParams, inlierThreshold);
 
-            cout<<" No Inliers = "<<modelPerformance <<endl;
+            //cout<<" No Inliers = "<<modelPerformance <<endl;
             
             if (modelPerformance < minInliers) {
                 continue;
