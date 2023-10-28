@@ -856,10 +856,10 @@ void testRun(){
     ekf.distance = 0;
     ekf.w = 0;
     
-
+    fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
     cout<<"POST LOOP RUN"<<endl;
     finalRun = true;
-    fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
+    fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path,lidarDataPoints);
         
 
     cout<<"Fully Mapped Room"<<endl;
@@ -869,6 +869,7 @@ void testRun(){
     count = 0;
     path.clear();
     while(home == false){
+        fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout,lidarDataPoints);
         cout<<"\n i = "<<count<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
         fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
@@ -876,8 +877,9 @@ void testRun(){
 
     // ekf.distance = 0;
     // ekf.w = 0;
+    
     finalRun = true;
-    fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
+    fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout,lidarDataPoints);
 
     cout<<"I am Home"<<endl;
 
