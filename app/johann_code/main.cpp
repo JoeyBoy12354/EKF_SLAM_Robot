@@ -750,11 +750,11 @@ void atSim(){
 }
 
 
-void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun, bool finalRun,bool postMap,vector<CarPoint>& path){
+void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun, bool finalRun,bool postMap,vector<CarPoint>& path, vector<PolPoint> lidarDataPoints){
     
 
     //Run Lidar
-    vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
+    //vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
     bool error = false;
 
 
@@ -836,7 +836,7 @@ void testRun(){
     bool error;
     sl_u32 timeout = 3000;
 
-    //calibrateMotors();
+    calibrateMotors();
 
     initializeLidar(drv,error);
 
@@ -848,7 +848,7 @@ void testRun(){
         lidarDataPoints.clear();
         cout<<"\n i = "<<count<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
-        fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
+        fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path,lidarDataPoints);
         firstRun = false; //DO NOT CHANGE THIS KEEP IT HERE DO NOT MOVE IT INSIDE FULLRUN OR GOD HELP ME
         count = count+1;
     }
