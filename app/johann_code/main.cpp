@@ -879,7 +879,7 @@ void testRun(){
     // ekf.w = 0;
     
     finalRun = true;
-    fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout;
+    fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
 
     cout<<"I am Home"<<endl;
 
