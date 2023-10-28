@@ -846,14 +846,16 @@ void testRun(){
         fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
         lidarDataPoints.clear();
         fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
-
-
-        cout<<"MAIN: FetchedScan = "<<lidarDataPoints.size()<<endl;
-        cout<<"\n i = "<<count<<endl;
-        cout<<"------------------------------------------------------------------------------------------------------------\n\n";
-        fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path,lidarDataPoints);
-        firstRun = false; //DO NOT CHANGE THIS KEEP IT HERE DO NOT MOVE IT INSIDE FULLRUN OR GOD HELP ME
-        count = count+1;
+        if(lidarDataPoints.size()!=0){
+            cout<<"MAIN: FetchedScan = "<<lidarDataPoints.size()<<endl;
+            cout<<"\n i = "<<count<<endl;
+            cout<<"------------------------------------------------------------------------------------------------------------\n\n";
+            fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path,lidarDataPoints);
+            firstRun = false; //DO NOT CHANGE THIS KEEP IT HERE DO NOT MOVE IT INSIDE FULLRUN OR GOD HELP ME
+            count = count+1;
+        }else{
+            cout<<"MAIN: No Scan Fetched"<<endl;
+        }
         lidarDataPoints.clear();
     }
 
