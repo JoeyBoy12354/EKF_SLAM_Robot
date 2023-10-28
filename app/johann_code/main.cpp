@@ -844,6 +844,10 @@ void testRun(){
     while(mapped == false && count<4){
         
         fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
+        lidarDataPoints.clear();
+        fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
+
+
         cout<<"MAIN: FetchedScan = "<<lidarDataPoints.size()<<endl;
         cout<<"\n i = "<<count<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
