@@ -844,13 +844,13 @@ void testRun(){
     while(mapped == false && count<4){
         
         fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
-        cout<<"FetchedScan = "<<lidarDataPoints.size()<<endl;
-        lidarDataPoints.clear();
+        cout<<"MAIN: FetchedScan = "<<lidarDataPoints.size()<<endl;
         cout<<"\n i = "<<count<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
         fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path,lidarDataPoints);
         firstRun = false; //DO NOT CHANGE THIS KEEP IT HERE DO NOT MOVE IT INSIDE FULLRUN OR GOD HELP ME
         count = count+1;
+        lidarDataPoints.clear();
     }
 
     ekf.distance = 0;
