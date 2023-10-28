@@ -869,17 +869,17 @@ void testRun(){
     count = 0;
     path.clear();
     while(home == false){
-        fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout,lidarDataPoints);
+        fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
         cout<<"\n i = "<<count<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
-        fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
+        fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path,lidarDataPoints);
     }
 
     // ekf.distance = 0;
     // ekf.w = 0;
     
     finalRun = true;
-    fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout,lidarDataPoints);
+    fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout;
 
     cout<<"I am Home"<<endl;
 
