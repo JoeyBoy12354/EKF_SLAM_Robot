@@ -861,9 +861,12 @@ void testRun(){
     ekf.w = 0;
     
     fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
+    lidarDataPoints.clear();
+    fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
     cout<<"POST LOOP RUN"<<endl;
     finalRun = true;
     fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path,lidarDataPoints);
+    lidarDataPoints.clear();
         
 
     // cout<<"Fully Mapped Room"<<endl;

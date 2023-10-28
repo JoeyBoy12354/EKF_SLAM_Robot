@@ -218,7 +218,9 @@ namespace Navigation_Functions{
 
         if(path.size() == 0){
             //find closest non-traversed point
-            closestPoint = findNextPoint(State,gridMap,mapped);
+            //closestPoint = findNextPoint(State,gridMap,mapped);
+
+            closestPoint = findNextPointRadius(State,gridMap,mapped);
 
             cout<<"ClosestPoint = "<<closestPoint<<endl;
 
