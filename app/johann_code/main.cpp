@@ -848,7 +848,7 @@ void testRun(){
         lidarDataPoints.clear();
         cout<<"\n i = "<<count<<endl;
         cout<<"------------------------------------------------------------------------------------------------------------\n\n";
-        //fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
+        fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
         firstRun = false; //DO NOT CHANGE THIS KEEP IT HERE DO NOT MOVE IT INSIDE FULLRUN OR GOD HELP ME
         count = count+1;
     }
@@ -859,27 +859,27 @@ void testRun(){
 
     cout<<"POST LOOP RUN"<<endl;
     finalRun = true;
-    //fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
+    fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
         
 
     cout<<"Fully Mapped Room"<<endl;
 
-    // finalRun = false;
-    // postMap = true;
-    // count = 0;
-    // path.clear();
-    // while(home == false){
-    //     cout<<"\n i = "<<count<<endl;
-    //     cout<<"------------------------------------------------------------------------------------------------------------\n\n";
-    //     fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
-    // }
+    finalRun = false;
+    postMap = true;
+    count = 0;
+    path.clear();
+    while(home == false){
+        cout<<"\n i = "<<count<<endl;
+        cout<<"------------------------------------------------------------------------------------------------------------\n\n";
+        fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
+    }
 
-    // // ekf.distance = 0;
-    // // ekf.w = 0;
-    // finalRun = true;
-    // fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
+    // ekf.distance = 0;
+    // ekf.w = 0;
+    finalRun = true;
+    fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path);
 
-    // cout<<"I am Home"<<endl;
+    cout<<"I am Home"<<endl;
 
     delete drv;
     drv = NULL;
@@ -999,7 +999,7 @@ int main() {
 
     //testRun();
 
-    testRANSAC();
+    //testRANSAC();
     
 
     //simRun3();
@@ -1009,7 +1009,7 @@ int main() {
     
     //atSim();
 
-    //testRun();
+    testRun();
 
     //testThread();
 
