@@ -1012,7 +1012,7 @@ int main() {
 
     //testRun();
 
-    //testRANSAC();
+    testRANSAC();
     
 
     //simRun3();
@@ -1022,7 +1022,7 @@ int main() {
     
     //atSim();
 
-    testRun();
+    //testRun();
 
     //testThread();
 
