@@ -56,12 +56,13 @@ namespace Landmark_Functions{
         vector<Vector2d> filteredCorners = filterCorners2(corners, x, y, distanceThreshold, closenessThreshold);
 
         vector<CarPoint> final_corners;
-        // for(int i = 0; i<filterCorners.size();i++){
-        //     CarPoint newPoint;
-        //     newPoint.x = filterCorners[i][0];
-        //     newPoint.y = filterCorners[i][1];
-        //     final_corners.push_back(newPoint);
-        // }
+        for (int i =0;i<filteredCorners.size();i++) {
+            // Access the values inside the VectorXf
+            CarPoint lm;
+            lm.x = filteredCorners[i][0];
+            lm.y = filteredCorners[i][1];
+            final_corners.push_back(lm);
+        }
 
         return final_corners;
     }
