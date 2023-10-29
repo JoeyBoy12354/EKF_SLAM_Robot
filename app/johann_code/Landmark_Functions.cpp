@@ -63,7 +63,7 @@ namespace Landmark_Functions{
             final_corners.push_back(newPoint);
         }
 
-        return final_corners
+        return final_corners;
     }
 
 
