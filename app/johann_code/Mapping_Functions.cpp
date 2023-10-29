@@ -48,12 +48,13 @@ namespace Mapping_Functions{
             }
         }
 
-        cout<<"No of New Points = "<<lidardata.size()<<endl;
+        cout<<"No of Total Points = "<<oldmap.size()<<endl;
     
 
         //Update full map
         //appendCarToFullMapCSV(lidardata);
-        saveCarToFullMapCSV(lidardata);
+        //saveCarToFullMapCSV(lidardata);
+        saveCarToFullMapCSV(oldmap);
 
         storeStatePoints(State);
         

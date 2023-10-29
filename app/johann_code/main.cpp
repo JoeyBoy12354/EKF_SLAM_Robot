@@ -785,8 +785,10 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
 
         //Store Data for plotting
         if(firstRun == true){
+            cout<<"MAIN: Save Car To Full Map"<<endl;
             saveCarToFullMapCSV(carPoints);
         }else{
+            cout<<"MAIN: Store Map Points"<<endl;
             storeMapPoints(carPoints,ekf.State);
         }
 
