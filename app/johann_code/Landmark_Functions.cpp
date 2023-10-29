@@ -7,6 +7,17 @@ using namespace CSV_Functions;
 namespace Landmark_Functions{
 
     vector<CarPoint> getCorners(){
+        cout<<"LM: In GETCORNERS"<<endl;
+
+        vector<CarPoint> dataPoints;
+        readCarFromCSVTest(dataPoints);
+
+        cout<<"A dataLen = "<<dataPoints.size()<<endl;
+
+       
+
+
+
         int ret;
         ret = system("python3 cornerDetector.py ok go");
         //ret = system("/usr/bin/python3 cornerDetector.py ok go");
@@ -19,6 +30,43 @@ namespace Landmark_Functions{
 
         return corners;
     }
+
+    vector<CarPoint> getRANSACCorners(vector<CarPoint> dataPoints){
+        vector<float> y;
+        vector<float> x;
+
+        for(int i =0;i<dataPoints.size();i++){
+            x.push_back(dataPoints[i].x);
+            y.push_back(dataPoints[i].y);
+        }
+
+        cout<<"B x size = "<<x.size()<<endl;
+        int sample_size = 80;
+        int max_iters= 200;
+        float inlier_thresh=0.05;
+        int min_inlier = 10;
+        float angleThreshold = 20.0 * M_PI / 180.0;
+        float distanceThreshold = 120;
+        float closenessThreshold = 40;
+        
+        
+        //vector<VectorXf> bestModels = manager(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
+        vector<VectorXd> bestModels = manager2(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
+        vector<Vector2d> corners = findCorners2(bestModels, angleThreshold);
+        vector<Vector2d> filteredCorners = filterCorners2(corners, x, y, distanceThreshold, closenessThreshold);
+
+        vector<CarPoint> final_corners;
+        for(int i = 0; i<filterCorners.size();i++){
+            CarPoint newPoint;
+            newPoint.x = filterCorners[i][0];
+            newPoint.y = filterCorners[i][1];
+            final_corners.push_back(newPoint);
+        }
+
+        return final_corners
+    }
+
+
 
 
     //Assume there will only ever be 2 samples

@@ -148,7 +148,9 @@ namespace Data_Functions{
     cout<<"\nNumber of CAR points"<<carPoints.size(); 
 
     //cout<<"\n RANSAC py RUN \n"<<endl;
-    vector<CarPoint> cornerPoints = getCorners();
+    //vector<CarPoint> cornerPoints = getCorners();
+
+    vector<CarPoint> cornerPoints = getRANSACCorners(carPoints);
 
     //Convert cornerPoints to polar
     for(int i =0;i<cornerPoints.size();i++){
