@@ -841,7 +841,7 @@ void testRun(){
     initializeLidar(drv,error);
 
     int count = 0;
-    while(mapped == false && count<4){
+    while(mapped == false && count<10){
         
         fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
         lidarDataPoints.clear();
