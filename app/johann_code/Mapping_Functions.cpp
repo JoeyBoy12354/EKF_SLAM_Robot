@@ -113,7 +113,7 @@ namespace Mapping_Functions{
         bounds.push_back(yMin);
     }
 
-    void getMapBoundsSpecific(vector<CarPoint> map, vector<float>& bounds, CarPoint dot){
+    void getMapBoundsSpecific(vector<CarPoint> map, vector<float>& bounds, GridPoint dot){
         float distThresh = 100;
         float yMax = -10000;
         float yMin = 10000;
