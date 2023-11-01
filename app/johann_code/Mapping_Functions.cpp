@@ -239,9 +239,9 @@ namespace Mapping_Functions{
     }
 
     bool gridDotBoundCheck(vector<CarPoint> searchMap,GridPoint point){
-        if(point.x > 500 && point.x < 1500){
-            cout<<"MapPoint: ("<<point.x<<", "<<point.y<<")"<<endl;
-        }
+        // if(point.x > 500 && point.x < 1500){
+        //     cout<<"MapPoint: ("<<point.x<<", "<<point.y<<")"<<endl;
+        // }
 
         vector<float> bounds;
         getMapBoundsSpecific(searchMap, bounds, point);
@@ -252,9 +252,9 @@ namespace Mapping_Functions{
             return false;
         }
 
-        if(point.x > 500 && point.x < 1500){
-            cout<<"MapPoint passed bounds check"<<endl;
-        }
+        // if(point.x > 500 && point.x < 1500){
+        //     cout<<"MapPoint passed bounds check"<<endl;
+        // }
 
         return true;
     }
@@ -264,13 +264,10 @@ namespace Mapping_Functions{
             return false;
         }
 
-        if(point.x > 500 && point.x < 1500){
-            cout<<"MapPoint: ("<<point.x<<", "<<point.y<<")"<<endl;
-        }
+        // if(point.x > 500 && point.x < 1500){
+        //     cout<<"MapPoint: ("<<point.x<<", "<<point.y<<")"<<endl;
+        // }
 
-        if(point.x > 500 && point.x < 1500){
-            cout<<"MapPoint passed bounds check"<<endl;
-        }
 
         //Get Cartesian
         CarPoint point2;
@@ -290,15 +287,15 @@ namespace Mapping_Functions{
         }
 
         if(dist < distThresh){
-            if(point.x > 500 && point.x < 1500){
-                cout<<"MapPoint failed lidar distance check"<<endl;
-            }
+            // if(point.x > 500 && point.x < 1500){
+            //     cout<<"MapPoint failed lidar distance check"<<endl;
+            // }
             return false;
 
         }else{
-            if(point.x > 500 && point.x < 1500){
-                cout<<"MapPoint passed lidar distance check"<<endl;
-            }
+            // if(point.x > 500 && point.x < 1500){
+            //     cout<<"MapPoint passed lidar distance check"<<endl;
+            // }
             return true;
         } 
     }
