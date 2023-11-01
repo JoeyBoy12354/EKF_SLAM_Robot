@@ -394,7 +394,7 @@ namespace Navigation_Functions{
                     current = current->parent;
                 }
                 path.push_back(&start); // Add the start node to the path
-                std::reverse(path.begin(), path.end()); // Reverse to get the path from start to goal
+                reverse(path.begin(), path.end()); // Reverse to get the path from start to goal
                 return path;
             }
 
