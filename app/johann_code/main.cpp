@@ -924,8 +924,35 @@ void testRun(){
     
 }
 
+void RANSACstats(vector<vector<CarPoint>> CornerList, CarPoint testCorner){
+    float dist_avg = 0;
+    float max_dist = -100;
+
+    for(int i = 0;i<CornerList.size();i++){
+        float dist = 100000;
+        for(int j =0;j<CornerList[i].size();j++){
+            if(pointDistance(TestCorner,CornerList[i][j]) < dist ){
+                dist = pointDistance(TestCorner,CornerList[i][j]);
+            }
+        }
+
+        dist_avg+=dist;
+
+        if(dist > max_dist){
+            max_dist = dist;
+        }
+
+    }
+
+    cout<<"Average Dist = "<<dist_avg/CornerList.size();
+    cout<<"Max Dist = "<<max_dist;
+
+    return dist_avg/CornerList.size();
+}
 
 void testRANSAC(){
+    vector<vector<CarPoint>> CornerList;
+    vector<CarPoint> FiltCarCorners;
     vector<CarPoint> dataPoints;
     readCarFromCSVTest(dataPoints);
 
@@ -949,79 +976,42 @@ void testRANSAC(){
     float closenessThreshold = 40;
     
     
-    //vector<VectorXf> bestModels = manager(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
-    vector<VectorXd> bestModels = manager2(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
+    for(int i =0;i<20;i++){
+        vector<VectorXd> bestModels = manager2(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
+        vector<Vector2d> corners = findCorners2(bestModels, angleThreshold);
+        vector<Vector2d> filteredCorners = filterCorners2(corners, x, y, distanceThreshold, closenessThreshold);
 
-    cout<<"C"<<endl;
-
-    // cout<<"Models = "<<endl;
-    // for (size_t i = 0; i < bestModels.size(); ++i) {
-    //     cout << "Model " << i + 1 << " parameters: ";
-    //     for (int j = 0; j < bestModels[i].size(); ++j) {
-    //         cout << bestModels[i](j) << " ";
-    //     }
-    //     cout << endl;
-    // }
-    // cout<<endl;
-
-
-
-    vector<Vector2d> corners = findCorners2(bestModels, angleThreshold);
-    vector<Vector2d> filteredCorners = filterCorners2(corners, x, y, distanceThreshold, closenessThreshold);
-
-
-    // for (int i =0;i<corners.size();i++) {
-    //     // Access the values inside the VectorXf
-    //     for(int j =0;j<corners[i].size();j++){
-    //         cout<<corners[i][j]<<",";
-    //     }
-    //     cout<<endl;
         
-    // }
+        FiltCarCorners.clear();
+        for (int i =0;i<filteredCorners.size();i++) {
+            // Access the values inside the VectorXf
+            CarPoint lm;
+            lm.x = filteredCorners[i][0];
+            lm.y = filteredCorners[i][1];
+            FiltCarCorners.push_back(lm);
+        }
 
-    
-    // vector<VectorXf> corners = findCorners(bestModels, angleThreshold);
-    // vector<VectorXf> filteredCorners = filterCorners(corners, x, y, distanceThreshold, closenessThreshold);
-
-    vector<CarPoint> CarCorners;
-    // for (int i =0;i<corners.size();i=i+2) {
-    //     // Access the values inside the VectorXf
-    //     CarPoint lm;
-    //     lm.x = corners[i][0];
-    //     lm.y = corners[i][1];
-    //     CarCorners.push_back(lm);
-    // }
-
-    for (int i =0;i<corners.size();i++) {
-        // Access the values inside the VectorXf
-        CarPoint lm;
-        lm.x = corners[i][0];
-        lm.y = corners[i][1];
-        CarCorners.push_back(lm);
+        cout<<i<<" Corners Found = "<<FiltCarCorners.size()<<endl;
+        CornerList.push_back(FiltCarCorners);
     }
 
-    vector<CarPoint> FiltCarCorners;
-    // for (int i =0;i<filteredCorners.size();i=i+2) {
-    //     // Access the values inside the VectorXf
-    //     CarPoint lm;
-    //     lm.x = filteredCorners[i][0];
-    //     lm.y = filteredCorners[i][1];
-    //     FiltCarCorners.push_back(lm);
-    // }
 
-    for (int i =0;i<filteredCorners.size();i++) {
-        // Access the values inside the VectorXf
-        CarPoint lm;
-        lm.x = filteredCorners[i][0];
-        lm.y = filteredCorners[i][1];
-        FiltCarCorners.push_back(lm);
-    }
+    TestCorner = CornerList[0][0];
+    float dist_avg = RANSACstats(CornerList,TestCorner);
+    TestCorner = CornerList[0][1];
+    dist_avg += RANSACstats(CornerList,TestCorner);
 
-    // cout<<" Corners = "<<endl;
-    // for(int i =0;i<CarCorners.size();i++){
-    //     cout<<CarCorners[i]<<endl;
-    // }
-    // cout<<endl;
+    cout<<"Overall Dist Average = "<<dist_avg/2;
+
+
+
+
+
+
+
+
+
+
 
     cout<<"Filtered Corners = "<<endl;
     for(int i =0;i<FiltCarCorners.size();i++){
