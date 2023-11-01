@@ -972,7 +972,7 @@ void testRANSAC(){
     }
 
     cout<<"B x size = "<<x.size()<<endl;
-    int sample_size = 80;
+    int sample_size = 50;
     int max_iters= 200;
     float inlier_thresh=0.05;
     int min_inlier = 10;
