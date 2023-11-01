@@ -247,6 +247,7 @@ void testMap(){
 
     //saveCarToFullMapCSV(carPoints);    
 
+    vector<CarPoint> map;
     readCarFromFullMapCSV(map);
     gridMakeDots(map,gridNew);
     saveGridToCSV(gridNew);
