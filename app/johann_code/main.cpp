@@ -245,10 +245,11 @@ void testMap(){
     // lidarDataPoints.clear();
     // fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
 
-    saveCarToFullMapCSV(carPoints);    
+    //saveCarToFullMapCSV(carPoints);    
 
-    vector<vector<GridPoint>> gridNew;
-    gridDataProcess(gridNew, ekf.State, firstRun);
+    readCarFromFullMapCSV(map);
+    gridMakeDots(map,gridNew);
+    saveGridToCSV(gridNew);
 
 }
 
