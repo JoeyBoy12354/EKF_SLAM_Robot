@@ -275,13 +275,15 @@ def speedControl(theta,distance,direction):
 
     #sonar_thread.start() #turrned off for testing
     startT = time.time()
+    # if(theta == 0 and distance > 0):
+    #     threadR.start()
+    #     threadL.start()
+    # else:
+    #     thread.start()
+
     if(theta == 0 and distance > 0):
         threadR.start()
         threadL.start()
-    else:
-        thread.start()
-
-    if(theta == 0 and distance > 0):
         #Straight
         while(left_count<=NoTicks and right_count<=NoTicks and sonarFlag == False):
             left_new = wiringpi.digitalRead(LSS_Pin)
@@ -295,6 +297,7 @@ def speedControl(theta,distance,direction):
             left_old = left_new
             right_old = right_new
     elif(theta<0):
+        thread.start()
         #Rotate Left
         while(left_count<=NoTicks and sonarFlag == False):
             left_new = wiringpi.digitalRead(LSS_Pin)
@@ -308,6 +311,7 @@ def speedControl(theta,distance,direction):
             left_old = left_new
             right_old = right_new
     else:
+        thread.start()
         #Rotate Right
         while(right_count<=NoTicks and sonarFlag == False):
             left_new = wiringpi.digitalRead(LSS_Pin)
