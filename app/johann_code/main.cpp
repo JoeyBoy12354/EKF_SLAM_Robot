@@ -944,8 +944,8 @@ float RANSACstats(vector<vector<CarPoint>> CornerList, CarPoint TestCorner){
 
     }
 
-    cout<<"Average Dist = "<<dist_avg/CornerList.size()<<endl;
-    cout<<"Max Dist = "<<max_dist<<endl;
+    cout<<"Average Dist Deviation = "<<dist_avg/CornerList.size()<<endl;
+    cout<<"Max Dist = "<<max_dist<<endl<<endl;
 
     return dist_avg/CornerList.size();
 }
