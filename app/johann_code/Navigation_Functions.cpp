@@ -165,7 +165,7 @@ namespace Navigation_Functions{
     }
 
     CarPoint findNextPointRadius(MatrixXf State, vector<vector<GridPoint>> gridMap, bool& mapped){
-        int scalar = 2;
+        int scalar = 3;
         
         CarPoint nextPoint;
         GridPoint current = stateToGridDot(State,gridMap);
