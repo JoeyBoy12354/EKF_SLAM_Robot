@@ -981,7 +981,7 @@ void testRANSAC(){
     float closenessThreshold = 40;
     
     
-    for(int i =0;i<40;i++){
+    for(int i =0;i<100;i++){
         vector<VectorXd> bestModels = manager2(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
         vector<Vector2d> corners = findCorners2(bestModels, angleThreshold);
         vector<Vector2d> filteredCorners = filterCorners2(corners, x, y, distanceThreshold, closenessThreshold);
