@@ -114,23 +114,23 @@ namespace Mapping_Functions{
     }
 
     void getMapBoundsSpecific(vector<CarPoint> map, vector<float>& bounds, CarPoint dot){
-        float distThresh = 100
+        float distThresh = 100;
         float yMax = -10000;
         float yMin = 10000;
         float xMax = -10000;
         float xMin = 10000;
 
         for(int i =0;i<map.size();i++){
-            if(map[i].y>yMax && abs(map[i].x - dot.x) <= 100){
+            if(map[i].y>yMax && abs(map[i].x - dot.x) <= distThresh){
                 yMax = map[i].y;
             }
-            if(map[i].y<yMin && abs(map[i].x - dot.x) <= 100){
+            if(map[i].y<yMin && abs(map[i].x - dot.x) <= distThresh){
                 yMin = map[i].y;
             }
-            if(map[i].x>xMax && abs(map[i].y - dot.y) <= 100){
+            if(map[i].x>xMax && abs(map[i].y - dot.y) <= distThresh){
                 xMax = map[i].x;
             }
-            if(map[i].x<xMin && abs(map[i].y - dot.y) <= 100){
+            if(map[i].x<xMin && abs(map[i].y - dot.y) <= distThresh){
                 xMin = map[i].x;
             }
         }
