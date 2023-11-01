@@ -974,14 +974,14 @@ void testRANSAC(){
     cout<<"B x size = "<<x.size()<<endl;
     int sample_size = 50;
     int max_iters= 200;
-    float inlier_thresh=0.03; //0.05
+    float inlier_thresh=0.01; //0.05
     int min_inlier = 5; // 10
     float angleThreshold = 20.0 * M_PI / 180.0;
     float distanceThreshold = 120;
     float closenessThreshold = 40;
     
     
-    for(int i =0;i<20;i++){
+    for(int i =0;i<40;i++){
         vector<VectorXd> bestModels = manager2(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
         vector<Vector2d> corners = findCorners2(bestModels, angleThreshold);
         vector<Vector2d> filteredCorners = filterCorners2(corners, x, y, distanceThreshold, closenessThreshold);
@@ -1006,7 +1006,7 @@ void testRANSAC(){
     TestCorner = CornerList[0][1];
     dist_avg += RANSACstats(CornerList,TestCorner);
 
-    cout<<"Overall Dist Average = "<<dist_avg/2;
+    cout<<"Overall Dist Average = "<<dist_avg/2<<endl;;
 
 
     cout<<"Filtered Corners = "<<endl;
