@@ -279,7 +279,7 @@ def animate(i):
     x1,y1=fetchCoord('fullMapCSV.csv')
     x2,y2=fetchCoord('landmarkCSV.csv')
     x3,y3=fetchCoord('cornersCSV.csv')
-    #x4,y4=fetchCoord('mapCSV.csv')
+    x4,y4=fetchCoord('mapCSV.csv')
     x5,y5=fetchCoord('triangleCSV.csv')
     position,x_goal,y_goal,true_move = fetchRobot()
     #print("POSITION = ",position)
@@ -310,7 +310,7 @@ def animate(i):
     fetchAndPlotGrid()
 
     plt.plot(x1, y1, 'o', label='Points',markersize=0.5,color='r')
-    #plt.plot(x4, y4, 'o', label='map_points', markersize=1,color='purple')#ConPoints are now representative of latest scan
+    plt.plot(x4, y4, 'o', label='map_points', markersize=1,color='purple')#ConPoints are now representative of latest scan
     
     plt.plot(x3, y3, 'X', label='RNC_points', markersize=7,color='b')
     plt.plot(x2, y2, 'X', label='Landmarks', markersize=7,color='g')
