@@ -924,7 +924,7 @@ void testRun(){
     
 }
 
-void RANSACstats(vector<vector<CarPoint>> CornerList, CarPoint testCorner){
+void RANSACstats(vector<vector<CarPoint>> CornerList, CarPoint TestCorner){
     float dist_avg = 0;
     float max_dist = -100;
 
