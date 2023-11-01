@@ -867,7 +867,7 @@ void testRun(){
     initializeLidar(drv,error);
 
     int count = 0;
-    while(mapped == false && count<20){
+    while(mapped == false && count<1){
         
         fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
         lidarDataPoints.clear();
@@ -888,13 +888,13 @@ void testRun(){
     ekf.distance = 0;
     ekf.w = 0;
     
-    fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
-    lidarDataPoints.clear();
-    fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
-    cout<<"POST LOOP RUN"<<endl;
-    finalRun = true;
-    fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path,lidarDataPoints);
-    lidarDataPoints.clear();
+    // fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
+    // lidarDataPoints.clear();
+    // fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
+    // cout<<"POST LOOP RUN"<<endl;
+    // finalRun = true;
+    // fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path,lidarDataPoints);
+    // lidarDataPoints.clear();
         
 
     // cout<<"Fully Mapped Room"<<endl;
