@@ -243,6 +243,7 @@ def speedControl(theta,distance,direction):
             threadL = threading.Thread(target=left_thread, args=(timeOnL,timeOffL,))
             threadR = threading.Thread(target=right_thread, args=(timeOnR,timeOffR,))
         else:
+            print("Set Reverse Threads")
             threadL = threading.Thread(target=leftR_thread, args=(timeOnL,timeOffL,))
             threadR = threading.Thread(target=rightR_thread, args=(timeOnR,timeOffR,))
     elif(theta != 0 and distance == 0):
