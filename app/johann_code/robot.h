@@ -253,13 +253,14 @@ namespace Mapping_Functions{
     void storeStatePoints(Matrix<float, dim, 1> State);
 
     void getMapBounds(vector<CarPoint> map, vector<float>& bounds);
+    void getMapBoundsSpecific(vector<CarPoint> map, vector<float>& bounds, GridPoint dot);
 
     void gridDataProcess(vector<vector<GridPoint>>& gridNew,Matrix<float, dim, 1> State, bool firstRun);
     void gridDataAssosciationPath(vector<vector<GridPoint>>& gridOld, vector<CarPoint> dumpedPath);
     void gridDataAssosciationMoveSimple(vector<vector<GridPoint>>& gridNew, Matrix<float, dim, 1> State);
     void gridDataAssosciationMap(vector<vector<GridPoint>> gridOld, vector<vector<GridPoint>>& gridNew);
 
-    bool gridDotBoundCheck(GridPoint point, vector<float> bounds);
+    bool gridDotBoundCheck(vector<CarPoint> searchMap,GridPoint point);
     bool gridDotLidarCheck(vector<CarPoint> searchMap, GridPoint point,float distThresh);
     void gridMakeDots(vector<CarPoint> mapdata, vector<vector<GridPoint>>& points);
 
