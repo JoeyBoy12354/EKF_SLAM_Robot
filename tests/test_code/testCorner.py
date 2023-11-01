@@ -269,7 +269,7 @@ def brute_force(mapCSV,sample_size,max_iters,inlier_thresh,min_inliers):
     print(mapCSV)
     corner_sets = []
     times = []
-    for i in range(0,45):
+    for i in range(0,20):
         time_start = time.time()
         x1,y1=fetchCoord(mapCSV)
         best_models = manager(x1,y1,sample_size,max_iters,inlier_thresh,min_inliers)
@@ -316,11 +316,16 @@ def brute_force(mapCSV,sample_size,max_iters,inlier_thresh,min_inliers):
 #Works fairly well for large rooms.(Did miss once during 3x20 Trial runs thus about a 44/45 Hit ratio)
 #brute_force('map7.csv',sample_size=80,max_iters=200,inlier_thresh=1.3,min_inliers=6)
 
+#brute_force('map9.csv',sample_size=80,max_iters=200,inlier_thresh=1.1,min_inliers=5)
+
+brute_force('map9.csv',sample_size=50,max_iters=200,inlier_thresh=0.6,min_inliers=5)
+#brute_force('map9.csv',sample_size=80,max_iters=200,inlier_thresh=0.3,min_inliers=6)
+
 
 # brute_force('map3.csv',sample_size=100,max_iters=200,inlier_thresh=0.15,min_inliers=4)
 
-x1,y1=fetchCoord('map6.csv')
-best_models = manager(x1,y1,sample_size=80,max_iters=200,inlier_threshold=1.2,min_inliers=6)
+x1,y1=fetchCoord('map9.csv')
+best_models = manager(x1,y1,sample_size=80,max_iters=200,inlier_threshold=1.3,min_inliers=6)
 #best_models = manager(x1,y1,sample_size=100,max_iters=200,inlier_threshold=0.4,min_inliers=5)
 plt.plot(x1, y1, 'o', label='Points',markersize=0.5,color='grey')
 
