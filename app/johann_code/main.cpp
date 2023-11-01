@@ -927,6 +927,7 @@ void testRun(){
 float RANSACstats(vector<vector<CarPoint>> CornerList, CarPoint TestCorner){
     float dist_avg = 0;
     float max_dist = -100;
+    float min_dist = 10000;
 
     for(int i = 0;i<CornerList.size();i++){
         float dist = 100000;
@@ -941,11 +942,15 @@ float RANSACstats(vector<vector<CarPoint>> CornerList, CarPoint TestCorner){
         if(dist > max_dist){
             max_dist = dist;
         }
+        if(dist < min_dist){
+            min_dist = dist;
+        }
 
     }
 
     cout<<"Average Dist Deviation = "<<dist_avg/CornerList.size()<<endl;
-    cout<<"Max Dist = "<<max_dist<<endl<<endl;
+    cout<<"Max Dist = "<<max_dist<<endl;
+    cout<<"Min Dist = "<<min_dist<<endl;
 
     return dist_avg/CornerList.size();
 }
