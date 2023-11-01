@@ -210,7 +210,7 @@ namespace Mapping_Functions{
         
     }
 
-    bool gridDotBoundCheck(vector<CarPoint> searchMap, GridPoint point,float distThresh, vector<float> bounds){
+    bool gridDotBoundCheck(GridPoint point, vector<float> bounds){
         if(searchMap.size()==0){
             return false;
         }
@@ -222,6 +222,22 @@ namespace Mapping_Functions{
         //check if point is within max and min of lidardata bounds=[Xmax,Xmin,Ymax,Ymin]
         if(point.x>bounds[0] || point.x<bounds[1] || point.y>bounds[2] || point.y<bounds[3] ){
             return false;
+        }
+
+        if(point.x > 500 && point.x < 1500){
+            cout<<"MapPoint passed bounds check"<<endl;
+        }
+
+        return true
+    }
+
+    bool gridDotLidarCheck(vector<CarPoint> searchMap, GridPoint point,float distThresh){
+        if(searchMap.size()==0){
+            return false;
+        }
+
+        if(point.x > 500 && point.x < 1500){
+            cout<<"MapPoint: ("<<point.x<<", "<<point.y<<")"<<endl;
         }
 
         if(point.x > 500 && point.x < 1500){
@@ -256,12 +272,7 @@ namespace Mapping_Functions{
                 cout<<"MapPoint passed lidar distance check"<<endl;
             }
             return true;
-        }
-
-
-
-        
-
+        } 
     }
    
     void gridMakeDots(vector<CarPoint> mapdata, vector<vector<GridPoint>>& points){
@@ -286,6 +297,7 @@ namespace Mapping_Functions{
         int maxNoRuns = 20;
         int noRuns = 0;
         bool dotCheck = true;
+        bool lidarCheck = true;
 
         vector<float> bounds; //Xmax,Xmin,Ymax,Ymin
         getMapBounds(mapdata,bounds);
@@ -319,9 +331,18 @@ namespace Mapping_Functions{
             newPoint.x = xPos;
             newPoint.y = yPos;
             while(yPoints.size()<=vLimit && dotCheck == true){
-                dotCheck = gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds);
-                if(dotCheck == true){
+                dotCheck = gridDotBoundCheck(newPoint,bounds);
+                lidarCheck = gridDotLidarCheck(mapdata,newPoint,boundThresh);
+
+                if(dotCheck == true && lidarCheck == true){
                     yPoints.push_back(newPoint);
+                    yPos += yStep;
+                    newPoint.x = xPos;
+                    newPoint.y = yPos; 
+                }else if(dotCheck == true && lidarCheck == false){
+                    //This is to ensure that we still keep checking for dots even if there is an obstacle
+                    //However this means that as long as a point is within max bounds it can be plotted, so corridors and rooms
+                    // Will have points between them
                     yPos += yStep;
                     newPoint.x = xPos;
                     newPoint.y = yPos; 
@@ -341,13 +362,27 @@ namespace Mapping_Functions{
             newPoint.x = xPos;
             newPoint.y = yPos;
             while(yPoints.size()<=vLimit && dotCheck == true){
-                dotCheck = gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds);
-                if(dotCheck == true){
+                dotCheck = gridDotBoundCheck(newPoint,bounds);
+                lidarCheck = gridDotLidarCheck(mapdata,newPoint,boundThresh);
+
+                if(dotCheck == true && lidarCheck == true){
                     yPoints.push_back(newPoint);
                     yPos += yStep;
                     newPoint.x = xPos;
-                    newPoint.y = yPos;
+                    newPoint.y = yPos; 
+                }else if(dotCheck == true && lidarCheck == false){
+                    yPos += yStep;
+                    newPoint.x = xPos;
+                    newPoint.y = yPos; 
                 }
+
+                // dotCheck = gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds);
+                // if(dotCheck == true){
+                //     yPoints.push_back(newPoint);
+                //     yPos += yStep;
+                //     newPoint.x = xPos;
+                //     newPoint.y = yPos;
+                // }
             }
             if(yPoints.size()>0){
                 points.push_back(yPoints);
@@ -371,13 +406,27 @@ namespace Mapping_Functions{
             newPoint.x = xPos;
             newPoint.y = yPos;
             while(yPoints.size()<=vLimit && dotCheck == true){
-                dotCheck = gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds);
-                if(dotCheck == true){
+                dotCheck = gridDotBoundCheck(newPoint,bounds);
+                lidarCheck = gridDotLidarCheck(mapdata,newPoint,boundThresh);
+
+                if(dotCheck == true && lidarCheck == true){
                     yPoints.push_back(newPoint);
                     yPos += yStep;
                     newPoint.x = xPos;
-                    newPoint.y = yPos;
+                    newPoint.y = yPos; 
+                }else if(dotCheck == true && lidarCheck == false){
+                    yPos += yStep;
+                    newPoint.x = xPos;
+                    newPoint.y = yPos; 
                 }
+
+                // dotCheck = gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds);
+                // if(dotCheck == true){
+                //     yPoints.push_back(newPoint);
+                //     yPos += yStep;
+                //     newPoint.x = xPos;
+                //     newPoint.y = yPos;
+                // }
             }
             if(yPoints.size()>0){
                 points.push_back(yPoints);
@@ -391,13 +440,26 @@ namespace Mapping_Functions{
             newPoint.x = xPos;
             newPoint.y = yPos;
             while(yPoints.size()<=vLimit && dotCheck == true){
-                dotCheck = gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds);
-                if(dotCheck == true){
+                dotCheck = gridDotBoundCheck(newPoint,bounds);
+                lidarCheck = gridDotLidarCheck(mapdata,newPoint,boundThresh);
+
+                if(dotCheck == true && lidarCheck == true){
                     yPoints.push_back(newPoint);
                     yPos += yStep;
                     newPoint.x = xPos;
-                    newPoint.y = yPos;
+                    newPoint.y = yPos; 
+                }else if(dotCheck == true && lidarCheck == false){
+                    yPos += yStep;
+                    newPoint.x = xPos;
+                    newPoint.y = yPos; 
                 }
+                // dotCheck = gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds);
+                // if(dotCheck == true){
+                //     yPoints.push_back(newPoint);
+                //     yPos += yStep;
+                //     newPoint.x = xPos;
+                //     newPoint.y = yPos;
+                // }
             }
             if(yPoints.size()>0){
                 points.push_back(yPoints);
