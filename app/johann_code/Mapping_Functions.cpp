@@ -211,10 +211,6 @@ namespace Mapping_Functions{
     }
 
     bool gridDotBoundCheck(GridPoint point, vector<float> bounds){
-        if(searchMap.size()==0){
-            return false;
-        }
-
         if(point.x > 500 && point.x < 1500){
             cout<<"MapPoint: ("<<point.x<<", "<<point.y<<")"<<endl;
         }
@@ -228,7 +224,7 @@ namespace Mapping_Functions{
             cout<<"MapPoint passed bounds check"<<endl;
         }
 
-        return true
+        return true;
     }
 
     bool gridDotLidarCheck(vector<CarPoint> searchMap, GridPoint point,float distThresh){
