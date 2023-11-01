@@ -1062,9 +1062,9 @@ int main() {
     
     //atSim();
 
-    //testRun();
+    testRun();
 
-    testMap();
+    //testMap();
 
     //testThread();
 
