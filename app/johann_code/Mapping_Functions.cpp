@@ -291,7 +291,7 @@ namespace Mapping_Functions{
         getMapBounds(mapdata,bounds);
 
         
-         cout<<"Map Bounds = xmin: "<<bounds[0]<<", xmax"<<bounds[1]<<", ymin"<<bounds[2]<<", ymax"<<bounds[3]<<endl;
+        cout<<"Map Bounds = xmin: "<<bounds[0]<<", xmax"<<bounds[1]<<", ymin"<<bounds[2]<<", ymax"<<bounds[3]<<endl;
     
 
 
