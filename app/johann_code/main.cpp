@@ -229,7 +229,28 @@ void testThread() {
     cout << "t1 joined" << endl;
 }
 
+void testMap(){
+    vector<CarPoint> path;
+    cout<<"TEST RUN"<<endl;
 
+    ILidarDriver * drv = nullptr;
+    sl_result op_result;
+    vector<PolPoint> lidarDataPoints;
+    int NoPoints = 8192;
+    bool error;
+    sl_u32 timeout = 3000;
+
+    initializeLidar(drv,error);
+    fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
+    lidarDataPoints.clear();
+    fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
+
+    saveCarToFullMapCSV(carPoints);    
+
+    vector<vector<GridPoint>> gridNew;
+    gridDataProcess(gridNew, ekf.State, firstRun);
+
+}
 
 
 // void testLidarThread(){
@@ -1038,7 +1059,9 @@ int main() {
     
     //atSim();
 
-    testRun();
+    //testRun();
+
+    testMap();
 
     //testThread();
 
