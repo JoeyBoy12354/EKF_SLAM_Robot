@@ -281,17 +281,58 @@ def speedControl(theta,distance,direction):
     else:
         thread.start()
 
-    while(left_count<=NoTicks and right_count<=NoTicks and sonarFlag == False):
-        left_new = wiringpi.digitalRead(LSS_Pin)
-        right_new = wiringpi.digitalRead(RSS_Pin)
+    if(theta == 0 and distance > 0):
+        #Straight
+        while(left_count<=NoTicks and right_count<=NoTicks and sonarFlag == False):
+            left_new = wiringpi.digitalRead(LSS_Pin)
+            right_new = wiringpi.digitalRead(RSS_Pin)
 
-        if(left_old == 0 and left_new == 1):
-            left_count += 1
+            if(left_old == 0 and left_new == 1):
+                left_count += 1
+            
+            if(right_old == 0 and right_new == 1):
+                right_count += 1
+            left_old = left_new
+            right_old = right_new
+    elif(theta<0):
+        #Rotate Left
+        while(left_count<=NoTicks and sonarFlag == False):
+            left_new = wiringpi.digitalRead(LSS_Pin)
+            right_new = wiringpi.digitalRead(RSS_Pin)
+
+            if(left_old == 0 and left_new == 1):
+                left_count += 1
+            
+            if(right_old == 0 and right_new == 1):
+                right_count += 1
+            left_old = left_new
+            right_old = right_new
+    else:
+        #Rotate Right
+        while(right_count<=NoTicks and sonarFlag == False):
+            left_new = wiringpi.digitalRead(LSS_Pin)
+            right_new = wiringpi.digitalRead(RSS_Pin)
+
+            if(left_old == 0 and left_new == 1):
+                left_count += 1
+            
+            if(right_old == 0 and right_new == 1):
+                right_count += 1
+            left_old = left_new
+            right_old = right_new
+
+
+    # while(left_count<=NoTicks and right_count<=NoTicks and sonarFlag == False):
+    #     left_new = wiringpi.digitalRead(LSS_Pin)
+    #     right_new = wiringpi.digitalRead(RSS_Pin)
+
+    #     if(left_old == 0 and left_new == 1):
+    #         left_count += 1
         
-        if(right_old == 0 and right_new == 1):
-            right_count += 1
-        left_old = left_new
-        right_old = right_new
+    #     if(right_old == 0 and right_new == 1):
+    #         right_count += 1
+    #     left_old = left_new
+    #     right_old = right_new
 
     runDone = True
     sonarOn = False
