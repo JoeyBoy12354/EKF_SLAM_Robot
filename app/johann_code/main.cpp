@@ -1004,15 +1004,6 @@ void testRANSAC(){
     cout<<"Overall Dist Average = "<<dist_avg/2;
 
 
-
-
-
-
-
-
-
-
-
     cout<<"Filtered Corners = "<<endl;
     for(int i =0;i<FiltCarCorners.size();i++){
         cout<<FiltCarCorners[i]<<endl;
@@ -1042,7 +1033,7 @@ int main() {
 
     //testRun();
 
-    //testRANSAC();
+    testRANSAC();
     
 
     //simRun3();
@@ -1052,7 +1043,7 @@ int main() {
     
     //atSim();
 
-    testRun();
+    //testRun();
 
     //testMap();
 
