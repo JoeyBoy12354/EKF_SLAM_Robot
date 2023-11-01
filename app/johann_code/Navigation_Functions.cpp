@@ -166,6 +166,9 @@ namespace Navigation_Functions{
 
     CarPoint findNextPointRadius(MatrixXf State, vector<vector<GridPoint>> gridMap, bool& mapped){
         int scalar = 3;
+
+        //The problem with the algorithm is that it encourages bouncing where it will jump between a high y value then a low value
+        //Up and down over and over again
         
         CarPoint nextPoint;
         GridPoint current = stateToGridDot(State,gridMap);
@@ -209,6 +212,111 @@ namespace Navigation_Functions{
         return nextPoint;
     }
 
+    CarPoint findNextPointStraight(MatrixXf State, vector<vector<GridPoint>> gridMap, bool& mapped){
+        //I want the algorithm to maximize covering unknown dots
+        //Or just have it cover maximum straights
+
+        //Take current position and look up,down,left and right
+        int scalar = 3;
+        GridPoint current = stateToGridDot(State,gridMap);
+        float orientation = State(2)*180/PI; // Get the orientation
+
+        CarPoint case1Point;
+        CarPoint case2Point;
+        CarPoint case3Point;
+
+        bool case1Bool = false;
+        bool case2Bool = false;
+        bool case3Bool = false;
+
+        float case1;
+        float case2;
+        float case3;
+
+        for(int k =0;k<scalar;k++){
+            //This will mean that as we do not find traversable grid points we decrease our search space
+            float radius = grid_xstep*(scalar-k);
+
+            //if point's x-value, y-value or both differ by radius then we should select it
+            for(int i =0;i<gridMap.size();i++){
+                for(int j=0;j<gridMap[i].size();j++){
+                    //Only check points that have not been traversed
+                    if(gridMap[i][j].trav == false){
+                        mapped = false;
+                        
+                        //Calculate the 3 cases
+                        case1 = abs(gridMap[i][j].x-current.x);
+                        case2 = abs(gridMap[i][j].y-current.y);
+                        case3 = abs(gridMap[i][j].x-current.x) + abs(gridMap[i][j].y-current.y);
+
+                        if( case1  == radius && case1Bool == false){
+                            case1Point.x = gridMap[i][j].x;
+                            case1Point.y = gridMap[i][j].y;
+                            case1Bool = true;
+                        }
+
+                        if( case2  == radius && case2Bool == false ){
+                            case2Point.x = gridMap[i][j].x;
+                            case2Point.y = gridMap[i][j].y;
+                            case2Bool = true;
+                        }
+
+                        if( case3  == 2*radius && case3Bool == false ){
+                            case3Point.x = gridMap[i][j].x;
+                            case3Point.y = gridMap[i][j].y;
+                            case3Bool = true;
+                        }
+                    }
+                }
+            }
+        }
+
+
+        //Here we have access to all 3 of them
+        //We should give preference to same direction
+        //We should give preference to majority unknown if possible
+        //We should give preference to far distances
+
+        //We must first decide on an orientation 0/+-180 or +-90
+
+        if( (abs(orientation) - 180 || abs(orientation)) < (abs(orientation) - 90) && (abs(orientation) - 180 || abs(orientation))  < (abs(orientation) - 45 || abs(orientation) - 135 ) && case1Bool == true){
+            cout<<"NAVI: nextPoint: We on X-axis and point on x exists"<<endl;
+            //Assume we on the x-axis so case1
+            return case1Point;
+        }else if( (abs(orientation) - 90) < (abs(orientation) - 45 || abs(orientation) - 135 ) && case2Bool == true){
+            cout<<"NAVI: nextPoint: We on Y-axis and point on y exists"<<endl;
+            //Assume we closer to the y-axis so case2
+            return case2Point;
+        }else if(case1Bool == true && case2Bool == true && case3Bool == true ){
+            cout<<"NAVI: nextPoint: We on some-axis and point on all exists"<<endl;
+            //Assume we closer to the diagonal-axis so case3 and all directions are available
+            
+            //We choose the shortest distance
+            CarPoint point(current.x,current.y);
+            float d1 = pointDistance(point,case1Point);
+            float d2 = pointDistance(point,case2Point);
+            float d3 = pointDistance(point,case3Point);
+
+            if(d1<d2 && d1<d3){
+                return case1Point;
+            }else if(d2<d1 && d2<d3){
+                return case2Point;
+            }else if(d3<d1 && d2<d3){
+                return case3Point;
+            }            
+        }else if(case3Bool == true){
+            cout<<"NAVI: nextPoint: We on some-axis and point on diag exists"<<endl;
+            //Assume we are closer to diagonal and only diagonal available
+            return case3Point;
+        }
+
+        cout<<"NAVI: nextPoint: We did not know what to do"<<endl;
+        //If we made it here the grid dot is further away than our search space or all dots have been traversed
+        return findNextPoint(State,gridMap,mapped);
+
+    }
+
+
     bool mapMovement(MatrixXf State, vector<vector<GridPoint>> gridMap, vector<CarPoint>& path){
         cout<<"In pre-map movement"<<endl;
         //take grid map
@@ -220,7 +328,7 @@ namespace Navigation_Functions{
             //find closest non-traversed point
             //closestPoint = findNextPoint(State,gridMap,mapped);
 
-            closestPoint = findNextPointRadius(State,gridMap,mapped);
+            closestPoint = findNextPointStraight(State,gridMap,mapped);
 
             cout<<"ClosestPoint = "<<closestPoint<<endl;
 

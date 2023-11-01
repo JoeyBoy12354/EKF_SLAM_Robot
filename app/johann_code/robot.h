@@ -291,8 +291,10 @@ namespace Navigation_Functions{
     vector<GridNode*> bfs(std::vector<std::vector<GridNode>>& gridMap, GridNode& start, GridNode& goal);
     vector<GridNode*> findNeighboursBFS2(GridNode& point,vector<vector<GridNode>>& gridMap);
     vector<CarPoint> pathShortening(vector<CarPoint> path);
+    
     CarPoint findNextPoint(MatrixXf State, vector<vector<GridPoint>> gridMap, bool& mapped);
     CarPoint findNextPointRadius(MatrixXf State, vector<vector<GridPoint>> gridMap, bool& mapped);
+    CarPoint findNextPointStraight(MatrixXf State, vector<vector<GridPoint>> gridMap, bool& mapped);
     
 }
 
