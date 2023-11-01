@@ -215,9 +215,17 @@ namespace Mapping_Functions{
             return false;
         }
 
+        if(point.x > 500 && point.x < 1500){
+            cout<<"MapPoint: ("<<point.x<<", "<<point.y<<")"<<endl;
+        }
+
         //check if point is within max and min of lidardata bounds=[Xmax,Xmin,Ymax,Ymin]
         if(point.x>bounds[0] || point.x<bounds[1] || point.y>bounds[2] || point.y<bounds[3] ){
             return false;
+        }
+
+        if(point.x > 500 && point.x < 1500){
+            cout<<"MapPoint passed bounds check"<<endl;
         }
 
         //Get Cartesian
@@ -238,9 +246,15 @@ namespace Mapping_Functions{
         }
 
         if(dist < distThresh){
+            if(point.x > 500 && point.x < 1500){
+                cout<<"MapPoint failed lidar distance check"<<endl;
+            }
             return false;
 
         }else{
+            if(point.x > 500 && point.x < 1500){
+                cout<<"MapPoint passed lidar distance check"<<endl;
+            }
             return true;
         }
 
@@ -276,6 +290,10 @@ namespace Mapping_Functions{
         vector<float> bounds; //Xmax,Xmin,Ymax,Ymin
         getMapBounds(mapdata,bounds);
 
+        
+         cout<<"Map Bounds = xmin: "<<bounds[0]<<", xmax"<<bounds[1]<<", ymin"<<bounds[2]<<", ymax"<<bounds[3]<<endl;
+    
+
 
 
         vector<GridPoint> yPoints;
@@ -306,9 +324,7 @@ namespace Mapping_Functions{
                     yPoints.push_back(newPoint);
                     yPos += yStep;
                     newPoint.x = xPos;
-                    newPoint.y = yPos;
-                    
-                    
+                    newPoint.y = yPos; 
                 }
                 
             }
