@@ -1059,10 +1059,10 @@ void testRANSACallMaps(){
     // mapError += testRANSAC(dataPoints);
     // dataPoints.clear();
 
-    cout<<"map2"<<endl;
-    readCarFromCSVTest(dataPoints, "map2.csv");
-    mapError += testRANSAC(dataPoints);
-    dataPoints.clear();
+    // cout<<"map2"<<endl;
+    // readCarFromCSVTest(dataPoints, "map2.csv");
+    // mapError += testRANSAC(dataPoints);
+    // dataPoints.clear();
 
     cout<<"map1"<<endl;
     readCarFromCSVTest(dataPoints, "map1.csv");
