@@ -607,7 +607,7 @@ def testDistances():
     print("Cali Left = ",timeOnL," ",timeOffL)
     print("Cali Right = ",timeOnR," ",timeOffR)
 
-    distances = [200,200,200] #cm
+    distances = [400,400] #mm
     waitTime = 4 #In seconds
 
     
@@ -724,7 +724,7 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 
 
 print("MC started")
-motorCalibrate()
+#motorCalibrate()
 timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
 testDistances()
 
