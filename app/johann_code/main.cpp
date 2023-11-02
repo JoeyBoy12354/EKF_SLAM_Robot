@@ -1040,35 +1040,35 @@ void testRANSACallMaps(){
     mapError += testRANSAC(dataPoints);
     dataPoints.clear();
 
-    // cout<<"map6"<<endl;
-    // readCarFromCSVTest(dataPoints, "map6.csv");
-    // mapError += testRANSAC(dataPoints);
-    // dataPoints.clear();
+    cout<<"map6"<<endl;
+    readCarFromCSVTest(dataPoints, "map6.csv");
+    mapError += testRANSAC(dataPoints);
+    dataPoints.clear();
 
-    // cout<<"map5"<<endl;
-    // readCarFromCSVTest(dataPoints, "map5.csv");
-    // mapError += testRANSAC(dataPoints);
-    // dataPoints.clear();
+    cout<<"map5"<<endl;
+    readCarFromCSVTest(dataPoints, "map5.csv");
+    mapError += testRANSAC(dataPoints);
+    dataPoints.clear();
 
-    // cout<<"map4"<<endl;
-    // readCarFromCSVTest(dataPoints, "map4.csv");
-    // mapError += testRANSAC(dataPoints);
-    // dataPoints.clear();
+    cout<<"map4"<<endl;
+    readCarFromCSVTest(dataPoints, "map4.csv");
+    mapError += testRANSAC(dataPoints);
+    dataPoints.clear();
 
-    // cout<<"map3"<<endl;
-    // readCarFromCSVTest(dataPoints, "map3.csv");
-    // mapError += testRANSAC(dataPoints);
-    // dataPoints.clear();
+    cout<<"map3"<<endl;
+    readCarFromCSVTest(dataPoints, "map3.csv");
+    mapError += testRANSAC(dataPoints);
+    dataPoints.clear();
 
-    // cout<<"map2"<<endl;
-    // readCarFromCSVTest(dataPoints, "map2.csv");
-    // mapError += testRANSAC(dataPoints);
-    // dataPoints.clear();
+    cout<<"map2"<<endl;
+    readCarFromCSVTest(dataPoints, "map2.csv");
+    mapError += testRANSAC(dataPoints);
+    dataPoints.clear();
 
-    // cout<<"map1"<<endl;
-    // readCarFromCSVTest(dataPoints, "map1.csv");
-    // mapError += testRANSAC(dataPoints);
-    // dataPoints.clear();
+    cout<<"map1"<<endl;
+    readCarFromCSVTest(dataPoints, "map1.csv");
+    mapError += testRANSAC(dataPoints);
+    dataPoints.clear();
 
     mapError = mapError/9;
     cout<<"Map Error = "<<mapError<<endl;
