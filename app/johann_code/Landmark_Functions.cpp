@@ -9,10 +9,11 @@ namespace Landmark_Functions{
     vector<CarPoint> getCorners(){
         cout<<"LM: In GETCORNERS"<<endl;
 
-        vector<CarPoint> dataPoints;
-        readCarFromCSVTest(dataPoints);
+        // vector<CarPoint> dataPoints;
+        // readCarFromCSVTest(dataPoints);
+        // readCornersFromCSV(corners);
 
-        cout<<"A dataLen = "<<dataPoints.size()<<endl;
+        // cout<<"A dataLen = "<<dataPoints.size()<<endl;
 
        
 
