@@ -216,6 +216,8 @@ def motorControl_wThread(theta,distance):
     # print("MC: Old angle = ",angle*180/(math.pi))
     #angle = angle + angle_diff #Only sum angle diff cause the angleDiff function will return positive or negative
 
+    print("MC measured dist = ",dist)
+
     
     
 
