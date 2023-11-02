@@ -1004,10 +1004,11 @@ float testRANSAC(vector<CarPoint> dataPoints){
 
     CarPoint TestCorner = CornerList[0][0];
     float dist_avg = RANSACstats(CornerList,TestCorner);
-    TestCorner = CornerList[0][1];
-    dist_avg += RANSACstats(CornerList,TestCorner);
+    // TestCorner = CornerList[0][1];
+    // dist_avg += RANSACstats(CornerList,TestCorner);
 
-    cout<<"Overall Dist Average = "<<dist_avg/2<<endl;;
+
+    cout<<"Overall Dist Average = "<<dist_avg<<endl;;
 
 
     cout<<"Filtered Corners = "<<endl;
@@ -1017,7 +1018,7 @@ float testRANSAC(vector<CarPoint> dataPoints){
     cout<<endl;
     cout<<"No Corners = "<<FiltCarCorners.size()<<endl;
 
-    return dist_avg/2;
+    return dist_avg;
 }
 
 void testRANSACallMaps(){
