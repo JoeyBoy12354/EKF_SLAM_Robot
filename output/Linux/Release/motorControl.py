@@ -599,21 +599,21 @@ def testAngles():
 
 def testDistances():
     print("MC: BEGIN TESTING DISTANCES")
+    timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
+    print("Cali Left = ",timeOnL," ",timeOffL)
+    print("Cali Right = ",timeOnR," ",timeOffR)
 
-    distances = [300,300,300,300,300] #cm
+    distances = [200,200,200] #cm
     waitTime = 4 #In seconds
 
     
     for i in range(0,len(distances)):
-        dist_F,elapsed = forward(distances[i])
-        print("MC: Dist_F = ",round(dist_F,2)," cm")
-        time.sleep(waitTime)
-        dist_R,elapsed = reverse(distances[i])
-        print("MC: Dist_R = ",round(dist_R,2)," cm")
-
+        motorControl_wThread(0,distances[i])
+        
         #Print Results
-        print("MC: Set:",round(distances[i],2)," Dist_F:",round(dist_F,2),", Dist_R:",round(dist_R,2),"\n")
-        time.sleep(waitTime)
+        print("MC: Set:",round(distances[i],2)," Dist_F:",round(dist_F,2))
+        print("Please give input")
+        input()
 
 def testThread(distance):
     global runDone
@@ -721,19 +721,25 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 
 print("MC started")
 
-if(readState() == True):
-    motorCalibrate()
-else:
-    angle,distance = readInstructions()
-    timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
-    # print("MC: time Left = ",timeOnL,"s ",timeOffL,"s")
-    # print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
+testDistances()
 
 
-    angle,distance = motorControl_wThread(angle,distance)
-    print("MC: Angle turned = ",angle*180/math.pi)
-    print("MC: distance moved = ",distance)
-    writeOdometry(angle,distance)
+##Actual code to do things
+# if(readState() == True):
+#     motorCalibrate()
+# else:
+#     angle,distance = readInstructions()
+#     timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
+#     # print("MC: time Left = ",timeOnL,"s ",timeOffL,"s")
+#     # print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
+
+
+#     angle,distance = motorControl_wThread(angle,distance)
+#     print("MC: Angle turned = ",angle*180/math.pi)
+#     print("MC: distance moved = ",distance)
+#     writeOdometry(angle,distance)
+
+
 
 
 

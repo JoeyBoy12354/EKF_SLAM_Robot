@@ -95,10 +95,10 @@ def manager(x_coords,y_coords,sample_size=100,max_iters=500,inlier_threshold=0.0
         # #Plotting
         m = result[0][0]
         b = result[1][0]
-        if(i%2==0):
-            plt.plot(x,m*x+b,'b',linewidth=4,alpha=1)
-        else:
-            plt.plot(x,m*x+b,'c',linewidth=4,alpha=1)
+        # if(i%2==0):
+        #     plt.plot(x,m*x+b,'b',linewidth=4,alpha=1)
+        # else:
+        #     plt.plot(x,m*x+b,'c',linewidth=4,alpha=1)
 
     return best_models
 
@@ -165,7 +165,7 @@ def find_corners(best_models, angleThresh = 30*np.pi/180):
     return corners
 
 
-def filter_corners(corners,x1,y1,duplicateThresh = 100, closenessThresh = 40):
+def filter_corners(corners,x1,y1,duplicateThresh = 120, closenessThresh = 40):
     #Remove Duplicates
     clean_corners = []
     for i in range(0,len(corners)):
@@ -318,34 +318,34 @@ def brute_force(mapCSV,sample_size,max_iters,inlier_thresh,min_inliers):
 
 #brute_force('map9.csv',sample_size=80,max_iters=200,inlier_thresh=1.1,min_inliers=5)
 
-brute_force('map8.csv',sample_size=80,max_iters=200,inlier_thresh=0.6,min_inliers=5)
+#brute_force('map8.csv',sample_size=80,max_iters=200,inlier_thresh=0.6,min_inliers=5)
 #brute_force('map9.csv',sample_size=80,max_iters=200,inlier_thresh=0.3,min_inliers=6)
 
 
 # brute_force('map3.csv',sample_size=100,max_iters=200,inlier_thresh=0.15,min_inliers=4)
 
-x1,y1=fetchCoord('map8.csv')
-#best_models = manager(x1,y1,sample_size=50,max_iters=200,inlier_threshold=1.3,min_inliers=6)
+x1,y1=fetchCoord('map1.csv')
+best_models = manager(x1,y1,sample_size=80,max_iters=200,inlier_threshold=0.6,min_inliers=5)
 #best_models = manager(x1,y1,sample_size=100,max_iters=200,inlier_threshold=0.4,min_inliers=5)
-plt.plot(x1, y1, 'o', label='Points',markersize=0.5,color='r',alpha = 1)
+plt.plot(x1, y1, 'o', label='Points',markersize=0.8,color='r',alpha = 1)
 
-# corners = find_corners(best_models)
-# filtered_corner = filter_corners(corners,x1,y1)
-
-
+corners = find_corners(best_models)
+filtered_corner = filter_corners(corners,x1,y1)
 
 
-# for i in range(0,len(filtered_corner)):
-#     print(filtered_corner[i])
 
-# for i in range(0,len(filtered_corner)):
-#     plt.plot(filtered_corner[i][0], filtered_corner[i][1], 'X', label='Points',markersize=20,color='k')
+
+for i in range(0,len(filtered_corner)):
+    print(filtered_corner[i])
+
+for i in range(0,len(filtered_corner)):
+    plt.plot(filtered_corner[i][0], filtered_corner[i][1], 'X', label='Points',markersize=20,color='k')
 
 
 # plt.ylim([-300,300])
 # plt.xlim([-300,300])
-# plt.ylim([-1300,1000])
-# plt.xlim([-1500,3200])
+plt.ylim([-350,350])
+plt.xlim([-300,300])
 plt.show()
 
 
