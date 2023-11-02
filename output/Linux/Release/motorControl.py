@@ -449,7 +449,7 @@ def motorCalibrate():
     timeOffR = timeOff
 
     distance = 100
-    runs = 4
+    runs = 6
 
     left_avg = 0
     right_avg = 0
@@ -720,7 +720,7 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 
 
 print("MC started")
-
+motorCalibrate()
 timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
 testDistances()
 
