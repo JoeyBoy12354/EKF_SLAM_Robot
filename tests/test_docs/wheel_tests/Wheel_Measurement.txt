@@ -1,3 +1,56 @@
+(Resetting)
 200,200,200
-1st: -3mm error
-2nd: +7mm error
+1----------------------
+Actual (+ = overshoot, - = undershoot)
+1st: +17mm
+2nd: -12mm
+3rd: +12mm
+
+Sensor
+1st: 193.99334 
+2nd: 173.57299
+3rd: 193.99334
+
+2----------------------
+Actual (+ = overshoot, - = undershoot)
+1st: -1mm
+2nd: +17mm
+3rd: +7mm
+
+Sensor
+1st: 193.99334 
+2nd: 204.20352
+3rd: 204.20352
+
+3----------------------
+Actual (+ = overshoot, - = undershoot)
+1st: +12mm
+2nd: +6mm
+3rd: +22mm
+
+Sensor
+1st: 183.78317 
+2nd: 183.78317
+3rd: 193.99334
+
+4----------------------
+Actual (+ = overshoot, - = undershoot)
+1st: 0mm
+2nd: +18mm
+3rd: +15mm
+
+Sensor
+1st: 204.20352 
+2nd: 204.20352 
+3rd: 204.20352
+
+5----------------------
+Actual (+ = overshoot, - = undershoot)
+1st: +5mm
+2nd: +12mm
+3rd: +15mm
+
+Sensor
+1st: 193.99334 
+2nd: 204.20352 
+3rd: 204.20352

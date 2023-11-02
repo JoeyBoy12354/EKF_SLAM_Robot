@@ -611,7 +611,7 @@ def testDistances():
     print("Cali Left = ",timeOnL," ",timeOffL)
     print("Cali Right = ",timeOnR," ",timeOffR)
 
-    distances = [200,200,200] #mm
+    distances = [300,300,300] #mm
     waitTime = 4 #In seconds
 
     
