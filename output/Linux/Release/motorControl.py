@@ -721,6 +721,7 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 
 print("MC started")
 
+timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
 testDistances()
 
 
