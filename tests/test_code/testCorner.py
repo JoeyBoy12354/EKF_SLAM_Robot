@@ -318,7 +318,7 @@ def brute_force(mapCSV,sample_size,max_iters,inlier_thresh,min_inliers):
 
 #brute_force('map9.csv',sample_size=80,max_iters=200,inlier_thresh=1.1,min_inliers=5)
 
-brute_force('map2.csv',sample_size=50,max_iters=200,inlier_thresh=0.6,min_inliers=5)
+brute_force('map2.csv',sample_size=80,max_iters=200,inlier_thresh=0.6,min_inliers=5)
 #brute_force('map9.csv',sample_size=80,max_iters=200,inlier_thresh=0.3,min_inliers=6)
 
 
