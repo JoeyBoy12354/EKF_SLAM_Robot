@@ -975,7 +975,7 @@ float testRANSAC(vector<CarPoint> dataPoints){
     cout<<"B x size = "<<x.size()<<endl;
     int sample_size = 80;
     int max_iters= 500;
-    float inlier_thresh=0.001; //0.0005
+    float inlier_thresh=0.002; //0.0005
     int min_inlier = 5; // 5
     float angleThreshold = 20.0 * M_PI / 180.0;
     float distanceThreshold = 120;
@@ -997,7 +997,7 @@ float testRANSAC(vector<CarPoint> dataPoints){
             FiltCarCorners.push_back(lm);
         }
 
-        cout<<i<<" Corners Found = "<<FiltCarCorners.size()<<endl;
+        //cout<<i<<" Corners Found = "<<FiltCarCorners.size()<<endl;
         CornerList.push_back(FiltCarCorners);
     }
 
