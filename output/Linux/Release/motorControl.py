@@ -441,15 +441,15 @@ def motorCalibrate():
 
     print("MCAL: IN motor calibration")
     #default times
-    timeOn = 0.007
-    timeOff = 0.003
+    timeOn = 0.008
+    timeOff = 0.002
     timeOnL = timeOn
     timeOnR = timeOn
     timeOffL = timeOff
     timeOffR = timeOff
 
-    distance = 250
-    runs = 2
+    distance = 150
+    runs = 3
 
     left_avg = 0
     right_avg = 0
@@ -459,8 +459,8 @@ def motorCalibrate():
     left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
     left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
     left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
-    left_avg = left_avg/(runs*2)
-    right_avg = right_avg/(runs*2)
+    left_avg = left_avg/(runs*6)
+    right_avg = right_avg/(runs*6)
     
     
     if(left_avg>right_avg):
