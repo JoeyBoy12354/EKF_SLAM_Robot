@@ -20,7 +20,7 @@ string atsi_lm_CSV = "atsi_lmCSV.csv";
 string ekf_atsi_u_CSV = "ekf_uCSV.csv";
 string ekf_atsi_lm_CSV = "ekf_lmCSV.csv";
 
-string TmapCSV = "map9.csv";
+
 
 
 namespace CSV_Functions{
@@ -111,7 +111,7 @@ namespace CSV_Functions{
     }
 
 
-    void readCarFromCSVTest(vector<CarPoint>& points){
+    void readCarFromCSVTest(vector<CarPoint>& points ,string TmapCSV){
         ifstream file(TmapCSV);
 
         if (!file.is_open()) {

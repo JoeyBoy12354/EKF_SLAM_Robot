@@ -130,7 +130,8 @@ namespace CSV_Functions{
     void readCarFromCSV(vector<CarPoint>& points);
     void appendCarToCSV(const vector<CarPoint>& points);
 
-    void readCarFromCSVTest(vector<CarPoint>& points);
+    //Test
+    void readCarFromCSVTest(vector<CarPoint>& points ,string TmapCSV);
 
     //Full Map
     void saveCarToFullMapCSV(vector<CarPoint>& points);
@@ -168,9 +169,9 @@ namespace CSV_Functions{
     //Atsis
     void atsi_u_read(vector<vector<float>>& input);
     void atsi_lm_read(vector<vector<CarPoint>>& lm);
-     void atsi_u_write(vector<vector<float>>& input);
-     void atsi_lm_write(vector<vector<float>>& lm);
-     void atsi_lm_read2(vector<vector<PolPoint>>& lm);
+    void atsi_u_write(vector<vector<float>>& input);
+    void atsi_lm_write(vector<vector<float>>& lm);
+    void atsi_lm_read2(vector<vector<PolPoint>>& lm);
 
 
 }
