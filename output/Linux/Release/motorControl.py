@@ -441,8 +441,8 @@ def motorCalibrate():
 
     print("MCAL: IN motor calibration")
     #default times
-    timeOn = 0.009
-    timeOff = 0.001
+    timeOn = 0.008
+    timeOff = 0.002
     timeOnL = timeOn
     timeOnR = timeOn
     timeOffL = timeOff
