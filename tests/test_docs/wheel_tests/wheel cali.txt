@@ -9,3 +9,7 @@ MCAL: time Right =  0.008 s  0.002 s
 400 1 run 6 att poor
 MCAL: time Left =  0.007266666666666667 s  0.0027333333333333333 s
 MCAL: time Right =  0.008 s  0.002 s
+
+400 1 run 8 att poor
+MCAL: time Left =  0.007598746081504702 s  0.002401253918495298 s
+MCAL: time Right =  0.008 s  0.002 s
