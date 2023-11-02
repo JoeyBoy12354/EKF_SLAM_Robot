@@ -96,9 +96,9 @@ def manager(x_coords,y_coords,sample_size=100,max_iters=500,inlier_threshold=0.0
         m = result[0][0]
         b = result[1][0]
         if(i%2==0):
-            plt.plot(x,m*x+b,'b',linewidth=4)
+            plt.plot(x,m*x+b,'b',linewidth=4,alpha=1)
         else:
-            plt.plot(x,m*x+b,'r',linewidth=4)
+            plt.plot(x,m*x+b,'c',linewidth=4,alpha=1)
 
     return best_models
 
@@ -318,16 +318,16 @@ def brute_force(mapCSV,sample_size,max_iters,inlier_thresh,min_inliers):
 
 #brute_force('map9.csv',sample_size=80,max_iters=200,inlier_thresh=1.1,min_inliers=5)
 
-brute_force('map9.csv',sample_size=50,max_iters=200,inlier_thresh=0.6,min_inliers=5)
+#brute_force('map9.csv',sample_size=50,max_iters=200,inlier_thresh=0.6,min_inliers=5)
 #brute_force('map9.csv',sample_size=80,max_iters=200,inlier_thresh=0.3,min_inliers=6)
 
 
 # brute_force('map3.csv',sample_size=100,max_iters=200,inlier_thresh=0.15,min_inliers=4)
 
 x1,y1=fetchCoord('map9.csv')
-best_models = manager(x1,y1,sample_size=80,max_iters=200,inlier_threshold=1.3,min_inliers=6)
+best_models = manager(x1,y1,sample_size=50,max_iters=200,inlier_threshold=1.3,min_inliers=6)
 #best_models = manager(x1,y1,sample_size=100,max_iters=200,inlier_threshold=0.4,min_inliers=5)
-plt.plot(x1, y1, 'o', label='Points',markersize=0.5,color='grey')
+plt.plot(x1, y1, 'o', label='Points',markersize=0.5,color='r',alpha = 1)
 
 corners = find_corners(best_models)
 filtered_corner = filter_corners(corners,x1,y1)
@@ -344,8 +344,8 @@ for i in range(0,len(filtered_corner)):
 
 # plt.ylim([-300,300])
 # plt.xlim([-300,300])
-plt.ylim([-5000,3000])
-plt.xlim([-8000,5000])
+plt.ylim([-1300,1000])
+plt.xlim([-1500,3200])
 plt.show()
 
 
