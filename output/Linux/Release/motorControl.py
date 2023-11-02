@@ -611,7 +611,7 @@ def testDistances():
         motorControl_wThread(0,distances[i])
         
         #Print Results
-        print("MC: Set:",round(distances[i],2)," Dist_F:",round(dist_F,2))
+        #print("MC: Set:",round(distances[i])," Dist_F:",round(dist_F,2))
         print("Please give input")
         input()
 
