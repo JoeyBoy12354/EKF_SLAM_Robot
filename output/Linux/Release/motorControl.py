@@ -448,8 +448,8 @@ def motorCalibrate():
     timeOffL = timeOff
     timeOffR = timeOff
 
-    distance = 60
-    runs = 8
+    distance = 250
+    runs = 2
 
     left_avg = 0
     right_avg = 0
