@@ -958,6 +958,7 @@ float RANSACstats(vector<vector<CarPoint>> CornerList, CarPoint TestCorner){
 
 void testRANSACallMaps(){
     float mapError = 0;
+    vector<CarPoint> dataPoints;
 
     cout<<"map9"<<endl;
     readCarFromCSVTest(dataPoints, "map9.csv");
