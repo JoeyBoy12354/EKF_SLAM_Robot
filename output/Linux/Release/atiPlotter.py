@@ -111,6 +111,10 @@ def calculateRMSE():
     rmse_x = []
     rmse_y = []
 
+    print(trueX)
+    print()
+    print(myX)
+
     for i in range(0,len(trueX)):
         rmse_x.append(np.sqrt((trueX[i][0] - myX[i][0])**2))
         rmse_y.append(np.sqrt((trueX[i][1] - myX[i][1])**2))
