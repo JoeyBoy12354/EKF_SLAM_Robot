@@ -109,6 +109,7 @@ def calculateRMSE():
     myX = fetchState()
     x_axis = []
     rmse_x = []
+    rmse_y = []
 
     for i in range(0,len(trueX)):
         rmse_x.append(np.sqrt((trueX[i][0] - myX[i][0])**2))
