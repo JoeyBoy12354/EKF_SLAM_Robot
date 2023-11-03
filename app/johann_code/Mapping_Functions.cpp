@@ -314,7 +314,7 @@ namespace Mapping_Functions{
         float xStep = grid_ystep;//x-distance between points on same y-coordinate
         
         
-        float boundThresh = 210;//If distance between gridPoint and lidarPoint <= Xmm then return false 
+        float boundThresh = 230;//If distance between gridPoint and lidarPoint <= Xmm then return false 
 
         float xPos; //holds current x-coordinate
         float yPos; //holds current y-coordinate
