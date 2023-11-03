@@ -61,8 +61,8 @@ def ekf_slam(xEst, PEst, u, z):
 
         nLM = calc_n_lm(xEst)
         if min_id == nLM:
-            print("New LM")
-            print("New LM at = ",calc_landmark_position(xEst, z[iz, :]))
+            # print("New LM")
+            # print("New LM at = ",calc_landmark_position(xEst, z[iz, :]))
             # Extend state and covariance matrix
             
             xAug = np.vstack((xEst, calc_landmark_position(xEst, z[iz, :])))
@@ -85,13 +85,13 @@ def ekf_slam(xEst, PEst, u, z):
         #print("y = \n",y)
         #print("K = \n",K)
         xEst = xEst + (K @ y)
-        print("xExt after correction = \n",xEst)
+        #print("xExt after correction = \n",xEst)
         #print("xEst = ",xEst)
         PEst = (np.eye(len(xEst)) - (K @ H)) @ PEst
 
-    print("XEst prior = ",xEst[2]*180/np.pi)
+    #print("XEst prior = ",xEst[2]*180/np.pi)
     xEst[2] = pi_2_pi(xEst[2])
-    print("XEst prior = ",xEst[2]*180/np.pi)
+    #print("XEst prior = ",xEst[2]*180/np.pi)
     all_lm_inter.append(lm_group)
 
 
@@ -189,21 +189,21 @@ def search_correspond_landmark_id(xAug, PAug, zi):
     Landmark association with Mahalanobis distance
     """
     
-    print("\nIn landmark Association")
+    #print("\nIn landmark Association")
     nLM = calc_n_lm(xAug)
 
     min_dist = []
 
-    print("Observed Landmark polar = ",zi[0],", ",zi[1])
-    print("Observed Landmark carti = ",zi[0]*np.cos(zi[1]),", ",zi[0]*np.sin(zi[1]),")")
+    #print("Observed Landmark polar = ",zi[0],", ",zi[1])
+    #print("Observed Landmark carti = ",zi[0]*np.cos(zi[1]),", ",zi[0]*np.sin(zi[1]),")")
 
     for i in range(nLM):
         lm = get_landmark_position_from_state(xAug, i)
-        print("Stored Landmark lm = ",lm[0],", ",lm[1],"Index = ",i)
-        print("z = \n",zi)
+        #print("Stored Landmark lm = ",lm[0],", ",lm[1],"Index = ",i)
+        #print("z = \n",zi)
         y, S, H = calc_innovation(lm, xAug, PAug, zi, i)
         #print("y = \n",y)
-        print("min distance = ",y.T @ np.linalg.inv(S) @ y)
+        #print("min distance = ",y.T @ np.linalg.inv(S) @ y)
         min_dist.append(y.T @ np.linalg.inv(S) @ y)
 
     min_dist.append(M_DIST_TH)  # new landmark
@@ -216,25 +216,25 @@ def search_correspond_landmark_id(xAug, PAug, zi):
 def calc_innovation(lm, xEst, PEst, z, LMid):
     delta = lm - xEst[0:2]
     #print("xEst = ",xEst[0:2])
-    print("stored = ",lm)
-    print("x = ",xEst[0],", y = ",xEst[1]," ang = ",xEst[2]*180/np.pi)
-    print("deltaX = ",delta[0]," deltaY = ",delta[1])
+    #print("stored = ",lm)
+    #print("x = ",xEst[0],", y = ",xEst[1]," ang = ",xEst[2]*180/np.pi)
+    #print("deltaX = ",delta[0]," deltaY = ",delta[1])
     #print("delta = ",delta)
     q = (delta.T @ delta)[0, 0]
-    print("q_matrix =\n",(delta.T @ delta))
+    #print("q_matrix =\n",(delta.T @ delta))
 
     z_angle = math.atan2(delta[1, 0], delta[0, 0]) - xEst[2, 0]
-    print("z_angle = ",z_angle*180/np.pi," -> ",pi_2_pi(z_angle)*180/np.pi)
+    #print("z_angle = ",z_angle*180/np.pi," -> ",pi_2_pi(z_angle)*180/np.pi)
     zp = np.array([[math.sqrt(q), pi_2_pi(z_angle)]])
-    print("z_cap = \n",zp)
+    #print("z_cap = \n",zp)
 
     #print("z = \n",z)
     #print("zp = \n",zp)
     y = (z - zp).T
     #print("y(before pi2pi) = \n",y)
-    print("y = \n",y)
+    #print("y = \n",y)
     y[1] = pi_2_pi(y[1])
-    print("after y = \n",y)
+    #print("after y = \n",y)
     H = jacob_h(q, delta, xEst, LMid + 1)
     S = H @ PEst @ H.T + Cx[0:2, 0:2]
     # print("H_observation_jacob = \n",H)
@@ -277,16 +277,16 @@ def write_lm_csv(lm, filename='atsi_lmCSV.csv'):
 
 
 def write_lm_csv2(lm,filename = 'atsi_lmCSV.csv'):
-    print("atsi_lm")
+    #print("atsi_lm")
 
-    print("lm = ",lm)
+    #print("lm = ",lm)
     landmarks = []
     for i in range(0,len(lm)):
         for j in range(0,len(lm[i])):
             landmarks.append(lm[i][j])
 
     
-    print(landmarks)
+    #print(landmarks)
     with open(filename, mode='w', newline='') as file:
         
         writer = csv.writer(file)
@@ -295,10 +295,44 @@ def write_lm_csv2(lm,filename = 'atsi_lmCSV.csv'):
             writer.writerows(landmarks)
     return
 
+def write_ati_odo_csv(u,filename = 'atsi_odoCSV.csv'):
+    #print("atsi_u")
+    with open(filename, mode='w', newline='') as file:
+        writer = csv.writer(file)
+        for i in range(0,len(u)):
+        
+            # Write the data to the CSV file
+            writer.writerows(u[i])
+    
+    return
+
+def write_ati_path_csv(u,filename = 'atsi_pathCSV.csv'):
+    #print("atsi_u")
+    with open(filename, mode='w', newline='') as file:
+        writer = csv.writer(file)
+        for i in range(0,len(u)):
+        
+            # Write the data to the CSV file
+            writer.writerows(u[i])
+    
+    return
+
+def write_ati_lm_true_csv(u,filename = 'atsi_lm_trueCSV.csv'):
+    #print("atsi_u")
+    with open(filename, mode='w', newline='') as file:
+        writer = csv.writer(file)
+        for i in range(0,len(u)):
+        
+            # Write the data to the CSV file
+            writer.writerows(u[i])
+    
+    return
+
+
 
 
 def write_u_csv(u,filename = 'atsi_uCSV.csv'):
-    print("atsi_u")
+    #print("atsi_u")
     with open(filename, mode='w', newline='') as file:
         writer = csv.writer(file)
         for i in range(0,len(u)):
@@ -397,8 +431,8 @@ def main():
     xEst = np.zeros((STATE_SIZE, 1))
     xTrue = np.zeros((STATE_SIZE, 1))
     PEst = np.eye(STATE_SIZE)
-    print("PEST")
-    print(PEst)
+    # print("PEST")
+    # print(PEst)
 
     xDR = np.zeros((STATE_SIZE, 1))  # Dead reckoning
 
@@ -422,7 +456,7 @@ def main():
     my_state = fetchState()
 
     while SIM_TIME >= time:
-        print("\ni = ",time)
+        #print("\ni = ",time)
         time += DT
         u = calc_input()
 
@@ -436,7 +470,7 @@ def main():
             
         lm_group = []
         for i in range(0,len(z)):
-            print("xTrue, = ",xTrue[0, 0]," ",xTrue[1, 0])
+            #print("xTrue, = ",xTrue[0, 0]," ",xTrue[1, 0])
             myLM_x = z[i][0]*np.cos(z[i][1]) + xTrue[0, 0]
             myLM_y = z[i][0]*np.sin(z[i][1]) + xTrue[1, 0]
 
@@ -505,6 +539,11 @@ def main():
     all_u = np.array(all_u)
     write_u_csv(all_u)
     write_lm_csv2(all_lm)
+
+    print("hxTrue")
+    print(hxTrue)
+
+
 
     
 
