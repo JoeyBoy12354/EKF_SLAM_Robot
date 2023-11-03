@@ -303,7 +303,7 @@ def write_ati_odo_csv(hox,hoy,filename = 'atsi_odoCSV.csv'):
         for i in range(0,len(hox)):
         
             # Write the data to the CSV file
-            writer.writerow([float(hox[i]),float(hoy[i])])
+            writer.writerow([hox[i],hoy[i]])
     
     return
 
@@ -343,6 +343,9 @@ def write_u_csv(u,filename = 'atsi_uCSV.csv'):
     return
 
 
+
+
+
 def fetchState():
     
     state = []
@@ -374,6 +377,74 @@ def fetchLandmarks():
                 current_group = []  # Reset the current group for the next 3 landmarks
 
     return landmarks
+
+def fetchTrueState():
+    state = []
+    with open('atsi_pathCSV.csv', 'r') as file:
+        csv_reader = csv.reader(file)
+        for row in csv_reader:
+            x = float(row[0])
+            y = float(row[1])
+            state.append([x,y])
+
+    return state
+
+def fetchTrueLM():
+    state = []
+    with open('atsi_lm_trueCSV.csv', 'r') as file:
+        csv_reader = csv.reader(file)
+        for row in csv_reader:
+            x = float(row[0])
+            y = float(row[1])
+            state.append([x,y])
+
+    return state
+
+def fetchOdo():
+    state = []
+    with open('atsi_odoCSV.csv', 'r') as file:
+        csv_reader = csv.reader(file)
+        for row in csv_reader:
+            x = float(row[0])
+            y = float(row[1])
+            state.append([x,y])
+
+    return state
+
+
+def newCustomPlot():
+    myLM = fetchLandmarks()
+    myX = fetchState()
+    trueX = fetchTrueState()
+    trueLM = fetchTrueLM()
+    odo = fetchOdo()
+
+
+    # Scatter plot for myX
+    myX = list(zip(*myX))  # Transpose myX for plotting
+    plt.plot(myX[0], myX[1], c='orange', label='myX')
+
+    # Scatter plot for atiLM
+    for lm in myLM:
+        lm = list(zip(*lm))  # Transpose each set of landmarks
+        plt.scatter(lm[0], lm[1],c='yellow' ,marker='x')
+
+
+    # Scatter plot for trueX
+    trueX = list(zip(*trueX))  # Transpose trueX for plotting
+    plt.scatter(trueX[0], trueX[1], c='blue', label='trueX')
+
+    # Scatter plot for trueLM
+    for lm in trueLM:
+        lm = list(zip(*lm))  # Transpose each set of landmarks
+        plt.scatter(lm[0], lm[1], marker='o', label='trueLM')
+
+    plt.legend()
+    plt.title(f"Custom Plot at time {time}")
+    plt.xlabel("X-coordinate")
+    plt.ylabel("Y-coordinate")
+    plt.grid(True)
+    plt.show()
 
 def plotCustom(myLM,myX,atiX,atiLM,trueX,trueLM,time):
 
