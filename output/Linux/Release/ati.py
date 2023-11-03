@@ -303,7 +303,7 @@ def write_ati_odo_csv(hox,hoy,filename = 'atsi_odoCSV.csv'):
         for i in range(0,len(hox)):
         
             # Write the data to the CSV file
-            writer.writerows([hox[i],hoy[i]])
+            writer.writerows([float(hox[i]),float(hoy[i])])
     
     return
 
