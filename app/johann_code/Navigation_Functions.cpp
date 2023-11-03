@@ -213,6 +213,7 @@ namespace Navigation_Functions{
     }
 
     CarPoint findNextPointStraight(MatrixXf State, vector<vector<GridPoint>> gridMap, bool& mapped){
+        cout<<"NAVI: Find Point Straight"<<endl;
         //I want the algorithm to maximize covering unknown dots
         //Or just have it cover maximum straights
 
