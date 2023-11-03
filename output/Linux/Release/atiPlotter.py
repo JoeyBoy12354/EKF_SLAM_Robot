@@ -1,6 +1,7 @@
 import csv
 import matplotlib.pyplot as plt
 import numpy as np
+import subprocess
 
 def fetchState():
     state = []
@@ -111,13 +112,6 @@ def calculateRMSE():
     rmse_x = []
     rmse_y = []
 
-    print(trueX)
-    print()
-    print(myX)
-    print()
-    print(len(trueX))
-    print(len(myX))
-
     for i in range(0,len(myX)):
         rmse_x.append(np.sqrt((trueX[i+1][0] - myX[i][0])**2))
         rmse_y.append(np.sqrt((trueX[i+1][1] - myX[i][1])**2))
@@ -141,7 +135,20 @@ def calculateRMSE():
     plt.tight_layout()  # Ensures proper spacing between subplots
     plt.show()
 
+def cppRun():
+    # Replace './johann_code' with the actual path to your C++ program.
+    cpp_program = './johann_code'
+
+    # Run the C++ program
+    try:
+        subprocess.run(cpp_program, shell=True, check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Error: {e}")
+    else:
+        print("C++ program has been executed successfully.")
+
+cppRun()
+# newCustomPlot()
+# calculateRMSE()
 
 
-newCustomPlot()
-calculateRMSE()

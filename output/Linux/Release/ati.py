@@ -636,5 +636,6 @@ def main():
     plotCustom(my_lm,my_state,atsi_state,atsi_lm,true_state,true_lm,all_time)
 
 
-if __name__ == '__main__':
-    main()
+main()
+# if __name__ == '__main__':
+#     main()
