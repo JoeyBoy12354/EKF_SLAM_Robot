@@ -133,8 +133,8 @@ def observation(xTrue, xd, u, RFID):
         u[0, 0] + np.random.randn() * R_sim[0, 0] ** 0.5,
         u[1, 0] + np.random.randn() * R_sim[1, 1] ** 0.5]]).T
 
-        print("u[0] = u[0] + noise ",u[0, 0]," = ",u_prenoise[0]," + ",R_sim[0, 0] ** 0.5)
-        print("u[1] = u[1] + noise ",u[1, 0]," = ",u_prenoise[1]," + ",R_sim[1, 1] ** 0.5)
+    print("u[0] = u[0] + noise ",u[0, 0]," = ",u_prenoise[0]," + ",R_sim[0, 0] ** 0.5)
+    print("u[1] = u[1] + noise ",u[1, 0]," = ",u_prenoise[1]," + ",R_sim[1, 1] ** 0.5)
 
     xd = motion_model(xd, ud)
     return xTrue, z, xd, ud
