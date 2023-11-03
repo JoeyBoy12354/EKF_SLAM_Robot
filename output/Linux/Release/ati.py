@@ -299,7 +299,7 @@ def write_ati_odo_csv(hox,hoy,filename = 'atsi_odoCSV.csv'):
     #print("atsi_u")
     with open(filename, mode='w', newline='') as file:
         writer = csv.writer(file)
-        for i in range(0,len(hx)):
+        for i in range(0,len(hox)):
         
             # Write the data to the CSV file
             writer.writerows([hox[i],hoy[i]])
