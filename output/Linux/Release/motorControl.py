@@ -120,13 +120,13 @@ def avoidanceForward(distance):
         print("AVOIDANCE FORWARD left or right or both are too close to obstacle; LEFT = ",leftSonarDist," RIGHT = ",rightSonarDist)
         time.sleep(5)
         if(rightSonarDist>leftSonarDist):
-            shortenedDist = distance - turnableDistance + (leftSonarDist - distance)
+            shortenedDist = distance - turnableDistance + (leftSonarDist - distance) - 15
         
         elif(leftSonarDist>rightSonarDist):
-            shortenedDist = distance - turnableDistance + (rightSonarDist - distance)
+            shortenedDist = distance - turnableDistance + (rightSonarDist - distance) - 15
         
         else:
-            shortenedDist = distance - turnableDistance + (rightSonarDist - distance)
+            shortenedDist = distance - turnableDistance + (rightSonarDist - distance) - 15
 
         print("Avoidance forward changed from ",distance," to ",shortenedDist)
 
