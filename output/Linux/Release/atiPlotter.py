@@ -81,7 +81,7 @@ def newCustomPlot():
 
     # plot for myX
     myX = list(zip(*myX))  # Transpose myX for plotting
-    plt.plot(myX[0], myX[1], c='orange', label='myX')
+    plt.plot(myX[0], myX[1], c='r', label='EKF')
 
     # Scatter plot for atiLM
     for lm in myLM:
@@ -91,7 +91,7 @@ def newCustomPlot():
 
     # plot for trueX
     trueX = list(zip(*trueX))  # Transpose trueX for plotting
-    plt.plot(trueX[0], trueX[1], c='blue', label='trueX')
+    plt.plot(trueX[0], trueX[1], c='blue', label='Ground Truth')
 
     # Scatter plot for trueLM
     for lm in trueLM:
@@ -100,7 +100,7 @@ def newCustomPlot():
 
     # Scatter plot for trueX
     odo = list(zip(*odo))  # Transpose trueX for plotting
-    plt.plot(odo[0], odo[1], c='k', label='odo')
+    plt.plot(odo[0], odo[1], c='k', label='Odometry')
 
     plt.legend()
     plt.title(f"Custom Plot")
