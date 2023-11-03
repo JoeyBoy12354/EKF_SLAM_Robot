@@ -712,11 +712,15 @@ print("MC started")
 # timeOffL=0.0029
 # timeOffR=0.002
 
-timeOnL=0.008
-timeOnR=0.00777
-timeOffL=0.002
-timeOffR=0.00223
+# timeOnL=0.008
+# timeOnR=0.00777
+# timeOffL=0.002
+# timeOffR=0.00223
 
+timeOnL=0.008
+timeOnR=0.007
+timeOffL=0.002
+timeOffR=0.003
 
 #testDistances()
 #testAngles()
@@ -725,6 +729,9 @@ angle,distance = readInstructions()
 # timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
 # print("MC: time Left = ",timeOnL,"s ",timeOffL,"s")
 # print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
+
+angle = math.pi/2
+distance = 400
 
 
 angle,distance = motorControl_wThread(angle,distance)
