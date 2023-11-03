@@ -303,7 +303,7 @@ def write_ati_odo_csv(hox,hoy,filename = 'atsi_odoCSV.csv'):
         for i in range(0,len(hox)):
         
             # Write the data to the CSV file
-            writer.writerows([float(hox[i]),float(hoy[i])])
+            writer.writerow([float(hox[i]),float(hoy[i])])
     
     return
 
@@ -314,7 +314,7 @@ def write_ati_path_csv(hx,hy,filename = 'atsi_pathCSV.csv'):
         for i in range(0,len(hx)):
         
             # Write the data to the CSV file
-            writer.writerows([hx[i],hy[i]])
+            writer.writerow([hx[i],hy[i]])
     
     return
 
@@ -324,7 +324,7 @@ def write_ati_lm_true_csv(lm_tx,lm_ty,filename = 'atsi_lm_trueCSV.csv'):
         writer = csv.writer(file)
         for i in range(0,len(lm_tx)):
             # Write the data to the CSV file
-            writer.writerows([lm_tx[i],lm_ty[i]])
+            writer.writerow([lm_tx[i],lm_ty[i]])
     
     return
 
