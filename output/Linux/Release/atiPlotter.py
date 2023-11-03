@@ -93,8 +93,7 @@ def newCustomPlot():
 
     # Scatter plot for trueLM
     for lm in trueLM:
-        lm = list(zip(*lm))  # Transpose each set of landmarks
-        plt.scatter(lm[0], lm[1], marker='o', label='trueLM')
+        plt.scatter(lm[0], lm[1], marker='*k', label='trueLM')
 
 
     # Scatter plot for trueX
