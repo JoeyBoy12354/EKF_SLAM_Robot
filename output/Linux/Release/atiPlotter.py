@@ -101,7 +101,7 @@ def newCustomPlot():
     plt.scatter(odo[0], odo[1], c='k', label='odo')
 
     plt.legend()
-    plt.title(f"Custom Plot at time {time}")
+    plt.title(f"Custom Plot")
     plt.xlabel("X-coordinate")
     plt.ylabel("Y-coordinate")
     plt.grid(True)
