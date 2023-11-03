@@ -5,6 +5,7 @@ import subprocess
 import ati
 
 def fetchState():
+    print("Fetch STATE ekf")
     state = []
     with open('ekf_uCSV.csv', 'r') as file:
         csv_reader = csv.reader(file)
@@ -18,6 +19,7 @@ def fetchState():
 def fetchLandmarks():
     landmarks = []
     current_group = []  # Initialize an empty list to store the current group of 3 landmarks
+    print("Fetch lm ekf")
     with open('ekf_lmCSV.csv', 'r') as file:
         csv_reader = csv.reader(file, delimiter=',')  # Specify the delimiter as a comma
         for row in csv_reader:
