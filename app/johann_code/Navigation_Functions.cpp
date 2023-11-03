@@ -581,6 +581,7 @@ namespace Navigation_Functions{
         
         vector<vector<GridNode>> gridNew;
         mapConverter(gridMap, gridNew);
+        cout<<"GridMap size = "<<gridNew.size();
         vector<GridNode*> path  = bfs(gridNew,start,goal);
 
         if(path.empty()) {
