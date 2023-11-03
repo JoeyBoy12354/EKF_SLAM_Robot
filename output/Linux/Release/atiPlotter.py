@@ -185,7 +185,7 @@ def RMSEfull(trueArray,estArray):
 
 def cppRun():
     # Replace './johann_code' with the actual path to your C++ program.
-    cpp_program = './johann_code'
+    cpp_program = 'sudo ./johann_code'
 
     # Run the C++ program
     try:
