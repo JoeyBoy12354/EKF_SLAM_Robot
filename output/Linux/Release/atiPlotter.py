@@ -114,6 +114,9 @@ def calculateRMSE():
     print(trueX)
     print()
     print(myX)
+    print()
+    print(len(trueX))
+    print(len(myX))
 
     for i in range(0,len(trueX)):
         rmse_x.append(np.sqrt((trueX[i][0] - myX[i][0])**2))
