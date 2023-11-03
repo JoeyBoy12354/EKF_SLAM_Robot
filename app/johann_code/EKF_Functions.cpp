@@ -34,8 +34,8 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     // float test_sigma_odo_y = 0.5;
     // float test_sigma_odo_theta = 30*PI/180;
 
-    float test_sigma_r = 0.3;
-    float test_sigma_theta = 0.3;
+    float test_sigma_r = 0.35;
+    float test_sigma_theta = 0.35;
     
     float test_sigma_odo_x = 0.5;
     float test_sigma_odo_y = 0.5;
