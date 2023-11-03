@@ -209,6 +209,6 @@ def monteCarlo(runs):
 # newCustomPlot()
 # calculateRMSE()
 
-monteCarlo(5)
+monteCarlo(3)
 
 
