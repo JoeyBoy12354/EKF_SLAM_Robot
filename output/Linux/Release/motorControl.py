@@ -715,15 +715,15 @@ print("MC started")
 # timeOffL=0.0029
 # timeOffR=0.002
 
-# timeOnL=0.008
-# timeOnR=0.00777
-# timeOffL=0.002
-# timeOffR=0.00223
-
 timeOnL=0.008
-timeOnR=0.006
+timeOnR=0.00777
 timeOffL=0.002
-timeOffR=0.004
+timeOffR=0.00223
+
+# timeOnL=0.008
+# timeOnR=0.006
+# timeOffL=0.002
+# timeOffR=0.004
 
 #testDistances()
 #testAngles()
