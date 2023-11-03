@@ -41,8 +41,8 @@ using namespace sl;
 #define dim 2*N+3//Initial Dimension of Matrices in EKF
 #define PI 3.14159265358979323846 
 
-#define grid_ystep 200
-#define grid_xstep 200
+#define grid_ystep 300
+#define grid_xstep 300
 
 struct PolPoint {
     double angle;
