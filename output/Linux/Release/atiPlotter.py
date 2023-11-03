@@ -83,7 +83,7 @@ def newCustomPlot():
     # Scatter plot for atiLM
     for lm in myLM:
         lm = list(zip(*lm))  # Transpose each set of landmarks
-        plt.scatter(lm[0], lm[1],c='yellow' ,marker='x')
+        plt.scatter(lm[0], lm[1],c='green' ,marker='x')
 
 
     # plot for trueX
@@ -96,7 +96,7 @@ def newCustomPlot():
 
 
     # Scatter plot for trueX
-    trueX = list(zip(*trueX))  # Transpose trueX for plotting
+    odo = list(zip(*odoX))  # Transpose trueX for plotting
     plt.plot(odo[0], odo[1], c='k', label='odo')
 
     plt.legend()
