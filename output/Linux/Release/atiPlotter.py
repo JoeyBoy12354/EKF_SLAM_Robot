@@ -2,6 +2,7 @@ import csv
 import matplotlib.pyplot as plt
 import numpy as np
 import subprocess
+import ati
 
 def fetchState():
     state = []
@@ -117,23 +118,63 @@ def calculateRMSE():
         rmse_y.append(np.sqrt((trueX[i+1][1] - myX[i][1])**2))
         x_axis.append(i)
 
+    
+
+    # # Create two subplots on the same figure
+    # plt.figure(figsize=(10, 6))
+    
+    # plt.subplot(2, 1, 1)  # 2 rows, 1 column, first plot
+    # plt.plot(x_axis, rmse_x, label='RMSE_x')
+    # plt.xlabel('Time')
+    # plt.ylabel('RMSE_x')
+    # plt.legend()
+
+    # plt.subplot(2, 1, 2)  # 2 rows, 1 column, second plot
+    # plt.plot(x_axis, rmse_y, label='RMSE_y')
+    # plt.xlabel('Time')
+    # plt.ylabel('RMSE_y')
+    # plt.legend()
+
+    # plt.tight_layout()  # Ensures proper spacing between subplots
+    # plt.show()
+
+def RMSEfull(trueArray,estArray):
+    summ_x_array = []
+    summ_y_array = []
+    time_array = []
+    for j in range(0,len(estArray[0])):
+        summ_x = 0
+        summ_y = 0
+        time_array.append(j)
+        for i in range(0,len(estArray)):
+            summ_x += (trueArray[i][j+1][0] - estArray[i][j][0])**2
+            summ_y += (trueArray[i][j+1][0] - estArray[i][j][0])**2
+            
+        summ_x_array.append(sqrt(summ_x)/len(estArray))
+        summ_y_array.append(sqrt(summ_y)/len(estArray))
+
     # Create two subplots on the same figure
     plt.figure(figsize=(10, 6))
     
     plt.subplot(2, 1, 1)  # 2 rows, 1 column, first plot
-    plt.plot(x_axis, rmse_x, label='RMSE_x')
+    plt.plot(time_array, summ_x_array, label='RMSE_x')
     plt.xlabel('Time')
     plt.ylabel('RMSE_x')
     plt.legend()
 
     plt.subplot(2, 1, 2)  # 2 rows, 1 column, second plot
-    plt.plot(x_axis, rmse_y, label='RMSE_y')
+    plt.plot(time_array, summ_y_array, label='RMSE_y')
     plt.xlabel('Time')
     plt.ylabel('RMSE_y')
     plt.legend()
 
     plt.tight_layout()  # Ensures proper spacing between subplots
     plt.show()
+
+
+
+
+
 
 def cppRun():
     # Replace './johann_code' with the actual path to your C++ program.
@@ -147,8 +188,27 @@ def cppRun():
     else:
         print("C++ program has been executed successfully.")
 
-cppRun()
+
+def monteCarlo(runs):
+    trueArray = []
+    estArray = []
+    for i in range(0,runs):
+        ati.main()
+        cppRun()
+        trueArray.append(fetchTrueState())
+        estArray.append(fetchState())
+
+    RMSEfull(trueArray,estArray)
+
+    
+
+
+
+
+#cppRun()
 # newCustomPlot()
 # calculateRMSE()
+
+monteCarlo(5)
 
 

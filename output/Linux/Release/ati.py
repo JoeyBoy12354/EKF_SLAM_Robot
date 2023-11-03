@@ -32,7 +32,7 @@ M_DIST_TH = 100.0  # Threshold of Mahalanobis distance for data association.
 STATE_SIZE = 3  # State size [x,y,yaw]
 LM_SIZE = 2  # LM state size [x,y]
 
-show_animation = True
+show_animation = False
 
 
 def ekf_slam(xEst, PEst, u, z):
@@ -633,9 +633,9 @@ def main():
 
     
 
-    plotCustom(my_lm,my_state,atsi_state,atsi_lm,true_state,true_lm,all_time)
+    #plotCustom(my_lm,my_state,atsi_state,atsi_lm,true_state,true_lm,all_time)
 
 
-main()
+#main()
 # if __name__ == '__main__':
 #     main()
