@@ -1088,14 +1088,16 @@ int main() {
     //cout<<"Started in Main"<<endl;
     
     //testPython();
+
     //testLM();
+
     //testMotor();
     
     //testLidar();
 
     //testRun();
 
-    testRANSACallMaps();
+    //testRANSACallMaps();
     
 
     //simRun3();
@@ -1103,7 +1105,7 @@ int main() {
     //testLidarLandmark();
     //simRun5();
     
-    //atSim();
+    atSim();
 
     //testRun();
 
