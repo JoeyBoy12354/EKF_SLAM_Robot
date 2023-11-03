@@ -138,6 +138,7 @@ def observation(xTrue, xd, u, RFID):
 
     print("u[0] = u[0] + noise ",u[0, 0]," = ",u_prenoise[0]," + ",R_sim[0, 0] ** 0.5)
     print("u[1] = u[1] + noise ",u[1, 0]," = ",u_prenoise[1]," + ",R_sim[1, 1] ** 0.5)
+    print()
 
     xd = motion_model(xd, ud)
     return xTrue, z, xd, ud
@@ -624,10 +625,10 @@ def main():
     write_ati_odo_csv(hxDR[0, :],hxDR[1, :])
     write_ati_lm_true_csv(RFID[:, 0], RFID[:, 1])
 
-    print("hxTrue")
-    print(hxTrue)
-    print(hxTrue[0, :])
-    print(hxTrue[1, :])
+    # print("hxTrue")
+    # print(hxTrue)
+    # print(hxTrue[0, :])
+    # print(hxTrue[1, :])
 
 
 
