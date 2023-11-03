@@ -202,7 +202,7 @@ def motorControl_wThread(theta,distance):
     # theta = -math.pi/2
     # LNoRot,RNoRot  = speedControl(theta,0,True)
 
-    angle = getAngle(LNoRot,RNoRot)
+    angle = getAngle(LNoRot,RNoRot,theta)
 
     time.sleep(0.6)
 
@@ -399,17 +399,22 @@ def speedSensor(NoTicks):
 
     return left,right
 
-def getAngle(LNoRot,RNoRot):
+def getAngle(LNoRot,RNoRot,theta):
     #Determine actual angle
     thetaL = (LNoRot*2*math.pi*r/R)
     thetaR = (RNoRot*2*math.pi*r/R)
 
     print("ThetaL = ",-1*thetaL*180/math.pi,"ThetaR = ",thetaR*180/math.pi)
     #Assumme the other wheel picking up roations is shaking
-    if(thetaL>thetaR):
+    if(theta<0):
         return -1*thetaL
     else:
         return thetaR
+    
+    # if(thetaL>thetaR):
+    #     return -1*thetaL
+    # else:
+    #     return thetaR
 
 def getAngleDifference(LNoRot,RNoRot,angle):
     print("Get diff for = ",abs(LNoRot - RNoRot))
