@@ -262,7 +262,7 @@ void ExtendedKalmanFilter::isNewLandmark2(){
 
     if(minDistanceVectorIndex == NoLandmarksFound){
         //This is a new Landmark
-        cout<<"New LM = "<<ObservedLandmark<<" @"<<smallestDistance<<endl;
+        //cout<<"New LM = "<<ObservedLandmark<<" @"<<smallestDistance<<endl;
         
         //Calculate landmark position (why do this? We do this cause z has not yet been shifted)
         EstimatedLandmark.x = State(0) + z(0)*cos(z(1) + State(2));
@@ -285,8 +285,8 @@ void ExtendedKalmanFilter::isNewLandmark2(){
 
     }else{
         //This is a found landmark
-        cout<<"Found Obs = "<<ObservedLandmark<<" Stored =  ("<<State(smallestDistanceIndex)<<", "
-        <<State(smallestDistanceIndex+1)<<")"<<" @"<<smallestDistance<<endl;
+        //cout<<"Found Obs = "<<ObservedLandmark<<" Stored =  ("<<State(smallestDistanceIndex)<<", "
+        //<<State(smallestDistanceIndex+1)<<")"<<" @"<<smallestDistance<<endl;
 
         EstimatedLandmark.x = State(smallestDistanceIndex);
         EstimatedLandmark.y = State(smallestDistanceIndex+1);
@@ -394,7 +394,7 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     delta_z(1) = pi_2_pi(delta_z(1));
     State = State + Gain*(delta_z);
 
-    cout<<"EKF: after_ekf State: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
+    //cout<<"EKF: after_ekf State: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
     }
 
 // Update Covariance Matrix with new landmark
@@ -453,7 +453,7 @@ void ExtendedKalmanFilter::runEKF() {
     }
     //cout<<"Prior "<<State(2)*180/PI<<endl;
     State(2) = pi_2_pi(State(2));
-    cout<<"Motion Noise = \n"<<Motion_Noise<<endl;
+    cout<<"Motion Noise = "<<Motion_Noise(0,0)<<" ,"<<Motion_Noise(1,1)<<" ,"<<Motion_Noise(2,2)<<endl;
     cout<<"Obs Noise = \n"<<Coordinate_Uncertainty<<endl;
     //cout<<"Prior "<<State(2)*180/PI<<endl;
 }

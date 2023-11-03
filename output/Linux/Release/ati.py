@@ -124,9 +124,9 @@ def observation(xTrue, xd, u, RFID):
         if d <= MAX_RANGE:
             #print("dn = d + noise = ",dn," = ",d," + ",np.random.randn() * Q_sim[0, 0] ** 0.5)
             dn = d + np.random.randn() * Q_sim[0, 0] ** 0.5  # add noise
-            print("dn = d + noise = ",dn," = ",d," + ",np.random.randn() * Q_sim[0, 0] ** 0.5)
+            #print("dn = d + noise = ",dn," = ",d," + ",np.random.randn() * Q_sim[0, 0] ** 0.5)
             angle_n = angle + np.random.randn() * Q_sim[1, 1] ** 0.5  # add noise
-            print("anglen = angle + noise = ",angle_n*180/np.pi," = ",angle*180/np.pi," + ",(np.random.randn() * Q_sim[1, 1] ** 0.5)*180/np.pi)
+            #print("anglen = angle + noise = ",angle_n*180/np.pi," = ",angle*180/np.pi," + ",(np.random.randn() * Q_sim[1, 1] ** 0.5)*180/np.pi)
             zi = np.array([dn, angle_n, i])
             z = np.vstack((z, zi))
 
@@ -136,9 +136,9 @@ def observation(xTrue, xd, u, RFID):
         u[0, 0] + np.random.randn() * R_sim[0, 0] ** 0.5,
         u[1, 0] + np.random.randn() * R_sim[1, 1] ** 0.5]]).T
 
-    print("u[0] = u[0] + noise ",u[0, 0]," = ",u_prenoise[0]," + ",R_sim[0, 0] ** 0.5)
-    print("u[1] = u[1] + noise ",u[1, 0]," = ",u_prenoise[1]," + ",R_sim[1, 1] ** 0.5)
-    print()
+    # print("u[0] = u[0] + noise ",u[0, 0]," = ",u_prenoise[0]," + ",R_sim[0, 0] ** 0.5)
+    # print("u[1] = u[1] + noise ",u[1, 0]," = ",u_prenoise[1]," + ",R_sim[1, 1] ** 0.5)
+    # print()
 
     xd = motion_model(xd, ud)
     return xTrue, z, xd, ud
