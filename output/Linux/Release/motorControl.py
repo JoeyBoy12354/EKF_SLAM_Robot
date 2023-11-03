@@ -224,7 +224,7 @@ def motorControl_wThread(theta,distance):
 
 
     #print("MC measured dist = ",dist)
-    print("MC measured angle = ",angle*180/math.pi)
+    print("MC measured angle x = ",angle*180/math.pi)
 
     
 
