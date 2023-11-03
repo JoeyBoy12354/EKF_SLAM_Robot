@@ -297,6 +297,7 @@ def write_lm_csv2(lm,filename = 'atsi_lmCSV.csv'):
 
 def write_ati_odo_csv(hox,hoy,filename = 'atsi_odoCSV.csv'):
     #print("atsi_u")
+    print("hox = ",hox)
     with open(filename, mode='w', newline='') as file:
         writer = csv.writer(file)
         for i in range(0,len(hox)):
@@ -539,8 +540,8 @@ def main():
     write_u_csv(all_u)
     write_lm_csv2(all_lm)
 
-    write_ati_odo_csv(hxTrue[0:],hxTrue[1:])
-    write_ati_path_csv(hxDR[0:],hxDR[1:])
+    write_ati_odo_csv(hxTrue[0, :],hxTrue[1, :])
+    write_ati_path_csv(hxDR[0, :],hxDR[1, :])
     write_ati_lm_true_csv(RFID[:, 0], RFID[:, 1])
 
     print("hxTrue")
