@@ -542,6 +542,8 @@ def main():
 
     print("hxTrue")
     print(hxTrue)
+    print(hxTrue[0, :])
+    print(hxTrue[1, :])
 
 
 
