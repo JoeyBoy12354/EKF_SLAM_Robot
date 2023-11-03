@@ -74,6 +74,9 @@ def newCustomPlot():
     odo = fetchOdo()
 
 
+    print(trueLM)
+
+
     # Scatter plot for myX
     myX = list(zip(*myX))  # Transpose myX for plotting
     plt.plot(myX[0], myX[1], c='orange', label='myX')
