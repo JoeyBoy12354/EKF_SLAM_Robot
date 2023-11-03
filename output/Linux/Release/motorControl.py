@@ -733,7 +733,7 @@ angle,distance = readInstructions()
 # print("MC: time Left = ",timeOnL,"s ",timeOffL,"s")
 # print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
 
-angle = math.pi/2
+angle = -1*math.pi/2
 distance = 400
 
 
