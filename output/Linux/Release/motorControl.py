@@ -212,11 +212,13 @@ def motorControl_wThread(theta,distance):
     left,right = speedControl(0,distance,True)
     dist = getDist(left,right)
     angle_diff = getAngleDifference(left,right)
+    
     # print("MC: Straight angle_diff = ",angle_diff* 180/(math.pi))
     # print("MC: Old angle = ",angle*180/(math.pi))
     #angle = angle + angle_diff #Only sum angle diff cause the angleDiff function will return positive or negative
 
-    print("MC measured dist = ",dist)
+    #print("MC measured dist = ",dist)
+    print("MC measured angle = ",angle)
 
     
     
@@ -547,63 +549,20 @@ def readState():
 #TEST CODE 
 def testAngles():
     print("MC: BEGIN TESTING ANGLES")
+    print("Cali Left = ",timeOnL," ",timeOffL)
+    print("Cali Right = ",timeOnR," ",timeOffR)
 
-    angles = [math.pi/8,math.pi/4,math.pi/2,math.pi]
-    angles = angles + angles
-    waitTime = 6 #In seconds
+    angles = [90,-90] #mm
+    waitTime = 4 #In seconds
 
-    LNoRot=0
-    RNoRot=0
-
-    measAngle_F = 0
-    measAngle_R = 0
     
     for i in range(0,len(angles)):
-        if(i>=len(angles)/2):
-            theta = angles[i]
-        else:
-            theta = -1*angles[i]
-
-        #Left Turn
-        if(theta>0):
-            print("MC: forward Turn Left")
-            LNoRot,RNoRot = turnLeft(theta)
-            measAngle_F = (RNoRot*2*math.pi*r/R)
-    
-        #Right Turn
-        elif(theta<0):
-            print("MC: forward Turn Right")
-            LNoRot,RNoRot = turnRight(theta)
-            measAngle_F = (LNoRot*2*math.pi*r/R)
-
-        #measAngle_F = getAngle(LNoRot,RNoRot)
-        print("MC: measAngle_F = ",measAngle_F)
-        time.sleep(waitTime)
+        motorControl_wThread(angles[i]*np.pi/180,0)
         
-
-        #Return to position
-        #Left Turn
-        if(theta>0):
-            print("MC: reverse turn Left")
-            LNoRot,RNoRot = turnLeftR(theta)
-            measAngle_R = (RNoRot*2*math.pi*r/R)
-        #Right Turn
-        elif(theta<0):
-            print("MC: reverse turn Right")
-            LNoRot,RNoRot = turnRightR(theta)
-            measAngle_R = (LNoRot*2*math.pi*r/R)
-
-        #measAngle_R = getAngle(LNoRot,RNoRot)
-        print("MC: measAngle_R = ",measAngle_R)
-        time.sleep(waitTime)
-
         #Print Results
-        if(theta>0):
-            print("MC: Left Turn: Set:",round(theta*180/math.pi,2)," Angle_F:",round(measAngle_F*180/math.pi,2),", Angle_R:",round(measAngle_R*180/math.pi,2),"\n")
-        elif(theta<0):
-            print("MC: Right Turn: Set:",round(theta*180/math.pi,2)," Angle_F:",round(measAngle_F*180/math.pi,2),", Angle_R:",round(measAngle_R*180/math.pi,2),"\n")
-
-        time.sleep(waitTime)
+        #print("MC: Set:",round(distances[i])," Dist_F:",round(dist_F,2))
+        print("Please give input")
+        input()
 
 def testDistances():
     print("MC: BEGIN TESTING DISTANCES")
@@ -738,20 +697,20 @@ timeOffR=0.002
 #testDistances()
 
 
-##Actual code to do things
-if(readState() == True):
-    motorCalibrate()
-else:
-    angle,distance = readInstructions()
-    timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
-    # print("MC: time Left = ",timeOnL,"s ",timeOffL,"s")
-    # print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
+# ##Actual code to do things
+# if(readState() == True):
+#     motorCalibrate()
+# else:
+#     angle,distance = readInstructions()
+#     timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
+#     # print("MC: time Left = ",timeOnL,"s ",timeOffL,"s")
+#     # print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
 
 
-    angle,distance = motorControl_wThread(angle,distance)
-    print("MC: Angle turned = ",angle*180/math.pi)
-    print("MC: distance moved = ",distance)
-    writeOdometry(angle,distance)
+#     angle,distance = motorControl_wThread(angle,distance)
+#     print("MC: Angle turned = ",angle*180/math.pi)
+#     print("MC: distance moved = ",distance)
+#     writeOdometry(angle,distance)
 
 
 
