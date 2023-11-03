@@ -885,6 +885,7 @@ void testRun(){
         lidarDataPoints.clear();
 
         string s; 
+        cout<<"please enter something: ";
         cin>>s;
     }
 
