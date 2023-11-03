@@ -126,6 +126,7 @@ def observation(xTrue, xd, u, RFID):
             dn = d + np.random.randn() * Q_sim[0, 0] ** 0.5  # add noise
             print("dn = d + noise = ",dn," = ",d," + ",np.random.randn() * Q_sim[0, 0] ** 0.5)
             angle_n = angle + np.random.randn() * Q_sim[1, 1] ** 0.5  # add noise
+            print("anglen = angle + noise = ",angle_n," = ",angle," + ",np.random.randn() * Q_sim[1, 1] ** 0.5)
             zi = np.array([dn, angle_n, i])
             z = np.vstack((z, zi))
 
