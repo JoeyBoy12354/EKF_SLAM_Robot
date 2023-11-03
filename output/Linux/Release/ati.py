@@ -15,7 +15,7 @@ import numpy as np
 Cx = np.diag([0.5, 0.5, np.deg2rad(30.0)]) ** 2
 
 #  Simulation parameter
-Q_sim = np.diag([10, np.deg2rad(1.0)]) ** 2
+Q_sim = np.diag([10, np.deg2rad(4.0)]) ** 2
 R_sim = np.diag([1.7, np.deg2rad(5.0)]) ** 2
 
 #Q_sim = np.diag([0.05, np.deg2rad(0.5)]) ** 2
@@ -307,7 +307,6 @@ def write_lm_csv2(lm,filename = 'atsi_lmCSV.csv'):
 
 def write_ati_odo_csv(hox,hoy,filename = 'atsi_odoCSV.csv'):
     #print("atsi_u")
-    print("hox = ",hox)
     with open(filename, mode='w', newline='') as file:
         writer = csv.writer(file)
         for i in range(0,len(hox)):
