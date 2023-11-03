@@ -104,5 +104,35 @@ def newCustomPlot():
     plt.grid(True)
     plt.show()
 
+def calculateRMSE():
+    trueX = fetchTrueState()
+    myX = fetchState()
+    x_axis = []
+    rmse_x = []
+
+    for i in range(0,len(trueX)):
+        rmse_x.append(np.sqrt((trueX[i][0] - myX[i][0])**2))
+        rmse_y.append(np.sqrt((trueX[i][1] - myX[i][1])**2))
+        x_axis.append(i)
+
+    # Create two subplots on the same figure
+    plt.figure(figsize=(10, 6))
+    
+    plt.subplot(2, 1, 1)  # 2 rows, 1 column, first plot
+    plt.plot(x_axis, rmse_x, label='RMSE_x')
+    plt.xlabel('Time')
+    plt.ylabel('RMSE_x')
+    plt.legend()
+
+    plt.subplot(2, 1, 2)  # 2 rows, 1 column, second plot
+    plt.plot(x_axis, rmse_y, label='RMSE_y')
+    plt.xlabel('Time')
+    plt.ylabel('RMSE_y')
+    plt.legend()
+
+    plt.tight_layout()  # Ensures proper spacing between subplots
+    plt.show()
+
+
 
 newCustomPlot()
