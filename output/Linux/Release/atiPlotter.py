@@ -165,13 +165,13 @@ def RMSEfull(trueArray,estArray):
     
     plt.subplot(2, 1, 1)  # 2 rows, 1 column, first plot
     plt.title("RMSE of X-axis")
-    plt.plot(time_array, summ_x_array, label='RMSE_x')
+    plt.plot(time_array, summ_x_array, label='RMSE_x',c="r")
     plt.xlabel('Time')
     plt.ylabel('RMSE [mm]')
 
     plt.subplot(2, 1, 2)  # 2 rows, 1 column, second plot
     plt.title("RMSE of Y-axis")
-    plt.plot(time_array, summ_y_array, label='RMSE_y')
+    plt.plot(time_array, summ_y_array, label='RMSE_y',c="b")
     plt.xlabel('Time')
     plt.ylabel('RMSE [mm]')
 
