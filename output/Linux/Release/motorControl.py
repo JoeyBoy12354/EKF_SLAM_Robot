@@ -557,7 +557,7 @@ def testAngles():
 
     
     for i in range(0,len(angles)):
-        motorControl_wThread(angles[i]*np.pi/180,0)
+        motorControl_wThread(angles[i]*math.pi/180,0)
         
         #Print Results
         #print("MC: Set:",round(distances[i])," Dist_F:",round(dist_F,2))
