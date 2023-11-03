@@ -454,5 +454,6 @@ void ExtendedKalmanFilter::runEKF() {
     //cout<<"Prior "<<State(2)*180/PI<<endl;
     State(2) = pi_2_pi(State(2));
     cout<<"Motion Noise = \n"<<Motion_Noise<<endl;
+    cout<<"Obs Noise = \n"<<Coordinate_Uncertainty<<endl;
     //cout<<"Prior "<<State(2)*180/PI<<endl;
 }
