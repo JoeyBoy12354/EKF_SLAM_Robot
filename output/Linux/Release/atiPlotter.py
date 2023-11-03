@@ -164,16 +164,16 @@ def RMSEfull(trueArray,estArray):
     plt.figure(figsize=(10, 6))
     
     plt.subplot(2, 1, 1)  # 2 rows, 1 column, first plot
+    plt.title("RMSE of X-axis")
     plt.plot(time_array, summ_x_array, label='RMSE_x')
     plt.xlabel('Time')
-    plt.ylabel('RMSE_x')
-    plt.legend()
+    plt.ylabel('RMSE [mm]')
 
     plt.subplot(2, 1, 2)  # 2 rows, 1 column, second plot
+    plt.title("RMSE of Y-axis")
     plt.plot(time_array, summ_y_array, label='RMSE_y')
     plt.xlabel('Time')
-    plt.ylabel('RMSE_y')
-    plt.legend()
+    plt.ylabel('RMSE [mm]')
 
     plt.tight_layout()  # Ensures proper spacing between subplots
     plt.show()
@@ -216,6 +216,6 @@ def monteCarlo(runs):
 # newCustomPlot()
 # calculateRMSE()
 
-monteCarlo(10)
+monteCarlo(20)
 
 
