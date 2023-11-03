@@ -73,8 +73,6 @@ def newCustomPlot():
     trueLM = fetchTrueLM()
     odo = fetchOdo()
 
-    print(odo)
-
 
     # plot for myX
     myX = list(zip(*myX))  # Transpose myX for plotting

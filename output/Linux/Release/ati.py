@@ -611,8 +611,8 @@ def main():
     write_u_csv(all_u)
     write_lm_csv2(all_lm)
 
-    write_ati_odo_csv(hxTrue[0, :],hxTrue[1, :])
-    write_ati_path_csv(hxDR[0, :],hxDR[1, :])
+    write_ati_path_csv(hxTrue[0, :],hxTrue[1, :])
+    write_ati_odo_csv(hxDR[0, :],hxDR[1, :])
     write_ati_lm_true_csv(RFID[:, 0], RFID[:, 1])
 
     print("hxTrue")
