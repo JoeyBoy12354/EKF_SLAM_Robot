@@ -103,6 +103,9 @@ def avoidanceTurn(angle):
         else:
             reverseTotal = turnableDistance-leftSonarDist
 
+        print("For safety add 30 to reverseTotal")
+        reverseTotal = reverseTotal +30
+
         left,right = speedControl(0,reverseTotal,False)
         dist = getDist(left,right)
         print("Avoidance reverse for: ",reverseTotal,"mm True value = ",dist,"mm")
@@ -120,13 +123,13 @@ def avoidanceForward(distance):
         print("AVOIDANCE FORWARD left or right or both are too close to obstacle; LEFT = ",leftSonarDist," RIGHT = ",rightSonarDist)
         time.sleep(5)
         if(rightSonarDist>leftSonarDist):
-            shortenedDist = distance - turnableDistance + (leftSonarDist - distance) - 15
+            shortenedDist = distance - turnableDistance + (leftSonarDist - distance) - 30
         
         elif(leftSonarDist>rightSonarDist):
-            shortenedDist = distance - turnableDistance + (rightSonarDist - distance) - 15
+            shortenedDist = distance - turnableDistance + (rightSonarDist - distance) - 30
         
         else:
-            shortenedDist = distance - turnableDistance + (rightSonarDist - distance) - 15
+            shortenedDist = distance - turnableDistance + (rightSonarDist - distance) - 30
 
         print("Avoidance forward changed from ",distance," to ",shortenedDist)
 
