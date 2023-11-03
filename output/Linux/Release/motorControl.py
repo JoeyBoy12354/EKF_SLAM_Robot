@@ -700,9 +700,9 @@ print("MC started")
 # timeOffR=0.002
 
 timeOnL=0.008
-timeOnR=0.0077 
+timeOnR=0.007
 timeOffL=0.002
-timeOffR=0.0003
+timeOffR=0.003
 
 
 #testDistances()
