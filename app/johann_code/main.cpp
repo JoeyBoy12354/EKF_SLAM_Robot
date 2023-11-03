@@ -883,6 +883,9 @@ void testRun(){
             cout<<"MAIN: No Scan Fetched"<<endl;
         }
         lidarDataPoints.clear();
+
+        string s; 
+        cin>>s;
     }
 
     ekf.distance = 0;
