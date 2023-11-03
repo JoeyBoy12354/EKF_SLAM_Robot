@@ -587,12 +587,12 @@ namespace CSV_Functions{
 
     void atsi_u_write(vector<vector<float>>& input) {
 
-        cout<<"Atsi Write"<<endl;
+        cout<<"Atsi_u_Write in cpp "<<endl;
         ofstream outputFile(ekf_atsi_u_CSV);  // Open the file in truncation mode to clear its contents
-        // if (!outputFile.is_open()) {
-        //     cerr << "Error opening the file: " << ekf_atsi_u_CSV<< endl;
-        //     return;
-        // }
+        if (!outputFile.is_open()) {
+            cerr << "Error opening the file: " << ekf_atsi_u_CSV<< " - " << strerror(errno) << endl;
+            return;
+        }
 
         // Write the data to the CSV file
         for (int i=0;i<input.size();i++) {
@@ -610,7 +610,7 @@ namespace CSV_Functions{
     void atsi_lm_write(vector<vector<float>>& lm) {
         ofstream outputFile(ekf_atsi_lm_CSV);  // Open the file in truncation mode to clear its contents
         if (!outputFile.is_open()) {
-            cerr << "Error opening the file: " << ekf_atsi_lm_CSV<< endl;
+            cerr << "Error opening the file: " << ekf_atsi_lm_CSV<< " - " << strerror(errno) << endl;
             return;
         }
 

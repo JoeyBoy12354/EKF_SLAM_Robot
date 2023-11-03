@@ -14,6 +14,7 @@ def fetchState():
             y = float(row[1])
             state.append([x,y])
 
+
     return state
 
 def fetchLandmarks():
@@ -215,6 +216,6 @@ def monteCarlo(runs):
 # newCustomPlot()
 # calculateRMSE()
 
-monteCarlo(10)
+monteCarlo(2)
 
 
