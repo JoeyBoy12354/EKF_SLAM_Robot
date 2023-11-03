@@ -92,11 +92,11 @@ def newCustomPlot():
 
     # Scatter plot for trueLM
     for lm in trueLM:
-        plt.scatter(lm[0], lm[1], marker='*',c="k", label='trueLM')
+        plt.scatter(lm[0], lm[1], marker='*',c="k")
 
 
     # Scatter plot for trueX
-    odo = list(zip(*odoX))  # Transpose trueX for plotting
+    odo = list(zip(*odo))  # Transpose trueX for plotting
     plt.plot(odo[0], odo[1], c='k', label='odo')
 
     plt.legend()
