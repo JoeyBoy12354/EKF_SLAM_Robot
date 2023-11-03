@@ -142,6 +142,7 @@ def RMSEfull(trueArray,estArray):
     print("RMSE")
     print(len(trueArray))
     print(len(estArray))
+    print(len(estArray[0]))
     summ_x_array = []
     summ_y_array = []
     time_array = []
