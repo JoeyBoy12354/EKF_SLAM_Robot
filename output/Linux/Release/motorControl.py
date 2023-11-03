@@ -733,8 +733,8 @@ angle,distance = readInstructions()
 # print("MC: time Left = ",timeOnL,"s ",timeOffL,"s")
 # print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
 
-angle = -1*math.pi/2
-distance = 400
+# angle = -1*math.pi/2
+# distance = 400
 
 
 angle,distance = motorControl_wThread(angle,distance)
