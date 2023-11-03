@@ -136,3 +136,4 @@ def calculateRMSE():
 
 
 newCustomPlot()
+calculateRMSE()
