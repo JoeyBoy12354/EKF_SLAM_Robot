@@ -93,7 +93,7 @@ def newCustomPlot():
 
     # Scatter plot for trueLM
     for lm in trueLM:
-        plt.scatter(lm[0], lm[1], marker='*',,c="k" label='trueLM')
+        plt.scatter(lm[0], lm[1], marker='*',c="k", label='trueLM')
 
 
     # Scatter plot for trueX
