@@ -210,11 +210,8 @@ def motorControl_wThread(theta,distance):
     distance = avoidanceForward(distance)
     print("MC GO FORWARD FOR: ",distance)
     left,right = speedControl(0,distance,True)
-    dist = getDist(left,right)
-    angle_diff = getAngleDifference(left,right)
-
-    print("MC: Straight angle_diff = ",angle_diff* 180/(math.pi))
-    print("MC: Possible angle = ",(angle - angle_diff)* 180/(math.pi))
+    dist = getDist(left,right)    
+    print("MC: Possible angle = ", getAngleDifference(left,right,angle)* 180/(math.pi))
     # print("MC: Old angle = ",angle*180/(math.pi))
     #angle = angle + angle_diff #Only sum angle diff cause the angleDiff function will return positive or negative
 
@@ -412,12 +409,18 @@ def getAngle(LNoRot,RNoRot):
     else:
         return thetaR
 
-def getAngleDifference(LNoRot,RNoRot):
+def getAngleDifference(LNoRot,RNoRot,angle):
     #Determine actual angle
     thetaL = (LNoRot*2*math.pi*r/R)
     thetaR = (RNoRot*2*math.pi*r/R)
 
-    return thetaL-thetaR
+    diff = thetaL-thetaR
+    print("MC: Straight angle_diff = ",diff* 180/(math.pi))
+    #-90
+
+    angle = angle + diff
+
+    return angle
 
 def getDist(LNoRot,RNoRot):
     #Determine actual distance
