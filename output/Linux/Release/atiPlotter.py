@@ -148,7 +148,7 @@ def RMSEfull(trueArray,estArray):
         time_array.append(j)
         for i in range(0,len(estArray)):
             summ_x += (trueArray[i][j+1][0] - estArray[i][j][0])**2
-            summ_y += (trueArray[i][j+1][0] - estArray[i][j][0])**2
+            summ_y += (trueArray[i][j+1][1] - estArray[i][j][1])**2
             
         summ_x_array.append(np.sqrt(summ_x)/len(estArray))
         summ_y_array.append(np.sqrt(summ_y)/len(estArray))
