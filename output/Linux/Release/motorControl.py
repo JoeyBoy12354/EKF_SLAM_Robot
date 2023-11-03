@@ -418,6 +418,9 @@ def getAngleDifference(LNoRot,RNoRot,angle):
     print("MC: Straight angle_diff = ",diff* 180/(math.pi))
     #-90
 
+    #if(thetaL>thetaR):
+
+
     angle = angle + diff
 
     return angle
