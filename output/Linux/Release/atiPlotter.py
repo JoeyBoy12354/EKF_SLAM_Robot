@@ -103,9 +103,9 @@ def newCustomPlot():
     plt.plot(odo[0], odo[1], c='k', label='Odometry')
 
     plt.legend()
-    plt.title(f"Custom Plot")
-    plt.xlabel("X-coordinate")
-    plt.ylabel("Y-coordinate")
+    plt.title(f"Simulation Plot")
+    plt.xlabel("Distance [mm]")
+    plt.ylabel("Distance [mm]")
     plt.grid(True)
     plt.show()
 
