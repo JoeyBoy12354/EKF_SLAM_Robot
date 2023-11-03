@@ -695,23 +695,23 @@ timeOffL=0.0029
 timeOffR=0.002
 
 #testDistances()
-testAngles()
+#testAngles()
 
 
 # ##Actual code to do things
-# if(readState() == True):
-#     motorCalibrate()
-# else:
-#     angle,distance = readInstructions()
-#     timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
-#     # print("MC: time Left = ",timeOnL,"s ",timeOffL,"s")
-#     # print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
+if(readState() == True):
+    motorCalibrate()
+else:
+    angle,distance = readInstructions()
+    timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
+    # print("MC: time Left = ",timeOnL,"s ",timeOffL,"s")
+    # print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
 
 
-#     angle,distance = motorControl_wThread(angle,distance)
-#     print("MC: Angle turned = ",angle*180/math.pi)
-#     print("MC: distance moved = ",distance)
-#     writeOdometry(angle,distance)
+    angle,distance = motorControl_wThread(angle,distance)
+    print("MC: Angle turned = ",angle*180/math.pi)
+    print("MC: distance moved = ",distance)
+    writeOdometry(angle,distance)
 
 
 

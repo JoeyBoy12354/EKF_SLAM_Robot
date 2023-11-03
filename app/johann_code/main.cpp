@@ -862,7 +862,7 @@ void testRun(){
     bool error;
     sl_u32 timeout = 3000;
 
-    calibrateMotors();
+    //calibrateMotors();
 
     initializeLidar(drv,error);
 
@@ -1095,7 +1095,7 @@ int main() {
     
     //testLidar();
 
-    //testRun();
+    testRun();
 
     //testRANSACallMaps();
     
@@ -1105,7 +1105,7 @@ int main() {
     //testLidarLandmark();
     //simRun5();
     
-    atSim();
+    //atSim();
 
     //testRun();
 

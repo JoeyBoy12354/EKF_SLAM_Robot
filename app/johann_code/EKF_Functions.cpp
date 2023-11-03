@@ -96,42 +96,42 @@ void ExtendedKalmanFilter::updateMotion() {
     cout<<"EKF UPDATE MOTION FOR "<<distance<<"mm and "<<w*180/PI<<endl;
 
     //Johann code
-    // CarPoint C = triangularRepositioning(State, w);// Get lidar point with odomotorey angle reading.
+    CarPoint C = triangularRepositioning(State, w);// Get lidar point with odomotorey angle reading.
 
-    // float CAngle = w + State(2);//Get angle from positive x to line between (0,0) and (C.x,C.y)
-    // float Cd_x = distance*cos(CAngle); //DeltaX change from forward movement
-    // float Cd_y = distance*sin(CAngle); //DeltaY change from forward movement
+    float CAngle = w + State(2);//Get angle from positive x to line between (0,0) and (C.x,C.y)
+    float Cd_x = distance*cos(CAngle); //DeltaX change from forward movement
+    float Cd_y = distance*sin(CAngle); //DeltaY change from forward movement
 
-    // CarPoint robot;
-    // robot.x = State(0);
-    // robot.y = State(1);
-    // float dist2 = pointDistance(robot,C);
+    CarPoint robot;
+    robot.x = State(0);
+    robot.y = State(1);
+    float dist2 = pointDistance(robot,C);
 
-    // //I believe this Jacobian's value can be estimated with v = distance/time
-    // //In essecence I think this should be the rate of change but yeah they cakculated it originally as just the distance in x and y
-    // Motion_Jacobian(0,2) = -(distance+dist2)*sin(State(2));
-    // Motion_Jacobian(1,2) = (distance+dist2)*cos(State(2));
+    //I believe this Jacobian's value can be estimated with v = distance/time
+    //In essecence I think this should be the rate of change but yeah they cakculated it originally as just the distance in x and y
+    Motion_Jacobian(0,2) = -(distance+dist2)*sin(State(2));
+    Motion_Jacobian(1,2) = (distance+dist2)*cos(State(2));
 
-    // //State is now updated with C(x,y) calculated from State when performing triangular repositioning.
-    // //The d_x and d_y from the distance moved forward is then added 
-    // State(0) = C.x + Cd_x;
-    // State(1) = C.y + Cd_y;
-    // State(2) = State(2) + w;//This is added since we are calculating the new state which is the old + change to get the new.
-    // State(2) = pi_2_pi(State(2));
+    //State is now updated with C(x,y) calculated from State when performing triangular repositioning.
+    //The d_x and d_y from the distance moved forward is then added 
+    State(0) = C.x + Cd_x;
+    State(1) = C.y + Cd_y;
+    State(2) = State(2) + w;//This is added since we are calculating the new state which is the old + change to get the new.
+    State(2) = pi_2_pi(State(2));
 
 
     //Atsi sims
-    float theta = State(2);
-    float d_x = distance*cos(theta);
-    float d_y = distance*sin(theta);
-    float d_theta = w; //this might be angular velocity
+    // float theta = State(2);
+    // float d_x = distance*cos(theta);
+    // float d_y = distance*sin(theta);
+    // float d_theta = w; //this might be angular velocity
 
-    Motion_Jacobian(0,2) = -distance*sin(State(2));
-    Motion_Jacobian(1,2) = distance*cos(State(2));
+    // Motion_Jacobian(0,2) = -distance*sin(State(2));
+    // Motion_Jacobian(1,2) = distance*cos(State(2));
 
-    State(0) = State(0) + d_x;
-    State(1) = State(1) + d_y;
-    State(2) = State(2) + d_theta;
+    // State(0) = State(0) + d_x;
+    // State(1) = State(1) + d_y;
+    // State(2) = State(2) + d_theta;
 
 }
 
@@ -232,7 +232,7 @@ float ExtendedKalmanFilter::directDistance(CarPoint StoredPoint){
 void ExtendedKalmanFilter::isNewLandmark2(){
     //double distThresh = 1000;
     //double distThresh = 270;//Was 600
-    double distThresh = 700;//Was 600
+    double distThresh = 390;//Was 600
     //cout<<"In NewLandmark2"<<endl;
 
     vector<double> minDistances;
@@ -394,7 +394,7 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     delta_z(1) = pi_2_pi(delta_z(1));
     State = State + Gain*(delta_z);
 
-    //cout<<"EKF: after_ekf State: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
+    cout<<"EKF: after_ekf State: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
     }
 
 // Update Covariance Matrix with new landmark
@@ -453,7 +453,7 @@ void ExtendedKalmanFilter::runEKF() {
     }
     //cout<<"Prior "<<State(2)*180/PI<<endl;
     State(2) = pi_2_pi(State(2));
-    cout<<"Motion Noise = "<<Motion_Noise(0,0)<<" ,"<<Motion_Noise(1,1)<<" ,"<<Motion_Noise(2,2)<<endl;
-    cout<<"Obs Noise = \n"<<Coordinate_Uncertainty<<endl;
+    //cout<<"Motion Noise = "<<Motion_Noise(0,0)<<" ,"<<Motion_Noise(1,1)<<" ,"<<Motion_Noise(2,2)<<endl;
+    //cout<<"Obs Noise = \n"<<Coordinate_Uncertainty<<endl;
     //cout<<"Prior "<<State(2)*180/PI<<endl;
 }
