@@ -213,9 +213,9 @@ def monteCarlo(runs):
 
 
 #cppRun()
-# newCustomPlot()
+newCustomPlot()
 # calculateRMSE()
 
-monteCarlo(100)
+#monteCarlo(100)
 
 
