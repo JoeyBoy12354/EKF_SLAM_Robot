@@ -841,8 +841,6 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
     
 }
 
-
-
 void testRun(){
     ExtendedKalmanFilter ekf;
     bool mapped = false;
@@ -925,8 +923,8 @@ void testRun(){
     delete drv;
     drv = NULL;
 
-    
 }
+
 
 float RANSACstats(vector<vector<CarPoint>> CornerList, CarPoint TestCorner){
     float dist_avg = 0;

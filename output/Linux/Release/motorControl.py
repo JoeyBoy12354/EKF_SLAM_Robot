@@ -410,18 +410,16 @@ def getAngle(LNoRot,RNoRot):
         return thetaR
 
 def getAngleDifference(LNoRot,RNoRot,angle):
-    #Determine actual angle
-    thetaL = (LNoRot*2*math.pi*r/R)
-    thetaR = (RNoRot*2*math.pi*r/R)
 
-    diff = thetaL-thetaR
-    print("MC: Straight angle_diff = ",diff* 180/(math.pi))
-    #-90
+    if abs(LNoRot - RNoRot) > 1 :
 
-    #if(thetaL>thetaR):
+        if(RNoRot>LNoRot): RNoRot = RNoRot-1
+        else: LNoRot = LNoRot-1
+        
+        diff = (2*math.pi*r/R)*(RNoRot - LNoRot)
+        print("MC: Straight angle_diff = ",diff* 180/(math.pi))
 
-
-    angle = angle + diff
+        angle = angle + diff
 
     return angle
 
