@@ -552,7 +552,7 @@ def testAngles():
     print("Cali Left = ",timeOnL," ",timeOffL)
     print("Cali Right = ",timeOnR," ",timeOffR)
 
-    angles = [90,-90] #mm
+    angles = [180,180] #mm
     waitTime = 4 #In seconds
 
     
