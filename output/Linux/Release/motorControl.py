@@ -696,10 +696,15 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 print("MC started")
 motorCalibrate()
 #timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
-timeOnL=0.0071
-timeOnR=0.008
-timeOffL=0.0029
-timeOffR=0.002
+# timeOnL=0.0071
+# timeOnR=0.008
+# timeOffL=0.0029
+# timeOffR=0.002
+
+timeOnL=0.008
+timeOnR=0.0077728706624605685 
+timeOffL=0.002
+timeOffR=0.0077728706624605685 
 
 #testDistances()
 #testAngles()
