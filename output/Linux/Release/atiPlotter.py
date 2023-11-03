@@ -73,11 +73,10 @@ def newCustomPlot():
     trueLM = fetchTrueLM()
     odo = fetchOdo()
 
+    print(odo)
 
-    print(trueLM)
 
-
-    # Scatter plot for myX
+    # plot for myX
     myX = list(zip(*myX))  # Transpose myX for plotting
     plt.plot(myX[0], myX[1], c='orange', label='myX')
 
@@ -87,9 +86,9 @@ def newCustomPlot():
         plt.scatter(lm[0], lm[1],c='yellow' ,marker='x')
 
 
-    # Scatter plot for trueX
+    # plot for trueX
     trueX = list(zip(*trueX))  # Transpose trueX for plotting
-    plt.scatter(trueX[0], trueX[1], c='blue', label='trueX')
+    plt.plot(trueX[0], trueX[1], c='blue', label='trueX')
 
     # Scatter plot for trueLM
     for lm in trueLM:
@@ -98,7 +97,7 @@ def newCustomPlot():
 
     # Scatter plot for trueX
     trueX = list(zip(*trueX))  # Transpose trueX for plotting
-    plt.scatter(odo[0], odo[1], c='k', label='odo')
+    plt.plot(odo[0], odo[1], c='k', label='odo')
 
     plt.legend()
     plt.title(f"Custom Plot")
