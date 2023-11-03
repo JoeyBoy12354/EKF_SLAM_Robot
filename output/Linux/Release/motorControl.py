@@ -218,7 +218,7 @@ def motorControl_wThread(theta,distance):
     #angle = angle + angle_diff #Only sum angle diff cause the angleDiff function will return positive or negative
 
     if(abs(angle) > abs(theta*2) ):
-        print("MC: !! ANGLE IS WACKED !! Measured = ",angle*180/math.pi)
+        print("\nMC: !! ANGLE IS WACKED !! Measured = ",angle*180/math.pi,"\n")
         angle = theta
 
 
