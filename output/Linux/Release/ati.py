@@ -295,36 +295,35 @@ def write_lm_csv2(lm,filename = 'atsi_lmCSV.csv'):
             writer.writerows(landmarks)
     return
 
-def write_ati_odo_csv(u,filename = 'atsi_odoCSV.csv'):
+def write_ati_odo_csv(hox,hoy,filename = 'atsi_odoCSV.csv'):
     #print("atsi_u")
     with open(filename, mode='w', newline='') as file:
         writer = csv.writer(file)
-        for i in range(0,len(u)):
+        for i in range(0,len(hx)):
         
             # Write the data to the CSV file
-            writer.writerows(u[i])
+            writer.writerows([hox[i],hoy[i]])
     
     return
 
-def write_ati_path_csv(u,filename = 'atsi_pathCSV.csv'):
+def write_ati_path_csv(hx,hy,filename = 'atsi_pathCSV.csv'):
     #print("atsi_u")
     with open(filename, mode='w', newline='') as file:
         writer = csv.writer(file)
-        for i in range(0,len(u)):
+        for i in range(0,len(hx)):
         
             # Write the data to the CSV file
-            writer.writerows(u[i])
+            writer.writerows([hx[i],hy[i]])
     
     return
 
-def write_ati_lm_true_csv(u,filename = 'atsi_lm_trueCSV.csv'):
+def write_ati_lm_true_csv(lm_tx,lm_ty,filename = 'atsi_lm_trueCSV.csv'):
     #print("atsi_u")
     with open(filename, mode='w', newline='') as file:
         writer = csv.writer(file)
-        for i in range(0,len(u)):
-        
+        for i in range(0,len(lm_tx)):
             # Write the data to the CSV file
-            writer.writerows(u[i])
+            writer.writerows([lm_tx[i],lm_ty[i]])
     
     return
 
@@ -539,6 +538,10 @@ def main():
     all_u = np.array(all_u)
     write_u_csv(all_u)
     write_lm_csv2(all_lm)
+
+    write_ati_odo_csv(hxTrue[0:],hxTrue[1:])
+    write_ati_path_csv(hxDR[0:],hxDR[1:])
+    write_ati_lm_true_csv(RFID[:, 0], RFID[:, 1])
 
     print("hxTrue")
     print(hxTrue)
