@@ -752,6 +752,7 @@ angle,distance = readInstructions()
 # # print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
 
 # # angle = -1*math.pi/2
+angle = 0
 distance = 400
 
 # if(distance > 900):
