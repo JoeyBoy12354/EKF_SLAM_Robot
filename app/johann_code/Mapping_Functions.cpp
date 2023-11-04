@@ -19,7 +19,7 @@ namespace Mapping_Functions{
         //Write new Scan
         saveCarToCSV(lidardata);
 
-        
+        vector<CarPoint> temp;
 
         //Compare with new points (only update if points are different)
         //If a point is less than Xmm away from oldmap point then remove it from circulation
@@ -44,11 +44,16 @@ namespace Mapping_Functions{
                 }
             }
             if(isNew == true){
-                oldmap.push_back(lidardata[i]);
+                temp.push_back(lidardata[i]);
+                //oldmap.push_back(lidardata[i]);
             }
         }
 
-        cout<<"No of Total Points = "<<oldmap.size()<<endl;
+        for(int i = 0;i<temp.size();i++){
+            oldmap.push_back(temp[i]);
+        }
+
+        cout<<"No of New Points = "<<temp.size()<<endl;
     
 
         //Update full map
@@ -305,8 +310,8 @@ namespace Mapping_Functions{
 
         //We need to create the vertical lines
         //Might be good to calculate this with max size of current lidar scan
-        float vLimit = 10; //Max number of vertical points from x-axis in 1 direction
-        float hLimit = 10; //Max Number of horistontal points from v-axis in 1 direction
+        float vLimit = 20; //Max number of vertical points from x-axis in 1 direction
+        float hLimit = 20; //Max Number of horistontal points from v-axis in 1 direction
 
         // float yStep = 450;//y-distance between points on same x-coordinate
         // float xStep = 450;//x-distance between points on same y-coordinate
@@ -336,6 +341,8 @@ namespace Mapping_Functions{
         vector<GridPoint> yPoints;
         GridPoint newPoint;
 
+        bool pushed;
+        int pushedPoints = 0;
 
         //Select
         //Positive x-axis
@@ -348,6 +355,7 @@ namespace Mapping_Functions{
         //Positive X-axis
         xPos = 0;
         while(points.size()<=hLimit && noRuns<maxNoRuns){
+            pushed = false
 
             //Do Positive Y-Axis
             dotCheck = true;
@@ -364,6 +372,7 @@ namespace Mapping_Functions{
                     yPos += yStep;
                     newPoint.x = xPos;
                     newPoint.y = yPos; 
+                    pushed = true;
                 }else if(dotCheck == true && lidarCheck == false){
                     //This is to ensure that we still keep checking for dots even if there is an obstacle
                     //However this means that as long as a point is within max bounds it can be plotted, so corridors and rooms
@@ -395,6 +404,7 @@ namespace Mapping_Functions{
                     yPos += yStep;
                     newPoint.x = xPos;
                     newPoint.y = yPos; 
+                    pushed = true;
                 }else if(dotCheck == true && lidarCheck == false){
                     yPos += yStep;
                     newPoint.x = xPos;
@@ -417,7 +427,12 @@ namespace Mapping_Functions{
             yStep = -1*yStep;//Change Back to positive
             xPos += xStep;    
             noRuns+=1;
+            if(pushed == true):
+                pushed =+1;
+
         }
+
+        cout<<"Points Pushed = "<<pushed<<endl;
         
         //Negative X-axis
         noRuns = 0;
