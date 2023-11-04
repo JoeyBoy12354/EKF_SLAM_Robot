@@ -751,9 +751,10 @@ angle,distance = readInstructions()
 # # print("MC: time Left = ",timeOnL,"s ",timeOffL,"s")
 # # print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
 
-# # angle = -1*math.pi/2
-angle = 0
-distance = 400
+angle = -1*math.pi/2
+distance = 0
+#angle = 0
+#distance = 400
 
 # if(distance > 900):
 #     print(" !! Resetting distance, ",distance," to 400mm")
