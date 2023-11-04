@@ -751,14 +751,14 @@ angle,distance = readInstructions()
 # # print("MC: time Left = ",timeOnL,"s ",timeOffL,"s")
 # # print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
 
-angle = -1*math.pi/2
-distance = 0
+# angle = -1*math.pi/2
+# distance = 0
 #angle = 0
 #distance = 400
 
-# if(distance > 900):
-#     print(" !! Resetting distance, ",distance," to 400mm")
-#     distance = 900
+if(distance > 900):
+    print(" !! Resetting distance, ",distance," to 900mm")
+    distance = 900
 
 
 angle,distance = motorControl_wThread(angle,distance)
