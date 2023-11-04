@@ -422,6 +422,9 @@ def getAngle(LNoRot,RNoRot,theta):
 def getAngleDifference(LNoRot,RNoRot,angle):
     print("Get diff for = ",abs(LNoRot - RNoRot))
 
+    diff = (2*math.pi*r/R)*(RNoRot - LNoRot)
+    print("MC: Straight angle_diff = ",diff* 180/(math.pi))
+
     if abs(LNoRot - RNoRot) > 0.051 :
         print("Angle Diff exists")
 
