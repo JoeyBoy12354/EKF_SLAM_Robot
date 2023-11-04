@@ -355,7 +355,7 @@ namespace Mapping_Functions{
         //Positive X-axis
         xPos = 0;
         while(points.size()<=hLimit && noRuns<maxNoRuns){
-            pushed = false
+            pushed = false;
 
             //Do Positive Y-Axis
             dotCheck = true;
@@ -427,12 +427,14 @@ namespace Mapping_Functions{
             yStep = -1*yStep;//Change Back to positive
             xPos += xStep;    
             noRuns+=1;
-            if(pushed == true):
-                pushed =+1;
+            if(pushed == true){
+                pushedPoints =+1;
+            }
+                
 
         }
 
-        cout<<"Points Pushed = "<<pushed<<endl;
+        cout<<"Points Pushed = "<<pushedPoints<<endl;
         
         //Negative X-axis
         noRuns = 0;
