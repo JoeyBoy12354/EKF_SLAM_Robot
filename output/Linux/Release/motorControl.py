@@ -592,7 +592,7 @@ def testAngles():
 
 def testDistances():
     print("MC: BEGIN TESTING DISTANCES")
-    timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
+    #timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
     print("Cali Left = ",timeOnL," ",timeOffL)
     print("Cali Right = ",timeOnR," ",timeOffR)
 
