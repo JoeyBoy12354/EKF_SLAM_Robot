@@ -744,10 +744,9 @@ angle,distance = readInstructions()
 # angle = -1*math.pi/2
 # distance = 400
 
-# if(distance > 400){
-#     print(" !! Resetting distance, ",distance," to 400mm")
-#     distance = 400;
-# }
+if(distance > 900):
+    print(" !! Resetting distance, ",distance," to 400mm")
+    distance = 900
 
 
 angle,distance = motorControl_wThread(angle,distance)
