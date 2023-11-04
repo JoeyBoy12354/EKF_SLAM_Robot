@@ -422,8 +422,6 @@ def getAngle(LNoRot,RNoRot,theta):
 def getAngleDifference(LNoRot,RNoRot,angle):
     print("Get diff for = ",abs(LNoRot - RNoRot))
 
-    
-    
 
     if abs(LNoRot - RNoRot) > 0.051 :
         print("Angle Diff exists")
@@ -717,7 +715,7 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 
 
 print("MC started")
-motorCalibrate()
+#motorCalibrate()
 #timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
 # timeOnL=0.0071
 # timeOnR=0.008
@@ -748,7 +746,7 @@ timeOffR=0.002253565768621236
 #testDistances()
 #testAngles()
 
-# angle,distance = readInstructions()
+angle,distance = readInstructions()
 # # timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
 # # print("MC: time Left = ",timeOnL,"s ",timeOffL,"s")
 # # print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
@@ -756,15 +754,15 @@ timeOffR=0.002253565768621236
 # # angle = -1*math.pi/2
 # # distance = 400
 
-# if(distance > 900):
-#     print(" !! Resetting distance, ",distance," to 400mm")
-#     distance = 900
+if(distance > 900):
+    print(" !! Resetting distance, ",distance," to 400mm")
+    distance = 900
 
 
-# angle,distance = motorControl_wThread(angle,distance)
-# print("MC: Angle turned = ",angle*180/math.pi)
-# print("MC: distance moved = ",distance)
-# writeOdometry(angle,distance)
+angle,distance = motorControl_wThread(angle,distance)
+print("MC: Angle turned = ",angle*180/math.pi)
+print("MC: distance moved = ",distance)
+writeOdometry(angle,distance)
 
 
 # ##Actual code to do things
