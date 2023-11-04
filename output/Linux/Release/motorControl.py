@@ -744,6 +744,10 @@ angle,distance = readInstructions()
 # angle = -1*math.pi/2
 # distance = 400
 
+if(distance > 400){
+    distance = 400;
+}
+
 
 angle,distance = motorControl_wThread(angle,distance)
 print("MC: Angle turned = ",angle*180/math.pi)
