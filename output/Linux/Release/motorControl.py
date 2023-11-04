@@ -723,15 +723,15 @@ print("MC started")
 # timeOffL=0.0029
 # timeOffR=0.002
 
-timeOnL=0.008
-timeOnR=0.00777
-timeOffL=0.002
-timeOffR=0.00223
-
 # timeOnL=0.008
-# timeOnR=0.006
+# timeOnR=0.00777
 # timeOffL=0.002
-# timeOffR=0.004
+# timeOffR=0.00223
+
+timeOnL=0.008
+timeOnR=0.007
+timeOffL=0.002
+timeOffR=0.003
 
 #testDistances()
 #testAngles()
@@ -744,9 +744,10 @@ angle,distance = readInstructions()
 # angle = -1*math.pi/2
 # distance = 400
 
-if(distance > 400){
-    distance = 400;
-}
+# if(distance > 400){
+#     print("Resetting distance, ",distance)
+#     distance = 400;
+# }
 
 
 angle,distance = motorControl_wThread(angle,distance)
