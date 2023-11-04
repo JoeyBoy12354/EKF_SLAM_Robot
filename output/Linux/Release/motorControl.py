@@ -435,7 +435,7 @@ def getAngleDifference(LNoRot,RNoRot,angle):
         angle = angle + diff
     else:
         #diff = (2*math.pi*r/R)*(RNoRot - LNoRot)/2
-        diff = (2*math.pi*r/R)*(RNoRot - LNoRot)
+        diff = (2*math.pi*r/R)*(RNoRot - LNoRot)*0.5
         print("MC: Straight angle_diff small = ",diff* 180/(math.pi))
         angle = angle + diff
 
