@@ -730,9 +730,9 @@ print("MC started")
 # timeOffR=0.00223
 
 timeOnL=0.008
-timeOnR=0.00779
+timeOnR=0.007777
 timeOffL=0.002
-timeOffR=0.00221
+timeOffR=0.002223
 
 # timeOnL=0.008
 # timeOnR=0.006
