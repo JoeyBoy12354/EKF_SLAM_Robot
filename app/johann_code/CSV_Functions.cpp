@@ -572,7 +572,7 @@ namespace CSV_Functions{
                 point.angle = stod(y_str);
                 group.push_back(point);
 
-                if(group.size()==3){
+                if(group.size()==4){
                     lm.push_back(group);
                     group.clear();
                 }

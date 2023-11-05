@@ -549,7 +549,7 @@ def main():
         #print("\ni = ",time)
         time += DT
         u = calc_input()
-        print(len(state))
+        print(len(z))
 
         xTrue, z, xDR, ud = observation(xTrue, xDR, u, RFID)
 
