@@ -722,9 +722,9 @@ void atSim(){
 
         //Polar Landmark
         vector<PolPoint> lm_polar;
-        for(int j =0;j<3;j++){
+        for(int j =0;j<lm[i].size();j++){
             lm_polar.push_back(lm[i][j]);
-            cout<<"Main: L0= "<<lm[i][j].distance<<", "<<lm[i][j].angle<<" = "<<lm[i][j].distance*cos(lm[i][j].angle)<<","<<lm[i][j].distance*sin(lm[i][j].angle)<<endl;
+            cout<<"Main: L"<<i<<"= "<<lm[i][j].distance<<", "<<lm[i][j].angle<<" = "<<lm[i][j].distance*cos(lm[i][j].angle)<<","<<lm[i][j].distance*sin(lm[i][j].angle)<<endl;
         }
 
         ekf.TestPolValues = lm_polar;
