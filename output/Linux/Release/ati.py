@@ -507,7 +507,10 @@ def main():
     #                  [750.0, -700.0],
     #                  [-1000.0, -700.0]])
     
-    RFID = np.array([[800.0, 800.0]])
+    #RFID = np.array([[800.0, 800.0]])
+
+    RFID = np.array([[800.0, 800.0],
+                     [750.0, -700.0]])
 
     # State Vector [x y yaw v]'
     xEst = np.zeros((STATE_SIZE, 1))
