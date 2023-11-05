@@ -64,7 +64,7 @@ namespace Mapping_Functions{
                 //oldmap.push_back(lidardata[i]);
             }
         }
-        cout<<"Accuracry = "<<accuracy
+        cout<<"Accuracry = "<<accuracy<<endl;
 
 
         //A very accurate scan should be fully added
