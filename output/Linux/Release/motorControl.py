@@ -46,9 +46,11 @@ timeOffL = 0.001
 timeOffR = 0.001
 
 #Avoidance
-turnableDistance = 57 #Total distance from object required to make a turn
-sensorDistace = 95 #Distance between sensors
+# turnableDistance = 57 #Total distance from object required to make a turn
+# sensorDistace = 95 #Distance between sensors
 
+turnableDistance = 70 #Total distance from object required to make a turn
+sensorDistace = 95 #Distance between sensors
 
 
 def avoidanceTurn(angle):
