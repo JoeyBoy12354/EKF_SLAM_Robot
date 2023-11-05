@@ -15,11 +15,11 @@ import numpy as np
 Cx = np.diag([0.5, 0.5, np.deg2rad(30.0)]) ** 2
 
 #  Simulation parameter
-Q_sim = np.diag([10, np.deg2rad(4.0)]) ** 2
-R_sim = np.diag([1.7, np.deg2rad(1.0)]) ** 2
+# Q_sim = np.diag([10, np.deg2rad(4.0)]) ** 2
+# R_sim = np.diag([1.7, np.deg2rad(1.0)]) ** 2
 
-#Q_sim = np.diag([0.05, np.deg2rad(0.5)]) ** 2
-#R_sim = np.diag([1.0, np.deg2rad(10.0)]) ** 2
+Q_sim = np.diag([0.05, np.deg2rad(0.5)]) ** 2
+R_sim = np.diag([1.0, np.deg2rad(10.0)]) ** 2
 
 all_lm_inter = []
 
@@ -506,8 +506,12 @@ def main():
     # RFID = np.array([[800.0, 800.0],
     #                  [750.0, -700.0],
     #                  [-1000.0, -700.0]])
+
+    # RFID = np.array([[800.0, 800.0],
+    #                  [750.0, -700.0],
+    #                  [-1000.0, -700.0]])
     
-    RFID = np.array([[800.0, 800.0]])
+    #RFID = np.array([[800.0, 800.0]])
 
     # RFID = np.array([[800.0, 800.0],
     #                  [750.0, -700.0]])
