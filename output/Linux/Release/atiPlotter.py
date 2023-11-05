@@ -207,15 +207,24 @@ def monteCarlo(runs):
 
     RMSEfull(trueArray,estArray)
 
+def pathPlot():
+    ati.main()
+    cppRun()
+    newCustomPlot()
+    #calculateRMSE()
+
+
     
 
 
 
 
 #cppRun()
-newCustomPlot()
+#newCustomPlot()
 # calculateRMSE()
 
+
+pathPlot()
 #monteCarlo(100)
 
 
