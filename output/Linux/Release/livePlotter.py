@@ -311,7 +311,7 @@ def animate(i):
     #triangle = draw_rotated_triangle(plt.gca(),position[0],position[1],position[2])
     #plt.gca().fill(triangle[:, 0], triangle[:, 1], 'b')
 
-    plotBoundaries()
+    #plotBoundaries()
 
     plotTriangle(x5,y5)
 

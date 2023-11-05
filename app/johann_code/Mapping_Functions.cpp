@@ -33,7 +33,7 @@ namespace Mapping_Functions{
         //     }
         // }
 
-        int accuracy = 0;
+        float accuracy = 0;
         float accuracy_dist = 30;
         bool isAccurate=false;
 
