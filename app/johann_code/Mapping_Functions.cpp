@@ -34,7 +34,7 @@ namespace Mapping_Functions{
         // }
 
         int accuracy = 0;
-        float accuracy_dist = 15;
+        float accuracy_dist = 30;
         bool isAccurate=false;
 
         //Append new points to current oldmap
