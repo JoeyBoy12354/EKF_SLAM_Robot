@@ -67,6 +67,8 @@ namespace Mapping_Functions{
         cout<<"Accuracry = "<<accuracy<<endl;
         cout<<"LidarDATASize = "<<lidardata.size()<<endl;
         cout<<"acc/lidar = "<<accuracy/lidardata.size()<<endl;
+        double accper = accuracy/lidardata.size();
+        cout<<"accper = "<<accper<<endl;
         cout<<"acc/lidarp = "<<(accuracy/lidardata.size())*100<<endl;
 
 
