@@ -33,6 +33,9 @@ namespace Mapping_Functions{
         //     }
         // }
 
+        int accuracy = 0;
+        float accuracy_dist = 15;
+
         //Append new points to current oldmap
         //This is okay because we do not use fullmap data for anything
         bool isNew = true;
@@ -42,6 +45,10 @@ namespace Mapping_Functions{
                 if(pointDistance(lidardata[i],oldmap[j]) < distance_threshold){
                     isNew = false;
                 }
+
+                if(pointDistance(lidardata[i],oldmap[j]) < accuracy_dist){
+                    accuracy+=1;
+                }
             }
             if(isNew == true){
                 temp.push_back(lidardata[i]);
@@ -49,9 +56,26 @@ namespace Mapping_Functions{
             }
         }
 
-        for(int i = 0;i<temp.size();i++){
-            oldmap.push_back(temp[i]);
+
+        //A very accurate scan should be fully added
+        float acc_percentage = accuracy/lidardata.size[i])*100;
+        if( acc_percentage> 60){
+            cout<<"\n\n VERY ACCURATE SCAN @ "<< acc_percentage <<" %\n\n";
+            temp.clear();
+            for(int i = 0;i<lidardata.size();i++){
+                oldmap.push_back(lidardata[i]);
+            }
+
+
+        }else{
+            for(int i = 0;i<temp.size();i++){
+                oldmap.push_back(temp[i]);
+            }
+
         }
+
+
+        
 
         cout<<"No of New Points = "<<temp.size()<<endl;
     

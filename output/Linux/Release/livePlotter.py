@@ -273,6 +273,19 @@ def plotTriangle(x,y):
     plt.plot(x + [x[0]], y + [y[0]], 'k-', linewidth=2)
 
 
+def plotBoundaries():
+
+    plt.ylim([-1000,1000])
+    plt.xlim([-700,3000])
+
+    # plt.axhline(y=0, color='k', linestyle='--', linewidth=1)
+    # plt.axvline(x=0, color='k', linestyle='--', linewidth=1)
+
+
+    
+
+
+
 
 def animate(i):
     #fetchFromCSV
@@ -298,6 +311,8 @@ def animate(i):
     #triangle = draw_rotated_triangle(plt.gca(),position[0],position[1],position[2])
     #plt.gca().fill(triangle[:, 0], triangle[:, 1], 'b')
 
+    plotBoundaries()
+
     plotTriangle(x5,y5)
 
     #triangle = draw_rotated_triangle(plt.gca(),0,0,0) 
@@ -314,6 +329,8 @@ def animate(i):
     
     #plt.plot(x3, y3, 'X', label='RNC_points', markersize=7,color='b')
     plt.plot(x2, y2, 'X', label='Landmarks', markersize=7,color='g')
+    
+
     
 
 
