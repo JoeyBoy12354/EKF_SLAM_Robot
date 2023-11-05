@@ -887,9 +887,9 @@ void testRun(){
         }
         lidarDataPoints.clear();
 
-        string s; 
-        cout<<"please enter something: ";
-        cin>>s;
+        // string s; 
+        // cout<<"please enter something: ";
+        // cin>>s;
     }
 
     ekf.distance = 0;
