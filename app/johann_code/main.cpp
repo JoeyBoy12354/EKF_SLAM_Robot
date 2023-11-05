@@ -754,8 +754,8 @@ void atSim(){
         cout<<endl;
     }
 
-    for(int i =0;i<landmarks[landmarks.size()-1].size();i++){
-        cout<<"landmarks["<<landmarks.size()-1<<"]["<<i<<"]= "<<landmarks[landmarks.size()-1][i]<<endl;
+    for(int i =0;i<int(curr_lm.size()/2);i++){
+        cout<<"curr_lm["<<i<<"]= "<<curr_lm[i*2]<<curr_lm[i*2+1]<<endl;
 
     }
 
