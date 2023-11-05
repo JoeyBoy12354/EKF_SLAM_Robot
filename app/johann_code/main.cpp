@@ -724,7 +724,7 @@ void atSim(){
         vector<PolPoint> lm_polar;
         for(int j =0;j<3;j++){
             lm_polar.push_back(lm[i][j]);
-            cout<<"Main: L0= "<<lm[i][j].distance<<", "<<lm[i][j].angle<<endl;
+            cout<<"Main: L0= "<<lm[i][j].distance<<", "<<lm[i][j].angle<<" = "<<lm[i][j].distance*cos(lm[i][j].angle)<<","<<lm[i][j].distance*sin(lm[i][j].angle)<<endl;
         }
 
         ekf.TestPolValues = lm_polar;
@@ -752,6 +752,11 @@ void atSim(){
         cout<<"landmarks["<<i<<"][0]= "<<landmarks[i][0]<<" landmarks["<<i<<"][1]= "<<landmarks[i][1]<<endl;
         cout<<"curr_lm = ("<<curr_lm[0]<<","<<curr_lm[1]<<"),("<<curr_lm[2]<<","<<curr_lm[3]<<"),("<<curr_lm[4]<<","<<curr_lm[5]<<")"<<endl;
         cout<<endl;
+    }
+
+    for(int i =0;i<landmarks[landmarks.size()-1].size();i++){
+        cout<<"landmarks["<<landmarks.size()-1<<"]["<<i<<"]= "<<landmarks[landmarks.size()-1][i]<<<endl;
+
     }
 
 
