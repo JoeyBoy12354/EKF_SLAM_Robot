@@ -49,18 +49,22 @@ namespace Mapping_Functions{
                 }
 
                 if(pointDistance(lidardata[i],oldmap[j]) < accuracy_dist){
+                    cout<<"IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"<<endl;
                     isAccurate = true;
                 }
             }
+
             if(isNew == true){
                 temp.push_back(lidardata[i]);
                 //oldmap.push_back(lidardata[i]);
             }
+
             if(isAccurate == true){
-                accuracy+=1;
+                accuracy=accuracy+ 1;
                 //oldmap.push_back(lidardata[i]);
             }
         }
+        cout<<"Accuracry = "<<accuracy
 
 
         //A very accurate scan should be fully added
