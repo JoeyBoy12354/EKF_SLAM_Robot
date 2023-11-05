@@ -459,7 +459,7 @@ def plotCustom(myLM,myX,atiX,atiLM,trueX,trueLM,time):
 
     # Scatter plot for atiX
     atiX = list(zip(*atiX))  # Transpose atiX for plotting
-    plt.plot(atiX[0], atiX[1], c='red', label='atiX')
+    plt.plot(atiX[0], atiX[1], c='red', label='EKF')
 
     # Scatter plot for atiLM
     for lm in atiLM:
@@ -467,23 +467,23 @@ def plotCustom(myLM,myX,atiX,atiLM,trueX,trueLM,time):
         plt.scatter(lm[0], lm[1],c='g' ,marker='x')
 
     # Scatter plot for myX
-    myX = list(zip(*myX))  # Transpose myX for plotting
-    plt.plot(myX[0], myX[1], c='orange', label='myX')
+    # myX = list(zip(*myX))  # Transpose myX for plotting
+    # plt.plot(myX[0], myX[1], c='orange', label='myX')
 
     # Scatter plot for atiLM
-    for lm in myLM:
-        lm = list(zip(*lm))  # Transpose each set of landmarks
-        plt.scatter(lm[0], lm[1],c='yellow' ,marker='x')
-
-
-    # # Scatter plot for trueX
-    # trueX = list(zip(*trueX))  # Transpose trueX for plotting
-    # plt.scatter(trueX[0], trueX[1], c='blue', label='trueX')
-
-    # # Scatter plot for trueLM
-    # for lm in trueLM:
+    # for lm in myLM:
     #     lm = list(zip(*lm))  # Transpose each set of landmarks
-    #     plt.scatter(lm[0], lm[1], marker='o', label='trueLM')
+    #     plt.scatter(lm[0], lm[1],c='yellow' ,marker='x')
+
+
+    # Scatter plot for trueX
+    trueX = list(zip(*trueX))  # Transpose trueX for plotting
+    plt.scatter(trueX[0], trueX[1], c='blue', label='Ground Truth')
+
+    # Scatter plot for trueLM
+    for lm in trueLM:
+        lm = list(zip(*lm))  # Transpose each set of landmarks
+        plt.scatter(lm[0], lm[1], marker='o')
 
     plt.legend()
     plt.title(f"Custom Plot at time {time}")
@@ -549,9 +549,10 @@ def main():
         #print("\ni = ",time)
         time += DT
         u = calc_input()
-        print(len(z))
+        
 
         xTrue, z, xDR, ud = observation(xTrue, xDR, u, RFID)
+        print("zlen = ",len(z))
 
         # lm_group = []
         # for i in range(len(RFID[:, 0])):
@@ -623,7 +624,7 @@ def main():
                      hxEst[1, :], "-r")
             plt.axis("equal")
             plt.grid(True)
-            plt.pause(0.001)
+            plt.pause(0.0001)
 
     # all_lm = np.array(all_lm_inter)
     all_lm = np.array(all_lm)
@@ -644,7 +645,7 @@ def main():
 
     
 
-    #plotCustom(my_lm,my_state,atsi_state,atsi_lm,true_state,true_lm,all_time)
+    plotCustom(my_lm,my_state,atsi_state,atsi_lm,true_state,true_lm,all_time)
 
 
 #main()
