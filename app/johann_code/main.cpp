@@ -994,7 +994,7 @@ void mapStats(){
 }
 
 void testRun(){
-    auto start = high_resolution_clock::now();
+    //auto start = high_resolution_clock::now();
 
     ExtendedKalmanFilter ekf;
     bool mapped = false;
@@ -1036,21 +1036,21 @@ void testRun(){
         }
         lidarDataPoints.clear();
 
-        // string s; 
-        // cout<<"please enter something: ";
-        // cin>>s;
+        string s; 
+        cout<<"please enter something: ";
+        cin>>s;
     }
 
     ekf.distance = 0;
     ekf.w = 0;
 
-    auto stop = high_resolution_clock::now();
+    // auto stop = high_resolution_clock::now();
 
-    auto duration = duration_cast<seconds>(stop - start);
+    // auto duration = duration_cast<seconds>(stop - start);
  
-    // To get the value of duration use the count()
-    // member function on the duration object
-    cout << duration.count() << endl;
+    // // To get the value of duration use the count()
+    // // member function on the duration object
+    // cout << duration.count() << endl;
 
 
     
