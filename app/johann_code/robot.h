@@ -14,9 +14,6 @@
 #include <mutex>
 #include <condition_variable>
 #include <atomic> // for atomic flag
-#include <chrono>
-
- 
 
 //#include <sstream>
 //#include <numeric>
@@ -37,7 +34,6 @@
 using namespace std;
 using namespace Eigen;
 using namespace sl;
-using namespace std::chrono;
 
 
 
@@ -45,8 +41,8 @@ using namespace std::chrono;
 #define dim 2*N+3//Initial Dimension of Matrices in EKF
 #define PI 3.14159265358979323846 
 
-#define grid_ystep 300
-#define grid_xstep 300
+#define grid_ystep 500
+#define grid_xstep 500
 
 struct PolPoint {
     double angle;

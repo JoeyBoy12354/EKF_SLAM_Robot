@@ -847,7 +847,6 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
 }
 
 void testRun(){
-    cout<<"LatestRun Johann"<<endl;
     ExtendedKalmanFilter ekf;
     bool mapped = false;
     bool home = false;
@@ -888,18 +887,13 @@ void testRun(){
         }
         lidarDataPoints.clear();
 
-        string s; 
-        cout<<"please enter something: ";
-        cin>>s;
+        // string s; 
+        // cout<<"please enter something: ";
+        // cin>>s;
     }
 
     ekf.distance = 0;
     ekf.w = 0;
-
-
-    
-
-
     
     // fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
     // lidarDataPoints.clear();
@@ -930,10 +924,6 @@ void testRun(){
     // fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
 
     // cout<<"I am Home"<<endl;
-
-
-
-
 
     delete drv;
     drv = NULL;
