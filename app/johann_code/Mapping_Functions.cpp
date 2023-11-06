@@ -404,7 +404,7 @@ namespace Mapping_Functions{
 
                 if(newPoint.x == 0 && newPoint.y == 0){
                     dotCheck = true;
-                    lidarCheck == true;
+                    lidarCheck = true;
                 }
 
                 if(dotCheck == true && lidarCheck == true){
