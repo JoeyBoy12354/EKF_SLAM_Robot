@@ -780,11 +780,11 @@ print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
 
 #Test1
 angle = 0
-distance = 400
+distance = 1000
 
-if(distance > 900):
-    print(" !! Resetting distance, ",distance," to 900mm")
-    distance = 900
+# if(distance > 900):
+#     print(" !! Resetting distance, ",distance," to 900mm")
+#     distance = 900
 
 
 angle,distance = motorControl_wThread(angle,distance)
