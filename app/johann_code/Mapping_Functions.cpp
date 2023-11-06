@@ -209,6 +209,7 @@ namespace Mapping_Functions{
         //     cout<<endl;
 
 
+
         saveGridToCSV(gridNew);
         cout<<"GRID:SAVED TO CSV"<<endl;
 
@@ -400,6 +401,11 @@ namespace Mapping_Functions{
             while(yPoints.size()<=vLimit && dotCheck == true){
                 dotCheck = gridDotBoundCheck(mapdata,newPoint);
                 lidarCheck = gridDotLidarCheck(mapdata,newPoint,boundThresh);
+
+                if(newPoint.x == 0 && newPoint.y == 0){
+                    dotCheck = true;
+                    lidarCheck == true;
+                }
 
                 if(dotCheck == true && lidarCheck == true){
                     yPoints.push_back(newPoint);
