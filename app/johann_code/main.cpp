@@ -994,6 +994,8 @@ void mapStats(){
 }
 
 void testRun(){
+    auto start = high_resolution_clock::now();
+    
     ExtendedKalmanFilter ekf;
     bool mapped = false;
     bool home = false;
@@ -1041,6 +1043,14 @@ void testRun(){
 
     ekf.distance = 0;
     ekf.w = 0;
+
+    auto stop = high_resolution_clock::now();
+
+    auto duration = duration_cast<seconds>(stop - start);
+ 
+    // To get the value of duration use the count()
+    // member function on the duration object
+    cout << duration.count() << endl;
 
 
     

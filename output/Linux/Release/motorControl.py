@@ -775,6 +775,12 @@ angle,distance = readInstructions()
 # angle = PI
 
 
+#OBSTACLE AVOIDANCE TESTS
+# distance = 300
+# angle = 0
+
+
+
 
 if(distance > 900):
     print(" !! Resetting distance, ",distance," to 900mm")
