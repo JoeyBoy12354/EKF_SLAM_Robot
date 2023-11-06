@@ -1052,6 +1052,8 @@ void testRun(){
     // // member function on the duration object
     // cout << duration.count() << endl;
 
+    mapStats();
+
 
     
 
