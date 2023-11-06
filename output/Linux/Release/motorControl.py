@@ -732,10 +732,10 @@ print("MC started")
 
 
 
-timeOnL=0.008
-timeOnR=0.007922705314009662
-timeOffL=0.002
-timeOffR=0.002077294685990338
+# timeOnL=0.008
+# timeOnR=0.007922705314009662
+# timeOffL=0.002
+# timeOffR=0.002077294685990338
 
 
 
@@ -779,8 +779,8 @@ print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
 # distance = 0
 
 #Test1
-# angle = 0
-# distance = 400
+angle = 0
+distance = 400
 
 if(distance > 900):
     print(" !! Resetting distance, ",distance," to 900mm")
