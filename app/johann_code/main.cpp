@@ -847,6 +847,7 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
 }
 
 void testRun(){
+    cout<<"LatestRun Johann"<<endl;
     ExtendedKalmanFilter ekf;
     bool mapped = false;
     bool home = false;
