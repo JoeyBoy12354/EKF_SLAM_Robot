@@ -779,8 +779,8 @@ print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
 # distance = 0
 
 #Test1
-angle = 0
-distance = 1000
+angle = math.pi/2
+distance = 0
 
 # if(distance > 900):
 #     print(" !! Resetting distance, ",distance," to 900mm")
