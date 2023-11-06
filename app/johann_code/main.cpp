@@ -880,23 +880,23 @@ void mapStats(){
     //Get minimum
     for(int i=0;i<oldmap.size();i++){
         if(pointDistance(p1,oldmap[j]) < d1){
-            r1 = oldmap[j]
-            d1 = pointDistance(p2,oldmap[j]);
+            r1 = oldmap[i]
+            d1 = pointDistance(p2,oldmap[i]);
         }
 
-        if(pointDistance(p2,oldmap[j]) < d2){
-            r2 = oldmap[j]
-            d2 = pointDistance(p2,oldmap[j]);
+        if(pointDistance(p2,oldmap[i]) < d2){
+            r2 = oldmap[i]
+            d2 = pointDistance(p2,oldmap[i]);
         }
 
-        if(pointDistance(p3,oldmap[j]) < d3){
-            r3 = oldmap[j]
-            d3 = pointDistance(p3,oldmap[j]);
+        if(pointDistance(p3,oldmap[i]) < d3){
+            r3 = oldmap[i]
+            d3 = pointDistance(p3,oldmap[i]);
         }
 
-        if(pointDistance(p4,oldmap[j]) < d4){
-            r4 = oldmap[j]
-            d4 = pointDistance(p4,oldmap[j]);
+        if(pointDistance(p4,oldmap[i]) < d4){
+            r4 = oldmap[i]
+            d4 = pointDistance(p4,oldmap[i]);
         }
     }
 
@@ -925,55 +925,55 @@ void mapStats(){
 
     //Get points around my point
     for(int i=0;i<oldmap.size();i++){
-        if(pointDistance(r1,oldmap[j]) < measRadius){
-            points1.push_back(oldmap[j]);
+        if(pointDistance(r1,oldmap[i]) < measRadius){
+            points1.push_back(oldmap[i]);
 
-            if(r1.y - oldmap[j].y > max1){
-                max1 = r1.y - oldmap[j].y;
-                f1_1 = oldmap[j];
+            if(r1.y - oldmap[i].y > max1){
+                max1 = r1.y - oldmap[i].y;
+                f1_1 = oldmap[i];
             }
-            if(r1.y - oldmap[j].y < min1){
-                min1 = r1.y - oldmap[j].y;
-                f1_2 = oldmap[j];
-            }
-        }
-
-        if(pointDistance(r2,oldmap[j]) < measRadius){
-            points2.push_back(oldmap[j]);
-
-            if(r2.y - oldmap[j].y > max2){
-                max2 = r2.y - oldmap[j].y;
-                f2_1 = oldmap[j];
-            }
-            if(r2.y - oldmap[j].y < min2){
-                min2 = r2.y - oldmap[j].y;
-                f2_2 = oldmap[j];
+            if(r1.y - oldmap[i].y < min1){
+                min1 = r1.y - oldmap[i].y;
+                f1_2 = oldmap[i];
             }
         }
 
-        if(pointDistance(r3,oldmap[j]) < measRadius){
-            points3.push_back(oldmap[j]);
+        if(pointDistance(r2,oldmap[i]) < measRadius){
+            points2.push_back(oldmap[i]);
 
-            if(r3.x - oldmap[j].x > max3){
-                max3 = r3.x - oldmap[j].x ; 
-                f3_1 = oldmap[j];
+            if(r2.y - oldmap[i].y > max2){
+                max2 = r2.y - oldmap[i].y;
+                f2_1 = oldmap[i];
             }
-            if(r3.x - oldmap[j].x < min3){
-                min3 = r3.x - oldmap[j].x ; 
-                f3_2 = oldmap[j];
+            if(r2.y - oldmap[i].y < min2){
+                min2 = r2.y - oldmap[i].y;
+                f2_2 = oldmap[i];
             }
         }
 
-        if(pointDistance(r4,oldmap[j]) < measRadius){
-            points4.push_back(oldmap[j]);
+        if(pointDistance(r3,oldmap[i]) < measRadius){
+            points3.push_back(oldmap[i]);
 
-            if(r4.x - oldmap[j].x > max4){
-                max4 = r4.x - oldmap[j].x; 
-                f4_1 = oldmap[j];
+            if(r3.x - oldmap[i].x > max3){
+                max3 = r3.x - oldmap[i].x ; 
+                f3_1 = oldmap[i];
             }
-            if(r4.x - oldmap[j].x < min4){
-                min4 = r4.x - oldmap[j].x; 
-                f4_2 = oldmap[j];
+            if(r3.x - oldmap[i].x < min3){
+                min3 = r3.x - oldmap[i].x ; 
+                f3_2 = oldmap[i];
+            }
+        }
+
+        if(pointDistance(r4,oldmap[i]) < measRadius){
+            points4.push_back(oldmap[i]);
+
+            if(r4.x - oldmap[i].x > max4){
+                max4 = r4.x - oldmap[i].x; 
+                f4_1 = oldmap[i];
+            }
+            if(r4.x - oldmap[i].x < min4){
+                min4 = r4.x - oldmap[i].x; 
+                f4_2 = oldmap[i];
             }
         }
         
@@ -995,7 +995,7 @@ void mapStats(){
 
 void testRun(){
     auto start = high_resolution_clock::now();
-    
+
     ExtendedKalmanFilter ekf;
     bool mapped = false;
     bool home = false;
