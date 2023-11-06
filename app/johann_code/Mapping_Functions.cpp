@@ -76,13 +76,18 @@ namespace Mapping_Functions{
             }
 
 
-        }else{
+        }
+        //REMOVE FOR CLEANING
+        else{
             cout<<"\n\n NOT ACCURATE SCAN @ "<< acc_percentage <<" %\n\n";
-            for(int i = 0;i<temp.size();i++){
-                oldmap.push_back(temp[i]);
-            }
+            // for(int i = 0;i<temp.size();i++){
+            //     oldmap.push_back(temp[i]);
+            // }
 
         }
+
+
+        
 
 
         

@@ -846,6 +846,153 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
     
 }
 
+
+void mapStats(){
+    cout<<"ENTERING MAP STATS"<<endl;
+    //Map Noise test
+
+    vector<CarPoint> oldmap;
+    readCarFromFullMapCSV(oldmap);//Fetch all current points
+
+    float measRadius = 100;
+
+
+    //Calculate map accuracy at certain points
+    //Select a point near set point
+    //Ypoints
+    CarPoint p1(-500,500);
+    CarPoint p2(2600,500);
+
+    //XPoints
+    CarPoint p3(1500,-800);
+    CarPoint p3(1500,800);
+
+    CarPoint r1;
+    CarPoint r2;
+    CarPoint r3;
+    CarPoint r4;
+
+    float d1 = 10000;
+    float d2 = 10000;
+    float d3 = 10000;
+    float d4 = 10000;
+
+    //Get minimum
+    for(int i=0;i<oldmap.size();i++){
+        if(pointDistance(p1,oldmap[j]) < d1){
+            r1 = oldmap[j]
+            d1 = pointDistance(p2,oldmap[j]);
+        }
+
+        if(pointDistance(p2,oldmap[j]) < d2){
+            r2 = oldmap[j]
+            d2 = pointDistance(p2,oldmap[j]);
+        }
+
+        if(pointDistance(p3,oldmap[j]) < d3){
+            r3 = oldmap[j]
+            d3 = pointDistance(p3,oldmap[j]);
+        }
+
+        if(pointDistance(p4,oldmap[j]) < d4){
+            r4 = oldmap[j]
+            d4 = pointDistance(p4,oldmap[j]);
+        }
+    }
+
+    vector<CarPoint> points1;
+    vector<CarPoint> points2;
+    vector<CarPoint> points3;
+    vector<CarPoint> points4;
+
+    CarPoint f1_1;
+    CarPoint f1_2;
+    CarPoint f2_1;
+    CarPoint f2_2;
+    CarPoint f3_1;
+    CarPoint f3_2;
+    CarPoint f4_1;
+    CarPoint f4_2;
+
+    float max1=-1000;
+    float min1=1000;
+    float max2=-1000;
+    float min2=1000;
+    float max3=-1000;
+    float min3=1000;
+    float max4=-1000;
+    float min4=1000;
+
+    //Get points around my point
+    for(int i=0;i<oldmap.size();i++){
+        if(pointDistance(r1,oldmap[j]) < measRadius){
+            points1.push_back(oldmap[j]);
+
+            if(r1.y - oldmap[j].y > max1){
+                max1 = r1.y - oldmap[j].y;
+                f1_1 = oldmap[j];
+            }
+            if(r1.y - oldmap[j].y < min1){
+                min1 = r1.y - oldmap[j].y;
+                f1_2 = oldmap[j];
+            }
+        }
+
+        if(pointDistance(r2,oldmap[j]) < measRadius){
+            points2.push_back(oldmap[j]);
+
+            if(r2.y - oldmap[j].y > max2){
+                max2 = r2.y - oldmap[j].y;
+                f2_1 = oldmap[j];
+            }
+            if(r2.y - oldmap[j].y < min2){
+                min2 = r2.y - oldmap[j].y;
+                f2_2 = oldmap[j];
+            }
+        }
+
+        if(pointDistance(r3,oldmap[j]) < measRadius){
+            points3.push_back(oldmap[j]);
+
+            if(r3.x - oldmap[j].x > max3){
+                max3 = r3.x - oldmap[j].x ; 
+                f3_1 = oldmap[j];
+            }
+            if(r3.x - oldmap[j].x < min3){
+                min3 = r3.x - oldmap[j].x ; 
+                f3_2 = oldmap[j];
+            }
+        }
+
+        if(pointDistance(r4,oldmap[j]) < measRadius){
+            points4.push_back(oldmap[j]);
+
+            if(r4.x - oldmap[j].x > max4){
+                max4 = r4.x - oldmap[j].x; 
+                f4_1 = oldmap[j];
+            }
+            if(r4.x - oldmap[j].x < min4){
+                min4 = r4.x - oldmap[j].x; 
+                f4_2 = oldmap[j];
+            }
+        }
+        
+    }
+
+    cout<<"Y-points :"<<endl;
+    cout<<"Point1: "<<r1<<" max = "<<max1<<"mm @"<<f1_1<<" min = "<<min1<<"mm @"<<f1_2<<endl;
+    cout<<"Point2: "<<r2<<" max = "<<max2<<"mm @"<<f2_1<<" min = "<<min2<<"mm @"<<f2_2<<endl;
+
+    cout<<"X-points :"<<endl;
+    cout<<"Point1: "<<r3<<" max = "<<max3<<"mm @"<<f3_1<<" min = "<<min3<<"mm @"<<f3_2<<endl;
+    cout<<"Point1: "<<r4<<" max = "<<max4<<"mm @"<<f4_1<<" min = "<<min4<<"mm @"<<f4_2<<endl;
+
+    //Calculate error
+
+
+
+}
+
 void testRun(){
     ExtendedKalmanFilter ekf;
     bool mapped = false;
@@ -894,6 +1041,11 @@ void testRun(){
 
     ekf.distance = 0;
     ekf.w = 0;
+
+
+    
+
+
     
     // fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
     // lidarDataPoints.clear();
@@ -924,6 +1076,10 @@ void testRun(){
     // fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
 
     // cout<<"I am Home"<<endl;
+
+
+
+
 
     delete drv;
     drv = NULL;
