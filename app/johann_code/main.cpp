@@ -865,7 +865,7 @@ void mapStats(){
 
     //XPoints
     CarPoint p3(1500,-800);
-    CarPoint p3(1500,800);
+    CarPoint p4(1500,800);
 
     CarPoint r1;
     CarPoint r2;
@@ -879,7 +879,7 @@ void mapStats(){
 
     //Get minimum
     for(int i=0;i<oldmap.size();i++){
-        if(pointDistance(p1,oldmap[j]) < d1){
+        if(pointDistance(p1,oldmap[i]) < d1){
             r1 = oldmap[i];
             d1 = pointDistance(p2,oldmap[i]);
         }
