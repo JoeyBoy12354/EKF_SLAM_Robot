@@ -77,7 +77,7 @@ namespace Mapping_Functions{
 
 
         }
-        //REMOVE FOR CLEANING
+        //REMOVE
         else{
             cout<<"\n\n NOT ACCURATE SCAN @ "<< acc_percentage <<" %\n\n";
             for(int i = 0;i<temp.size();i++){
@@ -85,9 +85,6 @@ namespace Mapping_Functions{
             }
 
         }
-
-
-        
 
 
         
