@@ -880,22 +880,22 @@ void mapStats(){
     //Get minimum
     for(int i=0;i<oldmap.size();i++){
         if(pointDistance(p1,oldmap[j]) < d1){
-            r1 = oldmap[i]
+            r1 = oldmap[i];
             d1 = pointDistance(p2,oldmap[i]);
         }
 
         if(pointDistance(p2,oldmap[i]) < d2){
-            r2 = oldmap[i]
+            r2 = oldmap[i];
             d2 = pointDistance(p2,oldmap[i]);
         }
 
         if(pointDistance(p3,oldmap[i]) < d3){
-            r3 = oldmap[i]
+            r3 = oldmap[i];
             d3 = pointDistance(p3,oldmap[i]);
         }
 
         if(pointDistance(p4,oldmap[i]) < d4){
-            r4 = oldmap[i]
+            r4 = oldmap[i];
             d4 = pointDistance(p4,oldmap[i]);
         }
     }
