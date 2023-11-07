@@ -491,16 +491,10 @@ def motorCalibrate():
 
     left_avg = 0
     right_avg = 0
-    left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg,lefts,rights)
-    left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
-    # left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
-    # left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
-    # left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
-    # left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
-    # left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
-    # left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
-    # left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
-    # left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
+
+    for i in range(0,5):
+        left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg,lefts,rights)
+    
     left_avg = left_avg/(runs*8)
     right_avg = right_avg/(runs*8)
     
