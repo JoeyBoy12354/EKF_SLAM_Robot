@@ -503,11 +503,13 @@ def motorCalibrate():
     left_avg = 0
     right_avg = 0
 
-    for i in range(0,12):
+    num = 12
+
+    for i in range(0,num):
         left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg,lefts,rights,error)
     
-    left_avg = left_avg/(runs*8)
-    right_avg = right_avg/(runs*8)
+    left_avg = left_avg/(runs*num)
+    right_avg = right_avg/(runs*num)
     
     
     if(left_avg>right_avg):
