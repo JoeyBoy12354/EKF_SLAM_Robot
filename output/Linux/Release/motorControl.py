@@ -454,17 +454,27 @@ def getDist(LNoRot,RNoRot):
 
 
 #CALIBRATION CODE
-def motorCorrection(distance,runs,left_sum,right_sum,lefts,rights):
+def motorCorrection(distance,runs,left_sum,right_sum,lefts,rights,error):
     time.sleep(0.6)
     for i in range(0,runs):
         left,right = speedControl(0,distance,True)
         lefts.append(left)
         rights.append(right)
+        error.append(right - left)
 
         left_sum+=left
         right_sum+=right
         time.sleep(0.6)
-    speedControl(0,distance*runs,False)
+
+        left,right = speedControl(0,distance*runs,False)
+        lefts.append(left)
+        rights.append(right)
+        error.append(right - left)
+
+        left_sum+=left
+        right_sum+=right
+
+    
 
     return left_sum,right_sum
     
@@ -488,12 +498,13 @@ def motorCalibrate():
 
     lefts = []
     rights = []
+    error = []
 
     left_avg = 0
     right_avg = 0
 
     for i in range(0,6):
-        left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg,lefts,rights)
+        left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg,lefts,rights,error)
     
     left_avg = left_avg/(runs*8)
     right_avg = right_avg/(runs*8)
@@ -527,12 +538,12 @@ def motorCalibrate():
     t2 = "Left Rotations"
     t3 = "Right Rotations"
     print("{:<{width}} {:<{width}} {:<{width}}".format(t1, t2, t3, width=column_width))
-    print("-" * (column_width * break_scaler))
+    print("-" * (6))
 
     for i in range(len(runs)):
-        print("{0:{width}} {1:{width}.4f} {2:{width}.4f}".format(runs[i], lefts[i], rights[i], width=column_width))
+        print("{0:{width}} {1:{width}.4f} {2:{width}.4f} {2:{width}.4f}".format(runs[i], lefts[i], rights[i],error[i], width=column_width))
 
-    print("-" * (column_width * break_scaler))
+    print("-" * (6))
 
     print()
     
