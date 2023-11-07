@@ -49,7 +49,6 @@ namespace Mapping_Functions{
                 }
 
                 if(pointDistance(lidardata[i],oldmap[j]) < accuracy_dist){
-                    cout<<"IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"<<endl;
                     isAccurate = true;
                 }
             }

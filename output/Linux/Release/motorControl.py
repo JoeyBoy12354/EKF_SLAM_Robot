@@ -493,6 +493,8 @@ def motorCalibrate():
     left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
     left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
     left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
+    left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
+    left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
     left_avg = left_avg/(runs*8)
     right_avg = right_avg/(runs*8)
     
@@ -717,7 +719,7 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 
 
 print("MC started")
-# motorCalibrate()
+motorCalibrate()
 #timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
 # timeOnL=0.0071
 # timeOnR=0.008
@@ -735,38 +737,38 @@ print("MC started")
 # timeOffL=0.002
 # timeOffR=0.002253565768621236
 
-timeOnL=0.008
-timeOnR=0.007430379746835442
-timeOffL=0.002
-timeOffR=0.002569620253164558
-
 # timeOnL=0.008
-# timeOnR=0.006
+# timeOnR=0.007430379746835442
 # timeOffL=0.002
-# timeOffR=0.004
+# timeOffR=0.002569620253164558
 
-#testDistances()
-#testAngles()
+# # timeOnL=0.008
+# # timeOnR=0.006
+# # timeOffL=0.002
+# # timeOffR=0.004
 
-angle,distance = readInstructions()
-# timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
-# print("MC: time Left = ",timeOnL,"s ",timeOffL,"s")
-# print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
+# #testDistances()
+# #testAngles()
 
-# angle = -1*math.pi/2
-# distance = 0
-# angle = 0
-# distance = 400
+# angle,distance = readInstructions()
+# # timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
+# # print("MC: time Left = ",timeOnL,"s ",timeOffL,"s")
+# # print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
 
-if(distance > 900):
-    print(" !! Resetting distance, ",distance," to 900mm")
-    distance = 900
+# # angle = -1*math.pi/2
+# # distance = 0
+# # angle = 0
+# # distance = 400
+
+# if(distance > 900):
+#     print(" !! Resetting distance, ",distance," to 900mm")
+#     distance = 900
 
 
-angle,distance = motorControl_wThread(angle,distance)
-print("MC: Angle turned = ",angle*180/math.pi)
-print("MC: distance moved = ",distance)
-writeOdometry(angle,distance)
+# angle,distance = motorControl_wThread(angle,distance)
+# print("MC: Angle turned = ",angle*180/math.pi)
+# print("MC: distance moved = ",distance)
+# writeOdometry(angle,distance)
 
 
 # ##Actual code to do things
