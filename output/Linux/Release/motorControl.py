@@ -4,6 +4,7 @@ import threading
 import csv
 import sonarControl
 import math
+import matplotlib.pyplot as plt
 
 # One of the following MUST be called before using IO functions:
 wiringpi.wiringPiSetup()      # For sequential pin numbering
@@ -454,10 +455,13 @@ def getDist(LNoRot,RNoRot):
 
 
 #CALIBRATION CODE
-def motorCorrection(distance,runs,left_sum,right_sum):
+def motorCorrection(distance,runs,left_sum,right_sum,lefts,rights):
     time.sleep(0.6)
     for i in range(0,runs):
         left,right = speedControl(0,distance,True)
+        lefts.append(left)
+        rights.append(rights)
+
         left_sum+=left
         right_sum+=right
         time.sleep(0.6)
@@ -481,20 +485,23 @@ def motorCalibrate():
     timeOffR = timeOff
 
     distance = 800
-    runs = 1
+    runs = 1 #THIS CANNOT BE CHANGED
+
+    lefts = []
+    rights = []
 
     left_avg = 0
     right_avg = 0
+    left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg,lefts,rights)
     left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
-    left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
-    left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
-    left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
-    left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
-    left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
-    left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
-    left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
-    left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
-    left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
+    # left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
+    # left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
+    # left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
+    # left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
+    # left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
+    # left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
+    # left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
+    # left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg)
     left_avg = left_avg/(runs*8)
     right_avg = right_avg/(runs*8)
     
@@ -512,6 +519,14 @@ def motorCalibrate():
     #Return to previous position attempt
     print("MCAL: time Left = ",timeOnL,"s ",timeOffL,"s")
     print("MCAL: time Right = ",timeOnR,"s ",timeOffR,"s")
+
+    runs = list(range(0, len(lefts)))
+    plt.plot(runs, lefts, label='lefts',color='r')
+    plt.plot(runs, rights, label='rights', color='b')
+    plt.xlabel("Runs")
+    plt.ylabel("No Rotations")
+    plt.legend()
+    plt.show()
 
     
     print("\n YOU HAVE 10s TO MOVE ME TO STARTING POSITION \n")
