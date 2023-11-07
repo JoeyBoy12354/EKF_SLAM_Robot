@@ -4,7 +4,6 @@ import threading
 import csv
 import sonarControl
 import math
-import matplotlib.pyplot as plt
 
 # One of the following MUST be called before using IO functions:
 wiringpi.wiringPiSetup()      # For sequential pin numbering
@@ -521,13 +520,22 @@ def motorCalibrate():
     print("MCAL: time Right = ",timeOnR,"s ",timeOffR,"s")
 
     runs = list(range(0, len(lefts)))
-    plt.plot(runs, lefts, label='lefts',color='r')
-    plt.plot(runs, rights, label='rights', color='b')
-    plt.xlabel("Runs")
-    plt.ylabel("No Rotations")
-    plt.legend()
-    plt.show()
 
+    column_width = 10
+    break_scaler = 14
+
+    t1 = "Runs"
+    t2 = "Left Rotations"
+    t3 = "Right Rotations"
+    print(f"{t1:{column_width}} {t2:{column_width}.4f} {t3:{column_width}.4f} ")
+    print("-" * (column_width) * break_scaler)
+    for i in range(len(runs)):
+        print(f"{runs[i]:{column_width}} {lefts[i]:{column_width}.4f} {rights[i]:{column_width}.4f} ")
+
+    print("-" * (column_width) * break_scaler)
+
+    print()
+    
     
     print("\n YOU HAVE 10s TO MOVE ME TO STARTING POSITION \n")
     time.sleep(10)
@@ -734,7 +742,7 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 
 
 print("MC started")
-#motorCalibrate()
+motorCalibrate()
 #timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
 # timeOnL=0.0071
 # timeOnR=0.008
@@ -757,34 +765,34 @@ print("MC started")
 # timeOffL=0.002
 # timeOffR=0.002569620253164558
 
-timeOnL=0.008
-timeOnR=0.007958868894601543 
-timeOffL=0.002
-timeOffR=0.002041131105398457
+# timeOnL=0.008
+# timeOnR=0.007958868894601543 
+# timeOffL=0.002
+# timeOffR=0.002041131105398457
 
-# #testDistances()
-# #testAngles()
+# # #testDistances()
+# # #testAngles()
 
-angle,distance = readInstructions()
-# timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
-# print("MC: time Left = ",timeOnL,"s ",timeOffL,"s")
-# print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
+# angle,distance = readInstructions()
+# # timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
+# # print("MC: time Left = ",timeOnL,"s ",timeOffL,"s")
+# # print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
 
-# angle = -1*math.pi/2
-# distance = 0
-angle = 0
-distance = 300
-
-
-if(distance > 900):
-    print(" !! Resetting distance, ",distance," to 900mm")
-    distance = 900
+# # angle = -1*math.pi/2
+# # distance = 0
+# angle = 0
+# distance = 300
 
 
-angle,distance = motorControl_wThread(angle,distance)
-print("MC: Angle turned = ",angle*180/math.pi)
-print("MC: distance moved = ",distance)
-writeOdometry(angle,distance)
+# if(distance > 900):
+#     print(" !! Resetting distance, ",distance," to 900mm")
+#     distance = 900
+
+
+# angle,distance = motorControl_wThread(angle,distance)
+# print("MC: Angle turned = ",angle*180/math.pi)
+# print("MC: distance moved = ",distance)
+# writeOdometry(angle,distance)
 
 
 # ##Actual code to do things
