@@ -849,8 +849,8 @@ angle,distance = readInstructions()
 
 # angle = -1*math.pi/2
 # distance = 0
-angle = 0
-distance = 300
+angle = math.py/2
+distance = 200
 
 
 if(distance > 900):
