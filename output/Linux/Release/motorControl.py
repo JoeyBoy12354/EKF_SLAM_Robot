@@ -527,10 +527,10 @@ def motorCalibrate():
     t1 = "Runs"
     t2 = "Left Rotations"
     t3 = "Right Rotations"
-    print(f"{t1:{column_width}} {t2:{column_width}.4f} {t3:{column_width}.4f} ")
+    print(f"{t1:{column_width}} {t2:{column_width}} {t3:{column_width}}")
     print("-" * (column_width) * break_scaler)
     for i in range(len(runs)):
-        print(f"{runs[i]:{column_width}} {lefts[i]:{column_width}.4f} {rights[i]:{column_width}.4f} ")
+        print(f"{runs[i]:{column_width}} {lefts[i]:{column_width}.4f} {rights[i]:{column_width}.4f}")
 
     print("-" * (column_width) * break_scaler)
 
