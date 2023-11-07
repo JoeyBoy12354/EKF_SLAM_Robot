@@ -459,7 +459,7 @@ def motorCorrection(distance,runs,left_sum,right_sum,lefts,rights):
     for i in range(0,runs):
         left,right = speedControl(0,distance,True)
         lefts.append(left)
-        rights.append(rights)
+        rights.append(right)
 
         left_sum+=left
         right_sum+=right
@@ -523,18 +523,18 @@ def motorCalibrate():
     column_width = 10
     break_scaler = 14
 
-    # t1 = "Runs"
-    # t2 = "Left Rotations"
-    # t3 = "Right Rotations"
-    # print("{:<{width}} {:<{width}} {:<{width}}".format(t1, t2, t3, width=column_width))
-    # print("-" * (column_width * break_scaler))
+    t1 = "Runs"
+    t2 = "Left Rotations"
+    t3 = "Right Rotations"
+    print("{:<{width}} {:<{width}} {:<{width}}".format(t1, t2, t3, width=column_width))
+    print("-" * (column_width * break_scaler))
 
-    # for i in range(len(runs)):
-    #     print("{0:{width}} {1:{width}.4f} {2:{width}.4f}".format(runs[i], lefts[i], rights[i], width=column_width))
+    for i in range(len(runs)):
+        print("{0:{width}} {1:{width}.4f} {2:{width}.4f}".format(runs[i], lefts[i], rights[i], width=column_width))
 
-    # print("-" * (column_width * break_scaler))
+    print("-" * (column_width * break_scaler))
 
-    # print()
+    print()
     
     
     print("\n YOU HAVE 10s TO MOVE ME TO STARTING POSITION \n")
