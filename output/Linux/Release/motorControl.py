@@ -523,16 +523,11 @@ def motorCalibrate():
     writeCalibration(timeOnL,timeOnR,timeOffL,timeOffR)
 
     #Return to previous position attempt
-    print("\nMCAL: time Left = ",timeOnL,"s ",timeOffL,"s")
-    print("MCAL: time Right = ",timeOnR,"s ",timeOffR,"s")
+    
 
     runs = list(range(0, len(lefts)))
 
     
-
-    print("left = ",lefts)
-    print("right = ",rights)
-    print("error =  ",error)
 
     column_width = 10
     break_scaler = 14
@@ -552,11 +547,22 @@ def motorCalibrate():
     print()
 
     era = 0
+    lea = 0
+    rea = 0
     for i in range(0,len(error)):
-        era+=error[i]
-    print("Average Error = ",era/len(error))
+        era+=abs(error[i])
+        lea+=abs(left_avg-lefts[i])
+        rea+=abs(right_avg-rights[i])
+    
     print("Average Left = ",left_avg )
     print("Average Right = ",right_avg )
+    print("Average Error = ",era/len(error))
+    print("Average Left Error = ",lea/len(error))
+    print("Average Right Error = ",rea/len(error))
+
+    print("MCAL: time Left = ",timeOnL,"s ",timeOffL,"s")
+    print("MCAL: time Right = ",timeOnR,"s ",timeOffR,"s")
+
 
     
     
