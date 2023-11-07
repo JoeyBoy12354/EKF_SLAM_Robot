@@ -545,7 +545,7 @@ def motorCalibrate():
     print("-" * (6))
 
     for i in range(len(runs)):
-        print("{0:{width}} {1:{width}.4f} {2:{width}.4f} {2:{width}.4f}".format(runs[i], lefts[i], rights[i],error[i], width=column_width))
+        print("{0:{width}} {1:{width}.4f} {2:{width}.4f} {3:{width}.4f}".format(runs[i], lefts[i], rights[i],error[i], width=column_width))
 
     print("-" * (6))
 
