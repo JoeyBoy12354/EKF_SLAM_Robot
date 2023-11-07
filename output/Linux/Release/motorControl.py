@@ -550,6 +550,12 @@ def motorCalibrate():
     print("-" * (6))
 
     print()
+
+    era = 0
+    for i in range(0,len(error)):
+        era+=error[i]
+    print(era/len(error))
+
     
     
     print("\n YOU HAVE 10s TO MOVE ME TO STARTING POSITION \n")
