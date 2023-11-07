@@ -34,7 +34,7 @@ namespace Mapping_Functions{
         // }
 
         float accuracy = 0;
-        float accuracy_dist = 20;
+        float accuracy_dist = 15;
         bool isAccurate=false;
 
         //Append new points to current oldmap
@@ -49,6 +49,7 @@ namespace Mapping_Functions{
                 }
 
                 if(pointDistance(lidardata[i],oldmap[j]) < accuracy_dist){
+                    cout<<"IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"<<endl;
                     isAccurate = true;
                 }
             }
@@ -68,7 +69,7 @@ namespace Mapping_Functions{
 
         //A very accurate scan should be fully added
         float acc_percentage = (accuracy/lidardata.size())*100;
-        if( acc_percentage> 88){
+        if( acc_percentage> 70){
             cout<<"\n\n VERY ACCURATE SCAN @ "<< acc_percentage <<" %\n\n";
             temp.clear();
             for(int i = 0;i<lidardata.size();i++){
@@ -207,7 +208,6 @@ namespace Mapping_Functions{
         //         }
         //     }
         //     cout<<endl;
-
 
 
         saveGridToCSV(gridNew);
@@ -354,7 +354,7 @@ namespace Mapping_Functions{
         float xStep = grid_ystep;//x-distance between points on same y-coordinate
         
         
-        float boundThresh = 230;//If distance between gridPoint and lidarPoint <= Xmm then return false 
+        float boundThresh = 340;//If distance between gridPoint and lidarPoint <= Xmm then return false 
 
         float xPos; //holds current x-coordinate
         float yPos; //holds current y-coordinate
@@ -401,11 +401,6 @@ namespace Mapping_Functions{
             while(yPoints.size()<=vLimit && dotCheck == true){
                 dotCheck = gridDotBoundCheck(mapdata,newPoint);
                 lidarCheck = gridDotLidarCheck(mapdata,newPoint,boundThresh);
-
-                if(newPoint.x == 0 && newPoint.y == 0){
-                    dotCheck = true;
-                    lidarCheck = true;
-                }
 
                 if(dotCheck == true && lidarCheck == true){
                     yPoints.push_back(newPoint);
