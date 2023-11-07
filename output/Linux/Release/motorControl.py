@@ -492,7 +492,7 @@ def motorCalibrate():
     left_avg = 0
     right_avg = 0
 
-    for i in range(0,5):
+    for i in range(0,2):
         left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg,lefts,rights)
     
     left_avg = left_avg/(runs*8)
@@ -525,7 +525,7 @@ def motorCalibrate():
     print("-" * (column_width * break_scaler))
 
     for i in range(len(runs)):
-        print("{:{width}} {:{width}.4f} {:{width}.4f}".format(runs[i], lefts[i], rights[i], width=column_width))
+        print("{0:{width}} {1:{width}.4f} {2:{width}.4f}".format(runs[i], lefts[i], rights[i], width=column_width))
 
     print("-" * (column_width * break_scaler))
 
