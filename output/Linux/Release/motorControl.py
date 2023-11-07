@@ -503,7 +503,7 @@ def motorCalibrate():
     left_avg = 0
     right_avg = 0
 
-    for i in range(0,6):
+    for i in range(0,12):
         left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg,lefts,rights,error)
     
     left_avg = left_avg/(runs*8)
@@ -521,7 +521,7 @@ def motorCalibrate():
     writeCalibration(timeOnL,timeOnR,timeOffL,timeOffR)
 
     #Return to previous position attempt
-    print("MCAL: time Left = ",timeOnL,"s ",timeOffL,"s")
+    print("\nMCAL: time Left = ",timeOnL,"s ",timeOffL,"s")
     print("MCAL: time Right = ",timeOnR,"s ",timeOffR,"s")
 
     runs = list(range(0, len(lefts)))
@@ -530,6 +530,7 @@ def motorCalibrate():
 
     print("left = ",lefts)
     print("right = ",rights)
+    print("error =  ",error)
 
     column_width = 10
     break_scaler = 14
@@ -537,6 +538,7 @@ def motorCalibrate():
     t1 = "Runs"
     t2 = "Left Rotations"
     t3 = "Right Rotations"
+    print()
     print("{:<{width}} {:<{width}} {:<{width}}".format(t1, t2, t3, width=column_width))
     print("-" * (6))
 
