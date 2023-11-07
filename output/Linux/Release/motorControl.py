@@ -466,13 +466,15 @@ def motorCorrection(distance,runs,left_sum,right_sum,lefts,rights,error):
         right_sum+=right
         time.sleep(0.6)
 
-        left,right = speedControl(0,distance*runs,False)
-        lefts.append(left)
-        rights.append(right)
-        error.append(right - left)
+        #left,right = speedControl(0,distance*runs,False)
+        # lefts.append(left)
+        # rights.append(right)
+        # error.append(right - left)
 
-        left_sum+=left
-        right_sum+=right
+        # left_sum+=left
+        # right_sum+=right
+    
+    left,right = speedControl(0,distance*runs,False)
 
     
 
@@ -521,8 +523,8 @@ def motorCalibrate():
     for i in range(0,num):
         left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg,lefts,rights,error)
     
-    left_avg = left_avg/(runs*(num*2))
-    right_avg = right_avg/(runs*(num*2))
+    left_avg = left_avg/(len(lefts))
+    right_avg = right_avg/(len(lefts))
     
     
     if(left_avg>right_avg):
