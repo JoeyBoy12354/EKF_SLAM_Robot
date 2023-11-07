@@ -514,7 +514,7 @@ def motorCalibrate():
     # timeOffR=0.002133971291866028
 
 
-    distance = 800
+    distance = 700
     runs = 1 #THIS CANNOT BE CHANGED
 
     lefts = []
