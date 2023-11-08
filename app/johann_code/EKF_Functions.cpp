@@ -37,8 +37,8 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     // float test_sigma_r = 0.3;
     // float test_sigma_theta = 0.3;
 
-    float test_sigma_r = 0.25;
-    float test_sigma_theta = 0.25;
+    float test_sigma_r = 0.3;
+    float test_sigma_theta = 0.3;
     
     float test_sigma_odo_x = 0.5;
     float test_sigma_odo_y = 0.5;
@@ -114,6 +114,12 @@ void ExtendedKalmanFilter::updateMotion() {
     //In essecence I think this should be the rate of change but yeah they cakculated it originally as just the distance in x and y
     Motion_Jacobian(0,2) = -(distance+dist2)*sin(State(2));
     Motion_Jacobian(1,2) = (distance+dist2)*cos(State(2));
+
+
+    cout<<"D: x = "<<Cd_x<<", y = "<<Cd_y<<", a = "<<w*180/PI<<endl;
+    cout<<"used%: x = "<<100*(C.x + Cd_x)/C.x<<", y = "<<100*(C.y + Cd_y)/C.y<<", a ="<<100*(State(2) + w)/State(2)<<endl;
+
+
 
     //State is now updated with C(x,y) calculated from State when performing triangular repositioning.
     //The d_x and d_y from the distance moved forward is then added 
