@@ -399,6 +399,7 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     delta_z(1) = pi_2_pi(delta_z(1));
     State = State + Gain*(delta_z);
 
+    cout<<"Using z: r =  "<<z[0]<<" a = "<<z[1]<<" || cap: r "<<z[0]<<" a = "<<z[1]<<endl;
     cout<<"EKF: after_ekf State: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
     }
 
