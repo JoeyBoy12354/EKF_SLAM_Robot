@@ -176,10 +176,11 @@ def right_thread(timeOn,timeOff):
     #Forward Movement
 
     while(runDone == False):
-        wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
-        time.sleep(timeOn)
-        wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
-        time.sleep(timeOff)
+        while(runDone == False):
+            wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+            time.sleep(timeOn)
+            wiringpi.digitalWrite(LMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
+            time.sleep(timeOff)
 
     #print("leaving")
     return
@@ -602,7 +603,7 @@ def motorCalibrate():
     # timeOffR=0.002218803418803419
 
 
-    distance =200
+    distance =300
     runs = 1 #THIS CANNOT BE CHANGED
 
     lefts = []
