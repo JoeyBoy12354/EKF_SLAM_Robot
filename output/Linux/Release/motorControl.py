@@ -218,6 +218,8 @@ def motorControl_wThread(theta,distance):
 
     angle = getAngle(LNoRot,RNoRot,theta)
 
+    
+
     time.sleep(0.6)
 
 
@@ -420,16 +422,19 @@ def speedSensor(NoTicks):
     return left,right
 
 def getAngle(LNoRot,RNoRot,theta):
+    bias = 5*math.pi/180
     #Determine actual angle
     thetaL = (LNoRot*2*math.pi*r/R)
     thetaR = (RNoRot*2*math.pi*r/R)
 
     print("ThetaL = ",-1*thetaL*180/math.pi,"ThetaR = ",thetaR*180/math.pi)
+    print("SUBTRACT BIAS FROM ANGLE")
+
     #Assumme the other wheel picking up roations is shaking
     if(theta<0):
-        return -1*thetaL
+        return (-1*thetaL+bias)
     else:
-        return thetaR
+        return (thetaR-bias)
     
     # if(thetaL>thetaR):
     #     return -1*thetaL
