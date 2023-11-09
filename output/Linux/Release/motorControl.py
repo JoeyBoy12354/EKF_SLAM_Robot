@@ -422,13 +422,13 @@ def speedSensor(NoTicks):
     return left,right
 
 def getAngle(LNoRot,RNoRot,theta):
-    bias = 3*math.pi/180
+    bias = 1*2*math.pi*r/R
     #Determine actual angle
     thetaL = (LNoRot*2*math.pi*r/R)
     thetaR = (RNoRot*2*math.pi*r/R)
 
     print("ThetaL = ",-1*thetaL*180/math.pi,"ThetaR = ",thetaR*180/math.pi)
-    print("SUBTRACT BIAS FROM ANGLE")
+    print("SUBTRACT BIAS FROM ANGLE :",bias)
 
     #Assumme the other wheel picking up roations is shaking
     if(theta<0):
