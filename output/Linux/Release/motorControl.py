@@ -535,10 +535,10 @@ def motorCalibrate():
     # timeOffR=0.0021093643198906373						
 
 
-    timeOnL=0.007776536312849163
-    timeOnR=0.007890635680109363
-    timeOffL=0.0022234636871508373
-    timeOffR=0.0021093643198906373 
+    # timeOnL=0.007776536312849163
+    # timeOnR=0.007890635680109363
+    # timeOffL=0.0022234636871508373
+    # timeOffR=0.0021093643198906373 
 
 
 
@@ -833,7 +833,7 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 
 
 print("MC started")
-#motorCalibrate()
+motorCalibrate()
 #timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
 # timeOnL=0.0071
 # timeOnR=0.008
@@ -861,10 +861,10 @@ print("MC started")
 # timeOffL=0.002
 # timeOffR=0.0023524050632911415 
 
-timeOnL=0.007776536312849163
-timeOnR=0.007890635680109363
-timeOffL=0.0022234636871508373
-timeOffR=0.0021093643198906373 
+# timeOnL=0.007776536312849163
+# timeOnR=0.007890635680109363
+# timeOffL=0.0022234636871508373
+# timeOffR=0.0021093643198906373 
 
 
 
@@ -880,24 +880,24 @@ timeOffR=0.0021093643198906373
 # print("MC: time Left = ",timeOnL,"s ",timeOffL,"s")
 # print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
 
-angle,distance = readInstructions()
+#angle,distance = readInstructions()
 
 
 # angle = -1*math.pi/2
 # distance = 0
-angle = 0
-distance = 200
+# angle = 0
+# distance = 200
 
 
-if(distance > 900):
-    print(" !! Resetting distance, ",distance," to 900mm")
-    distance = 900
+# if(distance > 900):
+#     print(" !! Resetting distance, ",distance," to 900mm")
+#     distance = 900
 
 
-angle,distance = motorControl_wThread(angle,distance)
-print("MC: Angle turned = ",angle*180/math.pi)
-print("MC: distance moved = ",distance)
-writeOdometry(angle,distance)
+# angle,distance = motorControl_wThread(angle,distance)
+# print("MC: Angle turned = ",angle*180/math.pi)
+# print("MC: distance moved = ",distance)
+# writeOdometry(angle,distance)
 
 
 # ##Actual code to do things
