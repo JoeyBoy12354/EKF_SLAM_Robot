@@ -424,8 +424,15 @@ def getAngle(LNoRot,RNoRot,theta):
 def getAngleDifference(LNoRot,RNoRot,angle):
     print("Get diff for = ",abs(LNoRot - RNoRot))
 
+    #We also need to check for small data
+    if(LNoRot<0.25 and RNoRot<0.25):
+        print("BAD MOTOR DATA DETECTED! LNoRot & RNoRot < 0.25")
+        return angle
+
+
+
     #We also need to check for bad data
-    if(abs(LNoRot/RNoRot) <=0.7 or abs(RNoRot/LNoRot) <=0.7):
+    elif(abs(LNoRot/RNoRot) <=0.7 or abs(RNoRot/LNoRot) <=0.7):
         print("BAD MOTOR DATA DETECTED! Difference >= 70%")
 
 
