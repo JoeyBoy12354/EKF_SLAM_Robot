@@ -272,10 +272,10 @@ def speedControl(theta,distance,direction):
             threadR = threading.Thread(target=rightR_thread, args=(timeOnR,timeOffR,))
     elif(theta != 0 and distance == 0):
         #NoRotations = (R*abs(theta))/(2*math.pi*r) # ROTATE
-        bias = 3*math.pi/180
+        #bias = 0.05
 
         #newRotation Scheme:
-        NoRotations = (R*(abs(theta)+bias))/(2*math.pi*r)# ROTATE
+        NoRotations = (R*(abs(theta)))/(2*math.pi*r) + 0.05# ROTATE
         
         if(theta<0):
             if(direction == True):
@@ -422,7 +422,7 @@ def speedSensor(NoTicks):
     return left,right
 
 def getAngle(LNoRot,RNoRot,theta):
-    bias = 1*2*math.pi*r/R
+    bias = 0.05*2*math.pi*r/R
     #Determine actual angle
     thetaL = (LNoRot*2*math.pi*r/R)
     thetaR = (RNoRot*2*math.pi*r/R)
