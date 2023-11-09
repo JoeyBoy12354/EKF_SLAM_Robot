@@ -31,6 +31,7 @@ clockAngleInit = 0.959931 #55 Degree inital rotation
 clockAngleInit = 0.513599 #? Degree inital rotation
 clockAngleStep = 0.261799 #15 Degree step rotation
 
+runDone2 = False
 runDone = False
 sonarFlag = False
 sonarOn = False
@@ -141,32 +142,37 @@ def avoidanceForward(distance):
 def left_thread(timeOn,timeOff):
     #print("MC: LEFT_Thread")
     global runDone
+    global runDone2
     #Forward Movement
 
-    while(runDone == False):
-        wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
-        time.sleep(timeOn)
-        wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
-        time.sleep(timeOff)
+    while(runDone2 == False):
+        while(runDone == False):
+            wiringpi.digitalWrite(RMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+            time.sleep(timeOn)
+            wiringpi.digitalWrite(RMot_Pin, 1)  # Write 0 ( LOW ) to pin 6
+            time.sleep(timeOff)
 
     return
 
 def leftR_thread(timeOn,timeOff):
     #print("MC: LEFT_R_Thread")
     global runDone
+    global runDone2
     #Forward Movement
 
-    while(runDone == False):
-        wiringpi.digitalWrite(RMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 6
-        time.sleep(timeOn)
-        wiringpi.digitalWrite(RMotR_Pin, 1)  # Write 0 ( LOW ) to pin 6
-        time.sleep(timeOff)
+    while(runDone2 == False):
+        while(runDone == False):
+            wiringpi.digitalWrite(RMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+            time.sleep(timeOn)
+            wiringpi.digitalWrite(RMotR_Pin, 1)  # Write 0 ( LOW ) to pin 6
+            time.sleep(timeOff)
 
     return
 
 def right_thread(timeOn,timeOff):
     #print("MC: RIGHT_Thread")
     global runDone
+    global runDone2
     #Forward Movement
 
     while(runDone == False):
@@ -181,13 +187,15 @@ def right_thread(timeOn,timeOff):
 def rightR_thread(timeOn,timeOff):
     #print("MC: RIGHT_R_Thread")
     global runDone
+    global runDone2
     #Forward Movement
 
-    while(runDone == False):
-        wiringpi.digitalWrite(LMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 6
-        time.sleep(timeOn)
-        wiringpi.digitalWrite(LMotR_Pin, 1)  # Write 0 ( LOW ) to pin 6
-        time.sleep(timeOff)
+    while(runDone2 == False):
+        while(runDone == False):
+            wiringpi.digitalWrite(LMotR_Pin, 0)  # Write 1 ( HIGH ) to pin 6
+            time.sleep(timeOn)
+            wiringpi.digitalWrite(LMotR_Pin, 1)  # Write 0 ( LOW ) to pin 6
+            time.sleep(timeOff)
 
     return
 
@@ -234,13 +242,15 @@ def motorControl_wThread(theta,distance):
 
 def speedControl(theta,distance,direction):
     global runDone
+    global runDone2
     global sonarOn
     global sonarFlag
     global timeOnL
     global timeOnR
     global timeOffL
     global timeOffR
-    runDone = False
+    runDone = True
+    runDone2 = False
     sonarOn = True
     
 
@@ -296,6 +306,7 @@ def speedControl(theta,distance,direction):
     if(theta == 0 and distance > 0):
         threadR.start()
         threadL.start()
+        runDone = False
         #Straight
         while(left_count<=NoTicks and right_count<=NoTicks and sonarFlag == False):
             left_new = wiringpi.digitalRead(LSS_Pin)
@@ -351,6 +362,7 @@ def speedControl(theta,distance,direction):
     #     right_old = right_new
 
     runDone = True
+    runDone2 = True
     sonarOn = False
     #print("runDone = ",runDone," sonarFlag = ",sonarFlag, " Waiting to join")
 
