@@ -175,7 +175,7 @@ def right_thread(timeOn,timeOff):
     global runDone2
     #Forward Movement
 
-    while(runDone == False):
+    while(runDone2 == False):
         while(runDone == False):
             wiringpi.digitalWrite(LMot_Pin, 0)  # Write 1 ( HIGH ) to pin 6
             time.sleep(timeOn)
