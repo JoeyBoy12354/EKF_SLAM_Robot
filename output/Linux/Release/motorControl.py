@@ -944,7 +944,7 @@ angle,distance = readInstructions()
 # distance = 0
 angle = math.pi/2
 #angle = 0
-distance = 100
+distance = 200
 
 
 if(distance > 900):
