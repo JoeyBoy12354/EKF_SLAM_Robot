@@ -934,24 +934,24 @@ timeOffR=0.00232513625
 # print("MC: time Left = ",timeOnL,"s ",timeOffL,"s")
 # print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
 
-#angle,distance = readInstructions()
+angle,distance = readInstructions()
 
 
 # angle = -1*math.pi/2
 # distance = 0
-# angle = 0
-# distance = 200
+angle = 0
+distance = 200
 
 
-# if(distance > 900):
-#     print(" !! Resetting distance, ",distance," to 900mm")
-#     distance = 900
+if(distance > 900):
+    print(" !! Resetting distance, ",distance," to 900mm")
+    distance = 900
 
 
-# angle,distance = motorControl_wThread(angle,distance)
-# print("MC: Angle turned = ",angle*180/math.pi)
-# print("MC: distance moved = ",distance)
-# writeOdometry(angle,distance)
+angle,distance = motorControl_wThread(angle,distance)
+print("MC: Angle turned = ",angle*180/math.pi)
+print("MC: distance moved = ",distance)
+writeOdometry(angle,distance)
 
 
 # ##Actual code to do things
