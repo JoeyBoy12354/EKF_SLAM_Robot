@@ -427,7 +427,6 @@ def getAngleDifference(LNoRot,RNoRot,angle):
     #We also need to check for small data
     if(LNoRot<0.25 and RNoRot<0.25):
         print("BAD MOTOR DATA DETECTED! LNoRot & RNoRot < 0.25")
-        return angle
 
 
 
