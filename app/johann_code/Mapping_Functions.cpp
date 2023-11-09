@@ -10,7 +10,7 @@ namespace Mapping_Functions{
     //Points have to be translated
     void storeMapPoints(vector<CarPoint> lidardata,Matrix<float, dim, 1> State){
         float distance_threshold = 150;//If two points are greater than Xmm then keep this point.
-        float distance_threshold = 5;//If two points are greater than Xmm then keep this point. (ACCURACY test)
+        float distance_threshold2 = 5;//If two points are greater than Xmm then keep this point. (ACCURACY test)
 
         vector<CarPoint> oldmap;
         readCarFromFullMapCSV(oldmap);//Fetch all current points
@@ -73,8 +73,10 @@ namespace Mapping_Functions{
             cout<<"\n\n VERY ACCURATE SCAN @ "<< acc_percentage <<" %\n\n";
             temp.clear();
             for(int i = 0;i<lidardata.size();i++){
-                if(pointDistance(lidardata[i],oldmap[j]) > distance_threshold2)
-                oldmap.push_back(lidardata[i]);
+                for(int j =0;j<oldmap.size();j++){
+                    if(pointDistance(lidardata[i],oldmap[j]) > distance_threshold2)
+                        oldmap.push_back(lidardata[i]);
+                }    
             }
 
 
