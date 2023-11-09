@@ -424,8 +424,15 @@ def getAngle(LNoRot,RNoRot,theta):
 def getAngleDifference(LNoRot,RNoRot,angle):
     print("Get diff for = ",abs(LNoRot - RNoRot))
 
+    #We also need to check for bad data
+    if(abs(LNoRot/RNoRot) <=0.7 or abs(RNoRot/LNoRot) <=0.7):
+        print("BAD MOTOR DATA DETECTED! Difference >= 70%")
 
-    if abs(LNoRot - RNoRot) > 0.051 :
+
+        diff = (2*math.pi*r/R)*(0.1)
+        angle = angle + diff
+
+    elif abs(LNoRot - RNoRot) > 0.051 :
         print("Angle Diff exists")
 
         if(RNoRot>LNoRot): RNoRot = RNoRot-0.05
