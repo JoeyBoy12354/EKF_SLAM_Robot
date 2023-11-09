@@ -297,11 +297,6 @@ def speedControl(theta,distance,direction):
 
     #sonar_thread.start() #turrned off for testing
     startT = time.time()
-    # if(theta == 0 and distance > 0):
-    #     threadR.start()
-    #     threadL.start()
-    # else:
-    #     thread.start()
 
     if(theta == 0 and distance > 0):
         threadR.start()
