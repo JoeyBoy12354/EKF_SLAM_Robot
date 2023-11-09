@@ -551,7 +551,6 @@ def motorCalibrate():
 
 
 
-    #This cause super left turn
     # timeOnL=0.008
     # timeOnR=0.007890635680109363
     # timeOffL=0.002
@@ -562,9 +561,9 @@ def motorCalibrate():
 
 
     timeOnL=0.008
-    timeOnR=0.007890635680109363
+    timeOnR=0.007290635680109363
     timeOffL=0.002
-    timeOffR=0.0021093643198906373			
+    timeOffR=0.00270936431		
 
 
 
