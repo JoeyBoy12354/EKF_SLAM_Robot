@@ -317,6 +317,8 @@ def speedControl(theta,distance,direction):
             right_old = right_new
     elif(theta<0):
         thread.start()
+        runDone = False
+
         #Rotate Left
         while(left_count<=NoTicks and sonarFlag == False):
             left_new = wiringpi.digitalRead(LSS_Pin)
@@ -331,6 +333,7 @@ def speedControl(theta,distance,direction):
             right_old = right_new
     else:
         thread.start()
+        runDone = False
         #Rotate Right
         while(right_count<=NoTicks and sonarFlag == False):
             left_new = wiringpi.digitalRead(LSS_Pin)
@@ -939,8 +942,8 @@ angle,distance = readInstructions()
 
 # angle = -1*math.pi/2
 # distance = 0
-#angle = math.pi/2
-angle = 0
+angle = math.pi/2
+#angle = 0
 distance = 100
 
 
