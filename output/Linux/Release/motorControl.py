@@ -240,6 +240,7 @@ def motorControl_wThread(theta,distance):
     print("MC measured angle x = ",angle*180/math.pi)
     print("MC: Possible angle = ", getAngleDifference(left,right,angle)* 180/(math.pi))
     angle = getAngleDifference(left,right,angle)
+    print("MC: Post Difference angle = ", getAngleDifference(left,right,angle)* 180/(math.pi))
 
     return angle,dist
 
@@ -448,6 +449,7 @@ def getAngleDifference(LNoRot,RNoRot,angle):
     #We also need to check for small data
     if(LNoRot<0.25 and RNoRot<0.25):
         print("BAD MOTOR DATA DETECTED! LNoRot & RNoRot < 0.25")
+        return angle
 
 
 
