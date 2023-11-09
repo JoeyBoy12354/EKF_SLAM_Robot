@@ -939,7 +939,7 @@ angle,distance = readInstructions()
 
 # angle = -1*math.pi/2
 # distance = 0
-angle = 0
+angle = math.pi/2
 distance = 200
 
 
