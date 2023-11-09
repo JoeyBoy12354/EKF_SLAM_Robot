@@ -68,6 +68,7 @@ namespace Mapping_Functions{
 
 
         //A very accurate scan should be fully added
+        vectorCarPoint> temp;
         float acc_percentage = (accuracy/lidardata.size())*100;
         if( acc_percentage> 70){
             cout<<"\n\n VERY ACCURATE SCAN @ "<< acc_percentage <<" %\n\n";
@@ -76,6 +77,7 @@ namespace Mapping_Functions{
                 for(int j =0;j<oldmap.size();j++){
                     if(pointDistance(lidardata[i],oldmap[j]) > distance_threshold2)
                         oldmap.push_back(lidardata[i]);
+                        //temp.push_back(lidardata[i];)
                 }    
             }
 
