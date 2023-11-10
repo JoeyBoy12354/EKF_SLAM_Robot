@@ -82,7 +82,8 @@ def runSonar(Left):
     if(distance> 12000):
         print("12m <= DISTANCE is set to ",readSonarCSV()," || measured = ",distance)
         distance = readSonarCSV()
-        
+    else:
+        print("Distance < 12000 Measured:",distance," Read = ",readSonarCSV)
         
         
 
