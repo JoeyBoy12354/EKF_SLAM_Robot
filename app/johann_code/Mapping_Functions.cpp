@@ -179,6 +179,13 @@ namespace Mapping_Functions{
             if(map[i].x<xMin && abs(map[i].y - dot.y) <= distThresh){
                 xMin = map[i].x;
             }
+
+            if(abs(map[i].x - dot.x) <= distThresh && dot.x>900){
+                cout<<"abs(map[i].x - dot.x)"<<abs(map[i].x - dot.x)<<" map.x = "<<map[i].x<<endl;
+            }
+            if(abs(map[i].y - dot.y) <= distThresh && dot.x>900){
+                cout<<"abs(map[i].x - dot.x)"<<abs(map[i].y - dot.y)<<" map.y = "<<map[i].y<<endl;
+            }
         }
 
         bounds.push_back(xMax);
