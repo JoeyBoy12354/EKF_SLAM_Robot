@@ -393,6 +393,8 @@ namespace Navigation_Functions{
 
 
     float wallAvoidance(MatrixXf State, float angle){
+
+        //
         float turnableDistance = 70; //Total distance from object required to make a turn (REMEMBER SAME AS IN MC Python)
         vector<CarPoint> map;
         CarPoint bot(State(0),State(1));
@@ -428,6 +430,54 @@ namespace Navigation_Functions{
         return angle;
 
     }
+
+    void wallAvoidanceForward(MatrixXf State, float angle, CarPoint postPoint, CarPoint goalPoint){
+        float tooClose_thresh = 40;
+        float groupie_thresh = 100;
+        vector<CarPoint> map;
+        readCarFromFullMapCSV(map);
+        float Nangle = angle + currState(2); //This is the predicted orientation after rotation
+
+        float m = (goalPoint.y - postPoint.y)/(goalPoint.x - postPoint.x);
+        float c = goalPoint.y - m*goalPoint.x;
+
+        float dm = 10000;
+        float m_best = 10000;
+        CarPoint best;
+
+
+        //Find best matching gradient
+        for(int i =0;i<map.size();i++){
+            float m_t = (postPoint.y - map[i].y)/(postPoint.x - map[i].x);
+            float c_t = postPoint.y - m_t*postPoint.x;
+
+            //Originating from same point so c does not matter
+            if(abs(m-m_t) < dm){
+                m_best = m_t;
+                best.x = map[i].x;
+                best.y = map[i].y;
+            }
+        }
+
+        float dist = pointDistance(postPoint,best);
+    
+        //Find groupie around point
+        for(int i =0;i<map.size();i++){
+            if(pointDistance(best,map[i]) < groupie_thresh){
+                //Determine if we are too close to any point in groupie
+                if(pointDistance(postPoint,map[i]) < dist){
+                    dist = pointDistance(postPoint,map[i]);
+                }
+            }
+        }
+
+        saveSonarIndicationToCSV(dist);
+        cout<<"NAVI: Predicted Dist = "<<dist;
+
+    }
+
+
+
 
 
     //Set distance and angle to go to given grid point
@@ -472,6 +522,7 @@ namespace Navigation_Functions{
 
         //Wall Avoidance
         angle = wallAvoidance(State,angle);
+        wallAvoidanceForward(State, angle, C, closestPoint);
         //End Wall avoidance
 
 

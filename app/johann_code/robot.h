@@ -173,6 +173,9 @@ namespace CSV_Functions{
     void atsi_lm_write(vector<vector<float>>& lm);
     void atsi_lm_read2(vector<vector<PolPoint>>& lm);
 
+    //Sonar
+    void saveSonarIndicationToCSV(float distance);
+
 
 }
 
@@ -300,6 +303,7 @@ namespace Navigation_Functions{
     CarPoint findNextPointStraight(MatrixXf State, vector<vector<GridPoint>> gridMap, bool& mapped);
 
     float wallAvoidance(MatrixXf State, float angle);
+    void wallAvoidanceForward(MatrixXf State, float angle, CarPoint postPoint, CarPoint goalPoint);
     
 }
 

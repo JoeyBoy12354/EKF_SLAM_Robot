@@ -17,6 +17,25 @@ trigPin2 = 27
 echoPin1 = 6
 trigPin1 = 5
 
+def readSonarCSV():
+    try:
+        dist= 4000
+        # Calculate goal that we want to move
+        with open('sonarPredictCSV.csv', 'r') as file:
+            csv_reader = csv.reader(file)
+            for row in csv_reader:
+                dist = float(row[0])
+    except FileNotFoundError:
+        print("Error: The file 'sonarPredictCSV.csv' was not found.")
+        return None
+    except Exception as e:
+        print(f"An error occurred while reading 'sonarPredictCSV.csv': {e}")
+        return None
+    else:
+        file.close()
+
+    return dist
+
 #returns distance to obstacle in cm
 def runSonar(Left):
     echoPin = echoPin1
@@ -61,8 +80,11 @@ def runSonar(Left):
     #The HC-SR04 Ultrasonics have a max range of 4000mm (4m) if something is further than that they will bug out
     #And provide a distance greater than 12000 the same will occur for the minimum range of 20mm
     if(distance> 12000):
-        distance = 4000
-        print("12m <= DISTANCE ! set to 4000mm")
+        print("12m <= DISTANCE is set to ",readSonarCSV()," || measured = ",distance)
+        distance = readSonarCSV()
+        
+        
+        
 
     writeOdometry(distance)
     return distance

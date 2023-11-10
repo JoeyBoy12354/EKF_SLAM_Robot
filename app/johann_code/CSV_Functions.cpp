@@ -13,6 +13,7 @@ string sectionCSV = "sectionCSV.csv";
 string triangleCSV = "triangleCSV.csv";
 string motorStateCSV = "motorStateCSV.csv";
 string statsCSV = "statsCSV.csv";
+string sonarCSV = "sonarPredictCSV.csv";
 
 string atsi_u_CSV = "atsi_uCSV.csv";
 string atsi_lm_CSV = "atsi_lmCSV.csv";
@@ -624,6 +625,21 @@ namespace CSV_Functions{
 
         outputFile.close();
         return;
+    }
+
+    //Sonar
+    void saveSonarIndicationToCSV(float distance){
+        ofstream csvFile(sonarCSV);
+        if (!csvFile) {
+            cerr << "Error opening file: " << sonarCSV << endl;
+            return;
+        }
+
+        // Write to CSV
+        csvFile << distance << endl;
+
+        csvFile.close();
+
     }
 
 }
