@@ -708,7 +708,7 @@ namespace Mapping_Functions{
                 
                 }
                 if(found==false){
-                    points.append(points2[i][j]);
+                    points.push_back(points2[i][j]);
                 }
             found = false;
             }
