@@ -472,7 +472,7 @@ namespace Navigation_Functions{
 
         saveSonarIndicationToCSV(dist);
         cout<<"NAVI: AvoidFor avoid: "<<avoidPoint<<", From: "<<postsPoint<<endl;
-        cout<<"NAVI: Predicted Dist = "<<dist;
+        cout<<"NAVI: Predicted Dist = "<<dist<<endl;
 
     }
 
