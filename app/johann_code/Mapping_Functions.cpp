@@ -181,10 +181,10 @@ namespace Mapping_Functions{
             }
 
             if(abs(map[i].x - dot.x) <= distThresh && dot.x>900){
-                cout<<"abs(map[i].x - dot.x)"<<abs(map[i].x - dot.x)<<" map.x = "<<map[i].x<<endl;
+                cout<<"dot = ("<<dot.x<<", "<<dot.y<<") abs(map[i].x - dot.x) =  "<<abs(map[i].x - dot.x)<<" map.x = "<<map[i].x<<endl;
             }
             if(abs(map[i].y - dot.y) <= distThresh && dot.x>900){
-                cout<<"abs(map[i].x - dot.x)"<<abs(map[i].y - dot.y)<<" map.y = "<<map[i].y<<endl;
+                cout<<"dot = ("<<dot.x<<", "<<dot.y<<") abs(map[i].x - dot.x) = "<<abs(map[i].y - dot.y)<<" map.y = "<<map[i].y<<endl;
             }
         }
 
