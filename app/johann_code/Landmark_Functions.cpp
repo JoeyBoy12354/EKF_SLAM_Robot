@@ -104,11 +104,14 @@ namespace Landmark_Functions{
             interAngle = abs(atan((mB - mA) / (1 + mA * mB)));
         }
 
+        cout<<"Inter Angle = "<<interAngle*180/M_PI<<endl;
+
     
         
 
         
         if (interAngle < M_PI / 2 + angleThreshold && interAngle > M_PI / 2 - angleThreshold) {
+            cout<<"TRUE CORNER"<<endl;
             return true; //corner detected
         }
         return false; //corner not detected
