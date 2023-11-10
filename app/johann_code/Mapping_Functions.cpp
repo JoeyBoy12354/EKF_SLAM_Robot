@@ -698,15 +698,20 @@ namespace Mapping_Functions{
 
         bool found=false;
         for(int i =0;i<points2.size();i++){
-            for(int j=0;j<points.size();j++){
-                if(points[j].x==points2[i].x && points[j].y==points2[i].y){
-                    found=true;
+            for(int j=0;j<points2[i].size();j++){
+                for(int k=0;k<points.size();k++){
+                    for(int z=0;z<points[k].size();k++){
+                        if(points[k][z].x==points2[i][j].x && points[k][z].y==points2[i][j].y){
+                            found=true;
+                        }
+                    }
+                
                 }
-            }
-            if(found==false){
-                points.append(points2[i]);
-            }
+                if(found==false){
+                    points.append(points2[i][j]);
+                }
             found = false;
+            }
         }
 
     }
