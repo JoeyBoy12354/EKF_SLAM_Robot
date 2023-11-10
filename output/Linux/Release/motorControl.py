@@ -648,6 +648,7 @@ def motorCalibrate():
     right_avg = 0
 
     num = 6
+    num = 1
 
     for i in range(0,num):
         left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg,lefts,rights,error)
