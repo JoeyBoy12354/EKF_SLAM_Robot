@@ -494,6 +494,7 @@ namespace Landmark_Functions{
                     group.push_back(point);
                 } 
             }
+            cout<<"Group size = "<<group.size()<<endl;
             vector<CarPoint> corners2 =  getMiniRANSACCorners(group);
             cout<<"Corner: ("<<closeCorners[i](0)<<", "<<closeCorners[i](1)<<"): ";
             if(corners2.size()!=0){
