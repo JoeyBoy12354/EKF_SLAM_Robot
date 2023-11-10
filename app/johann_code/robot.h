@@ -265,6 +265,7 @@ namespace Mapping_Functions{
     bool gridDotLidarCheck(vector<CarPoint> searchMap, GridPoint point,float distThresh);
     void gridMakeDots(vector<CarPoint> mapdata, vector<vector<GridPoint>>& points);
     void gridMakeDots2(vector<CarPoint> mapdata, vector<vector<GridPoint>>& points);
+    bool gridDotBigBoundCheck(GridPoint point,vector<float> bounds);
 
     void mapConverter(vector<vector<GridPoint>> gridOld, vector<vector<GridNode>>& gridNew);
 }

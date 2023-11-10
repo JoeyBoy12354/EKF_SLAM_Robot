@@ -314,6 +314,25 @@ namespace Mapping_Functions{
         return true;
     }
 
+    bool gridDotBigBoundCheck(GridPoint point,vector<float> bounds){
+        // if(point.x > 500 && point.x < 1500){
+        //     cout<<"MapPoint: ("<<point.x<<", "<<point.y<<")"<<endl;
+        // }
+
+
+
+        //check if point is within max and min of lidardata bounds=[Xmax,Xmin,Ymax,Ymin]
+        if(point.x>bounds[0] || point.x<bounds[1] || point.y>bounds[2] || point.y<bounds[3] ){
+            return false;
+        }
+
+        // if(point.x > 500 && point.x < 1500){
+        //     cout<<"MapPoint passed bounds check"<<endl;
+        // }
+
+        return true;
+    }
+
     bool gridDotLidarCheck(vector<CarPoint> searchMap, GridPoint point,float distThresh){
         if(searchMap.size()==0){
             return false;
@@ -758,7 +777,7 @@ namespace Mapping_Functions{
         getMapBounds(mapdata,bounds);
 
         
-        cout<<"Map Bounds = xmin: "<<bounds[0]<<", xmax"<<bounds[1]<<", ymin"<<bounds[2]<<", ymax"<<bounds[3]<<endl;
+        cout<<"Map Bounds = xmax: "<<bounds[0]<<", xmin"<<bounds[1]<<", ymax"<<bounds[2]<<", ymin"<<bounds[3]<<endl;
     
 
 
@@ -788,7 +807,7 @@ namespace Mapping_Functions{
             yPos = 0;
             newPoint.x = xPos;
             newPoint.y = yPos;
-            while(yPoints.size()<=vLimit){
+            while(yPoints.size()<=vLimit && gridDotBigBoundCheck(newPoint,bounds) == true){
                 dotCheck = gridDotBoundCheck(mapdata,newPoint);
                 lidarCheck = gridDotLidarCheck(mapdata,newPoint,boundThresh);
                 if(newPoint.x>900){
@@ -829,7 +848,7 @@ namespace Mapping_Functions{
             yPos = yStep;
             newPoint.x = xPos;
             newPoint.y = yPos;
-            while(yPoints.size()<=vLimit){
+            while(yPoints.size()<=vLimit && gridDotBigBoundCheck(newPoint,bounds) == true){
                 dotCheck = gridDotBoundCheck(mapdata,newPoint);
                 lidarCheck = gridDotLidarCheck(mapdata,newPoint,boundThresh);
                 if(newPoint.x>900){
