@@ -88,7 +88,7 @@ namespace Landmark_Functions{
         int max_iters= 400;
         float inlier_thresh=0.007; //0.0005
         int min_inlier = 5; // 5
-        float angleThreshold = 20.0 * M_PI / 180.0;
+        float angleThreshold = 40.0 * M_PI / 180.0;
         float distanceThreshold = 120;
         float closenessThreshold = 40;
         
