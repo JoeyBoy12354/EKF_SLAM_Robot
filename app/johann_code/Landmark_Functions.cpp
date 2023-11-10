@@ -96,9 +96,9 @@ namespace Landmark_Functions{
         
         //vector<VectorXf> bestModels = manager(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
         vector<VectorXd> bestModels = manager2(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
-        cout<<"mini: bestModel = "<<bestModels.size()<,endl;
+        cout<<"mini: bestModel = "<<bestModels.size()<<endl;
         vector<Vector2d> corners = findCorners2(bestModels, angleThreshold);
-        cout<<"mini: Corners = "<<corners<<endl;
+        cout<<"mini: Corners = "<<corners.size()<<endl;
         vector<Vector2d> filteredCorners = filterCorners2(corners, x, y, distanceThreshold, closenessThreshold);
         
 
