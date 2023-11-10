@@ -55,14 +55,16 @@ namespace Landmark_Functions{
         vector<VectorXd> bestModels = manager2(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
         vector<Vector2d> corners = findCorners2(bestModels, angleThreshold);
         vector<Vector2d> filteredCorners = filterCorners2(corners, x, y, distanceThreshold, closenessThreshold);
+        vector<Vector2d> trueCorners = filterCorners2_2(corners, x, y, doubleLineThreshold);
+
 
         vector<CarPoint> final_corners;
         cout<<"LM: Corners = ";
-        for (int i =0;i<filteredCorners.size();i++) {
+        for (int i =0;i<trueCorners.size();i++) {
             // Access the values inside the VectorXf
             CarPoint lm;
-            lm.x = filteredCorners[i][0];
-            lm.y = filteredCorners[i][1];
+            lm.x = trueCorners[i][0];
+            lm.y = trueCorners[i][1];
             final_corners.push_back(lm);
             cout<<lm<<",";
         }
@@ -95,16 +97,17 @@ namespace Landmark_Functions{
         vector<VectorXd> bestModels = manager2(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
         vector<Vector2d> corners = findCorners2(bestModels, angleThreshold);
         vector<Vector2d> filteredCorners = filterCorners2(corners, x, y, distanceThreshold, closenessThreshold);
-        vector<Vector2d> trueCorners = filterCorners2_2(corners, x, y, doubleLineThreshold);
+        
 
+        
 
         vector<CarPoint> final_corners;
         cout<<"LM: Corners = ";
-        for (int i =0;i<trueCorners.size();i++) {
+        for (int i =0;i<filteredCorners.size();i++) {
             // Access the values inside the VectorXf
             CarPoint lm;
-            lm.x = trueCorners[i][0];
-            lm.y = trueCorners[i][1];
+            lm.x = filteredCorners[i][0];
+            lm.y = filteredCorners[i][1];
             final_corners.push_back(lm);
             cout<<lm<<",";
         }
