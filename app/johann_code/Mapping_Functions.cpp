@@ -812,7 +812,7 @@ namespace Mapping_Functions{
             while(yPoints.size()<=vLimit && bigDotCheck == true){
                 dotCheck = gridDotBoundCheck(mapdata,newPoint);
                 bigDotCheck = gridDotBigBoundCheck(newPoint,bounds);
-                cout<<"1,1BIg CHECL = "<<gridDotBigBoundCheck(newPoint,bounds)<<endl;
+                cout<<"1,1BIg CHECL = "<<bigDotCheck<<endl;
                 lidarCheck = gridDotLidarCheck(mapdata,newPoint,boundThresh);
                 if(newPoint.x>900){
                     cout<<"+Y: newPoint = "<<newPoint<<" dotCheck = "<<dotCheck<<", lidarCheck = "<<lidarCheck<<endl;
@@ -911,7 +911,7 @@ namespace Mapping_Functions{
             while(yPoints.size()<=vLimit && bigDotCheck == true){
                 dotCheck = gridDotBoundCheck(mapdata,newPoint);
                 bigDotCheck = gridDotBigBoundCheck(newPoint,bounds);
-                cout<<"2.1BIg CHECL = "<<gridDotCheck<<endl;
+                cout<<"2.1BIg CHECL = "<<bigDotCheck<<endl;
                 lidarCheck = gridDotLidarCheck(mapdata,newPoint,boundThresh);
 
                 if(dotCheck == true && lidarCheck == true){
