@@ -101,7 +101,7 @@ namespace Landmark_Functions{
         if (mA * mB == -1) {
             interAngle = M_PI / 2;
         } else {
-            interAngle = abs(atan((m2 - m1) / (1 + m1 * m2)));
+            interAngle = abs(atan((mB - mA) / (1 + mA * mB)));
         }
 
     
