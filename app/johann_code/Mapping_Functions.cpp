@@ -292,6 +292,7 @@ namespace Mapping_Functions{
 
         vector<float> bounds;
         getMapBoundsSpecific(searchMap, bounds, point);
+        cout<<"MAP BOUNDS: xmax = "<<bounds[0]<<" xmin = "<<bounds[1]<<" ymax = "<<bounds[2]<<" ymin = "<<bounds[3]<<endl;
 
 
         //check if point is within max and min of lidardata bounds=[Xmax,Xmin,Ymax,Ymin]
