@@ -581,10 +581,11 @@ def motorCalibrate():
     # timeOffR=0.00232513625
 
     
-    timeOnL=0.008
-    timeOnR=0.00390635680109363
-    timeOffL=0.002
-    timeOffR=0.0061093643198906373						
+    #STANDING BEHIND BOT IT VEERED TO THE LEFT HEAVILY
+    # timeOnL=0.008
+    # timeOnR=0.00390635680109363
+    # timeOffL=0.002
+    # timeOffR=0.0061093643198906373						
 
 
     # timeOnL=0.007776536312849163
@@ -605,6 +606,13 @@ def motorCalibrate():
     # timeOnR=0.007890635680109363
     # timeOffL=0.002
     # timeOffR=0.0021093643198906373
+
+    # timeOnL=0.008
+    # timeOnR=0.008
+    # timeOffL=0.002
+    # timeOffR=0.002
+
+
 
 
 
