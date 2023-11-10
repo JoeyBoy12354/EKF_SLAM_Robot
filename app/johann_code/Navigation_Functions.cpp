@@ -615,7 +615,7 @@ namespace Navigation_Functions{
                 CarPoint goali;
                 goali.x = goal.x;
                 goali.y = goal.y;
-                pathCartesian.push_back(goali)
+                pathCartesian.push_back(goali);
                 cout<<"Adding goali to path :"<<goali<<endl;
             }
         } else {
