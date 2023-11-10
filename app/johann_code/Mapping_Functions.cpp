@@ -191,7 +191,8 @@ namespace Mapping_Functions{
         cout<<"GRID: In grid data process"<<endl;
         vector<CarPoint> map;
         readCarFromFullMapCSV(map);
-        gridMakeDots(map,gridNew);
+        //gridMakeDots(map,gridNew);
+        gridMakeDots2(map,gridNew);
 
         if(firstRun == false){
             vector<vector<GridPoint>> gridOld;
