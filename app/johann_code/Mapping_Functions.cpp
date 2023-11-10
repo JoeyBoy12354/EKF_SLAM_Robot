@@ -180,10 +180,10 @@ namespace Mapping_Functions{
                 xMin = map[i].x;
             }
 
-            if(abs(map[i].x - dot.x) <= distThresh && dot.x>900 && dot.x<2000){
+            if(abs(map[i].x - dot.x) <= distThresh && dot.x>1100 && dot.x<1300){
                 cout<<"dot = ("<<dot.x<<", "<<dot.y<<") abs(map[i].x - dot.x) =  "<<abs(map[i].x - dot.x)<<" map.x = "<<map[i].x<<endl;
             }
-            if(abs(map[i].y - dot.y) <= distThresh && dot.x>900 && dot.x<2000){
+            if(abs(map[i].y - dot.y) <= distThresh && dot.x>1100 && dot.x<1300){
                 cout<<"dot = ("<<dot.x<<", "<<dot.y<<") abs(map[i].x - dot.x) = "<<abs(map[i].y - dot.y)<<" map.y = "<<map[i].y<<endl;
             }
         }
@@ -788,7 +788,7 @@ namespace Mapping_Functions{
             yPos = 0;
             newPoint.x = xPos;
             newPoint.y = yPos;
-            while(yPoints.size()<=vLimit && dotCheck == true){
+            while(yPoints.size()<=vLimit){
                 dotCheck = gridDotBoundCheck(mapdata,newPoint);
                 lidarCheck = gridDotLidarCheck(mapdata,newPoint,boundThresh);
                 if(newPoint.x>900){
@@ -829,7 +829,7 @@ namespace Mapping_Functions{
             yPos = yStep;
             newPoint.x = xPos;
             newPoint.y = yPos;
-            while(yPoints.size()<=vLimit && dotCheck == true){
+            while(yPoints.size()<=vLimit){
                 dotCheck = gridDotBoundCheck(mapdata,newPoint);
                 lidarCheck = gridDotLidarCheck(mapdata,newPoint,boundThresh);
                 if(newPoint.x>900){
