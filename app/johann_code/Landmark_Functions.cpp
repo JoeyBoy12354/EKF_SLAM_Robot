@@ -487,14 +487,14 @@ namespace Landmark_Functions{
         vector<CarPoint> group;
         for(int i=0;i<closeCorners.size();i++){
             group.clear();
-            for(int j=0;j<xCoord.size();j++){
+            for(int j=0;j<xCoords.size();j++){
                 double distTemp2 = sqrt(pow(xCoords[j] - closeCorners[i](0), 2) + pow(yCoords[j] - closeCorners[i](1), 2));
                 if(distTemp2 < doubleLineThreshold){
-                    CarPoint point(xCoord[i],yCoord[i]);
+                    CarPoint point(xCoords[i],yCoords[i]);
                     group.push_back(point);
                 }
-                vector<CarPoint> corners2 getMiniRANSACCorners(group);
-                cout<<"Corner: ("<<closeCorner[i](0)<<", "<<closeCorner[i](1)<<"): ";
+                vector<CarPoint> corners2 =  getMiniRANSACCorners(group);
+                cout<<"Corner: ("<<closeCorners[i](0)<<", "<<closeCorners[i](1)<<"): ";
                 if(corners2.size()!=0){
                     cout<<" corner len = "<<corners2.size()<<endl;
                     trueCorners.push_back(closeCorners[i]);
