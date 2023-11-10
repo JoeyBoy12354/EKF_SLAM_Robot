@@ -457,18 +457,21 @@ namespace Navigation_Functions{
         }
 
         float dist = pointDistance(postPoint,best);
+        CarPoint avoidPoint = best;
     
         //Find groupie around point
         for(int i =0;i<map.size();i++){
             if(pointDistance(best,map[i]) < groupie_thresh){
                 //Determine if we are too close to any point in groupie
                 if(pointDistance(postPoint,map[i]) < dist){
+                    avoidPoint = map[i];
                     dist = pointDistance(postPoint,map[i]);
                 }
             }
         }
 
         saveSonarIndicationToCSV(dist);
+        cout<<"NAVI: AvoidFor avoid: "<<avoidPoint<<", From: "<<postsPoint<<endl;
         cout<<"NAVI: Predicted Dist = "<<dist;
 
     }
