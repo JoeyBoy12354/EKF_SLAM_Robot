@@ -440,6 +440,7 @@ namespace Navigation_Functions{
 
         float dm = 10000;
         float m_best = 10000;
+        float c_best = 10000;
         CarPoint best;
 
 
@@ -451,6 +452,7 @@ namespace Navigation_Functions{
             //Originating from same point so c does not matter
             if(abs(m-m_t) < dm){
                 m_best = m_t;
+                c_best = c_t;
                 best.x = map[i].x;
                 best.y = map[i].y;
             }
@@ -471,7 +473,8 @@ namespace Navigation_Functions{
         }
 
         saveSonarIndicationToCSV(dist);
-        cout<<"NAVI: AvoidFor avoid: "<<avoidPoint<<", From: "<<postPoint<<endl;
+        cout<<"NAVI: AvoidFor avoid: "<<avoidPoint<<", From: "<<postPoint<<" To : "<<goalPoint<<endl;
+        cout<<"NAVI: m: "<<m<<", m_best = "<<m_best<<", c = "<<c<<", c_best = "<<c_best<<endl;
         cout<<"NAVI: Predicted Dist = "<<dist<<endl;
 
     }
