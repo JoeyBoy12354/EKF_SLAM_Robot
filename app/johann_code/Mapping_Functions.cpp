@@ -696,25 +696,338 @@ namespace Mapping_Functions{
 
         }
 
-        bool found=false;
-        for(int i =0;i<points2.size();i++){
-            for(int j=0;j<points2[i].size();j++){
-                for(int k=0;k<points.size();k++){
-                    for(int z=0;z<points[k].size();k++){
-                        if(points[k][z].x==points2[i][j].x && points[k][z].y==points2[i][j].y){
-                            found=true;
-                        }
-                    }
+        // bool found=false;
+        // for(int i =0;i<points2.size();i++){
+        //     for(int j=0;j<points2[i].size();j++){
+        //         for(int k=0;k<points.size();k++){
+        //             for(int z=0;z<points[k].size();k++){
+        //                 if(points[k][z].x==points2[i][j].x && points[k][z].y==points2[i][j].y){
+        //                     found=true;
+        //                 }
+        //             }
+        //             if(found==false){
+        //                 points.push_back(points2[i][j]);
+        //             }
                 
-                }
-                if(found==false){
-                    points.push_back(points2[i][j]);
-                }
-            found = false;
-            }
-        }
+        //         }
+                
+        //     found = false;
+        //     }
+        // }
 
     }
+
+
+
+
+     void gridMakeDots2(vector<CarPoint> mapdata, vector<vector<GridPoint>>& points){
+        
+
+        //We need to create the vertical lines
+        //Might be good to calculate this with max size of current lidar scan
+        float vLimit = 20; //Max number of vertical points from x-axis in 1 direction
+        float hLimit = 20; //Max Number of horistontal points from v-axis in 1 direction
+
+        // float yStep = 450;//y-distance between points on same x-coordinate
+        // float xStep = 450;//x-distance between points on same y-coordinate
+        float yStep = grid_ystep;//y-distance between points on same x-coordinate
+        float xStep = grid_ystep;//x-distance between points on same y-coordinate
+        
+        
+        float boundThresh = 340;//If distance between gridPoint and lidarPoint <= Xmm then return false 
+
+        float xPos; //holds current x-coordinate
+        float yPos; //holds current y-coordinate
+
+        int maxNoRuns = 20;
+        int noRuns = 0;
+        bool dotCheck = true;
+        bool lidarCheck = true;
+
+        vector<float> bounds; //Xmax,Xmin,Ymax,Ymin
+        getMapBounds(mapdata,bounds);
+
+        
+        cout<<"Map Bounds = xmin: "<<bounds[0]<<", xmax"<<bounds[1]<<", ymin"<<bounds[2]<<", ymax"<<bounds[3]<<endl;
+    
+
+
+
+        vector<GridPoint> yPoints;
+        GridPoint newPoint;
+
+        bool pushed;
+        int pushedPoints = 0;
+
+        //Select
+        //Positive x-axis
+        // -Postivive y-axis
+        // -Negative y-axis
+        //Negative x-axis
+        // -Postivive y-axis
+        // -Negative y-axis
+
+        //Positive X-axis
+        xPos = 0;
+        while(points.size()<=hLimit && noRuns<maxNoRuns){
+            pushed = false;
+
+            //Do Positive Y-Axis
+            dotCheck = true;
+            yPoints.clear();
+            yPos = 0;
+            newPoint.x = xPos;
+            newPoint.y = yPos;
+            while(yPoints.size()<=vLimit && dotCheck == true){
+                dotCheck = gridDotBoundCheck(mapdata,newPoint);
+                lidarCheck = gridDotLidarCheck(mapdata,newPoint,boundThresh);
+                cout<<"newPoint = "<<newPoint<<" ";
+
+                if(dotCheck == true && lidarCheck == true){
+                    yPoints.push_back(newPoint);
+                    yPos += yStep;
+                    newPoint.x = xPos;
+                    newPoint.y = yPos; 
+                    pushed = true;
+                }else if(dotCheck == true && lidarCheck == false){
+                    cout<<"+Y-axis dotcheck == true && lidarCheck = false for: "<<newPoint<<endl;
+                    //This is to ensure that we still keep checking for dots even if there is an obstacle
+                    //However this means that as long as a point is within max bounds it can be plotted, so corridors and rooms
+                    // Will have points between them
+                    yPos += yStep;
+                    newPoint.x = xPos;
+                    newPoint.y = yPos; 
+                }
+            }
+            if(yPoints.size()>0){
+                points.push_back(yPoints);
+            }
+            
+
+            //Do Negative Y-axis
+            dotCheck = true;
+            yPoints.clear();
+            yStep = -1*yStep;
+            yPos = yStep;
+            newPoint.x = xPos;
+            newPoint.y = yPos;
+            while(yPoints.size()<=vLimit && dotCheck == true){
+                dotCheck = gridDotBoundCheck(mapdata,newPoint);
+                lidarCheck = gridDotLidarCheck(mapdata,newPoint,boundThresh);
+                cout<<"newPoint = "<<newPoint<<" ";
+
+                if(dotCheck == true && lidarCheck == true){
+                    yPoints.push_back(newPoint);
+                    yPos += yStep;
+                    newPoint.x = xPos;
+                    newPoint.y = yPos; 
+                    pushed = true;
+                }else if(dotCheck == true && lidarCheck == false){
+                    cout<<"-Y-axis dotcheck == true && lidarCheck = false for: "<<newPoint<<endl;
+                    yPos += yStep;
+                    newPoint.x = xPos;
+                    newPoint.y = yPos; 
+                }
+            }
+            if(yPoints.size()>0){
+                points.push_back(yPoints);
+            }
+            
+            yStep = -1*yStep;//Change Back to positive
+            xPos += xStep;    
+            noRuns+=1;
+            if(pushed == true){
+                pushedPoints =+1;
+            }
+                
+
+        }
+
+        cout<<"Points Pushed = "<<pushedPoints<<endl;
+        
+        //Negative X-axis
+        noRuns = 0;
+        xStep = -1*xStep;
+        xPos = xStep;
+        while(points.size()<=hLimit*2 && noRuns<maxNoRuns){
+            //Do Positive Y-Axis
+            dotCheck = true;
+            yPoints.clear();
+            yPos = 0;
+            newPoint.x = xPos;
+            newPoint.y = yPos;
+            while(yPoints.size()<=vLimit && dotCheck == true){
+                dotCheck = gridDotBoundCheck(mapdata,newPoint);
+                lidarCheck = gridDotLidarCheck(mapdata,newPoint,boundThresh);
+
+                if(dotCheck == true && lidarCheck == true){
+                    yPoints.push_back(newPoint);
+                    yPos += yStep;
+                    newPoint.x = xPos;
+                    newPoint.y = yPos; 
+                }else if(dotCheck == true && lidarCheck == false){
+                    yPos += yStep;
+                    newPoint.x = xPos;
+                    newPoint.y = yPos; 
+                }
+
+                // dotCheck = gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds);
+                // if(dotCheck == true){
+                //     yPoints.push_back(newPoint);
+                //     yPos += yStep;
+                //     newPoint.x = xPos;
+                //     newPoint.y = yPos;
+                // }
+            }
+            if(yPoints.size()>0){
+                points.push_back(yPoints);
+            }
+
+            //Do Negative Y-axis
+            dotCheck = true;
+            yPoints.clear();
+            yStep = -1*yStep;
+            yPos = yStep;
+            newPoint.x = xPos;
+            newPoint.y = yPos;
+            while(yPoints.size()<=vLimit && dotCheck == true){
+                dotCheck = gridDotBoundCheck(mapdata,newPoint);
+                lidarCheck = gridDotLidarCheck(mapdata,newPoint,boundThresh);
+
+                if(dotCheck == true && lidarCheck == true){
+                    yPoints.push_back(newPoint);
+                    yPos += yStep;
+                    newPoint.x = xPos;
+                    newPoint.y = yPos; 
+                }else if(dotCheck == true && lidarCheck == false){
+                    yPos += yStep;
+                    newPoint.x = xPos;
+                    newPoint.y = yPos; 
+                }
+                // dotCheck = gridDotBoundCheck(mapdata,newPoint,boundThresh,bounds);
+                // if(dotCheck == true){
+                //     yPoints.push_back(newPoint);
+                //     yPos += yStep;
+                //     newPoint.x = xPos;
+                //     newPoint.y = yPos;
+                // }
+            }
+            if(yPoints.size()>0){
+                points.push_back(yPoints);
+            }
+            
+
+            yStep = -1*yStep;//Change Back to positive
+            xPos += xStep;    
+            noRuns+=1;
+            }
+    
+
+
+
+        //Do search over y-axix
+        //Positive y-axis
+        vector<GridPoint> xPoints;
+        vector<vector<GridPoint>> points2;
+        yPos = 0;
+        while(points2.size()<=vLimit && noRuns<maxNoRuns){
+            pushed = false;
+
+            //Do Positive X-Axis
+            dotCheck = true;
+            xPoints.clear();
+            xPos = 0;
+            newPoint.x = xPos;
+            newPoint.y = yPos;
+            while(xPoints.size()<=hLimit && dotCheck == true){
+                dotCheck = gridDotBoundCheck(mapdata,newPoint);
+                lidarCheck = gridDotLidarCheck(mapdata,newPoint,boundThresh);
+
+                if(dotCheck == true && lidarCheck == true){
+                    xPoints.push_back(newPoint);
+                    xPos += xStep;
+                    newPoint.x = xPos;
+                    newPoint.y = yPos; 
+                    pushed = true;
+                }else if(dotCheck == true && lidarCheck == false){
+                    //This is to ensure that we still keep checking for dots even if there is an obstacle
+                    //However this means that as long as a point is within max bounds it can be plotted, so corridors and rooms
+                    // Will have points between them
+                    xPos += xStep;
+                    newPoint.x = xPos;
+                    newPoint.y = yPos; 
+                }
+            }
+            if(xPoints.size()>0){
+                points2.push_back(yPoints);
+            }
+            
+
+            //Do Negative Y-axis
+            dotCheck = true;
+            xPoints.clear();
+            xStep = -1*xStep;
+            xPos = xStep;
+            newPoint.x = xPos;
+            newPoint.y = yPos;
+            while(xPoints.size()<=hLimit && dotCheck == true){
+                dotCheck = gridDotBoundCheck(mapdata,newPoint);
+                lidarCheck = gridDotLidarCheck(mapdata,newPoint,boundThresh);
+
+                if(dotCheck == true && lidarCheck == true){
+                    xPoints.push_back(newPoint);
+                    xPos += xStep;
+                    newPoint.x = xPos;
+                    newPoint.y = yPos; 
+                    pushed = true;
+                }else if(dotCheck == true && lidarCheck == false){
+                    xPos += xStep;
+                    newPoint.x = xPos;
+                    newPoint.y = yPos; 
+                }
+            }
+            if(yPoints.size()>0){
+                points2.push_back(yPoints);
+            }
+            
+            xStep = -1*xStep;//Change Back to positive
+            yPos += yStep;    
+            noRuns+=1;
+            if(pushed == true){
+                pushedPoints =+1;
+            }
+
+        }
+
+
+        // bool found=false;
+        // for(int i =0;i<points2.size();i++){
+        //     for(int j=0;j<points2[i].size();j++){
+        //         for(int k=0;k<points.size();k++){
+        //             for(int z=0;z<points[k].size();k++){
+        //                 if(points[k][z].x==points2[i][j].x && points[k][z].y==points2[i][j].y){
+        //                     found=true;
+        //                 }
+        //             }
+        //             if(found==false){
+        //                 points.push_back(points2[i][j]);
+        //             }
+                
+        //         }
+                
+        //     found = false;
+        //     }
+        // }
+
+    }
+
+
+
+
+
+
+
+
 
     //This function will fill the map with non-traversable points
     void mapConverter(vector<vector<GridPoint>> gridOld, vector<vector<GridNode>>& gridNew){
