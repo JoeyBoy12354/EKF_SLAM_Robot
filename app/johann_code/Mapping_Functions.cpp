@@ -80,6 +80,7 @@ namespace Mapping_Functions{
                         //temp.push_back(lidardata[i];)
                 }    
             }
+            cout<<"YAHA"<<endl;
 
 
         }else{
