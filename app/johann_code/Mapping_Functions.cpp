@@ -69,16 +69,24 @@ namespace Mapping_Functions{
 
         //A very accurate scan should be fully added
         vector<CarPoint> temp2;
+        bool isNew = true;
         float acc_percentage = (accuracy/lidardata.size())*100;
         if( acc_percentage> 70){
             cout<<"\n\n VERY ACCURATE SCAN @ "<< acc_percentage <<" %\n\n";
             temp.clear();
             for(int i = 0;i<lidardata.size();i++){
                 for(int j =0;j<oldmap.size();j++){
-                    if(pointDistance(lidardata[i],oldmap[j]) > distance_threshold2)
-                        oldmap.push_back(lidardata[i]);
+                    if(pointDistance(lidardata[i],oldmap[j]) < distance_threshold2){
+                        isNew = false;
+                    }
+                        
                         //temp.push_back(lidardata[i];)
-                }    
+                } 
+                if(isNew == true){
+                    oldmap.push_back(lidardata[i]);
+                }
+                isNew=true;
+
             }
             cout<<"YAHA"<<endl;
 
