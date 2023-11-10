@@ -438,44 +438,53 @@ namespace Navigation_Functions{
         float m = (goalPoint.y - postPoint.y)/(goalPoint.x - postPoint.x);
         float c = goalPoint.y - m*goalPoint.x;
 
-        float dm = 10000;
-        float m_best = 10000;
-        float c_best = 10000;
-        CarPoint best;
-
-
-        //Find best matching gradient
-        for(int i =0;i<map.size();i++){
-            float m_t = (postPoint.y - map[i].y)/(postPoint.x - map[i].x);
-            float c_t = postPoint.y - m_t*postPoint.x;
-
-            //Originating from same point so c does not matter
-            if(abs(m-m_t) < dm){
-                m_best = m_t;
-                c_best = c_t;
-                best.x = map[i].x;
-                best.y = map[i].y;
-            }
+        float xmax;
+        float ymax;
+        float xmin;
+        float ymin;
+        
+        //Set line bounds
+        if(postPoint.x>goalPoint.x){
+            xmax = postPoint.x;
+            xmin = goalPoint.x;
+        }else{
+            xmin = postPoint.x;
+            xmax = goalPoint.x;
         }
 
-        float dist = pointDistance(postPoint,best);
-        CarPoint avoidPoint = best;
-    
-        //Find groupie around point
+        if(postPoint.y>goalPoint.y){
+            ymax = postPoint.y;
+            ymin = goalPoint.y;
+        }else{
+            ymin = postPoint.y;
+            ymax = goalPoint.y;
+        }
+
+        float d;
+        float d_avoid = 100000;
+        CarPoint avoidPoint;
+        //Find points near Line (take all over to y side)
         for(int i =0;i<map.size();i++){
-            if(pointDistance(best,map[i]) < groupie_thresh){
-                //Determine if we are too close to any point in groupie
-                if(pointDistance(postPoint,map[i]) < dist){
+
+            d = abs(-m*map[i].x + 1*map[i].y -c)/sqrt(pow(m,2) + 1);//Distance between point and line
+            if(d<tooClose_thresh && map[i].x<xmax && map[i].x>xmin && map[i].y<ymax && map[i].y>ymin){
+                float dist = pointDistance(postPoint,map[i]);
+                if(dist<d_avoid){
+                    d_avoid = dist;
                     avoidPoint = map[i];
-                    dist = pointDistance(postPoint,map[i]);
                 }
-            }
-        }
 
-        saveSonarIndicationToCSV(dist);
+            }
+
+
+        }
+        
+
+
+        saveSonarIndicationToCSV(d_avoid);
         cout<<"NAVI: AvoidFor avoid: "<<avoidPoint<<", From: "<<postPoint<<" To : "<<goalPoint<<endl;
-        cout<<"NAVI: m: "<<m<<", m_best = "<<m_best<<", c = "<<c<<", c_best = "<<c_best<<endl;
-        cout<<"NAVI: Predicted Dist = "<<dist<<endl;
+        cout<<"NAVI: m: "<<m<<", c = "<<c<<endl;
+        cout<<"NAVI: Predicted Dist = "<<d_avoid<<endl;
 
     }
 
