@@ -69,7 +69,7 @@ namespace Mapping_Functions{
 
         //A very accurate scan should be fully added
         vector<CarPoint> temp2;
-        bool isNew = true;
+        isNew = true;
         float acc_percentage = (accuracy/lidardata.size())*100;
         if( acc_percentage> 70){
             cout<<"\n\n VERY ACCURATE SCAN @ "<< acc_percentage <<" %\n\n";
