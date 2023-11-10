@@ -784,7 +784,7 @@ namespace Mapping_Functions{
                 dotCheck = gridDotBoundCheck(mapdata,newPoint);
                 lidarCheck = gridDotLidarCheck(mapdata,newPoint,boundThresh);
                 if(newPoint.x>900){
-                    cout<<"newPoint = "<<newPoint<<" ";
+                    cout<<"+Y: newPoint = "<<newPoint<<" dotCheck = "<<dotCheck<<", lidarCheck = "<<lidarCheck<<endl;
                 }
                 
 
@@ -825,12 +825,12 @@ namespace Mapping_Functions{
                 dotCheck = gridDotBoundCheck(mapdata,newPoint);
                 lidarCheck = gridDotLidarCheck(mapdata,newPoint,boundThresh);
                 if(newPoint.x>900){
-                    cout<<"newPoint = "<<newPoint<<" ";
+                    cout<<"-Y: newPoint = "<<newPoint<<" dotCheck = "<<dotCheck<<", lidarCheck = "<<lidarCheck<<endl;
                 }
 
                 if(dotCheck == true && lidarCheck == true){
                     if(newPoint.x>900){
-                        cout<<"+Y-axis dotcheck == true && lidarCheck = true for: "<<newPoint<<endl;
+                        cout<<"-Y-axis dotcheck == true && lidarCheck = true for: "<<newPoint<<endl;
                     }
                     yPoints.push_back(newPoint);
                     yPos += yStep;
@@ -839,7 +839,7 @@ namespace Mapping_Functions{
                     pushed = true;
                 }else if(dotCheck == true && lidarCheck == false){
                     if(newPoint.x>900){
-                        cout<<"+Y-axis dotcheck == true && lidarCheck = false for: "<<newPoint<<endl;
+                        cout<<"-Y-axis dotcheck == true && lidarCheck = false for: "<<newPoint<<endl;
                     }
                     yPos += yStep;
                     newPoint.x = xPos;
