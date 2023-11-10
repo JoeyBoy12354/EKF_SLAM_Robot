@@ -97,6 +97,7 @@ namespace Landmark_Functions{
         vector<Vector2d> filteredCorners = filterCorners2(corners, x, y, distanceThreshold, closenessThreshold);
         vector<Vector2d> trueCorners = filterCorners2_2(corners, x, y, doubleLineThreshold);
 
+
         vector<CarPoint> final_corners;
         cout<<"LM: Corners = ";
         for (int i =0;i<trueCorners.size();i++) {
@@ -493,9 +494,13 @@ namespace Landmark_Functions{
                     group.push_back(point);
                 }
                 vector<CarPoint> corners2 getMiniRANSACCorners(group);
+                cout<<"Corner: ("<<closeCorner[i](0)<<", "<<closeCorner[i](1)<<"): ";
                 if(corners2.size()!=0){
+                    cout<<" corner len = "<<corners2.size()<<endl;
                     trueCorners.push_back(closeCorners[i]);
 
+                }else{
+                    cout<<"corner len = 0"<<endl;
                 }   
             }
         }
