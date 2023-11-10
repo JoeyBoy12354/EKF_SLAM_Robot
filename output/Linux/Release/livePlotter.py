@@ -66,35 +66,29 @@ def fetchRobot(position, motor):
 
     return position_data, x_goal, y_goal, true_move
 
-def fetchAndPlotGrid(grid):
+def fetchAndPlotGrid():
     x_coord = []
     y_coord = []
     trav_state = []
-    try:
-        with open(grid, 'r') as file:
-            csv_reader = csv.reader(file)
-            for row in csv_reader:
-                # Check for gaps
-                if row[0] != ' ':
-                    x_coord.append(float(row[0]))
-                    y_coord.append(float(row[1]))
-                    trav_state.append(int(row[2]))
-    except FileNotFoundError:
-        print(f"Error: The file '{grid}' was not found.")
-        return None
-    except Exception as e:
-        print(f"An error occurred while reading '{grid}': {e}")
-        return None
-    else:
-        file.close()
+    with open('gridCSV.csv','r') as file:
+        csv_reader = csv.reader(file)
+        for row in csv_reader:
+            #Check for gaps
+            if row[0] != ' ':
+                #print("row = ",row," row[0] = ",row[0])
+                x_coord.append(float(row[0]))
+                y_coord.append(float(row[1]))
+                trav_state.append(int(row[2]))
 
-    for i in range(0, len(x_coord)):
-        if trav_state[i] == 1:
-            plt.plot(x_coord[i], y_coord[i], 'o', label='Points', markersize=2, color='orange')
-        elif trav_state[i] == 0:
-            plt.plot(x_coord[i], y_coord[i], 'o', label='Points', markersize=2, color='grey')
+    for i in range(0,len(x_coord)):
+        if(trav_state[i] == 1):
+            plt.plot(x_coord[i], y_coord[i], 'o', label='Points',markersize=2,color='orange')
+        elif(trav_state[i] == 0):
+            plt.plot(x_coord[i], y_coord[i], 'o', label='Points',markersize=2,color='grey')
+    
 
-    return x_coord, y_coord
+    return x_coord,y_coord
+
 
 # Read the lines from the CSV file
 def fetchAndPlotLines():
@@ -315,7 +309,7 @@ def animate(i):
     #x3,y3=fetchCoord('cornersCSV.csv')
     x4,y4=fetchCoord('mapCSV.csv')
     x5,y5=fetchCoord('triangleCSV.csv')
-    # position,x_goal,y_goal,true_move = fetchRobot()
+    #position,x_goal,y_goal,true_move = fetchRobot()
     #print("POSITION = ",position)
 
     #Adjustment
