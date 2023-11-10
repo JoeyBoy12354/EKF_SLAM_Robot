@@ -1,7 +1,7 @@
 #include "robot.h"
 
 using namespace CSV_Functions;
-
+using namespace Data_Functions;
 
 
 namespace Landmark_Functions{
@@ -97,15 +97,17 @@ namespace Landmark_Functions{
         float cA = A.y-A.x*mA;
         float cB = A.y-A.x*mA;
 
-        Vector2d lineA;
-        lineA.push_back(mA);
-        lineA.push_back(cA);
-        Vector2d lineB;
-        lineB.push_back(mB);
-        lineB.push_back(cB);
+        double interAngle = M_PI / 2;
+        if (mA * mB == -1) {
+            interAngle = M_PI / 2;
+        } else {
+            interAngle = abs(atan((m2 - m1) / (1 + m1 * m2)));
+        }
+
+    
         
 
-        double interAngle = calculateInterceptAngle2(lineA, lineB);
+        
         if (interAngle < M_PI / 2 + angleThreshold && interAngle > M_PI / 2 - angleThreshold) {
             return true; //corner detected
         }
@@ -426,19 +428,19 @@ namespace Landmark_Functions{
 
 
     double calculateInterceptAngle2(const Vector2d& line1, const Vector2d& line2) {
-    double interAngle = M_PI / 2;
-    double m1 = line1(0);
-    double m2 = line2(0);
-    double b1 = line1(1);
-    double b2 = line2(1);
+        double interAngle = M_PI / 2;
+        double m1 = line1(0);
+        double m2 = line2(0);
+        double b1 = line1(1);
+        double b2 = line2(1);
 
-    if (m1 * m2 == -1) {
-        return interAngle;
-    } else {
-        interAngle = std::abs(atan((m2 - m1) / (1 + m1 * m2)));
-        return interAngle;
+        if (m1 * m2 == -1) {
+            return interAngle;
+        } else {
+            interAngle = abs(atan((m2 - m1) / (1 + m1 * m2)));
+            return interAngle;
+        }
     }
-}
 
     Vector2d calculateInterceptPoint2(const Vector2d& line1, const Vector2d& line2) {
         double m1 = line1(0);
@@ -543,7 +545,8 @@ namespace Landmark_Functions{
             }
             cout<<"Group size = "<<group.size()<<endl;
             //vector<CarPoint> corners2 =  getMiniRANSACCorners(group);
-            detected = getInlierCheck(group,closeCorners[i]);
+            CarPoint myCorner(closeCorners[i](0),closeCorners[i](1));
+            detected = getInlierCheck(group,myCorner);
             cout<<"Corner: ("<<closeCorners[i](0)<<", "<<closeCorners[i](1)<<"): ";
             if(detected == true){
                 // cout<<" corner len = "<<corners2.size()<<endl;
