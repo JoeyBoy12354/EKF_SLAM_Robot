@@ -49,7 +49,7 @@ namespace Landmark_Functions{
         float angleThreshold = 20.0 * M_PI / 180.0;
         float distanceThreshold = 120;
         float closenessThreshold = 40;
-        float doubleLineThreshold = 200;
+        float doubleLineThreshold = 300;
         
         
         //vector<VectorXf> bestModels = manager(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
