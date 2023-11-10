@@ -72,58 +72,48 @@ namespace Landmark_Functions{
     }
 
 
+    vector<CarPoint> getMiniRANSACCorners(vector<CarPoint> dataPoints){
+        vector<float> y;
+        vector<float> x;
+
+        for(int i =0;i<dataPoints.size();i++){
+            x.push_back(dataPoints[i].x);
+            y.push_back(dataPoints[i].y);
+        }
+
+        int sample_size = 40;
+        int max_iters= 400;
+        float inlier_thresh=0.002; //0.0005
+        int min_inlier = 5; // 5
+        float angleThreshold = 20.0 * M_PI / 180.0;
+        float distanceThreshold = 120;
+        float closenessThreshold = 40;
+        float doubleLineThreshold = 200;
+        
+        
+        //vector<VectorXf> bestModels = manager(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
+        vector<VectorXd> bestModels = manager2(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
+        vector<Vector2d> corners = findCorners2(bestModels, angleThreshold);
+        vector<Vector2d> filteredCorners = filterCorners2(corners, x, y, distanceThreshold, closenessThreshold);
+        vector<Vector2d> trueCorners = filterCorners2_2(corners, x, y, doubleLineThreshold);
+
+        vector<CarPoint> final_corners;
+        cout<<"LM: Corners = ";
+        for (int i =0;i<trueCorners.size();i++) {
+            // Access the values inside the VectorXf
+            CarPoint lm;
+            lm.x = trueCorners[i][0];
+            lm.y = trueCorners[i][1];
+            final_corners.push_back(lm);
+            cout<<lm<<",";
+        }
+        cout<<endl;
+
+        return final_corners;
+
+    }
 
 
-    //Assume there will only ever be 2 samples
-    // VectorXf fitWithLeastSquares(VectorXf& x, VectorXf& y) {
-    //     // float m = (y(0)-y(1))/(x(0)-x(1));
-    //     // float c = y(0) - x(0)*m;
-
-    //     // VectorXf theta(2);
-    //     // theta<< m,c;
-
-    //     // return theta;
-
-
-    //     // Calculate the means of x and y
-    //     float mean_x = (x[0] + x[1]) / 2.0;
-    //     float mean_y = (y[0] + y[1]) / 2.0;
-
-    //     // Calculate the slope (m)
-    //     float numerator = (x[0] - mean_x) * (y[0] - mean_y) + (x[1] - mean_x) * (y[1] - mean_y);
-    //     float denominator = (x[0] - mean_x) * (x[0] - mean_x) + (x[1] - mean_x) * (x[1] - mean_x);
-    //     float m = numerator / denominator;
-
-    //     // Calculate the intercept (c)
-    //     float c = mean_y - m * mean_x;
-
-    //     //LinearRegressionResult result;
-    //     VectorXf theta(2);
-    //     theta<< m,c;
-
-    //     return theta;
-    // }
-
-    // VectorXf fitWithLeastSquares(VectorXf& X, VectorXf& y) {
-    //     int numRows = X.rows();
-
-    //     // Augment the feature matrix X with a column of ones for the bias term
-    //     MatrixXf A = MatrixXf::Ones(numRows, 2);
-    //     A.col(0) = X;
-
-    //     // Compute the transpose of A
-    //     MatrixXf A_transpose = A.transpose();
-
-    //     // Compute A_transpose * A and A_transpose * y
-    //     MatrixXf A_transpose_A = A_transpose * A;
-    //     VectorXf A_transpose_y = A_transpose * y;
-
-    //     // Solve the linear system using matrix multiplication
-    //     VectorXf theta = A_transpose_A.inverse() * A_transpose_y;
-
-    //     return theta;
-    // }
-    
     VectorXf fitWithLeastSquares(VectorXf& x, VectorXf& y) {
         int numRows = x.rows();
         int numCols = x.cols();
@@ -446,8 +436,8 @@ namespace Landmark_Functions{
     }
 
     vector<Vector2d> filterCorners2(const vector<Vector2d>& corners, vector<float>& xCoords, vector<float>& yCoords, double duplicateThreshold, double closenessThreshold) {
+        //Filter cornerns of which there are duplicates
         vector<Vector2d> cleanCorners;
-
         for (size_t i = 0; i < corners.size(); ++i) {
             bool duplicate = false;
 
@@ -465,8 +455,8 @@ namespace Landmark_Functions{
             }
         }
 
+        //Filter corners far away from LiDAR data
         vector<Vector2d> closeCorners;
-
         for (size_t i = 0; i < cleanCorners.size(); ++i) {
             double distMin = 10000000;
 
@@ -483,10 +473,35 @@ namespace Landmark_Functions{
             }
         }
 
+
+        
+
         return closeCorners;
     }
 
+    vector<Vector2d> filterCorners2_2(const vector<Vector2d>& closeCorners, vector<float>& xCoords, vector<float>& yCoords, double doubleLineThreshold){
+        //Filter corners that were made by two disconjoined lines
+        //Do mini-RANSACs on each groups
+        vector<Vector2d> trueCorners;
+        vector<CarPoint> group;
+        for(int i=0;i<closeCorners.size();i++){
+            group.clear();
+            for(int j=0;j<xCoord.size();j++){
+                double distTemp2 = sqrt(pow(xCoords[j] - closeCorners[i](0), 2) + pow(yCoords[j] - closeCorners[i](1), 2));
+                if(distTemp2 < doubleLineThreshold){
+                    CarPoint point(xCoord[i],yCoord[i]);
+                    group.push_back(point);
+                }
+                vector<CarPoint> corners2 getMiniRANSACCorners(group);
+                if(corners2.size()!=0){
+                    trueCorners.push_back(closeCorners[i]);
 
+                }   
+            }
+        }
+
+        return trueCorners;
+    }
 
 
 

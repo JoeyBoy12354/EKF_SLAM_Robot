@@ -231,8 +231,10 @@ namespace Landmark_Functions{
     Vector2d calculateInterceptPoint2(const Vector2d& line1, const Vector2d& line2);
     vector<Vector2d> findCorners2(const vector<VectorXd>& bestModels, double angleThreshold);
     vector<Vector2d> filterCorners2(const vector<Vector2d>& corners, vector<float>& xCoords, vector<float>& yCoords, double duplicateThreshold, double closenessThreshold);
+    vector<Vector2d> filterCorners2_2(const vector<Vector2d>& closeCorners, vector<float>& xCoords, vector<float>& yCoords, double doubleLineThreshold);
 
     vector<CarPoint> getRANSACCorners(vector<CarPoint> dataPoints);
+    vector<CarPoint> getMiniRANSACCorners(vector<CarPoint> dataPoints);
 }
 
 namespace Simulation_Functions{
