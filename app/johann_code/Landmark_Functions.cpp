@@ -74,6 +74,46 @@ namespace Landmark_Functions{
         return final_corners;
     }
 
+    bool getInlierCheck(vector<CarPoint> dataPoints,CarPoint corner){
+        float distance = -1000;
+        float angleThreshold = 40.0 * M_PI / 180.0;
+        CarPoint A;
+        CarPoint B;
+        //Get the points witht the max distance from one another
+        for(int i=0;i<dataPoints;i++){
+            for(int j=0;j<dataPoints;j++){
+                float d = pointDistance(dataPoints[i],dataPoints[j]);
+                if(d>distance){
+                    distance = d;
+                    A = dataPoints[i];
+                    B = dataPoints[j];
+                }
+            }
+        }
+
+        //Now calculate the line between corner and points
+        float mA = (A.y - corner.y)/(A.x - corner.x);
+        float mB = (B.y - corner.y)/(B.x - corner.x);
+        float cA = A.y-A.x*mA;
+        float cB = A.y-A.x*mA;
+
+        Vector2d lineA;
+        lineA.push_back(mA);
+        lineA.push_back(cA);
+        Vector2d lineB;
+        lineB.push_back(mB);
+        lineB.push_back(cB);
+        
+
+        double interAngle = calculateInterceptAngle2(lineA, lineB);
+        if (interAngle < M_PI / 2 + angleThreshold && interAngle > M_PI / 2 - angleThreshold) {
+            return true; //corner detected
+        }
+        return false; //corner not detected
+
+
+    }
+
 
     vector<CarPoint> getMiniRANSACCorners(vector<CarPoint> dataPoints){
         vector<float> y;
@@ -84,7 +124,7 @@ namespace Landmark_Functions{
             y.push_back(dataPoints[i].y);
         }
 
-        int sample_size = 10;
+        int sample_size = dataPoints.size();
         int max_iters= 400;
         float inlier_thresh=0.007; //0.0005
         int min_inlier = 5; // 5
