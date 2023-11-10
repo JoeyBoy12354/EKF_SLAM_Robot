@@ -80,8 +80,8 @@ namespace Landmark_Functions{
         CarPoint A;
         CarPoint B;
         //Get the points witht the max distance from one another
-        for(int i=0;i<dataPoints;i++){
-            for(int j=0;j<dataPoints;j++){
+        for(int i=0;i<dataPoints.size();i++){
+            for(int j=0;j<dataPoints.size();j++){
                 float d = pointDistance(dataPoints[i],dataPoints[j]);
                 if(d>distance){
                     distance = d;
