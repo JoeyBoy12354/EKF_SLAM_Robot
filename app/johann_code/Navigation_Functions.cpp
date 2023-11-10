@@ -395,9 +395,7 @@ namespace Navigation_Functions{
     float wallAvoidance(MatrixXf State, float angle){
         float turnableDistance = 70; //Total distance from object required to make a turn (REMEMBER SAME AS IN MC Python)
         vector<CarPoint> map;
-        CarPoint bot;
-        bot.x = State[0];
-        bot.y = State[1];
+        CarPoint bot(State(0),State(1));
         readCarFromFullMapCSV(map);
 
         vector<CarPoint> collisionPoints;
