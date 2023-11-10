@@ -582,7 +582,7 @@ namespace Navigation_Functions{
         
         vector<vector<GridNode>> gridNew;
         mapConverter(gridMap, gridNew);
-        cout<<"GridMap size = "<<gridNew.size();
+        cout<<"GridMap size = "<<gridNew.size()<<endl;
         vector<GridNode*> path  = bfs(gridNew,start,goal);
 
         if(path.empty()) {
@@ -611,6 +611,13 @@ namespace Navigation_Functions{
 
         if(pathCartesian.empty()) {
             cout << "No Shortened path found." << endl;
+            if(goal.x!=current.x || goal.y!=current.y){
+                CarPoint goali;
+                goali.x = goal.x;
+                goali.y = goal.y;
+                pathCartesian.push_back(goali)
+                cout<<"Adding goali to path :"<<goali<<endl;
+            }
         } else {
             cout << "Shortened Path: ";
             for (int i =0;i<pathCartesian.size();i++) {
