@@ -299,7 +299,7 @@ namespace Mapping_Functions{
 
         vector<float> bounds;
         getMapBoundsSpecific(searchMap, bounds, point);
-        cout<<"MAP BOUNDS: xmax = "<<bounds[0]<<" xmin = "<<bounds[1]<<" ymax = "<<bounds[2]<<" ymin = "<<bounds[3]<<endl;
+        // cout<<"MAP BOUNDS: xmax = "<<bounds[0]<<" xmin = "<<bounds[1]<<" ymax = "<<bounds[2]<<" ymin = "<<bounds[3]<<endl;
 
 
         //check if point is within max and min of lidardata bounds=[Xmax,Xmin,Ymax,Ymin]
@@ -812,26 +812,16 @@ namespace Mapping_Functions{
             while(yPoints.size()<=vLimit && bigDotCheck == true){
                 dotCheck = gridDotBoundCheck(mapdata,newPoint);
                 bigDotCheck = gridDotBigBoundCheck(newPoint,bounds);
-                cout<<"1,1BIg CHECL = "<<bigDotCheck<<endl;
+                // cout<<"1,1BIg CHECL = "<<bigDotCheck<<endl;
                 lidarCheck = gridDotLidarCheck(mapdata,newPoint,boundThresh);
-                if(newPoint.x>900){
-                    cout<<"+Y: newPoint = "<<newPoint<<" dotCheck = "<<dotCheck<<", lidarCheck = "<<lidarCheck<<endl;
-                }
-                
 
                 if(dotCheck == true && lidarCheck == true){
-                    if(newPoint.x>900){
-                        cout<<"+Y-axis dotcheck == true && lidarCheck = true for: "<<newPoint<<endl;
-                    }
                     yPoints.push_back(newPoint);
                     yPos += yStep;
                     newPoint.x = xPos;
                     newPoint.y = yPos; 
                     pushed = true;
                 }else if(dotCheck == true && lidarCheck == false || bigDotCheck == true){
-                    if(newPoint.x>900){
-                        cout<<"+Y-axis dotcheck == true && lidarCheck = false for: "<<newPoint<<endl;
-                    }
                     //This is to ensure that we still keep checking for dots even if there is an obstacle
                     //However this means that as long as a point is within max bounds it can be plotted, so corridors and rooms
                     // Will have points between them
@@ -856,25 +846,16 @@ namespace Mapping_Functions{
             while(yPoints.size()<=vLimit && bigDotCheck == true){
                 dotCheck = gridDotBoundCheck(mapdata,newPoint);
                 bigDotCheck = gridDotBigBoundCheck(newPoint,bounds);
-                cout<<"1.2BIg CHECL = "<<bigDotCheck<<endl;
+                // cout<<"1.2BIg CHECL = "<<bigDotCheck<<endl;
                 lidarCheck = gridDotLidarCheck(mapdata,newPoint,boundThresh);
-                if(newPoint.x>900){
-                    cout<<"-Y: newPoint = "<<newPoint<<" dotCheck = "<<dotCheck<<", lidarCheck = "<<lidarCheck<<endl;
-                }
 
                 if(dotCheck == true && lidarCheck == true){
-                    if(newPoint.x>900){
-                        cout<<"-Y-axis dotcheck == true && lidarCheck = true for: "<<newPoint<<endl;
-                    }
                     yPoints.push_back(newPoint);
                     yPos += yStep;
                     newPoint.x = xPos;
                     newPoint.y = yPos; 
                     pushed = true;
                 }else if(dotCheck == true && lidarCheck == false || bigDotCheck == true ){
-                    if(newPoint.x>900){
-                        cout<<"-Y-axis dotcheck == true && lidarCheck = false for: "<<newPoint<<endl;
-                    }
                     yPos += yStep;
                     newPoint.x = xPos;
                     newPoint.y = yPos; 
@@ -911,7 +892,7 @@ namespace Mapping_Functions{
             while(yPoints.size()<=vLimit && bigDotCheck == true){
                 dotCheck = gridDotBoundCheck(mapdata,newPoint);
                 bigDotCheck = gridDotBigBoundCheck(newPoint,bounds);
-                cout<<"2.1BIg CHECL = "<<bigDotCheck<<endl;
+                // cout<<"2.1BIg CHECL = "<<bigDotCheck<<endl;
                 lidarCheck = gridDotLidarCheck(mapdata,newPoint,boundThresh);
 
                 if(dotCheck == true && lidarCheck == true){
@@ -948,7 +929,7 @@ namespace Mapping_Functions{
             while(yPoints.size()<=vLimit && bigDotCheck == true){
                 dotCheck = gridDotBoundCheck(mapdata,newPoint);
                 bigDotCheck = gridDotBigBoundCheck(newPoint,bounds);
-                cout<<"2.2BIg CHECL = "<<bigDotCheck<<endl;
+                //cout<<"2.2BIg CHECL = "<<bigDotCheck<<endl;
                 lidarCheck = gridDotLidarCheck(mapdata,newPoint,boundThresh);
 
                 if(dotCheck == true && lidarCheck == true){
