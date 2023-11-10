@@ -9,71 +9,92 @@ plt.style.use('fivethirtyeight')
 def fetchCoord(filename):
     x_coord = []
     y_coord = []
-    with open(filename,'r') as file:
-        csv_reader = csv.reader(file)
-        for row in csv_reader:
-            x_coord.append(float(row[0]))
-            y_coord.append(float(row[1]))
-    return x_coord,y_coord
-
-def fetchRobot():
-    postion = []
-    with open('positionCSV.csv','r') as file:
-        csv_reader = csv.reader(file)
-        for row in csv_reader:
-            postion.append(float(row[0]))
-
-    file.close()
-
-    goal = []
-    #Calculate goal that we want to move
-    with open('motorCSV.csv','r') as file:
-        csv_reader = csv.reader(file)
-        for row in csv_reader:
-            goal.append(float(row[0]))
-    
-    d_x = goal[1]*math.cos(goal[0])
-    d_y = goal[1]*math.sin(goal[0])
-    x_goal = postion[0] + d_x
-    y_goal = postion[1] + d_y
-
-    if(len(goal)>2):
-        d_x = goal[3]*math.cos(goal[2])
-        d_y = goal[3]*math.cos(goal[2])
-        x_true = postion[0] + d_x
-        y_true = postion[1] + d_y
-        angle_true = goal[2]
-        true_move = [x_true,y_true,angle_true]
+    try:
+        with open(filename, 'r') as file:
+            csv_reader = csv.reader(file)
+            for row in csv_reader:
+                x_coord.append(float(row[0]))
+                y_coord.append(float(row[1]))
+    except FileNotFoundError:
+        print(f"Error: The file '{filename}' was not found.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
     else:
-        true_move = [0,0,0]
+        return x_coord, y_coord
 
+def fetchRobot(position, motor):
+    position_data = []
+    try:
+        with open('positionCSV.csv', 'r') as file:
+            csv_reader = csv.reader(file)
+            for row in csv_reader:
+                position_data.append(float(row[0]))
+    except FileNotFoundError:
+        print("Error: The file 'positionCSV.csv' was not found.")
+        return None
 
+    try:
+        goal = []
+        # Calculate goal that we want to move
+        with open('motorCSV.csv', 'r') as file:
+            csv_reader = csv.reader(file)
+            for row in csv_reader:
+                goal.append(float(row[0]))
+    except FileNotFoundError:
+        print("Error: The file 'motorCSV.csv' was not found.")
+        return None
+    except Exception as e:
+        print(f"An error occurred while reading 'motorCSV.csv': {e}")
+        return None
+    else:
+        file.close()
 
-    return postion,x_goal,y_goal,true_move
+    d_x = goal[1] * math.cos(goal[0])
+    d_y = goal[1] * math.sin(goal[0])
+    x_goal = position_data[0] + d_x
+    y_goal = position_data[1] + d_y
 
-def fetchAndPlotGrid():
+    if len(goal) > 2:
+        d_x = goal[3] * math.cos(goal[2])
+        d_y = goal[3] * math.cos(goal[2])
+        x_true = position_data[0] + d_x
+        y_true = position_data[1] + d_y
+        angle_true = goal[2]
+        true_move = [x_true, y_true, angle_true]
+    else:
+        true_move = [0, 0, 0]
+
+    return position_data, x_goal, y_goal, true_move
+
+def fetchAndPlotGrid(grid):
     x_coord = []
     y_coord = []
     trav_state = []
-    with open('gridCSV.csv','r') as file:
-        csv_reader = csv.reader(file)
-        for row in csv_reader:
-            #Check for gaps
-            if row[0] != ' ':
-                #print("row = ",row," row[0] = ",row[0])
-                x_coord.append(float(row[0]))
-                y_coord.append(float(row[1]))
-                trav_state.append(int(row[2]))
+    try:
+        with open(grid, 'r') as file:
+            csv_reader = csv.reader(file)
+            for row in csv_reader:
+                # Check for gaps
+                if row[0] != ' ':
+                    x_coord.append(float(row[0]))
+                    y_coord.append(float(row[1]))
+                    trav_state.append(int(row[2]))
+    except FileNotFoundError:
+        print(f"Error: The file '{grid}' was not found.")
+        return None
+    except Exception as e:
+        print(f"An error occurred while reading '{grid}': {e}")
+        return None
+    else:
+        file.close()
 
-    for i in range(0,len(x_coord)):
-        if(trav_state[i] == 1):
-            plt.plot(x_coord[i], y_coord[i], 'o', label='Points',markersize=2,color='orange')
-        elif(trav_state[i] == 0):
-            plt.plot(x_coord[i], y_coord[i], 'o', label='Points',markersize=2,color='grey')
-    
+    for i in range(0, len(x_coord)):
+        if trav_state[i] == 1:
+            plt.plot(x_coord[i], y_coord[i], 'o', label='Points', markersize=2, color='orange')
+        elif trav_state[i] == 0:
+            plt.plot(x_coord[i], y_coord[i], 'o', label='Points', markersize=2, color='grey')
 
-    return x_coord,y_coord
-
+    return x_coord, y_coord
 
 # Read the lines from the CSV file
 def fetchAndPlotLines():
@@ -294,7 +315,7 @@ def animate(i):
     #x3,y3=fetchCoord('cornersCSV.csv')
     x4,y4=fetchCoord('mapCSV.csv')
     x5,y5=fetchCoord('triangleCSV.csv')
-    position,x_goal,y_goal,true_move = fetchRobot()
+    # position,x_goal,y_goal,true_move = fetchRobot()
     #print("POSITION = ",position)
 
     #Adjustment

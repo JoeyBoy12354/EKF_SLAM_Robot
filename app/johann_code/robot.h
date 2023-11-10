@@ -298,6 +298,8 @@ namespace Navigation_Functions{
     CarPoint findNextPoint(MatrixXf State, vector<vector<GridPoint>> gridMap, bool& mapped);
     CarPoint findNextPointRadius(MatrixXf State, vector<vector<GridPoint>> gridMap, bool& mapped);
     CarPoint findNextPointStraight(MatrixXf State, vector<vector<GridPoint>> gridMap, bool& mapped);
+
+    float wallAvoidance(MatrixXf State, float angle);
     
 }
 

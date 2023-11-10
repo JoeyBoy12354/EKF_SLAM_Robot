@@ -391,6 +391,45 @@ namespace Navigation_Functions{
     }
 
 
+
+    float wallAvoidance(MatrixXf State, float angle){
+        float turnableDistance = 70; //Total distance from object required to make a turn (REMEMBER SAME AS IN MC Python)
+        vector<CarPoint> map;
+        CarPoint bot{State[0],State[1]};
+        readCarFromFullMapCSV(map);
+
+        vector<CarPoint> collisionPoints;
+
+        for(int i =0;i<map.size();i++){
+            if(pointDistance(map[i],bot) < turnableDistance){
+                collisionPoints.push_back(map[i]);
+            }
+        }
+
+        for(int i =0;i<collisionPoints.size();i++){
+            float deltaX = collisionPoints[i].x - bot.x;
+            float deltaY = collisionPoints[i].y - bot.y;
+            float angle_coll = atan2(deltaY,deltaX) - State(2);//Get collision angle
+            angle_coll = pi_2_pi(angle_coll);
+
+            //IF Same direction and collision will occur 
+            if(angle_coll/angle > 0 && abs(angle_coll) < abs(angle)){
+                cout<<"\n WALL AVOIDANCE DETECTED with"<<collisionPoints[i]<<" angle = "<<angle*180/PI<<", collAngle = "<<angle_coll*180/PI<<endl;
+                if(angle>0){
+                    return  angle -2*PI;
+                }else if(angle<0){
+                    return  angle +2*PI;
+                }else{
+                    return angle;
+                }       
+            }
+        }
+
+        return angle
+
+    }
+
+
     //Set distance and angle to go to given grid point
     void updateMovement(CarPoint closestPoint,MatrixXf State){
         cout<<"ClosestPoint = "<<closestPoint<<endl;
@@ -429,6 +468,12 @@ namespace Navigation_Functions{
         cout<<"NAVI,GRID to visit: "<<closestPoint<<endl;
         
         //cout<<"NAVI,GRID: movement: "<<distance<<"mm "<<angle*180/PI<<" deg"<<endl;
+
+
+        //Wall Avoidance
+        angle = wallAvoidance(State,angle);
+        //End Wall avoidance
+
 
         //Set motors
         motorControlGrid(angle,distance);

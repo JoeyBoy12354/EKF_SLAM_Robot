@@ -50,9 +50,28 @@ timeOffR = 0.001
 # turnableDistance = 57 #Total distance from object required to make a turn
 # sensorDistace = 95 #Distance between sensors
 
-turnableDistance = 70 #Total distance from object required to make a turn
+turnableDistance = 70 #Total distance from object required to make a turn (REMEMBER SAME AS IN NAVI C++)
 sensorDistace = 95 #Distance between sensors
 
+def fetchCoord(filename):
+    x_coord = []
+    y_coord = []
+    try:
+        with open(filename, 'r') as file:
+            csv_reader = csv.reader(file)
+            for row in csv_reader:
+                x_coord.append(float(row[0]))
+                y_coord.append(float(row[1]))
+    except FileNotFoundError:
+        print(f"Error: The file '{filename}' was not found.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    else:
+        return x_coord, y_coord
+
+#Calculate the distance between 2 points
+def pointDistance(x1,y1,x2,y2):
+    return math.sqrt(pow((x1-x2),2) + pow((y1-y2),2))
 
 def avoidanceTurn(angle):
     rightSonarDist = sonarControl.runSonar(False)
@@ -952,13 +971,15 @@ timeOffR=0.00232513625
 angle,distance = readInstructions()
 
 
+
+
 # angle = -1*math.pi/2
 # distance = 0
 # angle = math.pi/2
 # #angle = 0
 # distance = 200
 
-angle =-30*math.pi/180;
+angle =-30*math.pi/180
 distance =0
 
 
