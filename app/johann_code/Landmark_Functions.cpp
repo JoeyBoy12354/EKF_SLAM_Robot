@@ -86,7 +86,7 @@ namespace Landmark_Functions{
 
         int sample_size = 80;
         int max_iters= 400;
-        float inlier_thresh=0.002; //0.0005
+        float inlier_thresh=0.007; //0.0005
         int min_inlier = 5; // 5
         float angleThreshold = 20.0 * M_PI / 180.0;
         float distanceThreshold = 120;
@@ -96,7 +96,9 @@ namespace Landmark_Functions{
         
         //vector<VectorXf> bestModels = manager(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
         vector<VectorXd> bestModels = manager2(x, y, sample_size, max_iters, inlier_thresh, min_inlier);
+        cout<<"mini: bestModel = "<<bestModels.size()<,endl;
         vector<Vector2d> corners = findCorners2(bestModels, angleThreshold);
+        cout<<"mini: Corners = "<<corners<<endl;
         vector<Vector2d> filteredCorners = filterCorners2(corners, x, y, distanceThreshold, closenessThreshold);
         
 
