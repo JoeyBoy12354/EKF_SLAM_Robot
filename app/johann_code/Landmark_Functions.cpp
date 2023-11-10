@@ -541,13 +541,14 @@ namespace Landmark_Functions{
                 } 
             }
             cout<<"Group size = "<<group.size()<<endl;
-            vector<CarPoint> corners2 =  getMiniRANSACCorners(group);
+            //vector<CarPoint> corners2 =  getMiniRANSACCorners(group);
+            bool detected = getInlierCheck(group,closeCorners[i]);
             cout<<"Corner: ("<<closeCorners[i](0)<<", "<<closeCorners[i](1)<<"): ";
-            if(corners2.size()!=0){
-                cout<<" corner len = "<<corners2.size()<<endl;
+            if(detected == true){
+                // cout<<" corner len = "<<corners2.size()<<endl;
                 trueCorners.push_back(closeCorners[i]);
             }else{
-                cout<<"corner len = 0"<<endl;
+                // cout<<"corner len = 0"<<endl;
             }  
         }
 

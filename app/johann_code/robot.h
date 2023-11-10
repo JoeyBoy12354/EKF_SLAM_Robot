@@ -235,6 +235,7 @@ namespace Landmark_Functions{
 
     vector<CarPoint> getRANSACCorners(vector<CarPoint> dataPoints);
     vector<CarPoint> getMiniRANSACCorners(vector<CarPoint> dataPoints);
+    bool getInlierCheck(vector<CarPoint> dataPoints,CarPoint corner);
 }
 
 namespace Simulation_Functions{
