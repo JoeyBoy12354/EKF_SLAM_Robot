@@ -492,17 +492,16 @@ namespace Landmark_Functions{
                 if(distTemp2 < doubleLineThreshold){
                     CarPoint point(xCoords[i],yCoords[i]);
                     group.push_back(point);
-                }
-                vector<CarPoint> corners2 =  getMiniRANSACCorners(group);
-                cout<<"Corner: ("<<closeCorners[i](0)<<", "<<closeCorners[i](1)<<"): ";
-                if(corners2.size()!=0){
-                    cout<<" corner len = "<<corners2.size()<<endl;
-                    trueCorners.push_back(closeCorners[i]);
-
-                }else{
-                    cout<<"corner len = 0"<<endl;
-                }   
+                } 
             }
+            vector<CarPoint> corners2 =  getMiniRANSACCorners(group);
+            cout<<"Corner: ("<<closeCorners[i](0)<<", "<<closeCorners[i](1)<<"): ";
+            if(corners2.size()!=0){
+                cout<<" corner len = "<<corners2.size()<<endl;
+                trueCorners.push_back(closeCorners[i]);
+            }else{
+                cout<<"corner len = 0"<<endl;
+            }  
         }
 
         return trueCorners;
