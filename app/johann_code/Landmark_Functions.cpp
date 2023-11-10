@@ -84,7 +84,7 @@ namespace Landmark_Functions{
             y.push_back(dataPoints[i].y);
         }
 
-        int sample_size = 40;
+        int sample_size = 10;
         int max_iters= 400;
         float inlier_thresh=0.002; //0.0005
         int min_inlier = 5; // 5
