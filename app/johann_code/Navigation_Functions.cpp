@@ -425,7 +425,7 @@ namespace Navigation_Functions{
             }
         }
 
-        return angle
+        return angle;
 
     }
 
