@@ -782,16 +782,24 @@ namespace Mapping_Functions{
             while(yPoints.size()<=vLimit && dotCheck == true){
                 dotCheck = gridDotBoundCheck(mapdata,newPoint);
                 lidarCheck = gridDotLidarCheck(mapdata,newPoint,boundThresh);
-                cout<<"newPoint = "<<newPoint<<" ";
+                if(newPoint.x>900){
+                    cout<<"newPoint = "<<newPoint<<" ";
+                }
+                
 
                 if(dotCheck == true && lidarCheck == true){
+                    if(newPoint.x>900){
+                        cout<<"+Y-axis dotcheck == true && lidarCheck = true for: "<<newPoint<<endl;
+                    }
                     yPoints.push_back(newPoint);
                     yPos += yStep;
                     newPoint.x = xPos;
                     newPoint.y = yPos; 
                     pushed = true;
                 }else if(dotCheck == true && lidarCheck == false){
-                    cout<<"+Y-axis dotcheck == true && lidarCheck = false for: "<<newPoint<<endl;
+                    if(newPoint.x>900){
+                        cout<<"+Y-axis dotcheck == true && lidarCheck = false for: "<<newPoint<<endl;
+                    }
                     //This is to ensure that we still keep checking for dots even if there is an obstacle
                     //However this means that as long as a point is within max bounds it can be plotted, so corridors and rooms
                     // Will have points between them
@@ -815,16 +823,23 @@ namespace Mapping_Functions{
             while(yPoints.size()<=vLimit && dotCheck == true){
                 dotCheck = gridDotBoundCheck(mapdata,newPoint);
                 lidarCheck = gridDotLidarCheck(mapdata,newPoint,boundThresh);
-                cout<<"newPoint = "<<newPoint<<" ";
+                if(newPoint.x>900){
+                    cout<<"newPoint = "<<newPoint<<" ";
+                }
 
                 if(dotCheck == true && lidarCheck == true){
+                    if(newPoint.x>900){
+                        cout<<"+Y-axis dotcheck == true && lidarCheck = true for: "<<newPoint<<endl;
+                    }
                     yPoints.push_back(newPoint);
                     yPos += yStep;
                     newPoint.x = xPos;
                     newPoint.y = yPos; 
                     pushed = true;
                 }else if(dotCheck == true && lidarCheck == false){
-                    cout<<"-Y-axis dotcheck == true && lidarCheck = false for: "<<newPoint<<endl;
+                    if(newPoint.x>900){
+                        cout<<"+Y-axis dotcheck == true && lidarCheck = false for: "<<newPoint<<endl;
+                    }
                     yPos += yStep;
                     newPoint.x = xPos;
                     newPoint.y = yPos; 
