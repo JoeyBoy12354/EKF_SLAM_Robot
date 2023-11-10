@@ -958,8 +958,8 @@ angle,distance = readInstructions()
 # #angle = 0
 # distance = 200
 
-# angle =0
-# distance =0
+angle =-30
+distance =0
 
 
 if(distance > 900):
