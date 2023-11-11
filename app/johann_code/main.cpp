@@ -826,14 +826,22 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
         gridDataProcess(gridNew, ekf.State, firstRun);
             
         //Complete Robot Movement
-        if(finalRun == false && postMap == false){
-            mapped = mapMovement(ekf.State,gridNew,path);// Move the robot to the location
-            motorDataProcessing(ekf.w,ekf.distance);//Set Ekf variables to result from motor functions
-        }else if(finalRun == false && postMap == true){
-            home = postMapMovement(ekf.State,path,home);// Move the robot to the location
-            motorDataProcessing(ekf.w,ekf.distance);//Set Ekf variables to result from motor functions
+        if(firstRun == false){
+            if(finalRun == false && postMap == false){
+                mapped = mapMovement(ekf.State,gridNew,path);// Move the robot to the location
+                motorDataProcessing(ekf.w,ekf.distance);//Set Ekf variables to result from motor functions
+            }else if(finalRun == false && postMap == true){
+                home = postMapMovement(ekf.State,path,home);// Move the robot to the location
+                motorDataProcessing(ekf.w,ekf.distance);//Set Ekf variables to result from motor functions
+            }else{
+                cout<<"MAIN: I DID NOT FUCKING MOVE"<<endl;
+            }
         }else{
-            cout<<"MAIN: I DID NOT FUCKING MOVE"<<endl;
+            cout<<"FIRST RUN NO MOVEMENT"<<endl;
+            //Set motors
+            motorControlGrid(0,0);
+            motorDataProcessing(ekf.w,ekf.distance);//Set Ekf variables to result from motor functions
+
         }
 
     }else{
