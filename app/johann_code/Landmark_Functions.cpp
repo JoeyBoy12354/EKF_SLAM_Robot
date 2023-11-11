@@ -544,6 +544,7 @@ namespace Landmark_Functions{
         vector<Vector2d> trueCorners;
         vector<CarPoint> group;
         bool detected = false;
+        cout<<"BEGIN FILTER"<<endl;
         for(int i=0;i<closeCorners.size();i++){
             group.clear();
             for(int j=0;j<xCoords.size();j++){
