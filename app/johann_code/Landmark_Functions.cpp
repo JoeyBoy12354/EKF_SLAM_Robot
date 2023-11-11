@@ -79,11 +79,14 @@ namespace Landmark_Functions{
         float angleThreshold = 40.0 * M_PI / 180.0;
         CarPoint A;
         CarPoint B;
+        for(int i=0;i<dataPoints.size();i++){
+            cout<<"dataPoints["<<i<<"] = "<<dataPoints[i];
+        }
+
         //Get the points witht the max distance from one another
         for(int i=0;i<dataPoints.size();i++){
             for(int j=0;j<dataPoints.size();j++){
                 float d = pointDistance(dataPoints[i],dataPoints[j]);
-                cout<<"d = "<<d<<endl;
                 if(d>distance){
                     distance = d;
                     A = dataPoints[i];
