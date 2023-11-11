@@ -1085,8 +1085,8 @@ void testRANSACallMaps(){
 void testRANSAC2(){
     vector<CarPoint> dataPoints;
 
-    cout<<"fullMapCSV"<<endl;
-    readCarFromCSVTest(dataPoints, "fullMapCSV.csv");
+    cout<<"map10"<<endl;
+    readCarFromCSVTest(dataPoints, "map10.csv");
     getRANSACCorners(dataPoints);
     //dataPoints.clear();
 
