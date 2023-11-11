@@ -150,7 +150,14 @@ namespace Data_Functions{
     //cout<<"\n RANSAC py RUN \n"<<endl;
     //vector<CarPoint> cornerPoints = getCorners();
 
-    vector<CarPoint> cornerPoints = getRANSACCorners(carPoints);
+    vector<CarPoint> cornerPoints;
+    for(int i =0;i<5;i++){
+        if(cornerPoints.size()<2){
+            cout<<"Too few Corners!"<<endl;
+            cornerPoints = getRANSACCorners(carPoints);
+        }    
+    }
+    
 
     //Convert cornerPoints to polar
     for(int i =0;i<cornerPoints.size();i++){
@@ -251,9 +258,6 @@ namespace Data_Functions{
         
         ekf_w = theta;
         ekf_dist = dist;
-
-        
-
     }
 
     // Function to calculate the perpendicular distance from a point to a point
