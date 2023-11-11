@@ -463,7 +463,7 @@ namespace Navigation_Functions{
         float d_avoid = 100000;
         CarPoint avoidPoint;
         //Find points near Line (take all over to y side)
-        cout<<"NAVI: avoidFor Points: "
+        cout<<"NAVI: avoidFor Points: ";
         for(int i =0;i<map.size();i++){
 
             d = abs(-m*map[i].x + 1*map[i].y -c)/sqrt(pow(m,2) + 1);//Distance between point and line

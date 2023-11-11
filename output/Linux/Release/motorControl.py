@@ -995,9 +995,6 @@ timeOffR=0.002699438202247191
 
 angle,distance = readInstructions()
 
-
-
-
 # angle = -1*math.pi/2
 # distance = 0
 # angle = math.pi/2
