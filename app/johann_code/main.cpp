@@ -1082,6 +1082,16 @@ void testRANSACallMaps(){
 }
 
 
+void testRANSAC2(){
+    vector<CarPoint> dataPoints;
+
+    cout<<"fullMapCSV"<<endl;
+    readCarFromCSVTest(dataPoints, "fullMapCSV.csv");
+    getRANSACCorners(dataPoints);
+    //dataPoints.clear();
+
+}
+
 
 void testLM(){
     bool firstRun = true;

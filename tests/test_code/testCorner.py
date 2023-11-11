@@ -324,7 +324,7 @@ def brute_force(mapCSV,sample_size,max_iters,inlier_thresh,min_inliers):
 
 # brute_force('map3.csv',sample_size=100,max_iters=200,inlier_thresh=0.15,min_inliers=4)
 
-x1,y1=fetchCoord('map1.csv')
+x1,y1=fetchCoord('map10.csv')
 best_models = manager(x1,y1,sample_size=80,max_iters=200,inlier_threshold=0.6,min_inliers=5)
 #best_models = manager(x1,y1,sample_size=100,max_iters=200,inlier_threshold=0.4,min_inliers=5)
 plt.plot(x1, y1, 'o', label='Points',markersize=0.8,color='r',alpha = 1)
@@ -344,8 +344,8 @@ for i in range(0,len(filtered_corner)):
 
 # plt.ylim([-300,300])
 # plt.xlim([-300,300])
-plt.ylim([-350,350])
-plt.xlim([-300,300])
+plt.ylim([-1400,1400])
+plt.xlim([-600,2500])
 plt.show()
 
 
