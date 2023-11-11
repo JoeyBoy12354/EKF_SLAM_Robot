@@ -550,7 +550,7 @@ namespace Landmark_Functions{
                 double distTemp2 = sqrt(pow(xCoords[j] - closeCorners[i](0), 2) + pow(yCoords[j] - closeCorners[i](1), 2));
                 if(distTemp2 < doubleLineThreshold){
                     CarPoint point(xCoords[i],yCoords[i]);
-                    cout<<", "<<points<<;
+                    cout<<", "<<point<<;
                     group.push_back(point);
                 } 
             }
