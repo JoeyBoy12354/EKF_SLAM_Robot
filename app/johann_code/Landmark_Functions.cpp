@@ -95,7 +95,7 @@ namespace Landmark_Functions{
         float mA = (A.y - corner.y)/(A.x - corner.x);
         float mB = (B.y - corner.y)/(B.x - corner.x);
         float cA = A.y-A.x*mA;
-        float cB = A.y-A.x*mA;
+        float cB = B.y-B.x*mB;
 
         double interAngle = M_PI / 2;
         if (mA * mB == -1) {
@@ -104,6 +104,7 @@ namespace Landmark_Functions{
             interAngle = abs(atan((mB - mA) / (1 + mA * mB)));
         }
 
+        cout<<"\nPoints: "<<A<<", "<<corner<<", "<<B<<endl;
         cout<<"Inter Angle = "<<interAngle*180/M_PI<<endl;  
         cout<<"mA= "<<mA<<", cA= "<<cA<<", mB= "<<mB<<", cB= "<<cB<<endl;
 
