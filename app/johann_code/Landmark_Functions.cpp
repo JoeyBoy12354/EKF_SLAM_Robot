@@ -79,9 +79,9 @@ namespace Landmark_Functions{
         float angleThreshold = 40.0 * M_PI / 180.0;
         CarPoint A;
         CarPoint B;
-        for(int i=0;i<dataPoints.size();i++){
-            cout<<"dataPoints["<<i<<"] = "<<dataPoints[i];
-        }
+        // for(int i=0;i<dataPoints.size();i++){
+        //     cout<<"dataPoints["<<i<<"] = "<<dataPoints[i];
+        // }
 
         //Get the points witht the max distance from one another
         for(int i=0;i<dataPoints.size();i++){
@@ -550,6 +550,7 @@ namespace Landmark_Functions{
                 double distTemp2 = sqrt(pow(xCoords[j] - closeCorners[i](0), 2) + pow(yCoords[j] - closeCorners[i](1), 2));
                 if(distTemp2 < doubleLineThreshold){
                     CarPoint point(xCoords[i],yCoords[i]);
+                    cout<<", "<<points<<endl;
                     group.push_back(point);
                 } 
             }
