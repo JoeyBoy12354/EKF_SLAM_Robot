@@ -1112,7 +1112,9 @@ int main() {
     
     //testLidar();
 
-    testRun();
+    //testRun();
+
+    testRANSAC2();
 
     //testRANSACallMaps();
     
