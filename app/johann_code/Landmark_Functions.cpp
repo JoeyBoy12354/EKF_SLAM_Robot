@@ -83,6 +83,7 @@ namespace Landmark_Functions{
         for(int i=0;i<dataPoints.size();i++){
             for(int j=0;j<dataPoints.size();j++){
                 float d = pointDistance(dataPoints[i],dataPoints[j]);
+                cout<<"d = "<<d<<endl;
                 if(d>distance){
                     distance = d;
                     A = dataPoints[i];
