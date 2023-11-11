@@ -105,6 +105,7 @@ namespace Landmark_Functions{
         }
 
         cout<<"\nPoints: "<<A<<", "<<corner<<", "<<B<<endl;
+        cout<<"distance = "<<distance<,endl;
         cout<<"Inter Angle = "<<interAngle*180/M_PI<<endl;  
         cout<<"mA= "<<mA<<", cA= "<<cA<<", mB= "<<mB<<", cB= "<<cB<<endl;
 
