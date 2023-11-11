@@ -121,6 +121,7 @@ namespace Landmark_Functions{
             cout<<"TRUE CORNER"<<endl;
             return true; //corner detected
         }
+        cout<<"FALSE CORNER"<<endl;
         return false; //corner not detected
 
 
