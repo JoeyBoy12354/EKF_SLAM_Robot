@@ -430,8 +430,7 @@ namespace Navigation_Functions{
     }
 
     void wallAvoidanceForward(MatrixXf State, float angle, CarPoint postPoint, CarPoint goalPoint){
-        float tooClose_thresh = 40;
-        float groupie_thresh = 100;
+        float tooClose_thresh = 100;
         vector<CarPoint> map;
         readCarFromFullMapCSV(map);
 
@@ -464,10 +463,12 @@ namespace Navigation_Functions{
         float d_avoid = 100000;
         CarPoint avoidPoint;
         //Find points near Line (take all over to y side)
+        cout<<"NAVI: avoidFor Points: "
         for(int i =0;i<map.size();i++){
 
             d = abs(-m*map[i].x + 1*map[i].y -c)/sqrt(pow(m,2) + 1);//Distance between point and line
             if(d<tooClose_thresh && map[i].x<xmax && map[i].x>xmin && map[i].y<ymax && map[i].y>ymin){
+                cout<<map[i];
                 float dist = pointDistance(postPoint,map[i]);
                 if(dist<d_avoid){
                     d_avoid = dist;
@@ -475,9 +476,8 @@ namespace Navigation_Functions{
                 }
 
             }
-
-
         }
+        cout<<endl;
         
 
 
