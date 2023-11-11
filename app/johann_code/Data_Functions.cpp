@@ -179,6 +179,47 @@ namespace Data_Functions{
     }
 
 
+    
+    void lidarDataProcessingCleaning(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints,vector<PolPoint>& cornerPolarPoints){
+    //cout<<"\n lidarDataProcessing"<<endl;
+
+    carPoints = convertCartesian(dataPoints);
+
+    // saveCarToCSV(carPoints);
+    // cout<<"\nNumber of CAR points"<<carPoints.size(); 
+
+    //cout<<"\n RANSAC py RUN \n"<<endl;
+    //vector<CarPoint> cornerPoints = getCorners();
+
+    vector<CarPoint> cornerPoints;
+    for(int i =0;i<5;i++){
+        if(cornerPoints.size()<2){
+            cout<<"Too few Corners!"<<endl;
+            cornerPoints = getRANSACCorners(carPoints);
+        }    
+    }
+    
+
+    //Convert cornerPoints to polar
+    for(int i =0;i<cornerPoints.size();i++){
+        PolPoint newPoint;
+        newPoint.distance = sqrt(pow(cornerPoints[i].x,2) + pow(cornerPoints[i].y,2));
+        newPoint.angle = atan2(cornerPoints[i].y,cornerPoints[i].x);
+        cornerPolarPoints.push_back(newPoint);
+    }
+
+
+    cout<<"DATA: NUMBER OF CORNERS POINTS = "<<cornerPoints.size()<<endl;
+    for(int i =0;i<cornerPoints.size();i++){
+        cout<<cornerPoints[i]<<" | ";
+    }
+    cout<<endl;
+
+    return;
+     
+    }
+
+    
 
     void LandmarkProcessing(){
         

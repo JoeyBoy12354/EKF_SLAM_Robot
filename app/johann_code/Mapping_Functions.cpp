@@ -6,6 +6,18 @@ using namespace Data_Functions;
 
 namespace Mapping_Functions{
 
+
+    void storeMapPointsCleaning(vector<CarPoint> lidardata,Matrix<float, dim, 1> State){
+        //Fit new scan
+        fitCartesian(lidardata,State(0),State(1),State(2));
+        //Write new Scan
+        saveCarToCSV(lidardata);
+
+       
+        storeStatePoints(State);
+        
+    }
+
     //Build Full map, place it in csv
     //Points have to be translated
     void storeMapPoints(vector<CarPoint> lidardata,Matrix<float, dim, 1> State){

@@ -207,6 +207,9 @@ namespace Data_Functions{
     
     //motor
     void motorDataProcessing(float& ekf_w,float&ekf_dist);
+
+    //Cleaning
+    void lidarDataProcessingCleaning(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints,vector<PolPoint>& cornerPolarPoints);
 }
 
 namespace Landmark_Functions{
@@ -274,6 +277,8 @@ namespace Mapping_Functions{
     bool gridDotBigBoundCheck(GridPoint point,vector<float> bounds);
 
     void mapConverter(vector<vector<GridPoint>> gridOld, vector<vector<GridNode>>& gridNew);
+    
+    void storeMapPointsCleaning(vector<CarPoint> lidardata,Matrix<float, dim, 1> State);
 }
 
 namespace Navigation_Functions{

@@ -256,46 +256,6 @@ void testMap(){
 }
 
 
-// void testLidarThread(){
-//     cout<<"ENTER testLidarThread"<<endl;
-//     vector<int> vect;
-//     int NoPoints = 8192;
-//     vector<PolPoint> lidarDataPoints;
-//     vector<PolPoint> testPoints;
-//     bool error = false;
-//     thread t1(initializeLidar, ref(lidarDataPoints), ref(error), NoPoints);
-
-//     int timer = 0;
-//     while (timer < 5) {
-//         {
-//             unique_lock<mutex> lock(mtx);
-//             cv.wait(lock, [&lidarDataPoints, NoPoints] { return lidarDataPoints.size() >= NoPoints; });
-
-//             // Do something with the filled vector
-//             // For example, copy its contents to another data structure
-
-//             testPoints = lidarDataPoints;
-//             // Reset the vector
-//             lidarDataPoints.clear();
-//         }
-
-//         // Continue your processing after vector is filled
-
-//         timer = timer + 1;
-//         cout << "\nMAIN: vector is full in time = " << timer << " testPoints size = "<<testPoints.size()<<endl;
-//     }
-
-//     cout << "Signal threadSlave to stop" << endl;
-//     stopFlag.store(true); // Set the stop flag to signal threadSlave to stop
-
-//     // Wait for the t1 thread to join
-//     t1.join();
-//     cout << "t1 joined" << endl;
-
-//     return;
-// }
-
-
 
 void calibrateMotors(){
     writeMotorStateToCSV(true);
@@ -854,6 +814,70 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
     
 }
 
+
+void fullRunClean(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun, bool finalRun,bool postMap,vector<CarPoint>& path, vector<PolPoint> lidarDataPoints){
+    
+
+    //Run Lidar
+    //vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
+    bool error = false;
+
+
+    if(error == false){
+        //Predict Position
+        ekf.updateMotion();
+        
+
+        cout<<"\n MAIN: after_motion State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+
+        //Process Data
+        
+        vector<CarPoint> carPoints;
+        vector<PolPoint> polarCornerPoints;
+        lidarDataProcessingCleaning(lidarDataPoints,carPoints,polarCornerPoints);
+
+        ekf.TestPolValues = polarCornerPoints;
+        //Run EKF
+        ekf.runEKF();
+
+        cout<<"\n MAIN: after_ekf State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+        for(int i =3;i<dim;i=i+2){
+            if(ekf.State[i] != 0 && ekf.State[i+1] != 0){
+                cout<<"("<<ekf.State[i]<<","<<ekf.State[i+1]<<") | ";
+            }
+        }
+        cout<<endl;
+
+
+        storeMapPointsCleaning(carPoints,ekf.State);
+
+        //Get Grid
+        vector<vector<GridPoint>> gridNew;
+        gridDataProcess(gridNew, ekf.State, firstRun);
+            
+        //Complete Robot Movement
+  
+        if(finalRun == false && postMap == false){
+            mapped = mapMovement(ekf.State,gridNew,path);// Move the robot to the location
+            motorDataProcessing(ekf.w,ekf.distance);//Set Ekf variables to result from motor functions
+        }else if(finalRun == false && postMap == true){
+            home = postMapMovement(ekf.State,path,home);// Move the robot to the location
+            motorDataProcessing(ekf.w,ekf.distance);//Set Ekf variables to result from motor functions
+        }else{
+            cout<<"MAIN: I DID NOT FUCKING MOVE"<<endl;
+        }
+        
+
+    }else{
+        cout<<" NO PROCESSING DUE TO LIDAR ERROR"<<endl;
+    }
+        
+    
+
+    cout<<"LEAVNG RUN"<<endl;
+    
+}
+
 void testRun(){
     ExtendedKalmanFilter ekf;
     bool mapped = false;
@@ -902,6 +926,62 @@ void testRun(){
 
     ekf.distance = 0;
     ekf.w = 0;
+
+
+    cout<<"\n\nTime to do some cleaning"<<endl;
+    count=0;
+    firstRun = true;
+    mapped = false;
+    while(mapped == false && count<40){
+        
+        fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
+        lidarDataPoints.clear();
+        fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
+        if(lidarDataPoints.size()!=0){
+            cout<<"MAIN: FetchedScan = "<<lidarDataPoints.size()<<endl;
+            cout<<"\n i = "<<count<<endl;
+            cout<<"------------------------------------------------------------------------------------------------------------\n\n";
+            fullRunClean(ekf,mapped,home,firstRun,finalRun,postMap,path,lidarDataPoints);
+            firstRun = false; //DO NOT CHANGE THIS KEEP IT HERE DO NOT MOVE IT INSIDE FULLRUN OR GOD HELP ME
+            count = count+1;
+        }else{
+            cout<<"MAIN: No Scan Fetched"<<endl;
+        }
+        lidarDataPoints.clear();
+
+        string s; 
+        cout<<"please enter something: ";
+        cin>>s;
+    }
+
+
+    //Time to go home
+    cout<<"\n\nTime to go home"<<endl;
+    mapped = false;
+    postMap = true;
+    while(mapped == false && count<40){
+        
+        fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
+        lidarDataPoints.clear();
+        fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
+        if(lidarDataPoints.size()!=0){
+            cout<<"MAIN: FetchedScan = "<<lidarDataPoints.size()<<endl;
+            cout<<"\n i = "<<count<<endl;
+            cout<<"------------------------------------------------------------------------------------------------------------\n\n";
+            fullRunClean(ekf,mapped,home,firstRun,finalRun,postMap,path,lidarDataPoints);
+            firstRun = false; //DO NOT CHANGE THIS KEEP IT HERE DO NOT MOVE IT INSIDE FULLRUN OR GOD HELP ME
+            count = count+1;
+        }else{
+            cout<<"MAIN: No Scan Fetched"<<endl;
+        }
+        lidarDataPoints.clear();
+
+        string s; 
+        cout<<"please enter something: ";
+        cin>>s;
+    }
+
+    fullRunClean(ekf,mapped,home,firstRun,finalRun,postMap,path,lidarDataPoints);
     
     // fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
     // lidarDataPoints.clear();
