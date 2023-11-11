@@ -562,7 +562,7 @@ namespace Landmark_Functions{
             //vector<CarPoint> corners2 =  getMiniRANSACCorners(group);
             CarPoint myCorner(closeCorners[i](0),closeCorners[i](1));
             detected = getInlierCheck(group,myCorner);
-            cout<<"Corner: ("<<closeCorners[i](0)<<", "<<closeCorners[i](1)<<"): ";
+            //cout<<"Corner: ("<<closeCorners[i](0)<<", "<<closeCorners[i](1)<<"): ";
             if(detected == true){
                 // cout<<" corner len = "<<corners2.size()<<endl;
                 trueCorners.push_back(closeCorners[i]);
@@ -570,6 +570,12 @@ namespace Landmark_Functions{
                 // cout<<"corner len = 0"<<endl;
             } 
             detected = false; 
+        }
+
+        cout<<"close corner len = "<<closeCorners.size()<<endl;
+        cout<<"true corner len = "<<trueCorners.size()<<endl;
+        for(int i =0;i<trueCorners.size();i++){
+            cout<<trueCorners[i]<<",";
         }
 
         return trueCorners;
