@@ -544,9 +544,10 @@ namespace Landmark_Functions{
         vector<Vector2d> trueCorners;
         vector<CarPoint> group;
         bool detected = false;
-        cout<<"\nBEGIN FILTER"<<endl;
+        
         for(int i=0;i<closeCorners.size();i++){
             group.clear();
+            cout<<"\nBEGIN FILTER CORNER"<<endl;
             for(int j=0;j<xCoords.size();j++){
                 double distTemp2 = sqrt(pow(xCoords[j] - closeCorners[i](0), 2) + pow(yCoords[j] - closeCorners[i](1), 2));
                 if(distTemp2 < doubleLineThreshold){
