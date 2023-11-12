@@ -609,9 +609,31 @@ namespace Navigation_Functions{
 
         if(dR>dL){
             cout<<"Selected LeftEscape as "<<leftEscape<<endl;
+            deltaX = leftEscape.x - State(0);
+            deltaY = leftEscape.y - State(1);
+            angleL = atan2(deltaY,deltaX) - State(2);
+            angleL = pi_2_pi(angleL);
+            
+            CarPoint C = triangularRepositioning(State,angleL);
+            deltaX = leftEscape.x - C.x;
+            deltaY = leftEscape.y - C.y;
+            distanceL = deltaX*deltaX + deltaY*deltaY;
+            distanceL = sqrt(distanceL);
+
             motorControlGrid(angleL,distanceL);
         }else{
             cout<<"Selected RightEscape as "<<rightEscape<<endl;
+            deltaX = rightEscape.x - State(0);
+            deltaY = rightEscape.y - State(1);
+            angleR = atan2(deltaY,deltaX) - State(2);
+            angleR = pi_2_pi(angleR);
+
+            CarPoint C = triangularRepositioning(State,angleR);
+            deltaX = rightEscape.x - C.x;
+            deltaY = rightEscape.y - C.y;
+            distanceR = deltaX*deltaX + deltaY*deltaY;
+            distanceR = sqrt(distanceR);
+
             motorControlGrid(angleR,distanceR);
         }
 
