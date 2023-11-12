@@ -533,6 +533,8 @@ namespace Navigation_Functions{
         float dist = pointDistance(closestPoint,bot);
         float angleL;
         float distanceL;
+        float deltaY;
+        float deltaX;
 
         bool escapeLeft = true;
         while(escapeLeft == false){
@@ -541,8 +543,8 @@ namespace Navigation_Functions{
             escape_ang+=escape_check;
 
             //Set destination
-            float deltaX = leftEscape.x - State(0);
-            float deltaY = leftEscape.y - State(1);
+            deltaX = leftEscape.x - State(0);
+            deltaY = leftEscape.y - State(1);
             angleL = atan2(deltaY,deltaX) - State(2);
             angleL = pi_2_pi(angleL);
             
@@ -578,8 +580,8 @@ namespace Navigation_Functions{
             escape_ang+=escape_check;
 
             //Set destination
-            float deltaX = rightEscape.x - State(0);
-            float deltaY = rightEscape.y - State(1);
+            deltaX = rightEscape.x - State(0);
+            deltaY = rightEscape.y - State(1);
             angleR = atan2(deltaY,deltaX) - State(2);
             angleR = pi_2_pi(angleR);
             
