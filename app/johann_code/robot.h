@@ -41,8 +41,12 @@ using namespace sl;
 #define dim 2*N+3//Initial Dimension of Matrices in EKF
 #define PI 3.14159265358979323846 
 
-#define grid_ystep 400
-#define grid_xstep 400
+// #define grid_ystep 400
+// #define grid_xstep 400
+
+float grid_ystep 400;
+float grid_xstep 400;
+float boundThresh = 340;//If distance between gridPoint and lidarPoint <= Xmm then return false 
 
 struct PolPoint {
     double angle;
@@ -277,7 +281,7 @@ namespace Mapping_Functions{
     bool gridDotBigBoundCheck(GridPoint point,vector<float> bounds);
 
     void mapConverter(vector<vector<GridPoint>> gridOld, vector<vector<GridNode>>& gridNew);
-    
+
     void storeMapPointsCleaning(vector<CarPoint> lidardata,Matrix<float, dim, 1> State);
 }
 

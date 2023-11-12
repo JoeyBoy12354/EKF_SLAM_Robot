@@ -900,6 +900,11 @@ void testRun(){
     //calibrateMotors();
 
     initializeLidar(drv,error);
+    cout<<"\n\nTime to do some mapping"<<endl;
+    grid_ystep = 400;
+    grid_xstep = 400;
+    boundThresh = 340;
+    cout<<"gridx = "<<grid_xstep<<", gridy = "<<grid_ystep<<", boundThresh = "<<boundThresh<<endl;
 
     int count = 0;
     while(mapped == false && count<40){
@@ -929,6 +934,11 @@ void testRun(){
 
 
     cout<<"\n\nTime to do some cleaning"<<endl;
+    grid_ystep = 300;
+    grid_xstep = 300;
+    boundThresh = 250;
+    cout<<"gridx = "<<grid_xstep<<", gridy = "<<grid_ystep<<", boundThresh = "<<boundThresh<<endl;
+
     count=0;
     firstRun = true;
     mapped = false;
@@ -953,6 +963,9 @@ void testRun(){
         cout<<"please enter something: ";
         cin>>s;
     }
+
+    ekf.distance = 0;
+    ekf.w = 0;
 
 
     //Time to go home
