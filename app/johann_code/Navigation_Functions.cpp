@@ -404,11 +404,14 @@ namespace Navigation_Functions{
 
         vector<CarPoint> collisionPoints;
 
+        cout<<"NAVI: wallAvoidance collision Points = ";
         for(int i =0;i<map.size();i++){
-            if(pointDistance(map[i],bot) < turnableDistance){
+            if(pointDistance(map[i],bot) < turnableDistance*3){
                 collisionPoints.push_back(map[i]);
+                cout<<","<<map[i];
             }
         }
+        cout<<endl;
 
         for(int i =0;i<collisionPoints.size();i++){
             float deltaX = collisionPoints[i].x - bot.x;
@@ -663,6 +666,7 @@ namespace Navigation_Functions{
 
         //Wall Avoidance
         angle = wallAvoidance(State,angle);
+        cout<<"NAVI,GRID rotate angle after avoidance = "<<angle*180/PI<<endl;
         float avoid_dist = wallAvoidanceForward(State, angle, C, closestPoint);
         //End Wall avoidance
 
