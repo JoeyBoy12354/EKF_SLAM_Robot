@@ -44,9 +44,9 @@ using namespace sl;
 // #define grid_ystep 400
 // #define grid_xstep 400
 
-float grid_ystep 400;
-float grid_xstep 400;
-float boundThresh = 340;//If distance between gridPoint and lidarPoint <= Xmm then return false 
+extern grid_ystep
+extern grid_xstep
+extern boundThresh//If distance between gridPoint and lidarPoint <= Xmm then return false 
 
 struct PolPoint {
     double angle;
