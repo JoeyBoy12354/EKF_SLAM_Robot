@@ -83,9 +83,12 @@ def runSonar(Left):
         print("12m <= DISTANCE is set to ",readSonarCSV()," || measured = ",distance)
         distance = readSonarCSV()
     else:
+        #Always selected smallest
         print("Distance < 12000 Measured:",distance," Read = ",readSonarCSV())
         
-        
+        if(distance > readSonarCSV()):
+            distance = readSonarCSV()
+        print("selected = ",distance)
 
     writeOdometry(distance)
     return distance

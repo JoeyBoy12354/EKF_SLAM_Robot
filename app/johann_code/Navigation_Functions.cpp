@@ -10,9 +10,13 @@ int noNavTrials = 0;
 vector<bool> LandmarksExplored;
 double foundRadius = 250;//Robot must be within Xmm of LM for LM to be considered Explored
 double closeness = 150;//Robot should travel distance: (Robot->LM) - closeness mm
+float stuck_threshold_fixed = 3; //If the robot is still within 100mm of the same posistion after X attempted movements we assume it is stuck 
+float stuck_threshold = stuck_threshold_fixed;
+vector<float> prevState;
 
 float theta;
 float dist;
+
 
 namespace Navigation_Functions{
 
@@ -429,7 +433,7 @@ namespace Navigation_Functions{
 
     }
 
-    void wallAvoidanceForward(MatrixXf State, float angle, CarPoint postPoint, CarPoint goalPoint){
+    float wallAvoidanceForward(MatrixXf State, float angle, CarPoint postPoint, CarPoint goalPoint){
         float tooClose_thresh = 100;
         vector<CarPoint> map;
         readCarFromFullMapCSV(map);
@@ -463,12 +467,12 @@ namespace Navigation_Functions{
         float d_avoid = 100000;
         CarPoint avoidPoint;
         //Find points near Line (take all over to y side)
-        cout<<"NAVI: avoidFor Points: ";
+        //cout<<"NAVI: avoidFor Points: ";
         for(int i =0;i<map.size();i++){
 
             d = abs(-m*map[i].x + 1*map[i].y -c)/sqrt(pow(m,2) + 1);//Distance between point and line
             if(d<tooClose_thresh && map[i].x<xmax && map[i].x>xmin && map[i].y<ymax && map[i].y>ymin){
-                cout<<map[i];
+                //cout<<map[i];
                 float dist = pointDistance(postPoint,map[i]);
                 if(dist<d_avoid){
                     d_avoid = dist;
@@ -486,6 +490,104 @@ namespace Navigation_Functions{
         cout<<"NAVI: m: "<<m<<", c = "<<c<<endl;
         cout<<"NAVI: Predicted Dist = "<<d_avoid<<endl;
 
+        return d_avoid;
+
+    }
+
+
+    void escape(CarPoint closestPoint,MatrixXf State,float avoid_dist){
+        cout<<"Entered escapism"<<endl;
+        //Prefer solutions that get us closer to closest point
+        //Prefer solutions which have the largest open space
+        
+
+        CarPoint leftEscape;
+        CarPoint bot(State(0),State(1));
+        float escape_check = 5*PI/180;
+        float escape_ang = escape_check;
+        float dist = pointDistance(closestPoint,bot);
+
+        bool escapeLeft = true;
+        while(escapeLeft == false){
+            leftEscape.x = closestPoint.x + dist*cos(escape_ang);
+            leftEscape.y = closestPoint.y + dist*sin(escape_ang);
+            escape_ang+=escape_check;
+
+            //Set destination
+            float deltaX = leftEscape.x - State(0);
+            float deltaY = leftEscape.y - State(1);
+            float angleL = atan2(deltaY,deltaX) - State(2);
+            angleL = pi_2_pi(angleL);
+            
+            CarPoint C = triangularRepositioning(State,angleL);
+            deltaX = leftEscape.x - C.x;
+            deltaY = leftEscape.y - C.y;
+            float distanceL = deltaX*deltaX + deltaY*deltaY;
+            distanceL = sqrt(distanceL);
+
+            //Wall Avoidance
+            angleL = wallAvoidance(State,angleL);
+            float dist = wallAvoidanceForward(State, angleL, C, leftEscape);
+
+            if(dist>avoid_dist*2 && dist>300){
+                escapeLeft = true;
+            }
+
+            if( pi_2_pi(escape_ang) == escape_check){
+                cout<<"\nNo ESCAPE Route found L"<<endl;
+                motorControlGrid(0,0);
+            }
+        }
+
+        CarPoint rightEscape;
+        escape_check = -escape_check
+        escape_ang = escape_check;
+        bool escapeRight = true;
+        while(escapeRight == false){
+            rightEscape.x = closestPoint.x + dist*cos(escape_ang);
+            rightEscape.y = closestPoint.y + dist*sin(escape_ang);
+            escape_ang+=escape_check;
+
+            //Set destination
+            float deltaX = rightEscape.x - State(0);
+            float deltaY = rightEscape.y - State(1);
+            float angleR = atan2(deltaY,deltaX) - State(2);
+            angleR = pi_2_pi(angleR);
+            
+            CarPoint C = triangularRepositioning(State,angleR);
+            deltaX = rightEscape.x - C.x;
+            deltaY = rightEscape.y - C.y;
+            float distanceR = deltaX*deltaX + deltaY*deltaY;
+            distanceR = sqrt(distanceR);
+
+            //Wall Avoidance
+            angleR = wallAvoidance(State,angleR);
+            float dist = wallAvoidanceForward(State, angleR, C, rightEscape);
+
+            if(dist>avoid_dist*2 && dist>300){
+                escapeRight = true;
+            }
+            if( pi_2_pi(escape_ang) == escape_check){
+                cout<<"\nNo ESCAPE Route found R"<<endl;
+                motorControlGrid(0,0);
+            }
+        }
+
+
+        //We now have two viable escape points we compare them to decide
+        float dR = pointDistance(rightEscape,closestPoint);
+        float dL = pointDistance(leftEscape,closestPoint);
+
+        if(dR>dL){
+            cout<<"Selected LeftEscape as "<<leftEscape<<endl;
+            motorControlGrid(angleL,distanceL);
+        }else{
+            cout<<"Selected RightEscape as "<<rightEscape<<endl;
+            motorControlGrid(angleR,distanceR);
+        }
+
+        return;
+
     }
 
 
@@ -494,6 +596,29 @@ namespace Navigation_Functions{
 
     //Set distance and angle to go to given grid point
     void updateMovement(CarPoint closestPoint,MatrixXf State){
+
+        //Determine if stuck
+        if(prevState.size() == 0){
+            prevState.push_back(State(0));
+            prevState.push_back(State(1));
+            prevState.push_back(State(2));
+        }else{
+            CarPoint botPrev(prevState[0],prevState[1]);
+            CarPoint botCurr(State(0),prevState(1));
+            if(pointDistance(botPrev,botCurr) < 100){
+                stuck_threshold = stuck_threshold-1;
+            }else{
+                stuck_threshold = stuck_threshold_fixed;
+            }
+            prevState[0] = State(0);
+            prevState[1] = State(1);
+            prevState[2] = State(2);
+        }
+
+        
+
+        
+
         cout<<"ClosestPoint = "<<closestPoint<<endl;
 
         //Set destination
@@ -534,12 +659,19 @@ namespace Navigation_Functions{
 
         //Wall Avoidance
         angle = wallAvoidance(State,angle);
-        wallAvoidanceForward(State, angle, C, closestPoint);
+        float avoid_dist = wallAvoidanceForward(State, angle, C, closestPoint);
         //End Wall avoidance
 
+        if(stuck_threshold == 0){
+            cout<<"\n WE ARE STUCK"<<endl;
+            escape(closestPoint,State,avoid_dist);
+        }else{
+            //Set motors
+            motorControlGrid(angle,distance);
+        }
 
-        //Set motors
-        motorControlGrid(angle,distance);
+
+        
         
         return;
     }

@@ -199,7 +199,6 @@ namespace Data_Functions{
         }    
     }
     
-
     //Convert cornerPoints to polar
     for(int i =0;i<cornerPoints.size();i++){
         PolPoint newPoint;
