@@ -395,64 +395,69 @@ namespace Navigation_Functions{
     }
 
 
-
     float wallAvoidance(MatrixXf State, float angle){
-        float turnableDistance = 150; //Total distance from object required to make a turn (REMEMBER SAME AS IN MC Python)
+        float turnableDistance = 180; //Total distance from object required to make a turn (REMEMBER SAME AS IN MC Python)
         vector<CarPoint> map;
         CarPoint bot(State(0),State(1));
         readCarFromFullMapCSV(map);
 
-        vector<CarPoint> collisionPoints;
+        vector<CarPoint> collisionLeft;
+        vector<CarPoint> collisionRight;//unused
+
+        CarPoint minL;
+        float mindistL = 1000;
+        float mindistR = 1000;
+        float d=0;
+
 
         cout<<"NAVI: wallAvoidance collision Points = ";
         for(int i =0;i<map.size();i++){
             if(pointDistance(map[i],bot) < turnableDistance){
-                
-                float deltaX = map[i].x - bot.x;
-                float deltaY = map[i].y - bot.y;
+                //In here we have collision points
+
+                //S
+                float deltaX = map[i].x - State(0);
+                float deltaY = map[i].y - State(1);
                 float angle_coll = atan2(deltaY,deltaX) - State(2);//Get collision angle
                 angle_coll = pi_2_pi(angle_coll);
+                
+                CarPoint C = triangularRepositioning(State,angle_colli);
 
-
-                if(angle_coll/angle > 0 && abs(angle_coll) < abs(angle)){
-                    cout<<"\n WALL AVOIDANCE DETECTED with"<<collisionPoints[i]<<" angle = "<<angle*180/PI<<", collAngle = "<<angle_coll*180/PI<<endl;
-                    collisionPoints.push_back(map[i]);
-                    cout<<","<<map[i];
-                }
+                if(angle_coll>0 && abs(angle_coll) < (abs(angle) +10*PI/180 )){
+                    collisionLeft.push_back(C);
+                    d = pointDistance(C,bot);
+                    cout<<", L:"<<C<<" | d:"<<d;
+                    if(d<mindistL){
+                        mindistL = d;
+                    }
+                }else if(angle_coll<0 && abs(angle_coll) < (abs(angle) +10*PI/180 )){
+                    collisionRight.push_back(C);
+                    d = pointDistance(C,bot);
+                    cout<<", R:"<<C<<" | d:"<<d;
+                    if(d<mindistR){
+                        mindistR = d;
+                    }
+                }                
             }
         }
         cout<<endl;
 
-        float min_dist = 10000;
-        float dist = 0;
-        float min_angle =0;
-        for(int i =0;i<collisionPoints.size();i++){
-            
-            dist = pointDistance(collisionPoints[i],bot.x);
-
-            if(dist<min_dist){
-                
+        cout<<"mindistL: "<<mindistL<<" mindistR: "<<mindistR<<endl;
+        if(mindistL<mindistR){
+            if(angle>0){
+                cout<<"Angle change from: "<<angle*180/PI<<" -> "<<(angle - PI/2)*180/PI<<endl;
+                return angle - PI/2;
             }
-
-
-            
+        }else if(mindistR<mindistL){
+            if(angle<0){
+                cout<<"Angle change from: "<<angle*180/PI<<" -> "<<(angle + PI/2)*180/PI<<endl;
+                return angle + PI/2;
+            }
         }
 
-        //IF Same direction and collision will occur 
-            if(angle_coll/angle > 0 && abs(angle_coll) < abs(angle)){
-                cout<<"\n WALL AVOIDANCE DETECTED with"<<collisionPoints[i]<<" angle = "<<angle*180/PI<<", collAngle = "<<angle_coll*180/PI<<endl;
-                if(angle>0){
-                    return  angle -2*PI;
-                }else if(angle<0){
-                    return  angle +2*PI;
-                }else{
-                    return angle;
-                }       
-            }
-
         return angle;
-
     }
+
 
     float wallAvoidanceForward(MatrixXf State, float angle, CarPoint postPoint, CarPoint goalPoint){
         float tooClose_thresh = 100;
