@@ -108,20 +108,20 @@ namespace Landmark_Functions{
             interAngle = abs(atan((mB - mA) / (1 + mA * mB)));
         }
 
-        cout<<"\nPoints: "<<A<<", "<<corner<<", "<<B<<endl;
-        cout<<"distance = "<<distance<<endl;
-        cout<<"Inter Angle = "<<interAngle*180/M_PI<<endl;  
-        cout<<"mA= "<<mA<<", cA= "<<cA<<", mB= "<<mB<<", cB= "<<cB<<endl;
+        // cout<<"\nPoints: "<<A<<", "<<corner<<", "<<B<<endl;
+        // cout<<"distance = "<<distance<<endl;
+        // cout<<"Inter Angle = "<<interAngle*180/M_PI<<endl;  
+        // cout<<"mA= "<<mA<<", cA= "<<cA<<", mB= "<<mB<<", cB= "<<cB<<endl;
 
     
         
 
         
         if (interAngle < M_PI / 2 + angleThreshold && interAngle > M_PI / 2 - angleThreshold) {
-            cout<<"TRUE CORNER"<<endl;
+            //cout<<"TRUE CORNER"<<endl;
             return true; //corner detected
         }
-        cout<<"FALSE CORNER"<<endl;
+        //cout<<"FALSE CORNER"<<endl;
         return false; //corner not detected
 
 
@@ -558,7 +558,7 @@ namespace Landmark_Functions{
                     group.push_back(point);
                 } 
             }
-            cout<<"Group size = "<<group.size()<<endl;
+            //cout<<"Group size = "<<group.size()<<endl;
             //vector<CarPoint> corners2 =  getMiniRANSACCorners(group);
             CarPoint myCorner(closeCorners[i](0),closeCorners[i](1));
             detected = getInlierCheck(group,myCorner);
