@@ -604,7 +604,7 @@ namespace Navigation_Functions{
             prevState.push_back(State(2));
         }else{
             CarPoint botPrev(prevState[0],prevState[1]);
-            CarPoint botCurr(State(0),prevState(1));
+            CarPoint botCurr(State(0),State(1));
             if(pointDistance(botPrev,botCurr) < 100){
                 stuck_threshold = stuck_threshold-1;
             }else{
