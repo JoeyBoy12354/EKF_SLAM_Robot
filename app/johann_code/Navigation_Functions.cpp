@@ -421,7 +421,7 @@ namespace Navigation_Functions{
                 float angle_coll = atan2(deltaY,deltaX) - State(2);//Get collision angle
                 angle_coll = pi_2_pi(angle_coll);
                 
-                CarPoint C = triangularRepositioning(State,angle_colli);
+                CarPoint C = triangularRepositioning(State,angle_coll);
 
                 if(angle_coll>0 && abs(angle_coll) < (abs(angle) +10*PI/180 )){
                     collisionLeft.push_back(C);
