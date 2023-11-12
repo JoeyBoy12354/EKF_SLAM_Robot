@@ -409,7 +409,6 @@ namespace Navigation_Functions{
         float mindistR = 1000;
         float d=0;
 
-
         cout<<"NAVI: wallAvoidance collision Points = ";
         for(int i =0;i<map.size();i++){
             if(pointDistance(map[i],bot) < turnableDistance){
@@ -426,14 +425,14 @@ namespace Navigation_Functions{
                 if(angle_coll>0 && abs(angle_coll) < (abs(angle) +10*PI/180 )){
                     collisionLeft.push_back(C);
                     d = pointDistance(C,bot);
-                    cout<<", L:"<<C<<" | d:"<<d;
+                    //cout<<", L:"<<C<<" | d:"<<d;
                     if(d<mindistL){
                         mindistL = d;
                     }
                 }else if(angle_coll<0 && abs(angle_coll) < (abs(angle) +10*PI/180 )){
                     collisionRight.push_back(C);
                     d = pointDistance(C,bot);
-                    cout<<", R:"<<C<<" | d:"<<d;
+                    //cout<<", R:"<<C<<" | d:"<<d;
                     if(d<mindistR){
                         mindistR = d;
                     }
@@ -443,7 +442,7 @@ namespace Navigation_Functions{
         cout<<endl;
 
         cout<<"mindistL: "<<mindistL<<" mindistR: "<<mindistR<<endl;
-        if(mindistL<mindistR){
+        if(mindistL>mindistR){
             if(angle>0){
                 cout<<"Angle change from: "<<angle*180/PI<<" -> "<<(angle - PI/2)*180/PI<<endl;
                 return angle - PI/2;
