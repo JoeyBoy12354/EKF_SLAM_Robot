@@ -506,6 +506,8 @@ namespace Navigation_Functions{
         float escape_check = 5*PI/180;
         float escape_ang = escape_check;
         float dist = pointDistance(closestPoint,bot);
+        float angleL;
+        float distanceL;
 
         bool escapeLeft = true;
         while(escapeLeft == false){
@@ -516,13 +518,13 @@ namespace Navigation_Functions{
             //Set destination
             float deltaX = leftEscape.x - State(0);
             float deltaY = leftEscape.y - State(1);
-            float angleL = atan2(deltaY,deltaX) - State(2);
+            angleL = atan2(deltaY,deltaX) - State(2);
             angleL = pi_2_pi(angleL);
             
             CarPoint C = triangularRepositioning(State,angleL);
             deltaX = leftEscape.x - C.x;
             deltaY = leftEscape.y - C.y;
-            float distanceL = deltaX*deltaX + deltaY*deltaY;
+            distanceL = deltaX*deltaX + deltaY*deltaY;
             distanceL = sqrt(distanceL);
 
             //Wall Avoidance
@@ -540,9 +542,11 @@ namespace Navigation_Functions{
         }
 
         CarPoint rightEscape;
-        escape_check = -escape_check
+        escape_check = -escape_check;
         escape_ang = escape_check;
         bool escapeRight = true;
+        float angleR;
+        float distanceR;
         while(escapeRight == false){
             rightEscape.x = closestPoint.x + dist*cos(escape_ang);
             rightEscape.y = closestPoint.y + dist*sin(escape_ang);
@@ -551,13 +555,13 @@ namespace Navigation_Functions{
             //Set destination
             float deltaX = rightEscape.x - State(0);
             float deltaY = rightEscape.y - State(1);
-            float angleR = atan2(deltaY,deltaX) - State(2);
+            angleR = atan2(deltaY,deltaX) - State(2);
             angleR = pi_2_pi(angleR);
             
             CarPoint C = triangularRepositioning(State,angleR);
             deltaX = rightEscape.x - C.x;
             deltaY = rightEscape.y - C.y;
-            float distanceR = deltaX*deltaX + deltaY*deltaY;
+            distanceR = deltaX*deltaX + deltaY*deltaY;
             distanceR = sqrt(distanceR);
 
             //Wall Avoidance
