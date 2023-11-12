@@ -23,8 +23,8 @@ condition_variable cv; // Condition variable for signalin
 atomic<bool> stopFlag(false); // Atomic flag to control threadSlave loop
 atomic<bool> startFlag(false); // Atomic flag to control threadSlave loop
 
-float grid_ystep 400;
-float grid_xstep 400;
+float grid_ystep = 400;
+float grid_xstep = 400;
 float boundThresh = 340;//If distance between gridPoint and lidarPoint <= Xmm then return false 
 
 
