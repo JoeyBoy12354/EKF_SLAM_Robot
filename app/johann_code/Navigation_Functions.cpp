@@ -397,7 +397,7 @@ namespace Navigation_Functions{
 
 
     float wallAvoidance(MatrixXf State, float angle){
-        float turnableDistance = 70; //Total distance from object required to make a turn (REMEMBER SAME AS IN MC Python)
+        float turnableDistance = 150; //Total distance from object required to make a turn (REMEMBER SAME AS IN MC Python)
         vector<CarPoint> map;
         CarPoint bot(State(0),State(1));
         readCarFromFullMapCSV(map);
@@ -406,20 +406,39 @@ namespace Navigation_Functions{
 
         cout<<"NAVI: wallAvoidance collision Points = ";
         for(int i =0;i<map.size();i++){
-            if(pointDistance(map[i],bot) < turnableDistance*3){
-                collisionPoints.push_back(map[i]);
-                cout<<","<<map[i];
+            if(pointDistance(map[i],bot) < turnableDistance){
+                
+                float deltaX = map[i].x - bot.x;
+                float deltaY = map[i].y - bot.y;
+                float angle_coll = atan2(deltaY,deltaX) - State(2);//Get collision angle
+                angle_coll = pi_2_pi(angle_coll);
+
+
+                if(angle_coll/angle > 0 && abs(angle_coll) < abs(angle)){
+                    cout<<"\n WALL AVOIDANCE DETECTED with"<<collisionPoints[i]<<" angle = "<<angle*180/PI<<", collAngle = "<<angle_coll*180/PI<<endl;
+                    collisionPoints.push_back(map[i]);
+                    cout<<","<<map[i];
+                }
             }
         }
         cout<<endl;
 
+        float min_dist = 10000;
+        float dist = 0;
+        float min_angle =0;
         for(int i =0;i<collisionPoints.size();i++){
-            float deltaX = collisionPoints[i].x - bot.x;
-            float deltaY = collisionPoints[i].y - bot.y;
-            float angle_coll = atan2(deltaY,deltaX) - State(2);//Get collision angle
-            angle_coll = pi_2_pi(angle_coll);
+            
+            dist = pointDistance(collisionPoints[i],bot.x);
 
-            //IF Same direction and collision will occur 
+            if(dist<min_dist){
+                
+            }
+
+
+            
+        }
+
+        //IF Same direction and collision will occur 
             if(angle_coll/angle > 0 && abs(angle_coll) < abs(angle)){
                 cout<<"\n WALL AVOIDANCE DETECTED with"<<collisionPoints[i]<<" angle = "<<angle*180/PI<<", collAngle = "<<angle_coll*180/PI<<endl;
                 if(angle>0){
@@ -430,7 +449,6 @@ namespace Navigation_Functions{
                     return angle;
                 }       
             }
-        }
 
         return angle;
 
