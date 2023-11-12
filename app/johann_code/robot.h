@@ -48,6 +48,8 @@ extern float grid_ystep;
 extern float grid_xstep;
 extern float boundThresh;//If distance between gridPoint and lidarPoint <= Xmm then return false 
 
+extern float noCorners;//number of corners found
+
 struct PolPoint {
     double angle;
     double distance;

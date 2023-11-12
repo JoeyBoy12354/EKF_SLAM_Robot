@@ -8,6 +8,8 @@ using namespace Mapping_Functions;
 
 namespace Data_Functions{
 
+    int noCorners = 0;//If distance between gridPoint and lidarPoint <= Xmm then return false 
+
     bool compareByAngle(const PolPoint& a, const PolPoint& b) {
         return a.angle < b.angle;
     }
@@ -151,12 +153,27 @@ namespace Data_Functions{
     //vector<CarPoint> cornerPoints = getCorners();
 
     vector<CarPoint> cornerPoints;
+    vector<CarPoint> temp;
+    
+    int maxSize = 2;
     for(int i =0;i<5;i++){
-        if(cornerPoints.size()<2){
-            cout<<"Too few Corners!"<<endl;
-            cornerPoints = getRANSACCorners(carPoints);
-        }    
+        temp = getRANSACCorners(carPoints);
+        if(temp.size()>maxSize){
+            cornerPoints = temp;
+        }   
     }
+
+    //This is emergency fetch
+    int noRuns = 0;
+    while(cornerPoints.size()<2 && noRuns<10){
+        cout<<"Too few Corners!"<<endl;
+        cornerPoints = getRANSACCorners(carPoints);
+        noRuns+=1;
+    }
+
+    noCorners = cornerPoints.size();
+
+
     
 
     //Convert cornerPoints to polar

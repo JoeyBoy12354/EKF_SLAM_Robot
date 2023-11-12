@@ -6,6 +6,7 @@ using namespace Data_Functions;
 
 namespace Mapping_Functions{
 
+    
 
     void storeMapPointsCleaning(vector<CarPoint> lidardata,Matrix<float, dim, 1> State){
         //Fit new scan
@@ -83,33 +84,39 @@ namespace Mapping_Functions{
         vector<CarPoint> temp2;
         isNew = true;
         float acc_percentage = (accuracy/lidardata.size())*100;
-        if( acc_percentage> 70){
-            cout<<"\n\n VERY ACCURATE SCAN @ "<< acc_percentage <<" %\n\n";
-            temp.clear();
-            for(int i = 0;i<lidardata.size();i++){
-                for(int j =0;j<oldmap.size();j++){
-                    if(pointDistance(lidardata[i],oldmap[j]) < distance_threshold2){
-                        isNew = false;
+        if(noCorners>1){
+                if( acc_percentage> 70){
+                cout<<"\n\n VERY ACCURATE SCAN @ "<< acc_percentage <<" %\n\n";
+                temp.clear();
+                for(int i = 0;i<lidardata.size();i++){
+                    for(int j =0;j<oldmap.size();j++){
+                        if(pointDistance(lidardata[i],oldmap[j]) < distance_threshold2){
+                            isNew = false;
+                        }
+                            
+                            //temp.push_back(lidardata[i];)
+                    } 
+                    if(isNew == true){
+                        oldmap.push_back(lidardata[i]);
                     }
-                        
-                        //temp.push_back(lidardata[i];)
-                } 
-                if(isNew == true){
-                    oldmap.push_back(lidardata[i]);
+                    isNew=true;
+
                 }
-                isNew=true;
+                cout<<"YAHA"<<endl;
+
+
+            }else{
+                cout<<"\n\n NOT ACCURATE SCAN @ "<< acc_percentage <<" %\n\n";
+                for(int i = 0;i<temp.size();i++){
+                    oldmap.push_back(temp[i]);
+                }
 
             }
-            cout<<"YAHA"<<endl;
-
 
         }else{
-            cout<<"\n\n NOT ACCURATE SCAN @ "<< acc_percentage <<" %\n\n";
-            for(int i = 0;i<temp.size();i++){
-                oldmap.push_back(temp[i]);
-            }
-
+            cout<<"NO SCAN ADDED DUE TO ONLY 1 CORNER"<<endl;
         }
+        
 
 
         
