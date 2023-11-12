@@ -27,6 +27,8 @@ float grid_ystep = 400;
 float grid_xstep = 400;
 float boundThresh = 340;//If distance between gridPoint and lidarPoint <= Xmm then return false 
 
+int noCorners = 0;//If distance between gridPoint and lidarPoint <= Xmm then return false 
+
 
 
 
