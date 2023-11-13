@@ -117,8 +117,10 @@ def runSonarEdge():
     # Send 10us pulse to trigger
     #print("Send Pulse")
     wiringpi.digitalWrite(trigPin, 0)#Set High
+    print("trig set H = ",wiringpi.digitalRead(trigPin))
     time.sleep(0.00001)
     wiringpi.digitalWrite(trigPin, 1)#Set Low
+    print("trig set L = ",wiringpi.digitalRead(trigPin))
     start = time.time()
     stop = time.time()
 
@@ -178,5 +180,8 @@ wiringpi.pinMode(trigPin3, 1)       # Set pin to 1 ( OUTPUT )
 wiringpi.pinMode(echoPin3, 0)       # Set pin to 0 ( INPUT )
 wiringpi.digitalWrite(powerPin3, 0) #Set low
 
-runSonarEdge()
+while(True):
+    print("\n New RUN")
+    runSonarEdge()
+    time.sleep(1)
 #runSonar()
