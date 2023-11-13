@@ -178,10 +178,17 @@ wiringpi.pinMode(echoPin2, 0)       # Set pin to 0 ( INPUT )
 wiringpi.pinMode(powerPin3, 1)       # Set pin to 1 ( OUTPUT )
 wiringpi.pinMode(trigPin3, 1)       # Set pin to 1 ( OUTPUT )
 wiringpi.pinMode(echoPin3, 0)       # Set pin to 0 ( INPUT )
-wiringpi.digitalWrite(powerPin3, 0) #Set low
+wiringpi.digitalWrite(powerPin3, 0) #Set high
 
 while(True):
     print("\n New RUN")
     runSonarEdge()
     time.sleep(1)
+    print("Set High")
+    wiringpi.digitalWrite(powerPin3, 0) #Set high
+    time.sleep(3)
+    print("Set Low")
+    wiringpi.digitalWrite(powerPin3, 1) #Set high
+    time.sleep(3)
+    
 #runSonar()
