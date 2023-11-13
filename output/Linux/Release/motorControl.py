@@ -546,13 +546,14 @@ def runSonarEdge():
 
         while (wiringpi.digitalRead(echoPin) == 0 or start-stop > 3):
             start = time.time()
-            print("start = ",start)
+            print("start = ",start, "diff = ",start-stop)
+
 
         print("T1: echo = 0")
 
         while (wiringpi.digitalRead(echoPin) == 1 or stop-start > 3):
             stop = time.time()
-            print("stop = ",stop)
+            print("stop = ",stop, "diff = ",start-stop)
         
         print("T2: echo = 1")
         # Calculate pulse length
