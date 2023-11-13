@@ -37,6 +37,10 @@ sonarFlag = False
 sonarOn = False
 wait = 0.05
 
+echoPin3 = 31
+trigPin3 = 30
+powerPin3 = 11
+
 #Calibration
 timeOn = 0.009
 timeOff = 0.001
@@ -222,6 +226,7 @@ def rightR_thread(timeOn,timeOff):
 
 #MOTOR CONTROL
 def motorControl_wThread(theta,distance):
+    global sonarFlag
     LNoRot=0
     RNoRot=0
 
@@ -237,6 +242,20 @@ def motorControl_wThread(theta,distance):
 
     angle = getAngle(LNoRot,RNoRot,theta)
 
+    if(sonarFlag == True):
+        print("EDGE was detected, now doing avoidance")
+        #An edge was detected
+        edgeAvoid_angle = 0
+        if(theta>0):
+            edgeAvoid_angle = -1*(theta+math.pi/2)
+        else:
+            edgeAvoid_angle = (abs(theta)+math.pi/2)
+        LNoRot,RNoRot  = speedControl(edgeAvoid_angle,0,True)
+
+        if(edgeAvoid_angle>0):
+            angle = getAngle(LNoRot,RNoRot,edgeAvoid_angle) - angle
+        else:
+            angle = getAngle(LNoRot,RNoRot,edgeAvoid_angle) + angle
     
 
     time.sleep(0.6)
@@ -276,9 +295,7 @@ def speedControl(theta,distance,direction):
     runDone2 = False
     sonarOn = True
     
-
-    sonar_dist = 50
-    #sonar_thread = threading.Thread(target=sonarScan, args=(sonar_dist,))
+    sonar_thread = threading.Thread(target=sonarControl.runSonarEdge, args=())
     
     #SET THREAD AND DIRECTION
     if(theta == 0 and distance > 0):
@@ -322,7 +339,7 @@ def speedControl(theta,distance,direction):
     right_new = 0
     right_count = 0
 
-    #sonar_thread.start() #turrned off for testing
+    sonar_thread.start() #start edge detection thread
     startT = time.time()
 
     if(theta == 0 and distance > 0):
@@ -374,17 +391,7 @@ def speedControl(theta,distance,direction):
             right_old = right_new
 
 
-    # while(left_count<=NoTicks and right_count<=NoTicks and sonarFlag == False):
-    #     left_new = wiringpi.digitalRead(LSS_Pin)
-    #     right_new = wiringpi.digitalRead(RSS_Pin)
 
-    #     if(left_old == 0 and left_new == 1):
-    #         left_count += 1
-        
-    #     if(right_old == 0 and right_new == 1):
-    #         right_count += 1
-    #     left_old = left_new
-    #     right_old = right_new
 
     runDone = True
     runDone2 = True
@@ -398,7 +405,7 @@ def speedControl(theta,distance,direction):
         thread.join()
 
     delta_time = time.time() - startT
-    #sonar_thread.join()
+    sonar_thread.join()
     
     left = left_count/20
     right = right_count/20
@@ -506,6 +513,67 @@ def getDist(LNoRot,RNoRot):
     #print("DistCheck = left - right = ",distL," - ",distR," = ",distL-distR," (should be 0)")
 
     return distL
+
+
+def runSonarEdge():
+    global sonarFlag
+    global sonarOn
+    echoPin = echoPin3
+    trigPin = trigPin3
+    sonarFlag = False
+
+    while(sonarOn == True):
+
+
+        # Set trigger to False (Low)
+        wiringpi.digitalWrite(trigPin, 1) #Set low
+
+        # Allow module to settle
+        #print("Wait for module to settle")
+        time.sleep(1)#This can possibly be made to be 2us or 5us as commonly found on websites
+        #time.sleep(1.8)
+
+        # Send 10us pulse to trigger
+        #print("Send Pulse")
+        wiringpi.digitalWrite(trigPin, 0)#Set High
+        print("trig set H = ",wiringpi.digitalRead(trigPin))
+        time.sleep(0.00001)
+        wiringpi.digitalWrite(trigPin, 1)#Set Low
+        print("trig set L = ",wiringpi.digitalRead(trigPin))
+        start = time.time()
+        stop = time.time()
+
+        while wiringpi.digitalRead(echoPin) == 0:
+            start = time.time()
+
+        while wiringpi.digitalRead(echoPin) == 1:
+            stop = time.time()
+
+        # Calculate pulse length
+        elapsed = stop-start
+
+        # Distance pulse travelled in that time is time
+        # multiplied by the speed of sound (cm/s) divided by 2. Then convert to mm
+        distance = (elapsed * 17150) * 10
+        
+        #Rounding
+        distance = round(distance,2)
+
+
+        print("Sonar Distance : %.1f" % distance," mm")
+
+        #The HC-SR04 Ultrasonics have a max range of 4000mm (4m) if something is further than that they will bug out
+        #And provide a distance greater than 12000 the same will occur for the minimum range of 20mm
+        if(distance> 66):
+            print("WARNING EDGE DETECTED at distance = ",distance)
+            sonarFlag = True
+            sonarOn = False
+    
+    return
+
+
+
+
 
 
 #CALIBRATION CODE
@@ -798,6 +866,7 @@ def readState():
             return state == 1
 
 
+
 #TEST CODE 
 def testAngles():
     print("MC: BEGIN TESTING ANGLES")
@@ -1026,179 +1095,16 @@ if(distance > 900):
     print(" !! Resetting distance, ",distance," to 900mm")
     distance = 900
 
+#Edge sonar
+wiringpi.pinMode(trigPin3, 1)       # Set pin to 1 ( OUTPUT )
+wiringpi.pinMode(echoPin3, 0)       # Set pin to 0 ( INPUT )
+
 
 angle,distance = motorControl_wThread(angle,distance)
 print("MC: Angle turned = ",angle*180/math.pi)
 print("MC: distance moved = ",distance)
 writeOdometry(angle,distance)
 
-
-# ##Actual code to do things
-# if(readState() == True):
-#     motorCalibrate()
-# else:
-#     angle,distance = readInstructions()
-#     timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
-#     # print("MC: time Left = ",timeOnL,"s ",timeOffL,"s")
-#     # print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
-
-
-#     angle,distance = motorControl_wThread(angle,distance)
-#     print("MC: Angle turned = ",angle*180/math.pi)
-#     print("MC: distance moved = ",distance)
-#     writeOdometry(angle,distance)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#AVOIDANCE CODE
-#OLD AND NOT USED
-# def Avoidance(avoidDistL,avoidDistR):
-#     #print("\nOBSTACLE DETECTED Turn left!")
-#     turnLeft(math.pi/2)
-
-#     #Check left
-#     obs_distance = sonarControl.runSonar()
-#     if(obs_distance<avoidDistL):
-#         #print("OBSTACLE DETECTED IN AVOID PATH Turn right!")
-#         turnRight(math.pi/2)
-
-#         #Check Right
-#         obs_distance = sonarControl.runSonar()
-#         if(obs_distance<avoidDistR):
-#             print("MC: OBSTACLE DETECTED AVOID, I AM BOXED IN !")
-        
-#         # GO FORWARD AND REPOSITION
-#         else:
-#             forward(avoidDistR)
-#             turnLeft(math.pi/2)#Face Back (Turn Left)
-#             avoidDistL = avoidDistL + avoidDistR
-
-#     # GO FORWARD AND REPOSITION
-#     else:
-#         forward(avoidDistR)
-#         turnRight(math.pi/2)#Face Back (Turn Right)
-#         avoidDistR = avoidDistR + avoidDistL
-
-#     return avoidDistL,avoidDistR
-
-# def checkAvoidance_wThread(distance):
-#     print("\n MC: in checkAvoidance")
-
-#     sonarError = 20 #how much error the sonar may have [mm]
-
-
-#     totalAngle = 0
-
-#     while(totalAngle<clockAngleInit):
-        
-#         #Turn Left
-#         speedControl(clockAngleStep,0,True)
-
-#         #print("checkA: turnLeft distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
-
-#         totalAngle += clockAngleStep
-#         if(sonarControl.runSonar() <abs((R/2)*math.cos(math.pi - totalAngle)) + sonarError):
-#             print("MC: RETURN TRUE distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)))
-#             return True
-    
-    
-#     speedControl(totalAngle,0,False)
-#     #print("checkA: revLeft distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
-#     totalAngle = 0
-
-#     while(totalAngle<clockAngleInit):
-        
-#         #Turn Right
-#         speedControl(-1*clockAngleStep,0,True)
-#         totalAngle += clockAngleStep
-
-#         #print("checkA: turnRight distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
-
-#         if(sonarControl.runSonar() < abs((R/2)*math.cos(math.pi - totalAngle)) + sonarError):
-#             print("MC:  RETURN TRUE distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)))
-#             return True
-    
-    
-#     speedControl(-1*totalAngle,0,False)
-
-#     #print("checkA: revRight distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
-
-#     totalAngle = 0
-    
-#     return False
-
-# def clockAvoidance_wThread(distance):
-#     print("\nMC:  in clock avoidance")
-
-    
-
-#     sonarError = 20 #how much error the sonar may have [mm]
-#     totalAngle = 0
-
-#     speedControl(0,R/2+sonarError,False)
-
-#     #Turn Left
-#     print("MC: CA: turnL distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
-#     speedControl(clockAngleInit,0,True)
-#     totalAngle = clockAngleInit
-
-#     if(sonarControl.runSonar() < abs((R/2)*math.cos(math.pi - totalAngle)) + sonarError):
-#         print("MC:  CA: revL,turnR distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
-#         #Turn Right
-
-#         speedControl(clockAngleInit,0,False)
-#         speedControl(-1*clockAngleInit,0,True)
-#         totalAngle = -clockAngleInit
-
-#         if(sonarControl.runSonar() < abs((R/2)*math.cos(math.pi - abs(totalAngle))) + sonarError):
-#             print("MC: CA: turnR distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
-
-#             #Turn Right
-
-#             speedControl(-1*clockAngleInit,0,True)
-#             totalAngle = -clockAngleInit*2
-            
-#             if(sonarControl.runSonar() < abs((R/2)*math.cos(math.pi - abs(totalAngle))) + sonarError):
-#                 print("MC: CA: revR*2,turnL*2 distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
-    
-#                 #Turn Left
-
-#                 speedControl(-2*clockAngleInit,0,False)
-#                 speedControl(clockAngleInit,0,True)
-
-#                 totalAngle = clockAngleInit*2
-
-#                 if(sonarControl.runSonar()<abs((R/2)*math.cos(math.pi - totalAngle)) + sonarError):
-#                     #total failure to find alternative route
-#                     print("\nMC:  FAILURE TO FIND ROUTE!\n distCos = ",abs((R/2)*math.cos(math.pi - totalAngle)), " | ",sonarControl.runSonar() )
-#                     distance = 0
-
-    
-#     return totalAngle,distance
-
-# def sonarScan(maxDist):
-#     global sonarFlag
-#     global sonarOn
-#     while(sonarOn==True):
-#         if(sonarControl.runSonar() < maxDist):
-#             sonarFlag = True
-#         else:
-#             sonarFlag = False
-
-#         print("MC: ",sonarControl.runSonar())
 
 
 
