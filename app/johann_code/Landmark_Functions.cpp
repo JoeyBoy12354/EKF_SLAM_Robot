@@ -572,8 +572,8 @@ namespace Landmark_Functions{
             detected = false; 
         }
 
-        cout<<"close corner len = "<<closeCorners.size()<<endl;
-        cout<<"true corner len = "<<trueCorners.size()<<endl;
+        // cout<<"close corner len = "<<closeCorners.size()<<endl;
+        // cout<<"true corner len = "<<trueCorners.size()<<endl;
         for(int i =0;i<trueCorners.size();i++){
             cout<<trueCorners[i]<<",";
         }
