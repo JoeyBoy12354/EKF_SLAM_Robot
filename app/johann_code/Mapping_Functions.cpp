@@ -5,7 +5,7 @@ using namespace Data_Functions;
 
 
 namespace Mapping_Functions{
-    //extern int noCorners; // Declaration, not a definition
+    extern int noCorners; // Declaration, not a definition
     
 
     void storeMapPointsCleaning(vector<CarPoint> lidardata,Matrix<float, dim, 1> State){

@@ -9,6 +9,7 @@ using namespace Mapping_Functions;
 namespace Data_Functions{
 
     //int noCorners = 0;//If distance between gridPoint and lidarPoint <= Xmm then return false 
+    int noCorners = 0;//If distance between gridPoint and lidarPoint <= Xmm then return false (global)
 
 
     bool compareByAngle(const PolPoint& a, const PolPoint& b) {
