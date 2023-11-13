@@ -9,6 +9,11 @@ wiringpi.wiringPiSetup()      # For sequential pin numbering
 # OR
 #wiringpi.wiringPiSetupGpio()  # For GPIO pin numbering
 
+#Down
+echoPin3 = 31
+trigPin3 = 30
+powerPin3 = 11
+
 #Left
 echoPin2 = 23
 trigPin2 = 27
@@ -16,6 +21,8 @@ trigPin2 = 27
 #Right
 echoPin1 = 6
 trigPin1 = 5
+
+
 
 def readSonarCSV():
     try:
@@ -93,6 +100,63 @@ def runSonar(Left):
     writeOdometry(distance)
     return distance
 
+
+def runSonarEdge():
+    echoPin = echoPin3
+    trigPin = trigPin3
+
+
+    # Set trigger to False (Low)
+    wiringpi.digitalWrite(trigPin, 1) #Set low
+
+    # Allow module to settle
+    #print("Wait for module to settle")
+    time.sleep(1)#This can possibly be made to be 2us or 5us as commonly found on websites
+    #time.sleep(1.8)
+
+    # Send 10us pulse to trigger
+    #print("Send Pulse")
+    wiringpi.digitalWrite(trigPin, 0)#Set High
+    time.sleep(0.00001)
+    wiringpi.digitalWrite(trigPin, 1)#Set Low
+    start = time.time()
+
+    while wiringpi.digitalRead(echoPin) == 0:
+        start = time.time()
+
+    while wiringpi.digitalRead(echoPin) == 1:
+        stop = time.time()
+
+    # Calculate pulse length
+    elapsed = stop-start
+
+    # Distance pulse travelled in that time is time
+    # multiplied by the speed of sound (cm/s) divided by 2. Then convert to mm
+    distance = (elapsed * 17150) * 10
+    
+    #Rounding
+    distance = round(distance,2)
+
+
+    print("Sonar Distance : %.1f" % distance," mm")
+
+    #The HC-SR04 Ultrasonics have a max range of 4000mm (4m) if something is further than that they will bug out
+    #And provide a distance greater than 12000 the same will occur for the minimum range of 20mm
+    # if(distance> 12000):
+    #     print("12m <= DISTANCE is set to ",readSonarCSV()," || measured = ",distance)
+    #     distance = readSonarCSV()
+    # else:
+    #     #Always selected smallest
+    #     print("Distance < 12000 Measured:",distance," Read = ",readSonarCSV())
+        
+    #     if(distance > readSonarCSV()):
+    #         distance = readSonarCSV()
+    #     print("selected = ",distance)
+
+
+    return distance
+
+
 def writeOdometry(distance):
     with open('sonarCSV.csv','w') as file:
         csv_writer = csv.writer(file)
@@ -107,4 +171,11 @@ wiringpi.pinMode(trigPin1, 1)       # Set pin to 1 ( OUTPUT )
 wiringpi.pinMode(echoPin1, 0)       # Set pin to 0 ( INPUT )
 wiringpi.pinMode(trigPin2, 1)       # Set pin to 1 ( OUTPUT )
 wiringpi.pinMode(echoPin2, 0)       # Set pin to 0 ( INPUT )
+
+wiringpi.pinMode(powerPin3, 1)       # Set pin to 1 ( OUTPUT )
+wiringpi.pinMode(trigPin3, 1)       # Set pin to 1 ( OUTPUT )
+wiringpi.pinMode(echoPin3, 0)       # Set pin to 0 ( INPUT )
+wiringpi.digitalWrite(powerPin3, 0) #Set low
+
+runSonarEdge()
 #runSonar()
