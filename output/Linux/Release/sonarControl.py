@@ -184,11 +184,11 @@ while(True):
     print("\n New RUN")
     runSonarEdge()
     time.sleep(1)
-    print("Set High")
-    wiringpi.digitalWrite(powerPin3, 0) #Set high
-    time.sleep(3)
-    print("Set Low")
-    wiringpi.digitalWrite(powerPin3, 1) #Set high
-    time.sleep(3)
+    # print("Set High")
+    # wiringpi.digitalWrite(powerPin3, 0) #Set high
+    # time.sleep(3)
+    # print("Set Low")
+    # wiringpi.digitalWrite(powerPin3, 1) #Set high
+    # time.sleep(3)
     
 #runSonar()
