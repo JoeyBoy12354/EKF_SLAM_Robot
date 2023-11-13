@@ -549,7 +549,7 @@ def runSonarEdge():
 
         print("T1: echo = 0")
 
-        while wiringpi.digitalRead(echoPin) == 1:
+        while (wiringpi.digitalRead(echoPin) == 1 or stop-start > 3):
             stop = time.time()
         
         print("T2: echo = 1")
