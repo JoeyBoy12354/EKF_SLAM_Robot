@@ -536,10 +536,10 @@ def runSonarEdge():
         # Send 10us pulse to trigger
         #print("Send Pulse")
         wiringpi.digitalWrite(trigPin, 0)#Set High
-        print("trig set H = ",wiringpi.digitalRead(trigPin))
+        #print("trig set H = ",wiringpi.digitalRead(trigPin))
         time.sleep(0.00001)
         wiringpi.digitalWrite(trigPin, 1)#Set Low
-        print("trig set L = ",wiringpi.digitalRead(trigPin))
+        #print("trig set L = ",wiringpi.digitalRead(trigPin))
         start = time.time()
         stop = time.time()
 
@@ -560,7 +560,7 @@ def runSonarEdge():
         distance = round(distance,2)
 
 
-        print("Sonar Distance : %.1f" % distance," mm")
+        print("Edge Sonar Distance : %.1f" % distance," mm")
 
         #The HC-SR04 Ultrasonics have a max range of 4000mm (4m) if something is further than that they will bug out
         #And provide a distance greater than 12000 the same will occur for the minimum range of 20mm
