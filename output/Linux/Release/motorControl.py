@@ -295,7 +295,7 @@ def speedControl(theta,distance,direction):
     runDone2 = False
     sonarOn = True
     
-    sonar_thread = threading.Thread(target=runSonarEdge, args=())
+    #sonar_thread = threading.Thread(target=runSonarEdge, args=())
     
     #SET THREAD AND DIRECTION
     if(theta == 0 and distance > 0):
@@ -339,7 +339,7 @@ def speedControl(theta,distance,direction):
     right_new = 0
     right_count = 0
 
-    sonar_thread.start() #start edge detection thread
+    #sonar_thread.start() #start edge detection thread
     startT = time.time()
 
     if(theta == 0 and distance > 0):
@@ -405,7 +405,7 @@ def speedControl(theta,distance,direction):
         thread.join()
 
     delta_time = time.time() - startT
-    sonar_thread.join()
+    #sonar_thread.join()
     
     left = left_count/20
     right = right_count/20
