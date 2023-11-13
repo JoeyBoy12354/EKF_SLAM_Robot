@@ -120,6 +120,7 @@ def runSonarEdge():
     time.sleep(0.00001)
     wiringpi.digitalWrite(trigPin, 1)#Set Low
     start = time.time()
+    stop = time.time()
 
     while wiringpi.digitalRead(echoPin) == 0:
         start = time.time()
