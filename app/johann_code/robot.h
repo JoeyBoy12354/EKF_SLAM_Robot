@@ -186,6 +186,9 @@ namespace CSV_Functions{
 }
 
 namespace Data_Functions{
+    int noCorners = 0;//If distance between gridPoint and lidarPoint <= Xmm then return false (global)
+
+
     //processing
     void fitCartesian(vector<CarPoint>& carPoints, float x, float y, float angle);
     vector<CarPoint> convertCartesian(vector<PolPoint>& dataPoints);
@@ -265,6 +268,7 @@ namespace Lidar_Functions{
 }
 
 namespace Mapping_Functions{
+    extern int noCorners; // Declaration, not a definition
     void storeMapPoints(vector<CarPoint> lidardata,Matrix<float, dim, 1> State);
     void storeStatePoints(Matrix<float, dim, 1> State);
 

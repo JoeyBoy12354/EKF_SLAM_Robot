@@ -8,6 +8,9 @@ using namespace Mapping_Functions;
 
 namespace Data_Functions{
 
+    int noCorners = 0;//If distance between gridPoint and lidarPoint <= Xmm then return false 
+
+
     bool compareByAngle(const PolPoint& a, const PolPoint& b) {
         return a.angle < b.angle;
     }

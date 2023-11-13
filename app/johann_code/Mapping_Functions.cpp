@@ -5,7 +5,7 @@ using namespace Data_Functions;
 
 
 namespace Mapping_Functions{
-
+    extern int noCorners; // Declaration, not a definition
     
 
     void storeMapPointsCleaning(vector<CarPoint> lidardata,Matrix<float, dim, 1> State){
@@ -84,6 +84,7 @@ namespace Mapping_Functions{
         vector<CarPoint> temp2;
         isNew = true;
         float acc_percentage = (accuracy/lidardata.size())*100;
+
         if(noCorners>1){
                 if( acc_percentage> 70){
                 cout<<"\n\n VERY ACCURATE SCAN @ "<< acc_percentage <<" %\n\n";
