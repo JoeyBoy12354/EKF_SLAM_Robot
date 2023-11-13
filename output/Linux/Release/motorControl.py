@@ -523,8 +523,7 @@ def runSonarEdge():
     sonarFlag = False
 
     while(sonarOn == True):
-
-
+        print("RunSonarEdge")
         # Set trigger to False (Low)
         wiringpi.digitalWrite(trigPin, 1) #Set low
 
