@@ -544,14 +544,14 @@ def runSonarEdge():
 
         print("T0")
 
-        while (wiringpi.digitalRead(echoPin) == 0 or start-stop > 3):
+        while (wiringpi.digitalRead(echoPin) == 0 and (start-stop) < 3):
             start = time.time()
             print("start = ",start, "diff = ",start-stop)
 
 
         print("T1: echo = 0")
 
-        while (wiringpi.digitalRead(echoPin) == 1 or stop-start > 3):
+        while (wiringpi.digitalRead(echoPin) == 1 and (stop-start) < 3):
             stop = time.time()
             print("stop = ",stop, "diff = ",start-stop)
         
