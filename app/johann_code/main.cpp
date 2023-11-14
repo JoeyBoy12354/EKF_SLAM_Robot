@@ -765,6 +765,13 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
         vector<PolPoint> polarCornerPoints;
         lidarDataProcessing2(lidarDataPoints,carPoints,polarCornerPoints);
 
+        // for(int i =0;i<polarCornerPoints.size();i++){
+        //     ExtendedKalmanFilter ekf;
+
+        // }
+
+
+
         ekf.TestPolValues = polarCornerPoints;
         //Run EKF
         ekf.runEKF();
