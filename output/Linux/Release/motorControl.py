@@ -741,6 +741,15 @@ def motorCalibrate():
     # timeOffL=0.002
     # timeOffR=0.002759438202247191
 
+    #     MCAL: time Left =  0.008 s  0.002 s
+# MCAL: time Right =  0.007904328018223236 s  0.0020956719817767644 
+
+
+    timeOnL=0.008
+    timeOnR=0.007904328018223236
+    timeOffL=0.002
+    timeOffR=0.0020956719817767644 
+
 
 
 
@@ -756,6 +765,14 @@ def motorCalibrate():
     # timeOnR=0.007781196581196581
     # timeOffL=0.002
     # timeOffR=0.002218803418803419
+
+
+#     MCAL: time Left =  0.008 s  0.002 s
+# MCAL: time Right =  0.007845454545454546 s  0.002154545454545454 s
+
+#     MCAL: time Left =  0.008 s  0.002 s
+# MCAL: time Right =  0.007904328018223236 s  0.0020956719817767644 
+
 
 
     distance =900
