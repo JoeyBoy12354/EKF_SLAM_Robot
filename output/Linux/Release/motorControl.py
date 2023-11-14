@@ -779,10 +779,17 @@ def motorCalibrate():
 # MCAL: time Right =  0.008 s  0.002 s
 
 
+    # timeOnL= 0.007869527896995708
+    # timeOnR=0.008
+    # timeOffL=0.002130472103004292
+    # timeOffR=0.002	
+
+
     timeOnL= 0.007869527896995708
-    timeOnR=0.008
+    timeOnR=0.007841379310344827
     timeOffL=0.002130472103004292
-    timeOffR=0.002	
+    timeOffR=0.0021586206896551732
+
 
 
 
