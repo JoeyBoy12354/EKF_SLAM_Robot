@@ -479,7 +479,7 @@ def getAngleDifference(LNoRot,RNoRot,angle):
 
     #We also need to check for bad data
     elif(abs(LNoRot/RNoRot) <=0.7 or abs(RNoRot/LNoRot) <=0.7 or abs(RNoRot - LNoRot) >= 0.15 ):
-        print("BAD MOTOR DATA DETECTED! Difference >= 70% || Difference >= 0.4 rotations")
+        print("BAD MOTOR DATA DETECTED! Difference >= 70% || Difference >= 0.15 rotations")
 
 
         
