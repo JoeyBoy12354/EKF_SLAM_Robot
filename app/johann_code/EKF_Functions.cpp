@@ -245,8 +245,8 @@ void ExtendedKalmanFilter::isNewLandmark2(){
     //double distThresh = 1000;
     //double distThresh = 270;//Was 600
     //double distThresh = 420;//Was 600
-    double distThresh = 500;//Was 600
-    //double distThresh = 600;//Was 600
+    //double distThresh = 500;//Was 600
+    double distThresh = 600;//Was 600
     //cout<<"In NewLandmark2"<<endl;
 
     vector<double> minDistances;
