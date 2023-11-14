@@ -596,9 +596,9 @@ def motorCorrection(distance,runs,left_sum,right_sum,lefts,rights,error):
         time.sleep(0.6)
 
         left,right = speedControl(0,distance*runs,False)
-        lefts.append(left)
-        rights.append(right)
-        error.append(right - left)
+        # lefts.append(left)
+        # rights.append(right)
+        # error.append(right - left)
 
         # left_sum+=left
         # right_sum+=right
