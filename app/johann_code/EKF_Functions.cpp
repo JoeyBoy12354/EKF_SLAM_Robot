@@ -40,8 +40,9 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
     // float test_sigma_r = 0.33;
     // float test_sigma_theta = 0.33;
 
-    float test_sigma_r = 0.33;
-    float test_sigma_theta = 0.33;
+
+    float test_sigma_r = 0.38;
+    float test_sigma_theta = 0.38;
     
     float test_sigma_odo_x = 0.5;
     float test_sigma_odo_y = 0.5;
