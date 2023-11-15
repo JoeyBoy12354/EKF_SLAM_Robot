@@ -77,7 +77,7 @@ def fetchCoord(filename):
 def pointDistance(x1,y1,x2,y2):
     return math.sqrt(pow((x1-x2),2) + pow((y1-y2),2))
 
-def avoidanceTurn(angle):
+def avoidanceTurn(angle): 
     rightSonarDist = sonarControl.runSonar(False)
     leftSonarDist = sonarControl.runSonar(True)
 
@@ -163,7 +163,6 @@ def avoidanceForward(distance):
 
 #MOTOR THREADS
 def left_thread(timeOn,timeOff):
-    print("Left count")
     #print("MC: LEFT_Thread")
     global runDone
     global runDone2
@@ -194,7 +193,6 @@ def leftR_thread(timeOn,timeOff):
     return
 
 def right_thread(timeOn,timeOff):
-    print("Right count")
     #print("MC: RIGHT_Thread")
     global runDone
     global runDone2
@@ -332,6 +330,8 @@ def speedControl(theta,distance,direction):
         return 0,0
                 
     NoTicks = NoRotations*20
+    print("Set noTicks = 20 (1 full rotation)")
+    NoTicks = 20
     
     left_old = 0
     left_new = 0
