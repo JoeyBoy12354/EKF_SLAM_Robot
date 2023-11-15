@@ -770,10 +770,10 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
         lidarDataProcessing2(lidarDataPoints,carPoints,polarCornerPoints);
 
 
-        vector<CarPoint> testpoints;
+        vector<CarPoint> testPoints;
 
         for(int i =0;i<carPoints.size();i++){
-            testpoints.push_back(carPoints[i]);
+            testPoints.push_back(carPoints[i]);
         }
 
         fitCartesian(testPoints,ekf.State(0),ekf.State(1),ekf.State(2));
