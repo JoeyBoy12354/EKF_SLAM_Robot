@@ -128,35 +128,35 @@ void testLandmarkIdentification(bool& firstRun){
     LandmarkProcessing2(carPoints);
 }
 
-void testLidarLandmark(){
-    vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
-        bool error = true;
-        int count = 0;
-        while(error == true && count<5){
-            cout<<"\nAttempt "<<count<<endl;
-            runLidar(lidarDataPoints, error);
-            count +=1;
-        }
-        cout<<"count = "<<count<<endl;
+// void testLidarLandmark(){
+//     vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
+//         bool error = true;
+//         int count = 0;
+//         while(error == true && count<5){
+//             cout<<"\nAttempt "<<count<<endl;
+//             runLidar(lidarDataPoints, error);
+//             count +=1;
+//         }
+//         cout<<"count = "<<count<<endl;
 
-     if(error == false){
-            //Predict Position
+//      if(error == false){
+//             //Predict Position
 
-            //cout<<"\n MAIN: after_motion State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
-            //cout << "\nEKF 6\nState =\n" << ekf.State << "\n";
-            ExtendedKalmanFilter ekf;
+//             //cout<<"\n MAIN: after_motion State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+//             //cout << "\nEKF 6\nState =\n" << ekf.State << "\n";
+//             ExtendedKalmanFilter ekf;
 
 
-            ekf.State(0) = -200;
-            ekf.State(1) = -95;
-            //ekf.State(2) = PI/2;
-            //Process Data
-            vector<CarPoint> carPoints;
-            lidarDataProcessing(lidarDataPoints,carPoints,ekf.State[0],ekf.State[1],ekf.State[2]);
-            saveCarToFullMapCSV(carPoints);
-            saveCarToCSV(carPoints);
-     }
-}
+//             ekf.State(0) = -200;
+//             ekf.State(1) = -95;
+//             //ekf.State(2) = PI/2;
+//             //Process Data
+//             vector<CarPoint> carPoints;
+//             lidarDataProcessing(lidarDataPoints,carPoints,ekf.State[0],ekf.State[1],ekf.State[2]);
+//             saveCarToFullMapCSV(carPoints);
+//             saveCarToCSV(carPoints);
+//      }
+// }
 
 void testPython(){
     int ret;

@@ -7,7 +7,7 @@ using namespace Data_Functions;
 namespace Mapping_Functions{
     //extern int noCorners; // Declaration, not a definition
     
-    void randomFitting(vector<PolPoint> lidarDataPoints, ExtendedKalmanFilter ekf, float d, float w,float& acc){
+    void randomFitting(vector<PolPoint> lidarDataPoints, ExtendedKalmanFilter& ekf, float d, float w,float& acc){
         ekf.w = w;
         ekf.distance = d;
 
