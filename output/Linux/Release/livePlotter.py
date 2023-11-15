@@ -336,16 +336,18 @@ def animate(i):
     #plt.gca().fill(triangle[:, 0], triangle[:, 1], 'y')
 
     #plt.plot(x_goal, y_goal, '8', label='Goal', markersize=7,color='c')
+
     plt.axhline(y=0, color='k', linestyle='--', linewidth=1)
     plt.axvline(x=0, color='k', linestyle='--', linewidth=1)
     fetchAndPlotGrid()
 
+    plt.plot(x6, y6, '--', label='Motor Scan', markersize=0.5,color='k')
     plt.plot(x1, y1, 'o', label='Points',markersize=0.5,color='r')
     plt.plot(x4, y4, 'o', label='map_points', markersize=1,color='purple')#ConPoints are now representative of latest scan
     
     #plt.plot(x3, y3, 'X', label='RNC_points', markersize=7,color='b')
     plt.plot(x2, y2, 'X', label='Landmarks', markersize=7,color='g')
-    plt.plot(x6, y6, '--', label='Motor Scan', markersize=7,color='k')
+    
     
 
     
