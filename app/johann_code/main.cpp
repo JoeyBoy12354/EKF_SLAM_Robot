@@ -791,7 +791,7 @@ void randomFitting(vector<PolPoint>& lidarDataPoints, ExtendedKalmanFilter& ekf,
     }
 
 
-float runThread(ExtendedKalmanFilter& ekf, vector<PolPoint> lidarDataPoints) {
+float runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarDataPoints) {
     float a1 = 0;
     float a2 = 0;
     float a3 = 0;
@@ -806,12 +806,15 @@ float runThread(ExtendedKalmanFilter& ekf, vector<PolPoint> lidarDataPoints) {
 
     ExtendedKalmanFilter ekf1 = ekf;
     ExtendedKalmanFilter ekf2 = ekf;
+    ExtendedKalmanFilter ekf3 = ekf;
+    ExtendedKalmanFilter ekf4 = ekf;
+    ExtendedKalmanFilter ekf5 = ekf;
 
-    thread thread1(randomFitting, std::ref(v1), std::ref(ekf), ekf.distance, ekf.w, std::ref(a1));
-    thread thread2(randomFitting, std::ref(v2), std::ref(ekf), ekf.distance, ekf.w + 4 * PI / 180, std::ref(a2));
-    thread thread3(randomFitting, std::ref(v3), std::ref(ekf), ekf.distance, ekf.w - 4 * PI / 180, std::ref(a3));
-    thread thread4(randomFitting, std::ref(v4), std::ref(ekf), ekf.distance, ekf.w + 8 * PI / 180, std::ref(a4));
-    thread thread5(randomFitting, std::ref(v5), std::ref(ekf), ekf.distance, ekf.w - 8 * PI / 180, std::ref(a5));
+    thread thread1(randomFitting, std::ref(v1), std::ref(ekf1), ekf.distance, ekf.w, std::ref(a1));
+    thread thread2(randomFitting, std::ref(v2), std::ref(ekf2), ekf.distance, ekf.w + 4 * PI / 180, std::ref(a2));
+    thread thread3(randomFitting, std::ref(v3), std::ref(ekf3), ekf.distance, ekf.w - 4 * PI / 180, std::ref(a3));
+    thread thread4(randomFitting, std::ref(v4), std::ref(ekf4), ekf.distance, ekf.w + 8 * PI / 180, std::ref(a4));
+    thread thread5(randomFitting, std::ref(v5), std::ref(ekf5), ekf.distance, ekf.w - 8 * PI / 180, std::ref(a5));
 
     thread1.join();
     thread2.join();
@@ -850,7 +853,12 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
 
     if(error == false){
 
-        runThread(ekf, lidarDataPoints);
+        if(firstRun == false){
+            cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+            runThread(ekf, lidarDataPoints);
+            cout<<"\n MAIN: afta_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+        }
+        
 
     
         //Predict Position
