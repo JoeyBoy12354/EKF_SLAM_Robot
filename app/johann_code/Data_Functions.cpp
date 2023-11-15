@@ -118,7 +118,6 @@ namespace Data_Functions{
     }
     
 
-
     void lidarDataProcessing(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints,vector<PolPoint>& cornerPolarPoints){
         //cout<<"\n lidarDataProcessing"<<endl;
 
@@ -363,6 +362,6 @@ namespace Data_Functions{
 }
 
 
-
+}
 
 
