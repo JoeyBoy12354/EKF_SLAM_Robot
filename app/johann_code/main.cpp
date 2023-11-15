@@ -819,8 +819,7 @@ float runThread(ExtendedKalmanFilter& ekf, vector<PolPoint> lidarDataPoints) {
     thread4.join();
     thread5.join();
 
-    // Rest of your code...
-}
+
     cout<<"a1 = "<<a1<<", a2 = "<<a2<<", a3 = "<<a3<<", a4 = "<<a4<<", a5 = "<<a5<<endl;
 
     if(a1>a2 && a1>a3 && a1>a4 && a1>a5){
