@@ -163,6 +163,7 @@ def avoidanceForward(distance):
 
 #MOTOR THREADS
 def left_thread(timeOn,timeOff):
+    print("Left count")
     #print("MC: LEFT_Thread")
     global runDone
     global runDone2
@@ -193,6 +194,7 @@ def leftR_thread(timeOn,timeOff):
     return
 
 def right_thread(timeOn,timeOff):
+    print("Right count")
     #print("MC: RIGHT_Thread")
     global runDone
     global runDone2
@@ -1144,6 +1146,7 @@ def testSonar():
 def testMotorSpeedSensor():
 
 
+
     
 wiringpi.pinMode(LSS_Pin, 0)       # Set pin to 0 ( INPUT )
 wiringpi.pinMode(RSS_Pin, 0)       # Set pin to 0 ( INPUT )
@@ -1162,7 +1165,7 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 
 
 print("MC started")
-#motorCalibrate()
+motorCalibrate()
 #timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
 # timeOnL=0.0071
 # timeOnR=0.008
@@ -1278,31 +1281,31 @@ timeOffR=0.002
 # print("MC: time Left = ",timeOnL,"s ",timeOffL,"s")
 # print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
 
-angle,distance = readInstructions()
+# angle,distance = readInstructions()
 
-# angle = -1*math.pi/2
-# distance = 0
-# angle = math.pi/2
-# #angle = 0
-# distance = 200
+# # angle = -1*math.pi/2
+# # distance = 0
+# # angle = math.pi/2
+# # #angle = 0
+# # distance = 200
 
-# angle =0
-# distance =0
-
-
-if(distance > 900):
-    print(" !! Resetting distance, ",distance," to 900mm")
-    distance = 900
-
-#Edge sonar
-wiringpi.pinMode(trigPin3, 1)       # Set pin to 1 ( OUTPUT )
-wiringpi.pinMode(echoPin3, 0)       # Set pin to 0 ( INPUT )
+# # angle =0
+# # distance =0
 
 
-angle,distance = motorControl_wThread(angle,distance)
-print("MC: Angle turned = ",angle*180/math.pi)
-print("MC: distance moved = ",distance)
-writeOdometry(angle,distance)
+# if(distance > 900):
+#     print(" !! Resetting distance, ",distance," to 900mm")
+#     distance = 900
+
+# #Edge sonar
+# wiringpi.pinMode(trigPin3, 1)       # Set pin to 1 ( OUTPUT )
+# wiringpi.pinMode(echoPin3, 0)       # Set pin to 0 ( INPUT )
+
+
+# angle,distance = motorControl_wThread(angle,distance)
+# print("MC: Angle turned = ",angle*180/math.pi)
+# print("MC: distance moved = ",distance)
+# writeOdometry(angle,distance)
 
 
 
