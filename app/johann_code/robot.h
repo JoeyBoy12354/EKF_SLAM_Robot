@@ -205,8 +205,6 @@ namespace Data_Functions{
     void lidarDataProcessing(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints,vector<PolPoint>& cornerPolarPoints);
     void lidarDataProcessing2(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints,vector<PolPoint>& corner);
 
-    void randomFitting(vector<PolPoint> lidarDataPoints, ExtendedKalmanFilter& ekf, float d, float w,float& acc);
-
     void LandmarkProcessing();
     void LandmarkProcessing2(vector<CarPoint> carPoints);
 

@@ -7,52 +7,7 @@ using namespace Data_Functions;
 namespace Mapping_Functions{
     //extern int noCorners; // Declaration, not a definition
     
-    void randomFitting(vector<PolPoint> lidarDataPoints, ExtendedKalmanFilter& ekf, float d, float w,float& acc){
-        ekf.w = w;
-        ekf.distance = d;
-
-        ekf.updateMotion();
-
-        vector<CarPoint> carPoints;
-        vector<PolPoint> polarCornerPoints;
-        lidarDataProcessing(lidarDataPoints,carPoints,polarCornerPoints);
-        ekf.TestPolValues = polarCornerPoints;
-
-
-        //Run EKF
-        ekf.runEKF();
-
-        fitCartesian(lidarDataPoints,ekf.State(0),ekf.State(1),ekf.State(2));
-
-        vector<CarPoint> oldmap;
-        readCarFromFullMapCSV(oldmap);//Fetch all current poin
-
-        float accuracy = 0;
-        float accuracy_dist = 15;
-        bool isAccurate=false;
-
-        //Append new points to current oldmap
-        //This is okay because we do not use fullmap data for anything
-        for(int i =0;i<lidardata.size();i++){
-            isNew = true;
-            isAccurate = false;
-            for(int j=0;j<oldmap.size();j++){
-
-                if(pointDistance(lidardata[i],oldmap[j]) < accuracy_dist){
-                    isAccurate = true;
-                }
-            }
-            if(isAccurate == true){
-                accuracy=accuracy+ 1;
-                //oldmap.push_back(lidardata[i]);
-            }
-        }
-
-        float acc_percentage = (accuracy/lidardata.size())*100;
-
-        acc = acc_percentage;
-        return;
-    }
+    
 
     void storeMapPointsCleaning(vector<CarPoint> lidardata,Matrix<float, dim, 1> State){
         //Fit new scan
