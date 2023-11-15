@@ -791,12 +791,12 @@ void randomFitting(vector<PolPoint>& lidarDataPoints, ExtendedKalmanFilter& ekf,
     }
 
 
-float runThread(ExtendedKalmanFilter& ekf, vector<PolPoint> lidarDataPoints){
-    float a1=0;
-    float a2=0;
-    float a3=0;
-    float a4=0;
-    float a5=0;
+float runThread(ExtendedKalmanFilter& ekf, vector<PolPoint> lidarDataPoints) {
+    float a1 = 0;
+    float a2 = 0;
+    float a3 = 0;
+    float a4 = 0;
+    float a5 = 0;
 
     vector<PolPoint> v1(lidarDataPoints.begin(), lidarDataPoints.end());
     vector<PolPoint> v2(lidarDataPoints.begin(), lidarDataPoints.end());
@@ -807,14 +807,11 @@ float runThread(ExtendedKalmanFilter& ekf, vector<PolPoint> lidarDataPoints){
     ExtendedKalmanFilter ekf1 = ekf;
     ExtendedKalmanFilter ekf2 = ekf;
 
-
-
-    thread thread1(randomFitting, v1,  ekf, ekf.distance,  ekf.w, a1);
-    thread thread2(randomFitting, v2,  ekf, ekf.distance,  ekf.w + 4*PI/180, a2);
-    thread thread3(randomFitting, v3,  ekf, ekf.distance,  ekf.w - 4*PI/180, a3);
-    thread thread4(randomFitting, v4,  ekf, ekf.distance,  ekf.w + 8*PI/180, a4);
-    thread thread5(randomFitting, v5,  ekf, ekf.distance,  ekf.w - 8*PI/180, a5);
-
+    thread thread1(randomFitting, std::ref(v1), std::ref(ekf), ekf.distance, ekf.w, std::ref(a1));
+    thread thread2(randomFitting, std::ref(v2), std::ref(ekf), ekf.distance, ekf.w + 4 * PI / 180, std::ref(a2));
+    thread thread3(randomFitting, std::ref(v3), std::ref(ekf), ekf.distance, ekf.w - 4 * PI / 180, std::ref(a3));
+    thread thread4(randomFitting, std::ref(v4), std::ref(ekf), ekf.distance, ekf.w + 8 * PI / 180, std::ref(a4));
+    thread thread5(randomFitting, std::ref(v5), std::ref(ekf), ekf.distance, ekf.w - 8 * PI / 180, std::ref(a5));
 
     thread1.join();
     thread2.join();
@@ -822,6 +819,8 @@ float runThread(ExtendedKalmanFilter& ekf, vector<PolPoint> lidarDataPoints){
     thread4.join();
     thread5.join();
 
+    // Rest of your code...
+}
     cout<<"a1 = "<<a1<<", a2 = "<<a2<<", a3 = "<<a3<<", a4 = "<<a4<<", a5 = "<<a5<<endl;
 
     if(a1>a2 && a1>a3 && a1>a4 && a1>a5){
