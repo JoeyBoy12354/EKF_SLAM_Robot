@@ -138,7 +138,7 @@ namespace CSV_Functions{
         file.close();
     }
 
-    void saveCarMotionToCSV(const vector<CarPoint>& points) {
+    void saveCarMotionToCSV(vector<CarPoint>& points) {
         ofstream outputFile(mapMotCSV);
         if (!outputFile.is_open()) {
             cerr << "Error opening the file: " << mapMotCSV << endl;
