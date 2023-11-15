@@ -759,7 +759,7 @@ void randomFitting(vector<PolPoint>& lidarDataPoints, ExtendedKalmanFilter& ekf,
         //Run EKF
         ekf.runEKF();
 
-        fitCartesian(lidarDataPoints,ekf.State(0),ekf.State(1),ekf.State(2));
+        fitCartesian(carPoints,ekf.State(0),ekf.State(1),ekf.State(2));
 
         vector<CarPoint> oldmap;
         readCarFromFullMapCSV(oldmap);//Fetch all current poin
@@ -770,11 +770,11 @@ void randomFitting(vector<PolPoint>& lidarDataPoints, ExtendedKalmanFilter& ekf,
 
         //Append new points to current oldmap
         //This is okay because we do not use fullmap data for anything
-        for(int i =0;i<lidarDataPoints.size();i++){
+        for(int i =0;i<carPoints.size();i++){
             isAccurate = false;
             for(int j=0;j<oldmap.size();j++){
 
-                if(pointDistance(lidarDataPoints[i],oldmap[j]) < accuracy_dist){
+                if(pointDistance(carPoints[i],oldmap[j]) < accuracy_dist){
                     isAccurate = true;
                 }
             }
@@ -784,7 +784,7 @@ void randomFitting(vector<PolPoint>& lidarDataPoints, ExtendedKalmanFilter& ekf,
             }
         }
 
-        float acc_percentage = (accuracy/lidarDataPoints.size())*100;
+        float acc_percentage = (accuracy/carPoints.size())*100;
 
         acc = acc_percentage;
         return;
