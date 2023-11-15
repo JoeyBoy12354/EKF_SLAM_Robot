@@ -309,7 +309,7 @@ def animate(i):
     #x3,y3=fetchCoord('cornersCSV.csv')
     x4,y4=fetchCoord('mapCSV.csv')
     x5,y5=fetchCoord('triangleCSV.csv')
-    x6,y6=fetchCoord('mapMotCSV.csv')
+    x6,y6=fetchCoord('mapMot.csv')
     #position,x_goal,y_goal,true_move = fetchRobot()
     #print("POSITION = ",position)
 
