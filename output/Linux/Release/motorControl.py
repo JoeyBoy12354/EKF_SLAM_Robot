@@ -602,7 +602,8 @@ def runSonarEdge():
 def motorCorrection(distance,runs,left_sum,right_sum,lefts,rights,error):
     time.sleep(0.6)
     for i in range(0,runs):
-        left,right = speedControl(0,distance,True)
+        #left,right = speedControl(0,distance,True)
+        left,right = speedControl(math.pi/2,0,True)
         lefts.append(left)
         rights.append(right)
         error.append(right - left)
