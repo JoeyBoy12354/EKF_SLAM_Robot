@@ -341,7 +341,7 @@ def animate(i):
     plt.axvline(x=0, color='k', linestyle='--', linewidth=1)
     fetchAndPlotGrid()
 
-    plt.plot(x6, y6, '--', label='Motor Scan', markersize=0.5,color='k')
+    plt.plot(x6, y6, '--', label='Motor Scan', markersize=0.1,color='k')
     plt.plot(x1, y1, 'o', label='Points',markersize=0.5,color='r')
     plt.plot(x4, y4, 'o', label='map_points', markersize=1,color='purple')#ConPoints are now representative of latest scan
     
