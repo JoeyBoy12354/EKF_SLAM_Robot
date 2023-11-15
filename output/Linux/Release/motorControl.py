@@ -1143,7 +1143,7 @@ def testSonar():
     while(True):
         avoidanceForward(100)
     
-def testMotorSpeedSensor():
+# def testMotorSpeedSensor():
 
 
 
