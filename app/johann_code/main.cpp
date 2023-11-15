@@ -764,7 +764,7 @@ float runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarDataPoints){
     thread4.join();
     thread5.join();
 
-    cout<<"a1 = ",a1<<", a2 = "<<a2<<", a3 = "<<a3<<", a4 = "<<a4<<", a5 = "<<a5<<endl;
+    cout<<"a1 = "<<a1<<", a2 = "<<a2<<", a3 = "<<a3<<", a4 = "<<a4<<", a5 = "<<a5<<endl;
 
     if(a1>a2 && a1>a3 && a1>a4 && a1>a5){
         return ekf.w;
@@ -794,7 +794,7 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
 
     if(error == false){
 
-        runThread(ekf, lidarDataPoints)
+        runThread(ekf, lidarDataPoints);
 
     
         //Predict Position
