@@ -915,6 +915,12 @@ def motorCalibrate():
     # timeOffR=0.002
 
 
+    timeOnL=0.005
+    timeOnR=0.005
+    timeOffL=0.005
+    timeOffR=0.005
+
+
 
 
     print("INIT settings")
