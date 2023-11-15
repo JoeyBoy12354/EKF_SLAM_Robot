@@ -751,11 +751,11 @@ float runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarDataPoints){
     float a4=0;
     float a5=0;
 
-    thread thread1(randomFitting, lidarDataPoints,  ekf, ekf.d,  ekf.w, a1);
-    thread thread2(randomFitting, lidarDataPoints,  ekf, ekf.d,  ekf.w + 4*PI/180, a2);
-    thread thread3(randomFitting, lidarDataPoints,  ekf, ekf.d,  ekf.w - 4*PI/180, a3);
-    thread thread4(randomFitting, lidarDataPoints,  ekf, ekf.d,  ekf.w + 8*PI/180, a4);
-    thread thread5(randomFitting, lidarDataPoints,  ekf, ekf.d,  ekf.w - 8*PI/180, a5);
+    thread thread1(randomFitting, lidarDataPoints,  ekf, ekf.distance,  ekf.w, a1);
+    thread thread2(randomFitting, lidarDataPoints,  ekf, ekf.distance,  ekf.w + 4*PI/180, a2);
+    thread thread3(randomFitting, lidarDataPoints,  ekf, ekf.distance,  ekf.w - 4*PI/180, a3);
+    thread thread4(randomFitting, lidarDataPoints,  ekf, ekf.distance,  ekf.w + 8*PI/180, a4);
+    thread thread5(randomFitting, lidarDataPoints,  ekf, ekf.distance,  ekf.w - 8*PI/180, a5);
 
 
     thread1.join();
