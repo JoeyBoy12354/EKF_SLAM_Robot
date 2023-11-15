@@ -770,12 +770,12 @@ void randomFitting(vector<PolPoint> lidarDataPoints, ExtendedKalmanFilter& ekf, 
 
         //Append new points to current oldmap
         //This is okay because we do not use fullmap data for anything
-        for(int i =0;i<lidardata.size();i++){
+        for(int i =0;i<lidarDataPoints.size();i++){
             isNew = true;
             isAccurate = false;
             for(int j=0;j<oldmap.size();j++){
 
-                if(pointDistance(lidardata[i],oldmap[j]) < accuracy_dist){
+                if(pointDistance(lidarDataPoints[i],oldmap[j]) < accuracy_dist){
                     isAccurate = true;
                 }
             }
@@ -785,7 +785,7 @@ void randomFitting(vector<PolPoint> lidarDataPoints, ExtendedKalmanFilter& ekf, 
             }
         }
 
-        float acc_percentage = (accuracy/lidardata.size())*100;
+        float acc_percentage = (accuracy/lidarDataPoints.size())*100;
 
         acc = acc_percentage;
         return;
