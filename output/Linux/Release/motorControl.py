@@ -398,6 +398,18 @@ def speedControl(theta,distance,direction):
     runDone = True
     runDone2 = True
     sonarOn = False
+
+    left_new = wiringpi.digitalRead(LSS_Pin)
+    right_new = wiringpi.digitalRead(RSS_Pin)
+
+    if(left_old == 0 and left_new == 1):
+        left_count += 1
+    
+    if(right_old == 0 and right_new == 1):
+        right_count += 1
+    left_old = left_new
+    right_old = right_new
+
     #print("runDone = ",runDone," sonarFlag = ",sonarFlag, " Waiting to join")
 
     if(theta == 0 and distance > 0):
