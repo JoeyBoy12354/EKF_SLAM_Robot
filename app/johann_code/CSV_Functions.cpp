@@ -21,6 +21,8 @@ string atsi_lm_CSV = "atsi_lmCSV.csv";
 string ekf_atsi_u_CSV = "ekf_uCSV.csv";
 string ekf_atsi_lm_CSV = "ekf_lmCSV.csv";
 
+string mapMotCSV = "mapMot.csv";
+
 
 
 
@@ -134,6 +136,21 @@ namespace CSV_Functions{
         }
 
         file.close();
+    }
+
+    void saveCarMotionToCSV(const vector<CarPoint>& points) {
+        ofstream outputFile(mapMotCSV);
+        if (!outputFile.is_open()) {
+            cerr << "Error opening the file: " << mapMotCSV << endl;
+            return;
+        }
+
+        // Write the data to the CSV file
+        for (const CarPoint& point : points) {
+            outputFile << point.x << "," << point.y << "\n";
+        }
+
+        outputFile.close();
     }
 
 
