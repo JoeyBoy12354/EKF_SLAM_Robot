@@ -1111,7 +1111,7 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 
 
 print("MC started")
-#motorCalibrate()
+motorCalibrate()
 #timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
 # timeOnL=0.0071
 # timeOnR=0.008
@@ -1215,19 +1215,19 @@ angle,distance = readInstructions()
 # distance =0
 
 
-if(distance > 900):
-    print(" !! Resetting distance, ",distance," to 900mm")
-    distance = 900
+# if(distance > 900):
+#     print(" !! Resetting distance, ",distance," to 900mm")
+#     distance = 900
 
-#Edge sonar
-wiringpi.pinMode(trigPin3, 1)       # Set pin to 1 ( OUTPUT )
-wiringpi.pinMode(echoPin3, 0)       # Set pin to 0 ( INPUT )
+# #Edge sonar
+# wiringpi.pinMode(trigPin3, 1)       # Set pin to 1 ( OUTPUT )
+# wiringpi.pinMode(echoPin3, 0)       # Set pin to 0 ( INPUT )
 
 
-angle,distance = motorControl_wThread(angle,distance)
-print("MC: Angle turned = ",angle*180/math.pi)
-print("MC: distance moved = ",distance)
-writeOdometry(angle,distance)
+# angle,distance = motorControl_wThread(angle,distance)
+# print("MC: Angle turned = ",angle*180/math.pi)
+# print("MC: distance moved = ",distance)
+# writeOdometry(angle,distance)
 
 
 
