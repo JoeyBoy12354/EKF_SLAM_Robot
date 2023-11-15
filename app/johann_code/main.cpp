@@ -824,11 +824,11 @@ float runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarDataPoints,vecto
     thread4.join();
     thread5.join();
 
-    accuracy.push_back(a1);
-    accuracy.push_back(a2);
-    accuracy.push_back(a3);
-    accuracy.push_back(a4);
-    accuracy.push_back(a5);
+    // accuracy.push_back(a1);
+    // accuracy.push_back(a2);
+    // accuracy.push_back(a3);
+    // accuracy.push_back(a4);
+    // accuracy.push_back(a5);
 
 
     cout<<"\n\na1 = "<<a1<<", a2 = "<<a2<<", a3 = "<<a3<<", a4 = "<<a4<<", a5 = "<<a5<<endl;
@@ -866,9 +866,9 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
             cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
             float angle = runThread(ekf, lidarDataPoints,accuracy);
             cout<<"\n MAIN: afta_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
-            for(int i =0;i<accuracy.size();i++){
-                cout<<"a"<<i+1<<":"<<accuracy[i]<<endl;
-            }
+            // for(int i =0;i<accuracy.size();i++){
+            //     cout<<"a"<<i+1<<":"<<accuracy[i]<<endl;
+            // }
         }
 
 
