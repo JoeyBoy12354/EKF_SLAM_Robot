@@ -744,12 +744,17 @@ void atSim(){
 }
 
 
-float runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarDataPoints){
+float runThread(ExtendedKalmanFilter& ekf, vector<PolPoint> lidarDataPoints){
     float a1=0;
     float a2=0;
     float a3=0;
     float a4=0;
     float a5=0;
+
+    ExtendedKalmanFilter ekf1 = ekf;
+    ExtendedKalmanFilter ekf2 = ekf;
+
+
 
     thread thread1(randomFitting, lidarDataPoints,  ekf, ekf.distance,  ekf.w, a1);
     thread thread2(randomFitting, lidarDataPoints,  ekf, ekf.distance,  ekf.w + 4*PI/180, a2);
