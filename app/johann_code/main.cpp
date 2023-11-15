@@ -792,6 +792,8 @@ void randomFitting(vector<PolPoint>& lidarDataPoints, ExtendedKalmanFilter& ekf,
 
 
 float runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarDataPoints) {
+    cout<<"Running ScanMatch Threads"<<endl;
+
     float a1 = 0;
     float a2 = 0;
     float a3 = 0;
