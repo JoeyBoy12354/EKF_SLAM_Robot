@@ -744,7 +744,7 @@ void atSim(){
 }
 
 
-void randomFitting(vector<PolPoint> lidarDataPoints, ExtendedKalmanFilter& ekf, float d, float w,float& acc){
+void randomFitting(vector<PolPoint>& lidarDataPoints, ExtendedKalmanFilter& ekf, float d, float w,float& acc){
         ekf.w = w;
         ekf.distance = d;
 
@@ -771,7 +771,6 @@ void randomFitting(vector<PolPoint> lidarDataPoints, ExtendedKalmanFilter& ekf, 
         //Append new points to current oldmap
         //This is okay because we do not use fullmap data for anything
         for(int i =0;i<lidarDataPoints.size();i++){
-            isNew = true;
             isAccurate = false;
             for(int j=0;j<oldmap.size();j++){
 
@@ -799,16 +798,22 @@ float runThread(ExtendedKalmanFilter& ekf, vector<PolPoint> lidarDataPoints){
     float a4=0;
     float a5=0;
 
+    vector<PolPoint> v1(lidarDataPoints.begin(), lidarDataPoints.end());
+    vector<PolPoint> v2(lidarDataPoints.begin(), lidarDataPoints.end());
+    vector<PolPoint> v3(lidarDataPoints.begin(), lidarDataPoints.end());
+    vector<PolPoint> v4(lidarDataPoints.begin(), lidarDataPoints.end());
+    vector<PolPoint> v5(lidarDataPoints.begin(), lidarDataPoints.end());
+
     ExtendedKalmanFilter ekf1 = ekf;
     ExtendedKalmanFilter ekf2 = ekf;
 
 
 
-    thread thread1(randomFitting, lidarDataPoints,  ekf, ekf.distance,  ekf.w, a1);
-    thread thread2(randomFitting, lidarDataPoints,  ekf, ekf.distance,  ekf.w + 4*PI/180, a2);
-    thread thread3(randomFitting, lidarDataPoints,  ekf, ekf.distance,  ekf.w - 4*PI/180, a3);
-    thread thread4(randomFitting, lidarDataPoints,  ekf, ekf.distance,  ekf.w + 8*PI/180, a4);
-    thread thread5(randomFitting, lidarDataPoints,  ekf, ekf.distance,  ekf.w - 8*PI/180, a5);
+    thread thread1(randomFitting, v1,  ekf, ekf.distance,  ekf.w, a1);
+    thread thread2(randomFitting, v2,  ekf, ekf.distance,  ekf.w + 4*PI/180, a2);
+    thread thread3(randomFitting, v3,  ekf, ekf.distance,  ekf.w - 4*PI/180, a3);
+    thread thread4(randomFitting, v4,  ekf, ekf.distance,  ekf.w + 8*PI/180, a4);
+    thread thread5(randomFitting, v5,  ekf, ekf.distance,  ekf.w - 8*PI/180, a5);
 
 
     thread1.join();
