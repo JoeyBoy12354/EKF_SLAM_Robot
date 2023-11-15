@@ -1179,22 +1179,29 @@ motorCalibrate()
 # timeOffR=0.0021093643198906373 
 
 
-
-# timeOnL=0.008
-# timeOnR=0.00767486375
-# timeOffL=0.002
-# timeOffR=0.00232513625
-
-# timeOnL=0.008
-# timeOnR=0.00767486375
-# timeOffL=0.002
-# timeOffR=0.00232513625
-
-
-timeOnL=0.007647594936708859
+timeOnL=0.007746434231378764
 timeOnR=0.008
-timeOffL=0.0023524050632911415 
+timeOffL=0.002253565768621236
 timeOffR=0.002	
+
+
+
+
+# timeOnL=0.008
+# timeOnR=0.00767486375
+# timeOffL=0.002
+# timeOffR=0.00232513625
+
+# timeOnL=0.008
+# timeOnR=0.00767486375
+# timeOffL=0.002
+# timeOffR=0.00232513625
+
+
+# timeOnL=0.007647594936708859
+# timeOnR=0.008
+# timeOffL=0.0023524050632911415 
+# timeOffR=0.002	
 
 
 # timeOnL=0.008
