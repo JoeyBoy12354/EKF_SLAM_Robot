@@ -119,25 +119,43 @@ namespace Data_Functions{
     
 
 
-    void lidarDataProcessing(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints, float x, float y, float angle){
+    void lidarDataProcessing(vector<PolPoint> dataPoints, vector<CarPoint>& carPoints,vector<PolPoint>& cornerPolarPoints){
         //cout<<"\n lidarDataProcessing"<<endl;
 
         carPoints = convertCartesian(dataPoints);
-        //readCarFromCSV(carPoints);
-        //fitCartesian(carPoints,x,y,angle);
 
-        saveCarToCSV(carPoints);
-        cout<<"\nNumber of CAR points"<<carPoints.size(); 
 
         //cout<<"\n RANSAC py RUN \n"<<endl;
-        vector<CarPoint> cornerPoints = getCorners();
+        //vector<CarPoint> cornerPoints = getCorners();
 
-
-        cout<<"DATA: NUMBER OF CORNERS POINTS = "<<cornerPoints.size()<<endl;
-        for(int i =0;i<cornerPoints.size();i++){
-            cout<<cornerPoints[i]<<" | ";
+        vector<CarPoint> cornerPoints;
+        vector<CarPoint> temp;
+        
+        int maxSize = 2;
+        for(int i =0;i<5;i++){
+            temp = getRANSACCorners(carPoints);
+            if(temp.size()>maxSize){
+                cornerPoints = temp;
+            }   
         }
-        cout<<endl;
+
+        //This is emergency fetch
+        int noRuns = 0;
+        while(cornerPoints.size()<2 && noRuns<10){
+            cout<<"Too few Corners!"<<endl;
+            cornerPoints = getRANSACCorners(carPoints);
+            noRuns+=1;
+        }
+
+        noCorners = cornerPoints.size();
+
+
+        //Convert cornerPoints to polar
+        for(int i =0;i<cornerPoints.size();i++){
+            PolPoint newPoint;
+            newPoint.distance = sqrt(pow(cornerPoints[i].x,2) + pow(cornerPoints[i].y,2));
+            newPoint.angle = atan2(cornerPoints[i].y,cornerPoints[i].x);
+            cornerPolarPoints.push_back(newPoint);
 
         return;
      
@@ -175,8 +193,6 @@ namespace Data_Functions{
 
     noCorners = cornerPoints.size();
 
-
-    
 
     //Convert cornerPoints to polar
     for(int i =0;i<cornerPoints.size();i++){

@@ -744,6 +744,46 @@ void atSim(){
 }
 
 
+void runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarDataPoints){
+    float a1=0;
+    float a2=0;
+    float a3=0;
+    float a4=0;
+    float a5=0;
+
+    thread thread1(randomFitting, lidarDataPoints,  ekf, ekf.d,  ekf.w, a1);
+    thread thread2(randomFitting, lidarDataPoints,  ekf, ekf.d,  ekf.w + 4*PI/180, a2);
+    thread thread3(randomFitting, lidarDataPoints,  ekf, ekf.d,  ekf.w - 4*PI/180, a3);
+    thread thread4(randomFitting, lidarDataPoints,  ekf, ekf.d,  ekf.w + 8*PI/180, a4);
+    thread thread5(randomFitting, lidarDataPoints,  ekf, ekf.d,  ekf.w - 8*PI/180, a5);
+
+
+    thread1.join();
+    thread2.join();
+    thread3.join();
+    thread4.join();
+    thread5.join();
+
+    cout<<"a1 = ",a1<<", a2 = "<<a2<<", a3 = "<<a3<<", a4 = "<<a4<<", a5 = "<<a5<<endl;
+
+    if(a1>a2 && a1>a3 && a1>a4 && a1>a5){
+        return ekf.w;
+    }else if(a2>a1 && a2>a3 && a2>a4 && a2>a5){
+        return ekf.w + 4*PI/180;
+    }else if(a3>a1 && a3>a2 && a3>a4 && a3>a5){
+        return ekf.w - 4*PI/180;
+    }else if(a4>a1 && a4>a2 && a4>a3 && a4>a5){
+        return ekf.w + 8*PI/180;
+    }else if(a5>a1 && a5>a2 && a5>a3 && a5>a4){
+        return ekf.w - 8*PI/180;
+    }
+
+
+
+
+}
+
+
 void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun, bool finalRun,bool postMap,vector<CarPoint>& path, vector<PolPoint> lidarDataPoints){
     
 
@@ -753,6 +793,10 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
 
 
     if(error == false){
+
+        runThread(ekf, lidarDataPoints)
+
+    
         //Predict Position
         ekf.updateMotion();
         
@@ -779,6 +823,8 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
         fitCartesian(testPoints,ekf.State(0),ekf.State(1),ekf.State(2));
         //Write new Scan
         saveCarMotionToCSV(testPoints);
+
+
 
         // for(int i =0;i<polarCornerPoints.size();i++){
         //     ExtendedKalmanFilter ekf;
