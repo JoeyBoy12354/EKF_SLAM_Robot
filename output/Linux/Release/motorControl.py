@@ -478,7 +478,7 @@ def getAngleDifference(LNoRot,RNoRot,angle):
         return angle
 
     #We also need to check for bad data
-    elif(abs(LNoRot/RNoRot) <=0.7 or abs(RNoRot/LNoRot) <=0.7 or abs(RNoRot - LNoRot) >= 0.4 ):
+    elif(abs(LNoRot/RNoRot) <=0.7 or abs(RNoRot/LNoRot) <=0.7 or abs(RNoRot - LNoRot) >= 0.3 ):
         print("BAD MOTOR DATA DETECTED! Difference >= 70% || Difference >= 0.4 rotations")
 
 
@@ -1141,6 +1141,9 @@ def testSonar():
     while(True):
         avoidanceForward(100)
     
+def testMotorSpeedSensor():
+
+
     
 wiringpi.pinMode(LSS_Pin, 0)       # Set pin to 0 ( INPUT )
 wiringpi.pinMode(RSS_Pin, 0)       # Set pin to 0 ( INPUT )
