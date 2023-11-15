@@ -778,7 +778,7 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
 
         fitCartesian(testPoints,ekf.State(0),ekf.State(1),ekf.State(2));
         //Write new Scan
-        saveCarToCSV(lidardata);
+        saveCarMotionToCSV(testPoints);
 
         // for(int i =0;i<polarCornerPoints.size();i++){
         //     ExtendedKalmanFilter ekf;
