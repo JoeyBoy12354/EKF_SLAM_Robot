@@ -595,7 +595,7 @@ def motorCorrection(distance,runs,left_sum,right_sum,lefts,rights,error):
         right_sum+=right
         time.sleep(0.6)
 
-        left,right = speedControl(0,distance*runs,False)
+        #left,right = speedControl(0,distance*runs,False)
         # lefts.append(left)
         # rights.append(right)
         # error.append(right - left)
@@ -847,7 +847,7 @@ def motorCalibrate():
 
 
 
-    distance =600
+    distance =100
     runs = 1 #THIS CANNOT BE CHANGED
 
     lefts = []
