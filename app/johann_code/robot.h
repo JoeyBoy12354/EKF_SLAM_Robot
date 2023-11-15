@@ -143,6 +143,7 @@ namespace CSV_Functions{
     void saveCarToFullMapCSV(vector<CarPoint>& points);
     void appendCarToFullMapCSV(vector<CarPoint>& points);
     void readCarFromFullMapCSV(vector<CarPoint>& points);
+    void saveCarMotionToCSV(const vector<CarPoint>& points);
 
     //EKF
     void saveLandmarkToCSV(vector<CarPoint> landmarks);

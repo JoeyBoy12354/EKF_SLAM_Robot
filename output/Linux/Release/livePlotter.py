@@ -309,6 +309,7 @@ def animate(i):
     #x3,y3=fetchCoord('cornersCSV.csv')
     x4,y4=fetchCoord('mapCSV.csv')
     x5,y5=fetchCoord('triangleCSV.csv')
+    x6,y6=fetchCoord('mapMotCSV.csv')
     #position,x_goal,y_goal,true_move = fetchRobot()
     #print("POSITION = ",position)
 
@@ -344,6 +345,7 @@ def animate(i):
     
     #plt.plot(x3, y3, 'X', label='RNC_points', markersize=7,color='b')
     plt.plot(x2, y2, 'X', label='Landmarks', markersize=7,color='g')
+    plt.plot(x6, y6, '--', label='Motor Scan', markersize=7,color='k')
     
 
     
