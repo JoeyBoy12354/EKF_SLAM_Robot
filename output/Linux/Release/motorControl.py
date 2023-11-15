@@ -332,6 +332,8 @@ def speedControl(theta,distance,direction):
     NoTicks = NoRotations*20
     print("Set noTicks = 20 (1 full rotation)")
     NoTicks = 20
+
+    NoTicks=NoTicks-1
     
     left_old = 0
     left_new = 0
