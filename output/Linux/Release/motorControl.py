@@ -709,10 +709,10 @@ def motorCalibrate():
     # timeOffL=0.002449438202247191
     # timeOffR=0.002	
 
-    # timeOnL=0.007400561797752809
-    # timeOnR=0.008
-    # timeOffL=0.002599438202247191
-    # timeOffR=0.002	
+    timeOnL=0.007400561797752809
+    timeOnR=0.008
+    timeOffL=0.002599438202247191
+    timeOffR=0.002	
 
     # timeOnL=0.008
     # timeOnR=0.007400561797752809
@@ -820,10 +820,10 @@ def motorCalibrate():
 
 
 
-    timeOnL=0.00783673469387755
-    timeOnR=0.008
-    timeOffL=0.0021632653061224496
-    timeOffR=0.002
+    # timeOnL=0.00783673469387755
+    # timeOnR=0.008
+    # timeOffL=0.0021632653061224496
+    # timeOffR=0.002
 
 
 
