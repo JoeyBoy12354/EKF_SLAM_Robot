@@ -107,12 +107,14 @@ namespace Mapping_Functions{
                 cout<<"YAHA"<<endl;
 
 
-            }else{
+            }else if(acc_percentage>10){
                 cout<<"\n\n NOT ACCURATE SCAN @ "<< acc_percentage <<" %\n\n";
                 for(int i = 0;i<temp.size();i++){
                     oldmap.push_back(temp[i]);
                 }
 
+            }else{
+                cout<<"Not accurate scan do nothing"<<endl;
             }
 
         }else{
