@@ -108,13 +108,13 @@ namespace Mapping_Functions{
 
 
             }else if(acc_percentage>10){
-                cout<<"\n\n NOT ACCURATE SCAN @ "<< acc_percentage <<" %\n\n";
+                cout<<"\n\n NOT VERY ACCURATE SCAN addNewPoints @ "<< acc_percentage <<" %\n\n";
                 for(int i = 0;i<temp.size();i++){
                     oldmap.push_back(temp[i]);
                 }
 
             }else{
-                cout<<"Not accurate scan do nothing"<<endl;
+                cout<<"\n\n NOT ACCURATE SCAN ADD NOTHING @ "<< acc_percentage <<" %\n\n";
             }
 
         }else{
