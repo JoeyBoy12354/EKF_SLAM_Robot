@@ -964,7 +964,7 @@ def motorCalibrate():
 
 
 
-    distance =1500
+    distance =600
     runs = 1 #THIS CANNOT BE CHANGED
 
     lefts = []
