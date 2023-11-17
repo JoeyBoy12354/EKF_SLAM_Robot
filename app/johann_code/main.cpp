@@ -744,54 +744,101 @@ void atSim(){
 }
 
 
-void randomFitting(vector<PolPoint>& lidarDataPoints, ExtendedKalmanFilter& ekf, float d, float w,float& acc){
+void randomFitting(vector<PolPoint>& lidarDataPoints,vector<CarPoint> carPoints, vector<PolPoint> polarCornerPoints, ExtendedKalmanFilter& ekf, float d, float w,float& acc){
         ekf.w = w;
         ekf.distance = d;
 
         ekf.updateMotion();
-
-        vector<CarPoint> carPoints;
-        vector<PolPoint> polarCornerPoints;
-        lidarDataProcessing(lidarDataPoints,carPoints,polarCornerPoints);
         ekf.TestPolValues = polarCornerPoints;
 
 
         //Run EKF
         ekf.runEKF();
 
-        fitCartesian(carPoints,ekf.State(0),ekf.State(1),ekf.State(2));
+        //fitCartesian(carPoints,ekf.State(0),ekf.State(1),ekf.State(2));
 
-        vector<CarPoint> oldmap;
-        readCarFromFullMapCSV(oldmap);//Fetch all current poin
+        //I think accuracy would be better confirmed by corner distances
+        //Once again we will assume only 4 corners max
+        CarPoint c1{State(3),State(4)};
+        CarPoint c2{State(5),State(6)};
+        CarPoint c3{State(7),State(8)};
+        CarPoint c4{State(9),State(10)};
+        vector<CarPoint> Stored_vec{c1,c2,c3,c4};
+        vector<float> distances;
 
-        float accuracy = 0;
-        float accuracy_dist = 15;
-        bool isAccurate=false;
 
-        //Append new points to current oldmap
-        //This is okay because we do not use fullmap data for anything
-        for(int i =0;i<carPoints.size();i++){
-            isAccurate = false;
-            for(int j=0;j<oldmap.size();j++){
+        for(int i =0;i<4;i++){
+            
+            CarPoint StoredPoint = Stored_vec[i];
+            if(StoredPoint.x !=0 && StoredPoint.y !=0)
+            float deltaX = StoredPoint.x - ekf.State(0);
+            float deltaY = StoredPoint.y - ekf.State(1);
+            double q = pow(deltaX,2) + pow(deltaY,2);
 
-                if(pointDistance(carPoints[i],oldmap[j]) < accuracy_dist){
-                    isAccurate = true;
+            Matrix<float, 2, 1> z_cap_m;
+            z_cap_m(0) = sqrt(q);
+            z_cap_m(1) = (atan2(deltaY, deltaX)) - ekf.State(2);
+            z_cap_m(1) = pi_2_pi(z_cap_m(1));
+
+            float dist=10000;
+
+            for(int j=0;j<polarCornerPoints.size();j++){
+                Matrix<float, 2, 1> z;
+                z(0) = polarCornerPoints[j].distance;
+                z(1) = polarCornerPoints[j].angle;
+
+                CarPoint Stored = {z_cap_m(0)*cos(z_cap_m(1)),z_cap_m(0)*sin(z_cap_m(1))};
+                CarPoint Observed = {z(0)*cos(z(1)),z(0)*sin(z(1))};
+
+                if( dist>pointDistance(Stored,Observed)){
+                    dist = pointDistance(Stored,Observed);
                 }
             }
-            if(isAccurate == true){
-                accuracy=accuracy+ 1;
-                //oldmap.push_back(lidardata[i]);
-            }
+
+            distances.push_back(dist);
         }
 
-        float acc_percentage = (accuracy/carPoints.size())*100;
+        
+        for(int i=0;i<distances.size();i++){
+            acc+=distances[i];
+        }
+        acc = acc/distances.size();
 
-        acc = acc_percentage;
+
+
+
+
+        // vector<CarPoint> oldmap;
+        // readCarFromFullMapCSV(oldmap);//Fetch all current poin
+
+        // float accuracy = 0;
+        // float accuracy_dist = 15;
+        // bool isAccurate=false;
+
+        // //Append new points to current oldmap
+        // //This is okay because we do not use fullmap data for anything
+        // for(int i =0;i<carPoints.size();i++){
+        //     isAccurate = false;
+        //     for(int j=0;j<oldmap.size();j++){
+
+        //         if(pointDistance(carPoints[i],oldmap[j]) < accuracy_dist){
+        //             isAccurate = true;
+        //         }
+        //     }
+        //     if(isAccurate == true){
+        //         accuracy=accuracy+ 1;
+        //         //oldmap.push_back(lidardata[i]);
+        //     }
+        // }
+
+        // float acc_percentage = (accuracy/carPoints.size())*100;
+
+        // acc = acc_percentage;
         return;
     }
 
 
-float runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarDataPoints,vector<float>& accuracy) {
+ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarDataPoints,vector<float>& accuracy, vector<CarPoint> carPoints, vector<PolPoint> polarCornerPoints) {
     cout<<"Running ScanMatch Threads"<<endl;
 
     float a1 = 0;//0
@@ -848,24 +895,24 @@ float runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarDataPoints,vecto
     ExtendedKalmanFilter ekf14 = ekf;
     ExtendedKalmanFilter ekf15 = ekf;
 
-    thread thread1(randomFitting, std::ref(v1), std::ref(ekf1), ekf.distance, ekf.w, std::ref(a1));
-    thread thread2(randomFitting, std::ref(v2), std::ref(ekf2), ekf.distance, ekf.w + 4 * PI / 180, std::ref(a2));
-    thread thread3(randomFitting, std::ref(v3), std::ref(ekf3), ekf.distance, ekf.w - 4 * PI / 180, std::ref(a3));
-    thread thread4(randomFitting, std::ref(v4), std::ref(ekf4), ekf.distance, ekf.w + 8 * PI / 180, std::ref(a4));
-    thread thread5(randomFitting, std::ref(v5), std::ref(ekf5), ekf.distance, ekf.w - 8 * PI / 180, std::ref(a5));
+    thread thread1(randomFitting, std::ref(v1), carPoints, polarCornerPoints, std::ref(ekf1), ekf.distance, ekf.w, std::ref(a1));
+    thread thread2(randomFitting, std::ref(v2), carPoints, polarCornerPoints, std::ref(ekf2), ekf.distance, ekf.w + 4 * PI / 180, std::ref(a2));
+    thread thread3(randomFitting, std::ref(v3), carPoints, polarCornerPoints, std::ref(ekf3), ekf.distance, ekf.w - 4 * PI / 180, std::ref(a3));
+    thread thread4(randomFitting, std::ref(v4), carPoints, polarCornerPoints, std::ref(ekf4), ekf.distance, ekf.w + 8 * PI / 180, std::ref(a4));
+    thread thread5(randomFitting, std::ref(v5), carPoints, polarCornerPoints, std::ref(ekf5), ekf.distance, ekf.w - 8 * PI / 180, std::ref(a5));
 
-    thread thread6(randomFitting, std::ref(v6), std::ref(ekf6), ekf.distance, ekf.w + 12 * PI / 180, std::ref(a6));
-    thread thread7(randomFitting, std::ref(v7), std::ref(ekf7), ekf.distance, ekf.w - 12 * PI / 180, std::ref(a7));
-    thread thread8(randomFitting, std::ref(v8), std::ref(ekf8), ekf.distance, ekf.w + 16 * PI / 180, std::ref(a8));
-    thread thread9(randomFitting, std::ref(v9), std::ref(ekf9), ekf.distance, ekf.w - 16 * PI / 180, std::ref(a9));
-    thread thread10(randomFitting, std::ref(v10), std::ref(ekf10), ekf.distance, ekf.w + 20 * PI / 180, std::ref(a10));
-    thread thread11(randomFitting, std::ref(v11), std::ref(ekf11), ekf.distance, ekf.w - 20 * PI / 180, std::ref(a11));
+    thread thread6(randomFitting, std::ref(v6), carPoints, polarCornerPoints, std::ref(ekf6), ekf.distance, ekf.w + 12 * PI / 180, std::ref(a6));
+    thread thread7(randomFitting, std::ref(v7), carPoints, polarCornerPoints, std::ref(ekf7), ekf.distance, ekf.w - 12 * PI / 180, std::ref(a7));
+    thread thread8(randomFitting, std::ref(v8), carPoints, polarCornerPoints, std::ref(ekf8), ekf.distance, ekf.w + 16 * PI / 180, std::ref(a8));
+    thread thread9(randomFitting, std::ref(v9), carPoints, polarCornerPoints, std::ref(ekf9), ekf.distance, ekf.w - 16 * PI / 180, std::ref(a9));
+    thread thread10(randomFitting, std::ref(v10), carPoints, polarCornerPoints, std::ref(ekf10), ekf.distance, ekf.w + 20 * PI / 180, std::ref(a10));
+    thread thread11(randomFitting, std::ref(v11), carPoints, polarCornerPoints, std::ref(ekf11), ekf.distance, ekf.w - 20 * PI / 180, std::ref(a11));
 
-    thread thread12(randomFitting, std::ref(v12), std::ref(ekf12), ekf.distance, ekf.w + 24 * PI / 180, std::ref(a12));
-    thread thread13(randomFitting, std::ref(v13), std::ref(ekf13), ekf.distance, ekf.w - 24 * PI / 180, std::ref(a13));
+    thread thread12(randomFitting, std::ref(v12), carPoints, polarCornerPoints, std::ref(ekf12), ekf.distance, ekf.w + 24 * PI / 180, std::ref(a12));
+    thread thread13(randomFitting, std::ref(v13), carPoints, polarCornerPoints, std::ref(ekf13), ekf.distance, ekf.w - 24 * PI / 180, std::ref(a13));
 
-    thread thread14(randomFitting, std::ref(v14), std::ref(ekf14), ekf.distance, ekf.w + 28 * PI / 180, std::ref(a14));
-    thread thread15(randomFitting, std::ref(v15), std::ref(ekf15), ekf.distance, ekf.w - 28 * PI / 180, std::ref(a15));
+    thread thread14(randomFitting, std::ref(v14), carPoints, polarCornerPoints, std::ref(ekf14), ekf.distance, ekf.w + 28 * PI / 180, std::ref(a14));
+    thread thread15(randomFitting, std::ref(v15), carPoints, polarCornerPoints, std::ref(ekf15), ekf.distance, ekf.w - 28 * PI / 180, std::ref(a15));
 
 
     thread1.join();
@@ -894,61 +941,106 @@ float runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarDataPoints,vecto
 
     //vector<float> acc_vect{ a1, a2, a3, a4, a5, a6, a7, a8, a9, a10,  a11};
     vector<float> acc_vect{ a1, a2, a3, a4, a5, a6, a7, a8, a9, a10,  a11, a12, a13, a14, a15};
-    float max = *max_element (acc_vect.begin(), acc_vect.end());
+    //float max = *max_element (acc_vect.begin(), acc_vect.end());
 
+    float max = *min_element (acc_vect.begin(), acc_vect.end()); //This is due to us now using average distance
 
+    //cout<<"\n\na1 = "<<a1<<", a2 = "<<a2<<", a3 = "<<a3<<", a4 = "<<a4<<", a5 = "<<a5<<endl;
 
-    cout<<"\n\na1 = "<<a1<<", a2 = "<<a2<<", a3 = "<<a3<<", a4 = "<<a4<<", a5 = "<<a5<<endl;
-
-    if(a1>a2 && a1>a3 && a1>a4 && a1>a5){
-        return ekf.w;
-    }else if(a2>a1 && a2>a3 && a2>a4 && a2>a5){
-        return ekf.w + 4*PI/180;
-    }else if(a3>a1 && a3>a2 && a3>a4 && a3>a5){
-        return ekf.w - 4*PI/180;
-    }else if(a4>a1 && a4>a2 && a4>a3 && a4>a5){
-        return ekf.w + 8*PI/180;
-    }else if(a5>a1 && a5>a2 && a5>a3 && a5>a4){
-        return ekf.w - 8*PI/180;
+    cout<<"\n\n";
+    for(int i =0;i<acc_vect.size();i++){
+        cout<<"a"<<i+1<<acc_vect[i];
     }
+    cout<<endl;
 
 
 
     if(max == a1){
-        return ekf.w;
+        return ekf1;
     }else if(max == a2){
-        return ekf.w + 4*PI/180;
+        return ekf2;
     }else if(max == a3){
-        return ekf.w - 4*PI/180;
+        return ekf3;
     }else if(max == a4){
-        return ekf.w + 8*PI/180;
+        return ekf4;
     }else if(max == a5){
-        return ekf.w - 8*PI/180;
+        return ekf5;
     }
     
     else if(max == a6){
-        return ekf.w + 12*PI/180;
+        return ekf6;
     }else if(max == a7){
-        return ekf.w - 12*PI/180;
+        return ekf7;
     }else if(max == a8){
-        return ekf.w + 16*PI/180;
+        return ekf8;
     }else if(max == a9){
-        return ekf.w - 16*PI/180;
+        return ekf9;
     }else if(max == a10){
-        return ekf.w + 20*PI/180;
+        return ekf10;
     }else if(max == a11){
-        return ekf.w - 20*PI/180;
+        return ekf11;
     }
 
     else if(max == a12){
-        return ekf.w + 24*PI/180;
+        return ekf12;
     }else if(max == a13){
-        return ekf.w - 24*PI/180;
+        return ekf13;
     }else if(max == a14){
-        return ekf.w + 28*PI/180;
+        return ekf14;
     }else if(max == a15){
-        return ekf.w - 28*PI/180;
+        return ekf15;
     }
+
+
+    // if(a1>a2 && a1>a3 && a1>a4 && a1>a5){
+    //     return ekf.w;
+    // }else if(a2>a1 && a2>a3 && a2>a4 && a2>a5){
+    //     return ekf.w + 4*PI/180;
+    // }else if(a3>a1 && a3>a2 && a3>a4 && a3>a5){
+    //     return ekf.w - 4*PI/180;
+    // }else if(a4>a1 && a4>a2 && a4>a3 && a4>a5){
+    //     return ekf.w + 8*PI/180;
+    // }else if(a5>a1 && a5>a2 && a5>a3 && a5>a4){
+    //     return ekf.w - 8*PI/180;
+    // }
+
+
+
+    // if(max == a1){
+    //     return ekf.w;
+    // }else if(max == a2){
+    //     return ekf.w + 4*PI/180;
+    // }else if(max == a3){
+    //     return ekf.w - 4*PI/180;
+    // }else if(max == a4){
+    //     return ekf.w + 8*PI/180;
+    // }else if(max == a5){
+    //     return ekf.w - 8*PI/180;
+    // }
+    
+    // else if(max == a6){
+    //     return ekf.w + 12*PI/180;
+    // }else if(max == a7){
+    //     return ekf.w - 12*PI/180;
+    // }else if(max == a8){
+    //     return ekf.w + 16*PI/180;
+    // }else if(max == a9){
+    //     return ekf.w - 16*PI/180;
+    // }else if(max == a10){
+    //     return ekf.w + 20*PI/180;
+    // }else if(max == a11){
+    //     return ekf.w - 20*PI/180;
+    // }
+
+    // else if(max == a12){
+    //     return ekf.w + 24*PI/180;
+    // }else if(max == a13){
+    //     return ekf.w - 24*PI/180;
+    // }else if(max == a14){
+    //     return ekf.w + 28*PI/180;
+    // }else if(max == a15){
+    //     return ekf.w - 28*PI/180;
+    // }
     
 
 
@@ -967,16 +1059,18 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
 
     if(error == false){
 
-        if(firstRun == false){
-            vector<float> accuracy;
-            cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
-            //float angle = runThread(ekf, lidarDataPoints,accuracy);
-            //ekf.w = runThread(ekf, lidarDataPoints,accuracy);
-            cout<<"\n MAIN: afta_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
-            // for(int i =0;i<accuracy.size();i++){
-            //     cout<<"a"<<i+1<<":"<<accuracy[i]<<endl;
-            // }
-        }
+        ExtendedKalmanFilter ekf_old = ekf;
+
+        // if(firstRun == false){
+        //     vector<float> accuracy;
+        //     cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+        //     //float angle = runThread(ekf, lidarDataPoints,accuracy);
+        //     ekf.w = runThread(ekf, lidarDataPoints,accuracy);
+        //     cout<<"\n MAIN: afta_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+        //     // for(int i =0;i<accuracy.size();i++){
+        //     //     cout<<"a"<<i+1<<":"<<accuracy[i]<<endl;
+        //     // }
+        // }
 
 
         
@@ -1003,22 +1097,24 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
             testPoints.push_back(carPoints[i]);
         }
 
+        //This saves the black odometry reading
         fitCartesian(testPoints,ekf.State(0),ekf.State(1),ekf.State(2));
-        //Write new Scan
         saveCarMotionToCSV(testPoints);
 
-
-
-        // for(int i =0;i<polarCornerPoints.size();i++){
-        //     ExtendedKalmanFilter ekf;
-
-        // }
-
-
-
+        //Set Corners and do EKF
         ekf.TestPolValues = polarCornerPoints;
-        //Run EKF
         ekf.runEKF();
+
+        //5th Corner thread fix
+        if(ekf.State(11) != 0 && ekf.State(12)!=0){
+            cout<<"\n5th Corner was added assume this is problematic and will be solved with thread tests"<<endl;
+            cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+            vector<float> accuracy;
+            ekf = runThread(ekf_old, lidarDataPoints,accuracy,  carPoints, polarCornerPoints);
+            cout<<"\n MAIN: afta_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+
+        }
+        
 
         cout<<"\n MAIN: after_ekf State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
         for(int i =3;i<dim;i=i+2){
