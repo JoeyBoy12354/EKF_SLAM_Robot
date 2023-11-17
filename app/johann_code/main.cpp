@@ -759,7 +759,7 @@ void randomFitting(vector<PolPoint>& lidarDataPoints,vector<CarPoint> carPoints,
 
         //I think accuracy would be better confirmed by corner distances
         //Once again we will assume only 4 corners max
-        CarPoint c1{State(3),State(4)};
+        CarPoint c1(State(3),State(4));
         CarPoint c2{State(5),State(6)};
         CarPoint c3{State(7),State(8)};
         CarPoint c4{State(9),State(10)};
@@ -770,32 +770,33 @@ void randomFitting(vector<PolPoint>& lidarDataPoints,vector<CarPoint> carPoints,
         for(int i =0;i<4;i++){
             
             CarPoint StoredPoint = Stored_vec[i];
-            if(StoredPoint.x !=0 && StoredPoint.y !=0)
-            float deltaX = StoredPoint.x - ekf.State(0);
-            float deltaY = StoredPoint.y - ekf.State(1);
-            double q = pow(deltaX,2) + pow(deltaY,2);
+                if(StoredPoint.x !=0 && StoredPoint.y !=0){
+                float deltaX = StoredPoint.x - ekf.State(0);
+                float deltaY = StoredPoint.y - ekf.State(1);
+                double q = pow(deltaX,2) + pow(deltaY,2);
 
-            Matrix<float, 2, 1> z_cap_m;
-            z_cap_m(0) = sqrt(q);
-            z_cap_m(1) = (atan2(deltaY, deltaX)) - ekf.State(2);
-            z_cap_m(1) = pi_2_pi(z_cap_m(1));
+                Matrix<float, 2, 1> z_cap_m;
+                z_cap_m(0) = sqrt(q);
+                z_cap_m(1) = (atan2(deltaY, deltaX)) - ekf.State(2);
+                z_cap_m(1) = pi_2_pi(z_cap_m(1));
 
-            float dist=10000;
+                float dist=10000;
 
-            for(int j=0;j<polarCornerPoints.size();j++){
-                Matrix<float, 2, 1> z;
-                z(0) = polarCornerPoints[j].distance;
-                z(1) = polarCornerPoints[j].angle;
+                for(int j=0;j<polarCornerPoints.size();j++){
+                    Matrix<float, 2, 1> z;
+                    z(0) = polarCornerPoints[j].distance;
+                    z(1) = polarCornerPoints[j].angle;
 
-                CarPoint Stored = {z_cap_m(0)*cos(z_cap_m(1)),z_cap_m(0)*sin(z_cap_m(1))};
-                CarPoint Observed = {z(0)*cos(z(1)),z(0)*sin(z(1))};
+                    CarPoint Stored = {z_cap_m(0)*cos(z_cap_m(1)),z_cap_m(0)*sin(z_cap_m(1))};
+                    CarPoint Observed = {z(0)*cos(z(1)),z(0)*sin(z(1))};
 
-                if( dist>pointDistance(Stored,Observed)){
-                    dist = pointDistance(Stored,Observed);
+                    if( dist>pointDistance(Stored,Observed)){
+                        dist = pointDistance(Stored,Observed);
+                    }
                 }
-            }
 
-            distances.push_back(dist);
+                distances.push_back(dist);
+            }
         }
 
         
