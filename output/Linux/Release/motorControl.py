@@ -331,7 +331,7 @@ def speedControl(theta,distance,direction):
                 
     NoTicks = NoRotations*20
     # print("Set noTicks = 20 (1 full rotation)")
-    # NoTicks = 100
+    NoTicks = 40
 
     NoTicks=NoTicks-1
     
@@ -992,10 +992,10 @@ def motorCalibrate():
     # timeOffL=0.003999438202247191
     # timeOffR=0.002
 
-    timeOnL=0.006250561797752809
-    timeOnR=0.008
-    timeOffL=0.003749438202247191
-    timeOffR=0.002
+    # timeOnL=0.006250561797752809
+    # timeOnR=0.008
+    # timeOffL=0.003749438202247191
+    # timeOffR=0.002
 
 
 
