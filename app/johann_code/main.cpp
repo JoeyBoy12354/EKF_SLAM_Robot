@@ -971,7 +971,7 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
             vector<float> accuracy;
             cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
             //float angle = runThread(ekf, lidarDataPoints,accuracy);
-            ekf.w = runThread(ekf, lidarDataPoints,accuracy);
+            //ekf.w = runThread(ekf, lidarDataPoints,accuracy);
             cout<<"\n MAIN: afta_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
             // for(int i =0;i<accuracy.size();i++){
             //     cout<<"a"<<i+1<<":"<<accuracy[i]<<endl;
