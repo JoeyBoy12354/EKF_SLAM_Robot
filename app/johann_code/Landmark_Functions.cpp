@@ -41,7 +41,7 @@ namespace Landmark_Functions{
             y.push_back(dataPoints[i].y);
         }
 
-        cout<<"B x size = "<<x.size()<<endl;
+        //cout<<"B x size = "<<x.size()<<endl;
         int sample_size = 80;
         int max_iters= 900;
         float inlier_thresh=0.002; //0.0005
