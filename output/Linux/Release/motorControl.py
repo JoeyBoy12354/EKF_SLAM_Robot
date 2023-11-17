@@ -331,7 +331,7 @@ def speedControl(theta,distance,direction):
                 
     NoTicks = NoRotations*20
     # print("Set noTicks = 20 (1 full rotation)")
-    NoTicks = 40
+    #NoTicks = 40
 
     NoTicks=NoTicks-1
     
@@ -1043,7 +1043,7 @@ def motorCalibrate():
 
 
 
-    distance =1000
+    distance =900
     runs = 1 #THIS CANNOT BE CHANGED
 
     lefts = []
