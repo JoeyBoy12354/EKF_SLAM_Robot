@@ -759,10 +759,10 @@ void randomFitting(vector<PolPoint>& lidarDataPoints,vector<CarPoint> carPoints,
 
         //I think accuracy would be better confirmed by corner distances
         //Once again we will assume only 4 corners max
-        CarPoint c1(State(3),State(4));
-        CarPoint c2{State(5),State(6)};
-        CarPoint c3{State(7),State(8)};
-        CarPoint c4{State(9),State(10)};
+        CarPoint c1(ekf.State(3),ekf.State(4));
+        CarPoint c2(ekf.State(5),ekf.State(6));
+        CarPoint c3(ekf.State(7),ekf.State(8));
+        CarPoint c4(ekf.State(9),ekf.State(10));
         vector<CarPoint> Stored_vec{c1,c2,c3,c4};
         vector<float> distances;
 
