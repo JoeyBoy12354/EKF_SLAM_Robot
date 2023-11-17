@@ -1103,8 +1103,8 @@ def motorCalibrate():
 
     
     
-    print("\n YOU HAVE 10s TO MOVE ME TO STARTING POSITION \n")
-    time.sleep(10)
+    # print("\n YOU HAVE 10s TO MOVE ME TO STARTING POSITION \n")
+    # time.sleep(10)
 
     return
 
