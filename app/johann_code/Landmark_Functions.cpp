@@ -60,16 +60,16 @@ namespace Landmark_Functions{
 
 
         vector<CarPoint> final_corners;
-        cout<<"LM: Corners = ";
+        //cout<<"LM: Corners = ";
         for (int i =0;i<trueCorners.size();i++) {
             // Access the values inside the VectorXf
             CarPoint lm;
             lm.x = trueCorners[i][0];
             lm.y = trueCorners[i][1];
             final_corners.push_back(lm);
-            cout<<lm<<",";
+            //cout<<lm<<",";
         }
-        cout<<endl;
+        //cout<<endl;
 
         return final_corners;
     }

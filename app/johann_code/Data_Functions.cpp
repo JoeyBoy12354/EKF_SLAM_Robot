@@ -89,7 +89,7 @@ namespace Data_Functions{
                 corners[i].y = rotatedY + y;
             }
 
-            writeCornersToCSV(corners);
+            //writeCornersToCSV(corners);
 
             
         }
@@ -141,7 +141,7 @@ namespace Data_Functions{
         //This is emergency fetch
         int noRuns = 0;
         while(cornerPoints.size()<2 && noRuns<10){
-            cout<<"Too few Corners!"<<endl;
+            //cout<<"Too few Corners!"<<endl;
             cornerPoints = getRANSACCorners(carPoints);
             noRuns+=1;
         }

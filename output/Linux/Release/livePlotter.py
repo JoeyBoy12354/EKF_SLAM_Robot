@@ -306,7 +306,7 @@ def animate(i):
     #fetchFromCSV
     x1,y1=fetchCoord('fullMapCSV.csv')
     x2,y2=fetchCoord('landmarkCSV.csv')
-    #x3,y3=fetchCoord('cornersCSV.csv')
+    #x3,y3=fetchCoord('cornersCSV.csv')//We stopped writing these in fitCartesian due to thread error
     x4,y4=fetchCoord('mapCSV.csv')
     x5,y5=fetchCoord('triangleCSV.csv')
     x6,y6=fetchCoord('mapMot.csv')
