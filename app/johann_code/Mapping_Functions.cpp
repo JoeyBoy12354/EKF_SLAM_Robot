@@ -778,8 +778,6 @@ namespace Mapping_Functions{
     }
 
 
-
-
      void gridMakeDots2(vector<CarPoint> mapdata, vector<vector<GridPoint>>& points){
         
 
@@ -1089,10 +1087,6 @@ namespace Mapping_Functions{
         // }
 
     }
-
-
-
-
 
 
 

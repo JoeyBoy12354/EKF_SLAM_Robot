@@ -506,9 +506,9 @@ namespace Navigation_Functions{
 
             }
         }
-        cout<<endl;
-        
-
+        if(d_avoid == 100000){
+            d_avoid = pointDistance(postPoint,map[i])+250;
+        }
 
         saveSonarIndicationToCSV(d_avoid);
         cout<<"NAVI: AvoidFor avoid: "<<avoidPoint<<", From: "<<postPoint<<" To : "<<goalPoint<<endl;
@@ -642,9 +642,6 @@ namespace Navigation_Functions{
         return;
 
     }
-
-
-
 
 
     //Set distance and angle to go to given grid point
