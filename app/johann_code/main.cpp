@@ -1081,11 +1081,7 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
         cout<<"\n MAIN: after_motion State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
 
 
-
-        
-
         //Process Data
-        
         vector<CarPoint> carPoints;
         vector<PolPoint> polarCornerPoints;
         lidarDataProcessing2(lidarDataPoints,carPoints,polarCornerPoints);
