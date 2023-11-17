@@ -731,10 +731,16 @@ def motorCalibrate():
     # timeOffL=0.002599438202247191
     # timeOffR=0.002	
 
+    # timeOnL=0.008
+    # timeOnR=0.007400561797752809
+    # timeOffL=0.002
+    # timeOffR=0.002599438202247191
+
+
     timeOnL=0.008
-    timeOnR=0.007400561797752809
+    timeOnR=0.007360561797752809
     timeOffL=0.002
-    timeOffR=0.002599438202247191
+    timeOffR=0.002639438202247191
 
 
     # timeOnL=0.008
@@ -1065,7 +1071,7 @@ def motorCalibrate():
     left_avg = 0
     right_avg = 0
 
-    num = 3
+    num = 5
 
     for i in range(0,num):
         left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg,lefts,rights,error)
