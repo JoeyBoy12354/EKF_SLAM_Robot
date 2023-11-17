@@ -277,7 +277,7 @@ def motorControl_wThread(theta,distance):
     #print("MC measured dist = ",dist)
     print("MC measured angle x = ",angle*180/math.pi)
     print("MC: Possible angle = ", getAngleDifference(left,right,angle)* 180/(math.pi))
-    #angle = getAngleDifference(left,right,angle)
+    angle = getAngleDifference(left,right,angle)
     print("MC: Post Difference angle = ", getAngleDifference(left,right,angle)* 180/(math.pi))
 
     return angle,dist
