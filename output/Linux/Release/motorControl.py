@@ -168,6 +168,7 @@ def avoidanceForward(distance):
 
     return shortenedDist
 
+
 #MOTOR THREADS
 def left_thread(timeOn,timeOff):
     #print("MC: LEFT_Thread")
@@ -681,8 +682,6 @@ def runSonarFront():
         left = False
     
     return
-
-
 
 
 
@@ -1463,7 +1462,6 @@ wiringpi.pinMode(LMot_Pin, 1)       # Set pin 6 to 1 ( OUTPUT )
 wiringpi.pinMode(RMot_Pin, 1)       # Set pin 7 to 1 ( OUTPUT )
 wiringpi.pinMode(LMotR_Pin, 1)       # Set pin 6 to 1 ( OUTPUT )
 wiringpi.pinMode(RMotR_Pin, 1)       # Set pin 7 to 1 ( OUTPUT )
-
 wiringpi.digitalWrite(RMotR_Pin, 1)
 wiringpi.digitalWrite(RMot_Pin, 1) 
 wiringpi.digitalWrite(LMotR_Pin, 1)
@@ -1624,7 +1622,6 @@ timeOnL=0.008
 timeOnR=0.00745250626566416
 timeOffL=0.002
 timeOffR=0.00254749373433584
-
 
 
 # # # #testDistances()
