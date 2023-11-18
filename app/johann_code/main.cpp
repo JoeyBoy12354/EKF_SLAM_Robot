@@ -1173,6 +1173,7 @@ void fullRunClean(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool first
 
 
     if(error == false){
+        ExtendedKalmanFilter ekf_old = ekf;
         //Predict Position
         ekf.updateMotion();
         
