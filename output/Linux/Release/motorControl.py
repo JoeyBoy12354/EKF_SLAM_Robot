@@ -1189,7 +1189,7 @@ def motorCalibrate():
     left_avg = 0
     right_avg = 0
 
-    num = 15
+    num = 1
 
     for i in range(0,num):
         left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg,lefts,rights,error)
@@ -1462,7 +1462,7 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 
 
 print("MC started")
-#motorCalibrate()
+motorCalibrate()
 #timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
 # timeOnL=0.0071
 # timeOnR=0.008
