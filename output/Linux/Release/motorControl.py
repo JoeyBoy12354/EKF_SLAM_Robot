@@ -41,6 +41,14 @@ echoPin3 = 31
 trigPin3 = 30
 powerPin3 = 11
 
+#Left
+echoPin2 = 23
+trigPin2 = 27
+
+#Right
+echoPin1 = 6
+trigPin1 = 5
+
 #Calibration
 timeOn = 0.009
 timeOff = 0.001
@@ -91,7 +99,6 @@ def avoidanceTurn(angle):
 
     if(rightSonarDist<turnableDistance or leftSonarDist<turnableDistance):
         print("AVOIDANCE TURN: left or right or both are too close to obstacle; LEFT = ",leftSonarDist," RIGHT = ",rightSonarDist)
-        time.sleep(5)
 
         #Right Side is closer than left
         if(rightSonarDist<leftSonarDist):
@@ -147,7 +154,7 @@ def avoidanceForward(distance):
 
     if((rightSonarDist - distance)<turnableDistance or (leftSonarDist - distance)<turnableDistance):
         print("AVOIDANCE FORWARD left or right or both are too close to obstacle; LEFT = ",leftSonarDist," RIGHT = ",rightSonarDist)
-        time.sleep(5)
+        time.sleep(0.1)
         if(rightSonarDist>leftSonarDist):
             shortenedDist = distance - turnableDistance + (leftSonarDist - distance) - 30
         
@@ -296,6 +303,7 @@ def speedControl(theta,distance,direction):
     sonarOn = True
     
     #sonar_thread = threading.Thread(target=runSonarEdge, args=())
+    sonar_thread = threading.Thread(target=runSonarFront(), args=())
     
     #SET THREAD AND DIRECTION
     if(theta == 0 and distance > 0):
@@ -343,7 +351,7 @@ def speedControl(theta,distance,direction):
     right_new = 0
     right_count = 0
 
-    #sonar_thread.start() #start edge detection thread
+    sonar_thread.start() #start edge detection thread
     startT = time.time()
 
     if(theta == 0 and distance > 0):
@@ -421,7 +429,8 @@ def speedControl(theta,distance,direction):
         thread.join()
 
     delta_time = time.time() - startT
-    #sonar_thread.join()
+    sonar_thread.join()
+    
     
     left = left_count/20
     right = right_count/20
@@ -593,6 +602,80 @@ def runSonarEdge():
     
     return
 
+def runSonarFront():
+    global sonarFlag
+    global sonarOn
+    echoPin = echoPin2
+    trigPin = trigPin2
+    sonarFlag = False
+    left = True
+
+    while(sonarOn == True):
+
+        if(left == True):
+            echoPin = echoPin2
+            trigPin = trigPin2
+        else:
+            echoPin = echoPin1
+            trigPin = trigPin1
+        
+
+        print("RunSonarEdge")
+        # Set trigger to False (Low)
+        wiringpi.digitalWrite(trigPin, 1) #Set low
+
+        # Allow module to settle
+        #print("Wait for module to settle")
+        time.sleep(1)#This can possibly be made to be 2us or 5us as commonly found on websites
+        #time.sleep(1.8)
+
+        # Send 10us pulse to trigger
+        #print("Send Pulse")
+        wiringpi.digitalWrite(trigPin, 0)#Set High
+        #print("trig set H = ",wiringpi.digitalRead(trigPin))
+        time.sleep(0.00001)
+        wiringpi.digitalWrite(trigPin, 1)#Set Low
+        #print("trig set L = ",wiringpi.digitalRead(trigPin))
+        start = time.time()
+        stop = time.time()
+
+        print("T0")
+
+        while (wiringpi.digitalRead(echoPin) == 0 and (start-stop) < 3):
+            start = time.time()
+            #print("start = ",start, "diff = ",start-stop)
+
+
+        print("T1: echo = 0")
+
+        while (wiringpi.digitalRead(echoPin) == 1 and (stop-start) < 3):
+            stop = time.time()
+            #print("stop = ",stop, "diff = ",start-stop)
+        
+        print("T2: echo = 1")
+        # Calculate pulse length
+        elapsed = stop-start
+
+        # Distance pulse travelled in that time is time
+        # multiplied by the speed of sound (cm/s) divided by 2. Then convert to mm
+        distance = (elapsed * 17150) * 10
+        
+        #Rounding
+        distance = round(distance,2)
+
+
+        print("Front Sonar Distance : %.1f" % distance," mm")
+
+        #The HC-SR04 Ultrasonics have a max range of 4000mm (4m) if something is further than that they will bug out
+        #And provide a distance greater than 12000 the same will occur for the minimum range of 20mm
+        if(distance < 130):
+            print("WARNING OBSTACLE DETECTED at distance = ",distance)
+            sonarFlag = True
+            sonarOn = False
+        
+        left = False
+    
+    return
 
 
 
