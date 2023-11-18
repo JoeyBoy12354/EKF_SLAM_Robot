@@ -54,7 +54,7 @@ timeOffR = 0.001
 # turnableDistance = 57 #Total distance from object required to make a turn
 # sensorDistace = 95 #Distance between sensors
 
-turnableDistance = 70 #Total distance from object required to make a turn (REMEMBER SAME AS IN NAVI C++)
+turnableDistance = 100 #Total distance from object required to make a turn (REMEMBER SAME AS IN NAVI C++)
 sensorDistace = 95 #Distance between sensors
 
 def fetchCoord(filename):
