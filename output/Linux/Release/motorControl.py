@@ -351,6 +351,7 @@ def speedControl(theta,distance,direction):
     right_new = 0
     right_count = 0
 
+    print("SonarThreadGonnaStart")
     sonar_thread.start() #start edge detection thread
     print("SonarThreadStarted")
     startT = time.time()
@@ -640,7 +641,7 @@ def runSonarFront():
         start = time.time()
         stop = time.time()
 
-        print("T0")
+        #print("T0")
 
         while (wiringpi.digitalRead(echoPin) == 0 and (start-stop) < 3):
             start = time.time()
