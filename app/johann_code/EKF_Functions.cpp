@@ -123,7 +123,7 @@ void ExtendedKalmanFilter::updateMotion() {
 
 
     cout<<"D: x = "<<Cd_x<<", y = "<<Cd_y<<", a = "<<w*180/PI<<endl;
-    cout<<"used%: x = "<<100*(C.x + Cd_x)/C.x<<", y = "<<100*(C.y + Cd_y)/C.y<<", a ="<<100*(State(2) + w)/State(2)<<endl;
+    //cout<<"used%: x = "<<100*(C.x + Cd_x)/C.x<<", y = "<<100*(C.y + Cd_y)/C.y<<", a ="<<100*(State(2) + w)/State(2)<<endl;
 
 
 
@@ -413,12 +413,13 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     State = State + Gain*(delta_z);
 
     //cout<<"Using z: r =  "<<z[0]<<", a = "<<z[1]*180/PI<<" || cap: r "<<z_cap[0]<<", a = "<<z_cap[1]*180/PI<<" || D: r = "<<delta_z[0]<<", a = "<<delta_z[1]*180/PI<<endl;
-    cout<<"\nD: r = "<<delta_z[0]<<", a = "<<delta_z[1]*180/PI<<endl;
+    cout<<"D: r = "<<delta_z[0]<<", a = "<<delta_z[1]*180/PI<<endl;
     cout<<"G: r = "<<sqrt(pow((Gain*delta_z)[0],2) + pow((Gain*delta_z)[1],2) )<<", a = "<<State[2]*180/PI<<endl;
-    cout<<"used%: r = "<<(abs(sqrt(pow((Gain*delta_z)[0],2) + pow((Gain*delta_z)[1],2) ))/delta_z[0])*100<<", a = "<<((Gain*delta_z)[2]/delta_z[1])*100<<endl;
+    //cout<<"used%: r = "<<(abs(sqrt(pow((Gain*delta_z)[0],2) + pow((Gain*delta_z)[1],2) ))/delta_z[0])*100<<", a = "<<((Gain*delta_z)[2]/delta_z[1])*100<<endl;
     //cout<<"D: x = "<<delta_z[0]*cos(delta_z[1])<<" || y = "<<delta_z[0]*cos(delta_z[1])<<" || a = "<<delta_z[1]*180/PI<<endl;
     //cout<<"Gain*z: x = "<<(Gain*delta_z)[0]<<" || y = "<<(Gain*delta_z)[1]<<" || a = "<<(Gain*delta_z)[2]*180/PI<<endl;
-    cout<<"EKF: after_ekf State: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
+    
+    //cout<<"EKF: after_ekf State: x="<<State[0]<<", y="<<State[1]<<", w="<<State[2]*180/PI<<" deg"<<endl;
     }
 
 // Update Covariance Matrix with new landmark

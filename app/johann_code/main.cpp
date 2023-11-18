@@ -860,6 +860,11 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
     float a14 = 0;//28
     float a15 = 0;//28
 
+    float a16 = 0;//32
+    float a17 = 0;//32
+    float a18 = 0;//34
+    float a19 = 0;//34
+
     vector<PolPoint> v1(lidarDataPoints.begin(), lidarDataPoints.end());
     vector<PolPoint> v2(lidarDataPoints.begin(), lidarDataPoints.end());
     vector<PolPoint> v3(lidarDataPoints.begin(), lidarDataPoints.end());
@@ -877,6 +882,11 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
     vector<PolPoint> v13(lidarDataPoints.begin(), lidarDataPoints.end());
     vector<PolPoint> v14(lidarDataPoints.begin(), lidarDataPoints.end());
     vector<PolPoint> v15(lidarDataPoints.begin(), lidarDataPoints.end());
+
+    vector<PolPoint> v16(lidarDataPoints.begin(), lidarDataPoints.end());
+    vector<PolPoint> v17(lidarDataPoints.begin(), lidarDataPoints.end());
+    vector<PolPoint> v18(lidarDataPoints.begin(), lidarDataPoints.end());
+    vector<PolPoint> v19(lidarDataPoints.begin(), lidarDataPoints.end());
 
     ExtendedKalmanFilter ekf1 = ekf;
     ExtendedKalmanFilter ekf2 = ekf;
@@ -896,6 +906,11 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
     ExtendedKalmanFilter ekf14 = ekf;
     ExtendedKalmanFilter ekf15 = ekf;
 
+    ExtendedKalmanFilter ekf16 = ekf;
+    ExtendedKalmanFilter ekf17 = ekf;
+    ExtendedKalmanFilter ekf18 = ekf;
+    ExtendedKalmanFilter ekf19 = ekf;
+
     thread thread1(randomFitting, std::ref(v1), carPoints, polarCornerPoints, std::ref(ekf1), ekf.distance, ekf.w, std::ref(a1));
     thread thread2(randomFitting, std::ref(v2), carPoints, polarCornerPoints, std::ref(ekf2), ekf.distance, ekf.w + 4 * PI / 180, std::ref(a2));
     thread thread3(randomFitting, std::ref(v3), carPoints, polarCornerPoints, std::ref(ekf3), ekf.distance, ekf.w - 4 * PI / 180, std::ref(a3));
@@ -911,9 +926,14 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
 
     thread thread12(randomFitting, std::ref(v12), carPoints, polarCornerPoints, std::ref(ekf12), ekf.distance, ekf.w + 24 * PI / 180, std::ref(a12));
     thread thread13(randomFitting, std::ref(v13), carPoints, polarCornerPoints, std::ref(ekf13), ekf.distance, ekf.w - 24 * PI / 180, std::ref(a13));
-
     thread thread14(randomFitting, std::ref(v14), carPoints, polarCornerPoints, std::ref(ekf14), ekf.distance, ekf.w + 28 * PI / 180, std::ref(a14));
     thread thread15(randomFitting, std::ref(v15), carPoints, polarCornerPoints, std::ref(ekf15), ekf.distance, ekf.w - 28 * PI / 180, std::ref(a15));
+
+    thread thread16(randomFitting, std::ref(v16), carPoints, polarCornerPoints, std::ref(ekf16), ekf.distance, ekf.w + 32 * PI / 180, std::ref(a16));
+    thread thread17(randomFitting, std::ref(v17), carPoints, polarCornerPoints, std::ref(ekf17), ekf.distance, ekf.w - 32 * PI / 180, std::ref(a17));
+    thread thread18(randomFitting, std::ref(v18), carPoints, polarCornerPoints, std::ref(ekf18), ekf.distance, ekf.w + 34 * PI / 180, std::ref(a18));
+    thread thread19(randomFitting, std::ref(v19), carPoints, polarCornerPoints, std::ref(ekf19), ekf.distance, ekf.w - 34 * PI / 180, std::ref(a19));
+
 
 
     thread1.join();
@@ -934,6 +954,11 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
     thread14.join();
     thread15.join();
 
+    thread16.join();
+    thread17.join();
+    thread18.join();
+    thread19.join();
+
     // accuracy.push_back(a1);
     // accuracy.push_back(a2);
     // accuracy.push_back(a3);
@@ -941,7 +966,9 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
     // accuracy.push_back(a5);
 
     //vector<float> acc_vect{ a1, a2, a3, a4, a5, a6, a7, a8, a9, a10,  a11};
-    vector<float> acc_vect{ a1, a2, a3, a4, a5, a6, a7, a8, a9, a10,  a11, a12, a13, a14, a15};
+    //vector<float> acc_vect{ a1, a2, a3, a4, a5, a6, a7, a8, a9, a10,  a11, a12, a13, a14, a15};
+
+    vector<float> acc_vect{ a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19};
     //float max = *max_element (acc_vect.begin(), acc_vect.end());
 
     float max = *min_element (acc_vect.begin(), acc_vect.end()); //This is due to us now using average distance
@@ -950,7 +977,7 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
 
     cout<<"\n\n";
     for(int i =0;i<acc_vect.size();i++){
-        cout<<"a"<<i+1<<acc_vect[i];
+        cout<<", a"<<i+1<<" = "<<acc_vect[i];
     }
     cout<<endl;
 
@@ -991,6 +1018,17 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
     }else if(max == a15){
         return ekf15;
     }
+
+    else if(max == a16){
+        return ekf16;
+    }else if(max == a17){
+        return ekf17;
+    }else if(max == a18){
+        return ekf18;
+    }else if(max == a19){
+        return ekf19;
+    }
+
 
 
     // if(a1>a2 && a1>a3 && a1>a4 && a1>a5){
