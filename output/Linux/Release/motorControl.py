@@ -613,6 +613,8 @@ def runSonarFront():
     sonarFlag = False
     left = True
 
+    return
+
     while(sonarOn == True):
 
         if(left == True):
