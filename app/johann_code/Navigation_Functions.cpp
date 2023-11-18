@@ -408,12 +408,14 @@ namespace Navigation_Functions{
         float mindistL = 1000;
         float mindistR = 1000;
         float d=0;
+        int noCollisionPoints = 0;
 
         cout<<"NAVI: wallAvoidance collision Points = ";
         for(int i =0;i<map.size();i++){
             if(pointDistance(map[i],bot) < turnableDistance){
                 //In here we have collision points
 
+                noCollisionPoints+=1;
                 //S
                 float deltaX = map[i].x - State(0);
                 float deltaY = map[i].y - State(1);
@@ -441,6 +443,7 @@ namespace Navigation_Functions{
         }
         cout<<endl;
 
+        cout<<"No of collision points = "<<noCollisionPoints<<endl;
         cout<<"mindistL: "<<mindistL<<" mindistR: "<<mindistR<<endl;
         if(mindistL>mindistR){
             if(angle>0){
