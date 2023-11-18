@@ -352,6 +352,7 @@ def speedControl(theta,distance,direction):
     right_count = 0
 
     sonar_thread.start() #start edge detection thread
+    print("SonarThreadStarted")
     startT = time.time()
 
     if(theta == 0 and distance > 0):
@@ -620,7 +621,7 @@ def runSonarFront():
             trigPin = trigPin1
         
 
-        print("RunSonarEdge")
+        #print("RunSonarEdge")
         # Set trigger to False (Low)
         wiringpi.digitalWrite(trigPin, 1) #Set low
 
@@ -646,13 +647,13 @@ def runSonarFront():
             #print("start = ",start, "diff = ",start-stop)
 
 
-        print("T1: echo = 0")
+        #print("T1: echo = 0")
 
         while (wiringpi.digitalRead(echoPin) == 1 and (stop-start) < 3):
             stop = time.time()
             #print("stop = ",stop, "diff = ",start-stop)
         
-        print("T2: echo = 1")
+        #print("T2: echo = 1")
         # Calculate pulse length
         elapsed = stop-start
 
@@ -664,7 +665,7 @@ def runSonarFront():
         distance = round(distance,2)
 
 
-        print("Front Sonar Distance : %.1f" % distance," mm")
+        #print("Front Sonar Distance : %.1f" % distance," mm")
 
         #The HC-SR04 Ultrasonics have a max range of 4000mm (4m) if something is further than that they will bug out
         #And provide a distance greater than 12000 the same will occur for the minimum range of 20mm
