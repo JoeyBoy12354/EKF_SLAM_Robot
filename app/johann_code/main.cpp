@@ -1118,7 +1118,7 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
 
 
     if(noCorners < 2){
-        cout<<"noCORNERS < 2 in thing"
+        cout<<"noCORNERS < 2 in thing";
         float scanAcc_1;
         float scanAcc_2;
         float scanAcc_3;
