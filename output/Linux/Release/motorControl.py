@@ -1666,10 +1666,10 @@ print("MC started")
 # timeOffL=0.002
 # timeOffR=0.00254749373433584
 
-timeOnL=0.008
-timeOnR=0.006700561797752809
-timeOffL=0.002
-timeOffR=0.003299438202247191
+# timeOnL=0.008
+# timeOnR=0.006700561797752809
+# timeOffL=0.002
+# timeOffR=0.003299438202247191
 
 
 # # # #testDistances()
