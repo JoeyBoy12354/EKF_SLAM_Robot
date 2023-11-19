@@ -613,7 +613,7 @@ def runSonarFront():
     trigPin = trigPin2
     sonarFlag = False
     left = True
-
+    return
 
 
     while(sonarOn == True):
@@ -678,6 +678,7 @@ def runSonarFront():
             print("WARNING OBSTACLE DETECTED at distance = ",distance)
             sonarFlag = True
             sonarOn = False
+            return
         
         left = False
     
