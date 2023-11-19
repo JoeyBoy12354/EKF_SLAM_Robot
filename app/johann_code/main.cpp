@@ -1121,6 +1121,7 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
                 ekf_old.State(2) = ekf_old.State(2) + PI/2;
             }
             
+            cout<<"\n MAIN: post change b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
    
             ekf = runThread(ekf_old, lidarDataPoints,accuracy,  carPoints, polarCornerPoints,second);
 
