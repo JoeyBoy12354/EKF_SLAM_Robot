@@ -1351,7 +1351,7 @@ void testRun(){
             cout<<"------------------------------------------------------------------------------------------------------------\n\n";
             fullRun2(ekf,mapped,home,firstRun,firstRun2,finalRun,postMap,path,lidarDataPoints);
             if(firstRun == false){
-                firstRun2 == false;
+                firstRun2 = false;
             }
             firstRun = false; //DO NOT CHANGE THIS KEEP IT HERE DO NOT MOVE IT INSIDE FULLRUN OR GOD HELP ME
             count = count+1;
