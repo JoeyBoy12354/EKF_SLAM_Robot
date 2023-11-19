@@ -722,8 +722,8 @@ namespace Navigation_Functions{
         float avoid_dist = wallAvoidanceForward(State, angle, C, closestPoint);
         //End Wall avoidance
 
-        // angle = 0;
-        // distance = 0;
+        angle = 0;
+        distance = 0;
 
         if(stuck_threshold == 0){
             cout<<"\n WE ARE STUCK"<<endl;
