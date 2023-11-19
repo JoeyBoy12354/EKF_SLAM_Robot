@@ -687,6 +687,9 @@ namespace Navigation_Functions{
         //cout<<"Set angle force to ="<<angle*180/PI<<endl;
         //angle = 0;
 
+        
+
+
         // cout<<"NAVI,GRID: deltaX = "<<deltaX<<" = "<<-1*closestPoint.x<<" - "<<robotPoint.x<<endl;
         // cout<<"NAVI,GRID: deltaY = "<<deltaY<<" = "<<-1*closestPoint.y<<" - "<<robotPoint.y<<endl;
         // cout<<"NAVI,GRID angle = "<<angle*180/PI<<" = "<<atan2(deltaY,deltaX)*180/PI<<" - "<<State(2)*180/PI<<endl;
@@ -718,6 +721,9 @@ namespace Navigation_Functions{
         cout<<"NAVI,GRID rotate angle after avoidance = "<<angle*180/PI<<endl;
         float avoid_dist = wallAvoidanceForward(State, angle, C, closestPoint);
         //End Wall avoidance
+
+        angle = 0;
+        distance = 0;
 
         if(stuck_threshold == 0){
             cout<<"\n WE ARE STUCK"<<endl;
