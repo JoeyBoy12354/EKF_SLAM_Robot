@@ -1029,8 +1029,96 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
     thread18.join();
     thread19.join();
 
-    bool thing = false;
-    if(thing ==true){
+
+
+    vector<float> acc_vect{ a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19};
+    //float max = *max_element (acc_vect.begin(), acc_vect.end());
+
+    float max = *min_element (acc_vect.begin(), acc_vect.end()); //This is due to us now using average distance
+
+    accuracy = max;
+
+    //cout<<"\n\na1 = "<<a1<<", a2 = "<<a2<<", a3 = "<<a3<<", a4 = "<<a4<<", a5 = "<<a5<<endl;
+
+    cout<<"\n\n";
+    cout<<", a"<<0<<" = "<<acc_vect[0]<<endl;
+    int c = 1;
+    for(int i =1;i<acc_vect.size();i=i+2){
+        cout<<", a"<<c*4<<" = "<<acc_vect[i];
+        cout<<", a"<<-c*4<<" = "<<acc_vect[i+1];
+        c+=1;
+        cout<<endl;
+    }
+    
+    if(second == false){
+        //Save the 0 scan
+        vector<CarPoint> testPoints;
+        for(int i =0;i<carPoints.size();i++){
+            testPoints.push_back(carPoints[i]);
+        }
+        //This saves the black odometry reading
+        fitCartesian(testPoints,ekf1.State(0),ekf1.State(1),ekf1.State(2));
+        saveCarMotionToCSV(testPoints);
+        second = true;
+    }
+
+    if(firstRun2 == true){
+        return ekf1;
+    }
+
+
+    ExtendedKalmanFilter mainEKF;
+
+    if(max == a1){
+        mainEKF = ekf1;
+    } else if(max == a2){
+        mainEKF = ekf2;
+    } else if(max == a3){
+        mainEKF = ekf3;
+    } else if(max == a4){
+        mainEKF = ekf4;
+    } else if(max == a5){
+        mainEKF = ekf5;
+    }
+
+    else if(max == a6){
+        mainEKF = ekf6;
+    } else if(max == a7){
+        mainEKF = ekf7;
+    } else if(max == a8){
+        mainEKF = ekf8;
+    } else if(max == a9){
+        mainEKF = ekf9;
+    } else if(max == a10){
+        mainEKF = ekf10;
+    } else if(max == a11){
+        mainEKF = ekf11;
+    }
+
+    else if(max == a12){
+        mainEKF = ekf12;
+    } else if(max == a13){
+        mainEKF = ekf13;
+    } else if(max == a14){
+        mainEKF = ekf14;
+    } else if(max == a15){
+        mainEKF = ekf15;
+    }
+
+    else if(max == a16){
+        mainEKF = ekf16;
+    } else if(max == a17){
+        mainEKF = ekf17;
+    } else if(max == a18){
+        mainEKF = ekf18;
+    } else if(max == a19){
+        mainEKF = ekf19;
+    }
+
+
+
+    if(noCorners < 2){
+        cout<<"noCORNERS < 2 in thing"
         float scanAcc_1;
         float scanAcc_2;
         float scanAcc_3;
@@ -1073,10 +1161,6 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
         thread thread18(scanAccuracy, carPoints, ekf18.State, std::ref(scanAcc_18));
         thread thread19(scanAccuracy, carPoints, ekf19.State, std::ref(scanAcc_19));
 
-        
-        
-
-
         thread1.join();
         thread2.join();
         thread3.join();
@@ -1099,90 +1183,61 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
         thread17.join();
         thread18.join();
         thread19.join();
-    }
 
-    vector<float> acc_vect{ a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19};
-    //float max = *max_element (acc_vect.begin(), acc_vect.end());
+        vector<float> scanAcc_vect{ scanAcc_1, scanAcc_2, scanAcc_3, scanAcc_4, scanAcc_5, scanAcc_6, scanAcc_7, scanAcc_8, scanAcc_9, scanAcc_10, scanAcc_11, scanAcc_12, scanAcc_13, scanAcc_14, scanAcc_15, scanAcc_16, scanAcc_17, scanAcc_18, scanAcc_19 };
+        float scan_max = *max_element (scanAcc_vect.begin(), scanAcc_vect.end());
 
-    float max = *min_element (acc_vect.begin(), acc_vect.end()); //This is due to us now using average distance
-
-    accuracy = max;
-
-    //cout<<"\n\na1 = "<<a1<<", a2 = "<<a2<<", a3 = "<<a3<<", a4 = "<<a4<<", a5 = "<<a5<<endl;
-
-    cout<<"\n\n";
-    cout<<", a"<<0<<" = "<<acc_vect[0]<<endl;
-    int c = 1;
-    for(int i =1;i<acc_vect.size();i=i+2){
-        cout<<", a"<<c*4<<" = "<<acc_vect[i];
-        cout<<", a"<<-c*4<<" = "<<acc_vect[i+1];
-        c+=1;
-        cout<<endl;
-    }
-    
-    if(second == false){
-        //Save the 0 scan
-        vector<CarPoint> testPoints;
-        for(int i =0;i<carPoints.size();i++){
-            testPoints.push_back(carPoints[i]);
+        if(max == scanAcc_1){
+            mainEKF = ekf1;
+        } else if(max == scanAcc_2){
+            mainEKF = ekf2;
+        } else if(max == scanAcc_3){
+            mainEKF = ekf3;
+        } else if(max == scanAcc_4){
+            mainEKF = ekf4;
+        } else if(max == scanAcc_5){
+            mainEKF = ekf5;
         }
-        //This saves the black odometry reading
-        fitCartesian(testPoints,ekf1.State(0),ekf1.State(1),ekf1.State(2));
-        saveCarMotionToCSV(testPoints);
-        second = true;
+
+        else if(max == scanAcc_6){
+            mainEKF = ekf6;
+        } else if(max == scanAcc_7){
+            mainEKF = ekf7;
+        } else if(max == scanAcc_8){
+            mainEKF = ekf8;
+        } else if(max == scanAcc_9){
+            mainEKF = ekf9;
+        } else if(max == scanAcc_10){
+            mainEKF = ekf10;
+        } else if(max == scanAcc_11){
+            mainEKF = ekf11;
+        }
+
+        else if(max == scanAcc_12){
+            mainEKF = ekf12;
+        } else if(max == scanAcc_13){
+            mainEKF = ekf13;
+        } else if(max == scanAcc_14){
+            mainEKF = ekf14;
+        } else if(max == scanAcc_15){
+            mainEKF = ekf15;
+        }
+
+        else if(max == scanAcc_16){
+            mainEKF = ekf16;
+        } else if(max == scanAcc_17){
+            mainEKF = ekf17;
+        } else if(max == scanAcc_18){
+            mainEKF = ekf18;
+        } else if(max == scanAcc_19){
+            mainEKF = ekf19;
+        }
+
+
     }
 
-    if(firstRun2 == true){
-        return ekf1;
-    }
 
-
-
-    if(max == a1){
-        return ekf1;
-    }else if(max == a2){
-        return ekf2;
-    }else if(max == a3){
-        return ekf3;
-    }else if(max == a4){
-        return ekf4;
-    }else if(max == a5){
-        return ekf5;
-    }
-    
-    else if(max == a6){
-        return ekf6;
-    }else if(max == a7){
-        return ekf7;
-    }else if(max == a8){
-        return ekf8;
-    }else if(max == a9){
-        return ekf9;
-    }else if(max == a10){
-        return ekf10;
-    }else if(max == a11){
-        return ekf11;
-    }
-
-    else if(max == a12){
-        return ekf12;
-    }else if(max == a13){
-        return ekf13;
-    }else if(max == a14){
-        return ekf14;
-    }else if(max == a15){
-        return ekf15;
-    }
-
-    else if(max == a16){
-        return ekf16;
-    }else if(max == a17){
-        return ekf17;
-    }else if(max == a18){
-        return ekf18;
-    }else if(max == a19){
-        return ekf19;
-    }
+    return mainEKF;
 
 
 }
