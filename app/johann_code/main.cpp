@@ -1029,6 +1029,78 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
     thread18.join();
     thread19.join();
 
+    bool thing = false;
+    if(thing ==true){
+        float scanAcc_1;
+        float scanAcc_2;
+        float scanAcc_3;
+        float scanAcc_4;
+        float scanAcc_5;
+        float scanAcc_6;
+        float scanAcc_7;
+        float scanAcc_8;
+        float scanAcc_9;
+        float scanAcc_10;
+
+        float scanAcc_11;
+        float scanAcc_12;
+        float scanAcc_13;
+        float scanAcc_14;
+        float scanAcc_15;
+        float scanAcc_16;
+        float scanAcc_17;
+        float scanAcc_18;
+        float scanAcc_19;
+
+        thread thread1(scanAccuracy, carPoints, ekf1.State, std::ref(scanAcc_1));
+        thread thread2(scanAccuracy, carPoints, ekf2.State, std::ref(scanAcc_2));
+        thread thread3(scanAccuracy, carPoints, ekf3.State, std::ref(scanAcc_3));
+        thread thread4(scanAccuracy, carPoints, ekf4.State, std::ref(scanAcc_4));
+        thread thread5(scanAccuracy, carPoints, ekf5.State, std::ref(scanAcc_5));
+        thread thread6(scanAccuracy, carPoints, ekf6.State, std::ref(scanAcc_6));
+        thread thread7(scanAccuracy, carPoints, ekf7.State, std::ref(scanAcc_7));
+        thread thread8(scanAccuracy, carPoints, ekf8.State, std::ref(scanAcc_8));
+        thread thread9(scanAccuracy, carPoints, ekf9.State, std::ref(scanAcc_9));
+        thread thread10(scanAccuracy, carPoints, ekf10.State, std::ref(scanAcc_10));
+
+        thread thread11(scanAccuracy, carPoints, ekf11.State, std::ref(scanAcc_11));
+        thread thread12(scanAccuracy, carPoints, ekf12.State, std::ref(scanAcc_12));
+        thread thread13(scanAccuracy, carPoints, ekf13.State, std::ref(scanAcc_13));
+        thread thread14(scanAccuracy, carPoints, ekf14.State, std::ref(scanAcc_14));
+        thread thread15(scanAccuracy, carPoints, ekf15.State, std::ref(scanAcc_15));
+        thread thread16(scanAccuracy, carPoints, ekf16.State, std::ref(scanAcc_16));
+        thread thread17(scanAccuracy, carPoints, ekf17.State, std::ref(scanAcc_17));
+        thread thread18(scanAccuracy, carPoints, ekf18.State, std::ref(scanAcc_18));
+        thread thread19(scanAccuracy, carPoints, ekf19.State, std::ref(scanAcc_19));
+
+        
+        
+
+
+        thread1.join();
+        thread2.join();
+        thread3.join();
+        thread4.join();
+        thread5.join();
+
+        thread6.join();
+        thread7.join();
+        thread8.join();
+        thread9.join();
+        thread10.join();
+        thread11.join();
+
+        thread12.join();
+        thread13.join();
+        thread14.join();
+        thread15.join();
+
+        thread16.join();
+        thread17.join();
+        thread18.join();
+        thread19.join();
+    }
+
     vector<float> acc_vect{ a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19};
     //float max = *max_element (acc_vect.begin(), acc_vect.end());
 
