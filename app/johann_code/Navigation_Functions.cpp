@@ -447,13 +447,15 @@ namespace Navigation_Functions{
         cout<<"mindistL: "<<mindistL<<" mindistR: "<<mindistR<<endl;
         if(mindistL>mindistR){
             if(angle>0){
-                cout<<"Angle change from: "<<angle*180/PI<<" -> "<<(angle - PI/2)*180/PI<<endl;
-                return angle - PI/2;
+                //cout<<"Angle change from: "<<angle*180/PI<<" -> "<<(angle - PI/2)*180/PI<<endl;
+                cout<<"Angle change from: "<<angle*180/PI<<" -> "<<(angle - 2*PI)*180/PI<<endl;
+                return angle - 2*PI;
             }
         }else if(mindistR<mindistL){
             if(angle<0){
-                cout<<"Angle change from: "<<angle*180/PI<<" -> "<<(angle + PI/2)*180/PI<<endl;
-                return angle + PI/2;
+                //cout<<"Angle change from: "<<angle*180/PI<<" -> "<<(angle + PI/2)*180/PI<<endl;
+                cout<<"Angle change from: "<<angle*180/PI<<" -> "<<(angle + 2*PI)*180/PI<<endl;
+                return angle + 2*PI;
             }
         }
 
