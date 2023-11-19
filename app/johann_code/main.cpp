@@ -755,7 +755,7 @@ void randomFitting(vector<PolPoint>& lidarDataPoints,vector<CarPoint> carPoints,
         //Run EKF
         ekf.runEKF();
         float ekfX = ekf.State(0);
-        float ekfX = ekf.State(1);
+        float ekfY = ekf.State(1);
         float ekfCosAngle = cos(ekf.State(2));
         float ekfSinAngle = sin(ekf.State(2));
         
