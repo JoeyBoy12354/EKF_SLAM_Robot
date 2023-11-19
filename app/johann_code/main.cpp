@@ -775,87 +775,92 @@ void randomFitting(vector<PolPoint>& lidarDataPoints,vector<CarPoint> carPoints,
         CarPoint printPoint;
 
         cout<<"randomFitting Connection Data: ";
-        for(int i =0;i<Stored_vec.size();i++){
+        //This method did not work at all
+        // for(int i =0;i<Stored_vec.size();i++){
             
-            CarPoint StatePoint = Stored_vec[i];
-            float dist = 1000000000000;
-            if(StatePoint.x !=0 && StatePoint.y !=0){
-                for(int j =0;j<polarCornerPoints.size();j++){
-                    //Convert Corner to Cart
-                    float r = polarCornerPoints[i].distance;
-                    float ang = polarCornerPoints[i].angle;
-                    CarPoint LiDARPoint = {r*cos(ang),r*sin(ang)};
+        //     CarPoint StatePoint = Stored_vec[i];
+        //     float dist = 1000000000000;
+        //     if(StatePoint.x !=0 && StatePoint.y !=0){
+        //         for(int j =0;j<polarCornerPoints.size();j++){
+        //             //Convert Corner to Cart
+        //             float r = polarCornerPoints[i].distance;
+        //             float ang = polarCornerPoints[i].angle;
+        //             CarPoint LiDARPoint = {r*cos(ang),r*sin(ang)};
 
-                    // Apply rotation first
-                    float rotatedX = LiDARPoint.x * ekfCosAngle - LiDARPoint.y * ekfSinAngle;
-                    float rotatedY = LiDARPoint.x * ekfSinAngle + LiDARPoint.y * ekfCosAngle;
+        //             // Apply rotation first
+        //             float rotatedX = LiDARPoint.x * ekfCosAngle - LiDARPoint.y * ekfSinAngle;
+        //             float rotatedY = LiDARPoint.x * ekfSinAngle + LiDARPoint.y * ekfCosAngle;
 
-                    // Then apply translation
-                    LiDARPoint.x = rotatedX + ekfX;
-                    LiDARPoint.y = rotatedY + ekfY;
+        //             // Then apply translation
+        //             LiDARPoint.x = rotatedX + ekfX;
+        //             LiDARPoint.y = rotatedY + ekfY;
 
-                    //Get minimum distance
-                    if(pointDistance(LiDARPoint,StatePoint) < dist){
-                        dist = pointDistance(LiDARPoint,StatePoint);
-                        printPoint = LiDARPoint;
-                    }
-                }
-                //pushback minimum distance
-                distances.push_back(dist);
-                cout<<"StatePnt = "<<StatePoint<<", LiDARPoint = "<<printPoint<<" dist = "<<dist<<"  &&  ";
-            }
-        }
-        cout<<endl;
+        //             //Get minimum distance
+        //             if(pointDistance(LiDARPoint,StatePoint) < dist){
+        //                 dist = pointDistance(LiDARPoint,StatePoint);
+        //                 printPoint = LiDARPoint;
+        //             }
+        //         }
+        //         //pushback minimum distance
+        //         distances.push_back(dist);
+        //         cout<<"StatePnt = "<<StatePoint<<", LiDARPoint = "<<printPoint<<" dist = "<<dist<<"  &&  ";
+        //     }
+        // }
+        // cout<<endl;
 
         //Get average minimum distance
-        for(int i=0;i<distances.size();i++){
-            acc+=distances[i];
-        }
-        acc = acc/distances.size();
+        // for(int i=0;i<distances.size();i++){
+        //     acc+=distances[i];
+        // }
+        // acc = acc/distances.size();
 
 
 
         // //We must confirm that this thing is actually making some fucking sense
         // //Polar Corner Points are not fitted, pls remember this
-        // for(int i =0;i<Stored_vec.size();i++){
+        for(int i =0;i<Stored_vec.size();i++){
             
-        //     CarPoint StoredPoint = Stored_vec[i];
-        //     if(StoredPoint.x !=0 && StoredPoint.y !=0){
-        //         float deltaX = StoredPoint.x - ekf.State(0);
-        //         float deltaY = StoredPoint.y - ekf.State(1);
-        //         double q = pow(deltaX,2) + pow(deltaY,2);
+            CarPoint StoredPoint = Stored_vec[i];
+            if(StoredPoint.x !=0 && StoredPoint.y !=0){
+                float deltaX = StoredPoint.x - ekf.State(0);
+                float deltaY = StoredPoint.y - ekf.State(1);
+                double q = pow(deltaX,2) + pow(deltaY,2);
 
-        //         Matrix<float, 2, 1> z_cap_m;
-        //         z_cap_m(0) = sqrt(q);
-        //         z_cap_m(1) = (atan2(deltaY, deltaX)) - ekf.State(2);
-        //         z_cap_m(1) = pi_2_pi(z_cap_m(1));
+                Matrix<float, 2, 1> z_cap_m;
+                z_cap_m(0) = sqrt(q);
+                z_cap_m(1) = (atan2(deltaY, deltaX)) - ekf.State(2);
+                z_cap_m(1) = pi_2_pi(z_cap_m(1));
 
-        //         float dist=10000;
+                float dist=10000;
 
-        //         for(int j=0;j<polarCornerPoints.size();j++){
-        //             Matrix<float, 2, 1> z;
-        //             z(0) = polarCornerPoints[j].distance;
-        //             z(1) = polarCornerPoints[j].angle;
+                for(int j=0;j<polarCornerPoints.size();j++){
+                    Matrix<float, 2, 1> z;
+                    z(0) = polarCornerPoints[j].distance;
+                    z(1) = polarCornerPoints[j].angle;
 
-        //             CarPoint Stored = {z_cap_m(0)*cos(z_cap_m(1)),z_cap_m(0)*sin(z_cap_m(1))};
-        //             CarPoint Observed = {z(0)*cos(z(1)),z(0)*sin(z(1))};
+                    CarPoint Stored = {z_cap_m(0)*cos(z_cap_m(1)),z_cap_m(0)*sin(z_cap_m(1))};
+                    CarPoint Observed = {z(0)*cos(z(1)),z(0)*sin(z(1))};
 
-        //             if( dist>pointDistance(Stored,Observed)){
-        //                 dist = pointDistance(Stored,Observed);
-        //             }
-        //         }
+                    if( dist>pointDistance(Stored,Observed)){
+                        dist = pointDistance(Stored,Observed);
+                        printPoint = Observed;
+                    }
+                    
+                }
 
-        //         distances.push_back(dist);
-        //         cout<<"StatePnt = "
+                distances.push_back(dist);
+                cout<<"StatePnt = "<<StatePoint<<", LiDARPoint = "<<printPoint<<" dist = "<<dist<<"  &&  ";
 
-        //     }
-        // }
+
+            }
+        }
+        cout<<endl;
 
         
-        // for(int i=0;i<distances.size();i++){
-        //     acc+=distances[i];
-        // }
-        // acc = acc/distances.size();
+        for(int i=0;i<distances.size();i++){
+            acc+=distances[i];
+        }
+        acc = acc/distances.size();
 
 
         return;
@@ -1177,13 +1182,7 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
 
         }
 
-        if(noCorners == 1 && ekf.noNewCorners>0){
-            cout<<"Resetting Landmarks of EKF"<<endl;
-            ekf_old.State(0) = ekf.State(0);
-            ekf_old.State(1) = ekf.State(1);
-            ekf_old.State(2) = ekf.State(2);
-            ekf.State = ekf_old.State;
-        }
+        
         
 
         cout<<"\n MAIN: after_ekf State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
@@ -1200,7 +1199,15 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
             saveCarToFullMapCSV(carPoints);
         }else{
             cout<<"MAIN: Store Map Points"<<endl;
-            storeMapPoints(carPoints,ekf.State);
+            float map_acc = storeMapPoints(carPoints,ekf.State);
+        }
+
+        if(map_acc<10){
+            cout<<"Resetting Landmarks of EKF since map accuracy is less than 10%"<<endl;
+            ekf_old.State(0) = ekf.State(0);
+            ekf_old.State(1) = ekf.State(1);
+            ekf_old.State(2) = ekf.State(2);
+            ekf.State = ekf_old.State;
         }
 
         //Get Grid

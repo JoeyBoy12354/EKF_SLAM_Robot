@@ -269,7 +269,7 @@ namespace Lidar_Functions{
 
 namespace Mapping_Functions{
     
-    void storeMapPoints(vector<CarPoint> lidardata,Matrix<float, dim, 1> State);
+    float storeMapPoints(vector<CarPoint> lidardata,Matrix<float, dim, 1> State);
     void storeStatePoints(Matrix<float, dim, 1> State);
 
     void getMapBounds(vector<CarPoint> map, vector<float>& bounds);

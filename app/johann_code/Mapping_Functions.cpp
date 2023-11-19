@@ -22,7 +22,7 @@ namespace Mapping_Functions{
 
     //Build Full map, place it in csv
     //Points have to be translated
-    void storeMapPoints(vector<CarPoint> lidardata,Matrix<float, dim, 1> State){
+    float storeMapPoints(vector<CarPoint> lidardata,Matrix<float, dim, 1> State){
         float distance_threshold = 150;//If two points are greater than Xmm then keep this point.
         float distance_threshold2 = 5;//If two points are greater than Xmm then keep this point. (ACCURACY test)
 
@@ -134,6 +134,8 @@ namespace Mapping_Functions{
         saveCarToFullMapCSV(oldmap);
 
         storeStatePoints(State);
+
+        return acc_percentage;
         
     }
 
