@@ -763,10 +763,12 @@ void randomFitting(vector<PolPoint>& lidarDataPoints,vector<CarPoint> carPoints,
         CarPoint c2(ekf.State(5),ekf.State(6));
         CarPoint c3(ekf.State(7),ekf.State(8));
         CarPoint c4(ekf.State(9),ekf.State(10));
-        vector<CarPoint> Stored_vec{c1,c2,c3,c4};
+        CarPoint c5(ekf.State(11),ekf.State(12));
+        CarPoint c6(ekf.State(13),ekf.State(14));
+        vector<CarPoint> Stored_vec{c1,c2,c3,c4,c5,c6};
         vector<float> distances;
 
-
+        //We must confirm that this thing is actually making some fucking sense
         for(int i =0;i<Stored_vec.size();i++){
             
             CarPoint StoredPoint = Stored_vec[i];
