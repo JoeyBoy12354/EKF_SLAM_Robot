@@ -841,7 +841,7 @@ void randomFitting(vector<PolPoint>& lidarDataPoints,vector<CarPoint> carPoints,
     }
 
 
-ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarDataPoints, float& accuracy, vector<CarPoint> carPoints, vector<PolPoint> polarCornerPoints) {
+ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarDataPoints, float& accuracy, vector<CarPoint> carPoints, vector<PolPoint> polarCornerPoints, bool& second) {
     cout<<"Running ScanMatch Threads"<<endl;
 
     float a1 = 0;//0
@@ -972,7 +972,7 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
 
     cout<<"\n\n";
     cout<<", a"<<0<<" = "<<acc_vect[0]<<endl;
-    int c = 0;
+    int c = 1;
     for(int i =1;i<acc_vect.size();i=i+2){
         cout<<", a"<<c*4<<" = "<<acc_vect[i];
         cout<<", a"<<-c*4<<" = "<<acc_vect[i+1];
@@ -980,15 +980,17 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
         cout<<endl;
     }
     
-
-    //Save the 0 scan
-    vector<CarPoint> testPoints;
-    for(int i =0;i<carPoints.size();i++){
-        testPoints.push_back(carPoints[i]);
+    if(second == false){
+        //Save the 0 scan
+        vector<CarPoint> testPoints;
+        for(int i =0;i<carPoints.size();i++){
+            testPoints.push_back(carPoints[i]);
+        }
+        //This saves the black odometry reading
+        fitCartesian(testPoints,ekf1.State(0),ekf1.State(1),ekf1.State(2));
+        saveCarMotionToCSV(testPoints);
+        second = true;
     }
-    //This saves the black odometry reading
-    fitCartesian(testPoints,ekf1.State(0),ekf1.State(1),ekf1.State(2));
-    saveCarMotionToCSV(testPoints);
 
 
 
@@ -1097,9 +1099,10 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
         ekf.TestPolValues = polarCornerPoints;
         // ekf.runEKF();
 
+        bool second = false;
         cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
         float accuracy;
-        ekf = runThread(ekf_old, lidarDataPoints,accuracy,  carPoints, polarCornerPoints);
+        ekf = runThread(ekf_old, lidarDataPoints,accuracy,  carPoints, polarCornerPoints,second);
         cout<<"Accuracy = "<<accuracy<<endl;
         cout<<"\n MAIN: afta_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
 
@@ -1119,7 +1122,7 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
             }
             
    
-            ekf = runThread(ekf_old, lidarDataPoints,accuracy,  carPoints, polarCornerPoints);
+            ekf = runThread(ekf_old, lidarDataPoints,accuracy,  carPoints, polarCornerPoints,second);
 
             if(accuracy_1<accuracy){
                 cout<<"First Thread stage was closer"<<endl;
@@ -1223,7 +1226,7 @@ void fullRunClean(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool first
             cout<<"\n5th Corner was added assume this is problematic and will be solved with thread tests"<<endl;
             cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
             float accuracy;
-            ekf = runThread(ekf_old, lidarDataPoints,accuracy,  carPoints, polarCornerPoints);
+            ekf = runThread(ekf_old, lidarDataPoints,accuracy,  carPoints, polarCornerPoints,second);
             cout<<"\n MAIN: afta_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
 
         }
