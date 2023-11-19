@@ -767,10 +767,10 @@ void randomFitting(vector<PolPoint>& lidarDataPoints,vector<CarPoint> carPoints,
         vector<float> distances;
 
 
-        for(int i =0;i<4;i++){
+        for(int i =0;i<Stored_vec.size();i++){
             
             CarPoint StoredPoint = Stored_vec[i];
-                if(StoredPoint.x !=0 && StoredPoint.y !=0){
+            if(StoredPoint.x !=0 && StoredPoint.y !=0){
                 float deltaX = StoredPoint.x - ekf.State(0);
                 float deltaY = StoredPoint.y - ekf.State(1);
                 double q = pow(deltaX,2) + pow(deltaY,2);
@@ -862,8 +862,8 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
 
     float a16 = 0;//32
     float a17 = 0;//32
-    float a18 = 0;//34
-    float a19 = 0;//34
+    float a18 = 0;//36
+    float a19 = 0;//36
 
     vector<PolPoint> v1(lidarDataPoints.begin(), lidarDataPoints.end());
     vector<PolPoint> v2(lidarDataPoints.begin(), lidarDataPoints.end());
@@ -931,8 +931,8 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
 
     thread thread16(randomFitting, std::ref(v16), carPoints, polarCornerPoints, std::ref(ekf16), ekf.distance, ekf.w + 32 * PI / 180, std::ref(a16));
     thread thread17(randomFitting, std::ref(v17), carPoints, polarCornerPoints, std::ref(ekf17), ekf.distance, ekf.w - 32 * PI / 180, std::ref(a17));
-    thread thread18(randomFitting, std::ref(v18), carPoints, polarCornerPoints, std::ref(ekf18), ekf.distance, ekf.w + 34 * PI / 180, std::ref(a18));
-    thread thread19(randomFitting, std::ref(v19), carPoints, polarCornerPoints, std::ref(ekf19), ekf.distance, ekf.w - 34 * PI / 180, std::ref(a19));
+    thread thread18(randomFitting, std::ref(v18), carPoints, polarCornerPoints, std::ref(ekf18), ekf.distance, ekf.w + 36 * PI / 180, std::ref(a18));
+    thread thread19(randomFitting, std::ref(v19), carPoints, polarCornerPoints, std::ref(ekf19), ekf.distance, ekf.w - 36 * PI / 180, std::ref(a19));
 
 
 
@@ -976,10 +976,22 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
     //cout<<"\n\na1 = "<<a1<<", a2 = "<<a2<<", a3 = "<<a3<<", a4 = "<<a4<<", a5 = "<<a5<<endl;
 
     cout<<"\n\n";
-    for(int i =0;i<acc_vect.size();i++){
-        cout<<", a"<<i+1<<" = "<<acc_vect[i];
+    cout<<", a"<<0<<" = "<<acc_vect[0]<<endl;
+    for(int i =1;i<acc_vect.size();i=i+2){
+        cout<<", a"<<i*4<<" = "<<acc_vect[i];
+        cout<<", a"<<-i*4<<" = "<<acc_vect[i+1];
+        cout<<endl;
     }
-    cout<<endl;
+    
+
+    //Save the 0 scan
+    vector<CarPoint> testPoints;
+    for(int i =0;i<carPoints.size();i++){
+        testPoints.push_back(carPoints[i]);
+    }
+    //This saves the black odometry reading
+    fitCartesian(testPoints,ekf1.State(0),ekf1.State(1),ekf1.State(2));
+    saveCarMotionToCSV(testPoints);
 
 
 
@@ -1126,15 +1138,15 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
         lidarDataProcessing2(lidarDataPoints,carPoints,polarCornerPoints);
 
 
-        vector<CarPoint> testPoints;
+        // vector<CarPoint> testPoints;
 
-        for(int i =0;i<carPoints.size();i++){
-            testPoints.push_back(carPoints[i]);
-        }
+        // for(int i =0;i<carPoints.size();i++){
+        //     testPoints.push_back(carPoints[i]);
+        // }
 
-        //This saves the black odometry reading
-        fitCartesian(testPoints,ekf.State(0),ekf.State(1),ekf.State(2));
-        saveCarMotionToCSV(testPoints);
+        // //This saves the black odometry reading
+        // fitCartesian(testPoints,ekf.State(0),ekf.State(1),ekf.State(2));
+        // saveCarMotionToCSV(testPoints);
 
         //Set Corners and do EKF
         ekf.TestPolValues = polarCornerPoints;
