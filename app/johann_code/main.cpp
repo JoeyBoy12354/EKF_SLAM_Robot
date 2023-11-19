@@ -1141,13 +1141,37 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
         ekf.runEKF();
 
         //5th Corner thread fix
-        if((ekf.State(11) != 0 && ekf.State(12)!=0) || noCorners == 1){
+        if((ekf.State(11) != 0 && ekf.State(12)!=0) || (noCorners == 1 && ekf.noNewCorners>0){
             cout<<"\n5th Corner was added OR noCorners = 1 assume this is problematic and will be solved with thread tests"<<endl;
             cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
             vector<float> accuracy;
             ekf = runThread(ekf_old, lidarDataPoints,accuracy,  carPoints, polarCornerPoints);
             cout<<"\n MAIN: afta_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
 
+        }
+
+        if((ekf.State(11) != 0 && ekf.State(12)!=0) || (noCorners == 1 && ekf.noNewCorners>0)){
+            cout<<"\n5th Corner was added OR noCorners = 1 AGAIN assume this is problematic and will be solved with thread tests"<<endl;
+            cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+            
+            if(ekf_old.State(2)<0){
+                ekf_old.State(2) = ekf_old.State(2) - PI/2;
+            }else{
+                ekf_old.State(2) = ekf_old.State(2) + PI/2;
+            }
+            
+            vector<float> accuracy;
+            ekf = runThread(ekf_old, lidarDataPoints,accuracy,  carPoints, polarCornerPoints);
+            cout<<"\n MAIN: afta_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+
+        }
+
+        if(noCorners == 1 && ekf.noNewCorners>0){
+            cout<<"Resetting Landmarks of EKF"<<endl;
+            ekf_old.State(0) = ekf.State(0);
+            ekf_old.State(1) = ekf.State(1);
+            ekf_old.State(2) = ekf.State(2);
+            ekf.State = ekf_old.State;
         }
         
 

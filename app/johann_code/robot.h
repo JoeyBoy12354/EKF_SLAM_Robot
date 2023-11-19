@@ -343,8 +343,8 @@ public:
     float sigma_odo_x = 0.01;
     float sigma_odo_y = 0.01;
     float sigma_odo_theta = 0.017;
-
     
+    int noNewCorners = 0;
 
     float w = 0;
     float distance = 0;

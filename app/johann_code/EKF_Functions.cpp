@@ -103,6 +103,7 @@ ExtendedKalmanFilter::ExtendedKalmanFilter() {
 void ExtendedKalmanFilter::updateMotion() {
  
     cout<<"EKF UPDATE MOTION FOR "<<distance<<"mm and "<<w*180/PI<<endl;
+    noNewCorners = 0;
 
     //Johann code
     CarPoint C = triangularRepositioning(State, w);// Get lidar point with odomotorey angle reading.
@@ -291,6 +292,7 @@ void ExtendedKalmanFilter::isNewLandmark2(){
             return;
         }
 
+        noNewCorners +=1;
         NoLandmarksFound += 1;
         LandmarkIndex = 1+NoLandmarksFound*2;
         //cout<<"Landmark Index = "<<LandmarkIndex<<endl;
