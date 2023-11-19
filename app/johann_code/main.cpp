@@ -1249,7 +1249,7 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
             
 
 
-            
+            //Please note we can do the accuracy scan on all of them    
 
 
             cout<<"Accuracy = "<<accuracy<<endl;
