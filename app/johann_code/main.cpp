@@ -972,9 +972,11 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
 
     cout<<"\n\n";
     cout<<", a"<<0<<" = "<<acc_vect[0]<<endl;
+    int c = 0;
     for(int i =1;i<acc_vect.size();i=i+2){
-        cout<<", a"<<i*4<<" = "<<acc_vect[i];
-        cout<<", a"<<-i*4<<" = "<<acc_vect[i+1];
+        cout<<", a"<<c*4<<" = "<<acc_vect[i];
+        cout<<", a"<<-c*4<<" = "<<acc_vect[i+1];
+        c+=1;
         cout<<endl;
     }
     
