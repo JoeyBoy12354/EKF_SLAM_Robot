@@ -849,7 +849,7 @@ void randomFitting(vector<PolPoint>& lidarDataPoints,vector<CarPoint> carPoints,
                 }
 
                 distances.push_back(dist);
-                cout<<"StatePnt = "<<StatePoint<<", LiDARPoint = "<<printPoint<<" dist = "<<dist<<"  &&  ";
+                cout<<"StatePnt = "<<Stored<<", LiDARPoint = "<<printPoint<<" dist = "<<dist<<"  &&  ";
 
 
             }
@@ -1193,13 +1193,14 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
         }
         cout<<endl;
 
+        float map_acc = 100;
         //Store Data for plotting
         if(firstRun == true){
             cout<<"MAIN: Save Car To Full Map"<<endl;
             saveCarToFullMapCSV(carPoints);
         }else{
             cout<<"MAIN: Store Map Points"<<endl;
-            float map_acc = storeMapPoints(carPoints,ekf.State);
+            map_acc = storeMapPoints(carPoints,ekf.State);
         }
 
         if(map_acc<10){
