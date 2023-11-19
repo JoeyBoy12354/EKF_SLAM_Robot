@@ -1195,9 +1195,12 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
             float scanAcc_1;
             float scanAcc_2p;
             float scanAcc_2n;
-            thread thread1(scanAccuracy, carPoints, ekf_1.State, std::ref(scanAcc_1));
-            thread thread2p(scanAccuracy, carPoints, ekf_2p.State, std::ref(scanAcc_2p));
-            thread thread2n(scanAccuracy, carPoints, ekf_2n.State, std::ref(scanAcc_2n));
+            vector<CarPoint> c1 = carPoints;
+            vector<CarPoint> c2p = carPoints;
+            vector<CarPoint> c2n = carPoints;
+            thread thread1(scanAccuracy, c1, ekf_1.State, std::ref(scanAcc_1));
+            thread thread2p(scanAccuracy, c2p, ekf_2p.State, std::ref(scanAcc_2p));
+            thread thread2n(scanAccuracy, c2n, ekf_2n.State, std::ref(scanAcc_2n));
             thread1.join();
             thread2p.join();
             thread2n.join();
