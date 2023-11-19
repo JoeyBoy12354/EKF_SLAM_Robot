@@ -1164,8 +1164,8 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
             //We must now compare the solutions
 
             //First we must compare who has the least number of new corners
-            vector<int> vect_noCorners = {ekf1.noNewCorners, ekf_2p.ekf1.noNewCorners, ekf_2n.ekf1.noNewCorners};
-            vector<float> vect_accuracies = {accuracy_1, accuracy_2p, accuracy_2n};
+            vector<int> vect_noCorners {ekf1.noNewCorners, ekf_2p.noNewCorners, ekf_2n.noNewCorners};
+            vector<float> vect_accuracies {accuracy_1, accuracy_2p, accuracy_2n};
 
             int minNoCorners = *min_element (vect_noCorners.begin(), vect_noCorners.end()); 
             int corner_counter = 0;
