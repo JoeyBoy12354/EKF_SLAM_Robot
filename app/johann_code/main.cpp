@@ -749,7 +749,9 @@ float scanAccuracy(vector<CarPoint> lidardata,Matrix<float, dim, 1> State, float
     readCarFromFullMapCSV(oldmap);//Fetch all current points
 
     //Fit new scan
+    cout<<"ScanAcc pre fit"<<endl;
     fitCartesian(lidardata,State(0),State(1),State(2));
+    cout<<"ScanAcc post fit"<<endl;
 
     vector<CarPoint> temp;
 
@@ -757,6 +759,8 @@ float scanAccuracy(vector<CarPoint> lidardata,Matrix<float, dim, 1> State, float
     float accuracy = 0;
     float accuracy_dist = 15;
     bool isAccurate=false;
+
+    cout<<"ScanAcc pre for"<<endl;
 
     //Append new points to current oldmap
     //This is okay because we do not use fullmap data for anything
@@ -772,6 +776,8 @@ float scanAccuracy(vector<CarPoint> lidardata,Matrix<float, dim, 1> State, float
             //oldmap.push_back(lidardata[i]);
         }
     }
+
+    cout<<"ScanAcc post for"<<endl;
 
 
     scanAcc = (accuracy/lidardata.size())*100;
