@@ -849,7 +849,7 @@ void randomFitting(vector<PolPoint>& lidarDataPoints,vector<CarPoint> carPoints,
                 }
 
                 distances.push_back(dist);
-                cout<<"StatePnt = "<<Stored<<", LiDARPoint = "<<printPoint<<" dist = "<<dist<<"  &&  ";
+                cout<<"StatePnt = "<<StoredPoint<<", LiDARPoint = "<<printPoint<<" dist = "<<dist<<"  &&  ";
 
 
             }
