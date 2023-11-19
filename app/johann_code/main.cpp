@@ -1114,22 +1114,36 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
 
             ExtendedKalmanFilter ekf_1 = ekf;
             float accuracy_1 = accuracy;
-            
-            if(ekf_old.State(2)<0){
-                ekf_old.State(2) = ekf_old.State(2) - PI/2;
-            }else{
-                ekf_old.State(2) = ekf_old.State(2) + PI/2;
-            }
-            
-            cout<<"\n MAIN: post change b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
-   
-            ekf = runThread(ekf_old, lidarDataPoints,accuracy,  carPoints, polarCornerPoints,second);
 
-            if(accuracy_1<accuracy){
+            ekf_old.State(2) = ekf_old.State(2) + 82*PI/180;
+            cout<<"\n MAIN ThreadFix 2p: b4_thread State: x="<<ekf_old.State[0]<<", y="<<ekf_old.State[1]<<", w="<<ekf_old.State[2]*180/PI<<" deg"<<endl;
+            ExtendedKalmanFilter ekf_2p = runThread(ekf_old, lidarDataPoints,accuracy,  carPoints, polarCornerPoints,second);
+            float accuracy_2p = accuracy;
+
+            ekf_old.State(2) = ekf_old.State(2) - 2*82*PI/180;
+            cout<<"\n MAIN ThreadFix 2n: b4_thread State: x="<<ekf_old.State[0]<<", y="<<ekf_old.State[1]<<", w="<<ekf_old.State[2]*180/PI<<" deg"<<endl;
+            ExtendedKalmanFilter ekf_2n = runThread(ekf_old, lidarDataPoints,accuracy,  carPoints, polarCornerPoints,second);
+            float accuracy_2n = accuracy;
+            
+
+            
+
+            if(accuracy_1<accuracy_2p && accuracy_1<accuracy_2n){
                 cout<<"First Thread stage was closer"<<endl;
                 ekf = ekf_1;
                 accuracy = accuracy_1;
+            }else if(accuracy_2p<accuracy_1 && accuracy_2p<accuracy_2n){
+                cout<<"2p Thread stage was closer"<<endl;
+                ekf = ekf_2p;
+                accuracy = accuracy_2p;
             }
+            else if(accuracy_2n<accuracy_1 && accuracy_2n<accuracy_2p){
+                cout<<"2n Thread stage was closer"<<endl;
+                ekf = ekf_2n;
+                accuracy = accuracy_2n;
+            }
+
+
             cout<<"Accuracy = "<<accuracy<<endl;
             cout<<"\n MAIN: afta_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
 
