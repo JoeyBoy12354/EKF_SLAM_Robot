@@ -1077,6 +1077,7 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
 }
 
 
+
 void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun, bool firstRun2, bool finalRun,bool postMap,vector<CarPoint>& path, vector<PolPoint> lidarDataPoints){
     
 
@@ -1137,7 +1138,127 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
         ekf = runThread(ekf_old, lidarDataPoints,accuracy,  carPoints, polarCornerPoints,second,firstRun2);
         cout<<"Accuracy = "<<accuracy<<endl;
         cout<<"\n MAIN: afta_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+        
+
+        
+        //5th Corner thread fix
+        if((ekf.noNewCorners>1 ) && firstRun2 == false) {
+            cout<<"\n5th Corner was added OR noCorners = 1 OR Acc>300 AGAIN assume this is problematic and will be solved with thread tests"<<endl;
+            cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+
+            ExtendedKalmanFilter ekf_1 = ekf;
+            float accuracy_1 = accuracy;
+
+            ekf_old.State(2) = ekf_old.State(2) + 82*PI/180;
+            cout<<"\n MAIN ThreadFix 2p: b4_thread State: x="<<ekf_old.State[0]<<", y="<<ekf_old.State[1]<<", w="<<ekf_old.State[2]*180/PI<<" deg"<<endl;
+            ExtendedKalmanFilter ekf_2p = runThread(ekf_old, lidarDataPoints, accuracy,  carPoints, polarCornerPoints,second,firstRun2);
+            float accuracy_2p = accuracy;
+
+            ekf_old.State(2) = ekf_old.State(2) - 2*82*PI/180;
+            cout<<"\n MAIN ThreadFix 2n: b4_thread State: x="<<ekf_old.State[0]<<", y="<<ekf_old.State[1]<<", w="<<ekf_old.State[2]*180/PI<<" deg"<<endl;
+            ExtendedKalmanFilter ekf_2n = runThread(ekf_old, lidarDataPoints, accuracy,  carPoints, polarCornerPoints,second,firstRun2);
+            float accuracy_2n = accuracy;
             
+
+
+            
+            //We must now compare the solutions
+
+            //First we must compare who has the least number of new corners
+            vector<int> vect_noCorners {ekf_1.noNewCorners, ekf_2p.noNewCorners, ekf_2n.noNewCorners};
+            vector<float> vect_accuracies {accuracy_1, accuracy_2p, accuracy_2n};
+
+            int minNoCorners = *min_element (vect_noCorners.begin(), vect_noCorners.end()); 
+            int corner_counter = 0;
+            for(int i =0;i<vect_noCorners.size();i++){
+                if(vect_noCorners[i] == minNoCorners){
+                    corner_counter+=1;
+                }
+            }
+
+            //There is a minimum NoCorners
+            if(corner_counter == 1){
+
+                cout<<"There is a min NoCorners"<<endl;
+                if(vect_noCorners[0] == minNoCorners){
+                    cout<<"1st Thread stage had min corner"<<endl;
+                    ekf = ekf_1;
+                    accuracy = accuracy_1;
+                }else if(vect_noCorners[1] == minNoCorners){
+                    cout<<"2p Thread stage had min corner"<<endl;
+                    ekf = ekf_2p;
+                    accuracy = accuracy_2p;
+                }else if(vect_noCorners[2] == minNoCorners){
+                    cout<<"2n Thread stage had min corner"<<endl;
+                    ekf = ekf_2n;
+                    accuracy = accuracy_2n;
+                }
+            }else if(corner_counter == 3){
+
+                cout<<"There is not a min NoCorners"<<endl;
+                if(accuracy_1<accuracy_2p && accuracy_1<accuracy_2n){
+                    cout<<"First Thread stage was closer"<<endl;
+                    ekf = ekf_1;
+                    accuracy = accuracy_1;
+                }else if(accuracy_2p<accuracy_1 && accuracy_2p<accuracy_2n){
+                    cout<<"2p Thread stage was closer"<<endl;
+                    ekf = ekf_2p;
+                    accuracy = accuracy_2p;
+                }
+                else if(accuracy_2n<accuracy_1 && accuracy_2n<accuracy_2p){
+                    cout<<"2n Thread stage was closer"<<endl;
+                    ekf = ekf_2n;
+                    accuracy = accuracy_2n;
+                }
+            }else if(corner_counter == 2){
+                
+                cout<<"There are 2 minimums"<<endl;
+                if(vect_noCorners[0] == vect_noCorners[1]){
+                    if(vect_accuracies[0]<vect_accuracies[1]){
+                        cout<<"First Thread stage was closer"<<endl;
+                        ekf = ekf_1;
+                        accuracy = accuracy_1;
+                    }else{
+                        cout<<"2p Thread stage was closer"<<endl;
+                        ekf = ekf_2p;
+                        accuracy = accuracy_2p;
+                    }
+                }else if(vect_noCorners[1] == vect_noCorners[2]){
+                    if(vect_accuracies[1]<vect_accuracies[2]){
+                        cout<<"2p Thread stage was closer"<<endl;
+                        ekf = ekf_2p;
+                        accuracy = accuracy_2p;
+                    }else{
+                        cout<<"2n Thread stage was closer"<<endl;
+                        ekf = ekf_2n;
+                        accuracy = accuracy_2n;
+                    }
+                }else if(vect_noCorners[0] == vect_noCorners[2]){
+                    if(vect_accuracies[0]<vect_accuracies[2]){
+                        cout<<"1st Thread stage was closer"<<endl;
+                        ekf = ekf_1;
+                        accuracy = accuracy_1;
+                    }else{
+                        cout<<"2n Thread stage was closer"<<endl;
+                        ekf = ekf_2n;
+                        accuracy = accuracy_2n;
+                    }
+                }
+
+            }
+
+            
+
+
+            //Please note we can do the accuracy scan on all of them    
+
+
+            cout<<"Accuracy = "<<accuracy<<endl;
+            cout<<"\n MAIN: afta_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+
+        }
+
+        
         
 
         cout<<"\n MAIN: after_ekf State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
@@ -1198,7 +1319,6 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
     cout<<"LEAVNG RUN"<<endl;
     
 }
-
 
 void fullRunClean(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun, bool finalRun,bool postMap,vector<CarPoint>& path, vector<PolPoint> lidarDataPoints){
     
@@ -1648,7 +1768,131 @@ int main() {
 
 // WELCOME TO THE GRAVEYARD
 
+//This one does only the small angle
 
+// void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun, bool firstRun2, bool finalRun,bool postMap,vector<CarPoint>& path, vector<PolPoint> lidarDataPoints){
+    
+
+//     //Run Lidar
+//     //vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
+//     bool error = false;
+
+
+//     if(error == false){
+
+//         ExtendedKalmanFilter ekf_old = ekf;
+
+//         // if(firstRun == false){
+//         //     vector<float> accuracy;
+//         //     cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+//         //     //float angle = runThread(ekf, lidarDataPoints,accuracy);
+//         //     ekf.w = runThread(ekf, lidarDataPoints,accuracy);
+//         //     cout<<"\n MAIN: afta_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+//         //     // for(int i =0;i<accuracy.size();i++){
+//         //     //     cout<<"a"<<i+1<<":"<<accuracy[i]<<endl;
+//         //     // }
+//         // }
+
+
+        
+
+    
+//         //Predict Position
+//         ekf.updateMotion();
+//         cout<<"\n MAIN: after_motion State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+
+
+//         //Process Data
+//         vector<CarPoint> carPoints;
+//         vector<PolPoint> polarCornerPoints;
+//         lidarDataProcessing2(lidarDataPoints,carPoints,polarCornerPoints);
+
+
+//         // vector<CarPoint> testPoints;
+
+//         // for(int i =0;i<carPoints.size();i++){
+//         //     testPoints.push_back(carPoints[i]);
+//         // }
+
+//         // //This saves the black odometry reading
+//         // fitCartesian(testPoints,ekf.State(0),ekf.State(1),ekf.State(2));
+//         // saveCarMotionToCSV(testPoints);
+
+//         //Set Corners and do EKF
+//         ekf.TestPolValues = polarCornerPoints;
+//         // ekf.runEKF();
+
+//         bool second = false;
+//         cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+//         float accuracy = 0;
+
+
+//         ekf = runThread(ekf_old, lidarDataPoints,accuracy,  carPoints, polarCornerPoints,second,firstRun2);
+//         cout<<"Accuracy = "<<accuracy<<endl;
+//         cout<<"\n MAIN: afta_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+                
+        
+
+//         cout<<"\n MAIN: after_ekf State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+//         for(int i =3;i<dim;i=i+2){
+//             if(ekf.State[i] != 0 && ekf.State[i+1] != 0){
+//                 cout<<"("<<ekf.State[i]<<","<<ekf.State[i+1]<<") | ";
+//             }
+//         }
+//         cout<<endl;
+
+//         float map_acc = 100;
+//         //Store Data for plotting
+//         if(firstRun == true){
+//             cout<<"MAIN: Save Car To Full Map"<<endl;
+//             saveCarToFullMapCSV(carPoints);
+//         }else{
+//             cout<<"MAIN: Store Map Points"<<endl;
+//             map_acc = storeMapPoints(carPoints,ekf.State);
+//         }
+
+//         if(map_acc<10){
+//             cout<<"Resetting Landmarks of EKF since map accuracy is less than 10%"<<endl;
+//             ekf_old.State(0) = ekf.State(0);
+//             ekf_old.State(1) = ekf.State(1);
+//             ekf_old.State(2) = ekf.State(2);
+//             ekf.State = ekf_old.State;
+//         }
+
+//         //Get Grid
+//         vector<vector<GridPoint>> gridNew;
+//         gridDataProcess(gridNew, ekf.State, firstRun);
+            
+//         //Complete Robot Movement
+//         if(firstRun == false){
+//             if(finalRun == false && postMap == false){
+//                 mapped = mapMovement(ekf.State,gridNew,path);// Move the robot to the location
+//                 motorDataProcessing(ekf.w,ekf.distance);//Set Ekf variables to result from motor functions
+//             }else if(finalRun == false && postMap == true){
+//                 home = postMapMovement(ekf.State,path,home);// Move the robot to the location
+//                 motorDataProcessing(ekf.w,ekf.distance);//Set Ekf variables to result from motor functions
+//             }else{
+//                 cout<<"MAIN: I DID NOT FUCKING MOVE"<<endl;
+//             }
+//         }else{
+//             cout<<"FIRST RUN NO MOVEMENT"<<endl;
+//             //Set motors
+//             motorControlGrid(0,0);
+//             motorDataProcessing(ekf.w,ekf.distance);//Set Ekf variables to result from motor functions
+
+//         }
+
+//     }else{
+//         cout<<" NO PROCESSING DUE TO LIDAR ERROR"<<endl;
+//     }
+        
+    
+
+//     cout<<"LEAVNG RUN"<<endl;
+    
+// }
+
+//This one does all the angles
 
 // void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun, bool firstRun2, bool finalRun,bool postMap,vector<CarPoint>& path, vector<PolPoint> lidarDataPoints){
     
