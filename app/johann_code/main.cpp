@@ -802,10 +802,10 @@ void randomFitting(vector<PolPoint>& lidarDataPoints,vector<CarPoint> carPoints,
                 }
                 //pushback minimum distance
                 distances.push_back(dist);
-                cout<<"StatePnt = "<<StatePoint<<", LiDARPoint = "<<printPoint<<" dist = "<<dist<<endl;
+                cout<<"StatePnt = "<<StatePoint<<", LiDARPoint = "<<printPoint<<" dist = "<<dist<<"  &&  ";
             }
         }
-
+        cout<<endl;
 
         //Get average minimum distance
         for(int i=0;i<distances.size();i++){
