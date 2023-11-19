@@ -1068,7 +1068,7 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
 }
 
 
-void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun, bool finalRun,bool postMap,vector<CarPoint>& path, vector<PolPoint> lidarDataPoints){
+void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun, bool firstRun2, bool finalRun,bool postMap,vector<CarPoint>& path, vector<PolPoint> lidarDataPoints){
     
 
     //Run Lidar
@@ -1124,7 +1124,7 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
         cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
         float accuracy = 0;
 
-        if(firstRun == false){
+        if(firstRun2 == false){
             ekf = runThread(ekf_old, lidarDataPoints,accuracy,  carPoints, polarCornerPoints,second);
             cout<<"Accuracy = "<<accuracy<<endl;
             cout<<"\n MAIN: afta_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
@@ -1132,7 +1132,7 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
 
         
         //5th Corner thread fix
-        if(( (ekf.State(11) != 0 && ekf.State(12)!=0) || (noCorners == 1 && ekf.noNewCorners>0) || accuracy > 300) && firstRun == false) {
+        if(( (ekf.State(11) != 0 && ekf.State(12)!=0) || (noCorners == 1 && ekf.noNewCorners>0) || accuracy > 300) && firstRun2 == false) {
             cout<<"\n5th Corner was added OR noCorners = 1 OR Acc>300 AGAIN assume this is problematic and will be solved with thread tests"<<endl;
             cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
 
@@ -1314,6 +1314,7 @@ void testRun(){
     bool mapped = false;
     bool home = false;
     bool firstRun = true;
+    bool firstRun2 = true;
     bool finalRun = false;
     bool postMap = false;
 
@@ -1344,12 +1345,17 @@ void testRun(){
         lidarDataPoints.clear();
         fetchScan(drv, op_result, lidarDataPoints, NoPoints, error, timeout);
         if(lidarDataPoints.size()!=0){
+            
             cout<<"MAIN: FetchedScan = "<<lidarDataPoints.size()<<endl;
             cout<<"\n i = "<<count<<endl;
             cout<<"------------------------------------------------------------------------------------------------------------\n\n";
-            fullRun2(ekf,mapped,home,firstRun,finalRun,postMap,path,lidarDataPoints);
+            fullRun2(ekf,mapped,home,firstRun,firstRun2,finalRun,postMap,path,lidarDataPoints);
+            if(firstRun == false){
+                firstRun2 == false;
+            }
             firstRun = false; //DO NOT CHANGE THIS KEEP IT HERE DO NOT MOVE IT INSIDE FULLRUN OR GOD HELP ME
             count = count+1;
+            
         }else{
             cout<<"MAIN: No Scan Fetched"<<endl;
         }
