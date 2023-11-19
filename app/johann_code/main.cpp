@@ -1224,6 +1224,7 @@ void fullRunClean(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool first
 
 
         if(ekf.State(11) != 0 && ekf.State(12)!=0){
+            bool second = false;
             cout<<"\n5th Corner was added assume this is problematic and will be solved with thread tests"<<endl;
             cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
             float accuracy;
