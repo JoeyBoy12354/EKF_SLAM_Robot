@@ -683,7 +683,7 @@ namespace Navigation_Functions{
         angle = pi_2_pi(angle);
         //angle = PI-angle;
 
-        angle = 160*PI/180;
+        angle = -160*PI/180;
         cout<<"Set angle force to ="<<angle*180/PI<<endl;
         //angle = 0;
 
