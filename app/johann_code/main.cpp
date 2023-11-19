@@ -1150,31 +1150,106 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
 
             ekf_old.State(2) = ekf_old.State(2) + 82*PI/180;
             cout<<"\n MAIN ThreadFix 2p: b4_thread State: x="<<ekf_old.State[0]<<", y="<<ekf_old.State[1]<<", w="<<ekf_old.State[2]*180/PI<<" deg"<<endl;
-            ExtendedKalmanFilter ekf_2p = runThread(ekf_old, lidarDataPoints,accuracy,  carPoints, polarCornerPoints,second,firstRun2);
+            ExtendedKalmanFilter ekf_2p = runThread(ekf_old, lidarDataPoints, accuracy,  carPoints, polarCornerPoints,second,firstRun2);
             float accuracy_2p = accuracy;
 
             ekf_old.State(2) = ekf_old.State(2) - 2*82*PI/180;
             cout<<"\n MAIN ThreadFix 2n: b4_thread State: x="<<ekf_old.State[0]<<", y="<<ekf_old.State[1]<<", w="<<ekf_old.State[2]*180/PI<<" deg"<<endl;
-            ExtendedKalmanFilter ekf_2n = runThread(ekf_old, lidarDataPoints,accuracy,  carPoints, polarCornerPoints,second,firstRun2);
+            ExtendedKalmanFilter ekf_2n = runThread(ekf_old, lidarDataPoints, accuracy,  carPoints, polarCornerPoints,second,firstRun2);
             float accuracy_2n = accuracy;
             
 
+
+            
+            //We must now compare the solutions
+
+            //First we must compare who has the least number of new corners
+            vector<int> vect_noCorners = {ekf1.noNewCorners, ekf_2p.ekf1.noNewCorners, ekf_2n.ekf1.noNewCorners};
+            vector<float> vect_accuracies = {accuracy_1, accuracy_2p, accuracy_2n};
+
+            int minNoCorners = *min_element (vect_noCorners.begin(), vect_noCorners.end()); 
+            int corner_counter = 0;
+            for(int i =0;i<vect_noCorners.size();i++){
+                if(vect_noCorners[i] == minNoCorners){
+                    corner_counter+=1;
+                }
+            }
+
+            //There is a minimum NoCorners
+            if(corner_counter == 1){
+
+                cout<<"There is a min NoCorners"<<endl;
+                if(vect_noCorners[0] == minNoCorners){
+                    cout<<"1st Thread stage had min corner"<<endl;
+                    ekf = ekf_1;
+                    accuracy = accuracy_1;
+                }else if(vect_noCorners[1] == minNoCorners){
+                    cout<<"2p Thread stage had min corner"<<endl;
+                    ekf = ekf_2p;
+                    accuracy = accuracy_2p;
+                }else if(vect_noCorners[2] == minNoCorners){
+                    cout<<"2n Thread stage had min corner"<<endl;
+                    ekf = ekf_2n;
+                    accuracy = accuracy_2n;
+                }
+            }else if(corner_counter == 3){
+
+                cout<<"There is not a min NoCorners"<<endl;
+                if(accuracy_1<accuracy_2p && accuracy_1<accuracy_2n){
+                    cout<<"First Thread stage was closer"<<endl;
+                    ekf = ekf_1;
+                    accuracy = accuracy_1;
+                }else if(accuracy_2p<accuracy_1 && accuracy_2p<accuracy_2n){
+                    cout<<"2p Thread stage was closer"<<endl;
+                    ekf = ekf_2p;
+                    accuracy = accuracy_2p;
+                }
+                else if(accuracy_2n<accuracy_1 && accuracy_2n<accuracy_2p){
+                    cout<<"2n Thread stage was closer"<<endl;
+                    ekf = ekf_2n;
+                    accuracy = accuracy_2n;
+                }
+            }else if(corner_counter == 2){
+                
+                cout<<"There are 2 minimums"<<endl;
+                if(vect_noCorners[0] == vect_noCorners[1]){
+                    if(vect_accuracies[0]<vect_accuracies[1]){
+                        cout<<"First Thread stage was closer"<<endl;
+                        ekf = ekf_1;
+                        accuracy = accuracy_1;
+                    }else{
+                        cout<<"2p Thread stage was closer"<<endl;
+                        ekf = ekf_2p;
+                        accuracy = accuracy_2p;
+                    }
+                }else if(vect_noCorners[1] == vect_noCorners[2]){
+                    if(vect_accuracies[1]<vect_accuracies[2]){
+                        cout<<"2p Thread stage was closer"<<endl;
+                        ekf = ekf_2p;
+                        accuracy = accuracy_2p;
+                    }else{
+                        cout<<"2n Thread stage was closer"<<endl;
+                        ekf = ekf_2n;
+                        accuracy = accuracy_2n;
+                    }
+                }else if(vect_noCorners[0] == vect_noCorners[2]){
+                    if(vect_accuracies[0]<vect_accuracies[2]){
+                        cout<<"1st Thread stage was closer"<<endl;
+                        ekf = ekf_1;
+                        accuracy = accuracy_1;
+                    }else{
+                        cout<<"2n Thread stage was closer"<<endl;
+                        ekf = ekf_2n;
+                        accuracy = accuracy_2n;
+                    }
+                }
+
+            }
+
             
 
-            if(accuracy_1<accuracy_2p && accuracy_1<accuracy_2n){
-                cout<<"First Thread stage was closer"<<endl;
-                ekf = ekf_1;
-                accuracy = accuracy_1;
-            }else if(accuracy_2p<accuracy_1 && accuracy_2p<accuracy_2n){
-                cout<<"2p Thread stage was closer"<<endl;
-                ekf = ekf_2p;
-                accuracy = accuracy_2p;
-            }
-            else if(accuracy_2n<accuracy_1 && accuracy_2n<accuracy_2p){
-                cout<<"2n Thread stage was closer"<<endl;
-                ekf = ekf_2n;
-                accuracy = accuracy_2n;
-            }
+
+            
 
 
             cout<<"Accuracy = "<<accuracy<<endl;
