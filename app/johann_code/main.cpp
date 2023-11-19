@@ -1207,8 +1207,11 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
             thread thread1(scanAccuracy, c1, ekf_1.State, std::ref(scanAcc_1));
             thread thread2p(scanAccuracy, c2p, ekf_2p.State, std::ref(scanAcc_2p));
             thread thread2n(scanAccuracy, c2n, ekf_2n.State, std::ref(scanAcc_2n));
+            cout<<"Yas1"<<endl;
             thread1.join();
+            cout<<"Yas2"<<endl;
             thread2p.join();
+            cout<<"Yas3"<<endl;
             thread2n.join();
             
 
