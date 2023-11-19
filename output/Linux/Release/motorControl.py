@@ -1695,7 +1695,7 @@ angle,distance = readInstructions()
 # distance =0
 
 
-if(distance > 900):
+if(distance > 600):
     print(" !! Resetting distance, ",distance," to 900mm")
     distance = 900
 

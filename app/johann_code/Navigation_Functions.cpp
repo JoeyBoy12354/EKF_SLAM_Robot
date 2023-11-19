@@ -464,7 +464,7 @@ namespace Navigation_Functions{
 
 
     float wallAvoidanceForward(MatrixXf State, float angle, CarPoint postPoint, CarPoint goalPoint){
-        float tooClose_thresh = 100;
+        float tooClose_thresh = 130;
         vector<CarPoint> map;
         readCarFromFullMapCSV(map);
 
@@ -516,7 +516,7 @@ namespace Navigation_Functions{
         }
 
         saveSonarIndicationToCSV(d_avoid);
-        cout<<"NAVI: AvoidFor avoid: "<<avoidPoint<<", From: "<<postPoint<<" To : "<<goalPoint<<endl;
+        cout<<"NAVI: AvoidFor,: Avoid: "<<avoidPoint<<", From: "<<postPoint<<" To : "<<goalPoint<<endl;
         cout<<"NAVI: m: "<<m<<", c = "<<c<<endl;
         cout<<"NAVI: Predicted Dist = "<<d_avoid<<endl;
 
@@ -683,8 +683,8 @@ namespace Navigation_Functions{
         angle = pi_2_pi(angle);
         //angle = PI-angle;
 
-        angle = -160*PI/180;
-        cout<<"Set angle force to ="<<angle*180/PI<<endl;
+        //angle = -160*PI/180;
+        //cout<<"Set angle force to ="<<angle*180/PI<<endl;
         //angle = 0;
 
         // cout<<"NAVI,GRID: deltaX = "<<deltaX<<" = "<<-1*closestPoint.x<<" - "<<robotPoint.x<<endl;
