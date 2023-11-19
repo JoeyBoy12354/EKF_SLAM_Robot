@@ -1138,18 +1138,15 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
 
         //Set Corners and do EKF
         ekf.TestPolValues = polarCornerPoints;
-        ekf.runEKF();
+        // ekf.runEKF();
 
+        cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+        vector<float> accuracy;
+        ekf = runThread(ekf_old, lidarDataPoints,accuracy,  carPoints, polarCornerPoints);
+        cout<<"\n MAIN: afta_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+
+        
         //5th Corner thread fix
-        if((ekf.State(11) != 0 && ekf.State(12)!=0) || (noCorners == 1 && ekf.noNewCorners>0){
-            cout<<"\n5th Corner was added OR noCorners = 1 assume this is problematic and will be solved with thread tests"<<endl;
-            cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
-            vector<float> accuracy;
-            ekf = runThread(ekf_old, lidarDataPoints,accuracy,  carPoints, polarCornerPoints);
-            cout<<"\n MAIN: afta_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
-
-        }
-
         if((ekf.State(11) != 0 && ekf.State(12)!=0) || (noCorners == 1 && ekf.noNewCorners>0)){
             cout<<"\n5th Corner was added OR noCorners = 1 AGAIN assume this is problematic and will be solved with thread tests"<<endl;
             cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
@@ -1672,3 +1669,140 @@ int main() {
 
 
 
+
+void fullRunYes(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun, bool finalRun,bool postMap,vector<CarPoint>& path, vector<PolPoint> lidarDataPoints){
+    
+
+    //Run Lidar
+    //vector<PolPoint> lidarDataPoints;//can be replaced with array for speed
+    bool error = false;
+
+
+    if(error == false){
+
+        ExtendedKalmanFilter ekf_old = ekf;
+
+        // if(firstRun == false){
+        //     vector<float> accuracy;
+        //     cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+        //     //float angle = runThread(ekf, lidarDataPoints,accuracy);
+        //     ekf.w = runThread(ekf, lidarDataPoints,accuracy);
+        //     cout<<"\n MAIN: afta_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+        //     // for(int i =0;i<accuracy.size();i++){
+        //     //     cout<<"a"<<i+1<<":"<<accuracy[i]<<endl;
+        //     // }
+        // }
+
+
+        
+
+    
+        //Predict Position
+        ekf.updateMotion();
+        cout<<"\n MAIN: after_motion State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+
+
+        //Process Data
+        vector<CarPoint> carPoints;
+        vector<PolPoint> polarCornerPoints;
+        lidarDataProcessing2(lidarDataPoints,carPoints,polarCornerPoints);
+
+
+        vector<CarPoint> testPoints;
+
+        for(int i =0;i<carPoints.size();i++){
+            testPoints.push_back(carPoints[i]);
+        }
+
+        //This saves the black odometry reading
+        fitCartesian(testPoints,ekf.State(0),ekf.State(1),ekf.State(2));
+        saveCarMotionToCSV(testPoints);
+
+        //Set Corners and do EKF
+        ekf.TestPolValues = polarCornerPoints;
+        ekf.runEKF();
+
+        //5th Corner thread fix
+        if((ekf.State(11) != 0 && ekf.State(12)!=0) || (noCorners == 1 && ekf.noNewCorners>0){
+            cout<<"\n5th Corner was added OR noCorners = 1 assume this is problematic and will be solved with thread tests"<<endl;
+            cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+            vector<float> accuracy;
+            ekf = runThread(ekf_old, lidarDataPoints,accuracy,  carPoints, polarCornerPoints);
+            cout<<"\n MAIN: afta_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+
+        }
+
+        // if((ekf.State(11) != 0 && ekf.State(12)!=0) || (noCorners == 1 && ekf.noNewCorners>0)){
+        //     cout<<"\n5th Corner was added OR noCorners = 1 AGAIN assume this is problematic and will be solved with thread tests"<<endl;
+        //     cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+            
+        //     if(ekf_old.State(2)<0){
+        //         ekf_old.State(2) = ekf_old.State(2) - PI/2;
+        //     }else{
+        //         ekf_old.State(2) = ekf_old.State(2) + PI/2;
+        //     }
+            
+        //     vector<float> accuracy;
+        //     ekf = runThread(ekf_old, lidarDataPoints,accuracy,  carPoints, polarCornerPoints);
+        //     cout<<"\n MAIN: afta_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+
+        // }
+
+        // if(noCorners == 1 && ekf.noNewCorners>0){
+        //     cout<<"Resetting Landmarks of EKF"<<endl;
+        //     ekf_old.State(0) = ekf.State(0);
+        //     ekf_old.State(1) = ekf.State(1);
+        //     ekf_old.State(2) = ekf.State(2);
+        //     ekf.State = ekf_old.State;
+        // }
+        
+
+        cout<<"\n MAIN: after_ekf State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+        for(int i =3;i<dim;i=i+2){
+            if(ekf.State[i] != 0 && ekf.State[i+1] != 0){
+                cout<<"("<<ekf.State[i]<<","<<ekf.State[i+1]<<") | ";
+            }
+        }
+        cout<<endl;
+
+        //Store Data for plotting
+        if(firstRun == true){
+            cout<<"MAIN: Save Car To Full Map"<<endl;
+            saveCarToFullMapCSV(carPoints);
+        }else{
+            cout<<"MAIN: Store Map Points"<<endl;
+            storeMapPoints(carPoints,ekf.State);
+        }
+
+        //Get Grid
+        vector<vector<GridPoint>> gridNew;
+        gridDataProcess(gridNew, ekf.State, firstRun);
+            
+        //Complete Robot Movement
+        if(firstRun == false){
+            if(finalRun == false && postMap == false){
+                mapped = mapMovement(ekf.State,gridNew,path);// Move the robot to the location
+                motorDataProcessing(ekf.w,ekf.distance);//Set Ekf variables to result from motor functions
+            }else if(finalRun == false && postMap == true){
+                home = postMapMovement(ekf.State,path,home);// Move the robot to the location
+                motorDataProcessing(ekf.w,ekf.distance);//Set Ekf variables to result from motor functions
+            }else{
+                cout<<"MAIN: I DID NOT FUCKING MOVE"<<endl;
+            }
+        }else{
+            cout<<"FIRST RUN NO MOVEMENT"<<endl;
+            //Set motors
+            motorControlGrid(0,0);
+            motorDataProcessing(ekf.w,ekf.distance);//Set Ekf variables to result from motor functions
+
+        }
+
+    }else{
+        cout<<" NO PROCESSING DUE TO LIDAR ERROR"<<endl;
+    }
+        
+    
+
+    cout<<"LEAVNG RUN"<<endl;
+    
+}
