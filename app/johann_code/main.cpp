@@ -1354,13 +1354,13 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
             float maxAcc = *max_element (scanAccs.begin(), scanAccs.end()); //This is due to us now using average distance
             cout<<"ScanMax = "<<maxAcc<<endl;
 
-            if(maxAcc == scanAcc_1){
+            if(maxAcc == accuracy_1){
                 ekf = ekf_1;
                 accuracy = accuracy_1;
-            }else if(maxAcc == scanAcc_2p){
+            }else if(maxAcc == accuracy_2p){
                 ekf = ekf_2p;
                 accuracy = accuracy_2p;
-            }else if(maxAcc == scanAcc_2n){
+            }else if(maxAcc == accuracy_2n){
                 ekf = ekf_2n;
                 accuracy = accuracy_2n;
             }    
