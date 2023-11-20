@@ -808,7 +808,7 @@ void randomFitting(vector<PolPoint>& lidarDataPoints,vector<CarPoint> carPoints,
         vector<float> distances;
         CarPoint printPoint;
 
-        cout<<"randomFitting Connection Data: ";
+        //cout<<"randomFitting Connection Data: ";
         //This method did not work at all
         // for(int i =0;i<Stored_vec.size();i++){
             
@@ -883,7 +883,7 @@ void randomFitting(vector<PolPoint>& lidarDataPoints,vector<CarPoint> carPoints,
                 }
 
                 distances.push_back(dist);
-                cout<<"StatePnt = "<<StoredPoint<<", LiDARPoint = "<<printPoint<<" dist = "<<dist<<"  &&  ";
+                //cout<<"StatePnt = "<<StoredPoint<<", LiDARPoint = "<<printPoint<<" dist = "<<dist<<"  &&  ";
 
 
             }
@@ -1308,72 +1308,72 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
         
 
         
-        //5th Corner thread fix
-        // if((ekf.noNewCorners>1 ) && firstRun2 == false) {
-        //     cout<<"\n no NewCorners>1 will be solved with thread tests"<<endl;
-        //     cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+        5th Corner thread fix
+        if((ekf.noNewCorners>1 ) && firstRun2 == false) {
+            cout<<"\n no NewCorners>1 will be solved with thread tests"<<endl;
+            cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
 
-        //     ExtendedKalmanFilter ekf_1 = ekf;
-        //     float accuracy_1 = accuracy;
+            ExtendedKalmanFilter ekf_1 = ekf;
+            float accuracy_1 = accuracy;
 
-        //     ekf_old.State(2) = ekf_old.State(2) + 82*PI/180;
-        //     cout<<"\n MAIN ThreadFix 2p: b4_thread State: x="<<ekf_old.State[0]<<", y="<<ekf_old.State[1]<<", w="<<ekf_old.State[2]*180/PI<<" deg"<<endl;
-        //     ExtendedKalmanFilter ekf_2p = runThread(ekf_old, lidarDataPoints, accuracy,  carPoints, polarCornerPoints,second,firstRun2);
-        //     float accuracy_2p = accuracy;
+            ekf_old.State(2) = ekf_old.State(2) + 82*PI/180;
+            cout<<"\n MAIN ThreadFix 2p: b4_thread State: x="<<ekf_old.State[0]<<", y="<<ekf_old.State[1]<<", w="<<ekf_old.State[2]*180/PI<<" deg"<<endl;
+            ExtendedKalmanFilter ekf_2p = runThread(ekf_old, lidarDataPoints, accuracy,  carPoints, polarCornerPoints,second,firstRun2);
+            float accuracy_2p = accuracy;
 
-        //     ekf_old.State(2) = ekf_old.State(2) - 2*82*PI/180;
-        //     cout<<"\n MAIN ThreadFix 2n: b4_thread State: x="<<ekf_old.State[0]<<", y="<<ekf_old.State[1]<<", w="<<ekf_old.State[2]*180/PI<<" deg"<<endl;
-        //     ExtendedKalmanFilter ekf_2n = runThread(ekf_old, lidarDataPoints, accuracy,  carPoints, polarCornerPoints,second,firstRun2);
-        //     float accuracy_2n = accuracy;
+            ekf_old.State(2) = ekf_old.State(2) - 2*82*PI/180;
+            cout<<"\n MAIN ThreadFix 2n: b4_thread State: x="<<ekf_old.State[0]<<", y="<<ekf_old.State[1]<<", w="<<ekf_old.State[2]*180/PI<<" deg"<<endl;
+            ExtendedKalmanFilter ekf_2n = runThread(ekf_old, lidarDataPoints, accuracy,  carPoints, polarCornerPoints,second,firstRun2);
+            float accuracy_2n = accuracy;
 
 
-        //     vector<CarPoint> oldmap;
-        //     readCarFromFullMapCSV(oldmap);//Fetch all current points
-        //     float scanAcc_1;
-        //     float scanAcc_2p;
-        //     float scanAcc_2n;
-        //     vector<CarPoint> c1 = carPoints;
-        //     vector<CarPoint> c2p = carPoints;
-        //     vector<CarPoint> c2n = carPoints;
-        //     thread thread1(scanAccuracy, oldmap, c1, ekf_1.State, std::ref(scanAcc_1));
-        //     thread thread2p(scanAccuracy, oldmap, c2p, ekf_2p.State, std::ref(scanAcc_2p));
-        //     thread thread2n(scanAccuracy, oldmap, c2n, ekf_2n.State, std::ref(scanAcc_2n));
-        //     thread1.join();
-        //     thread2p.join();
-        //     thread2n.join();
+            vector<CarPoint> oldmap;
+            readCarFromFullMapCSV(oldmap);//Fetch all current points
+            float scanAcc_1;
+            float scanAcc_2p;
+            float scanAcc_2n;
+            vector<CarPoint> c1 = carPoints;
+            vector<CarPoint> c2p = carPoints;
+            vector<CarPoint> c2n = carPoints;
+            thread thread1(scanAccuracy, oldmap, c1, ekf_1.State, std::ref(scanAcc_1));
+            thread thread2p(scanAccuracy, oldmap, c2p, ekf_2p.State, std::ref(scanAcc_2p));
+            thread thread2n(scanAccuracy, oldmap, c2n, ekf_2n.State, std::ref(scanAcc_2n));
+            thread1.join();
+            thread2p.join();
+            thread2n.join();
             
 
-        //     cout<<"Accuracies 1 scan:"<<scanAcc_1<<", corners: "<<accuracy_1<<", noCorners = "<<ekf_1.noNewCorners<<endl;
-        //     cout<<"Accuracies 2p scan:"<<scanAcc_2p<<", corners: "<<accuracy_2p<<", noCorners = "<<ekf_2p.noNewCorners<<endl;
-        //     cout<<"Accuracies 2n scan:"<<scanAcc_2n<<", corners: "<<accuracy_2n<<", noCorners = "<<ekf_2n.noNewCorners<<endl;
+            cout<<"Accuracies 1 scan:"<<scanAcc_1<<", corners: "<<accuracy_1<<", noCorners = "<<ekf_1.noNewCorners<<endl;
+            cout<<"Accuracies 2p scan:"<<scanAcc_2p<<", corners: "<<accuracy_2p<<", noCorners = "<<ekf_2p.noNewCorners<<endl;
+            cout<<"Accuracies 2n scan:"<<scanAcc_2n<<", corners: "<<accuracy_2n<<", noCorners = "<<ekf_2n.noNewCorners<<endl;
 
-        //     vector<float> scanAccs {scanAcc_1,scanAcc_2p,scanAcc_2n};
-        //     float maxAcc = *max_element (scanAccs.begin(), scanAccs.end()); //This is due to us now using average distance
-        //     cout<<"ScanMax = "<<maxAcc<<endl;
+            vector<float> scanAccs {scanAcc_1,scanAcc_2p,scanAcc_2n};
+            float maxAcc = *max_element (scanAccs.begin(), scanAccs.end()); //This is due to us now using average distance
+            cout<<"ScanMax = "<<maxAcc<<endl;
 
-        //     if(maxAcc == scanAcc_1){
-        //         ekf = ekf_1;
-        //         accuracy = accuracy_1;
-        //     }else if(maxAcc == scanAcc_2p){
-        //         ekf = ekf_2p;
-        //         accuracy = accuracy_2p;
-        //     }else if(maxAcc == scanAcc_2n){
-        //         ekf = ekf_2n;
-        //         accuracy = accuracy_2n;
-        //     }    
-            
-
-
+            if(maxAcc == scanAcc_1){
+                ekf = ekf_1;
+                accuracy = accuracy_1;
+            }else if(maxAcc == scanAcc_2p){
+                ekf = ekf_2p;
+                accuracy = accuracy_2p;
+            }else if(maxAcc == scanAcc_2n){
+                ekf = ekf_2n;
+                accuracy = accuracy_2n;
+            }    
             
 
 
-        //     //Please note we can do the accuracy scan on all of them    
+            
 
 
-        //     cout<<"Accuracy = "<<accuracy<<endl;
-        //     cout<<"\n MAIN: afta_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+            //Please note we can do the accuracy scan on all of them    
 
-        // }
+
+            cout<<"Accuracy = "<<accuracy<<endl;
+            cout<<"\n MAIN: afta_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+
+        }
 
         
         
