@@ -481,19 +481,19 @@ namespace Navigation_Functions{
         
         //Set line bounds
         if(postPoint.x>goalPoint.x){
-            xmax = postPoint.x + (postPoint.x/abs(postPoint.x))*tooClose_thresh;
-            xmin = goalPoint.x + (goalPoint.x/abs(goalPoint.x))*tooClose_thresh;
+            xmax = postPoint.x + tooClose_thresh;
+            xmin = goalPoint.x - tooClose_thresh;
         }else{
-            xmin = postPoint.x + (postPoint.x/abs(postPoint.x))*tooClose_thresh;;
-            xmax = goalPoint.x + (goalPoint.x/abs(goalPoint.x))*tooClose_thresh;;
+            xmin = postPoint.x + tooClose_thresh;;
+            xmax = goalPoint.x - tooClose_thresh;;
         }
 
         if(postPoint.y>goalPoint.y){
-            ymax = postPoint.y + (postPoint.y/abs(postPoint.y))*tooClose_thresh;;
-            ymin = goalPoint.y + (goalPoint.y/abs(goalPoint.y))*tooClose_thresh;;
+            ymax = postPoint.y + tooClose_thresh;;
+            ymin = goalPoint.y - tooClose_thresh;;
         }else{
-            ymin = postPoint.y + (postPoint.y/abs(postPoint.y))*tooClose_thresh;;
-            ymax = goalPoint.y + (goalPoint.y/abs(goalPoint.y))*tooClose_thresh;;
+            ymin = postPoint.y + tooClose_thresh;;
+            ymax = goalPoint.y - tooClose_thresh;;
         }
 
         float d;
