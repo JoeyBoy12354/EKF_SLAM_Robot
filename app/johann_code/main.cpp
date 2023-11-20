@@ -1187,7 +1187,7 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
         thread19.join();
 
 
-        cout<<"PUT IT IN THE VECTOR!!!!"
+        cout<<"PUT IT IN THE VECTOR!!!!"<<endl;
         vector<float> scanAcc_vect{ scanAcc_1, scanAcc_2, scanAcc_3, scanAcc_4, scanAcc_5, scanAcc_6, scanAcc_7, scanAcc_8, scanAcc_9, scanAcc_10, scanAcc_11, scanAcc_12, scanAcc_13, scanAcc_14, scanAcc_15, scanAcc_16, scanAcc_17, scanAcc_18, scanAcc_19 };
         float scan_max = *max_element (scanAcc_vect.begin(), scanAcc_vect.end());
 
