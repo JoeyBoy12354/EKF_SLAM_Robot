@@ -750,7 +750,7 @@ float scanAccuracy(vector<CarPoint> oldmap,vector<CarPoint> lidardata,Matrix<flo
     cout<<scanAcc<<<" Prefit for lidardata = "<<lidardata.size()<<" && State = "<<State(0)<<","<<State(1)<<","<<State(2)<<","<<endl;
     fitCartesian(lidardata,State(0),State(1),State(2));
     //cout<<"ScanAcc post fit"<<endl;
-    cout<<"scanAcc2 = "<<scanAcc<<endl;
+    cout<<"scanAcc postfit pre loop = "<<scanAcc<<" oldmap = "<<oldmap.size()<<endl;
 
 
     float accuracy = 0;
