@@ -14,7 +14,7 @@ string triangleCSV = "triangleCSV.csv";
 string motorStateCSV = "motorStateCSV.csv";
 string statsCSV = "statsCSV.csv";
 string sonarCSV = "sonarPredictCSV.csv";
-string sonaTurnrCSV = "sonarPredictTurnCSV.csv";
+string sonarTurnCSV = "sonarPredictTurnCSV.csv";
 
 string atsi_u_CSV = "atsi_uCSV.csv";
 string atsi_lm_CSV = "atsi_lmCSV.csv";
