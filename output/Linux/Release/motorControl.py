@@ -1738,7 +1738,7 @@ angle,distance = readInstructions()
 # print("angle = ",angle*180/math.pi)
 
 
-if(distance > 600):
+if(distance > 900):
     print(" !! Resetting distance, ",distance," to 900mm")
     distance = 900
 
