@@ -747,10 +747,9 @@ void atSim(){
 void scanAccuracy(vector<CarPoint> oldmap,vector<CarPoint> lidardata,Matrix<float, dim, 1> State, float& scanAcc){
     //Fit new scan
     //cout<<"ScanAcc pre fit"<<endl;
-    cout<<scanAcc<<" Prefit for lidardata = "<<lidardata.size()<<" && State = "<<State(0)<<","<<State(1)<<","<<State(2)<<","<<endl;
+
     fitCartesian(lidardata,State(0),State(1),State(2));
     //cout<<"ScanAcc post fit"<<endl;
-    cout<<"scanAcc postfit pre loop = "<<scanAcc<<" oldmap = "<<oldmap.size()<<endl;
 
 
     float accuracy = 0;
@@ -773,12 +772,7 @@ void scanAccuracy(vector<CarPoint> oldmap,vector<CarPoint> lidardata,Matrix<floa
             //oldmap.push_back(lidardata[i]);
         }
     }
-
-    cout<<"ScanAcc post for loop , accuracy = "<<accuracy<<"lidardata.size = "<<lidardata.size()<<" scanNo = "<<scanAcc<<endl;
-
-    cout<<"yeye"<<endl;;
     scanAcc = (accuracy/lidardata.size())*100;
-    cout<<"scanAcc = "<<scanAcc<<endl;
 
     return;
 }
@@ -1115,8 +1109,7 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
 
 
 
-    if(noCorners > 0){
-        cout<<"\n I FORCE US IN HERE!"<<endl;
+    if(noCorners < 2){
         cout<<"noCORNERS < 2 in thing";
         vector<CarPoint> oldmap;
         readCarFromFullMapCSV(oldmap);//Fetch all current points
@@ -1164,9 +1157,7 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
         thread thread19(scanAccuracy,oldmap, carPoints, ekf19.State, std::ref(scanAcc_19));
 
         thread1.join();
-        cout<<"JOIN THread 1"<<endl;
         thread2.join();
-        cout<<"JOIN THread 2"<<endl;
         thread3.join();
         thread4.join();
         thread5.join();
@@ -1187,13 +1178,15 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
         thread17.join();
         thread18.join();
         thread19.join();
-
-
-        cout<<"PUT IT IN THE VECTOR!!!!"<<endl;
+=
         vector<float> scanAcc_vect{ scanAcc_1, scanAcc_2, scanAcc_3, scanAcc_4, scanAcc_5, scanAcc_6, scanAcc_7, scanAcc_8, scanAcc_9, scanAcc_10, scanAcc_11, scanAcc_12, scanAcc_13, scanAcc_14, scanAcc_15, scanAcc_16, scanAcc_17, scanAcc_18, scanAcc_19 };
         float scan_max = *max_element (scanAcc_vect.begin(), scanAcc_vect.end());
 
-        cout<<"THE BIG SCAN MAX = "<<scan_max<<endl;
+        for(int i =0;i<scanAcc_vect.size();i++){
+            cout<<"{"<<i+1<<","<<scanAcc_vect[i]<<"}, ";
+        }
+
+        cout<<"\nRun Threads Corners<2: SCAN MAX = "<<scan_max<<endl;
 
         if(max == scanAcc_1){
             mainEKF = ekf1;
@@ -1317,7 +1310,7 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
         
         //5th Corner thread fix
         if((ekf.noNewCorners>1 ) && firstRun2 == false) {
-            cout<<"\n5th Corner was added OR noCorners = 1 OR Acc>300 AGAIN assume this is problematic and will be solved with thread tests"<<endl;
+            cout<<"\n no NewCorners>1 will be solved with thread tests"<<endl;
             cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
 
             ExtendedKalmanFilter ekf_1 = ekf;
@@ -1345,11 +1338,8 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
             thread thread1(scanAccuracy, oldmap, c1, ekf_1.State, std::ref(scanAcc_1));
             thread thread2p(scanAccuracy, oldmap, c2p, ekf_2p.State, std::ref(scanAcc_2p));
             thread thread2n(scanAccuracy, oldmap, c2n, ekf_2n.State, std::ref(scanAcc_2n));
-            cout<<"Yas1"<<endl;
             thread1.join();
-            cout<<"Yas2"<<endl;
             thread2p.join();
-            cout<<"Yas3"<<endl;
             thread2n.join();
             
 
@@ -1358,6 +1348,7 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
             cout<<"Accuracies 2n scan:"<<scanAcc_2n<<", corners: "<<accuracy_2n<<", noCorners = "<<ekf_2n.noNewCorners;
             vector<float> scanAccs {scanAcc_1,scanAcc_2p,scanAcc_2n};
             float maxAcc = *max_element (scanAccs.begin(), scanAccs.end()); //This is due to us now using average distance
+            cout<<"ScanMax = "<<maxAcc<<endl;
 
             if(maxAcc == scanAcc_1){
                 ekf = ekf_1;
