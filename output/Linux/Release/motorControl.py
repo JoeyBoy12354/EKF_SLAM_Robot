@@ -1737,14 +1737,13 @@ angle,distance = readInstructions()
 # #angle = 0
 # distance = 200
 
-# angle = math.pi/2
-# distance =0
+angle = math.pi/2
+distance =0
 
 # LNoRot,RNoRot  = speedControl(angle,0,True)
 
 
-# angle = getAngle(LNoRot,RNoRot,angle)
-# print("angle = ",angle*180/math.pi)
+print("angle = ",angle*180/math.pi)
 
 
 if(distance > 600):
