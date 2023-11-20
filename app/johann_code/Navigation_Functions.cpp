@@ -169,7 +169,7 @@ namespace Navigation_Functions{
     }
 
     CarPoint findNextPointRadius(MatrixXf State, vector<vector<GridPoint>> gridMap, bool& mapped){
-        int scalar = 2;
+        int scalar = 3;
 
         //The problem with the algorithm is that it encourages bouncing where it will jump between a high y value then a low value
         //Up and down over and over again
@@ -222,7 +222,7 @@ namespace Navigation_Functions{
         //Or just have it cover maximum straights
 
         //Take current position and look up,down,left and right
-        int scalar = 2;
+        int scalar = 5;
         GridPoint current = stateToGridDot(State,gridMap);
         float orientation = State(2)*180/PI; // Get the orientation
 
