@@ -1744,7 +1744,7 @@ angle,distance = readInstructions()
 # #angle = 0
 # distance = 200
 
-angle = -math.pi/2
+angle = math.pi/2
 distance =0
 
 # LNoRot,RNoRot  = speedControl(angle,0,True)
@@ -1770,7 +1770,7 @@ print("MC: distance moved = ",distance)
 
 
 for i in range(0,3):
-    angle = -math.pi/2
+    angle = math.pi/2
     distance =0
     print("angle = ",angle*180/math.pi)
     if(distance > 600):
