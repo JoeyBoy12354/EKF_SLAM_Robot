@@ -86,18 +86,18 @@ def runSonar(Left):
 
     #The HC-SR04 Ultrasonics have a max range of 4000mm (4m) if something is further than that they will bug out
     #And provide a distance greater than 12000 the same will occur for the minimum range of 20mm
-    if(distance> 12000):
-        print("12m <= DISTANCE is set to ",readSonarCSV()," || measured = ",distance)
-        distance = readSonarCSV()
-    else:
-        #Always selected smallest
-        print("Distance < 12000 Measured:",distance," Read = ",readSonarCSV())
+    # if(distance> 12000):
+    #     print("12m <= DISTANCE is set to ",readSonarCSV()," || measured = ",distance)
+    #     distance = readSonarCSV()
+    # else:
+    #     #Always selected smallest
+    #     print("Distance < 12000 Measured:",distance," Read = ",readSonarCSV())
         
-        if(distance > readSonarCSV()):
-            distance = readSonarCSV()
-        print("selected = ",distance)
+    #     if(distance > readSonarCSV()):
+    #         distance = readSonarCSV()
+    #     print("selected = ",distance)
 
-    writeOdometry(distance)
+    # writeOdometry(distance)
     return distance
 
 

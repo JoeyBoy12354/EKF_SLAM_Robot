@@ -1365,11 +1365,6 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
                 accuracy = accuracy_2n;
             }    
             
-
-
-            
-
-
             //Please note we can do the accuracy scan on all of them    
 
 
@@ -1377,9 +1372,6 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
             cout<<"\n MAIN: afta_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
 
         }
-
-        
-        
 
         cout<<"\n MAIN: after_ekf State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
         for(int i =3;i<dim;i=i+2){
@@ -1462,36 +1454,79 @@ void fullRunClean(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool first
         vector<PolPoint> polarCornerPoints;
         lidarDataProcessingCleaning(lidarDataPoints,carPoints,polarCornerPoints);
 
+        //Set Corners and do EKF
         ekf.TestPolValues = polarCornerPoints;
-        //Run EKF
-        ekf.runEKF();
+        // ekf.runEKF();
+
+        bool second = false;
+        cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+        float accuracy = 0;
 
 
+        ekf = runThread(ekf_old, lidarDataPoints,accuracy,  carPoints, polarCornerPoints,second,firstRun2);
+        cout<<"Accuracy = "<<accuracy<<endl;
+        cout<<"\n MAIN: afta_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
+        
 
-        if((ekf.State(11) != 0 && ekf.State(12)!=0) && firstRun == false){
-            bool second = false;
-            cout<<"\n5th Corner was added assume this is problematic and will be solved with thread tests"<<endl;
+        
+        //5th Corner thread fix
+        if((accuracy <10 ) && firstRun2 == false) {
+            cout<<"\n accuracy<10 will be solved with thread tests"<<endl;
             cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
-            float accuracy;
-            ekf = runThread(ekf_old, lidarDataPoints,accuracy,  carPoints, polarCornerPoints,second,firstRun);
+
+            ExtendedKalmanFilter ekf_1 = ekf;
+            float accuracy_1 = accuracy;
+
+            ekf_old.State(2) = ekf_old.State(2) + 82*PI/180;
+            cout<<"\n MAIN ThreadFix 2p: b4_thread State: x="<<ekf_old.State[0]<<", y="<<ekf_old.State[1]<<", w="<<ekf_old.State[2]*180/PI<<" deg"<<endl;
+            ExtendedKalmanFilter ekf_2p = runThread(ekf_old, lidarDataPoints, accuracy,  carPoints, polarCornerPoints,second,firstRun2);
+            float accuracy_2p = accuracy;
+
+            ekf_old.State(2) = ekf_old.State(2) - 2*82*PI/180;
+            cout<<"\n MAIN ThreadFix 2n: b4_thread State: x="<<ekf_old.State[0]<<", y="<<ekf_old.State[1]<<", w="<<ekf_old.State[2]*180/PI<<" deg"<<endl;
+            ExtendedKalmanFilter ekf_2n = runThread(ekf_old, lidarDataPoints, accuracy,  carPoints, polarCornerPoints,second,firstRun2);
+            float accuracy_2n = accuracy;
+
+    
+            cout<<"scan: "<<accuracy_1<<", noCorners = "<<ekf_1.noNewCorners<<endl;
+            cout<<"scan: "<<accuracy_2p<<", noCorners = "<<ekf_2p.noNewCorners<<endl;
+            cout<<"scan: "<<accuracy_2n<<", noCorners = "<<ekf_2n.noNewCorners<<endl;
+
+            vector<float> scanAccs {accuracy_1,accuracy_2p,accuracy_2n};
+            float maxAcc = *max_element (scanAccs.begin(), scanAccs.end()); //This is due to us now using average distance
+            cout<<"ScanMax = "<<maxAcc<<endl;
+
+            if(maxAcc == accuracy_1){
+                ekf = ekf_1;
+                accuracy = accuracy_1;
+            }else if(maxAcc == accuracy_2p){
+                ekf = ekf_2p;
+                accuracy = accuracy_2p;
+            }else if(maxAcc == accuracy_2n){
+                ekf = ekf_2n;
+                accuracy = accuracy_2n;
+            }    
+
+            cout<<"Accuracy = "<<accuracy<<endl;
             cout<<"\n MAIN: afta_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
 
         }
 
-        cout<<"\n MAIN: after_ekf State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
-        for(int i =3;i<dim;i=i+2){
-            if(ekf.State[i] != 0 && ekf.State[i+1] != 0){
-                cout<<"("<<ekf.State[i]<<","<<ekf.State[i+1]<<") | ";
-            }
+        if(map_acc<10){
+            cout<<"Resetting Landmarks of EKF since map accuracy is less than 10%"<<endl;
+            ekf_old.State(0) = ekf.State(0);
+            ekf_old.State(1) = ekf.State(1);
+            ekf_old.State(2) = ekf.State(2);
+            ekf.State = ekf_old.State;
         }
-        cout<<endl;
-
 
         storeMapPointsCleaning(carPoints,ekf.State);
 
         //Get Grid
         vector<vector<GridPoint>> gridNew;
         gridDataProcess(gridNew, ekf.State, firstRun);
+
+        
             
         //Complete Robot Movement
   
@@ -1502,7 +1537,7 @@ void fullRunClean(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool first
             home = postMapMovement(ekf.State,path,home);// Move the robot to the location
             motorDataProcessing(ekf.w,ekf.distance);//Set Ekf variables to result from motor functions
         }else{
-            cout<<"MAIN: I DID NOT FUCKING MOVE"<<endl;
+            cout<<"MAIN: I DID NOT ***** MOVE"<<endl;
         }
         
 

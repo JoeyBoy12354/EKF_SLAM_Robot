@@ -182,6 +182,7 @@ namespace CSV_Functions{
 
     //Sonar
     void saveSonarIndicationToCSV(float distance);
+    void saveSonarIndicationTurnToCSV(float distance);
 
 
 }
@@ -323,6 +324,7 @@ namespace Navigation_Functions{
     float wallAvoidance(MatrixXf State, float angle);
     float wallAvoidanceForward(MatrixXf State, float angle, CarPoint postPoint, CarPoint goalPoint);
     void escape(CarPoint closestPoint,MatrixXf State,float avoid_dist);
+    float wallAvoidanceTurn(MatrixXf State);
     
 }
 

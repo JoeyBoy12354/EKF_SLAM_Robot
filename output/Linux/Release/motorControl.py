@@ -88,8 +88,32 @@ def pointDistance(x1,y1,x2,y2):
 def avoidanceTurn(angle): 
     time.sleep(0.1)
     rightSonarDist = sonarControl.runSonar(False)
-    leftSonarDist = sonarControl.runSonar(True)
     time.sleep(0.1)
+
+    if(rightSonarDist> 12000):
+        print("12m <= RIGHT DISTANCE is set to ",readSonarTurnCSV()," || measured = ",rightSonarDist)
+        rightSonarDist = readSonarTurnCSV()
+    else:
+        #Always selected smallest
+        print("RIGHT Distance < 12000 Measured:",rightSonarDist," Read = ", readSonarTurnCSV())
+        
+        if(rightSonarDist > readSonarTurnCSV()):
+            rightSonarDist = readSonarTurnCSV()
+        print("selected = ",rightSonarDist)
+
+    leftSonarDist = sonarControl.runSonar(True)
+
+    if(leftSonarDist> 12000):
+        print("12m <=LEFT  DISTANCE is set to ",readSonarTurnCSV()," || measured = ",leftSonarDist)
+        leftSonarDist = readSonarTurnCSV()
+    else:
+        #Always selected smallest
+        print("LEFT Distance < 12000 Measured:",leftSonarDist," Read = ", readSonarTurnCSV())
+        
+        if(leftSonarDist > readSonarTurnCSV()):
+            leftSonarDist = readSonarTurnCSV()
+        print("selected = ",leftSonarDist)
+    
 
     reverseTotal = 0
     dist=0
@@ -151,6 +175,32 @@ def avoidanceForward(distance):
     time.sleep(0.1)
     rightSonarDist = sonarControl.runSonar(False)
     leftSonarDist = sonarControl.runSonar(True)
+
+    if(rightSonarDist> 12000):
+        print("12m <= RIGHTSonar DISTANCE is set to ",readSonarCSV()," || measured = ",rightSonarDist)
+        rightSonarDist = readSonarCSV()
+    else:
+        #Always selected smallest
+        print(" RIGHTSonar Distance < 12000 Measured:",rightSonarDist," Read = ",readSonarCSV())
+        
+        if(rightSonarDist > readSonarCSV()):
+            rightSonarDist = readSonarCSV()
+        print("selected = ",rightSonarDist)
+
+    if(leftSonarDist> 12000):
+        print("12m <= LEFTonar DISTANCE is set to ",readSonarCSV()," || measured = ",leftSonarDist)
+        leftSonarDist = readSonarCSV()
+    else:
+        #Always selected smallest
+        print("LEFTSonar Distance < 12000 Measured:",leftSonarDist," Read = ",readSonarCSV())
+        
+        if(leftSonarDist > readSonarCSV()):
+            leftSonarDist = readSonarCSV()
+        print("selected = ",leftSonarDist)
+
+
+
+
     shortenedDist = distance
     time.sleep(0.1)
 
@@ -1385,6 +1435,46 @@ def writeOdometry(angle, distance):
             csv_writer.writerow([str(row)])
 
     return
+
+def readSonarCSV():
+    try:
+        dist= 4000
+        # Calculate goal that we want to move
+        with open('sonarPredictCSV.csv', 'r') as file:
+            csv_reader = csv.reader(file)
+            for row in csv_reader:
+                dist = float(row[0])
+    except FileNotFoundError:
+        print("Error: The file 'sonarPredictCSV.csv' was not found.")
+        return None
+    except Exception as e:
+        print(f"An error occurred while reading 'sonarPredictCSV.csv': {e}")
+        return None
+    else:
+        file.close()
+
+    return dist
+
+def readSonarTurnCSV():
+    try:
+        dist= 4000
+        # Calculate goal that we want to move
+        with open('sonarPredictTurnCSV.csv', 'r') as file:
+            csv_reader = csv.reader(file)
+            for row in csv_reader:
+                dist = float(row[0])
+    except FileNotFoundError:
+        print("Error: The file 'sonarPredictTurnCSV.csv' was not found.")
+        return None
+    except Exception as e:
+        print(f"An error occurred while reading 'sonarPredictTurnCSV.csv': {e}")
+        return None
+    else:
+        file.close()
+
+    return dist
+
+
 
 #This function will read the cali values
 def readCalibration():

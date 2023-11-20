@@ -399,7 +399,7 @@ namespace Navigation_Functions{
         float turnableDistance = 200; //Total distance from object required to make a turn (REMEMBER SAME AS IN MC Python)
         vector<CarPoint> map;
         CarPoint bot(State(0),State(1));
-        readCarFromFullMapCSV(map);
+        readCarFromCSV(map); //Read latest scan
 
         vector<CarPoint> collisionLeft;
         vector<CarPoint> collisionRight;//unused
@@ -532,6 +532,90 @@ namespace Navigation_Functions{
 
     }
 
+    float wallAvoidanceTurn(MatrixXf State){
+        float turnableDistance = 100;
+         // Distance to move in the x and y directions based on theta and 20cm distance
+        double deltaX = turnableDistance * cos(State(2));
+        double deltaY = turnableDistance * sin(State(2));
+
+        // Calculate the new coordinates
+        double newX = ;
+        double newY = 
+
+        CarPoint goalPoint;
+        goalPoint.x = State(0) + deltaX;
+        goalPoint.y = State(1) + deltaY;
+
+        CarPoint postPoint;
+        postPoint.x = State(0);
+        postPoint.y = State(1);
+
+        vector<CarPoint> map;
+        //readCarFromFullMapCSV(map);
+        readCarFromCSV(map); //Read latest scan
+
+
+        float m = (goalPoint.y - postPoint.y)/(goalPoint.x - postPoint.x);
+        float c = goalPoint.y - m*goalPoint.x;
+
+        float xmax;
+        float ymax;
+        float xmin;
+        float ymin;
+        
+        //Set line bounds
+        if(postPoint.x>goalPoint.x){
+            xmax = postPoint.x + tooClose_thresh;
+            xmin = goalPoint.x - tooClose_thresh;
+        }else{
+            xmin = postPoint.x - tooClose_thresh;;
+            xmax = goalPoint.x + tooClose_thresh;;
+        }
+
+        if(postPoint.y>goalPoint.y){
+            ymax = postPoint.y + tooClose_thresh;;
+            ymin = goalPoint.y - tooClose_thresh;;
+        }else{
+            ymin = postPoint.y - tooClose_thresh;;
+            ymax = goalPoint.y + tooClose_thresh;;
+        }
+
+        float d;
+        float d_avoid = 100000;
+        CarPoint avoidPoint;
+        //Find points near Line (take all over to y side)
+        cout<<"xmax = "<<xmax<<endl;
+        cout<<"xmin = "<<xmin<<endl;
+        cout<<"ymax = "<<ymax<<endl;
+        cout<<"ymin = "<<ymin<<endl;
+        
+        // cout<<"NAVI: avoidFor Points: ";
+        for(int i =0;i<map.size();i++){
+
+            d = abs(-m*map[i].x + 1*map[i].y -c)/sqrt(pow(m,2) + 1);//Distance between point and line
+            if(d<tooClose_thresh && map[i].x<xmax && map[i].x>xmin && map[i].y<ymax && map[i].y>ymin){
+                    // cout<<map[i];
+                float dist = pointDistance(postPoint,map[i]);
+                if(dist<d_avoid){
+                    d_avoid = dist;
+                    avoidPoint = map[i];
+                }
+
+            }
+        }
+        if(d_avoid == 100000){
+            d_avoid = pointDistance(postPoint,goalPoint)+250;
+        }
+
+        saveSonarIndicationTurnToCSV(d_avoid);
+        cout<<"NAVI turn: AvoidFor,: Avoid: "<<avoidPoint<<", From: "<<postPoint<<" To : "<<goalPoint<<endl;
+        cout<<"NAVI turn: m: "<<m<<", c = "<<c<<endl;
+        cout<<"NAVI turn: Predicted Dist = "<<d_avoid<<endl;
+        
+
+        return d_avoid;
+
+    }
 
     void escape(CarPoint closestPoint,MatrixXf State,float avoid_dist){
         cout<<"Entered escapism"<<endl;
@@ -727,6 +811,7 @@ namespace Navigation_Functions{
         angle = wallAvoidance(State,angle);
         cout<<"NAVI,GRID rotate angle after avoidance = "<<angle*180/PI<<endl;
         float avoid_dist = wallAvoidanceForward(State, angle, C, closestPoint);
+        wallAvoidanceTurn(State);
         //End Wall avoidance
 
         // angle = 0;
