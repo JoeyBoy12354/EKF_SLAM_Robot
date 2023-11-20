@@ -1735,7 +1735,7 @@ print("MC started")
 # # print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
 
 leftTurnCompensation = 11*math.pi/180
-rightTurnCompensation = 5*math.pi/180
+rightTurnCompensation = 0*math.pi/180
 
 angle,distance = readInstructions()
 
