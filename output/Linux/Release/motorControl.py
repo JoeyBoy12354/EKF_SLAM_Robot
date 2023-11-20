@@ -1264,7 +1264,7 @@ def motorCalibrate():
 
 
 
-    distance =900
+    distance =1000
     runs = 1 #THIS CANNOT BE CHANGED
 
     lefts = []
@@ -1274,7 +1274,7 @@ def motorCalibrate():
     left_avg = 0
     right_avg = 0
 
-    num = 7
+    num = 4
 
     for i in range(0,num):
         left_avg,right_avg = motorCorrection(distance,runs,left_avg,right_avg,lefts,rights,error)
