@@ -1529,7 +1529,9 @@ def testSonar():
 
 def testSonarHardware():
     while(True):
+        print("Left = ")
         sonarControl.runSonar(True)#left
+        print("Right = ")
         sonarControl.runSonar(False)#right
 
 
