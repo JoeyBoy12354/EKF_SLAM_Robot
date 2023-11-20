@@ -675,9 +675,13 @@ namespace Navigation_Functions{
 
         
 
-        
+        closestPoint.x = 1000;
+        closestPoint.y = 0;
 
+        cout<<"Force Closest Point !!!! = ";
         cout<<"ClosestPoint = "<<closestPoint<<endl;
+        
+        
 
         //Set destination
         float deltaX = closestPoint.x - State(0);
