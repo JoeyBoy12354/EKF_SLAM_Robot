@@ -1766,6 +1766,7 @@ wiringpi.pinMode(echoPin3, 0)       # Set pin to 0 ( INPUT )
 angle,distance = motorControl_wThread(angle,distance)
 print("MC: Angle turned = ",angle*180/math.pi)
 print("MC: distance moved = ",distance)
+writeOdometry(angle,distance)
 
 
 
@@ -1783,7 +1784,7 @@ print("MC: distance moved = ",distance)
 #     angle,distance = motorControl_wThread(angle,distance)
 #     print("MC: Angle turned = ",angle*180/math.pi)
 #     print("MC: distance moved = ",distance)
-#     writeOdometry(angle,distance)
+#     
 
 
 
