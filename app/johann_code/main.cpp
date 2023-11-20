@@ -777,10 +777,11 @@ float scanAccuracy(vector<CarPoint> lidardata,Matrix<float, dim, 1> State, float
         }
     }
 
-    cout<<"ScanAcc post for"<<endl;
+    cout<<"ScanAcc post for loop , accuracy = "<<accuracy<<"lidardata.size = "<<lidardata.size()<<endl;
 
 
     scanAcc = (accuracy/lidardata.size())*100;
+    cout<<"scanAcc = "<<scanAcc<<endl;
 
     
 }
