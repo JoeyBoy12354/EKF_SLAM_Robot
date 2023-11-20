@@ -1463,14 +1463,14 @@ void fullRunClean(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool first
         float accuracy = 0;
 
 
-        ekf = runThread(ekf_old, lidarDataPoints,accuracy,  carPoints, polarCornerPoints,second,firstRun2);
+        ekf = runThread(ekf_old, lidarDataPoints,accuracy,  carPoints, polarCornerPoints,second,firstRun);
         cout<<"Accuracy = "<<accuracy<<endl;
         cout<<"\n MAIN: afta_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
         
 
         
         //5th Corner thread fix
-        if((accuracy <10 ) && firstRun2 == false) {
+        if((accuracy <10 ) && firstRun == false) {
             cout<<"\n accuracy<10 will be solved with thread tests"<<endl;
             cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
 
@@ -1479,12 +1479,12 @@ void fullRunClean(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool first
 
             ekf_old.State(2) = ekf_old.State(2) + 82*PI/180;
             cout<<"\n MAIN ThreadFix 2p: b4_thread State: x="<<ekf_old.State[0]<<", y="<<ekf_old.State[1]<<", w="<<ekf_old.State[2]*180/PI<<" deg"<<endl;
-            ExtendedKalmanFilter ekf_2p = runThread(ekf_old, lidarDataPoints, accuracy,  carPoints, polarCornerPoints,second,firstRun2);
+            ExtendedKalmanFilter ekf_2p = runThread(ekf_old, lidarDataPoints, accuracy,  carPoints, polarCornerPoints,second,firstRun);
             float accuracy_2p = accuracy;
 
             ekf_old.State(2) = ekf_old.State(2) - 2*82*PI/180;
             cout<<"\n MAIN ThreadFix 2n: b4_thread State: x="<<ekf_old.State[0]<<", y="<<ekf_old.State[1]<<", w="<<ekf_old.State[2]*180/PI<<" deg"<<endl;
-            ExtendedKalmanFilter ekf_2n = runThread(ekf_old, lidarDataPoints, accuracy,  carPoints, polarCornerPoints,second,firstRun2);
+            ExtendedKalmanFilter ekf_2n = runThread(ekf_old, lidarDataPoints, accuracy,  carPoints, polarCornerPoints,second,firstRun);
             float accuracy_2n = accuracy;
 
     
