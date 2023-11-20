@@ -107,7 +107,7 @@ namespace Mapping_Functions{
                 cout<<"YAHA"<<endl;
 
 
-            }else if(acc_percentage>10){
+            }else if(acc_percentage>35){
                 cout<<"\n\n NOT VERY ACCURATE SCAN addNewPoints @ "<< acc_percentage <<" %\n\n";
                 for(int i = 0;i<temp.size();i++){
                     oldmap.push_back(temp[i]);
