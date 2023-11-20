@@ -747,10 +747,10 @@ void atSim(){
 float scanAccuracy(vector<CarPoint> oldmap,vector<CarPoint> lidardata,Matrix<float, dim, 1> State, float& scanAcc){
     //Fit new scan
     //cout<<"ScanAcc pre fit"<<endl;
+    cout<<scanAcc<<<" Prefit for lidardata = "<<lidardata.size()<<" && State = "<<State(0)<<","<<State(1)<<","<<State(2)<<","<<endl;
     fitCartesian(lidardata,State(0),State(1),State(2));
     //cout<<"ScanAcc post fit"<<endl;
-
-    vector<CarPoint> temp;
+    cout<<"scanAcc2 = "<<scanAcc<<endl;
 
 
     float accuracy = 0;
