@@ -1737,7 +1737,7 @@ angle,distance = readInstructions()
 # #angle = 0
 # distance = 200
 
-angle = math.pi/2
+angle = -math.pi/2
 distance =0
 
 # LNoRot,RNoRot  = speedControl(angle,0,True)
@@ -1762,50 +1762,20 @@ print("MC: distance moved = ",distance)
 
 
 
-
-angle = math.pi/2
-distance =0
-print("angle = ",angle*180/math.pi)
-if(distance > 600):
-    print(" !! Resetting distance, ",distance," to 600mm")
-    distance = 600
-#Edge sonar
-wiringpi.pinMode(trigPin3, 1)       # Set pin to 1 ( OUTPUT )
-wiringpi.pinMode(echoPin3, 0)       # Set pin to 0 ( INPUT )
-angle,distance = motorControl_wThread(angle,distance)
-print("MC: Angle turned = ",angle*180/math.pi)
-print("MC: distance moved = ",distance)
-writeOdometry(angle,distance)
-
-
-angle = math.pi/2
-distance =0
-print("angle = ",angle*180/math.pi)
-if(distance > 600):
-    print(" !! Resetting distance, ",distance," to 600mm")
-    distance = 600
-#Edge sonar
-wiringpi.pinMode(trigPin3, 1)       # Set pin to 1 ( OUTPUT )
-wiringpi.pinMode(echoPin3, 0)       # Set pin to 0 ( INPUT )
-angle,distance = motorControl_wThread(angle,distance)
-print("MC: Angle turned = ",angle*180/math.pi)
-print("MC: distance moved = ",distance)
-writeOdometry(angle,distance)
-
-
-angle = math.pi/2
-distance =0
-print("angle = ",angle*180/math.pi)
-if(distance > 600):
-    print(" !! Resetting distance, ",distance," to 600mm")
-    distance = 600
-#Edge sonar
-wiringpi.pinMode(trigPin3, 1)       # Set pin to 1 ( OUTPUT )
-wiringpi.pinMode(echoPin3, 0)       # Set pin to 0 ( INPUT )
-angle,distance = motorControl_wThread(angle,distance)
-print("MC: Angle turned = ",angle*180/math.pi)
-print("MC: distance moved = ",distance)
-writeOdometry(angle,distance)
+for i in range(0,3):
+    angle = -math.pi/2
+    distance =0
+    print("angle = ",angle*180/math.pi)
+    if(distance > 600):
+        print(" !! Resetting distance, ",distance," to 600mm")
+        distance = 600
+    #Edge sonar
+    wiringpi.pinMode(trigPin3, 1)       # Set pin to 1 ( OUTPUT )
+    wiringpi.pinMode(echoPin3, 0)       # Set pin to 0 ( INPUT )
+    angle,distance = motorControl_wThread(angle,distance)
+    print("MC: Angle turned = ",angle*180/math.pi)
+    print("MC: distance moved = ",distance)
+    writeOdometry(angle,distance)
 
 
 
