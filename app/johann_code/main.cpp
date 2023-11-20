@@ -1512,7 +1512,7 @@ void fullRunClean(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool first
 
         }
 
-        if(map_acc<10){
+        if(accuracy<10){
             cout<<"Resetting Landmarks of EKF since map accuracy is less than 10%"<<endl;
             ekf_old.State(0) = ekf.State(0);
             ekf_old.State(1) = ekf.State(1);
