@@ -1529,8 +1529,8 @@ def testSonar():
 
 def testSonarHardware():
     while(True):
-        sonarControl.runSonar(True)
-        sonarControl.runSonar(False)
+        sonarControl.runSonar(True)#left
+        sonarControl.runSonar(False)#right
 
 
     
