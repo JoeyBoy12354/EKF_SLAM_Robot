@@ -325,15 +325,19 @@ def speedControl(theta,distance,direction):
         bias = 0.05
 
         #newRotation Scheme:
-        NoRotations = (R*(abs(theta)))/(2*math.pi*r) + bias# ROTATE
+        
         
         if(theta<0):
+            theta = theta -leftTurnCompensation
+            NoRotations = (R*(abs(theta)))/(2*math.pi*r) + bias# ROTATE
             if(direction == True):
                 thread = threading.Thread(target=left_thread, args=(timeOnL,timeOffL,))
             else:
                 thread = threading.Thread(target=leftR_thread, args=(timeOnL,timeOffL,))
         else:
             NoRotations = abs(NoRotations)
+            theta = theta + rightTurnCompensation
+            NoRotations = (R*(abs(theta)))/(2*math.pi*r) + bias# ROTATE
             if(direction == True):
                 thread = threading.Thread(target=right_thread, args=(timeOnR,timeOffR,))
             else:
@@ -493,9 +497,9 @@ def getAngle(LNoRot,RNoRot,theta):
 
     #Assumme the other wheel picking up roations is shaking
     if(theta<0):
-        return (-1*thetaL+bias)
+        return (-1*thetaL+bias+leftTurnCompensation)
     else:
-        return (thetaR-bias)
+        return (thetaR-bias-rightTurnCompensation)
     
     # if(thetaL>thetaR):
     #     return -1*thetaL
@@ -1729,6 +1733,9 @@ print("MC started")
 # # print("MC: time Left = ",timeOnL,"s ",timeOffL,"s")
 # # print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
 
+leftTurnCompensation = 11*math.pi/180
+rightTurnCompensation = 11*math.pi/180
+
 angle,distance = readInstructions()
 
 # angle = -1*math.pi/2
@@ -1737,7 +1744,7 @@ angle,distance = readInstructions()
 # #angle = 0
 # distance = 200
 
-angle = -math.pi/2 - 11*math.pi/180
+angle = -math.pi/2
 distance =0
 
 # LNoRot,RNoRot  = speedControl(angle,0,True)
@@ -1763,7 +1770,7 @@ print("MC: distance moved = ",distance)
 
 
 for i in range(0,3):
-    angle = -math.pi/2 - 11*math.pi/180
+    angle = -math.pi/2
     distance =0
     print("angle = ",angle*180/math.pi)
     if(distance > 600):
