@@ -1683,7 +1683,7 @@ motorCalibrate()
 # # print("MC: time Left = ",timeOnL,"s ",timeOffL,"s")
 # # print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
 
-angle,distance = readInstructions()
+# angle,distance = readInstructions()
 
 # angle = -1*math.pi/2
 # distance = 0
@@ -1707,7 +1707,7 @@ wiringpi.pinMode(echoPin3, 0)       # Set pin to 0 ( INPUT )
 angle,distance = motorControl_wThread(angle,distance)
 print("MC: Angle turned = ",angle*180/math.pi)
 print("MC: distance moved = ",distance)
-writeOdometry(angle,distance)
+# writeOdometry(angle,distance)
 
 
 
