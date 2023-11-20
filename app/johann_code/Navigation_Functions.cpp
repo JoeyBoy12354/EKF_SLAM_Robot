@@ -464,6 +464,7 @@ namespace Navigation_Functions{
 
 
     float wallAvoidanceForward(MatrixXf State, float angle, CarPoint postPoint, CarPoint goalPoint){
+        cout<<"\n WALL AVOIDANCE FORWARD "<<endl;
         float tooClose_thresh = 130;
         vector<CarPoint> map;
         //readCarFromFullMapCSV(map);
