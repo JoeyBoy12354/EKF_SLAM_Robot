@@ -1551,6 +1551,7 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 
 print("MC started")
 #motorCalibrate()
+testSonarHardware()
 
 
 #timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
