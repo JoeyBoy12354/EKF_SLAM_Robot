@@ -1188,49 +1188,49 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
 
         cout<<"\nRun Threads Corners<2: SCAN MAX = "<<scan_max<<endl;
 
-        if(max == scanAcc_1){
+        if(scan_max == scanAcc_1){
             mainEKF = ekf1;
-        } else if(max == scanAcc_2){
+        } else if(scan_max == scanAcc_2){
             mainEKF = ekf2;
-        } else if(max == scanAcc_3){
+        } else if(scan_max == scanAcc_3){
             mainEKF = ekf3;
-        } else if(max == scanAcc_4){
+        } else if(scan_max == scanAcc_4){
             mainEKF = ekf4;
-        } else if(max == scanAcc_5){
+        } else if(scan_max == scanAcc_5){
             mainEKF = ekf5;
         }
 
-        else if(max == scanAcc_6){
+        else if(scan_max == scanAcc_6){
             mainEKF = ekf6;
-        } else if(max == scanAcc_7){
+        } else if(scan_max == scanAcc_7){
             mainEKF = ekf7;
-        } else if(max == scanAcc_8){
+        } else if(scan_max == scanAcc_8){
             mainEKF = ekf8;
-        } else if(max == scanAcc_9){
+        } else if(scan_max == scanAcc_9){
             mainEKF = ekf9;
-        } else if(max == scanAcc_10){
+        } else if(scan_max == scanAcc_10){
             mainEKF = ekf10;
-        } else if(max == scanAcc_11){
+        } else if(scan_max == scanAcc_11){
             mainEKF = ekf11;
         }
 
-        else if(max == scanAcc_12){
+        else if(scan_max == scanAcc_12){
             mainEKF = ekf12;
-        } else if(max == scanAcc_13){
+        } else if(scan_max == scanAcc_13){
             mainEKF = ekf13;
-        } else if(max == scanAcc_14){
+        } else if(scan_max == scanAcc_14){
             mainEKF = ekf14;
-        } else if(max == scanAcc_15){
+        } else if(scan_max == scanAcc_15){
             mainEKF = ekf15;
         }
 
-        else if(max == scanAcc_16){
+        else if(scan_max == scanAcc_16){
             mainEKF = ekf16;
-        } else if(max == scanAcc_17){
+        } else if(scan_max == scanAcc_17){
             mainEKF = ekf17;
-        } else if(max == scanAcc_18){
+        } else if(scan_max == scanAcc_18){
             mainEKF = ekf18;
-        } else if(max == scanAcc_19){
+        } else if(scan_max == scanAcc_19){
             mainEKF = ekf19;
         }
 
