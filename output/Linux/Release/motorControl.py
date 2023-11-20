@@ -335,9 +335,10 @@ def speedControl(theta,distance,direction):
             else:
                 thread = threading.Thread(target=leftR_thread, args=(timeOnL,timeOffL,))
         else:
-            NoRotations = abs(NoRotations)
             theta = theta + rightTurnCompensation
             NoRotations = (R*(abs(theta)))/(2*math.pi*r) + bias# ROTATE
+            NoRotations = abs(NoRotations)
+            
             if(direction == True):
                 thread = threading.Thread(target=right_thread, args=(timeOnR,timeOffR,))
             else:
