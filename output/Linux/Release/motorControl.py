@@ -1519,7 +1519,7 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 
 
 print("MC started")
-motorCalibrate()
+#motorCalibrate()
 #timeOnL, timeOnR, timeOffL, timeOffR = readCalibration()
 # timeOnL=0.0071
 # timeOnR=0.008
@@ -1694,7 +1694,11 @@ motorCalibrate()
 angle = math.pi/2
 distance =0
 
-speedControl(angle,0,True)
+LNoRot,RNoRot  = speedControl(angle,0,True)
+
+
+angle = getAngle(LNoRot,RNoRot,angle)
+print("angle = ",angle)
 
 
 # if(distance > 600):
