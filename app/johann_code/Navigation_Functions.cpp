@@ -680,8 +680,8 @@ namespace Navigation_Functions{
 
         
 
-        closestPoint.x = 1000;
-        closestPoint.y = 0;
+        closestPoint.x = 0;
+        closestPoint.y = -1000;
 
         cout<<"Force Closest Point !!!! = ";
         cout<<"ClosestPoint = "<<closestPoint<<endl;
