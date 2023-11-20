@@ -226,6 +226,8 @@ namespace Navigation_Functions{
         GridPoint current = stateToGridDot(State,gridMap);
         float orientation = State(2)*180/PI; // Get the orientation
 
+        cout<<"This is us = ("<<current.x<<", "<<current.y<<") orientation = "<<orientation<<endl;
+
         CarPoint case1Point;
         CarPoint case2Point;
         CarPoint case3Point;
