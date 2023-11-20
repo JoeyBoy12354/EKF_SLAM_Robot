@@ -415,8 +415,8 @@ void ExtendedKalmanFilter::updateStateOfLandmark() {
     State = State + Gain*(delta_z);
 
     //cout<<"Using z: r =  "<<z[0]<<", a = "<<z[1]*180/PI<<" || cap: r "<<z_cap[0]<<", a = "<<z_cap[1]*180/PI<<" || D: r = "<<delta_z[0]<<", a = "<<delta_z[1]*180/PI<<endl;
-    cout<<"D: r = "<<delta_z[0]<<", a = "<<delta_z[1]*180/PI<<endl;
-    cout<<"G: r = "<<sqrt(pow((Gain*delta_z)[0],2) + pow((Gain*delta_z)[1],2) )<<", a = "<<State[2]*180/PI<<endl;
+    //cout<<"D: r = "<<delta_z[0]<<", a = "<<delta_z[1]*180/PI<<endl;
+    //cout<<"G: r = "<<sqrt(pow((Gain*delta_z)[0],2) + pow((Gain*delta_z)[1],2) )<<", a = "<<State[2]*180/PI<<endl;
    
     //cout<<"used%: r = "<<(abs(sqrt(pow((Gain*delta_z)[0],2) + pow((Gain*delta_z)[1],2) ))/delta_z[0])*100<<", a = "<<((Gain*delta_z)[2]/delta_z[1])*100<<endl;
     //cout<<"D: x = "<<delta_z[0]*cos(delta_z[1])<<" || y = "<<delta_z[0]*cos(delta_z[1])<<" || a = "<<delta_z[1]*180/PI<<endl;

@@ -466,7 +466,9 @@ namespace Navigation_Functions{
     float wallAvoidanceForward(MatrixXf State, float angle, CarPoint postPoint, CarPoint goalPoint){
         float tooClose_thresh = 130;
         vector<CarPoint> map;
-        readCarFromFullMapCSV(map);
+        //readCarFromFullMapCSV(map);
+        readCarFromCSV(map); //Read latest scan
+
 
         float m = (goalPoint.y - postPoint.y)/(goalPoint.x - postPoint.x);
         float c = goalPoint.y - m*goalPoint.x;
