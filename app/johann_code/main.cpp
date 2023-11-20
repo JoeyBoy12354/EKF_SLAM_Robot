@@ -1237,7 +1237,7 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
 
     }
 
-
+    cout<<"EKF STATE = "<<mainEKF.State(0)<<","<<mainEKF.State(1)<<","<<mainEKF.State(2)<<","<<endl;
     return mainEKF;
 
 
