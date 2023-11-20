@@ -780,7 +780,7 @@ float scanAccuracy(vector<CarPoint> oldmap,vector<CarPoint> lidardata,Matrix<flo
     scanAcc = (accuracy/lidardata.size())*100;
     cout<<"scanAcc = "<<scanAcc<<endl;
 
-    
+    return;
 }
 
 
@@ -1164,7 +1164,9 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
         thread thread19(scanAccuracy,oldmap, carPoints, ekf19.State, std::ref(scanAcc_19));
 
         thread1.join();
+        cout<<"JOIN THread 1"<<endl;
         thread2.join();
+        cout<<"JOIN THread 2"<<endl;
         thread3.join();
         thread4.join();
         thread5.join();
