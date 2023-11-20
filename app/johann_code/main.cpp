@@ -1187,6 +1187,7 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
         }
 
         cout<<"\nRun Threads Corners<2: SCAN MAX = "<<scan_max<<endl;
+        accuracy = scan_max;
 
         if(scan_max == scanAcc_1){
             mainEKF = ekf1;
@@ -1233,6 +1234,8 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
         } else if(scan_max == scanAcc_19){
             mainEKF = ekf19;
         }
+
+        
 
 
     }
@@ -1308,9 +1311,9 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
         
 
         
-        5th Corner thread fix
-        if((ekf.noNewCorners>1 ) && firstRun2 == false) {
-            cout<<"\n no NewCorners>1 will be solved with thread tests"<<endl;
+        //5th Corner thread fix
+        if((accuracy <10 ) && firstRun2 == false) {
+            cout<<"\n accuracy<10 will be solved with thread tests"<<endl;
             cout<<"\n MAIN: b4_thread State: x="<<ekf.State[0]<<", y="<<ekf.State[1]<<", w="<<ekf.State[2]*180/PI<<" deg"<<endl;
 
             ExtendedKalmanFilter ekf_1 = ekf;
@@ -1327,27 +1330,27 @@ void fullRun2(ExtendedKalmanFilter& ekf,bool& mapped, bool& home, bool firstRun,
             float accuracy_2n = accuracy;
 
 
-            vector<CarPoint> oldmap;
-            readCarFromFullMapCSV(oldmap);//Fetch all current points
-            float scanAcc_1;
-            float scanAcc_2p;
-            float scanAcc_2n;
-            vector<CarPoint> c1 = carPoints;
-            vector<CarPoint> c2p = carPoints;
-            vector<CarPoint> c2n = carPoints;
-            thread thread1(scanAccuracy, oldmap, c1, ekf_1.State, std::ref(scanAcc_1));
-            thread thread2p(scanAccuracy, oldmap, c2p, ekf_2p.State, std::ref(scanAcc_2p));
-            thread thread2n(scanAccuracy, oldmap, c2n, ekf_2n.State, std::ref(scanAcc_2n));
-            thread1.join();
-            thread2p.join();
-            thread2n.join();
+            // vector<CarPoint> oldmap;
+            // readCarFromFullMapCSV(oldmap);//Fetch all current points
+            // float scanAcc_1;
+            // float scanAcc_2p;
+            // float scanAcc_2n;
+            // vector<CarPoint> c1 = carPoints;
+            // vector<CarPoint> c2p = carPoints;
+            // vector<CarPoint> c2n = carPoints;
+            // thread thread1(scanAccuracy, oldmap, c1, ekf_1.State, std::ref(scanAcc_1));
+            // thread thread2p(scanAccuracy, oldmap, c2p, ekf_2p.State, std::ref(scanAcc_2p));
+            // thread thread2n(scanAccuracy, oldmap, c2n, ekf_2n.State, std::ref(scanAcc_2n));
+            // thread1.join();
+            // thread2p.join();
+            // thread2n.join();
             
 
-            cout<<"Accuracies 1 scan:"<<scanAcc_1<<", corners: "<<accuracy_1<<", noCorners = "<<ekf_1.noNewCorners<<endl;
-            cout<<"Accuracies 2p scan:"<<scanAcc_2p<<", corners: "<<accuracy_2p<<", noCorners = "<<ekf_2p.noNewCorners<<endl;
-            cout<<"Accuracies 2n scan:"<<scanAcc_2n<<", corners: "<<accuracy_2n<<", noCorners = "<<ekf_2n.noNewCorners<<endl;
+            cout<<"scan: "<<accuracy_1<<", noCorners = "<<ekf_1.noNewCorners<<endl;
+            cout<<"scan: "<<accuracy_2p<<", noCorners = "<<ekf_2p.noNewCorners<<endl;
+            cout<<"scan: "<<accuracy_2n<<", noCorners = "<<ekf_2n.noNewCorners<<endl;
 
-            vector<float> scanAccs {scanAcc_1,scanAcc_2p,scanAcc_2n};
+            vector<float> scanAccs {accuracy_1,accuracy_2p,accuracy_2n};
             float maxAcc = *max_element (scanAccs.begin(), scanAccs.end()); //This is due to us now using average distance
             cout<<"ScanMax = "<<maxAcc<<endl;
 
