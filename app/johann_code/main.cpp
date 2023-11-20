@@ -746,9 +746,9 @@ void atSim(){
 
 float scanAccuracy(vector<CarPoint> oldmap,vector<CarPoint> lidardata,Matrix<float, dim, 1> State, float& scanAcc){
     //Fit new scan
-    cout<<"ScanAcc pre fit"<<endl;
+    //cout<<"ScanAcc pre fit"<<endl;
     fitCartesian(lidardata,State(0),State(1),State(2));
-    cout<<"ScanAcc post fit"<<endl;
+    //cout<<"ScanAcc post fit"<<endl;
 
     vector<CarPoint> temp;
 
@@ -757,7 +757,7 @@ float scanAccuracy(vector<CarPoint> oldmap,vector<CarPoint> lidardata,Matrix<flo
     float accuracy_dist = 15;
     bool isAccurate=false;
 
-    cout<<"ScanAcc pre for"<<endl;
+    //cout<<"ScanAcc pre for"<<endl;
 
     //Append new points to current oldmap
     //This is okay because we do not use fullmap data for anything
@@ -774,9 +774,9 @@ float scanAccuracy(vector<CarPoint> oldmap,vector<CarPoint> lidardata,Matrix<flo
         }
     }
 
-    cout<<"ScanAcc post for loop , accuracy = "<<accuracy<<"lidardata.size = "<<lidardata.size()<<endl;
+    cout<<"ScanAcc post for loop , accuracy = "<<accuracy<<"lidardata.size = "<<lidardata.size()<<" scanNo = "<<scanAcc<<endl;
 
-
+    cout<<"yeye"<<endl;;
     scanAcc = (accuracy/lidardata.size())*100;
     cout<<"scanAcc = "<<scanAcc<<endl;
 
@@ -1115,31 +1115,32 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
 
 
 
-    if(noCorners < 2){
+    if(noCorners > 0){
+        cout<<"\n I FORCE US IN HERE!"<<endl;
         cout<<"noCORNERS < 2 in thing";
         vector<CarPoint> oldmap;
         readCarFromFullMapCSV(oldmap);//Fetch all current points
 
-        float scanAcc_1;
-        float scanAcc_2;
-        float scanAcc_3;
-        float scanAcc_4;
-        float scanAcc_5;
-        float scanAcc_6;
-        float scanAcc_7;
-        float scanAcc_8;
-        float scanAcc_9;
-        float scanAcc_10;
+        float scanAcc_1=1;
+        float scanAcc_2=2;
+        float scanAcc_3=3;
+        float scanAcc_4=4;
+        float scanAcc_5=5;
+        float scanAcc_6=6;
+        float scanAcc_7=7;
+        float scanAcc_8=8;
+        float scanAcc_9=9;
+        float scanAcc_10=10;
 
-        float scanAcc_11;
-        float scanAcc_12;
-        float scanAcc_13;
-        float scanAcc_14;
-        float scanAcc_15;
-        float scanAcc_16;
-        float scanAcc_17;
-        float scanAcc_18;
-        float scanAcc_19;
+        float scanAcc_11=11;
+        float scanAcc_12=12;
+        float scanAcc_13=13;
+        float scanAcc_14=14;
+        float scanAcc_15=15;
+        float scanAcc_16=16;
+        float scanAcc_17=17;
+        float scanAcc_18=18;
+        float scanAcc_19=19;
 
         thread thread1(scanAccuracy,oldmap, carPoints, ekf1.State, std::ref(scanAcc_1));
         thread thread2(scanAccuracy,oldmap, carPoints, ekf2.State, std::ref(scanAcc_2));
@@ -1185,6 +1186,8 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
         thread18.join();
         thread19.join();
 
+
+        cout<<"PUT IT IN THE VECTOR!!!!"
         vector<float> scanAcc_vect{ scanAcc_1, scanAcc_2, scanAcc_3, scanAcc_4, scanAcc_5, scanAcc_6, scanAcc_7, scanAcc_8, scanAcc_9, scanAcc_10, scanAcc_11, scanAcc_12, scanAcc_13, scanAcc_14, scanAcc_15, scanAcc_16, scanAcc_17, scanAcc_18, scanAcc_19 };
         float scan_max = *max_element (scanAcc_vect.begin(), scanAcc_vect.end());
 
