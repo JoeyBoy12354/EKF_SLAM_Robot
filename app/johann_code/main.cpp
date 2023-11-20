@@ -1109,7 +1109,7 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
 
 
 
-    if(noCorners < 2){
+    if(true){
         cout<<"noCORNERS < 2 in thing";
         vector<CarPoint> oldmap;
         readCarFromFullMapCSV(oldmap);//Fetch all current points
