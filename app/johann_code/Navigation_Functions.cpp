@@ -484,16 +484,16 @@ namespace Navigation_Functions{
             xmax = postPoint.x + tooClose_thresh;
             xmin = goalPoint.x - tooClose_thresh;
         }else{
-            xmin = postPoint.x + tooClose_thresh;;
-            xmax = goalPoint.x - tooClose_thresh;;
+            xmin = postPoint.x - tooClose_thresh;;
+            xmax = goalPoint.x + tooClose_thresh;;
         }
 
         if(postPoint.y>goalPoint.y){
             ymax = postPoint.y + tooClose_thresh;;
             ymin = goalPoint.y - tooClose_thresh;;
         }else{
-            ymin = postPoint.y + tooClose_thresh;;
-            ymax = goalPoint.y - tooClose_thresh;;
+            ymin = postPoint.y - tooClose_thresh;;
+            ymax = goalPoint.y + tooClose_thresh;;
         }
 
         float d;
