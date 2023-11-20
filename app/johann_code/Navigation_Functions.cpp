@@ -534,7 +534,7 @@ namespace Navigation_Functions{
 
     float wallAvoidanceTurn(MatrixXf State){
         float turnableDistance = 100;
-        float tooClose_thres = 100;
+        float tooClose_thresh = 100;
          // Distance to move in the x and y directions based on theta and 20cm distance
         double deltaX = turnableDistance * cos(State(2));
         double deltaY = turnableDistance * sin(State(2));
