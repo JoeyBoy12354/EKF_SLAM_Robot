@@ -123,7 +123,7 @@ void ExtendedKalmanFilter::updateMotion() {
     Motion_Jacobian(1,2) = (distance+dist2)*cos(State(2));
 
 
-    cout<<"D: x = "<<Cd_x<<", y = "<<Cd_y<<", a = "<<w*180/PI<<endl;
+    //cout<<"D: x = "<<Cd_x<<", y = "<<Cd_y<<", a = "<<w*180/PI<<endl;
     //cout<<"used%: x = "<<100*(C.x + Cd_x)/C.x<<", y = "<<100*(C.y + Cd_y)/C.y<<", a ="<<100*(State(2) + w)/State(2)<<endl;
 
 
