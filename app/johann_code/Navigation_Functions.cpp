@@ -1002,8 +1002,8 @@ namespace Navigation_Functions{
         
         float angle2 = wallAvoidance(State,angle);
         if(angle2 == angle*-1){
-            cout<<"We have detected obstruction on both sides all we can do is reverse"
-            distance = -1000;
+            cout<<"We have detected obstruction on both sides all we can do is reverse"<<endl;
+            distance = -100;
             angle = 0;
 
             
