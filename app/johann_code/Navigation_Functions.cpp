@@ -619,7 +619,7 @@ namespace Navigation_Functions{
 
         cout<<"No of collision points = "<<noCollisionPoints<<endl;
         cout<<"mindistL: "<<mindistL<<" mindistR: "<<mindistR<<endl;
-        cout<<"minL: "<<minL<<" minR: "<<mindR<<endl;
+        cout<<"minL: "<<minL<<" minR: "<<minR<<endl;
         if(mindistL>mindistR){
             if(angle<0){
                 //cout<<"Angle change from: "<<angle*180/PI<<" -> "<<(angle - PI/2)*180/PI<<endl;
