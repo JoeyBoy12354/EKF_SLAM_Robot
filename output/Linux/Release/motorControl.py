@@ -1817,6 +1817,15 @@ motorCalibrate()
 # timeOffR=0.0020535117056856185
 
 
+
+
+timeOnL=0.008
+timeOnR=0.007000561797752809
+timeOffL=0.002
+timeOffR=0.002999438202247191
+
+
+
 # # # #testDistances()
 # # # #testAngles()
 
@@ -1824,66 +1833,48 @@ motorCalibrate()
 # # print("MC: time Left = ",timeOnL,"s ",timeOffL,"s")
 # # print("MC: time Right = ",timeOnR,"s ",timeOffR,"s")
 
-# leftTurnCompensation = 11*math.pi/180
-# rightTurnCompensation = 0*math.pi/180
+leftTurnCompensation = 11*math.pi/180
+rightTurnCompensation = 0*math.pi/180
 
-# angle,distance = readInstructions()
+angle,distance = readInstructions()
 
-# if(angle == 0 and distance<0):
-#     print("MC: We have detected EMERGENCY")
+if(angle == 0 and distance<0):
+    print("MC: We have detected EMERGENCY")
     
-#     left,right = speedControl(0,-1*distance,False)
-#     dist = getDist(left,right)    
+    left,right = speedControl(0,-1*distance,False)
+    dist = getDist(left,right)    
 
 
 
 
-# # angle = -1*math.pi/2
-# # distance = 0
-# # angle = math.pi/2
-# # #angle = 0
-# # distance = 200
+# angle = -1*math.pi/2
+# distance = 0
+# angle = math.pi/2
+# #angle = 0
+# distance = 200
 
-# # angle = 0
-# # distance =0
+# angle = 0
+# distance =0
 
-# # LNoRot,RNoRot  = speedControl(angle,0,True)
-
-
-# print("angle = ",angle*180/math.pi)
+# LNoRot,RNoRot  = speedControl(angle,0,True)
 
 
-# # if(distance > 600):
-# #     print(" !! Resetting distance, ",distance," to 600mm")
-# #     distance = 600
-
-# #Edge sonar
-# wiringpi.pinMode(trigPin3, 1)       # Set pin to 1 ( OUTPUT )
-# wiringpi.pinMode(echoPin3, 0)       # Set pin to 0 ( INPUT )
+print("angle = ",angle*180/math.pi)
 
 
-# angle,distance = motorControl_wThread(angle,distance)
-# print("MC: Angle turned = ",angle*180/math.pi)
-# print("MC: distance moved = ",distance)
-# writeOdometry(angle,distance)
+# if(distance > 600):
+#     print(" !! Resetting distance, ",distance," to 600mm")
+#     distance = 600
+
+#Edge sonar
+wiringpi.pinMode(trigPin3, 1)       # Set pin to 1 ( OUTPUT )
+wiringpi.pinMode(echoPin3, 0)       # Set pin to 0 ( INPUT )
 
 
-
-
-# for i in range(0,3):
-#     angle = math.pi/2
-#     distance =0
-#     print("angle = ",angle*180/math.pi)
-#     if(distance > 600):
-#         print(" !! Resetting distance, ",distance," to 600mm")
-#         distance = 600
-#     #Edge sonar
-#     wiringpi.pinMode(trigPin3, 1)       # Set pin to 1 ( OUTPUT )
-#     wiringpi.pinMode(echoPin3, 0)       # Set pin to 0 ( INPUT )
-#     angle,distance = motorControl_wThread(angle,distance)
-#     print("MC: Angle turned = ",angle*180/math.pi)
-#     print("MC: distance moved = ",distance)
-#     
+angle,distance = motorControl_wThread(angle,distance)
+print("MC: Angle turned = ",angle*180/math.pi)
+print("MC: distance moved = ",distance)
+writeOdometry(angle,distance)
 
 
 
