@@ -1005,13 +1005,21 @@ namespace Navigation_Functions{
             cout<<"We have detected obstruction on both sides all we can do is reverse"<<endl;
             distance = -100;
             angle = 0;
-
+            motorControlGrid(angle,distance);
             
         }else{
             angle = angle2;
             cout<<"NAVI,GRID rotate angle after avoidance = "<<angle*180/PI<<endl;
             float avoid_dist = wallAvoidanceForward(State, angle, C, closestPoint);
             wallAvoidanceTurn(State);
+
+            if(stuck_threshold == 1){
+                cout<<"\n WE ARE STUCK"<<endl;
+                escape(closestPoint,State,avoid_dist);
+            }else{
+                //Set motors
+                motorControlGrid(angle,distance);
+            }
         }
         
         //End Wall avoidance
@@ -1019,13 +1027,7 @@ namespace Navigation_Functions{
         // angle = 0;
         // distance = 0;
 
-        if(stuck_threshold == 0){
-            cout<<"\n WE ARE STUCK"<<endl;
-            escape(closestPoint,State,avoid_dist);
-        }else{
-            //Set motors
-            motorControlGrid(angle,distance);
-        }
+        
 
 
         
