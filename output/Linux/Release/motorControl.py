@@ -1647,7 +1647,7 @@ wiringpi.digitalWrite(LMot_Pin, 1)
 
 
 print("MC started")
-motorCalibrate()
+#motorCalibrate()
 #testSonarHardware()
 
 
