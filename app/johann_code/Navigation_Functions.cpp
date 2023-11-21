@@ -382,6 +382,7 @@ namespace Navigation_Functions{
                         xDelta = gridMap[i][j].x-current.x;
                         yDelta = gridMap[i][j].y-current.y;
 
+                        cout<<"radius = "<<radius<<endl;
                         cout<<"G: ("<<gridMap[i][j].x<<","<<gridMap[i][j].y<<") -> xd = "<<abs(gridMap[i][j].x-current.x)<<", yd = "<<abs(gridMap[i][j].y-current.y)<<endl;
 
                         //Positive x
