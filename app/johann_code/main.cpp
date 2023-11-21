@@ -744,22 +744,14 @@ void atSim(){
 }
 
 
-void scanAccuracy(vector<CarPoint> oldmap,vector<CarPoint> lidardata,Matrix<float, dim, 1> State, float& scanAcc){
+void scanAccuracy_old(vector<CarPoint> oldmap,vector<CarPoint> lidardata,Matrix<float, dim, 1> State, float& scanAcc){
     //Fit new scan
-    //cout<<"ScanAcc pre fit"<<endl;
-
     fitCartesian(lidardata,State(0),State(1),State(2));
-    //cout<<"ScanAcc post fit"<<endl;
-
 
     float accuracy = 0;
     float accuracy_dist = 15;
     bool isAccurate=false;
 
-    //cout<<"ScanAcc pre for"<<endl;
-
-    //Append new points to current oldmap
-    //This is okay because we do not use fullmap data for anything
     for(int i =0;i<lidardata.size();i++){
         isAccurate = false;
         for(int j=0;j<oldmap.size();j++){
@@ -769,12 +761,39 @@ void scanAccuracy(vector<CarPoint> oldmap,vector<CarPoint> lidardata,Matrix<floa
         }
         if(isAccurate == true){
             accuracy=accuracy+ 1;
-            //oldmap.push_back(lidardata[i]);
         }
     }
     scanAcc = (accuracy/lidardata.size())*100;
 
     return;
+}
+
+void scanAccuracy(const vector<CarPoint>& oldmap, const vector<CarPoint>& lidardata, Matrix<float, dim, 1> State, float& scanAcc) {
+    fitCartesian(lidardata, State(0), State(1), State(2));
+
+    float accuracy = 0;
+    float accuracy_dist = 15;
+    bool isAccurate = false;
+
+    unordered_set<int> visitedIndices; // To store already visited indices in oldmap
+
+    for (const auto& lidarPoint : lidardata) {
+        isAccurate = false;
+        for (int j = 0; j < oldmap.size(); j++) {
+            if (visitedIndices.find(j) != visitedIndices.end()) {
+                continue; // Skip if the oldmap point has already been checked
+            }
+
+            if (pointDistance(lidarPoint, oldmap[j]) < accuracy_dist) {
+                isAccurate = true;
+                accuracy++;
+                visitedIndices.insert(j);
+                //break; // Break once an accurate match is found
+            }
+        }
+    }
+
+    scanAcc = (accuracy / lidardata.size()) * 100;
 }
 
 
@@ -792,9 +811,6 @@ void randomFitting(vector<PolPoint>& lidarDataPoints,vector<CarPoint> carPoints,
         float ekfY = ekf.State(1);
         float ekfCosAngle = cos(ekf.State(2));
         float ekfSinAngle = sin(ekf.State(2));
-        
-
-        //fitCartesian(carPoints,ekf.State(0),ekf.State(1),ekf.State(2));
 
         //I think accuracy would be better confirmed by corner distances
         //Once again we will assume only 4 corners max
@@ -807,94 +823,6 @@ void randomFitting(vector<PolPoint>& lidarDataPoints,vector<CarPoint> carPoints,
         vector<CarPoint> Stored_vec{c1,c2,c3,c4,c5,c6};
         vector<float> distances;
         CarPoint printPoint;
-
-        //cout<<"randomFitting Connection Data: ";
-        //This method did not work at all
-        // for(int i =0;i<Stored_vec.size();i++){
-            
-        //     CarPoint StatePoint = Stored_vec[i];
-        //     float dist = 1000000000000;
-        //     if(StatePoint.x !=0 && StatePoint.y !=0){
-        //         for(int j =0;j<polarCornerPoints.size();j++){
-        //             //Convert Corner to Cart
-        //             float r = polarCornerPoints[i].distance;
-        //             float ang = polarCornerPoints[i].angle;
-        //             CarPoint LiDARPoint = {r*cos(ang),r*sin(ang)};
-
-        //             // Apply rotation first
-        //             float rotatedX = LiDARPoint.x * ekfCosAngle - LiDARPoint.y * ekfSinAngle;
-        //             float rotatedY = LiDARPoint.x * ekfSinAngle + LiDARPoint.y * ekfCosAngle;
-
-        //             // Then apply translation
-        //             LiDARPoint.x = rotatedX + ekfX;
-        //             LiDARPoint.y = rotatedY + ekfY;
-
-        //             //Get minimum distance
-        //             if(pointDistance(LiDARPoint,StatePoint) < dist){
-        //                 dist = pointDistance(LiDARPoint,StatePoint);
-        //                 printPoint = LiDARPoint;
-        //             }
-        //         }
-        //         //pushback minimum distance
-        //         distances.push_back(dist);
-        //         cout<<"StatePnt = "<<StatePoint<<", LiDARPoint = "<<printPoint<<" dist = "<<dist<<"  &&  ";
-        //     }
-        // }
-        // cout<<endl;
-
-        //Get average minimum distance
-        // for(int i=0;i<distances.size();i++){
-        //     acc+=distances[i];
-        // }
-        // acc = acc/distances.size();
-
-
-
-        // //We must confirm that this thing is actually making some fucking sense
-        // //Polar Corner Points are not fitted, pls remember this
-        for(int i =0;i<Stored_vec.size();i++){
-            
-            CarPoint StoredPoint = Stored_vec[i];
-            if(StoredPoint.x !=0 && StoredPoint.y !=0){
-                float deltaX = StoredPoint.x - ekf.State(0);
-                float deltaY = StoredPoint.y - ekf.State(1);
-                double q = pow(deltaX,2) + pow(deltaY,2);
-
-                Matrix<float, 2, 1> z_cap_m;
-                z_cap_m(0) = sqrt(q);
-                z_cap_m(1) = (atan2(deltaY, deltaX)) - ekf.State(2);
-                z_cap_m(1) = pi_2_pi(z_cap_m(1));
-
-                float dist=10000;
-
-                for(int j=0;j<polarCornerPoints.size();j++){
-                    Matrix<float, 2, 1> z;
-                    z(0) = polarCornerPoints[j].distance;
-                    z(1) = polarCornerPoints[j].angle;
-
-                    CarPoint Stored = {z_cap_m(0)*cos(z_cap_m(1)),z_cap_m(0)*sin(z_cap_m(1))};
-                    CarPoint Observed = {z(0)*cos(z(1)),z(0)*sin(z(1))};
-
-                    if( dist>pointDistance(Stored,Observed)){
-                        dist = pointDistance(Stored,Observed);
-                        printPoint = Observed;
-                    }
-                    
-                }
-
-                distances.push_back(dist);
-                //cout<<"StatePnt = "<<StoredPoint<<", LiDARPoint = "<<printPoint<<" dist = "<<dist<<"  &&  ";
-
-
-            }
-        }
-        cout<<endl;
-
-        
-        for(int i=0;i<distances.size();i++){
-            acc+=distances[i];
-        }
-        acc = acc/distances.size();
 
 
         return;
@@ -1031,16 +959,6 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
     accuracy = max;
 
     //cout<<"\n\na1 = "<<a1<<", a2 = "<<a2<<", a3 = "<<a3<<", a4 = "<<a4<<", a5 = "<<a5<<endl;
-
-    cout<<"\n\n";
-    cout<<", a"<<0<<" = "<<acc_vect[0]<<endl;
-    int c = 1;
-    for(int i =1;i<acc_vect.size();i=i+2){
-        cout<<", a"<<c*4<<" = "<<acc_vect[i];
-        cout<<", a"<<-c*4<<" = "<<acc_vect[i+1];
-        c+=1;
-        cout<<endl;
-    }
     
     if(second == false){
         //Save the 0 scan
@@ -1060,54 +978,6 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
 
 
     ExtendedKalmanFilter mainEKF;
-
-    if(max == a1){
-        mainEKF = ekf1;
-    } else if(max == a2){
-        mainEKF = ekf2;
-    } else if(max == a3){
-        mainEKF = ekf3;
-    } else if(max == a4){
-        mainEKF = ekf4;
-    } else if(max == a5){
-        mainEKF = ekf5;
-    }
-
-    else if(max == a6){
-        mainEKF = ekf6;
-    } else if(max == a7){
-        mainEKF = ekf7;
-    } else if(max == a8){
-        mainEKF = ekf8;
-    } else if(max == a9){
-        mainEKF = ekf9;
-    } else if(max == a10){
-        mainEKF = ekf10;
-    } else if(max == a11){
-        mainEKF = ekf11;
-    }
-
-    else if(max == a12){
-        mainEKF = ekf12;
-    } else if(max == a13){
-        mainEKF = ekf13;
-    } else if(max == a14){
-        mainEKF = ekf14;
-    } else if(max == a15){
-        mainEKF = ekf15;
-    }
-
-    else if(max == a16){
-        mainEKF = ekf16;
-    } else if(max == a17){
-        mainEKF = ekf17;
-    } else if(max == a18){
-        mainEKF = ekf18;
-    } else if(max == a19){
-        mainEKF = ekf19;
-    }
-
-
 
     if(true){
         cout<<"noCORNERS < 2 in thing";

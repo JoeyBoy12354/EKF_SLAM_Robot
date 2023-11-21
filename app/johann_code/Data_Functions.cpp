@@ -55,7 +55,7 @@ namespace Data_Functions{
         vector<CarPoint> corners;
         readCornersFromCSV(corners);
 
-        cout<<"Fit Cartesian for: ("<<x<<","<<y<<") | "<<angle*180/PI<<endl;
+        //cout<<"Fit Cartesian for: ("<<x<<","<<y<<") | "<<angle*180/PI<<endl;
         // cout<<"Could be: "<<(PI-angle)*180/PI<<endl;
         if(x==0 and y==0 and angle==0){
             return; //just due to me being scared
@@ -89,7 +89,6 @@ namespace Data_Functions{
                 corners[i].y = rotatedY + y;
             }
 
-            //writeCornersToCSV(corners);
 
             
         }
