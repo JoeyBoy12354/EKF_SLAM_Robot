@@ -331,6 +331,167 @@ namespace Navigation_Functions{
     }
 
 
+        CarPoint findNextPointStraight(MatrixXf State, vector<vector<GridPoint>> gridMap, bool& mapped){
+        cout<<"!!!\nNAVI: Find Point Straight"<<endl;
+        //I want the algorithm to maximize covering unknown dots
+        //Or just have it cover maximum straights
+
+        //Take current position and look up,down,left and right
+        int scalar = 5;
+        GridPoint current = stateToGridDot(State,gridMap);
+        float orientation = State(2)*180/PI; // Get the orientation
+        int closestDirection = 0;
+
+        if ((orientation >= -45 && orientation <= 45)) {
+            closestDirection = 0;
+        } else if (orientation >= 45 && orientation <= 135)  {
+            closestDirection = 90;
+        } else if (orientation >= -135 && orientation < -45) {
+            closestDirection = -90;
+        } else if ((orientation >= 135 && orientation <= 180) || (orientation <= -135 && orientation >= -180)) {
+            closestDirection = 180;
+        }
+
+        cout<<"This is us = ("<<current.x<<", "<<current.y<<") orientation = "<<orientation<<" closestDirection = "<<closestDirection<<endl;
+
+        CarPoint xpPoint; //On + x-axis
+        CarPoint ypPoint; //On + y-axis
+
+        CarPoint xnPoint; //
+        CarPoint ynPoint; 
+
+        bool xpBool = false;
+        bool ypBool = false;
+        bool xnBool = false;
+        bool ynBool = false;
+
+        float xDelta;
+        float yDelta;
+
+        for(int k =0;k<scalar;k++){
+            //This will mean that as we do not find traversable grid points we decrease our search space
+            float radius = grid_xstep*(scalar-k);
+
+            //if point's x-value, y-value or both differ by radius then we should select it
+            for(int i =0;i<gridMap.size();i++){
+                for(int j=0;j<gridMap[i].size();j++){
+                    //Only check points that have not been traversed
+                    if(gridMap[i][j].trav == false){
+                        mapped = false;
+                        
+                        //Calculate the 3 cases
+                        xDelta = gridMap[i][j].x-current.x;
+                        yDelta = gridMap[i][j].y-current.y;
+
+                        cout<<"G: ("<<gridMap[i][j].x<<","<<gridMap[i][j].y<<") -> xd = "<<abs(gridMap[i][j].x-current.x)<<", yd = "<<abs(gridMap[i][j].y-current.y)<<endl;
+
+                        //Positive x
+                        if( abs(xDelta)  == radius && gridMap[i][j].x>current.x && yDelta == 0 && xpBool == false){
+                            
+                            xpPoint.x = gridMap[i][j].x;
+                            xpPoint.y = gridMap[i][j].y;
+                            cout<<"xpPoint = "<<xpPoint<<endl;
+                            xpBool = true;
+
+                            if(orientation == 0){
+                                cout<<"Solution is on our axis"<<endl;
+                                return xpPoint;
+                            }
+                        }
+
+                        //Negative x
+                        if( abs(xDelta)  == radius && gridMap[i][j].x<current.x && yDelta == 0 && xnBool == false){
+                            
+                            xnPoint.x = gridMap[i][j].x;
+                            xnPoint.y = gridMap[i][j].y;
+                            cout<<"xnPoint = "<<xnPoint<<endl;
+                            xnBool = true;
+
+                            if(orientation == 180){
+                                cout<<"Solution is on our axis"<<endl;
+                                return xnPoint;
+                            }
+                        }
+
+                        //Positive y
+                        if( abs(yDelta)  == radius && gridMap[i][j].y>current.y && xDelta == 0 && ypBool == false){
+                            
+                            ypPoint.x = gridMap[i][j].x;
+                            ypPoint.y = gridMap[i][j].y;
+                            cout<<"ypPoint = "<<ypPoint<<endl;
+                            ypBool = true;
+
+                            if(orientation == 90){
+                                cout<<"Solution is on our axis"<<endl;
+                                return ypPoint;
+                            }
+                        }
+
+                        //Negative y
+                        if( abs(yDelta)  == radius && gridMap[i][j].y<current.y && xDelta == 0 && ynBool == false){
+                            
+                            ynPoint.x = gridMap[i][j].x;
+                            ynPoint.y = gridMap[i][j].y;
+                            cout<<"ynPoint = "<<ynPoint<<endl;
+                            ynBool = true;
+
+                            if(orientation == -90){
+                                cout<<"Solution is on our axis"<<endl;
+                                return ynPoint;
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }
+
+
+        //We are here if we did not find a solution on our axis
+        if(orientation == 0){
+            if(ypBool == true){
+                return ypPoint;
+            }else if(ynBool == true){
+                return ynPoint;
+            }else if(xnBool == true){
+                return xnPoint;
+            }
+        }else if(orientation == 90){
+            if(xpBool == true){
+                return xpPoint;
+            }else if(xnBool == true){
+                return xnPoint;
+            }else if(ynBool == true){
+                return ynPoint;
+            }
+        }else if(orientation == -90){
+            if(xpBool == true){
+                return xpPoint;
+            }else if(xnBool == true){
+                return xnPoint;
+            }else if(ypBool == true){
+                return ypPoint;
+            }
+        }else if(orientation == 180){
+            if(ypBool == true){
+                return ypPoint;
+            }else if(ynBool == true){
+                return ynPoint;
+            }else if(xpBool == true){
+                return xpPoint;
+            }
+        }
+
+        
+
+        cout<<"NAVI: nextPoint: We did not know what to do"<<endl;
+        //If we made it here the grid dot is further away than our search space or all dots have been traversed
+        return findNextPoint(State,gridMap,mapped);
+
+    }
+
+
+
     bool mapMovement(MatrixXf State, vector<vector<GridPoint>> gridMap, vector<CarPoint>& path){
         cout<<"In pre-map movement"<<endl;
         //take grid map
