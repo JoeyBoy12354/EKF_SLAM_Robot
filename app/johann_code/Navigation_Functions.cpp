@@ -567,6 +567,7 @@ namespace Navigation_Functions{
 
     float wallAvoidance(MatrixXf State, float angle){
         float turnableDistance = 300; //Total distance from object required to make a turn (REMEMBER SAME AS IN MC Python)
+        float turnableDistance2 = 150;
         vector<CarPoint> map;
         CarPoint bot(State(0),State(1));
         readCarFromCSV(map); //Read latest scan
@@ -620,6 +621,13 @@ namespace Navigation_Functions{
         cout<<"No of collision points = "<<noCollisionPoints<<endl;
         cout<<"mindistL: "<<mindistL<<" mindistR: "<<mindistR<<endl;
         cout<<"minL: "<<minL<<" minR: "<<minR<<endl;
+
+        if(mindistL<turnableDistance2 && mindistR<turnableDistance2){
+            cout<<"NAVI: AVOID!! BOTH ANGLES ARE BAD"<<endl;
+            return 0;
+            
+        }
+
         if(mindistL>mindistR){
             if(angle<0){
                 //cout<<"Angle change from: "<<angle*180/PI<<" -> "<<(angle - PI/2)*180/PI<<endl;
