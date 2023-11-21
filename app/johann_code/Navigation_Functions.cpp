@@ -835,9 +835,10 @@ namespace Navigation_Functions{
             //Wall Avoidance
             angleL = wallAvoidance(State,angleL);
             float dist = wallAvoidanceForward(State, angleL, C, leftEscape);
+            cout<<dist<<" > "<<avoid_dist*2<<endl;
 
 
-            if(dist>avoid_dist*2 && dist>300){
+            if(dist>avoid_dist*2 && dist>200){
                 escapeLeft = true;
             }
 
