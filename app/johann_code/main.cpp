@@ -1003,26 +1003,47 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
         float scanAcc_18=18;
         float scanAcc_19=19;
 
-        thread thread1(scanAccuracy,oldmap, carPoints, ekf1.State, std::ref(scanAcc_1));
-        thread thread2(scanAccuracy,oldmap, carPoints, ekf2.State, std::ref(scanAcc_2));
-        thread thread3(scanAccuracy,oldmap, carPoints, ekf3.State, std::ref(scanAcc_3));
-        thread thread4(scanAccuracy,oldmap, carPoints, ekf4.State, std::ref(scanAcc_4));
-        thread thread5(scanAccuracy,oldmap, carPoints, ekf5.State, std::ref(scanAcc_5));
-        thread thread6(scanAccuracy,oldmap, carPoints, ekf6.State, std::ref(scanAcc_6));
-        thread thread7(scanAccuracy,oldmap, carPoints, ekf7.State, std::ref(scanAcc_7));
-        thread thread8(scanAccuracy,oldmap, carPoints, ekf8.State, std::ref(scanAcc_8));
-        thread thread9(scanAccuracy,oldmap, carPoints, ekf9.State, std::ref(scanAcc_9));
-        thread thread10(scanAccuracy,oldmap, carPoints, ekf10.State, std::ref(scanAcc_10));
+        // thread thread1(scanAccuracy,oldmap, carPoints, ekf1.State, std::ref(scanAcc_1));
+        // thread thread2(scanAccuracy,oldmap, carPoints, ekf2.State, std::ref(scanAcc_2));
+        // thread thread3(scanAccuracy,oldmap, carPoints, ekf3.State, std::ref(scanAcc_3));
+        // thread thread4(scanAccuracy,oldmap, carPoints, ekf4.State, std::ref(scanAcc_4));
+        // thread thread5(scanAccuracy,oldmap, carPoints, ekf5.State, std::ref(scanAcc_5));
+        // thread thread6(scanAccuracy,oldmap, carPoints, ekf6.State, std::ref(scanAcc_6));
+        // thread thread7(scanAccuracy,oldmap, carPoints, ekf7.State, std::ref(scanAcc_7));
+        // thread thread8(scanAccuracy,oldmap, carPoints, ekf8.State, std::ref(scanAcc_8));
+        // thread thread9(scanAccuracy,oldmap, carPoints, ekf9.State, std::ref(scanAcc_9));
+        // thread thread10(scanAccuracy,oldmap, carPoints, ekf10.State, std::ref(scanAcc_10));
 
-        thread thread11(scanAccuracy,oldmap, carPoints, ekf11.State, std::ref(scanAcc_11));
-        thread thread12(scanAccuracy,oldmap, carPoints, ekf12.State, std::ref(scanAcc_12));
-        thread thread13(scanAccuracy,oldmap, carPoints, ekf13.State, std::ref(scanAcc_13));
-        thread thread14(scanAccuracy,oldmap, carPoints, ekf14.State, std::ref(scanAcc_14));
-        thread thread15(scanAccuracy,oldmap, carPoints, ekf15.State, std::ref(scanAcc_15));
-        thread thread16(scanAccuracy,oldmap, carPoints, ekf16.State, std::ref(scanAcc_16));
-        thread thread17(scanAccuracy,oldmap, carPoints, ekf17.State, std::ref(scanAcc_17));
-        thread thread18(scanAccuracy,oldmap, carPoints, ekf18.State, std::ref(scanAcc_18));
-        thread thread19(scanAccuracy,oldmap, carPoints, ekf19.State, std::ref(scanAcc_19));
+        // thread thread11(scanAccuracy,oldmap, carPoints, ekf11.State, std::ref(scanAcc_11));
+        // thread thread12(scanAccuracy,oldmap, carPoints, ekf12.State, std::ref(scanAcc_12));
+        // thread thread13(scanAccuracy,oldmap, carPoints, ekf13.State, std::ref(scanAcc_13));
+        // thread thread14(scanAccuracy,oldmap, carPoints, ekf14.State, std::ref(scanAcc_14));
+        // thread thread15(scanAccuracy,oldmap, carPoints, ekf15.State, std::ref(scanAcc_15));
+        // thread thread16(scanAccuracy,oldmap, carPoints, ekf16.State, std::ref(scanAcc_16));
+        // thread thread17(scanAccuracy,oldmap, carPoints, ekf17.State, std::ref(scanAcc_17));
+        // thread thread18(scanAccuracy,oldmap, carPoints, ekf18.State, std::ref(scanAcc_18));
+        // thread thread19(scanAccuracy,oldmap, carPoints, ekf19.State, std::ref(scanAcc_19));
+
+        thread thread1(scanAccuracy, oldmap, std::ref(carPoints), ekf1.State, std::ref(scanAcc_1));
+        thread thread2(scanAccuracy, oldmap, std::ref(carPoints), ekf2.State, std::ref(scanAcc_2));
+        thread thread3(scanAccuracy, oldmap, std::ref(carPoints), ekf3.State, std::ref(scanAcc_3));
+        thread thread4(scanAccuracy, oldmap, std::ref(carPoints), ekf4.State, std::ref(scanAcc_4));
+        thread thread5(scanAccuracy, oldmap, std::ref(carPoints), ekf5.State, std::ref(scanAcc_5));
+        thread thread6(scanAccuracy, oldmap, std::ref(carPoints), ekf6.State, std::ref(scanAcc_6));
+        thread thread7(scanAccuracy, oldmap, std::ref(carPoints), ekf7.State, std::ref(scanAcc_7));
+        thread thread8(scanAccuracy, oldmap, std::ref(carPoints), ekf8.State, std::ref(scanAcc_8));
+        thread thread9(scanAccuracy, oldmap, std::ref(carPoints), ekf9.State, std::ref(scanAcc_9));
+        thread thread10(scanAccuracy, oldmap, std::ref(carPoints), ekf10.State, std::ref(scanAcc_10));
+        thread thread11(scanAccuracy, oldmap, std::ref(carPoints), ekf11.State, std::ref(scanAcc_11));
+        thread thread12(scanAccuracy, oldmap, std::ref(carPoints), ekf12.State, std::ref(scanAcc_12));
+        thread thread13(scanAccuracy, oldmap, std::ref(carPoints), ekf13.State, std::ref(scanAcc_13));
+        thread thread14(scanAccuracy, oldmap, std::ref(carPoints), ekf14.State, std::ref(scanAcc_14));
+        thread thread15(scanAccuracy, oldmap, std::ref(carPoints), ekf15.State, std::ref(scanAcc_15));
+        thread thread16(scanAccuracy, oldmap, std::ref(carPoints), ekf16.State, std::ref(scanAcc_16));
+        thread thread17(scanAccuracy, oldmap, std::ref(carPoints), ekf17.State, std::ref(scanAcc_17));
+        thread thread18(scanAccuracy, oldmap, std::ref(carPoints), ekf18.State, std::ref(scanAcc_18));
+        thread thread19(scanAccuracy, oldmap, std::ref(carPoints), ekf19.State, std::ref(scanAcc_19));
+
 
         thread1.join();
         thread2.join();
