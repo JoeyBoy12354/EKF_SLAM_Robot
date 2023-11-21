@@ -814,7 +814,7 @@ namespace Navigation_Functions{
         float deltaY;
         float deltaX;
 
-        bool escapeLeft = true;
+        bool escapeLeft = false;
         while(escapeLeft == false){
             leftEscape.x = closestPoint.x + dist*cos(escape_ang);
             leftEscape.y = closestPoint.y + dist*sin(escape_ang);
@@ -836,6 +836,7 @@ namespace Navigation_Functions{
             angleL = wallAvoidance(State,angleL);
             float dist = wallAvoidanceForward(State, angleL, C, leftEscape);
 
+
             if(dist>avoid_dist*2 && dist>300){
                 escapeLeft = true;
             }
@@ -849,7 +850,7 @@ namespace Navigation_Functions{
         CarPoint rightEscape;
         escape_check = -escape_check;
         escape_ang = escape_check;
-        bool escapeRight = true;
+        bool escapeRight = false;
         float angleR;
         float distanceR;
         while(escapeRight == false){
