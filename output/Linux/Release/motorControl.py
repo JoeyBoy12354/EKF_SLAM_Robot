@@ -1862,9 +1862,9 @@ if(angle == 0 and distance<0):
 print("angle = ",angle*180/math.pi)
 
 
-if(distance > 900):
-    print(" !! Resetting distance, ",distance," to 900mm")
-    distance = 900
+if(distance > 600):
+    print(" !! Resetting distance, ",distance," to 600mm")
+    distance = 600
 
 #Edge sonar
 wiringpi.pinMode(trigPin3, 1)       # Set pin to 1 ( OUTPUT )
