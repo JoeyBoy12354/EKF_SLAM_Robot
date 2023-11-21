@@ -257,20 +257,24 @@ namespace Navigation_Functions{
                         case3 = abs(gridMap[i][j].x-current.x) + abs(gridMap[i][j].y-current.y);
 
                         if( case1  == radius && case1Bool == false){
+                            
                             case1Point.x = gridMap[i][j].x;
                             case1Point.y = gridMap[i][j].y;
+                            cout<<"case1 = "<<case1<<"case1Point = "<<case1Point<<endl;
                             case1Bool = true;
                         }
 
                         if( case2  == radius && case2Bool == false ){
                             case2Point.x = gridMap[i][j].x;
                             case2Point.y = gridMap[i][j].y;
+                            cout<<"case2 = "<<case2<<"case2Point = "<<case2Point<<endl;
                             case2Bool = true;
                         }
 
                         if( case3  == 2*radius && case3Bool == false ){
                             case3Point.x = gridMap[i][j].x;
                             case3Point.y = gridMap[i][j].y;
+                            cout<<"case3 = "<<case3<<"case3Point = "<<case3Point<<endl;
                             case3Bool = true;
                         }
                     }
@@ -303,6 +307,7 @@ namespace Navigation_Functions{
             float d1 = pointDistance(point,case1Point);
             float d2 = pointDistance(point,case2Point);
             float d3 = pointDistance(point,case3Point);
+            cout<<"d1 = "<<d1<<", d2 = "<<d2<<", d3 = "<<d3<<endl;
 
             if(d1<d2 && d1<d3){
                 return case1Point;
