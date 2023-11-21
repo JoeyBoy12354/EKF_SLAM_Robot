@@ -806,7 +806,7 @@ namespace Navigation_Functions{
 
         CarPoint leftEscape;
         CarPoint bot(State(0),State(1));
-        float escape_check = 24*PI/180;
+        float escape_check = 30*PI/180;
         float escape_ang = escape_check;
         float dist = pointDistance(closestPoint,bot);
         float angleL;
@@ -836,7 +836,7 @@ namespace Navigation_Functions{
             //Wall Avoidance
             angleL = wallAvoidance(State,angleL);
             float dist = wallAvoidanceForward(State, angleL, C, leftEscape);
-            cout<<dist<<" > "<<avoid_dist*2<<endl;
+            cout<<"left angle = "<<angleL;
 
 
             if(dist>avoid_dist*2 && dist>200){
@@ -866,6 +866,7 @@ namespace Navigation_Functions{
             deltaY = rightEscape.y - State(1);
             angleR = atan2(deltaY,deltaX) - State(2);
             angleR = pi_2_pi(angleR);
+            cout<<"right angle = "<<angleR;
             
             CarPoint C = triangularRepositioning(State,angleR);
             deltaX = rightEscape.x - C.x;
