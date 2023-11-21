@@ -599,7 +599,7 @@ namespace Navigation_Functions{
 
                 if(angle_coll>0 && abs(angle_coll) < (abs(angle) +10*PI/180 )){
                     collisionLeft.push_back(C);
-                    d = pointDistance(C,bot);
+                    d = pointDistance(C,map[i]);
                     //cout<<", L:"<<C<<" | d:"<<d;
                     if(d<mindistL){
                         mindistL = d;
@@ -607,7 +607,7 @@ namespace Navigation_Functions{
                     }
                 }else if(angle_coll<0 && abs(angle_coll) < (abs(angle) +10*PI/180 )){
                     collisionRight.push_back(C);
-                    d = pointDistance(C,bot);
+                    d = pointDistance(C,map[i]);
                     //cout<<", R:"<<C<<" | d:"<<d;
                     if(d<mindistR){
                         mindistR = d;
