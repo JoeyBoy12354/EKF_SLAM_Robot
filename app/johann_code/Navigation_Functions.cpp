@@ -814,8 +814,9 @@ namespace Navigation_Functions{
         float deltaY;
         float deltaX;
 
+        bool escapePoss = true;
         bool escapeLeft = false;
-        while(escapeLeft == false){
+        while(escapeLeft == false && escapePoss == true){
             leftEscape.x = closestPoint.x + dist*cos(escape_ang);
             leftEscape.y = closestPoint.y + dist*sin(escape_ang);
             escape_ang+=escape_check;
@@ -844,7 +845,7 @@ namespace Navigation_Functions{
 
             if( pi_2_pi(escape_ang) == escape_check){
                 cout<<"\nNo ESCAPE Route found L"<<endl;
-                motorControlGrid(0,0);
+                escapePoss = false;
             }
         }
 
@@ -854,7 +855,8 @@ namespace Navigation_Functions{
         bool escapeRight = false;
         float angleR;
         float distanceR;
-        while(escapeRight == false){
+        escapePoss = true;
+        while(escapeRight == false && escapePoss = true){
             rightEscape.x = closestPoint.x + dist*cos(escape_ang);
             rightEscape.y = closestPoint.y + dist*sin(escape_ang);
             escape_ang+=escape_check;
@@ -880,8 +882,13 @@ namespace Navigation_Functions{
             }
             if( pi_2_pi(escape_ang) == escape_check){
                 cout<<"\nNo ESCAPE Route found R"<<endl;
-                motorControlGrid(0,0);
+                
+                escapePoss = false;
             }
+        }
+
+        if(escapeLeft == false && escapeRight == false){
+            motorControlGrid(0,0);
         }
 
 
