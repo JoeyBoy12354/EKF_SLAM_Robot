@@ -1502,9 +1502,9 @@ void testRun(){
 
 
     cout<<"\n\nTime to do some cleaning"<<endl;
-    grid_ystep = 300;
-    grid_xstep = 300;
-    boundThresh = 210;
+    grid_ystep = 250;
+    grid_xstep = 250;
+    boundThresh = 200;
     cout<<"gridx = "<<grid_xstep<<", gridy = "<<grid_ystep<<", boundThresh = "<<boundThresh<<endl;
 
     count=0;
