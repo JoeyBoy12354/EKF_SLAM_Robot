@@ -1829,6 +1829,15 @@ rightTurnCompensation = 0*math.pi/180
 
 angle,distance = readInstructions()
 
+if(angle == 0 and distance<0):
+    print("MC: We have detected EMERGENCY")
+    
+    left,right = speedControl(0,-1*distance,False)
+    dist = getDist(left,right)    
+
+
+
+
 # angle = -1*math.pi/2
 # distance = 0
 # angle = math.pi/2

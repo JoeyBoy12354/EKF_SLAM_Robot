@@ -624,7 +624,7 @@ namespace Navigation_Functions{
 
         if(mindistL<turnableDistance2 && mindistR<turnableDistance2){
             cout<<"NAVI: AVOID!! BOTH ANGLES ARE BAD"<<endl;
-            return 0;
+            return -1*angle;
             
         }
 
@@ -999,10 +999,21 @@ namespace Navigation_Functions{
 
 
         //Wall Avoidance
-        angle = wallAvoidance(State,angle);
-        cout<<"NAVI,GRID rotate angle after avoidance = "<<angle*180/PI<<endl;
-        float avoid_dist = wallAvoidanceForward(State, angle, C, closestPoint);
-        wallAvoidanceTurn(State);
+        
+        float angle2 = wallAvoidance(State,angle);
+        if(angle2 == angle*-1){
+            cout<<"We have detected obstruction on both sides all we can do is reverse"
+            distance = -1000;
+            angle = 0;
+
+            
+        }else{
+            angle = angle2;
+            cout<<"NAVI,GRID rotate angle after avoidance = "<<angle*180/PI<<endl;
+            float avoid_dist = wallAvoidanceForward(State, angle, C, closestPoint);
+            wallAvoidanceTurn(State);
+        }
+        
         //End Wall avoidance
 
         // angle = 0;
