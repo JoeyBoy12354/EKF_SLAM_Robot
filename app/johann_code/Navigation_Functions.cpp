@@ -691,7 +691,7 @@ namespace Navigation_Functions{
         }
         if(d_avoid == 100000){
             cout<<" Nothing to AVOID "<<endl;
-            d_avoid = pointDistance(postPoint,goalPoint)+650;
+            d_avoid = pointDistance(postPoint,goalPoint)+450;
         }
 
         saveSonarIndicationToCSV(d_avoid);
