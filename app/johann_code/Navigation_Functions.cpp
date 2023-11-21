@@ -856,7 +856,7 @@ namespace Navigation_Functions{
         float angleR;
         float distanceR;
         escapePoss = true;
-        while(escapeRight == false && escapePoss = true){
+        while(escapeRight == false && escapePoss == true){
             rightEscape.x = closestPoint.x + dist*cos(escape_ang);
             rightEscape.y = closestPoint.y + dist*sin(escape_ang);
             escape_ang+=escape_check;
