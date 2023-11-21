@@ -256,6 +256,8 @@ namespace Navigation_Functions{
                         case2 = abs(gridMap[i][j].y-current.y);
                         case3 = abs(gridMap[i][j].x-current.x) + abs(gridMap[i][j].y-current.y);
 
+                        cout<<<"G: ("<<gridMap[i][j].x<<","<<gridMap[i][j].y<<") -> xd = "<<abs(gridMap[i][j].x-current.x)<<", yd = "<<abs(gridMap[i][j].y-current.y)<<endl;
+
                         if( case1  == radius && case1Bool == false){
                             
                             case1Point.x = gridMap[i][j].x;
