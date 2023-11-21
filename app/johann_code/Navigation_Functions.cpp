@@ -1008,7 +1008,7 @@ namespace Navigation_Functions{
                 CarPoint newPoint;
                 newPoint.x = current.x;
                 newPoint.y = current.y;
-                pathCartesian.insert(pathCartesian.begin(), newValue);
+                pathCartesian.insert(pathCartesian.begin(), newPoint);
             }
             pathCartesian = pathShortening(pathCartesian);
             
