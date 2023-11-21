@@ -1530,9 +1530,9 @@ void testRun(){
         }
         lidarDataPoints.clear();
 
-        string s; 
-        cout<<"please enter something: ";
-        cin>>s;
+        // string s; 
+        // cout<<"please enter something: ";
+        // cin>>s;
     }
 
     ekf.distance = 0;
@@ -1560,9 +1560,9 @@ void testRun(){
         }
         lidarDataPoints.clear();
 
-        // string s; 
-        // cout<<"please enter something: ";
-        // cin>>s;
+        string s; 
+        cout<<"please enter something: ";
+        cin>>s;
     }
 
     fullRunClean(ekf,mapped,home,firstRun,finalRun,postMap,path,lidarDataPoints);
