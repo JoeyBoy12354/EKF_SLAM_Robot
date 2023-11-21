@@ -1877,7 +1877,7 @@ print("MC: distance moved = ",distance)
 #writeOdometry(angle,distance)
 
 
-for i in range(0,4):
+for i in range(0,3):
     angle = math.pi/2
     distance =0
     angle,distance = motorControl_wThread(angle,distance)
