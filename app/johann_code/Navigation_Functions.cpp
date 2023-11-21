@@ -356,8 +356,7 @@ namespace Navigation_Functions{
 
         CarPoint xpPoint; //On + x-axis
         CarPoint ypPoint; //On + y-axis
-
-        CarPoint xnPoint; //
+        CarPoint xnPoint;
         CarPoint ynPoint; 
 
         bool xpBool = false;
