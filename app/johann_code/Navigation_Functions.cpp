@@ -1003,6 +1003,13 @@ namespace Navigation_Functions{
         }
         
         if(path.size()>1){
+
+            if(pathCartesian[0].x != current.x && pathCartesian[1].y != current.y ){
+                CarPoint newPoint;
+                newPoint.x = current.x;
+                newPoint.y = current.y;
+                pathCartesian.insert(pathCartesian.begin(), newValue);
+            }
             pathCartesian = pathShortening(pathCartesian);
             
         }
