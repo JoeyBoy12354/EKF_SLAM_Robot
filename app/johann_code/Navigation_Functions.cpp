@@ -393,7 +393,7 @@ namespace Navigation_Functions{
                             cout<<"xpPoint = "<<xpPoint<<endl;
                             xpBool = true;
 
-                            if(orientation == 0){
+                            if(closestDirection == 0){
                                 cout<<"Solution is on our axis"<<endl;
                                 return xpPoint;
                             }
@@ -407,7 +407,7 @@ namespace Navigation_Functions{
                             cout<<"xnPoint = "<<xnPoint<<endl;
                             xnBool = true;
 
-                            if(orientation == 180){
+                            if(closestDirection == 180){
                                 cout<<"Solution is on our axis"<<endl;
                                 return xnPoint;
                             }
@@ -421,7 +421,7 @@ namespace Navigation_Functions{
                             cout<<"ypPoint = "<<ypPoint<<endl;
                             ypBool = true;
 
-                            if(orientation == 90){
+                            if(closestDirection == 90){
                                 cout<<"Solution is on our axis"<<endl;
                                 return ypPoint;
                             }
@@ -435,7 +435,7 @@ namespace Navigation_Functions{
                             cout<<"ynPoint = "<<ynPoint<<endl;
                             ynBool = true;
 
-                            if(orientation == -90){
+                            if(closestDirection == -90){
                                 cout<<"Solution is on our axis"<<endl;
                                 return ynPoint;
                             }
@@ -448,7 +448,7 @@ namespace Navigation_Functions{
 
 
         //We are here if we did not find a solution on our axis
-        if(orientation == 0){
+        if(closestDirection == 0){
             if(ypBool == true){
                 return ypPoint;
             }else if(ynBool == true){
@@ -456,7 +456,7 @@ namespace Navigation_Functions{
             }else if(xnBool == true){
                 return xnPoint;
             }
-        }else if(orientation == 90){
+        }else if(closestDirection == 90){
             if(xpBool == true){
                 return xpPoint;
             }else if(xnBool == true){
@@ -464,7 +464,7 @@ namespace Navigation_Functions{
             }else if(ynBool == true){
                 return ynPoint;
             }
-        }else if(orientation == -90){
+        }else if(closestDirection == -90){
             if(xpBool == true){
                 return xpPoint;
             }else if(xnBool == true){
@@ -472,7 +472,7 @@ namespace Navigation_Functions{
             }else if(ypBool == true){
                 return ypPoint;
             }
-        }else if(orientation == 180){
+        }else if(closestDirection == 180){
             if(ypBool == true){
                 return ypPoint;
             }else if(ynBool == true){
