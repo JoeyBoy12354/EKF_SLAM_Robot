@@ -575,8 +575,10 @@ namespace Navigation_Functions{
         vector<CarPoint> collisionRight;//unused
 
         CarPoint minL;
+        CarPoint minR;
         float mindistL = 1000;
         float mindistR = 1000;
+        
         float d=0;
         int noCollisionPoints = 0;
 
@@ -600,6 +602,7 @@ namespace Navigation_Functions{
                     //cout<<", L:"<<C<<" | d:"<<d;
                     if(d<mindistL){
                         mindistL = d;
+                        minL = C;
                     }
                 }else if(angle_coll<0 && abs(angle_coll) < (abs(angle) +10*PI/180 )){
                     collisionRight.push_back(C);
@@ -607,6 +610,7 @@ namespace Navigation_Functions{
                     //cout<<", R:"<<C<<" | d:"<<d;
                     if(d<mindistR){
                         mindistR = d;
+                        minR = C;
                     }
                 }                
             }
@@ -615,6 +619,7 @@ namespace Navigation_Functions{
 
         cout<<"No of collision points = "<<noCollisionPoints<<endl;
         cout<<"mindistL: "<<mindistL<<" mindistR: "<<mindistR<<endl;
+        cout<<"minL: "<<minL<<" minR: "<<mindR<<endl;
         if(mindistL>mindistR){
             if(angle<0){
                 //cout<<"Angle change from: "<<angle*180/PI<<" -> "<<(angle - PI/2)*180/PI<<endl;
