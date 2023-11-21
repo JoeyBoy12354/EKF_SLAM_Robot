@@ -814,15 +814,15 @@ void randomFitting(vector<PolPoint>& lidarDataPoints,vector<CarPoint> carPoints,
 
         //I think accuracy would be better confirmed by corner distances
         //Once again we will assume only 4 corners max
-        CarPoint c1(ekf.State(3),ekf.State(4));
-        CarPoint c2(ekf.State(5),ekf.State(6));
-        CarPoint c3(ekf.State(7),ekf.State(8));
-        CarPoint c4(ekf.State(9),ekf.State(10));
-        CarPoint c5(ekf.State(11),ekf.State(12));
-        CarPoint c6(ekf.State(13),ekf.State(14));
-        vector<CarPoint> Stored_vec{c1,c2,c3,c4,c5,c6};
-        vector<float> distances;
-        CarPoint printPoint;
+        // CarPoint c1(ekf.State(3),ekf.State(4));
+        // CarPoint c2(ekf.State(5),ekf.State(6));
+        // CarPoint c3(ekf.State(7),ekf.State(8));
+        // CarPoint c4(ekf.State(9),ekf.State(10));
+        // CarPoint c5(ekf.State(11),ekf.State(12));
+        // CarPoint c6(ekf.State(13),ekf.State(14));
+        // vector<CarPoint> Stored_vec{c1,c2,c3,c4,c5,c6};
+        // vector<float> distances;
+        // CarPoint printPoint;
 
 
         return;
@@ -952,13 +952,10 @@ ExtendedKalmanFilter runThread(ExtendedKalmanFilter ekf, vector<PolPoint> lidarD
 
 
     vector<float> acc_vect{ a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19};
-    //float max = *max_element (acc_vect.begin(), acc_vect.end());
 
     float max = *min_element (acc_vect.begin(), acc_vect.end()); //This is due to us now using average distance
 
     accuracy = max;
-
-    //cout<<"\n\na1 = "<<a1<<", a2 = "<<a2<<", a3 = "<<a3<<", a4 = "<<a4<<", a5 = "<<a5<<endl;
     
     if(second == false){
         //Save the 0 scan

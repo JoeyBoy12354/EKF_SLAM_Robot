@@ -50,49 +50,78 @@ namespace Data_Functions{
         return cartesianPoints;
     }
 
-    void fitCartesian(vector<CarPoint>& carPoints, float x, float y, float angle){
+    // void fitCartesian(vector<CarPoint>& carPoints, float x, float y, float angle){
 
-        vector<CarPoint> corners;
-        readCornersFromCSV(corners);
+    //     vector<CarPoint> corners;
+    //     readCornersFromCSV(corners);
 
-        //cout<<"Fit Cartesian for: ("<<x<<","<<y<<") | "<<angle*180/PI<<endl;
-        // cout<<"Could be: "<<(PI-angle)*180/PI<<endl;
-        if(x==0 and y==0 and angle==0){
-            return; //just due to me being scared
-        }else{
+    //     //cout<<"Fit Cartesian for: ("<<x<<","<<y<<") | "<<angle*180/PI<<endl;
+    //     // cout<<"Could be: "<<(PI-angle)*180/PI<<endl;
+    //     if(x==0 and y==0 and angle==0){
+    //         return; //just due to me being scared
+    //     }else{
 
-            // Calculate trigonometric values for the angle
-            float cosAngle = cos(angle);
-            float sinAngle = sin(angle);
+    //         // Calculate trigonometric values for the angle
+    //         float cosAngle = cos(angle);
+    //         float sinAngle = sin(angle);
 
-            //map reversal
-            // float cosAngle = cos(-angle);
-            // float sinAngle = sin(-angle);
+    //         //map reversal
+    //         // float cosAngle = cos(-angle);
+    //         // float sinAngle = sin(-angle);
 
-            for (int i = 0; i < carPoints.size(); i++) {
-                // Apply rotation first
-                float rotatedX = carPoints[i].x * cosAngle - carPoints[i].y * sinAngle;
-                float rotatedY = carPoints[i].x * sinAngle + carPoints[i].y * cosAngle;
+    //         for (int i = 0; i < carPoints.size(); i++) {
+    //             // Apply rotation first
+    //             float rotatedX = carPoints[i].x * cosAngle - carPoints[i].y * sinAngle;
+    //             float rotatedY = carPoints[i].x * sinAngle + carPoints[i].y * cosAngle;
 
-                // Then apply translation
-                carPoints[i].x = rotatedX + x;
-                carPoints[i].y = rotatedY + y;
-            }
+    //             // Then apply translation
+    //             carPoints[i].x = rotatedX + x;
+    //             carPoints[i].y = rotatedY + y;
+    //         }
 
-            for (int i = 0; i < corners.size(); i++) {
-                // Apply rotation first
-                float rotatedX = corners[i].x * cosAngle - corners[i].y * sinAngle;
-                float rotatedY = corners[i].x * sinAngle + corners[i].y * cosAngle;
+    //         for (int i = 0; i < corners.size(); i++) {
+    //             // Apply rotation first
+    //             float rotatedX = corners[i].x * cosAngle - corners[i].y * sinAngle;
+    //             float rotatedY = corners[i].x * sinAngle + corners[i].y * cosAngle;
 
-                // Then apply translation
-                corners[i].x = rotatedX + x;
-                corners[i].y = rotatedY + y;
-            }
+    //             // Then apply translation
+    //             corners[i].x = rotatedX + x;
+    //             corners[i].y = rotatedY + y;
+    //         }
 
 
             
+    //     }
+
+    // }
+
+    void fitCartesian(vector<CarPoint>& carPoints, float x, float y, float angle) {
+        vector<CarPoint> corners;
+        readCornersFromCSV(corners);
+
+        if (x == 0 && y == 0 && angle == 0) {
+            return; // Just a precautionary check
         }
 
+        float cosAngle = cos(angle);
+        float sinAngle = sin(angle);
+
+        // Combine rotation and translation for carPoints and corners
+        for (auto& point : carPoints) {
+            float rotatedX = point.x * cosAngle - point.y * sinAngle;
+            float rotatedY = point.x * sinAngle + point.y * cosAngle;
+
+            point.x = rotatedX + x;
+            point.y = rotatedY + y;
+        }
+
+        for (auto& corner : corners) {
+            float rotatedX = corner.x * cosAngle - corner.y * sinAngle;
+            float rotatedY = corner.x * sinAngle + corner.y * cosAngle;
+
+            corner.x = rotatedX + x;
+            corner.y = rotatedY + y;
+        }
     }
 
     int getIndex(vector<double> v, double K)
