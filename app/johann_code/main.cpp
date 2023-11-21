@@ -1449,6 +1449,9 @@ void testRun(){
     bool finalRun = false;
     bool postMap = false;
 
+    saveSonarIndicationTurnToCSV(200);
+    saveSonarIndicationToCSV(200);
+
 
     vector<CarPoint> path;
     cout<<"TEST RUN"<<endl;

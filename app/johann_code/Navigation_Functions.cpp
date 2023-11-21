@@ -707,6 +707,7 @@ namespace Navigation_Functions{
             d_avoid = pointDistance(postPoint,goalPoint)+450;
         }
 
+        d_avoid = 80/100*d_avoid;
         saveSonarIndicationToCSV(d_avoid);
         cout<<"NAVI: AvoidFor,: Avoid: "<<avoidPoint<<", From: "<<postPoint<<" To : "<<goalPoint<<endl;
         cout<<"NAVI: m: "<<m<<", c = "<<c<<endl;
