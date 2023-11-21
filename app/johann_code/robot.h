@@ -14,6 +14,7 @@
 #include <mutex>
 #include <condition_variable>
 #include <atomic> // for atomic flag
+#include <unordered_set>
 
 //#include <sstream>
 //#include <numeric>
