@@ -283,6 +283,9 @@ def plotTriangle(x,y):
 
     colors = ['r', 'g', 'b']  # Red, Green, Blue for corners
 
+    if(len(x) != 3 or len(y) != 3):
+        return
+
     for i in range(3):
         plt.scatter(x[i], y[i], c=colors[i], s=100, label=f'Point {i+1}')
     plt.plot(x + [x[0]], y + [y[0]], 'k-', linewidth=2)
