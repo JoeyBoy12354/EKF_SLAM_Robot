@@ -1464,8 +1464,8 @@ void testRun(){
 
     initializeLidar(drv,error);
     cout<<"\n\nTime to do some mapping"<<endl;
-    grid_ystep = 400;
-    grid_xstep = 400;
+    grid_ystep = 300;
+    grid_xstep = 300;
     boundThresh = 210;
     cout<<"gridx = "<<grid_xstep<<", gridy = "<<grid_ystep<<", boundThresh = "<<boundThresh<<endl;
 
