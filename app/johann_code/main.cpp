@@ -768,7 +768,7 @@ void scanAccuracy_old(vector<CarPoint> oldmap,vector<CarPoint> lidardata,Matrix<
     return;
 }
 
-void scanAccuracy(vector<CarPoint>& oldmap, vector<CarPoint>& lidardata, Matrix<float, dim, 1> State, float& scanAcc) {
+void scanAccuracy(vector<CarPoint> oldmap, vector<CarPoint>& lidardata, Matrix<float, dim, 1> State, float& scanAcc) {
     
     fitCartesian(lidardata, State(0), State(1), State(2));
 
