@@ -794,7 +794,7 @@ namespace Navigation_Functions{
 
         //For safety
         //d_avoid = (80/100)*d_avoid;]
-        d_avoid = d_avoid - 100
+        d_avoid = d_avoid - 100;
         
         saveSonarIndicationTurnToCSV(d_avoid);
         cout<<"NAVI turn: AvoidFor,: Avoid: "<<avoidPoint<<", From: "<<postPoint<<" To : "<<goalPoint<<endl;
