@@ -1495,13 +1495,14 @@ void testRun(){
         }
         lidarDataPoints.clear();
 
-        //string s; 
-        //cout<<"please enter something: ";
-        //cin>>s;
+        
     }
 
     ekf.distance = 0;
     ekf.w = 0;
+    string s; 
+    cout<<"please enter something: ";
+    cin>>s;
 
 
     cout<<"\n\nTime to do some cleaning"<<endl;

@@ -814,7 +814,7 @@ namespace Navigation_Functions{
 
         CarPoint leftEscape;
         CarPoint bot(State(0),State(1));
-        float escape_check = 30*PI/180;
+        float escape_check = 45*PI/180;
         float escape_ang = escape_check;
         float dist = pointDistance(closestPoint,bot);
         float angleL;
