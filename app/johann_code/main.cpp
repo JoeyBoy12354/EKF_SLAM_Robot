@@ -1500,8 +1500,9 @@ void testRun(){
 
     ekf.distance = 0;
     ekf.w = 0;
+    cout<<"State = "<<ekf.State(0)<<", "<<ekf.State(1)<<", "<<ekf.State(2)<<endl;
     string s; 
-    cout<<"please enter something: ";
+    cout<<"please enter something to continue: ";
     cin>>s;
 
 
