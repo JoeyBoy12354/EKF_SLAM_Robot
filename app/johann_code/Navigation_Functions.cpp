@@ -704,8 +704,11 @@ namespace Navigation_Functions{
         }
         if(d_avoid == 100000){
             cout<<" Nothing to AVOID "<<endl;
-            d_avoid = pointDistance(postPoint,goalPoint)+450;
+            d_avoid = pointDistance(postPoint,goalPoint)+250;
         }
+
+        d_avoid = d_avoid -100;
+
 
         //d_avoid = (80/100)*d_avoid;
         saveSonarIndicationToCSV(d_avoid);
@@ -791,7 +794,7 @@ namespace Navigation_Functions{
 
         //For safety
         //d_avoid = (80/100)*d_avoid;
-
+        
         saveSonarIndicationTurnToCSV(d_avoid);
         cout<<"NAVI turn: AvoidFor,: Avoid: "<<avoidPoint<<", From: "<<postPoint<<" To : "<<goalPoint<<endl;
         cout<<"NAVI turn: m: "<<m<<", c = "<<c<<endl;

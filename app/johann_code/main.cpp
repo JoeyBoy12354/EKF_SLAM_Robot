@@ -1469,7 +1469,7 @@ void testRun(){
     cout<<"\n\nTime to do some mapping"<<endl;
     grid_ystep = 250;
     grid_xstep = 250;
-    boundThresh = 180;
+    boundThresh = 140;
     cout<<"gridx = "<<grid_xstep<<", gridy = "<<grid_ystep<<", boundThresh = "<<boundThresh<<endl;
 
     int count = 0;
